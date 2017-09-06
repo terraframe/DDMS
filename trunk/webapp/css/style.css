@@ -440,6 +440,13 @@ dl {
   margin-bottom: 5px;
 }
 
+/* clearing styles fro geoprism styles */
+.list-table dl {
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
 fieldset {
   border: 1px solid #CCC;
   -moz-border-radius: 10px;

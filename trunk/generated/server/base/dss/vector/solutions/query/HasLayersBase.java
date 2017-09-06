@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1443350744)
+@com.runwaysdk.business.ClassSignature(hash = -982092925)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class HasLayersBase extends com.runwaysdk.business.Relationship 
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1443350744;
+  private static final long serialVersionUID = -982092925;
   
   public HasLayersBase(String parentId, String childId)
   {
@@ -231,7 +231,7 @@ public abstract class HasLayersBase extends com.runwaysdk.business.Relationship 
     }
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -239,7 +239,7 @@ public abstract class HasLayersBase extends com.runwaysdk.business.Relationship 
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

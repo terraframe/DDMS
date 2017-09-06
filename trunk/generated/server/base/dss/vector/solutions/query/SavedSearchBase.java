@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 2013081179)
+@com.runwaysdk.business.ClassSignature(hash = 1631116524)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,11 +18,14 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISMATERIALIZED = "isMaterialized";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MAPPABLE = "mappable";
+  public static java.lang.String MATERIALIZEDTABLE = "materializedTable";
+  public static java.lang.String MATERIALIZEDVIEWNAME = "materializedViewName";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
@@ -31,7 +34,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2013081179;
+  private static final long serialVersionUID = 1631116524;
   
   public SavedSearchBase()
   {
@@ -234,6 +237,34 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
+  public Boolean getIsMaterialized()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMATERIALIZED));
+  }
+  
+  public void validateIsMaterialized()
+  {
+    this.validateAttribute(ISMATERIALIZED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsMaterializedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISMATERIALIZED);
+  }
+  
+  public void setIsMaterialized(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISMATERIALIZED, "");
+    }
+    else
+    {
+      setValue(ISMATERIALIZED, java.lang.Boolean.toString(value));
+    }
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -306,7 +337,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -314,7 +345,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   
@@ -359,6 +390,74 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
     else
     {
       setValue(MAPPABLE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public com.runwaysdk.system.metadata.MdTable getMaterializedTable()
+  {
+    if (getValue(MATERIALIZEDTABLE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.metadata.MdTable.get(getValue(MATERIALIZEDTABLE));
+    }
+  }
+  
+  public String getMaterializedTableId()
+  {
+    return getValue(MATERIALIZEDTABLE);
+  }
+  
+  public void validateMaterializedTable()
+  {
+    this.validateAttribute(MATERIALIZEDTABLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getMaterializedTableMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(MATERIALIZEDTABLE);
+  }
+  
+  public void setMaterializedTable(com.runwaysdk.system.metadata.MdTable value)
+  {
+    if(value == null)
+    {
+      setValue(MATERIALIZEDTABLE, "");
+    }
+    else
+    {
+      setValue(MATERIALIZEDTABLE, value.getId());
+    }
+  }
+  
+  public String getMaterializedViewName()
+  {
+    return getValue(MATERIALIZEDVIEWNAME);
+  }
+  
+  public void validateMaterializedViewName()
+  {
+    this.validateAttribute(MATERIALIZEDVIEWNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMaterializedViewNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearch.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MATERIALIZEDVIEWNAME);
+  }
+  
+  public void setMaterializedViewName(String value)
+  {
+    if(value == null)
+    {
+      setValue(MATERIALIZEDVIEWNAME, "");
+    }
+    else
+    {
+      setValue(MATERIALIZEDVIEWNAME, value);
     }
   }
   
@@ -622,6 +721,18 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   {
     SavedSearch _instance = SavedSearch.get(id);
     return _instance.exportQuery();
+  }
+  
+  public java.lang.String getAllKaleidoscopes()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getAllKaleidoscopes(java.lang.String id)
+  {
+    SavedSearch _instance = SavedSearch.get(id);
+    return _instance.getAllKaleidoscopes();
   }
   
   public dss.vector.solutions.query.SavedSearchView getAsView(java.lang.Boolean includeXML, java.lang.Boolean includeConfig)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 710690158)
+@com.runwaysdk.business.ClassSignature(hash = 31441222)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
   public static java.lang.String TYPE = "type";
   public static java.lang.String URBAN = "urban";
   public static java.lang.String VIEWCREATED = "viewCreated";
-  private static final long serialVersionUID = 710690158;
+  private static final long serialVersionUID = 31441222;
   
   public GeoHierarchyBase()
   {
@@ -249,7 +249,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -257,7 +257,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   
@@ -684,6 +684,34 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     {
       iterator.close();
     }
+  }
+  
+  public dss.vector.solutions.kaleidoscope.ClassUniversal addMappableClass(dss.vector.solutions.kaleidoscope.MappableClass mappableClass)
+  {
+    return (dss.vector.solutions.kaleidoscope.ClassUniversal) addParent(mappableClass, dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+  }
+  
+  public void removeMappableClass(dss.vector.solutions.kaleidoscope.MappableClass mappableClass)
+  {
+    removeAllParents(mappableClass, dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.kaleidoscope.MappableClass> getAllMappableClass()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.kaleidoscope.MappableClass>) getParents(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.kaleidoscope.ClassUniversal> getAllMappableClassRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.kaleidoscope.ClassUniversal>) getParentRelationships(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.kaleidoscope.ClassUniversal> getMappableClassRel(dss.vector.solutions.kaleidoscope.MappableClass mappableClass)
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.kaleidoscope.ClassUniversal>) getRelationshipsWithParent(mappableClass, dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
   }
   
   public static GeoHierarchy get(String id)

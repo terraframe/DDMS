@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -152942711)
+@com.runwaysdk.business.ClassSignature(hash = -1874695132)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -215,27 +215,27 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.CaseTreatmentMethod.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY);
 
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY);
 
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -357,7 +357,7 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     }
     else if (name.equals(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.surveillance.CaseTreatmentMethod.OWNER)) 
     {
@@ -433,9 +433,9 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -639,21 +639,21 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -763,7 +763,7 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     }
     else if (name.equals(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.surveillance.CaseTreatmentMethod.OWNER)) 
     {
@@ -816,9 +816,9 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -1071,21 +1071,21 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1195,7 +1195,7 @@ public  class CaseTreatmentMethodQuery extends com.runwaysdk.query.GeneratedBusi
     }
     else if (name.equals(dss.vector.solutions.surveillance.CaseTreatmentMethod.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.surveillance.CaseTreatmentMethod.OWNER)) 
     {

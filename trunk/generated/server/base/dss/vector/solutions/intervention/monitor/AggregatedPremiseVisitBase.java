@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1519313271)
+@com.runwaysdk.business.ClassSignature(hash = 535906340)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class AggregatedPremiseVisitBase extends com.runwaysdk.business.
   public static java.lang.String TREATED = "treated";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VISITED = "visited";
-  private static final long serialVersionUID = -1519313271;
+  private static final long serialVersionUID = 535906340;
   
   public AggregatedPremiseVisitBase()
   {
@@ -290,7 +290,7 @@ public abstract class AggregatedPremiseVisitBase extends com.runwaysdk.business.
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -298,7 +298,7 @@ public abstract class AggregatedPremiseVisitBase extends com.runwaysdk.business.
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

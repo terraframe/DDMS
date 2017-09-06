@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -86520436)
+@com.runwaysdk.business.ClassSignature(hash = -565544880)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,17 +11,49 @@ package dss.vector.solutions.query;
 public abstract class SavedSearchViewBase extends com.runwaysdk.business.View implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
+  public static java.lang.String ADDITIVESELECTABLES = "additiveSelectables";
   public static java.lang.String CONFIG = "config";
+  public static java.lang.String DELETESELECTABLES = "deleteSelectables";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISMATERIALIZED = "isMaterialized";
+  public static java.lang.String KALEIDOSCOPES = "kaleidoscopes";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
-  private static final long serialVersionUID = -86520436;
+  private static final long serialVersionUID = -565544880;
   
   public SavedSearchViewBase()
   {
     super();
+  }
+  
+  public String getAdditiveSelectables()
+  {
+    return getValue(ADDITIVESELECTABLES);
+  }
+  
+  public void validateAdditiveSelectables()
+  {
+    this.validateAttribute(ADDITIVESELECTABLES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getAdditiveSelectablesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(ADDITIVESELECTABLES);
+  }
+  
+  public void setAdditiveSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(ADDITIVESELECTABLES, "");
+    }
+    else
+    {
+      setValue(ADDITIVESELECTABLES, value);
+    }
   }
   
   public String getConfig()
@@ -52,6 +84,34 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getDeleteSelectables()
+  {
+    return getValue(DELETESELECTABLES);
+  }
+  
+  public void validateDeleteSelectables()
+  {
+    this.validateAttribute(DELETESELECTABLES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getDeleteSelectablesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(DELETESELECTABLES);
+  }
+  
+  public void setDeleteSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(DELETESELECTABLES, "");
+    }
+    else
+    {
+      setValue(DELETESELECTABLES, value);
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -66,6 +126,62 @@ public abstract class SavedSearchViewBase extends com.runwaysdk.business.View im
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
+  }
+  
+  public Boolean getIsMaterialized()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMATERIALIZED));
+  }
+  
+  public void validateIsMaterialized()
+  {
+    this.validateAttribute(ISMATERIALIZED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getIsMaterializedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(ISMATERIALIZED);
+  }
+  
+  public void setIsMaterialized(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISMATERIALIZED, "");
+    }
+    else
+    {
+      setValue(ISMATERIALIZED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public String getKaleidoscopes()
+  {
+    return getValue(KALEIDOSCOPES);
+  }
+  
+  public void validateKaleidoscopes()
+  {
+    this.validateAttribute(KALEIDOSCOPES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getKaleidoscopesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.SavedSearchView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(KALEIDOSCOPES);
+  }
+  
+  public void setKaleidoscopes(String value)
+  {
+    if(value == null)
+    {
+      setValue(KALEIDOSCOPES, "");
+    }
+    else
+    {
+      setValue(KALEIDOSCOPES, value);
+    }
   }
   
   public String getQueryName()

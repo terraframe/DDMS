@@ -1,6 +1,6 @@
 package dss.vector.solutions.permission;
 
-@com.runwaysdk.business.ClassSignature(hash = -2143591605)
+@com.runwaysdk.business.ClassSignature(hash = -1244965424)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class MDSSRoleBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2143591605;
+  private static final long serialVersionUID = -1244965424;
   
   public MDSSRoleBase()
   {
@@ -203,7 +203,7 @@ public abstract class MDSSRoleBase extends com.runwaysdk.business.Business imple
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -211,7 +211,7 @@ public abstract class MDSSRoleBase extends com.runwaysdk.business.Business imple
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1813156990)
+@com.runwaysdk.business.ClassSignature(hash = -1739609533)
 public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollection";
-  private static final long serialVersionUID = 1813156990;
+  private static final long serialVersionUID = -1739609533;
   
   protected MosquitoCollectionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -791,7 +791,7 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(LIFESTAGENAME).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -799,7 +799,7 @@ public abstract class MosquitoCollectionDTOBase extends com.runwaysdk.business.B
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

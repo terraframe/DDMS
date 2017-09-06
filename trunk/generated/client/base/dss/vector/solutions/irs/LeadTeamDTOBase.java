@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 23122787)
+@com.runwaysdk.business.ClassSignature(hash = -668859394)
 public abstract class LeadTeamDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.LeadTeam";
-  private static final long serialVersionUID = 23122787;
+  private static final long serialVersionUID = -668859394;
   
   public LeadTeamDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -250,7 +250,7 @@ public abstract class LeadTeamDTOBase extends com.runwaysdk.business.Relationshi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -258,7 +258,7 @@ public abstract class LeadTeamDTOBase extends com.runwaysdk.business.Relationshi
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

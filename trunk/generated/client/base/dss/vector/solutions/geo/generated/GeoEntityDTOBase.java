@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = 200613014)
+@com.runwaysdk.business.ClassSignature(hash = -1130454366)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 200613014;
+  private static final long serialVersionUID = -1130454366;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -466,7 +466,7 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -474,7 +474,7 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -825,6 +825,14 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getCompatibleTypes", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.business.ValueQueryDTO getGeoEntitySuggestions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String universalId, java.lang.String text, java.lang.Integer limit)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{parentId, universalId, text, limit};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getGeoEntitySuggestions", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.geo.generated.GeoEntityDTO[] getImmediateSprayChildren()

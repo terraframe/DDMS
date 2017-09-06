@@ -5,7 +5,6 @@ import java.util.List;
 
 import dss.vector.solutions.entomology.InfectionAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
-import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.ontology.Term;
 
 public class InfectionAssayExcelView extends InfectionAssayExcelViewBase implements

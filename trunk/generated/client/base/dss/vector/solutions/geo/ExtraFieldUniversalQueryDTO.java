@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -644295501)
+@com.runwaysdk.business.ClassSignature(hash = 1095332472)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public class ExtraFieldUniversalQueryDTO extends com.runwaysdk.business.RelationshipQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -644295501;
+private static final long serialVersionUID = 1095332472;
 
   protected ExtraFieldUniversalQueryDTO(String type)
   {

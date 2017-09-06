@@ -40,7 +40,7 @@
     <com.runwaysdk.system.ontology.io.TermFileFormat/>
     <com.runwaysdk.system.scheduler.AllJobStatus/>
     <com.runwaysdk.system.gis.geo.GeoEntityProblemType/>
-    <com.runwaysdk.system.gis.geo.Universal/>
+    <dss.vector.solutions.Universal/>
     <com.runwaysdk.system.gis.geo.GeoEntity/>
     <com.runwaysdk.system.gis.geo.Synonym/>
     <com.runwaysdk.business.Component>
@@ -292,10 +292,10 @@
     <com.runwaysdk.system.scheduler.JobHistory/>
     <com.runwaysdk.system.gis.geo.ReadableIdGenerator/>
     <com.runwaysdk.system.gis.geo.GeoEntityProblem/>
-    <com.runwaysdk.system.gis.geo.GeoNode>
-      <com.runwaysdk.system.gis.geo.GeoNodeGeometry/>
-      <com.runwaysdk.system.gis.geo.GeoNodeEntity/>
-    </com.runwaysdk.system.gis.geo.GeoNode>
+    <dss.vector.solutions.kaleidoscope.geo.GeoNode>
+      <dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry/>
+      <dss.vector.solutions.kaleidoscope.geo.GeoNodeEntity/>
+    </dss.vector.solutions.kaleidoscope.geo.GeoNode>
     <com.runwaysdk.system.gis.geo.IsARelationship/>
     <com.runwaysdk.system.gis.geo.AllowedIn/>
     <com.runwaysdk.system.gis.geo.SynonymRelationship/>
@@ -344,8 +344,8 @@
     </com.runwaysdk.system.metadata.FormField>
     <com.runwaysdk.system.metadata.MobileGridField/>
     <com.runwaysdk.system.metadata.WebGridField/>
-    <com.runwaysdk.system.gis.geo.UniversalTermAttributeRoot/>
-    <com.runwaysdk.system.gis.geo.UniversalMultiTermAttributeRoot/>
+    <dss.vector.solutions.UniversalTermAttributeRoot/>
+    <dss.vector.solutions.UniversalMultiTermAttributeRoot/>
     <com.runwaysdk.system.gis.geo.GeoEntityTermAttributeRoot/>
     <com.runwaysdk.system.gis.geo.GeoEntityMultiTermAttributeRoot/>
     <com.runwaysdk.system.gis.geo.SynonymTermAttributeRoot/>
@@ -364,8 +364,8 @@
     <com.runwaysdk.system.scheduler.ExecutableJobDescription/>
     <com.runwaysdk.system.scheduler.JobHistoryHistoryComment/>
     <com.runwaysdk.system.scheduler.JobHistoryHistoryInformation/>
-    <com.runwaysdk.system.gis.geo.UniversalDisplayLabel/>
-    <com.runwaysdk.system.gis.geo.UniversalDescription/>
+    <dss.vector.solutions.UniversalDisplayLabel/>
+    <dss.vector.solutions.UniversalDescription/>
     <com.runwaysdk.system.gis.geo.GeoEntityDisplayLabel/>
     <com.runwaysdk.system.gis.geo.SynonymDisplayLabel/>
     <com.runwaysdk.system.gis.geo.GeoEntityProblemTypeMasterDescription/>

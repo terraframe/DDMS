@@ -11,6 +11,7 @@ import com.runwaysdk.system.metadata.MdAttributeDateDTO;
 import com.runwaysdk.system.metadata.MdAttributeDecimalDTO;
 import com.runwaysdk.system.metadata.MdAttributeDoubleDTO;
 import com.runwaysdk.system.metadata.MdAttributeFloatDTO;
+import com.runwaysdk.system.metadata.MdAttributeIndicatorDTO;
 import com.runwaysdk.system.metadata.MdAttributeIntegerDTO;
 import com.runwaysdk.system.metadata.MdAttributeLongDTO;
 import com.runwaysdk.system.metadata.MdAttributeReferenceDTO;
@@ -38,6 +39,10 @@ public class SelectableOptionFactory implements Reloadable
     if (mdAttribute instanceof MdAttributeBooleanDTO)
     {
       group.addOption(new SelectableBooleanOption((MdAttributeBooleanDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeIndicatorDTO)
+    {
+      group.addOption(new SelectableIndicatorOption((MdAttributeIndicatorDTO) mdAttribute, suffix, type));
     }
     else if (mdAttribute instanceof MdAttributeCharacterDTO)
     {

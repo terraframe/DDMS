@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 442947659)
+@com.runwaysdk.business.ClassSignature(hash = -534164912)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -79,7 +79,7 @@ public abstract class GeoTargetBase extends com.runwaysdk.business.Business impl
   public static java.lang.String TARGET_8 = "target_8";
   public static java.lang.String TARGET_9 = "target_9";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 442947659;
+  private static final long serialVersionUID = -534164912;
   
   public GeoTargetBase()
   {
@@ -338,7 +338,7 @@ public abstract class GeoTargetBase extends com.runwaysdk.business.Business impl
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -346,7 +346,7 @@ public abstract class GeoTargetBase extends com.runwaysdk.business.Business impl
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

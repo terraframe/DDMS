@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -2005258165)
+@com.runwaysdk.business.ClassSignature(hash = -1631285808)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class ControlInterventionBase extends com.runwaysdk.business.Bus
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2005258165;
+  private static final long serialVersionUID = -1631285808;
   
   public ControlInterventionBase()
   {
@@ -425,7 +425,7 @@ public abstract class ControlInterventionBase extends com.runwaysdk.business.Bus
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -433,7 +433,7 @@ public abstract class ControlInterventionBase extends com.runwaysdk.business.Bus
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

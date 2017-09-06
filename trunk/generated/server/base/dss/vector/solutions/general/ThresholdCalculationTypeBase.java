@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 398189443)
+@com.runwaysdk.business.ClassSignature(hash = 1862713288)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -42,7 +42,7 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 398189443;
+  private static final long serialVersionUID = 1862713288;
   
   public ThresholdCalculationTypeBase()
   {
@@ -327,7 +327,7 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -335,7 +335,7 @@ public abstract class ThresholdCalculationTypeBase extends com.runwaysdk.busines
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

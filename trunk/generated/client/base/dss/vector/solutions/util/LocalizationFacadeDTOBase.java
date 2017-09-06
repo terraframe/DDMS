@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 1502895270)
+@com.runwaysdk.business.ClassSignature(hash = -1300176661)
 public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.LocalizationFacade";
-  private static final long serialVersionUID = 1502895270;
+  private static final long serialVersionUID = -1300176661;
   
   protected LocalizationFacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -249,7 +249,7 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -257,7 +257,7 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

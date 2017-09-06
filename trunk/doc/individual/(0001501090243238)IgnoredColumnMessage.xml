@@ -1,0 +1,17 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>     
+      <mdInformation name="dss.vector.solutions.query.IgnoredColumnInformation" label="Ignored column information" message="Column [{columnName}] has been removed as persisted indicators do not aggregate. Add the indicator in the dataset manager instead.">
+        <attributes>
+          <text name="columnName" label="Column name"/>
+        </attributes>
+      </mdInformation>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

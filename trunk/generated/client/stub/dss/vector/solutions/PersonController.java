@@ -531,7 +531,9 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
     req.getSession().setAttribute("menus", menus);
 
-    req.getRequestDispatcher("index.jsp").forward(req, resp);
+//    req.getRequestDispatcher("index.jsp").forward(req, resp);
+    
+    resp.sendRedirect("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo");    
   }
 
   @Override

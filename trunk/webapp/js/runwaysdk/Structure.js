@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 TerraFrame, Inc. All rights reserved.
+ * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
  *
  * This file is part of Runway SDK(tm).
  *
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
  */
-
 //define(["./ClassFramework", "./Util"], function(ClassFramework, Util) {
 (function(){
 
@@ -187,7 +186,7 @@
         if(obj instanceof AbstractMap)
         {
           var keys = obj.keySet();
-          for(var i=0; len=keys.length; i++)
+          for(var i=0; i<keys.length; i++)
           {
             var key = keys[i];
             var value = obj.get(key);
@@ -247,7 +246,7 @@
         var keys = [];
         var current = this._head;
         while(current !== null){
-          keys.push(this.get(current.key));
+          keys.push(current.key);
           current = current._next;
         }
         return keys;
@@ -286,19 +285,27 @@
           current = current._next;
         }      
       },
-      insert : function(key, value, bKey){
+      insert : function(key, value, bKey) {
         var keyStr = this._getKey(key);
+        
+        if (bKey == null) {
+          if (this._tail == null) {
+            return this.put(key, value);
+          }
+          
+          bKey = this._tail.key;
+        }
         var bKeyStr = this._getKey(bKey);
-      
-        if(!this.containsKey(bKey)){
+        
+        if(!this.containsKey(bKey)) {
           throw new com.runwaysdk.Exception('Cannot insert before the non-existent key ['+bKey+'].');
         }
-        else if(this.containsKey(keyStr)){
+        else if(this.containsKey(keyStr)) {
           throw new com.runwaysdk.Exception('Cannot insert the key ['+key+'] because it already exists in the map.');
         }
         
         var current = this._head;
-        while(current !== null){
+        while(current !== null) {
           if(current.key === bKeyStr){
             // found the old key so insert the new one before it
             var node = {key: keyStr, prev: current.prev, _next: current};

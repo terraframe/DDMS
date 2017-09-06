@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1427638700)
+@com.runwaysdk.business.ClassSignature(hash = 1159376111)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
   public static java.lang.String TEXTXPOSITION = "textXPosition";
   public static java.lang.String TEXTYPOSITION = "textYPosition";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1427638700;
+  private static final long serialVersionUID = 1159376111;
   
   public TextElementBase()
   {
@@ -350,7 +350,7 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -358,7 +358,7 @@ public abstract class TextElementBase extends com.runwaysdk.business.Business im
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

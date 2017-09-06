@@ -1,0 +1,55 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.Dashboard">
+        <create>
+          <attributes>
+          	<blob name="mapThumbnail" label="Map Thumbnail"></blob>
+          </attributes>
+          
+          <mdMethod name="generateThumbnailImage" static="false" label="Create Map Thumbnail" returnType="void"></mdMethod>
+          
+          <mdMethod name="setBaseLayerState" static="false" label="Set the state of the base layers" returnType="void">
+				<mdParameter name="baseLayerState" order="0" type="java.lang.String" label="Base layer state" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.DashboardMap">
+          <mdMethod name="generateMapImageExport" >
+          	<create>
+				<mdParameter name="activeBaseMap" order="3" type="java.lang.String" label="Active base map" />
+			</create>
+          </mdMethod>
+        
+        <create>
+          <attributes>
+          	<char name="activeBaseMap" label="Active Base Map" size="255" required="false" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+     <mdController name="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController">
+          <mdAction name="exportMap">
+          	<create>
+          		<mdParameter name="activeBaseMap" order="5" type="java.lang.String" label="Map Size" />
+          	</create>
+          </mdAction>
+      </mdController>
+
+      <mdController name="dss.vector.solutions.kaleidoscope.UserMenuController">
+      	<create>
+       		<mdAction name="getDashboardMapThumbnail" label="Get dashboard map thumbnail" returnType="void">
+				<mdParameter name="dashboardId" order="0" type="java.lang.String" label="Dashboard Id" />
+		    </mdAction> 
+      	</create>
+      </mdController>
+        
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

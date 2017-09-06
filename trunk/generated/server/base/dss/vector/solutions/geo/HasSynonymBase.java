@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -404732094)
+@com.runwaysdk.business.ClassSignature(hash = -1631898275)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class HasSynonymBase extends com.runwaysdk.business.Relationship
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -404732094;
+  private static final long serialVersionUID = -1631898275;
   
   public HasSynonymBase(String parentId, String childId)
   {
@@ -202,7 +202,7 @@ public abstract class HasSynonymBase extends com.runwaysdk.business.Relationship
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -210,7 +210,7 @@ public abstract class HasSynonymBase extends com.runwaysdk.business.Relationship
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

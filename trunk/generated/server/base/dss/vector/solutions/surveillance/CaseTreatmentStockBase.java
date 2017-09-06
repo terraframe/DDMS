@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 41095436)
+@com.runwaysdk.business.ClassSignature(hash = -521446191)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class CaseTreatmentStockBase extends com.runwaysdk.business.Busi
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 41095436;
+  private static final long serialVersionUID = -521446191;
   
   public CaseTreatmentStockBase()
   {
@@ -245,7 +245,7 @@ public abstract class CaseTreatmentStockBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -253,7 +253,7 @@ public abstract class CaseTreatmentStockBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

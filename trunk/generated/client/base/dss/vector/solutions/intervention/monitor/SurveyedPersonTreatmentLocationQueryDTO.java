@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -49239626)
+@com.runwaysdk.business.ClassSignature(hash = 371493499)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class SurveyedPersonTreatmentLocationQueryDTO extends com.runwaysdk.business.RelationshipQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -49239626;
+private static final long serialVersionUID = 371493499;
 
   protected SurveyedPersonTreatmentLocationQueryDTO(String type)
   {

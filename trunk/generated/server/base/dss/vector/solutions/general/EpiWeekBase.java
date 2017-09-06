@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -301508817)
+@com.runwaysdk.business.ClassSignature(hash = 771455604)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class EpiWeekBase extends com.runwaysdk.business.Business implem
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String YEAROFWEEK = "yearOfWeek";
-  private static final long serialVersionUID = -301508817;
+  private static final long serialVersionUID = 771455604;
   
   public EpiWeekBase()
   {
@@ -204,7 +204,7 @@ public abstract class EpiWeekBase extends com.runwaysdk.business.Business implem
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -212,7 +212,7 @@ public abstract class EpiWeekBase extends com.runwaysdk.business.Business implem
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

@@ -114,7 +114,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
         }
       });
 
-      var id = e.originalTarget.id;
+      var id = (e.originalTarget != null ? e.originalTarget : e.target).id;
         
       Mojo.$.dss.vector.solutions.ontology.BrowserFieldController.view(request, id);        
     },

@@ -1,10 +1,10 @@
 package dss.vector.solutions.stock;
 
-@com.runwaysdk.business.ClassSignature(hash = -192981911)
+@com.runwaysdk.business.ClassSignature(hash = 1624870404)
 public abstract class StockItemDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.stock.StockItem";
-  private static final long serialVersionUID = -192981911;
+  private static final long serialVersionUID = 1624870404;
   
   protected StockItemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -339,7 +339,7 @@ public abstract class StockItemDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -347,7 +347,7 @@ public abstract class StockItemDTOBase extends com.runwaysdk.business.BusinessDT
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

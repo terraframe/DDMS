@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 413790172)
+@com.runwaysdk.business.ClassSignature(hash = -150652703)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -36,7 +36,7 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 413790172;
+  private static final long serialVersionUID = -150652703;
   
   public OntologyRelationshipBase()
   {
@@ -519,7 +519,7 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -527,7 +527,7 @@ public abstract class OntologyRelationshipBase extends com.runwaysdk.business.Bu
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

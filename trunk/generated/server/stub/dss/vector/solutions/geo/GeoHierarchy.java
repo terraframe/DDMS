@@ -555,7 +555,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns a Set of type names included in the hierarchy for which the given type is a member. Abstract types will be recursed through but the type itself will not be added to the list. Although a Set is returned, the order of insertion is preserved to as closely mimic a flattened tree as possible.
+   * Returns a Set of type names included in the hierarchy for which the given type is a member. Abstract types will be recursed through but the type
+   * itself will not be added to the list. Although a Set is returned, the order of insertion is preserved to as closely mimic a flattened tree as
+   * possible.
    * 
    * @param type
    * @return
@@ -821,7 +823,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and returns it. If no MdAttributeGeometry is defined this method returns null.
+   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and returns it. If no MdAttributeGeometry is defined this method returns
+   * null.
    * 
    * @param mdBusiness
    * @return
@@ -853,7 +856,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and returns it. If no MdAttributeGeometry is defined this method returns null.
+   * Checks the given MdBusiness and its parents for an MdAttributeGeometry and returns it. If no MdAttributeGeometry is defined this method returns
+   * null.
    * 
    * @param mdBusiness
    * @return
@@ -1356,7 +1360,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Checks that the GeoHierarchy can be modified, which is only possible if no GeoEntity instances have been created for any types except the single Earth instance.
+   * Checks that the GeoHierarchy can be modified, which is only possible if no GeoEntity instances have been created for any types except the single
+   * Earth instance.
    * 
    * @throws ModifyHierarchyWithInstancesException
    */
@@ -1391,7 +1396,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns all GeoHierarchy views that fit the following critiera. Note that a GeoHierarchy that maps to an abstract GeoEntity subtype will not be included, for those are used internally only.
+   * Returns all GeoHierarchy views that fit the following critiera. Note that a GeoHierarchy that maps to an abstract GeoEntity subtype will not be
+   * included, for those are used internally only.
    * 
    * @param sortAttribute
    * @param ascending
@@ -1452,7 +1458,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     List<? extends GeoHierarchy> list = query.getIterator().getAll();
     return list.toArray(new GeoHierarchy[list.size()]);
   }
-  
+
   public static GeoHierarchy[] getAll()
   {
     GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
@@ -1521,13 +1527,12 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Collects and returns all GeoHierarchy objects (parents and children) that are of the type of GeoEntity of the given id. The collection is restricted by the political and sprayZoneAllowed flag on each GeoHierarchy.
+   * Collects and returns all GeoHierarchy objects (parents and children) that are of the type of GeoEntity of the given id. The collection is
+   * restricted by the political and sprayZoneAllowed flag on each GeoHierarchy.
    * 
    * @param rootGeoEntityId
    * @param flags:
-   *             flags[0] = political
-   *             flags[1] = sprayZoneAllowed
-   *             flags[2] = urban
+   *          flags[0] = political flags[1] = sprayZoneAllowed flags[2] = urban
    * @param extraUniversals
    *          Any extra univerals to append to the final list.
    * @return
@@ -1886,7 +1891,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Returns the display label of this GeoHierarchy, which is actually the display label of the underlying MdBusiness that this instance references. NOTE: this should only be called after this GeoHierarchy has been successfully applied because then the required MdBusiness reference will be available.
+   * Returns the display label of this GeoHierarchy, which is actually the display label of the underlying MdBusiness that this instance references.
+   * NOTE: this should only be called after this GeoHierarchy has been successfully applied because then the required MdBusiness reference will be
+   * available.
    * 
    * @return
    */
@@ -2013,6 +2020,23 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public boolean isAncestor(String universal)
   {
     GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(this.getGeoEntityClass().definesType(), new SearchParameter());
+
+    for (GeoHierarchyView decendant : decendants)
+    {
+      String generatedType = decendant.getGeneratedType();
+
+      if (generatedType.equals(universal))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static boolean isAncestor(String type, String universal)
+  {
+    GeoHierarchyView[] decendants = GeoHierarchy.getGeoHierarchiesByType(type, new SearchParameter());
 
     for (GeoHierarchyView decendant : decendants)
     {
@@ -2157,7 +2181,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       {
         systemName += suffix;
       }
-
+      
       if (!isClassName)
         systemName = systemName.substring(0, 1).toLowerCase() + systemName.substring(1);
     }

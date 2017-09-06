@@ -25,6 +25,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
@@ -56,6 +57,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.dataaccess.AttributeGeometryIF;
 import com.runwaysdk.gis.dataaccess.MdAttributeGeometryDAOIF;
 import com.runwaysdk.query.AND;
+import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.CONCAT;
+import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.GeneratedViewQuery;
@@ -82,6 +86,7 @@ import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.WKTParsingProblem;
+import dss.vector.solutions.etl.dhis2.GeoMap;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ChildEntityOverflowInformation;
@@ -96,6 +101,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.GeoSynonym;
+import dss.vector.solutions.geo.HasSynonym;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInException;
 import dss.vector.solutions.geo.LocatedInQuery;
@@ -140,8 +146,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Applies this GeoEntity and recursively sets the activated status of all children if the status
-   * has changed on the parent.
+   * Applies this GeoEntity and recursively sets the activated status of all children if the status has changed on the parent.
    * 
    * @return
    * @throws ParseException
@@ -222,11 +227,20 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       this.getEntityLabel().setValue(this.getGeoId());
     }
-
+    
+    boolean isNew = this.isNew();
+    
     super.apply();
 
+    if (isNew)
+    {
+      GeoMap map = new GeoMap();
+      map.setGeoEntity(this);
+      map.apply();
+    }
+    
     SavedSearch.updateSavedSearchIds(this);
-
+    
     return ids;
   }
 
@@ -285,6 +299,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public static ValueQuery searchByEntityNameOrGeoId(String type, String name, Boolean enforceRoot)
   {
+    return searchByEntityNameOrGeoId(type, name, enforceRoot, null);
+  }
+
+  private static ValueQuery searchByEntityNameOrGeoId(String type, String name, Boolean enforceRoot, String rootId)
+  {
     QueryFactory f = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(f);
@@ -299,10 +318,21 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     if (enforceRoot)
     {
-      DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+      GeoEntity root = null;
+
+      if (rootId != null)
+      {
+        root = GeoEntity.get(rootId);
+      }
+      else
+      {
+        DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+        root = defaultGeoEntity.getGeoEntity();
+      }
+
       AllPathsQuery allQ = new AllPathsQuery(valueQuery);
 
-      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[] { allQ.getChildGeoEntity().EQ(q), allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity()) });
+      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[] { allQ.getChildGeoEntity().EQ(q), allQ.getParentGeoEntity().EQ(root) });
     }
 
     LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
@@ -400,81 +430,92 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
    */
   public static ValueQuery searchByParameters(String value, String[] filter, Boolean enforceRoot)
   {
-    QueryFactory factory = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(factory);
-    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
-    GeoEntityQuery q = new GeoEntityQuery(valueQuery);
-    TermQuery tq = new TermQuery(valueQuery);
-
-    boolean political = Boolean.parseBoolean(filter[0]);
-    boolean populated = Boolean.parseBoolean(filter[1]);
-    boolean sprayTarget = Boolean.parseBoolean(filter[2]);
-    boolean urban = Boolean.parseBoolean(filter[3]);
-
-    SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, urban, false, false);
-    GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
-
-    SelectableChar orderBy = q.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
-
-    Condition condition = null;
-
-    for (GeoHierarchyView view : views)
+    if (filter.length == 2)
     {
-      String type = view.getGeneratedType();
+      String type = filter[0];
+      String rootId = filter[1];
 
-      if (condition == null)
-      {
-        condition = q.getType().EQ(type);
-      }
-      else
-      {
-        condition = OR.get(condition, q.getType().EQ(type));
-      }
-    }
-
-    for (int i = 3; i < filter.length; i++)
-    {
-      String universal = filter[i].replace("*", "");
-
-      if (condition == null)
-      {
-        condition = q.getType().EQ(universal);
-      }
-      else
-      {
-        condition = OR.get(condition, q.getType().EQ(universal));
-      }
-    }
-
-    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
-
-    if (enforceRoot)
-    {
-      DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
-      AllPathsQuery allQ = new AllPathsQuery(valueQuery);
-
-      conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[] { allQ.getChildGeoEntity().EQ(q), allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity()) });
-    }
-
-    LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
-
-    if (value != null && !value.equals(""))
-    {
-      String[] tokens = value.split(" ");
-      SelectablePrimitive[] searchables = new SelectablePrimitive[] { orderBy, q.getGeoId(GeoEntity.GEOID) };
-
-      QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, conditions, joins);
+      return GeoEntity.searchByEntityNameOrGeoId(type, value, enforceRoot, rootId);
     }
     else
     {
-      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins);
+
+      QueryFactory factory = new QueryFactory();
+
+      ValueQuery valueQuery = new ValueQuery(factory);
+      MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
+      GeoEntityQuery q = new GeoEntityQuery(valueQuery);
+      TermQuery tq = new TermQuery(valueQuery);
+
+      boolean political = Boolean.parseBoolean(filter[0]);
+      boolean populated = Boolean.parseBoolean(filter[1]);
+      boolean sprayTarget = Boolean.parseBoolean(filter[2]);
+      boolean urban = Boolean.parseBoolean(filter[3]);
+
+      SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, urban, false, false);
+      GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
+
+      SelectableChar orderBy = q.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
+      SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
+
+      Condition condition = null;
+
+      for (GeoHierarchyView view : views)
+      {
+        String type = view.getGeneratedType();
+
+        if (condition == null)
+        {
+          condition = q.getType().EQ(type);
+        }
+        else
+        {
+          condition = OR.get(condition, q.getType().EQ(type));
+        }
+      }
+
+      for (int i = 3; i < filter.length; i++)
+      {
+        String universal = filter[i].replace("*", "");
+
+        if (condition == null)
+        {
+          condition = q.getType().EQ(universal);
+        }
+        else
+        {
+          condition = OR.get(condition, q.getType().EQ(universal));
+        }
+      }
+
+      Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
+
+      if (enforceRoot)
+      {
+        DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+        AllPathsQuery allQ = new AllPathsQuery(valueQuery);
+
+        conditions = (Condition[]) ArrayUtils.addAll(conditions, new Condition[] { allQ.getChildGeoEntity().EQ(q), allQ.getParentGeoEntity().EQ(defaultGeoEntity.getGeoEntity()) });
+      }
+
+      LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
+
+      if (value != null && !value.equals(""))
+      {
+        String[] tokens = value.split(" ");
+        SelectablePrimitive[] searchables = new SelectablePrimitive[] { orderBy, q.getGeoId(GeoEntity.GEOID) };
+
+        QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, conditions, joins);
+      }
+      else
+      {
+        QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, conditions, joins);
+      }
+
+      valueQuery.restrictRows(20, 1);
+
+      return valueQuery;
     }
-
-    valueQuery.restrictRows(20, 1);
-
-    return valueQuery;
   }
 
   /**
@@ -492,8 +533,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Throws an exception to alert the user before they try to delete an entity with more than one
-   * parent. If the entity only has one parent, then entity is deleted as normal.
+   * Throws an exception to alert the user before they try to delete an entity with more than one parent. If the entity only has one parent, then
+   * entity is deleted as normal.
    */
   @Override
   public void confirmDeleteEntity(String parentId)
@@ -542,27 +583,27 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       updateAllPathForGeoEntity(this.getId(), null);
     }
   }
-  
-  private static final String TEMP_TABLE = "RUNWAY_ALLPATHS_GEO_MULTIPARENT_TEMP";
-  private static final String TEMP_GEO_ID_COL = "objId";
-  private static final String TEMP_PARENT_ID_COL = "parentId";
-  private static final String TEMP_DEPTH_COL = "depth";
-  private static final String INDEX_NAME = "RUNWAY_ALLPATHS_GEO_MULTIPARENT_TEMP_INDEX";
-  private static final List<String> TEMP_TABLE_COLUMNS = Arrays.asList(
-      TEMP_GEO_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
-      TEMP_PARENT_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
-      TEMP_DEPTH_COL + " " + DatabaseProperties.getDatabaseType(MdAttributeIntegerInfo.CLASS)
-  );
-  private static final List<String> TEMP_TABLE_ATTRS = Arrays.asList(
-      MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeIntegerInfo.CLASS
-  );
-  
+
+  private static final String       TEMP_TABLE         = "RUNWAY_ALLPATHS_GEO_MULTIPARENT_TEMP";
+
+  private static final String       TEMP_GEO_ID_COL    = "objId";
+
+  private static final String       TEMP_PARENT_ID_COL = "parentId";
+
+  private static final String       TEMP_DEPTH_COL     = "depth";
+
+  private static final String       INDEX_NAME         = "RUNWAY_ALLPATHS_GEO_MULTIPARENT_TEMP_INDEX";
+
+  private static final List<String> TEMP_TABLE_COLUMNS = Arrays.asList(TEMP_GEO_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"), TEMP_PARENT_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
+      TEMP_DEPTH_COL + " " + DatabaseProperties.getDatabaseType(MdAttributeIntegerInfo.CLASS));
+
+  private static final List<String> TEMP_TABLE_ATTRS   = Arrays.asList(MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeIntegerInfo.CLASS);
+
   /**
    * Deletes the term and maintains allpaths integrity. May be a potentially expensive operation.
    * 
-   * TODO: Multi-threading
-   * TODO: At what point is it faster to rebuild the Allpaths table?
-   * TODO: Add better support in Query API for managing tables so this temp table logic can be more cross DB
+   * TODO: Multi-threading TODO: At what point is it faster to rebuild the Allpaths table? TODO: Add better support in Query API for managing tables
+   * so this temp table logic can be more cross DB
    */
   @Override
   @Transaction
@@ -570,45 +611,45 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   {
     MdBusinessDAOIF allpathsMdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
     String child_geoentity = allpathsMdBiz.definesAttribute(AllPaths.CHILDGEOENTITY).getColumnName();
-    String allpaths_ontology = allpathsMdBiz.getTableName(); 
-    
+    String allpaths_ontology = allpathsMdBiz.getTableName();
+
     // Count how many ancestors this geoentity has. This will be used for later calculations
     AllPathsQuery apq = new AllPathsQuery(new QueryFactory());
     apq.WHERE(apq.getChildGeoEntity().EQ(this));
     long delRootACount = apq.getCount() - 1;
-    
+
     // Create us a temp table for storing multiple parents that need to be rebuilt on the post step.
     Database.createTempTable(TEMP_TABLE, TEMP_TABLE_COLUMNS, "DROP");
     Database.addNonUniqueIndex(TEMP_TABLE, TEMP_GEO_ID_COL, INDEX_NAME);
-    
+
     // Depth first search because we're using a stack.
     Stack<GeoEntity> s = new Stack<GeoEntity>();
     s.push(this);
-    
-    stackLoop:
-    while (!s.empty())
+
+    stackLoop: while (!s.empty())
     {
       GeoEntity current = s.pop();
-      
+
       // Push the first child
       OIterator<? extends Business> children = current.getChildren(LocatedIn.CLASS);
       try
       {
-        // We're going to save on memory here by only pushing the first (unprocessed) child. When we loop back up to this node hopefully it will be deleted.
-        childLoop:
-        while (children.hasNext())
+        // We're going to save on memory here by only pushing the first (unprocessed) child. When we loop back up to this node hopefully it will be
+        // deleted.
+        childLoop: while (children.hasNext())
         {
           GeoEntity child = (GeoEntity) children.next();
-          
-          // If this child is in our temp table, then it has already been processed (and not deleted). We have to do this query here to prevent infinite loops.
+
+          // If this child is in our temp table, then it has already been processed (and not deleted). We have to do this query here to prevent
+          // infinite loops.
           String allpathsAncestorsSql = Database.selectClause(Arrays.asList("count(*)"), Arrays.asList(allpaths_ontology), Arrays.asList(child_geoentity + " = '" + child.getId() + "'"));
-          ResultSet resultSet = Database.selectFromWhere("count(*)", TEMP_TABLE, TEMP_GEO_ID_COL + " = '" + child.getId() + "' AND (" + allpathsAncestorsSql + ") > " + (2 + s.size() + delRootACount));
+          ResultSet resultSet = Database.selectFromWhere("count(*)", TEMP_TABLE, TEMP_GEO_ID_COL + " = '" + child.getId() + "' AND (" + allpathsAncestorsSql + ") > " + ( 2 + s.size() + delRootACount ));
           try
           {
             if (resultSet.next())
             {
               int count = resultSet.getInt("count");
-              
+
               if (count > 0)
               {
                 continue childLoop;
@@ -632,7 +673,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
               Database.throwDatabaseException(sqlEx2);
             }
           }
-          
+
           s.push(current);
           s.push(child);
           continue stackLoop;
@@ -642,14 +683,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       {
         children.close();
       }
-      
+
       // Does this node have multiple parents?
       List<GeoEntity> parents = new ArrayList<GeoEntity>();
       QueryFactory f = new QueryFactory();
       LocatedInQuery q = new LocatedInQuery(f);
       q.WHERE(q.childId().EQ(current.getId()));
       OIterator<? extends LocatedIn> pRelIt = q.getIterator();
-      try {
+      try
+      {
         while (pRelIt.hasNext())
         {
           parents.add(pRelIt.next().getParent());
@@ -659,17 +701,17 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       {
         pRelIt.close();
       }
-      
+
       if (parents.size() == 1)
       {
         GeoEntity parent = parents.get(0);
-        
+
         // Count how many ancestors this geoentity has.
         AllPathsQuery apq2 = new AllPathsQuery(new QueryFactory());
         apq2.WHERE(apq2.getChildGeoEntity().EQ(current));
         long ancestorCount = apq2.getCount() - 1;
-        
-        // If one of our ancestors has multiple parents 
+
+        // If one of our ancestors has multiple parents
         if (s.size() + delRootACount < ancestorCount)
         {
           insertIntoTemp(current.getId(), Arrays.asList(parent.getId()), s.size());
@@ -677,7 +719,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         else
         {
           Database.deleteWhere(TEMP_TABLE, TEMP_GEO_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
-          
+
           deleteEntityFromAllPaths(current.getId());
           current.delete(false);
         }
@@ -690,28 +732,28 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
           current.delete(false);
           break;
         }
-        
+
         List<String> parentIds = new ArrayList<String>();
         for (GeoEntity parent : parents)
         {
           parentIds.add(parent.getId());
         }
-        
+
         insertIntoTemp(current.getId(), parentIds, s.size());
       }
     }
-    
+
     // Post step: since we destroyed terms with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
-    //   We have to do 2 loops here because we need two separate phases for deleting any still existing allpaths data and then rebuilding it.
-    String selectSql = Database.selectClause(Arrays.asList(TEMP_GEO_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE),  new ArrayList<String>());
+    // We have to do 2 loops here because we need two separate phases for deleting any still existing allpaths data and then rebuilding it.
+    String selectSql = Database.selectClause(Arrays.asList(TEMP_GEO_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE), new ArrayList<String>());
     ResultSet resultSet = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
-    
+
     try
     {
       while (resultSet.next())
       {
         String termId = resultSet.getString(TEMP_GEO_ID_COL);
-        
+
         deleteEntityFromAllPaths(termId);
       }
     }
@@ -732,17 +774,17 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         Database.throwDatabaseException(sqlEx2);
       }
     }
-    
+
     // Post Step loop #2: Rebuild the terms with multiple parents.
     ResultSet resultSet2 = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
-    
+
     try
     {
       while (resultSet2.next())
       {
         String geoentityId = resultSet2.getString(TEMP_GEO_ID_COL);
         String parentId = resultSet2.getString(TEMP_PARENT_ID_COL);
-        
+
         updateAllPathForGeoEntity(geoentityId, parentId);
       }
     }
@@ -763,44 +805,44 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         Database.throwDatabaseException(sqlEx2);
       }
     }
-    
+
     // We don't need to care about deleting the temp table because it drops on transaction and the transaction ends here.
   }
-  
+
   private void insertIntoTemp(String geoentityId, List<String> parentIds, Integer depth)
   {
     List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
-    
+
     for (String parentId : parentIds)
     {
-      List<String> bindVals = Arrays.asList("?","?","?");
+      List<String> bindVals = Arrays.asList("?", "?", "?");
       List<Object> vals = Arrays.asList(geoentityId, parentId, String.valueOf(depth));
-      
+
       PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(TEMP_TABLE, Arrays.asList(TEMP_GEO_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), bindVals, vals, TEMP_TABLE_ATTRS);
       statements.add(preparedStmt);
     }
-    
+
     Database.executeStatementBatch(statements);
   }
 
   /**
    * Deletes this GeoEntity.
    * 
-   * WARNING: Does not maintain allpaths table!!
+   * WARNING: Does not maintain allpaths table!! Invoke deleteEntity if you want to preserve allpaths integrity.
    */
-   @Override
-   public void delete()
-   {
-     delete(true);
-   }
-   
+  @Override
+  public void delete()
+  {
+    delete(true);
+  }
+
   @Transaction
   public void delete(boolean deleteChildren)
   {
     if (deleteChildren)
     {
       List<GeoEntity> children = this.getImmediateChildren();
-  
+
       for (GeoEntity child : children)
       {
         if (child.hasSingleParent())
@@ -809,6 +851,9 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         }
       }
     }
+    
+    GeoMap map = GeoMap.getByKey(this.getId());
+    map.delete();
 
     super.delete();
   }
@@ -824,8 +869,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * This GeoEntity is equal to the given object if the object is the same object reference or if
-   * the ids match.
+   * This GeoEntity is equal to the given object if the object is the same object reference or if the ids match.
    */
   @Override
   public boolean equals(Object obj)
@@ -841,8 +885,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Searches for the GeoEntity with the given geoId and returns itself and its children and
-   * parents.
+   * Searches for the GeoEntity with the given geoId and returns itself and its children and parents.
    * 
    * @param geoId
    * @param filter
@@ -1103,8 +1146,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows
-   *         political areas
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows political areas
    */
   public GeoEntity[] getPoliticalChildren()
   {
@@ -1149,8 +1191,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows spray
-   *         areas
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows spray areas
    */
   public GeoEntity[] getSprayChildren()
   {
@@ -1166,8 +1207,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows both
-   *         political and populated areas
+   * @return All of this GeoEntity descendants which are of first GeoHierarchy which allows both political and populated areas
    */
   public GeoEntity[] getPopulationChildren()
   {
@@ -1246,8 +1286,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child
-   * which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(GeoHierarchyView... types)
   {
@@ -1262,8 +1301,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child
-   * which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(String... types)
   {
@@ -1276,8 +1314,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child
-   * which belongs to the given fully qualified types.
+   * Gets all children of a GeoEntity, but stops its breadth-first decent when it finds a child which belongs to the given fully qualified types.
    */
   public List<GeoEntity> getPrunedChildren(List<String> types)
   {
@@ -1364,8 +1401,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Sets all children of the parent GeoEntity to the given activated status. If a child has more
-   * than one parent then nothing is changed for that child.
+   * Sets all children of the parent GeoEntity to the given activated status. If a child has more than one parent then nothing is changed for that
+   * child.
    * 
    * @param activated
    * @param parent
@@ -1395,9 +1432,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Checks if this GoeEntity is eligible to have its active status changed. The general rule is as
-   * follows: A child with more than one parent set to active cannot be deactivated. All other cases
-   * are allowed.
+   * Checks if this GoeEntity is eligible to have its active status changed. The general rule is as follows: A child with more than one parent set to
+   * active cannot be deactivated. All other cases are allowed.
    * 
    * @param activated
    *          The active status of the parent.
@@ -1426,8 +1462,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Adds this GeoEntity as a child of the given parent for the {@link LocatedIn} relationship. If
-   * this is not for a clone operation then all prior parent relationships will be removed.
+   * Adds this GeoEntity as a child of the given parent for the {@link LocatedIn} relationship. If this is not for a clone operation then all prior
+   * parent relationships will be removed.
    * 
    */
   @Override
@@ -1503,7 +1539,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     }
 
     this.addLocatedInGeoEntity(parent).applyWithoutCreatingAllPaths();
-    
+
     // Update the allpaths table
     // There are 3 different contexts this method can be invoked in:
     if (cloneOperation) // 1) We're creating a new relationship with a new parent
@@ -1537,7 +1573,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       return new String[] {};
     }
   }
-  
+
   /**
    * Removes the term and all its children from the allpaths table.
    * 
@@ -1548,16 +1584,16 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     // Queue results in a breadth first traverse
     Queue<String> qNext = new ArrayDeque<String>();
     qNext.offer(rootId);
-    
+
     while (qNext.size() > 0)
     {
       String sCurrent = qNext.poll();
       GeoEntity tCurrent = GeoEntity.get(sCurrent);
-      
+
       deleteEntityFromAllPaths(sCurrent);
-      
+
       List<String> children = GeoEntity.getChildIds(tCurrent.getId());
-      for (String child: children)
+      for (String child : children)
       {
         qNext.offer(child);
       }
@@ -1771,8 +1807,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Returns a list of all LocatedIn children for which this GeoEntity is a parent. The list is
-   * ordered by the entity name.
+   * Returns a list of all LocatedIn children for which this GeoEntity is a parent. The list is ordered by the entity name.
    */
   @Override
   public GeoEntityViewQuery getOrderedChildren(String filter)
@@ -1890,8 +1925,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Given a filter (a GeoEntity class), this method returns all parents and children and the filter
-   * type itself that's allowed in the hierarchy.
+   * Given a filter (a GeoEntity class), this method returns all parents and children and the filter type itself that's allowed in the hierarchy.
    * 
    * @param type
    * @return
@@ -2086,19 +2120,22 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       createdById = ServerConstants.SYSTEM_USER_ID;
     }
 
-    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
-        + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + ",\n"
-        + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n"
+    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
+        + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
+        + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
+        + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n"
 
-        + "WITH RECURSIVE quick_paths (" + original_child + ") AS (\n" + "    SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + " as " + original_child + ", " + RelationshipDAOIF.PARENT_ID_COLUMN + " FROM " + locatedInTable + "\n" + "    UNION\n" + "    SELECT " + original_child + ", l." + RelationshipDAOIF.PARENT_ID_COLUMN + "\n" + "    FROM " + locatedInTable + " l\n" + "      INNER JOIN quick_paths\n" + "      ON (l." + RelationshipDAOIF.CHILD_ID_COLUMN + " = quick_paths."
-        + RelationshipDAOIF.PARENT_ID_COLUMN + ")\n" + "    )\n"
+        + "WITH RECURSIVE quick_paths (" + original_child + ") AS (\n" + "    SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + " as " + original_child + ", " + RelationshipDAOIF.PARENT_ID_COLUMN + " FROM " + locatedInTable + "\n" + "    UNION\n" + "    SELECT " + original_child + ", l." + RelationshipDAOIF.PARENT_ID_COLUMN + "\n" + "    FROM " + locatedInTable + " l\n"
+        + "      INNER JOIN quick_paths\n" + "      ON (l." + RelationshipDAOIF.CHILD_ID_COLUMN + " = quick_paths." + RelationshipDAOIF.PARENT_ID_COLUMN + ")\n" + "    )\n"
 
-        + "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName()
-        + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName()
-        + ",\n" + "  NEXTVAL('" + PostgreSQL.OBJECT_UPDATE_SEQUENCE + "') AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'  AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "' AS \""
-        + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '" + createdById + "' AS " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    paths." + RelationshipInfo.PARENT_ID + " AS " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + RelationshipInfo.PARENT_ID + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ") || '"
-        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths." + original_child + " as " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + original_child + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, "
-        + geoEntityTable + " as geo2,\n" + "(SELECT " + original_child + ", parent_id FROM quick_paths UNION SELECT " + QueryUtil.getIdColumn() + "," + QueryUtil.getIdColumn() + " FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + original_child + "\n";
+        + "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()
+        + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName()
+        + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  NEXTVAL('" + PostgreSQL.OBJECT_UPDATE_SEQUENCE + "') AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'  AS "
+        + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "' AS \"" + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '"
+        + createdById + "' AS " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    paths." + RelationshipInfo.PARENT_ID + " AS " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + RelationshipInfo.PARENT_ID + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ") || '"
+        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths." + original_child + " as " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + original_child + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '"
+        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, " + geoEntityTable + " as geo2,\n" + "(SELECT " + original_child + ", parent_id FROM quick_paths UNION SELECT " + QueryUtil.getIdColumn() + "," + QueryUtil.getIdColumn() + " FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1."
+        + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + original_child + "\n";
 
     Connection conn = Database.getConnection();
 
@@ -2151,34 +2188,30 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       createdById = ServerConstants.SYSTEM_USER_ID;
     }
 
-    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
-        + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + ",\n"
-        + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n" + " SELECT \n"
-        + "   MD5(allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS newId,\n" + "    '" + sitemaster + "'                                       AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "   MD5(allpaths_parent."
-        + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS newKey,\n" + "    '" + AllPaths.CLASS + "'                                   AS \"" + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    ''                                                     AS "
-        + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ?                                                      AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NEXTVAL('" + PostgreSQL.OBJECT_UPDATE_SEQUENCE + "')    AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'                                      AS "
-        + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL                                                   AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ?                                                      AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'                                      AS \""
-        + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '" + createdById + "'                                      AS " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " AS " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    allpaths_parent."
-        + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + " AS " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + "   AS " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    allpaths_child." + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "   AS "
-        + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + " \n"
-        +
+    String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
+        + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
+        + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
+        + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n" + " SELECT \n"
+        + "   MD5(allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS newId,\n" + "    '" + sitemaster + "'                                       AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()
+        + ",\n" + "   MD5(allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " || allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS newKey,\n" + "    '" + AllPaths.CLASS + "'                                   AS \""
+        + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    ''                                                     AS " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ?                                                      AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NEXTVAL('"
+        + PostgreSQL.OBJECT_UPDATE_SEQUENCE + "')    AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'                                      AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL                                                   AS "
+        + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ?                                                      AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'                                      AS \"" + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '" + createdById
+        + "'                                      AS " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " AS " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    allpaths_parent."
+        + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + " AS " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + "   AS " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    allpaths_child."
+        + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "   AS " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + " \n" +
 
-        " FROM \n"
-        +
+        " FROM \n" +
         // Fech all of the recursive children of the given child term, including
         // the child term itself.
-        "  (SELECT " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + "," + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + " \n" + "    FROM " + allPathsTable + " \n" + "     WHERE " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = '" + childGeoEntityId
-        + "' ) AS allpaths_child, \n"
-        +
+        "  (SELECT " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + "," + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + " \n" + "    FROM " + allPathsTable + " \n" + "     WHERE " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = '" + childGeoEntityId + "' ) AS allpaths_child, \n" +
         // Fech all of the recursive parents of the given new parent term,
         // including the new parent term itself.
-        "  (SELECT " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + " \n" + "     FROM " + allPathsTable + " \n" + "    WHERE " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = '" + newParentGeoEntityId + "' \n"
-        + "    ) AS allpaths_parent \n"
-        +
+        "  (SELECT " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + " \n" + "     FROM " + allPathsTable + " \n" + "    WHERE " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = '" + newParentGeoEntityId + "' \n" + "    ) AS allpaths_parent \n" +
         // Since a term can have multiple parents, a path to one of the new
         // parent's parents may already exist
-        " WHERE allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " NOT IN \n" + "   (SELECT " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " \n" + "      FROM " + allPathsTable + " \n" + "     WHERE " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " \n" + "      AND "
-        + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ") \n";
+        " WHERE allpaths_parent." + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " NOT IN \n" + "   (SELECT " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " \n" + "      FROM " + allPathsTable + " \n" + "     WHERE " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = allpaths_parent."
+        + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + " \n" + "      AND " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + " = allpaths_child." + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ") \n";
 
     Connection conn = Database.getConnection();
 
@@ -2236,8 +2269,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     return childOfChildIdList;
   }
 
-  
-  
   public static void createPath(String parentId, String parentMdBusiness, String childId, String childMdBusiness)
   {
     // create save point
@@ -2251,22 +2282,25 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       allPaths.setValue(AllPaths.CHILDGEOENTITY, childId);
       allPaths.setValue(AllPaths.CHILDUNIVERSAL, childMdBusiness);
       allPaths.apply();
-      
+
       // Performing this via insert statement and bypassing the validation in the object API is 15% faster
-//      MdBusinessDAO mdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS).getBusinessDAO();
-//      String allPathsTbl = mdBiz.getTableName();
-//      List<String> tableAttrs = Arrays.asList( MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS );
-//      List<String> columns = Arrays.asList(mdBiz.definesAttribute(AllPaths.ID).getColumnName(), mdBiz.definesAttribute(AllPaths.PARENTGEOENTITY).getColumnName(), mdBiz.definesAttribute(AllPaths.PARENTUNIVERSAL).getColumnName(), mdBiz.definesAttribute(AllPaths.CHILDGEOENTITY).getColumnName(), mdBiz.definesAttribute(AllPaths.CHILDUNIVERSAL).getColumnName());
-//      
-//      List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
-//      
-//      List<String> bindVals = Arrays.asList("?","?","?", "?", "?");
-//      List<Object> vals = Arrays.asList(parentId, parentMdBusiness, childId, childMdBusiness);
-//      
-//      PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(allPathsTbl, columns, bindVals, vals, tableAttrs);
-//      statements.add(preparedStmt);
-//      
-//      Database.executeStatementBatch(statements);
+      // MdBusinessDAO mdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS).getBusinessDAO();
+      // String allPathsTbl = mdBiz.getTableName();
+      // List<String> tableAttrs = Arrays.asList( MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS,
+      // MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS );
+      // List<String> columns = Arrays.asList(mdBiz.definesAttribute(AllPaths.ID).getColumnName(),
+      // mdBiz.definesAttribute(AllPaths.PARENTGEOENTITY).getColumnName(), mdBiz.definesAttribute(AllPaths.PARENTUNIVERSAL).getColumnName(),
+      // mdBiz.definesAttribute(AllPaths.CHILDGEOENTITY).getColumnName(), mdBiz.definesAttribute(AllPaths.CHILDUNIVERSAL).getColumnName());
+      //
+      // List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
+      //
+      // List<String> bindVals = Arrays.asList("?","?","?", "?", "?");
+      // List<Object> vals = Arrays.asList(parentId, parentMdBusiness, childId, childMdBusiness);
+      //
+      // PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(allPathsTbl, columns, bindVals, vals, tableAttrs);
+      // statements.add(preparedStmt);
+      //
+      // Database.executeStatementBatch(statements);
     }
     catch (DuplicateDataDatabaseException ex)
     {
@@ -2297,7 +2331,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   @Transaction
-  public void addSynonym(String synonymEntityName)
+  public String addSynonym(String synonymEntityName)
   {
     GeoSynonym gs = GeoSynonym.getByNameAndGeo(this.getGeoId(), synonymEntityName);
     if (gs == null)
@@ -2306,12 +2340,13 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       geoSynonym.setEntityName(synonymEntityName);
       geoSynonym.apply();
 
-      this.addSynonyms(geoSynonym).apply();
+      HasSynonym relationship = this.addSynonyms(geoSynonym);
+      relationship.apply();
+
+      return geoSynonym.getId();
     }
-    else
-    {
-      // Nothing to update if it already exists...
-    }
+
+    return gs.getId();
   }
 
   @Override
@@ -2463,9 +2498,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   }
 
   /**
-   * Checks if the list of children are located_in the parents. This method returns a list of ids
-   * that are valid children and sets an MdWarning on the call for all entities that were not
-   * children.
+   * Checks if the list of children are located_in the parents. This method returns a list of ids that are valid children and sets an MdWarning on the
+   * call for all entities that were not children.
    * 
    * @param childIds
    * @param parentIds
@@ -2529,4 +2563,200 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     return isChild.toArray(new String[isChild.size()]);
   }
+
+  public static String getGeoEntityTree(String geoEntityId)
+  {
+    GeoEntity root = Earth.getEarthInstance();
+
+    GeoEntity entity = GeoEntity.get(geoEntityId);
+
+    List<GeoEntity> parents = entity.getAllParents();
+    Set<String> ids = new HashSet<String>();
+
+    for (GeoEntity parent : parents)
+    {
+      if (!parent.getId().equals(root.getId()))
+      {
+        ids.add(parent.getId());
+      }
+    }
+
+    JSONArray array = new JSONArray();
+
+    QueryFactory factory = new QueryFactory();
+
+    LocatedInQuery lQuery = new LocatedInQuery(factory);
+    lQuery.WHERE(lQuery.getParent().EQ(root));
+    lQuery.AND(lQuery.childId().IN(ids.toArray(new String[ids.size()])));
+
+    GeoEntityQuery query = new GeoEntityQuery(factory);
+    query.WHERE(query.locatedInGeoEntity(lQuery));
+    query.ORDER_BY_ASC(query.getEntityLabel().localize());
+
+    OIterator<? extends GeoEntity> entityIt = query.getIterator();
+
+    try
+    {
+      while (entityIt.hasNext())
+      {
+        GeoEntity parent = entityIt.next();
+
+        array.put(GeoEntity.getJSONObject(parent, ids, true));
+      }
+    }
+    finally
+    {
+      entityIt.close();
+    }
+
+    return array.toString();
+  }
+
+  /**
+   * Returns the JSONObject representation of the node and all of its children nodes
+   * 
+   * @param _entity
+   *          Entity to serialize into a JSONObject
+   * @param _ids
+   *          List of entity ids in which to include the children in the serialization
+   * @param _isRoot
+   *          Flag indicating if the entity represents a root node of the tree
+   * @return
+   */
+  private static JSONObject getJSONObject(GeoEntity _entity, Set<String> _ids, boolean _isRoot)
+  {
+    try
+    {
+      JSONArray children = new JSONArray();
+
+      if (_ids.contains(_entity.getId()))
+      {
+        OIterator<? extends LocatedIn> iterator = null;
+
+        try
+        {
+          // Get the relationships where this object is the parent
+
+          LocatedInQuery query = new LocatedInQuery(new QueryFactory());
+          query.WHERE(query.getParent().EQ(_entity));
+          query.ORDER_BY_ASC( ( (AttributeReference) query.getChild() ).aLocalCharacter(GeoEntity.ENTITYLABEL).localize());
+          iterator = query.getIterator();
+
+          List<? extends LocatedIn> relationships = iterator.getAll();
+
+          for (LocatedIn relationship : relationships)
+          {
+            GeoEntity child = relationship.getChild();
+
+            JSONObject parentRecord = new JSONObject();
+            parentRecord.put("parentId", relationship.getParentId());
+            parentRecord.put("relId", relationship.getId());
+            parentRecord.put("relType", LocatedIn.CLASS);
+
+            JSONObject object = GeoEntity.getJSONObject(child, _ids, false);
+            object.put("parentRecord", parentRecord);
+
+            children.put(object);
+          }
+
+        }
+        finally
+        {
+          if (iterator != null)
+          {
+            iterator.close();
+          }
+        }
+      }
+
+      String label = _entity.getEntityLabel().getValue();
+
+      if (!_isRoot)
+      {
+        label += " [" + _entity.getMdClass().getDisplayLabel(Session.getCurrentLocale()) + "]";
+      }
+
+      JSONObject object = new JSONObject();
+      object.put("label", label);
+      object.put("id", _entity.getId());
+      object.put("type", _entity.getType());
+      object.put("children", children);
+      object.put("fetched", ( children.length() > 0 ));
+
+      return object;
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  public static String getAncestorsAsJSON(String entityId)
+  {
+    try
+    {
+      GeoEntity root = Earth.getEarthInstance();
+      GeoEntity entity = GeoEntity.get(entityId);
+
+      JSONArray array = new JSONArray();
+
+      List<GeoEntity> parents = entity.getAllParents();
+
+      Collections.reverse(parents);
+
+      for (GeoEntity parent : parents)
+      {
+        if (!parent.getId().equals(root.getId()))
+        {
+          JSONObject object = new JSONObject();
+          object.put("label", parent.getEntityLabel().getValue());
+
+          array.put(object);
+        }
+      }
+
+      return array.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  public static ValueQuery getGeoEntitySuggestions(String parentId, String universalId, String text, Integer limit)
+  {
+    GeoHierarchy hierarchy = GeoHierarchy.get(universalId);
+    MdBusinessDAOIF mdClass = MdBusinessDAO.get(hierarchy.getGeoEntityClassId());
+
+    ValueQuery query = new ValueQuery(new QueryFactory());
+
+    GeoEntityQuery entityQuery = (GeoEntityQuery) QueryUtil.getQuery(mdClass, query);
+
+    SelectableChar id = entityQuery.getId();
+    Coalesce geoLabel = entityQuery.getEntityLabel().localize();
+    SelectableChar geoId = entityQuery.getGeoId();
+
+    CONCAT label = F.CONCAT(F.CONCAT(F.CONCAT(geoLabel, " (" + hierarchy.getDisplayLabel() + ")"), " : "), geoId);
+    label.setColumnAlias(GeoEntity.ENTITYLABEL);
+    label.setUserDefinedAlias(GeoEntity.ENTITYLABEL);
+    label.setUserDefinedDisplayLabel(GeoEntity.ENTITYLABEL);
+
+    query.SELECT(id, label);
+    query.WHERE(label.LIKEi("%" + text + "%"));
+
+    if (parentId != null && parentId.length() > 0)
+    {
+      AllPathsQuery aptQuery = new AllPathsQuery(query);
+
+      query.AND(entityQuery.EQ(aptQuery.getChildGeoEntity()));
+      query.AND(aptQuery.getParentGeoEntity().EQ(parentId));
+    }
+
+    query.ORDER_BY_ASC(geoLabel);
+
+    query.restrictRows(limit, 1);
+
+    return query;
+  }
+
 }

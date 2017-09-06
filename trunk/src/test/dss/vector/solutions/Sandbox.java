@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -29,10 +28,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import au.com.bytecode.opencsv.CSVWriter;
-
 import com.runwaysdk.business.BusinessQuery;
-import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
@@ -62,8 +58,8 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdController;
 import com.runwaysdk.system.metadata.MdLocalStruct;
 import com.runwaysdk.system.metadata.MdStruct;
-import com.runwaysdk.web.WebClientSession;
 
+import au.com.bytecode.opencsv.CSVWriter;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -96,8 +92,8 @@ public class Sandbox
   public static java.util.Date startTime             = new java.util.Date();
 
   private static int           feedbackMod           = 50;
-  
-  private static boolean runNext = true;
+
+  private static boolean       runNext               = true;
 
   private static class A
   {
@@ -121,14 +117,14 @@ public class Sandbox
       System.out.println("ACCESS: [" + a.getId().hashCode() + "] : [" + Thread.currentThread() + "]");
     }
   }
-  
+
   private static Iterator<Row> load(FileInputStream file) throws Exception
   {
     POIFSFileSystem fileSystem = new POIFSFileSystem(file);
     HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
     Sheet sheet = workbook.getSheetAt(0);
     Iterator<Row> rowI = sheet.rowIterator();
-    
+
     return rowI;
   }
 
@@ -140,16 +136,14 @@ public class Sandbox
     {
       // FileInputStream file = new
       // FileInputStream("/Users/justin/projects/work/terraframe/hospital/data_old.xls");
-      FileInputStream file = new FileInputStream(
-          "/Users/justin/projects/work/terraframe/hospital/clean.xls");
-      FileInputStream contrib = new FileInputStream(
-          "/Users/justin/projects/work/terraframe/hospital/rec_contrib.xls");
-      
+      FileInputStream file = new FileInputStream("/Users/justin/projects/work/terraframe/hospital/clean.xls");
+      FileInputStream contrib = new FileInputStream("/Users/justin/projects/work/terraframe/hospital/rec_contrib.xls");
+
       // --- CSV
-      
+
       // File out = new
       // File("/Users/justin/projects/work/terraframe/hospital/output.csv");
-//      File clean = new File("/Users/justin/projects/work/terraframe/hospital/clean.csv");
+      // File clean = new File("/Users/justin/projects/work/terraframe/hospital/clean.csv");
       File locs = new File("/Users/justin/projects/work/terraframe/hospital/location0.csv");
       File imprted = new File("/Users/justin/projects/work/terraframe/hospital/import.csv");
       // File err = new
@@ -157,31 +151,31 @@ public class Sandbox
       System.out.println("AV: " + file.available());
 
       Iterator<Row> rowI = load(contrib);
-      
+
       Map<String, String> amount = new HashMap<String, String>();
-      while(rowI.hasNext())
+      while (rowI.hasNext())
       {
         Row row = rowI.next();
         Iterator<Cell> cellI = row.cellIterator();
         String record = getValue(cellI.next());
         String dollar = getValue(cellI.next());
-        
-        if(record.trim().length() > 0 && dollar.trim().length() > 0)
+
+        if (record.trim().length() > 0 && dollar.trim().length() > 0)
         {
           String a = dollar.replaceAll("[^\\d]", "");
-          if(a.length() == 0)
+          if (a.length() == 0)
           {
             continue;
           }
-          
+
           amount.put(record, a);
         }
       }
 
-//      HttpClient client = new HttpClient();
+      // HttpClient client = new HttpClient();
 
       rowI = load(file);
-      
+
       int count = 0;
       Writer w = new FileWriter(imprted);
       CSVWriter csv = new CSVWriter(w);
@@ -196,7 +190,6 @@ public class Sandbox
         if (count != 0)
         {
 
-          
           Iterator<Cell> cellI = row.cellIterator();
 
           String record = getValue(cellI.next());
@@ -216,7 +209,7 @@ public class Sandbox
           String zip = getValue(cellI.next());
 
           String fullAddr = getValue(cellI.next());
-          
+
           String contrb = amount.containsKey(record) ? amount.get(record) : "";
 
           String point = getValue(cellI.next());
@@ -226,89 +219,61 @@ public class Sandbox
           // swap the x/y
           point = coords[1] + " " + coords[0];
 
-          
-
           MessageDigest md = MessageDigest.getInstance("MD5");
-          
-          String id = (new HexBinaryAdapter()).marshal(md.digest(point.getBytes()));
-          
+
+          String id = ( new HexBinaryAdapter() ).marshal(md.digest(point.getBytes()));
+
           id = id.substring(0, 14);
-          
-          String[] rowArr = new String[]{
-              //Form ID
+
+          String[] rowArr = new String[] {
+              // Form ID
               record,
               // record
               record,
-              
-              //MS DRG  
+
+              // MS DRG
               msDRG,
-              
-              //MS DRG Desc 
+
+              // MS DRG Desc
               msDRGAndDesc,
-              
-              //Product Line   
+
+              // Product Line
               productLine,
-              
-              //Address 
+
+              // Address
               address,
-              
-              //State   
+
+              // State
               state,
-              
-              //Zip 
+
+              // Zip
               zip,
-              
-              //City   
+
+              // City
               city,
-              
-              //Display  Address 
+
+              // Display Address
               fullAddr,
-              
+
               // amount contrib
               contrb,
-              
-              //Location
-              "e"+id
-          };
-          
+
+              // Location
+              "e" + id };
+
           csv.writeNext(rowArr);
-          
+
           /*
-          if (!added.contains(point))
-          {
-                    if(ids.contains(id))
-          {
-            throw new RuntimeException(id);
-          }
-          else
-          {
-            ids.add(id);
-          }
-          
-            String[] rowArr = new String[] {
-                // entity name
-                "e" + id,
-                // geo id
-                "g" + id,
-                // geo type
-                "dss.vector.solutions.geo.generated.Location",
-                // sub-type
-                "",
-                // Located In Name/ID
-                "Florida",
-                // Located In Type
-                "dss.vector.solutions.geo.generated.State",
-                // activated
-                "TRUE",
-                // WKT
-                "POINT("+point+")"
-            };
-
-            csv.writeNext(rowArr);
-            added.add(point);
-
-          }
-          */
+           * if (!added.contains(point)) { if(ids.contains(id)) { throw new RuntimeException(id); } else { ids.add(id); }
+           * 
+           * String[] rowArr = new String[] { // entity name "e" + id, // geo id "g" + id, // geo type "dss.vector.solutions.geo.generated.Location",
+           * // sub-type "", // Located In Name/ID "Florida", // Located In Type "dss.vector.solutions.geo.generated.State", // activated "TRUE", //
+           * WKT "POINT("+point+")" };
+           * 
+           * csv.writeNext(rowArr); added.add(point);
+           * 
+           * }
+           */
 
           // if (record.length() != 0 && msDRG.length() != 0 &&
           // msDRGAndDesc.length() != 0
@@ -397,22 +362,14 @@ public class Sandbox
     }
 
   }
-  
+
   public static void main(String[] args) throws Exception
   {
-    try
-    {
-     WebClientSession s = WebClientSession.createUserSession("ddms", "ddms",
-     new Locale[]{Locale.ENGLISH});
-     ClientRequestIF r = s.getRequest();
-     
-     mosquitoCollection(r.getSessionId());
-//     irs(r.getSessionId()); 
-    }
-    catch(Throwable t)
-    {
-      t.printStackTrace(System.out);
-    }
+    String viewName = "DDT Susceptibility (CDC)" + " " + "MALARIA";
+
+    // Postgres creates tables/views in lowercase, so enforce that convention
+    // here as well so we don't get into trouble with mixed casing.
+    System.out.println(GeoHierarchy.getSystemName(viewName, "m_", false, "_").toLowerCase());
   }
 
   private static String getValue(Cell cell)
@@ -426,7 +383,7 @@ public class Sandbox
       return "";
     }
   }
-  
+
   @Request(RequestType.SESSION)
   private static void mosquitoCollection(String sessionId)
   {
@@ -438,14 +395,14 @@ public class Sandbox
     String newFields = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.entomology.MosquitoCollection</type>\n<alias>dss.vector.solutions.entomology.MosquitoCollection</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.entomology.SubCollection</type>\n<alias>dss.vector.solutions.entomology.SubCollection</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.entomology.MosquitoCollection</entityAlias>\n<name>collectionId.displayLabel.currentValue</name>\n<userAlias>collectionId_mc</userAlias>\n<userDisplayLabel>Collection ID</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>collectionMethod_displayLabel</name>\n<userAlias>collectionMethod_mc</userAlias>\n<userDisplayLabel>Collection method</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>collectionRound_displayLabel</name>\n<userAlias>collectionRound_mc</userAlias>\n<userDisplayLabel>Collection round</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>collectionType_displayLabel</name>\n<userAlias>collectionType_mc</userAlias>\n<userDisplayLabel>Collection type</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>geoEntity_displayLabel</name>\n<userAlias>geoEntity</userAlias>\n<userDisplayLabel>Geo entity</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.entomology.MosquitoCollection</entityAlias>\n<name>collectionDate.displayLabel.currentValue</name>\n<userAlias>collectionDate_mc</userAlias>\n<userDisplayLabel>Collection date</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.entomology.MosquitoCollection</entityAlias>\n<name>dateLastSprayed.displayLabel.currentValue</name>\n<userAlias>dateLastSprayed_mc</userAlias>\n<userDisplayLabel>Date last sprayed</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>lifeStage_displayLabel</name>\n<userAlias>lifeStage_mc</userAlias>\n<userDisplayLabel>Life stage</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.entomology.MosquitoCollection</entityAlias>\n<name>abundance.displayLabel.currentValue</name>\n<userAlias>abundance_mc</userAlias>\n<userDisplayLabel>Available for abundance calculations</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_eff</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>activeIngredient_displayLabel</name>\n<userAlias>activeIngredient_eff</userAlias>\n<userDisplayLabel>Active ingredient</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_eff</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>concentrationQualifier_displayLabel</name>\n<userAlias>concentrationQualifier_eff</userAlias>\n<userDisplayLabel>Concentration qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>insecticideUse_displayLabel</name>\n<userAlias>insecticideUse_eff</userAlias>\n<userDisplayLabel>Use</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitsPerApplication.displayLabel.currentValue</name>\n<userAlias>unitsPerApplication_eff</userAlias>\n<userDisplayLabel>Units per application</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitQuantifier.displayLabel.currentValue</name>\n<userAlias>unitQuantifier_eff</userAlias>\n<userDisplayLabel>Unit quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>unitQualifier_displayLabel</name>\n<userAlias>unitQualifier_eff</userAlias>\n<userDisplayLabel>Unit qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String newFieldsSimple = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.entomology.MosquitoCollection</type>\n<alias>dss.vector.solutions.entomology.MosquitoCollection</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.entomology.SubCollection</type>\n<alias>dss.vector.solutions.entomology.SubCollection</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.entomology.MosquitoCollection</entityAlias>\n<name>collectionId.displayLabel.currentValue</name>\n<userAlias>collectionId_mc</userAlias>\n<userDisplayLabel>Collection ID</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_eff</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String roundAbundance = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.entomology.MosquitoCollection</type>\n<alias>dss.vector.solutions.entomology.MosquitoCollection</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.entomology.SubCollection</type>\n<alias>dss.vector.solutions.entomology.SubCollection</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>collectionRoundAbundance_displayLabel</name>\n<userAlias>collectionRoundAbundance</userAlias>\n<userDisplayLabel>Collection round</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>collectionMethod_displayLabel</name>\n<userAlias>collectionMethod_ab</userAlias>\n<userDisplayLabel>Collection method</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlfloat><name>abundance_1</name>\n<userAlias>abundance_1</userAlias>\n<userDisplayLabel>Abundance x 1(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlfloat>\n</selectable>\n<selectable><sqlcharacter><name>taxon_displayLabel</name>\n<userAlias>taxon</userAlias>\n<userDisplayLabel>Species</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     execute = true;
     runQuery(MosquitoCollectionQB.class, json, roundAbundance, true, true);
-//    runQuery(MosquitoCollectionQB.class, json, xml, true, true);
+    // runQuery(MosquitoCollectionQB.class, json, xml, true, true);
   }
 
   private static boolean execute = false;
-  
+
   @Request(RequestType.SESSION)
   private static void irs(String sessionId)
   {
@@ -466,10 +423,11 @@ public class Sandbox
 
     // TODO test aggregates
     String insecticide = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>activeIngredient_displayLabel</name>\n<userAlias>activeIngredient_spray</userAlias>\n<userDisplayLabel>Active ingredient</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_spray</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>concentrationQualifier_displayLabel</name>\n<userAlias>concentrationQualifier_spray</userAlias>\n<userDisplayLabel>Concentration qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>insecticideUse_displayLabel</name>\n<userAlias>insecticideUse_spray</userAlias>\n<userDisplayLabel>Use</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>useDetail_displayLabel</name>\n<userAlias>useDetail_spray</userAlias>\n<userDisplayLabel>Use detail</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitsPerApplication.displayLabel.currentValue</name>\n<userAlias>unitsPerApplication_spray</userAlias>\n<userDisplayLabel>Units per application</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitQuantifier.displayLabel.currentValue</name>\n<userAlias>unitQuantifier_spray</userAlias>\n<userDisplayLabel>Unit quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>unitQualifier_displayLabel</name>\n<userAlias>unitQualifier_spray</userAlias>\n<userDisplayLabel>Unit qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>active_ingredient_per_can</name>\n<userAlias>active_ingredient_per_can</userAlias>\n<userDisplayLabel>Active ingredient per can (g)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate</name>\n<userAlias>standard_application_rate</userAlias>\n<userDisplayLabel>Recommended application rate (g/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate_mg</name>\n<userAlias>standard_application_rate_mg</userAlias>\n<userDisplayLabel>Recommended application rate (mg/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>units_per_can</name>\n<userAlias>units_per_can</userAlias>\n<userDisplayLabel>Sprayable units per can</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>\n";
-    //String insecticide = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>activeIngredient_displayLabel</name>\n<userAlias>activeIngredient_spray</userAlias>\n<userDisplayLabel>Active ingredient</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_spray</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>concentrationQualifier_displayLabel</name>\n<userAlias>concentrationQualifier_spray</userAlias>\n<userDisplayLabel>Concentration qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>insecticideUse_displayLabel</name>\n<userAlias>insecticideUse_spray</userAlias>\n<userDisplayLabel>Use</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitsPerApplication.displayLabel.currentValue</name>\n<userAlias>unitsPerApplication_spray</userAlias>\n<userDisplayLabel>Units per application</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitQuantifier.displayLabel.currentValue</name>\n<userAlias>unitQuantifier_spray</userAlias>\n<userDisplayLabel>Unit quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>unitQualifier_displayLabel</name>\n<userAlias>unitQualifier_spray</userAlias>\n<userDisplayLabel>Unit qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>active_ingredient_per_can</name>\n<userAlias>active_ingredient_per_can</userAlias>\n<userDisplayLabel>Active ingredient per can (g)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate</name>\n<userAlias>standard_application_rate</userAlias>\n<userDisplayLabel>Recommended application rate (g/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate_mg</name>\n<userAlias>standard_application_rate_mg</userAlias>\n<userDisplayLabel>Recommended application rate (mg/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>units_per_can</name>\n<userAlias>units_per_can</userAlias>\n<userDisplayLabel>Sprayable units per can</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>\n";
+    // String insecticide =
+    // "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>activeIngredient_displayLabel</name>\n<userAlias>activeIngredient_spray</userAlias>\n<userDisplayLabel>Active ingredient</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_spray</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>concentrationQualifier_displayLabel</name>\n<userAlias>concentrationQualifier_spray</userAlias>\n<userDisplayLabel>Concentration qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>insecticideUse_displayLabel</name>\n<userAlias>insecticideUse_spray</userAlias>\n<userDisplayLabel>Use</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitsPerApplication.displayLabel.currentValue</name>\n<userAlias>unitsPerApplication_spray</userAlias>\n<userDisplayLabel>Units per application</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitQuantifier.displayLabel.currentValue</name>\n<userAlias>unitQuantifier_spray</userAlias>\n<userDisplayLabel>Unit quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>unitQualifier_displayLabel</name>\n<userAlias>unitQualifier_spray</userAlias>\n<userDisplayLabel>Unit qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>active_ingredient_per_can</name>\n<userAlias>active_ingredient_per_can</userAlias>\n<userDisplayLabel>Active ingredient per can (g)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate</name>\n<userAlias>standard_application_rate</userAlias>\n<userDisplayLabel>Recommended application rate (g/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate_mg</name>\n<userAlias>standard_application_rate_mg</userAlias>\n<userDisplayLabel>Recommended application rate (mg/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>units_per_can</name>\n<userAlias>units_per_can</userAlias>\n<userDisplayLabel>Sprayable units per can</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>\n";
 
     String targets = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>team_planned_coverage</name>\n<userAlias>team_planned_coverage</userAlias>\n<userDisplayLabel>Team Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>team_target_divergence</name>\n<userAlias>team_target_divergence</userAlias>\n<userDisplayLabel>Team Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>team_targeted_coverage</name>\n<userAlias>team_targeted_coverage</userAlias>\n<userDisplayLabel>Team Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>team_actual_target</name>\n<userAlias>team_actual_target</userAlias>\n<userDisplayLabel>Team Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqldouble><name>operator_planned_coverage</name>\n<userAlias>operator_planned_coverage</userAlias>\n<userDisplayLabel>Operator Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>operator_target_divergence</name>\n<userAlias>operator_target_divergence</userAlias>\n<userDisplayLabel>Operator Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>operator_targeted_coverage</name>\n<userAlias>operator_targeted_coverage</userAlias>\n<userDisplayLabel>Operator Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // calculations
     String calcs = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlfloat><name>unit_application_rate</name>\n<userAlias>unit_application_rate</userAlias>\n<userDisplayLabel>Unit application rate (g/m&amp;sup2;)(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlfloat>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlfloat><name>unit_application_rate_mg</name>\n<userAlias>unit_application_rate_mg</userAlias>\n<userDisplayLabel>Unit application rate (mg/m&amp;sup2;)(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlfloat>\n</selectable>\n<selectable><sqldouble><name>unit_application_ratio</name>\n<userAlias>unit_application_ratio</userAlias>\n<userDisplayLabel>Unit application ratio(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>unit_operational_coverage</name>\n<userAlias>unit_operational_coverage</userAlias>\n<userDisplayLabel>Unit operational coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>calculated_rooms_sprayed</name>\n<userAlias>calculated_rooms_sprayed</userAlias>\n<userDisplayLabel>Calculated # rooms sprayed(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>calculated_structures_sprayed</name>\n<userAlias>calculated_structures_sprayed</userAlias>\n<userDisplayLabel>Calculated # structures sprayed(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>calculated_households_sprayed</name>\n<userAlias>calculated_households_sprayed</userAlias>\n<userDisplayLabel>Calculated # households sprayed(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
 
@@ -480,70 +438,70 @@ public class Sandbox
     String supc = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqldouble><name>units_per_can</name>\n<userAlias>units_per_can</userAlias>\n<userDisplayLabel>Sprayable units per can</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
 
     String time = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_YEAR</name>\n<userAlias>dategroup_year</userAlias>\n<userDisplayLabel>Calendar year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_QUARTER</name>\n<userAlias>dategroup_quarter</userAlias>\n<userDisplayLabel>Quarter</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_MONTH</name>\n<userAlias>dategroup_month</userAlias>\n<userDisplayLabel>Month</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIYEAR</name>\n<userAlias>dategroup_epiyear</userAlias>\n<userDisplayLabel>Epi year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><count><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray</entityAlias>\n<name>id</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</attribute>\n</selectable>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</count>\n</selectable>\n<selectable><sqlcharacter><name>ratio_of_this_row_to_total_count</name>\n<userAlias>ratio_of_this_row_to_total_count</userAlias>\n<userDisplayLabel>Ratio</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String countUni = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><count><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray</entityAlias>\n<name>id</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</attribute>\n</selectable>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</count>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // Operator
     String operAll = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqldouble><name>operator_planned_coverage</name>\n<userAlias>operator_planned_coverage</userAlias>\n<userDisplayLabel>Operator Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>operator_target_divergence</name>\n<userAlias>operator_target_divergence</userAlias>\n<userDisplayLabel>Operator Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>operator_targeted_coverage</name>\n<userAlias>operator_targeted_coverage</userAlias>\n<userDisplayLabel>Operator Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // planned
     String operPlanned = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // actual
     String operActual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // units/planned
     String operPlannedCover = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>operator_planned_coverage</name>\n<userAlias>operator_planned_coverage</userAlias>\n<userDisplayLabel>Operator Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // actual/planned
     String operTargetDiver = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>operator_target_divergence</name>\n<userAlias>operator_target_divergence</userAlias>\n<userDisplayLabel>Operator Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // units/actual
     String operTargetCover = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>operator_targeted_coverage</name>\n<userAlias>operator_targeted_coverage</userAlias>\n<userDisplayLabel>Operator Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String allOperators = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqldouble><name>operator_target_divergence</name>\n<userAlias>operator_target_divergence</userAlias>\n<userDisplayLabel>Operator Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>operator_planned_coverage</name>\n<userAlias>operator_planned_coverage</userAlias>\n<userDisplayLabel>Operator Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>team_targeted_coverage</name>\n<userAlias>team_targeted_coverage</userAlias>\n<userDisplayLabel>Team Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
 
     String operPlannedSeason = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String operPlannedWeekAndSeason = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String operPlannedSeasonAndProduct = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operAndActivity = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>sprayDate</name>\n<userAlias>sprayDate</userAlias>\n<userDisplayLabel>Spray date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String operActualAndPlanned = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String operActualAndActivitySUM = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operAndPreAggs = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria><compositeCondition><and><basicCondition><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel></userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<operator>EQ</operator>\n<value>1</value>\n</basicCondition>\n</and>\n</compositeCondition>\n</criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>received</userAlias>\n<userDisplayLabel>(SUM) Number of sachets received</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><min><selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>used</userAlias>\n<userDisplayLabel>(MIN) Number of sachets used</userDisplayLabel>\n</min>\n</selectable>\n<selectable><max><selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>refills</userAlias>\n<userDisplayLabel>(MAX) Number of pump/can refills</userDisplayLabel>\n</max>\n</selectable>\n<selectable><avg><selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>returned</userAlias>\n<userDisplayLabel>(AVG) Number of sachets returned</userDisplayLabel>\n</avg>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // Teams
-    
+
     String teamAudit = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>audit_createDate</name>\n<userAlias>audit_createDate</userAlias>\n<userDisplayLabel>Create date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqldate><name>audit_lastUpdateDate</name>\n<userAlias>audit_lastUpdateDate</userAlias>\n<userDisplayLabel>Last Update Date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlcharacter><name>audit_createdBy</name>\n<userAlias>audit_createdBy</userAlias>\n<userDisplayLabel>Created By</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>audit_lastUpdatedBy</name>\n<userAlias>audit_lastUpdatedBy</userAlias>\n<userDisplayLabel>Last Updated By</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>audit_imported</name>\n<userAlias>audit_imported</userAlias>\n<userDisplayLabel>Imported</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // actual
     String teamActuals = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>team_actual_target</name>\n<userAlias>team_actual_target</userAlias>\n<userDisplayLabel>Team Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String teamActualsEpiWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>team_actual_target</name>\n<userAlias>team_actual_target</userAlias>\n<userDisplayLabel>Team Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // planned
     String teamPlanned = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // units/planned
     String teamPlannedCoverage = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>team_planned_coverage</name>\n<userAlias>team_planned_coverage</userAlias>\n<userDisplayLabel>Team Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
-    // actual/planned    
+
+    // actual/planned
     String teamTargetDivergence = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>team_target_divergence</name>\n<userAlias>team_target_divergence</userAlias>\n<userDisplayLabel>Team Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // units/actual
     String teamTargetCoverage = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>team_targeted_coverage</name>\n<userAlias>team_targeted_coverage</userAlias>\n<userDisplayLabel>Team Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-      
+
     String teamPlannedWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.HealthFacility</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__healthfacility_entityLabel</userAlias>\n<userDisplayLabel>Health facility Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.HealthFacility</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__healthfacility_geoId</userAlias>\n<userDisplayLabel>Health facility Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // planned + universal
     String teamPlannedCountry = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String teamPlannedFacility = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.HealthFacility</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__healthfacility_entityLabel</userAlias>\n<userDisplayLabel>Health Facility Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.HealthFacility</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__healthfacility_geoId</userAlias>\n<userDisplayLabel>Health Facility Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String teamPlannedSprayZone = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.SprayZone</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_entityLabel</userAlias>\n<userDisplayLabel>Health Facility Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.SprayZone</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_geoId</userAlias>\n<userDisplayLabel>Health Facility Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String teamPLannedUniConfig = "{\"selectedUniversals\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[\"dss.vector.solutions.geo.generated.Country\"]},\"criteriaEntities\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[]},\"terms\":{},\"date_attribute\":{\"date_attribute\":\"sprayDate\",\"klass\":\"dss.vector.solutions.irs.OperatorSpray\",\"start\":null,\"end\":null},\"sortOrder\":[\"dategroup_epiweek\",\"sprayteam_defaultLocale\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId\",\"team_planned_target\"]}";
     String teamAll = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>team_planned_coverage</name>\n<userAlias>team_planned_coverage</userAlias>\n<userDisplayLabel>Team Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>team_target_divergence</name>\n<userAlias>team_target_divergence</userAlias>\n<userDisplayLabel>Team Target Divergence(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>team_targeted_coverage</name>\n<userAlias>team_targeted_coverage</userAlias>\n<userDisplayLabel>Team Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String teamPlannedActual = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>team_actual_target</name>\n<userAlias>team_actual_target</userAlias>\n<userDisplayLabel>Team Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String areaComplex = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>team_targeted_coverage</name>\n<userAlias>team_targeted_coverage</userAlias>\n<userDisplayLabel>Team Targeted Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String areaSimple = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String areaTime = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_YEAR</name>\n<userAlias>dategroup_year</userAlias>\n<userDisplayLabel>Calendar year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_MONTH</name>\n<userAlias>dategroup_month</userAlias>\n<userDisplayLabel>Month</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_QUARTER</name>\n<userAlias>dategroup_quarter</userAlias>\n<userDisplayLabel>Quarter</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIYEAR</name>\n<userAlias>dategroup_epiyear</userAlias>\n<userDisplayLabel>Epi year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><count><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray</entityAlias>\n<name>id</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</attribute>\n</selectable>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</count>\n</selectable>\n<selectable><sqlcharacter><name>ratio_of_this_row_to_total_count</name>\n<userAlias>ratio_of_this_row_to_total_count</userAlias>\n<userDisplayLabel>Ratio</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
@@ -553,24 +511,24 @@ public class Sandbox
     String areaSUMRooms = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>rooms</name>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>Rooms #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>(SUM) Rooms #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String areaProductSeason = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String areaProductWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String areaCalculations = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqldouble><name>unit_operational_coverage</name>\n<userAlias>unit_operational_coverage</userAlias>\n<userDisplayLabel>Unit operational coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlfloat><name>unit_application_rate</name>\n<userAlias>unit_application_rate</userAlias>\n<userDisplayLabel>Unit application rate (g/m&amp;sup2;)(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlfloat>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlfloat><name>unit_application_rate_mg</name>\n<userAlias>unit_application_rate_mg</userAlias>\n<userDisplayLabel>Unit application rate (mg/m&amp;sup2;)(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlfloat>\n</selectable>\n<selectable><sqldouble><name>unit_application_ratio</name>\n<userAlias>unit_application_ratio</userAlias>\n<userDisplayLabel>Unit application ratio(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>calculated_rooms_sprayed</name>\n<userAlias>calculated_rooms_sprayed</userAlias>\n<userDisplayLabel>Calculated # rooms sprayed(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>calculated_structures_sprayed</name>\n<userAlias>calculated_structures_sprayed</userAlias>\n<userDisplayLabel>Calculated # structures sprayed(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>calculated_households_sprayed</name>\n<userAlias>calculated_households_sprayed</userAlias>\n<userDisplayLabel>Calculated # households sprayed(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String areaWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_YEAR</name>\n<userAlias>dategroup_year</userAlias>\n<userDisplayLabel>Calendar year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIYEAR</name>\n<userAlias>dategroup_epiyear</userAlias>\n<userDisplayLabel>Epi year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String areaYear = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_YEAR</name>\n<userAlias>dategroup_year</userAlias>\n<userDisplayLabel>Calendar year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String coverageYear = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIYEAR</name>\n<userAlias>dategroup_epiyear</userAlias>\n<userDisplayLabel>Epi year</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String coverageWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String coverageAndSprayedUnits = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String coverageAndSumSprayedUnits = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String areaSUMUnitsWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String countryConfig = "{\"selectedUniversals\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[\"dss.vector.solutions.geo.generated.Country\"]},\"criteriaEntities\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[]},\"terms\":{},\"date_attribute\":{\"date_attribute\":\"sprayDate\",\"klass\":\"dss.vector.solutions.irs.OperatorSpray\",\"start\":null,\"end\":null},\"sortOrder\":[\"area_planned_target\",\"dategroup_epiweek\",\"area_planned_coverage\",\"team_targeted_coverage\",\"sprayteam_defaultLocale\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId\"]}";
     String facilityConfig = "{\"selectedUniversals\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[\"dss.vector.solutions.geo.generated.HealthFacility\"]},\"criteriaEntities\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[]},\"terms\":{},\"date_attribute\":{\"date_attribute\":\"sprayDate\",\"klass\":\"dss.vector.solutions.irs.OperatorSpray\",\"start\":null,\"end\":null},\"sortOrder\":[\"area_planned_target\",\"dategroup_epiweek\",\"area_planned_coverage\",\"team_targeted_coverage\",\"sprayteam_defaultLocale\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId\"]}";
     String zoneConfig = "{\"selectedUniversals\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[\"dss.vector.solutions.geo.generated.SprayZone\"]},\"criteriaEntities\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[]},\"terms\":{},\"date_attribute\":{\"date_attribute\":\"sprayDate\",\"klass\":\"dss.vector.solutions.irs.OperatorSpray\",\"start\":null,\"end\":null},\"sortOrder\":[\"area_planned_target\",\"dategroup_epiweek\",\"area_planned_coverage\",\"team_targeted_coverage\",\"sprayteam_defaultLocale\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId\"]}";
 
     String SUMsprayedUnits = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // sex
     String sexFields = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.Person</type>\n<alias>dss.vector.solutions.Person</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayleader_sex_displayLabel</name>\n<userAlias>sprayleader_sex</userAlias>\n<userDisplayLabel>???sprayleader_sex???</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
 
@@ -579,207 +537,203 @@ public class Sandbox
 
     String sprayOperatorsCount = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><count><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray</entityAlias>\n<name>id</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</attribute>\n</selectable>\n<userAlias>dss_vector_solutions_irs_AbstractSpray__id</userAlias>\n<userDisplayLabel>Count</userDisplayLabel>\n</count>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String sprayOperatorsRatio = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>ratio_of_this_row_to_total_count</name>\n<userAlias>ratio_of_this_row_to_total_count</userAlias>\n<userDisplayLabel>Ratio</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operAndUnitsHouseSumSeason = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria><compositeCondition><and><basicCondition><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel></userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<operator>EQ</operator>\n<value>1</value>\n</basicCondition>\n</and>\n</compositeCondition>\n</criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>households</name>\n<userAlias>households</userAlias>\n<userDisplayLabel>Households #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>households</userAlias>\n<userDisplayLabel>(SUM) Households #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operatorAndDetails = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.Person</type>\n<alias>dss.vector.solutions.Person</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_personId</name>\n<userAlias>sprayoperator_personId</userAlias>\n<userDisplayLabel>???sprayoperator_personId???</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>sprayoperator_birthdate</name>\n<userAlias>sprayoperator_birthdate</userAlias>\n<userDisplayLabel>???sprayoperator_birthdate???</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_sex_displayLabel</name>\n<userAlias>sprayoperator_sex</userAlias>\n<userDisplayLabel>???sprayoperator_sex???</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operPlannedAndActivityWeek = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String operPlannedAndActivityMonth = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_MONTH</name>\n<userAlias>dategroup_month</userAlias>\n<userDisplayLabel>Month</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String operPlannedWithSUMUnits = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_personId</name>\n<userAlias>sprayoperator_personId</userAlias>\n<userDisplayLabel>Spray operator ID</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operActualSeason = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria><compositeCondition><and><basicCondition><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel></userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<operator>EQ</operator>\n<value>1</value>\n</basicCondition>\n</and>\n</compositeCondition>\n</criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>operator_actual_target</name>\n<userAlias>operator_actual_target</userAlias>\n<userDisplayLabel>Operator Actual Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String operAndUniversal = "<query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.SprayZone</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_entityLabel</userAlias>\n<userDisplayLabel>Spray zone Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.SprayZone</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_geoId</userAlias>\n<userDisplayLabel>Spray zone Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlinteger><name>operator_planned_target</name>\n<userAlias>operator_planned_target</userAlias>\n<userDisplayLabel>Operator Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayoperator_defaultLocale</name>\n<userAlias>sprayoperator_defaultLocale</userAlias>\n<userDisplayLabel>Spray operator</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_EPIWEEK</name>\n<userAlias>dategroup_epiweek</userAlias>\n<userDisplayLabel>Epi week</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String sprayZoneConfig = "{\"selectedUniversals\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[\"dss.vector.solutions.geo.generated.SprayZone\"]},\"criteriaEntities\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[]},\"terms\":{},\"date_attribute\":{\"date_attribute\":\"sprayDate\",\"klass\":\"dss.vector.solutions.irs.OperatorSpray\",\"start\":null,\"end\":null},\"termsAg\":{},\"sortOrder\":[\"operator_planned_target\",\"sprayoperator_defaultLocale\",\"dategroup_epiweek\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_geoId\"]}";
 
     // returns 0 results (bad join?)
     String useDetailActivity = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>sprayDate</name>\n<userAlias>sprayDate</userAlias>\n<userDisplayLabel>Spray date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlcharacter><name>useDetail_displayLabel</name>\n<userAlias>useDetail_spray</userAlias>\n<userDisplayLabel>Use detail</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     // all results (except use detail)
-    String insecActivity =  "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>sprayDate</name>\n<userAlias>sprayDate</userAlias>\n<userDisplayLabel>Spray date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlcharacter><name>insecticideUse_displayLabel</name>\n<userAlias>insecticideUse_spray</userAlias>\n<userDisplayLabel>Use</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>activeIngredient_displayLabel</name>\n<userAlias>activeIngredient_spray</userAlias>\n<userDisplayLabel>Active ingredient</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_spray</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>concentrationQualifier_displayLabel</name>\n<userAlias>concentrationQualifier_spray</userAlias>\n<userDisplayLabel>Concentration qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitsPerApplication.displayLabel.currentValue</name>\n<userAlias>unitsPerApplication_spray</userAlias>\n<userDisplayLabel>Units per application</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitQuantifier.displayLabel.currentValue</name>\n<userAlias>unitQuantifier_spray</userAlias>\n<userDisplayLabel>Unit quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>unitQualifier_displayLabel</name>\n<userAlias>unitQualifier_spray</userAlias>\n<userDisplayLabel>Unit qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>active_ingredient_per_can</name>\n<userAlias>active_ingredient_per_can</userAlias>\n<userDisplayLabel>Active ingredient per can (g)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate</name>\n<userAlias>standard_application_rate</userAlias>\n<userDisplayLabel>Recommended application rate (g/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate_mg</name>\n<userAlias>standard_application_rate_mg</userAlias>\n<userDisplayLabel>Recommended application rate (mg/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>units_per_can</name>\n<userAlias>units_per_can</userAlias>\n<userDisplayLabel>Sprayable units per can</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+    String insecActivity = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>sprayDate</name>\n<userAlias>sprayDate</userAlias>\n<userDisplayLabel>Spray date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlcharacter><name>insecticideUse_displayLabel</name>\n<userAlias>insecticideUse_spray</userAlias>\n<userDisplayLabel>Use</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>activeIngredient_displayLabel</name>\n<userAlias>activeIngredient_spray</userAlias>\n<userDisplayLabel>Active ingredient</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>concentrationQuantifier.displayLabel.currentValue</name>\n<userAlias>concentrationQuantifier_spray</userAlias>\n<userDisplayLabel>Concentration quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>concentrationQualifier_displayLabel</name>\n<userAlias>concentrationQualifier_spray</userAlias>\n<userDisplayLabel>Concentration qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitsPerApplication.displayLabel.currentValue</name>\n<userAlias>unitsPerApplication_spray</userAlias>\n<userDisplayLabel>Units per application</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.InsecticideBrand</entityAlias>\n<name>unitQuantifier.displayLabel.currentValue</name>\n<userAlias>unitQuantifier_spray</userAlias>\n<userDisplayLabel>Unit quantifier</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>unitQualifier_displayLabel</name>\n<userAlias>unitQualifier_spray</userAlias>\n<userDisplayLabel>Unit qualifier</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldouble><name>active_ingredient_per_can</name>\n<userAlias>active_ingredient_per_can</userAlias>\n<userDisplayLabel>Active ingredient per can (g)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate</name>\n<userAlias>standard_application_rate</userAlias>\n<userDisplayLabel>Recommended application rate (g/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>standard_application_rate_mg</name>\n<userAlias>standard_application_rate_mg</userAlias>\n<userDisplayLabel>Recommended application rate (mg/m&amp;sup2;)</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqldouble><name>units_per_can</name>\n<userAlias>units_per_can</userAlias>\n<userDisplayLabel>Sprayable units per can</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
+
     String allActivity = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>numberOfPeople</name>\n<userAlias>numberOfPeople</userAlias>\n<userDisplayLabel># People</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>refused</name>\n<userAlias>refused</userAlias>\n<userDisplayLabel>Not sprayed (refused) #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqldate><name>sprayDate</name>\n<userAlias>sprayDate</userAlias>\n<userDisplayLabel>Spray date</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqldate>\n</selectable>\n<selectable><sqlcharacter><name>geoEntity</name>\n<userAlias>geoEntity</userAlias>\n<userDisplayLabel>Geo entity</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>sprayMethod_displayLabel</name>\n<userAlias>sprayMethod_spray</userAlias>\n<userDisplayLabel>Spray method</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>surfaceType_displayLabel</name>\n<userAlias>surfaceType_spray</userAlias>\n<userDisplayLabel>Surface type</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>households</name>\n<userAlias>households</userAlias>\n<userDisplayLabel>Households #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>sprayedHouseholds</name>\n<userAlias>sprayedHouseholds</userAlias>\n<userDisplayLabel>Households sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>structures</name>\n<userAlias>structures</userAlias>\n<userDisplayLabel>Structures #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>sprayedStructures</name>\n<userAlias>sprayedStructures</userAlias>\n<userDisplayLabel>Structures sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>rooms</name>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>Rooms #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>sprayedRooms</name>\n<userAlias>sprayedRooms</userAlias>\n<userDisplayLabel>Rooms sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>locked</name>\n<userAlias>locked</userAlias>\n<userDisplayLabel>Not sprayed (locked) #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>other</name>\n<userAlias>other</userAlias>\n<userDisplayLabel>Not sprayed (other) #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>wrongSurface</name>\n<userAlias>wrongSurface</userAlias>\n<userDisplayLabel>Not sprayed (wrong surface) #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandas</name>\n<userAlias>verandas</userAlias>\n<userDisplayLabel># Verandas</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasSprayed</name>\n<userAlias>verandasSprayed</userAlias>\n<userDisplayLabel># Verandas sprayed</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasLocked</name>\n<userAlias>verandasLocked</userAlias>\n<userDisplayLabel># Verandas not sprayed - locked</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasRefused</name>\n<userAlias>verandasRefused</userAlias>\n<userDisplayLabel># Verandas not sprayed - refused</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasOther</name>\n<userAlias>verandasOther</userAlias>\n<userDisplayLabel># Verandas not sprayed - other</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleSheds</name>\n<userAlias>cattleSheds</userAlias>\n<userDisplayLabel># cattle sheds</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsSprayed</name>\n<userAlias>cattleShedsSprayed</userAlias>\n<userDisplayLabel># cattle sheds sprayed</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsLocked</name>\n<userAlias>cattleShedsLocked</userAlias>\n<userDisplayLabel># cattle sheds not sprayed - locked</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsRefused</name>\n<userAlias>cattleShedsRefused</userAlias>\n<userDisplayLabel># cattle sheds not sprayed - refused</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsOther</name>\n<userAlias>cattleShedsOther</userAlias>\n<userDisplayLabel># cattle sheds not sprayed</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>household_unsprayed</name>\n<userAlias>household_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed households(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>structure_unsprayed</name>\n<userAlias>structure_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed structures(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>room_unsprayed</name>\n<userAlias>room_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed rooms(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>unit_unsprayed</name>\n<userAlias>unit_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed units(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String teamPlannedSumRoomsSeason = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>team_planned_target</name>\n<userAlias>team_planned_target</userAlias>\n<userDisplayLabel>Team Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlcharacter><name>sprayteam_defaultLocale</name>\n<userAlias>sprayteam_defaultLocale</userAlias>\n<userDisplayLabel>Spray team</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>rooms</name>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>Rooms #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>(SUM) Rooms #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     /*
      * Dashboards
      */
     String Dash_Geo0ByGeo1_JSON = "{\"selectedUniversals\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[\"dss.vector.solutions.geo.generated.Country\",\"dss.vector.solutions.geo.generated.SprayZone\"]},\"criteriaEntities\":{\"dss.vector.solutions.irs.AbstractSpray.geoEntity\":[]},\"terms\":{},\"date_attribute\":{\"date_attribute\":\"sprayDate\",\"klass\":\"dss.vector.solutions.irs.OperatorSpray\",\"start\":null,\"end\":null},\"termsAg\":{},\"sortOrder\":[\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_entityLabel\",\"dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_geoId\",\"unit_application_ratio\",\"productName_spray\",\"area_planned_target\",\"area_planned_coverage\",\"sprayedunits\",\"unit_unsprayed\",\"dategroup_season\"]}";
     String Dash_Geo0ByGeo1_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.SprayZone</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_entityLabel</userAlias>\n<userDisplayLabel>Spray zone Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.SprayZone</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_geoId</userAlias>\n<userDisplayLabel>Spray zone Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqldouble><name>unit_application_ratio</name>\n<userAlias>unit_application_ratio</userAlias>\n<userDisplayLabel>Unit application ratio(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlinteger><name>area_planned_target</name>\n<userAlias>area_planned_target</userAlias>\n<userDisplayLabel>Area Planned Target(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqldouble><name>area_planned_coverage</name>\n<userAlias>area_planned_coverage</userAlias>\n<userDisplayLabel>Area Planned Coverage(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqldouble>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>(SUM) Units sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>unit_unsprayed</name>\n<userAlias>unit_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed units</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>unit_unsprayed</userAlias>\n<userDisplayLabel>(SUM) Unsprayed units</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sqlcharacter><name>DATEGROUP_SEASON</name>\n<userAlias>dategroup_season</userAlias>\n<userDisplayLabel>Transmission season</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String unitApplicationRateG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>entityLabel</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_entityLabel</userAlias>\n<userDisplayLabel>Country Entity name (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><attribute><entityAlias>dss.vector.solutions.irs.AbstractSpray.geoEntity__dss.vector.solutions.geo.generated.Country</entityAlias>\n<name>geoId</name>\n<userAlias>dss_vector_solutions_irs_AbstractSpray_geoEntity__country_geoId</userAlias>\n<userDisplayLabel>Country Geo entity ID (Geo entity)</userDisplayLabel>\n</attribute>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlfloat><name>unit_application_rate</name>\n<userAlias>unit_application_rate</userAlias>\n<userDisplayLabel>Unit application rate (g/m&amp;sup2;)(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlfloat>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
 
     String brokenSum = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>received</name>\n<userAlias>received</userAlias>\n<userDisplayLabel>Number of sachets received</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>received</userAlias>\n<userDisplayLabel>(SUM) Number of sachets received</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>used</userAlias>\n<userDisplayLabel>(SUM) Number of sachets used</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>refills</name>\n<userAlias>refills</userAlias>\n<userDisplayLabel>Number of pump/can refills</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>refills</userAlias>\n<userDisplayLabel>(SUM) Number of pump/can refills</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>returned</name>\n<userAlias>returned</userAlias>\n<userDisplayLabel>Number of sachets returned</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>returned</userAlias>\n<userDisplayLabel>(SUM) Number of sachets returned</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>rooms</name>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>Rooms #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>rooms</userAlias>\n<userDisplayLabel>(SUM) Rooms #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>sprayedRooms</name>\n<userAlias>sprayedRooms</userAlias>\n<userDisplayLabel>Rooms sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>sprayedRooms</userAlias>\n<userDisplayLabel>(SUM) Rooms sprayed #</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>room_unsprayed</name>\n<userAlias>room_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed rooms</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>room_unsprayed</userAlias>\n<userDisplayLabel>(SUM) Unsprayed rooms</userDisplayLabel>\n</sum>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String brokenSumProductName = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.InsecticideBrand</type>\n<alias>dss.vector.solutions.irs.InsecticideBrand</alias>\n<criteria></criteria>\n</entity>\n<entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>productName_displayLabel</name>\n<userAlias>productName_spray</userAlias>\n<userDisplayLabel>Product name</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>used</name>\n<userAlias>used</userAlias>\n<userDisplayLabel>Number of sachets used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>used</userAlias>\n<userDisplayLabel>(SUM) Number of sachets used</userDisplayLabel>\n</sum>\n</selectable>\n<selectable><sum><selectable><sqlinteger><name>structures</name>\n<userAlias>structures</userAlias>\n<userDisplayLabel>Structures #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<userAlias>structures</userAlias>\n<userDisplayLabel>(SUM) Structures #</userDisplayLabel>\n</sum>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String unsprayed = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>household_unsprayed</name>\n<userAlias>household_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed households(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>structure_unsprayed</name>\n<userAlias>structure_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed structures(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>room_unsprayed</name>\n<userAlias>room_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed rooms(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>unit_unsprayed</name>\n<userAlias>unit_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed units(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String unsprayedSimple = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>household_unsprayed</name>\n<userAlias>household_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed households(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>structure_unsprayed</name>\n<userAlias>structure_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed structures(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>room_unsprayed</name>\n<userAlias>room_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed rooms(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
     String unsprayedUnit = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>unit_unsprayed</name>\n<userAlias>unit_unsprayed</userAlias>\n<userDisplayLabel>Unsprayed units(AG)</userDisplayLabel>\n<isaggregate>true</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String newFields = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlinteger><name>verandas</name>\n<userAlias>verandas</userAlias>\n<userDisplayLabel># Verandas</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasSprayed</name>\n<userAlias>verandasSprayed</userAlias>\n<userDisplayLabel># Verandas sprayed</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasLocked</name>\n<userAlias>verandasLocked</userAlias>\n<userDisplayLabel># Verandas not sprayed - locked</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasRefused</name>\n<userAlias>verandasRefused</userAlias>\n<userDisplayLabel># Verandas not sprayed - refused</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>verandasOther</name>\n<userAlias>verandasOther</userAlias>\n<userDisplayLabel># Verandas not sprayed - other</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleSheds</name>\n<userAlias>cattleSheds</userAlias>\n<userDisplayLabel># cattle sheds</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsSprayed</name>\n<userAlias>cattleShedsSprayed</userAlias>\n<userDisplayLabel># cattle sheds sprayed</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsRefused</name>\n<userAlias>cattleShedsRefused</userAlias>\n<userDisplayLabel># cattle sheds not sprayed - feused</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsLocked</name>\n<userAlias>cattleShedsLocked</userAlias>\n<userDisplayLabel># cattle sheds not sprayed - locked</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>cattleShedsOther</name>\n<userAlias>cattleShedsOther</userAlias>\n<userDisplayLabel># cattle sheds not sprayed</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>sprayedunits</name>\n<userAlias>sprayedunits</userAlias>\n<userDisplayLabel>Units sprayed #</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>pumpsUsed</name>\n<userAlias>pumpsUsed</userAlias>\n<userDisplayLabel># pumps used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n<selectable><sqlinteger><name>nozzlesUsed</name>\n<userAlias>nozzlesUsed</userAlias>\n<userDisplayLabel># Nozzles used</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlinteger>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     String sprayMethodAndSurfaceType = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><query><entities><entity><type>dss.vector.solutions.irs.AbstractSpray</type>\n<alias>dss.vector.solutions.irs.AbstractSpray</alias>\n<criteria></criteria>\n</entity>\n</entities>\n<select><selectable><sqlcharacter><name>sprayMethod_displayLabel</name>\n<userAlias>sprayMethod_spray</userAlias>\n<userDisplayLabel>Spray method</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>aggregation_level</name>\n<userAlias>aggregation_level</userAlias>\n<userDisplayLabel>Aggregation level</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n<selectable><sqlcharacter><name>surfaceType_displayLabel</name>\n<userAlias>surfaceType_spray</userAlias>\n<userDisplayLabel>Surface type</userDisplayLabel>\n<isaggregate>false</isaggregate>\n</sqlcharacter>\n</selectable>\n</select>\n<groupby></groupby>\n<having></having>\n<orderby></orderby>\n</query>";
-    
+
     execute = true;
     boolean debug = true;
     boolean sql = debug;
     boolean print = debug;
 
     long start = System.currentTimeMillis();
-    
-    // FIX
-    //runQuery(IRSQB.class, config, teamPlannedSumRoomsSeason, sql, print);
-    
-    
-//    runQuery(IRSQB.class, config, allActivity, sql, print);
-//    runQuery(IRSQB.class, config, operPlannedWithSUMUnits, sql, print);
-//    runQuery(IRSQB.class, config, sprayMethodAndSurfaceType, sql, print);
-//    runQuery(IRSQB.class, countryConfig, SUMsprayedUnits, sql, print);
-//    runQuery(IRSQB.class, config, newFields, sql, print);
-//    runQuery(IRSQB.class, config, unsprayedSimple, sql, print);
-//    runQuery(IRSQB.class, config, unsprayed, sql, print);
-//    runQuery(IRSQB.class, config, unsprayedUnit, sql, print);
-//    runQuery(IRSQB.class, config, brokenSum, sql, print);
-//    runQuery(IRSQB.class, config, brokenSumProductName, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaSUMUnitsWeek, sql, print);
-//    runQuery(IRSQB.class, config, operPlannedAndActivityWeek, sql, print);
-//    runQuery(IRSQB.class, config, operPlannedAndActivityMonth, sql, print);
-//    runQuery(IRSQB.class, config, insecticide, sql, print);
-//    runQuery(IRSQB.class, config, insecActivity, sql, print);
-//    runQuery(IRSQB.class, config, useDetailActivity, sql, print);
-//    runQuery(IRSQB.class, config, operAndUnitsHouseSumSeason, sql, print);
-//    runQuery(IRSQB.class, config, operActualSeason, sql, print);
-//    runQuery(IRSQB.class, countryConfig, unitApplicationRateG, sql, print);
-//    runQuery(IRSQB.class, Dash_Geo0ByGeo1_JSON, Dash_Geo0ByGeo1_XML, sql, print);
-//    runQuery(IRSQB.class, config, operAndPreAggs, sql, print);
-//    runQuery(IRSQB.class, birthDateJSON, birthDate, sql, print);
-//    runQuery(IRSQB.class, sprayZoneConfig, operAndUniversal, sql, print);
-//    runQuery(IRSQB.class, config, sprayOperatorsRatio, sql, print);
-//    runQuery(IRSQB.class, config, operAndActivity, sql, print);
-//    runQuery(IRSQB.class, config, operatorAndDetails, sql, print);
-//    runQuery(IRSQB.class, config, operActual, sql, print);
-//    runQuery(IRSQB.class, config, operPlanned, sql, print);
-//    runQuery(IRSQB.class, config, operPlannedCover, sql, print);
-//    runQuery(IRSQB.class, config, operPlannedSeason, sql, print);
-//    runQuery(IRSQB.class, config, operActualAndPlanned, sql, print);
-//    runQuery(IRSQB.class, config, operActualAndActivitySUM, sql, print);
-//    runQuery(IRSQB.class, config, teamPlanned, sql, print);
-//    runQuery(IRSQB.class, zoneConfig, teamPlannedSprayZone, sql, print);
-//    runQuery(IRSQB.class, facilityConfig, teamPlannedFacility, sql, print);
-//    runQuery(IRSQB.class, countryConfig, teamPlannedCountry, sql, print);
-//    runQuery(IRSQB.class, config, teamPlanned, sql, print);
-//    runQuery(IRSQB.class, config, teamTargetCoverage, sql, print);
-//    runQuery(IRSQB.class, config, teamTargetDivergence, sql, print);
-//    runQuery(IRSQB.class, config, teamAll, sql, print);
-//    runQuery(IRSQB.class, config, teamActualsEpiWeek, sql, print);
-//    runQuery(IRSQB.class, config, teamActuals, sql, print);
-//    runQuery(IRSQB.class, countryConfig, targets, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaProductSeason, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaProductWeek, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaComplex, sql, print);
-    runQuery(IRSQB.class, countryConfig, areaCalculations, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaSUMRooms, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaYear, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaWeek, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaSimple, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaTime, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaInsect, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaAggLevel, sql, print);
-//    runQuery(IRSQB.class, countryConfig, coverageWeek, sql, print);
-//    runQuery(IRSQB.class, countryConfig, coverageYear, sql, print);
-//    runQuery(IRSQB.class, countryConfig, coverageAndSprayedUnits, sql, print);
-//    runQuery(IRSQB.class, countryConfig, coverageAndSumSprayedUnits, sql, print);
-//    runQuery(IRSQB.class, config, sprayOperatorsCount, sql, print);
 
-//    runQuery(IRSQB.class, config, sexFields, sql, print);
-//    runQuery(IRSQB.class, countryConfig, areaAudit, false, false);
-    
+    // FIX
+    // runQuery(IRSQB.class, config, teamPlannedSumRoomsSeason, sql, print);
+
+    // runQuery(IRSQB.class, config, allActivity, sql, print);
+    // runQuery(IRSQB.class, config, operPlannedWithSUMUnits, sql, print);
+    // runQuery(IRSQB.class, config, sprayMethodAndSurfaceType, sql, print);
+    // runQuery(IRSQB.class, countryConfig, SUMsprayedUnits, sql, print);
+    // runQuery(IRSQB.class, config, newFields, sql, print);
+    // runQuery(IRSQB.class, config, unsprayedSimple, sql, print);
+    // runQuery(IRSQB.class, config, unsprayed, sql, print);
+    // runQuery(IRSQB.class, config, unsprayedUnit, sql, print);
+    // runQuery(IRSQB.class, config, brokenSum, sql, print);
+    // runQuery(IRSQB.class, config, brokenSumProductName, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaSUMUnitsWeek, sql, print);
+    // runQuery(IRSQB.class, config, operPlannedAndActivityWeek, sql, print);
+    // runQuery(IRSQB.class, config, operPlannedAndActivityMonth, sql, print);
+    // runQuery(IRSQB.class, config, insecticide, sql, print);
+    // runQuery(IRSQB.class, config, insecActivity, sql, print);
+    // runQuery(IRSQB.class, config, useDetailActivity, sql, print);
+    // runQuery(IRSQB.class, config, operAndUnitsHouseSumSeason, sql, print);
+    // runQuery(IRSQB.class, config, operActualSeason, sql, print);
+    // runQuery(IRSQB.class, countryConfig, unitApplicationRateG, sql, print);
+    // runQuery(IRSQB.class, Dash_Geo0ByGeo1_JSON, Dash_Geo0ByGeo1_XML, sql, print);
+    // runQuery(IRSQB.class, config, operAndPreAggs, sql, print);
+    // runQuery(IRSQB.class, birthDateJSON, birthDate, sql, print);
+    // runQuery(IRSQB.class, sprayZoneConfig, operAndUniversal, sql, print);
+    // runQuery(IRSQB.class, config, sprayOperatorsRatio, sql, print);
+    // runQuery(IRSQB.class, config, operAndActivity, sql, print);
+    // runQuery(IRSQB.class, config, operatorAndDetails, sql, print);
+    // runQuery(IRSQB.class, config, operActual, sql, print);
+    // runQuery(IRSQB.class, config, operPlanned, sql, print);
+    // runQuery(IRSQB.class, config, operPlannedCover, sql, print);
+    // runQuery(IRSQB.class, config, operPlannedSeason, sql, print);
+    // runQuery(IRSQB.class, config, operActualAndPlanned, sql, print);
+    // runQuery(IRSQB.class, config, operActualAndActivitySUM, sql, print);
+    // runQuery(IRSQB.class, config, teamPlanned, sql, print);
+    // runQuery(IRSQB.class, zoneConfig, teamPlannedSprayZone, sql, print);
+    // runQuery(IRSQB.class, facilityConfig, teamPlannedFacility, sql, print);
+    // runQuery(IRSQB.class, countryConfig, teamPlannedCountry, sql, print);
+    // runQuery(IRSQB.class, config, teamPlanned, sql, print);
+    // runQuery(IRSQB.class, config, teamTargetCoverage, sql, print);
+    // runQuery(IRSQB.class, config, teamTargetDivergence, sql, print);
+    // runQuery(IRSQB.class, config, teamAll, sql, print);
+    // runQuery(IRSQB.class, config, teamActualsEpiWeek, sql, print);
+    // runQuery(IRSQB.class, config, teamActuals, sql, print);
+    // runQuery(IRSQB.class, countryConfig, targets, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaProductSeason, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaProductWeek, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaComplex, sql, print);
+    runQuery(IRSQB.class, countryConfig, areaCalculations, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaSUMRooms, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaYear, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaWeek, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaSimple, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaTime, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaInsect, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaAggLevel, sql, print);
+    // runQuery(IRSQB.class, countryConfig, coverageWeek, sql, print);
+    // runQuery(IRSQB.class, countryConfig, coverageYear, sql, print);
+    // runQuery(IRSQB.class, countryConfig, coverageAndSprayedUnits, sql, print);
+    // runQuery(IRSQB.class, countryConfig, coverageAndSumSprayedUnits, sql, print);
+    // runQuery(IRSQB.class, config, sprayOperatorsCount, sql, print);
+
+    // runQuery(IRSQB.class, config, sexFields, sql, print);
+    // runQuery(IRSQB.class, countryConfig, areaAudit, false, false);
+
     long end = System.currentTimeMillis();
-    System.out.println("TOTAL: "+(end-start));
+    System.out.println("TOTAL: " + ( end - start ));
   }
-  
+
   private static int runCount = 0;
-  
+
   private static String printResults(ValueQuery v, List<ValueObject> all)
   {
     String rows = "";
-    if(all.size() > 0)
+    if (all.size() > 0)
     {
       List<Selectable> sels = v.getSelectableRefs();
       String[] cols = new String[sels.size()];
-      for(int i=0; i<sels.size(); i++)
+      for (int i = 0; i < sels.size(); i++)
       {
         cols[i] = sels.get(i).getUserDefinedAlias();
       }
-      
-      
+
       List<String> names = null;
-      for(ValueObject o : all)
+      for (ValueObject o : all)
       {
-        if(names == null)
+        if (names == null)
         {
           names = new LinkedList<String>();
           Map<String, Attribute> m = o.getAttributeMap();
-          for(String key : m.keySet())
+          for (String key : m.keySet())
           {
             String d = v.getSelectableRef(key).getUserDefinedDisplayLabel();
-            if(d.length() > 20)
+            if (d.length() > 20)
             {
               d = d.substring(0, 20);
             }
-            else if(d.length() == 0)
+            else if (d.length() == 0)
             {
               d = v.getSelectableRef(key).getUserDefinedAlias();
             }
             rows += String.format("| %-20s ", d);
             names.add(key);
           }
-          
+
           rows += "\n";
         }
-        
-        for(String name : names)
+
+        for (String name : names)
         {
           String value = o.getValue(name);
           rows += String.format("| %-20s ", value);
         }
-        
+
         rows += "\n";
       }
     }
     else
     {
-      ArrayList<String> labels  = new ArrayList<String>();
-      for(Selectable s : v.getSelectableRefs())
+      ArrayList<String> labels = new ArrayList<String>();
+      for (Selectable s : v.getSelectableRefs())
       {
-        String l = s.getUserDefinedDisplayLabel() != null 
-            && s.getUserDefinedDisplayLabel().trim().length() > 0 
-            ? s.getUserDefinedDisplayLabel() : s.getUserDefinedAlias();
-            
+        String l = s.getUserDefinedDisplayLabel() != null && s.getUserDefinedDisplayLabel().trim().length() > 0 ? s.getUserDefinedDisplayLabel() : s.getUserDefinedAlias();
+
         labels.add(l);
       }
 
-      rows += "Results ["+0+"] \n";
-      rows += "["+StringUtils.join(labels, ", ")+"] \n";
+      rows += "Results [" + 0 + "] \n";
+      rows += "[" + StringUtils.join(labels, ", ") + "] \n";
     }
-    
+
     return rows;
   }
-  
+
   private static void runQuery(Class<? extends AbstractQB> qbClass, String json, String xml, boolean sql, boolean results)
   {
-    if(!runNext)
+    if (!runNext)
     {
       return;
     }
-    
+
     try
     {
-      System.out.print("RUN ["+runCount+"] SQL ["+sql+"] RESULTS ["+results+"] ");
+      System.out.print("RUN [" + runCount + "] SQL [" + sql + "] RESULTS [" + results + "] ");
       Integer page = 1;
       Integer size = 100;
       long constructStart = System.currentTimeMillis();
@@ -789,53 +743,52 @@ public class Sandbox
         Constructor<? extends AbstractQB> c = qbClass.getConstructor(String.class, String.class, Layer.class, Integer.class, Integer.class);
         AbstractQB abstractQb = c.newInstance(xml, json, null, page, size);
         v = abstractQb.construct();
-        
 
       }
-      catch(Throwable t)
+      catch (Throwable t)
       {
         throw new RuntimeException(t);
       }
       long constructEnd = System.currentTimeMillis();
-      
-      System.out.print(" GENERATION ["+(constructEnd - constructStart)+"] ");
-  
-      if(!execute)
+
+      System.out.print(" GENERATION [" + ( constructEnd - constructStart ) + "] ");
+
+      if (!execute)
       {
         List<String> label = new LinkedList<String>();
-        for(Selectable sel : v.getSelectableRefs())
+        for (Selectable sel : v.getSelectableRefs())
         {
           label.add(sel.getColumnAlias());
         }
         System.out.println(StringUtils.join(label, ","));
         return;
       }
-      
+
       // TEST window count
       v.restrictRows(size, page);
-      
+
       long start = System.currentTimeMillis();
       List<ValueObject> all = v.getIterator().getAll();
       long end = System.currentTimeMillis();
-      
-      System.out.println(" EXECUTION ["+(end - start)+"] ");
+
+      System.out.println(" EXECUTION [" + ( end - start ) + "] ");
       System.out.println();
       System.out.println();
-      
+
       String rows = printResults(v, all);
-      
-      if(sql)
+
+      if (sql)
       {
         System.out.println(v.getSQL());
       }
-      
-      if(results)
+
+      if (results)
       {
         System.out.println(rows);
       }
-      
+
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       runNext = false;
       throw new RuntimeException(t);
@@ -898,30 +851,22 @@ public class Sandbox
   {
     System.out.println("--------- [" + name + "] -----------");
 
-    System.out.println("Business: "
-        + ObjectCache.contains(MdBusiness.CLASS, "com.test." + name + "Business"));
+    System.out.println("Business: " + ObjectCache.contains(MdBusiness.CLASS, "com.test." + name + "Business"));
     System.out.println("GET: " + ObjectCache.getMdBusinessDAO("com.test." + name + "Business"));
-    System.out.println("Business Controller: "
-        + ObjectCache.contains(MdController.CLASS, "com.test." + name + "BusinessController"));
-    System.out.println("GET: "
-        + ObjectCache.getMdControllerDAO("com.test." + name + "BusinessController"));
+    System.out.println("Business Controller: " + ObjectCache.contains(MdController.CLASS, "com.test." + name + "BusinessController"));
+    System.out.println("GET: " + ObjectCache.getMdControllerDAO("com.test." + name + "BusinessController"));
 
     System.out.println("Struct: " + ObjectCache.contains(MdStruct.CLASS, "com.test." + name + "Struct"));
     System.out.println("GET: " + ObjectCache.getMdStructDAO("com.test." + name + "Struct"));
-    System.out.println("Struct Controller: "
-        + ObjectCache.contains(MdController.CLASS, "com.test." + name + "StructController"));
-    System.out
-        .println("GET: " + ObjectCache.getMdControllerDAO("com.test." + name + "StructController"));
+    System.out.println("Struct Controller: " + ObjectCache.contains(MdController.CLASS, "com.test." + name + "StructController"));
+    System.out.println("GET: " + ObjectCache.getMdControllerDAO("com.test." + name + "StructController"));
 
     System.out.println();
 
-    System.out.println("LocalStruct: "
-        + ObjectCache.contains(MdLocalStruct.CLASS, "com.test." + name + "LocalStruct"));
+    System.out.println("LocalStruct: " + ObjectCache.contains(MdLocalStruct.CLASS, "com.test." + name + "LocalStruct"));
     System.out.println("GET: " + ObjectCache.getMdStructDAO("com.test." + name + "LocalStruct"));
-    System.out.println("LocalStruct Controller: "
-        + ObjectCache.contains(MdController.CLASS, "com.test." + name + "LocalStructController"));
-    System.out.println("GET: "
-        + ObjectCache.getMdControllerDAO("com.test." + name + "LocalStructController"));
+    System.out.println("LocalStruct Controller: " + ObjectCache.contains(MdController.CLASS, "com.test." + name + "LocalStructController"));
+    System.out.println("GET: " + ObjectCache.getMdControllerDAO("com.test." + name + "LocalStructController"));
 
   }
 
@@ -940,16 +885,14 @@ public class Sandbox
     MdStructDAO struct1 = MdStructDAO.newInstance();
     struct1.setValue(MdTypeInfo.NAME, name + "Struct");
     struct1.setValue(MdTypeInfo.PACKAGE, "com.test");
-    struct1.setStructValue(MdTypeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE,
-        "Struct to hold Localized Phrases");
+    struct1.setStructValue(MdTypeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, "Struct to hold Localized Phrases");
     struct1.setGenerateMdController(true);
     struct1.apply();
 
     MdLocalStructDAO struct = MdLocalStructDAO.newInstance();
     struct.setValue(MdTypeInfo.NAME, name + "LocalStruct");
     struct.setValue(MdTypeInfo.PACKAGE, "com.test");
-    struct.setStructValue(MdTypeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE,
-        "Struct to hold Localized Phrases");
+    struct.setStructValue(MdTypeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, "Struct to hold Localized Phrases");
     struct.setGenerateMdController(true);
     struct.apply();
 
@@ -978,8 +921,7 @@ public class Sandbox
     return sb.toString();
   }
 
-  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray,
-      SelectablePrimitive[] selectableArray, Condition[] conditionArray)
+  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
     long WEIGHT = 256;
 
@@ -998,8 +940,7 @@ public class Sandbox
     }
     else
     {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT,
-          0);
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
     }
 
     // Build outermost select clause. This would be cleaner if the API supported
@@ -1032,8 +973,7 @@ public class Sandbox
     return resultQuery;
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token,
-      SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
@@ -1045,8 +985,7 @@ public class Sandbox
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i)
-        + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
 
     vQ.SELECT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
@@ -1097,12 +1036,9 @@ public class Sandbox
     // caseQuery.getStartDate().getDefiningTableAlias());
 
     /*
-     * select name, count(weight) c, sum(weight) s from ( select name, 1.0 /
-     * (1.0 * strpos(lower(' ' || name), ' b')) as weight from term where
-     * lower(' ' || name) like '% b%' union all select name, 1.0 / (256.0 *
-     * strpos(lower(' ' || name), ' a')) as weight from term where lower(' ' ||
-     * name) like '% a%' ) as foo group by name --having count(weight) = 2 order
-     * by c desc, s desc, name
+     * select name, count(weight) c, sum(weight) s from ( select name, 1.0 / (1.0 * strpos(lower(' ' || name), ' b')) as weight from term where
+     * lower(' ' || name) like '% b%' union all select name, 1.0 / (256.0 * strpos(lower(' ' || name), ' a')) as weight from term where lower(' ' ||
+     * name) like '% a%' ) as foo group by name --having count(weight) = 2 order by c desc, s desc, name
      */
 
     // String[] tokenArray = new String[]{"Plasmodium"};
@@ -1240,8 +1176,7 @@ public class Sandbox
 
   private static void defineDatatypesForAllPaths()
   {
-    MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE
-        + "." + "AllPaths");
+    MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE + "." + "AllPaths");
     allPathsMdBusinessDAO.getBusinessDAO().delete();
 
     // MdBusinessDAOIF geoEntityMdBusiness =
@@ -1318,8 +1253,7 @@ public class Sandbox
   {
     updateAllPathsForUniversal(parentGeoHierarchy);
 
-    List<? extends GeoHierarchy> geoHierarchyChildren = parentGeoHierarchy.getAllAcceptsGeoEntity()
-        .getAll();
+    List<? extends GeoHierarchy> geoHierarchyChildren = parentGeoHierarchy.getAllAcceptsGeoEntity().getAll();
 
     for (GeoHierarchy childGeoHierarchy : geoHierarchyChildren)
     {

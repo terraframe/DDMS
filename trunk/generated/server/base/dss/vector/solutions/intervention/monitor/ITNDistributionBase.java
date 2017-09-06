@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -261377790)
+@com.runwaysdk.business.ClassSignature(hash = -1492034787)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class ITNDistributionBase extends com.runwaysdk.business.Busines
   public static java.lang.String SERVICE = "service";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -261377790;
+  private static final long serialVersionUID = -1492034787;
   
   public ITNDistributionBase()
   {
@@ -433,7 +433,7 @@ public abstract class ITNDistributionBase extends com.runwaysdk.business.Busines
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -441,7 +441,7 @@ public abstract class ITNDistributionBase extends com.runwaysdk.business.Busines
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

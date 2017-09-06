@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1604968392)
+@com.runwaysdk.business.ClassSignature(hash = -643333555)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class MenuItemBase extends com.runwaysdk.business.Business imple
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
-  private static final long serialVersionUID = 1604968392;
+  private static final long serialVersionUID = -643333555;
   
   public MenuItemBase()
   {
@@ -245,7 +245,7 @@ public abstract class MenuItemBase extends com.runwaysdk.business.Business imple
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -253,7 +253,7 @@ public abstract class MenuItemBase extends com.runwaysdk.business.Business imple
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

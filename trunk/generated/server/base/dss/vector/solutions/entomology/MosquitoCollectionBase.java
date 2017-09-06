@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1179010558)
+@com.runwaysdk.business.ClassSignature(hash = 1649949635)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -40,7 +40,7 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WALLTYPE = "wallType";
-  private static final long serialVersionUID = 1179010558;
+  private static final long serialVersionUID = 1649949635;
   
   public MosquitoCollectionBase()
   {
@@ -637,7 +637,7 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
     }
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -645,7 +645,7 @@ public abstract class MosquitoCollectionBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

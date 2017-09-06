@@ -1,6 +1,6 @@
 package dss.vector.solutions.stock;
 
-@com.runwaysdk.business.ClassSignature(hash = 1283459391)
+@com.runwaysdk.business.ClassSignature(hash = 1023667524)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.stock;
 public class StockEventQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1283459391;
+private static final long serialVersionUID = 1023667524;
 
   protected StockEventQueryDTO(String type)
   {

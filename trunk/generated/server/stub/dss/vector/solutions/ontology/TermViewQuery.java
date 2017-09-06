@@ -2,11 +2,11 @@ package dss.vector.solutions.ontology;
 
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedViewQuery;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
-import com.runwaysdk.query.OrderBy.SortOrder;
 
 import dss.vector.solutions.general.Disease;
 

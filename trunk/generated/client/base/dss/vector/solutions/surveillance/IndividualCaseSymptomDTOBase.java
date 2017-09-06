@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 807320932)
+@com.runwaysdk.business.ClassSignature(hash = -1096490711)
 public abstract class IndividualCaseSymptomDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.IndividualCaseSymptom";
-  private static final long serialVersionUID = 807320932;
+  private static final long serialVersionUID = -1096490711;
   
   public IndividualCaseSymptomDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -288,7 +288,7 @@ public abstract class IndividualCaseSymptomDTOBase extends com.runwaysdk.busines
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -296,7 +296,7 @@ public abstract class IndividualCaseSymptomDTOBase extends com.runwaysdk.busines
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

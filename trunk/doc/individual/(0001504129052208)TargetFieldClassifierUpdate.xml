@@ -1,0 +1,16 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.data.etl.TargetFieldClassifierBinding">
+        <create>
+          <attributes>
+            <boolean name="isValidate" label="Is validate" negativeLabel="No" positiveLabel="Yes"/>
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

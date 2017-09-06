@@ -100,7 +100,17 @@ public class LoginFilter implements Filter, Reloadable
     {
       return true;
     }
+    
+    if (uri.endsWith(".woff"))
+    {
+      return true;
+    }
 
+    if (uri.endsWith(".ttf"))
+    {
+      return true;
+    }
+    
     if (uri.endsWith("reload.jsp"))
     {
       return true;

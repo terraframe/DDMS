@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1035524320)
+@com.runwaysdk.business.ClassSignature(hash = 348359099)
 public abstract class HumanBloodIndexDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.HumanBloodIndex";
-  private static final long serialVersionUID = 1035524320;
+  private static final long serialVersionUID = 348359099;
   
   protected HumanBloodIndexDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -338,7 +338,7 @@ public abstract class HumanBloodIndexDTOBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -346,7 +346,7 @@ public abstract class HumanBloodIndexDTOBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

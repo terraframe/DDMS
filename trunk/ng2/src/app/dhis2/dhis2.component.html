@@ -1,0 +1,20 @@
+<div id="innerFrameHtml">
+  <loading-bar></loading-bar>
+  
+  <!-- Sidebar -->
+  <nav class="navbar navbar-fixed-left" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav">
+      <li><a routerLink="/connection" routerLinkActive="active"><localize key="dhis2.instance"></localize></a></li>
+      <li><a routerLink="/mapping" routerLinkActive="active"><localize key="dhis2.geo.mapping"></localize></a></li>
+      <li><a routerLink="/export" routerLinkActive="active"><localize key="dhis2.export"></localize></a></li>
+    </ul>
+  </nav>
+        
+  <!-- MAIN CONTENT AND INJECTED VIEWS -->
+  <div id="main" class="new-admin-design-main">
+    <message></message>    
+    <router-outlet></router-outlet>
+  </div>
+    
+  <confirm-modal></confirm-modal>
+</div>

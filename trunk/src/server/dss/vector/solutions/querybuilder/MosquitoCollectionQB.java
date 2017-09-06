@@ -1,5 +1,6 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
@@ -27,13 +30,13 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.Restriction;
@@ -42,17 +45,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 {
   private boolean             hasAbundance;
 
-  private boolean             forceUniversal;
-
-  private String              universalClass;
-
   public static final String  GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
 
   private static final String ABUNDANCE_VIEW          = "abundance_view";
 
   private Set<String>         abundanceCols;
-
-  private Selectable          collectionMethod;
 
   private final String        geoIdColumn;
   
@@ -72,11 +69,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer, pageNumber, pageNumber, disease);
 
-    this.universalClass = Country.CLASS;
-    this.forceUniversal = false;
     this.hasAbundance = this.hasAbundanceCalc(xml);
     this.abundanceCols = new HashSet<String>();
-    this.collectionMethod = null;
 
     this.geoIdColumn = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
   }
@@ -96,7 +90,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     return MosquitoCollection.CLASS;
   }
-  
+
   @Override
   protected void setGeoDisplayLabelSQL()
   {
@@ -104,6 +98,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.addTempTableEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedTableClassQuery> queryMap, String xml, JSONObject queryConfig)
   {
@@ -113,16 +108,16 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
     InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
-    
+
     // Taxon is a special case that is selected from the sub collection
     if (subCollectionQuery == null && valueQuery.hasSelectableRef("taxon"))
     {
       subCollectionQuery = new SubCollectionQuery(valueQuery);
       queryMap.put(SubCollection.CLASS, subCollectionQuery);
     }
-    
+
     // Species term restrictions must happen at the end, which we do in setTermCriteria. Remove the restriction
-    //  so that in QueryUtil.joinTermAllPaths it doesn't restrict it. (Ticket 3148)
+    // so that in QueryUtil.joinTermAllPaths it doesn't restrict it. (Ticket 3148)
     if (this.getTermRestrictions().containsKey("taxon"))
     {
       Map<String, Restriction> restrictions = this.getTermRestrictions();
@@ -136,11 +131,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
       QueryUtil.joinTermAllpaths(valueQuery, SubCollection.CLASS, subCollectionQuery, this.getTermRestrictions(), this.getLayer());
     }
-    
-    if(insecticideBrandQuery != null)
+
+    if (insecticideBrandQuery != null)
     {
       valueQuery.WHERE(mosquitoCollectionQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
-      
+
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery, this.getTermRestrictions(), this.getLayer());
     }
@@ -197,14 +192,14 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
 
       super.joinGeoDisplayLabels(valueQuery);
-      
+
       setWithQuerySQL(ABUNDANCE_VIEW, valueQuery);
 
       ValueQuery overrideQuery = new ValueQuery(queryFactory);
 
       boolean hasSubCol = false;
       boolean hasCol = false;
-      
+
       for (Selectable s : valueQuery.getSelectableRefs())
       {
         String attributeName = s.getDbColumnName();
@@ -267,7 +262,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
           columnName = "1000.0*(final_abundance/array_length(allSubCollectionIds,1))";
           hasSubCol = true;
         }
-        
+
         SelectableSingle sel = null;
         if (s instanceof SelectableSQLFloat)
         {
@@ -290,9 +285,34 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           sel = overrideQuery.aSQLCharacter(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel());
         }
-        
+
         if (sel != null)
         {
+          Map<String, Object> data = (Map<String, Object>) s.getData();
+
+          if (data == null)
+          {
+            data = new HashMap<String, Object>();
+          }
+
+          if (!data.containsKey(MetadataInfo.CLASS))
+          {
+            data.put(MetadataInfo.CLASS, s.getMdAttributeIF());
+          }
+          
+          if(!data.containsKey(SelectableAggregate.class.getName()))
+          {
+            data.put(SelectableAggregate.class.getName(), s.isAggregateFunction());
+          }
+          
+          
+          if (!data.containsKey(SavedSearch.ALIAS))
+          {
+            data.put(SavedSearch.ALIAS, s.getUserDefinedAlias());
+          }                    
+
+          sel.setData(data);
+
           overrideQuery.SELECT(sel);
 //          overrideQuery.GROUP_BY(sel);
         }

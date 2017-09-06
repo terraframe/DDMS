@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -437608439)
+@com.runwaysdk.business.ClassSignature(hash = -660362844)
 public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit";
-  private static final long serialVersionUID = -437608439;
+  private static final long serialVersionUID = -660362844;
   
   protected AggregatedPremiseVisitDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -355,7 +355,7 @@ public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.busine
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -363,7 +363,7 @@ public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

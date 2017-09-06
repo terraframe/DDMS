@@ -1,0 +1,7 @@
+<div>
+  <input [name]="attribute" [id]="attribute" type="hidden" [(ngModel)]="model.id" required />
+  <input [name]="attribute + 'Name'" [id]="attribute + 'Display'" type="text" autocomplete="off" [(ngModel)]="model.value" />
+  <span [id]="attribute + 'Btn'" class="clickable">
+    <img alt="Browser" [src]="cxpath + '/imgs/icons/term.png'" class="ontologyOpener">
+  </span>
+</div>

@@ -1,0 +1,14 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.query.RefreshViewJob" label="Refresh view job" extends="com.runwaysdk.system.scheduler.ExecutableJob" generateController="true">
+        <attributes>
+          <reference name="materializedTable" label="Materialized Table" required="true" type="com.runwaysdk.system.metadata.MdTable" indexType="unique index" />
+        </attributes>
+      </mdBusiness>    
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

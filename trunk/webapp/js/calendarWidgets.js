@@ -36,22 +36,28 @@ MDSS.Calendar = {
 
 
       var cfg = {DATE_FIELD_DELIMITER:MDSS.DateSettings.DATE_FIELD_DELIMITER,
-			DATE_RANGE_DELIMITER:MDSS.DateSettings.DATE_RANGE_DELIMITER,
-			MDY_DAY_POSITION:MDSS.DateSettings.MDY_DAY_POSITION,
-			MDY_MONTH_POSITION:MDSS.DateSettings.MDY_MONTH_POSITION,
-			MDY_YEAR_POSITION:MDSS.DateSettings.MDY_YEAR_POSITION,
-			MONTHS_LONG:MDSS.DateSettings.MONTHS_LONG,
-	        WEEKDAYS_SHORT:MDSS.DateSettings.WEEKDAYS_SHORT,
-	        navigator:true
-      		};
+      DATE_RANGE_DELIMITER:MDSS.DateSettings.DATE_RANGE_DELIMITER,
+      MDY_DAY_POSITION:MDSS.DateSettings.MDY_DAY_POSITION,
+      MDY_MONTH_POSITION:MDSS.DateSettings.MDY_MONTH_POSITION,
+      MDY_YEAR_POSITION:MDSS.DateSettings.MDY_YEAR_POSITION,
+      MONTHS_LONG:MDSS.DateSettings.MONTHS_LONG,
+          WEEKDAYS_SHORT:MDSS.DateSettings.WEEKDAYS_SHORT,
+          navigator:true
+          };
+      
+    var calendars = {};
 
-    var setupListeners = function() {
-        Event.addListener('cal1Container', 'mouseover', function() {
-            over_cal = true;
-        });
-        Event.addListener('cal1Container', 'mouseout', function() {
-            over_cal = false;
-        });
+    var setupListeners = function(calendar) {
+      if(calendar == null) {
+        calendar = cal1;
+      }
+      
+      Event.addListener(calendar.containerId, 'mouseover', function() {
+        over_cal = true;
+      });
+      Event.addListener(calendar.containerId, 'mouseout', function() {
+        over_cal = false;
+      });
     }
 
     var getDate = function() {
@@ -70,7 +76,7 @@ MDSS.Calendar = {
              */
             if(Mojo.Util.isFunction(MDSS.GlobalDateListener))
             {
-            	MDSS.GlobalDateListener(cur_field);
+              MDSS.GlobalDateListener(cur_field);
             }
             
     }
@@ -88,71 +94,71 @@ MDSS.Calendar = {
       return null;
     }
 
-    var var_to_date = function(date_str, offset) {    	
-    	if(date_str instanceof Date) return date_str;
-    	
-    	if(Mojo.Util.isString(date_str)) {
+    var var_to_date = function(date_str, offset) {      
+      if(date_str instanceof Date) return date_str;
+      
+      if(Mojo.Util.isString(date_str)) {
           date_str = date_str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-    	}
-    	if(date_str == null || date_str == '') return date_str; 
+      }
+      if(date_str == null || date_str == '') return date_str; 
 
-    	var date = parseISO8601(date_str);
-    	if(date == null) date = Date.parseString(date_str,java_date_format);
-    	if(date == null) date = Date.parseString(date_str,db_datetime_format);
-    	if(date == null) date = Date.parseString(date_str,db_date_format);
-    	if(date == null) date = Date.parseString(date_str);
-    	//remove the timezone and the day
-    	date_str = date_str.replace(/^(\w+ )(\w+ \d\d \d\d:\d\d:\d\d )(\w+ )(\d\d\d\d)$/, '$2$4');
-    	if(date == null && date_str.length > 16)
-    	{
-    	  date = new Date(date_str);  	
-    	}
-    	
-    	// We need to offset the timezone difference such that when its serialized to JSON the date is the same
-    	if(offset != null && offset)
-  	  {
-    	  // Timezone offset is in minutes.  Get time is in milliseconds
-    	  date = new Date(date.getTime() + (-1 * date.getTimezoneOffset() * 60 * 1000));    	  
-  	  }
-    	
-    	return date;
+      var date = parseISO8601(date_str);
+      if(date == null) date = Date.parseString(date_str,java_date_format);
+      if(date == null) date = Date.parseString(date_str,db_datetime_format);
+      if(date == null) date = Date.parseString(date_str,db_date_format);
+      if(date == null) date = Date.parseString(date_str);
+      //remove the timezone and the day
+      date_str = date_str.replace(/^(\w+ )(\w+ \d\d \d\d:\d\d:\d\d )(\w+ )(\d\d\d\d)$/, '$2$4');
+      if(date == null && date_str.length > 16)
+      {
+        date = new Date(date_str);    
+      }
+      
+      // We need to offset the timezone difference such that when its serialized to JSON the date is the same
+      if(offset != null && offset)
+      {
+        // Timezone offset is in minutes.  Get time is in milliseconds
+        date = new Date(date.getTime() + (-1 * date.getTimezoneOffset() * 60 * 1000));        
+      }
+      
+      return date;
     }
     
     var var_to_java_date = function (date_str) {
       if(date_str instanceof Date) return date_str;
-    	
+      
       if(Mojo.Util.isString(date_str)) {
         date_str = date_str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
       }
       
       if(date_str == null || date_str == '') return date_str; 
 
-      return Date.parseString(date_str,java_date_format);    	
+      return Date.parseString(date_str,java_date_format);      
     }
 
     MDSS.Calendar.parseDate = var_to_date;
     MDSS.Calendar.parseJavaFormatDate = var_to_java_date;
 
     var var_to_db_string = function(date_str) {
-    	var date = var_to_date(date_str);
-    	if(date == null || date == '') return null;
-    	return date.format(db_date_format);
+      var date = var_to_date(date_str);
+      if(date == null || date == '') return null;
+      return date.format(db_date_format);
     }
 
     var var_to_localized_string = function(date_str) {
-    	var date = var_to_date(date_str);
-    	if(date == null  || date == '') return null;
-    	return date.format(java_date_format);
+      var date = var_to_date(date_str);
+      if(date == null  || date == '') return null;
+      return date.format(java_date_format);
     }
     
     var var_to_localized_date_time_string = function(date_str) {
-    	var date = var_to_date(date_str);
-    	if(date == null  || date == '') return null;
-    	return date.format(java_date_time_format);
+      var date = var_to_date(date_str);
+      if(date == null  || date == '') return null;
+      return date.format(java_date_time_format);
     }
     
     var el_to_localized_el = function(el) {
-        el.value = var_to_localized_string(el.value);    	
+        el.value = var_to_localized_string(el.value);      
     }
     
     MDSS.Calendar.getMojoDateString = var_to_db_string;
@@ -169,7 +175,13 @@ MDSS.Calendar = {
      * @param the DOM Event that triggered the operation
      * @param config The Object configuration detailing how to render the calendar.
      */
-    var showCal = function(ev, config) {
+    var showCal = function(ev, config, cal) {
+      
+      
+      if(!cal) {
+          cal = cal1;
+      }
+      
         var tar = Event.getTarget(ev);
         cur_field = tar;
         var xy = Dom.getXY(tar);
@@ -178,78 +190,83 @@ MDSS.Calendar = {
 
         if(Dom.hasClass(tar ,'NoFuture'))
         {
-        	cal1.cfg.setProperty('maxdate', new Date());
+          cal.cfg.setProperty('maxdate', new Date());
         }
         else
         {
-        	cal1.cfg.setProperty('maxdate', null); // clear the previous restriction
+          cal.cfg.setProperty('maxdate', null); // clear the previous restriction
         }
         
-        cal1.cfg.setProperty('mindate', null); // clear the previous restriction
+        cal.cfg.setProperty('mindate', null); // clear the previous restriction
 
 
         if (date_str && (date != null)) {
-            cal1.cfg.setProperty('selected', date_str);
-            cal1.cfg.setProperty('pagedate', date, true);
+            cal.cfg.setProperty('selected', date_str);
+            cal.cfg.setProperty('pagedate', date, true);
         } else {
-            cal1.cfg.setProperty('selected', '');
-            cal1.cfg.setProperty('pagedate', new Date(), true);
+            cal.cfg.setProperty('selected', '');
+            cal.cfg.setProperty('pagedate', new Date(), true);
         }
         
         // apply any configuration settings
         if(config){
           var date = new Date();
           if(config[MDSS.Calendar.Config.BEFORE_TODAY_INCLUSIVE]){
-            cal1.cfg.setProperty('maxdate', date);
+            cal.cfg.setProperty('maxdate', date);
           }
           if(config[MDSS.Calendar.Config.BEFORE_TODAY_EXCLUSIVE]){
             date.setDate(date.getDate()-1);
-            cal1.cfg.setProperty('maxdate', date);
+            cal.cfg.setProperty('maxdate', date);
           }
           if(config[MDSS.Calendar.Config.AFTER_TODAY_INCLUSIVE]){
-            cal1.cfg.setProperty('mindate', date);
+            cal.cfg.setProperty('mindate', date);
           }
           if(config[MDSS.Calendar.Config.AFTER_TODAY_EXCLUSIVE]){
             date.setDate(date.getDate()+1);
-            cal1.cfg.setProperty('mindate', date);
+            cal.cfg.setProperty('mindate', date);
           }
           if(config[MDSS.Calendar.Config.START_DATE]){
             date = MDSS.Calendar.parseDate(config[MDSS.Calendar.Config.START_DATE]);
-            cal1.cfg.setProperty('mindate', date);
+            cal.cfg.setProperty('mindate', date);
           }
           if(config[MDSS.Calendar.Config.END_DATE]){
             date = MDSS.Calendar.parseDate(config[MDSS.Calendar.Config.END_DATE]);
-            cal1.cfg.setProperty('maxdate', date);
+            cal.cfg.setProperty('maxdate', date);
           }
         }
         
-        cal1.render();
-        Dom.setStyle('cal1Container', 'display', 'block');
+        cal.render();
+        Dom.setStyle(cal.containerId, 'display', 'block');
         xy[1] = xy[1] + 20;
-        Dom.setXY('cal1Container', xy);
+        Dom.setXY(cal.containerId, xy);
     }
 
-    var hideCal = function(ev) {
+    var hideCal = function(ev, cal) {
+
+      if(!cal) {
+        cal = cal1;  
+      }
+      
         if (!over_cal) {
-            Dom.setStyle('cal1Container', 'display', 'none');
+            Dom.setStyle(cal.containerId, 'display', 'none');
         }
         if(ev){
-        	validate(ev);
+          validate(ev);
         }
 
     }
 
     function fireOnblur(target) {
-    	//var target=document.getElementById(objID);
-    	if(document.dispatchEvent) { // W3C
-    	    var oEvent = document.createEvent( "MouseEvents" );
-    	    oEvent.initMouseEvent("blur", true, true,window, 1, 1, 1, 1, 1, false, false, false, false, 0, target);
-    	    target.dispatchEvent( oEvent );
-    	    }
-    	else if(document.fireEvent) { // IE
-    	    target.fireEvent("onblur");
-    	    }
-    	}
+      //var target=document.getElementById(objID);
+      if(document.dispatchEvent) { // W3C
+          var oEvent = document.createEvent( "MouseEvents" );
+          oEvent.initMouseEvent("blur", true, true,window, 1, 1, 1, 1, 1, false, false, false, false, 0, target);
+          target.dispatchEvent( oEvent );
+          }
+      else if(document.fireEvent) { // IE
+          target.fireEvent("onblur");
+          }
+      }
 
 
     var validate = function(ev) {
@@ -262,19 +279,19 @@ MDSS.Calendar = {
 
         if(date_str.length == 0)
         {
-        	return;
+          return;
         }
 
         var date = Date.parseString(date_str,java_date_format);
 
         if (date_str.length > 0  && (date == null))
         {
-        	addError(tar, MDSS.localize('Invalid_Date_Format'));
+          addError(tar, MDSS.localize('Invalid_Date_Format'));
         }
 
         if(Dom.hasClass(tar ,'NoFuture') && date > today)
         {
-        	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
+          addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
         }
 
 
@@ -292,144 +309,201 @@ MDSS.Calendar = {
 
         if(date_str.length == 0)
         {
-        	return;
+          return;
         }
 
         var date = Date.parseString(date_str,java_date_format);
 
         if ( ! re.test(date_str))
         {
-        	addError(tar, MDSS.localize('Invalid_Year'));
+          addError(tar, MDSS.localize('Invalid_Year'));
         }
 
         if(parseInt(date_str,10) > parseInt(today.getFullYear(),10))
         {
-        	addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
+          addError(tar, MDSS.localize('Future_Dates_Not_Allowed'));
         }
     }
 
     var validateNumber = function(ev) {
-    	var tar = Event.getTarget(ev);
-    	var number_str = tar.value;
+      var tar = Event.getTarget(ev);
+      var number_str = tar.value;
 
-    	var re = /^[0-9]+$/;
-    	//clear any errors before we move foward
-    	removeError(tar);
+      var re = /^[0-9]+$/;
+      //clear any errors before we move foward
+      removeError(tar);
 
-    	if(number_str.length == 0)
-    	{
-    		return;
-    	}
+      if(number_str.length == 0)
+      {
+        return;
+      }
 
-    	if ( ! re.test(number_str))
-    	{
-    		addError(tar, MDSS.localize('Invalid_Number'));
-    	}
+      if ( ! re.test(number_str))
+      {
+        addError(tar, MDSS.localize('Invalid_Number'));
+      }
     }
 
 
 
-	function addError(tar,errorMessage)
-	{
-		if(tar instanceof String)
-		{
-		  tar = document.getElementById(tar);
-		}
+  function addError(tar,errorMessage)
+  {
+    if(tar instanceof String)
+    {
+      tar = document.getElementById(tar);
+    }
 
-		var errorInfo = document.createElement('span');
-	    errorInfo.id = tar.id +'errorInfo';
-	    errorInfo.innerHTML = ' '+ errorMessage;
-	    Dom.insertAfter(errorInfo,tar);
-		Dom.addClass(errorInfo,'alert');
-	}
-	
-	function removeError(tar)
-	{
-		if(tar instanceof String)
-		{
-		  tar = document.getElementById(tar);
-		}
+    var errorInfo = document.createElement('span');
+      errorInfo.id = tar.id +'errorInfo';
+      errorInfo.innerHTML = ' '+ errorMessage;
+      Dom.insertAfter(errorInfo,tar);
+    Dom.addClass(errorInfo,'alert');
+  }
+  
+  function removeError(tar)
+  {
+    if(tar instanceof String)
+    {
+      tar = document.getElementById(tar);
+    }
 
-		 var delMe = Dom.get(tar.id +'errorInfo');
-		 if(delMe)
-		 {
-			 var parent = delMe.parentNode;
-			 parent.removeChild(delMe);
-		 }
-	}
+     var delMe = Dom.get(tar.id +'errorInfo');
+     if(delMe)
+     {
+       var parent = delMe.parentNode;
+       parent.removeChild(delMe);
+     }
+  }
 
-	MDSS.Calendar.addError = addError;
-	MDSS.Calendar.removeError = removeError;
+  MDSS.Calendar.addError = addError;
+  MDSS.Calendar.removeError = removeError;
 
-	function addCalendarListeners(el, config)
-	{
-	  Event.addListener(el.id, 'focus', showCal, config);
-	  Event.addListener(el.id, 'blur', hideCal);
-	  el.value = var_to_localized_string(el.value);
-	}
-	
-	MDSS.Calendar.addCalendarListeners = addCalendarListeners;
+  function addCalendarListeners(el, config)
+  {
+    Event.addListener(el.id, 'focus', showCal, config);
+    Event.addListener(el.id, 'blur', hideCal);
+    el.value = var_to_localized_string(el.value);
+  }
+  
+  MDSS.Calendar.addCalendarListeners = addCalendarListeners;
 
     var init = function() {
       var el;
-    	if(init_not_done)
-    	{
-    	  var els = Dom.getElementsByClassName("formatDate");
-    		for(var i=0, len=els.length; i<len; i++)
-	      {
-    		  var el = els[i];
-	        el.innerHTML = var_to_localized_string(el.innerHTML);
-	      }
-    	}
+      if(init_not_done)
+      {
+        var els = Dom.getElementsByClassName("formatDate");
+        for(var i=0, len=els.length; i<len; i++)
+        {
+          var el = els[i];
+          el.innerHTML = var_to_localized_string(el.innerHTML);
+        }
+      }
 
-    	if(init_not_done)
-    	{
+      if(init_not_done)
+      {
         var els = Dom.getElementsByClassName("NoFutureYear");
         for(var i=0, len=els.length; i<len; i++)
         {
           var el = els[i];
-  			  Event.addListener(el, 'blur', validateYear);
+          Event.addListener(el, 'blur', validateYear);
         }
-    	}
+      }
 
-    	if(init_not_done)
-    	{
+      if(init_not_done)
+      {
         var els = Dom.getElementsByClassName("NumbersOnly");
         for(var i=0, len=els.length; i<len; i++)
         {
           var el = els[i];
-    			Event.addListener(el, 'blur', validateNumber);
-    		}
-    	}
+          Event.addListener(el, 'blur', validateNumber);
+        }
+      }
 
-    	if(init_not_done){
-    		if(! Dom.get('cal1Container'))
-    		{
-	    		caldiv = document.createElement('div');
-	    		caldiv.id="cal1Container";
-	    		document.getElementsByTagName('body')[0].appendChild(caldiv);
-	    		YAHOO.util.Dom.addClass('cal1Container', 'yui-skin-sam');
-    		}
+      if(init_not_done){
+        if(! Dom.get('cal1Container'))
+        {
+          caldiv = document.createElement('div');
+          caldiv.id="cal1Container";
+          caldiv.style.zIndex = "15";
+          document.getElementsByTagName('body')[0].appendChild(caldiv);
+          YAHOO.util.Dom.addClass('cal1Container', 'yui-skin-sam');
+        }
 
-    		cal1 = new YAHOO.widget.Calendar("cal1","cal1Container",cfg);
+        cal1 = new YAHOO.widget.Calendar("cal1","cal1Container",cfg);
+        cal1.selectEvent.subscribe(getDate, cal1, true);
+        cal1.renderEvent.subscribe(function() {
+          setupListeners(cal1); 
+        }, cal1, true);
 
-	      cal1.selectEvent.subscribe(getDate, cal1, true);
-	      cal1.renderEvent.subscribe(setupListeners, cal1, true);
 
         var els = Dom.getElementsByClassName("DatePick");
         for(var i=0, len=els.length; i<len; i++)
         {
             var el = els[i];
-	          Event.addListener(el.id, 'focus', showCal);
-	          Event.addListener(el.id, 'blur', hideCal);
-	          el.value = var_to_localized_string(el.value);
-	      }
-	      cal1.render();
-	      init_not_done = false;
+            Event.addListener(el.id, 'focus', showCal);
+            Event.addListener(el.id, 'blur', hideCal);
+            el.value = var_to_localized_string(el.value);
+        }
+        cal1.render();
+        init_not_done = false;
        }
+      
+       hideCal();      
        return cal1;
     }
+    
+    MDSS.Calendar.addCalendar = function(el, callback) {
+      if(! Dom.get("calContainer-" + el.id))
+      {    	
+        var caldiv = document.createElement('div');
+        caldiv.id = "calContainer-" + el.id;
+        caldiv.style.zIndex = "115";
+        document.getElementsByTagName('body')[0].appendChild(caldiv);
+      
+        YAHOO.util.Dom.addClass("calContainer-" + el.id, 'yui-skin-sam');      
+      }
+      
+      var calendar = new YAHOO.widget.Calendar("cal-" + el.id ,"calContainer-" + el.id,cfg);
+      calendar.selectEvent.subscribe(function(type,args,obj){
+        var calDate = this.getSelectedDates()[0];
+        var value = calDate.format(java_date_format);
+        
+        if(callback) {
+          callback(value);          
+        }
 
+        over_cal = false;
+        hideCal(null, calendar);        
+      }, calendar, true);
+      calendar.renderEvent.subscribe(function() {
+        setupListeners(calendar); 
+      }, calendar, true);
+      
+      
+      Event.addListener(el.id, 'focus', function(ev, config) {
+        showCal(ev, config, calendar); 
+      });
+      Event.addListener(el.id, 'blur', function(ev) {
+        hideCal(ev, calendar); 
+      });
+      
+      el.value = var_to_localized_string(el.value);
+      
+      calendar.render();
+      hideCal(null, calendar);
+      
+      calendars[el.id] = calendar;
+    }
+    
+    MDSS.Calendar.destroyCalendar = function(el) {
+      if(calendars[el.id] !== undefined) {
+        calendars[el.id].destroy();        
+      }  
+      
+      delete calendars[el.id];
+    }
+
+    
     MDSS.Calendar.init = init;
 
     Event.addListener(window, 'load', init);

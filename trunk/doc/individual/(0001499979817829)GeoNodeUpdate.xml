@@ -1,0 +1,18 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.geo.GeoNode">
+        <create>
+          <attributes>
+            <char name="suffix" label="Suffix" size="4000"/>
+          </attributes>
+        </create>
+      </mdBusiness>      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.generator.MdWebIndicatorDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
@@ -65,6 +66,8 @@ MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
 MdWebBooleanDTO.CLASS,
 MdWebReferenceDTO.CLASS,
+
+MdWebIndicatorDTO.CLASS,
 
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,

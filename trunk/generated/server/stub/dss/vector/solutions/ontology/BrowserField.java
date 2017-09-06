@@ -18,6 +18,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
+import com.runwaysdk.system.metadata.MdAttributeVirtualQuery;
 
 public class BrowserField extends BrowserFieldBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -29,7 +30,7 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
   {
     super();
   }
-
+  
   @Override
   protected String buildKey()
   {
@@ -141,8 +142,15 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
 
   public static BrowserField getBrowserField(String mdAttributeId)
   {
-    BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
+    QueryFactory factory = new QueryFactory();
+    
+    MdAttributeVirtualQuery mavQuery = new MdAttributeVirtualQuery(factory);
+    mavQuery.WHERE(mavQuery.getMdAttributeConcrete().EQ(mdAttributeId));
+    
+    BrowserFieldQuery query = new BrowserFieldQuery(factory);
     query.WHERE(query.getMdAttribute().EQ(mdAttributeId));
+    query.OR(query.getMdAttribute().EQ(mavQuery));    
+    
     OIterator<? extends BrowserField> it = query.getIterator();
 
     try

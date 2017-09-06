@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -683385640)
+@com.runwaysdk.business.ClassSignature(hash = 688312819)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -54,7 +54,7 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = -683385640;
+  private static final long serialVersionUID = 688312819;
   
   public HouseholdSprayStatusBase()
   {
@@ -485,7 +485,7 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     }
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -493,7 +493,7 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 496923345)
+@com.runwaysdk.business.ClassSignature(hash = 786152790)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -56,7 +56,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = 496923345;
+  private static final long serialVersionUID = 786152790;
   
   public LayerBase()
   {
@@ -851,7 +851,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     }
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -859,7 +859,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

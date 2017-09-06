@@ -4,9 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
-import junit.framework.TestCase;
-
 import com.runwaysdk.facade.Facade;
+
+import junit.framework.TestCase;
 
 public class RunwayTestCase extends TestCase {
 	

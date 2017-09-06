@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 961939578)
+@com.runwaysdk.business.ClassSignature(hash = -1488434945)
 public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = 961939578;
+  private static final long serialVersionUID = -1488434945;
   
   protected StylesDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1790,7 +1790,7 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -1798,7 +1798,7 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

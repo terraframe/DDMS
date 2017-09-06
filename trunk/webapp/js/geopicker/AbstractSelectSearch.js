@@ -271,7 +271,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       var ok = com.runwaysdk.Localize.get("OK");
       var cancel = com.runwaysdk.Localize.get("Cancel");
       
-      this._bContainer = fac.newElement("div", null, {height:"50px", width:"130px", "padding-left":"120px", "padding-top":"20px"});
+      this._bContainer = fac.newElement("div", null, {height:"50px", width:"130px", "padding-left":"120px", "padding-top":"20px", "display":"inline"});
       this._bOK = fac.newButton(ok, function() {
         if (that._okHandler != null)
         {
@@ -434,9 +434,16 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         
         var search = input.getRawEl();
             
-        var sFunction = Mojo.Util.bind(this, function(typeRef, request, value){
-          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value, this.enforcesRoot());
-        }, type);
+        var sFunction = Mojo.Util.bind(this, function(typeRef, parentId, request, value){
+          if(parentId != null) {
+            var parameters = [typeRef, parentId];
+                  
+            Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters, this.enforcesRoot());
+          }
+          else {                        
+            Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, typeRef, value, this.enforcesRoot());
+          }
+        }, type, this._selectSearchRootId);
             
         var sHandler = Mojo.Util.bind(this, function(typeRef, option){
           this._resetWithSelection(typeRef, option.id);

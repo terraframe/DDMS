@@ -869,6 +869,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       
       // disable the date criteria checkboxes
       this._queryPanel.disableDates(true, true);
+      this._queryPanel.setIsMaterialized(false);
+      this._queryPanel.setKaleidoscopes([]);
     },
   
   
@@ -952,6 +954,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
             that._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
           
             that._queryPanel.setCurrentSavedSearch(savedSearchView);
+            that._queryPanel.setIsMaterialized(savedSearchView.getIsMaterialized());
 
             that._queryPanel.waitForRefresh = true;
             that._reconstructSearch(savedSearchView);
@@ -960,6 +963,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
             that._loadQueryState(savedSearchView);
             
             that._refreshColumnsWhenIdle();
+            
+            that._loadSavedState(savedSearchView);
           }
           catch(e)
           {
@@ -976,6 +981,13 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       });
   
       Mojo.$.dss.vector.solutions.query.SavedSearch.loadSearch(request, savedSearchId);
+    },
+    
+    _loadSavedState : function(savedSearchView) {
+      this._queryPanel.setKaleidoscopes(JSON.parse(savedSearchView.getKaleidoscopes()));
+      
+      this._loadedXML = savedSearchView.getQueryXml();
+      this._loadedMaterialized = savedSearchView.getIsMaterialized();      
     },
   
     _loadQueryState : {
@@ -1004,20 +1016,68 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     saveQuery : function()
     {
       var view = this._queryPanel.getCurrentSavedSearch();
+      var that = this;
   
       if(view != null)
       {
         this._populateSearch(null, view);
       }
-  
-      var request = new MDSS.Request({
-        onSuccess : function()
-        {
-          // nothing to do
-        }
+      
+      var doSave = Mojo.Util.bind(this, function(){
+        var request = new MDSS.Request({
+          onSuccess : function(savedSearchView)
+          {
+            that._loadSavedState(savedSearchView);
+            
+            var info = this.getInformation();
+            
+            if(info != null) {
+              for(var i = 0; i < info.length; i++) {
+                new MDSS.ErrorModal(info[i].getMessage());
+              }
+            }
+          }
+        });
+        
+        Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view); 
       });
-  
-      Mojo.$.dss.vector.solutions.query.SavedSearch.updateSearch(request, view);
+
+      var materialized = this._queryPanel.getIsMaterialized();
+      var overwrite = view.getDeleteSelectables() !== "" && JSON.parse(view.getDeleteSelectables()).length > 0;      
+
+      if((overwrite || materialized !== this._loadedMaterialized)) {
+        var request = new MDSS.Request({
+          onSuccess : function(response)
+          {
+            var kaleidoscopes = JSON.parse(response);
+            
+            if(kaleidoscopes != null && kaleidoscopes.length > 0 && (overwrite || materialized !== this._loadedMaterialized)) {
+                  
+              var content = "<ul>";
+              content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
+              content += "<li><hr /></li>";
+                      
+              for(var i = 0; i < kaleidoscopes.length; i++) {
+                content += "<li>" + kaleidoscopes[i]  + "</li>";
+              }
+                      
+              content += "<li></li>";
+              content += "<li>" + MDSS.localize('Confirm_Query_Change')  + "</li>";
+              content += "</ul>";
+                    
+              MDSS.confirmModal(content, doSave, function() {});        
+            }
+            else {
+              doSave();
+            }
+          }
+        });    	  
+        
+        Mojo.$.dss.vector.solutions.query.SavedSearch.getAllKaleidoscopes(request, view.getSavedQueryId());        
+      }
+      else {
+        doSave();    	  
+      }
     },
   
     /**
@@ -1051,8 +1111,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      
       var that = this;
       var request = new MDSS.Request({
-        onSuccess : function(viewName){
-          that._createModal(viewName, MDSS.localize('get_db_view_name'), 200, true);
+        onSuccess : function(response){
+          var viewNames = JSON.parse(response);
+          var content = "<ul>";
+          content += "<li>" + viewNames["q_"] + " " + MDSS.localize('Query_DB_suffix') + "</li>";
+          
+          if(viewNames["p_"] != null) {
+            content += "<li>" + viewNames["p_"] + " " + MDSS.localize('Query_MV_suffix') +  "</li>";
+          }
+          content += "</ul>";
+          
+          that._createModal(content, MDSS.localize('get_db_view_name'), 200, true);
         }
       });
       
@@ -1071,6 +1140,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         thisRef: this,
         modal:modal,
         onSuccess: function(savedSearchView){
+        	
+          this.thisRef._loadSavedState(savedSearchView);
   
           this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
   
@@ -1081,6 +1152,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           this.thisRef._queryPanel.addAvailableQuery(obj);
   
           this.modal.destroy();
+          
+          var info = this.getInformation();
+          
+          if(info != null) {
+            for(var i = 0; i < info.length; i++) {
+              new MDSS.ErrorModal(info[i].getMessage());
+            }
+          }          
         }
       });
   
@@ -1092,15 +1171,59 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var queryXML = this._constructQuery();
       var xml = queryXML.getXML();
       var queryType = this._getQueryType();
+      var materialized = this._queryPanel.getIsMaterialized();
   
       if(queryName != null)
       {
         view.setQueryName(queryName);
       }
-  
+      
+      if(materialized && this._loadedMaterialized) {
+        var oAttributes = this._getAttributes(this._loadedXML);
+        var nAttributes = this._getAttributes(xml);
+        
+        var deletes = this._diff(oAttributes, nAttributes);
+        var adds = this._diff(nAttributes, oAttributes);        
+        
+        view.setAdditiveSelectables(JSON.stringify(adds));
+        view.setDeleteSelectables(JSON.stringify(deletes));
+      }
+    	  
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
       view.setQueryType(queryType);
+      view.setIsMaterialized(materialized);
+    },
+    
+    _getAttributes : function(xml) {
+      var attributes = [];
+      
+      if(xml !== "") {
+        var parser = new DOMParser();  
+        var doc = parser.parseFromString(xml, "text/xml");
+        
+        
+        var select = doc.getElementsByTagName("select")[0];          
+        var selectables = select.childNodes;
+        
+        for(var i =0; i < selectables.length; i++) {
+          var selectable = selectables[i]; 
+          
+          if(selectable.tagName === 'selectable') {
+            var typeEl = selectable.childNodes[0];
+            var type = typeEl.tagName;
+            var name = typeEl.getElementsByTagName('userAlias')[0].childNodes[0].nodeValue;
+              
+            attributes.push(type + "-!-" + name);            
+          }
+        }
+      }
+      
+      return attributes;
+    },
+    
+    _diff : function(a1, a2) {
+      return a1.filter(function(i) {return a2.indexOf(i) < 0;});
     },
     
     /**

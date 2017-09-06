@@ -58,9 +58,14 @@ public class ServerContext
   {
 //    doCleanup();
     
+    this.shutdownGeoserver();
+    
     Database.close();
   }
 
+  /**
+   * This code is invoked when patching (by the DatabaseViewCleanerPatcher.java)
+   */
   @Request
   public void doCleanup()
   {
@@ -92,8 +97,8 @@ public class ServerContext
     // Create the generated map views
     this.createGeneratedMapViews();
 
-    // Delete geo server layers
-    this.deleteGeoserverLayers();
+    // Startup geo server layers
+    this.initializeGeoserver();
   }
 
   private void deleteGeoserverLayers()
@@ -108,8 +113,8 @@ public class ServerContext
          */
         try
         {
-          Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.query.MapUtil");
-          clazz.getMethod("cleanupLayers").invoke(null);
+//          Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.query.MapUtil");
+//          clazz.getMethod("cleanupLayers").invoke(null);
         }
         catch (RuntimeException e)
         {
@@ -146,6 +151,46 @@ public class ServerContext
     }
   }
 
+  private void initializeGeoserver()
+  {
+    /*
+     * Must use reflection in order to break the reloadable infectionious.
+     */
+    try
+    {
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.geoserver.GeoserverInitializer");
+      savedSearch.getMethod("setup").invoke(null);
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  private void shutdownGeoserver()
+  {
+    /*
+     * Must use reflection in order to break the reloadable infectionious.
+     */
+    try
+    {
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.geoserver.GeoserverInitializer");
+      savedSearch.getMethod("shutdown").invoke(null);
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
   private void deleteGeneratedMapViews()
   {
     /*

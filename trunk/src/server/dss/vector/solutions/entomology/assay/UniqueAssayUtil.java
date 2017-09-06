@@ -15,7 +15,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.session.SessionFacade;
 
 import dss.vector.solutions.LocalProperty;
 

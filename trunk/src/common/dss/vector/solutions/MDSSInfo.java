@@ -12,6 +12,8 @@ public interface MDSSInfo
    */
   public static final String GENERATED_GEO_PACKAGE           = ROOT_PACKAGE + ".geo.generated";
 
+  public static final String GENERATED_TABLE_PACKAGE         = ROOT_PACKAGE + ".table";
+
   public static final String GENERATED_FORM_PACKAGE          = ROOT_PACKAGE + ".form";
 
   public static final String GENERATED_FORM_BUSINESS_PACKAGE = GENERATED_FORM_PACKAGE + ".business";

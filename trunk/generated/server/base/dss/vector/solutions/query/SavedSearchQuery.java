@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 479202500)
+@com.runwaysdk.business.ClassSignature(hash = -1137488605)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -181,6 +181,23 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedSearch.ID, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized()
+  {
+    return getIsMaterialized(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedSearch.ISMATERIALIZED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedSearch.ISMATERIALIZED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -238,27 +255,27 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.SavedSearch.LOCKEDBY);
 
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.LOCKEDBY, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.LOCKEDBY, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.SavedSearch.LOCKEDBY);
 
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getMappable()
@@ -276,6 +293,46 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
   public com.runwaysdk.query.SelectableBoolean getMappable(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.SavedSearch.MAPPABLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable()
+  {
+    return getMaterializedTable(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE);
+
+    return (com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE);
+
+    return (com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName()
+  {
+    return getMaterializedViewName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDVIEWNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDVIEWNAME, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -452,7 +509,11 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     }
     else if (name.equals(dss.vector.solutions.query.SavedSearch.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE)) 
+    {
+       return new com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.query.SavedSearch.OWNER)) 
     {
@@ -635,6 +696,9 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getIsMaterialized();
+    public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -644,12 +708,18 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getMappable();
     public com.runwaysdk.query.SelectableBoolean getMappable(String alias);
     public com.runwaysdk.query.SelectableBoolean getMappable(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable();
+    public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias);
+    public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getMaterializedViewName();
+    public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias);
+    public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -849,6 +919,23 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedSearch.ID, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized()
+  {
+    return getIsMaterialized(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedSearch.ISMATERIALIZED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedSearch.ISMATERIALIZED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -900,21 +987,21 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getMappable()
@@ -932,6 +1019,40 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
   public com.runwaysdk.query.SelectableBoolean getMappable(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedSearch.MAPPABLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable()
+  {
+    return getMaterializedTable(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName()
+  {
+    return getMaterializedViewName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDVIEWNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDVIEWNAME, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1212,7 +1333,11 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     }
     else if (name.equals(dss.vector.solutions.query.SavedSearch.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE)) 
+    {
+       return new com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.query.SavedSearch.OWNER)) 
     {
@@ -1256,6 +1381,9 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getIsMaterialized();
+    public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias);
+    public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -1265,12 +1393,18 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getMappable();
     public com.runwaysdk.query.SelectableBoolean getMappable(String alias);
     public com.runwaysdk.query.SelectableBoolean getMappable(String alias, String displayLabel);
+    public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable();
+    public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias);
+    public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getMaterializedViewName();
+    public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias);
+    public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -1495,6 +1629,23 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedSearch.ID, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized()
+  {
+    return getIsMaterialized(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedSearch.ISMATERIALIZED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedSearch.ISMATERIALIZED, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -1546,21 +1697,21 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getMappable()
@@ -1578,6 +1729,40 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
   public com.runwaysdk.query.SelectableBoolean getMappable(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.SavedSearch.MAPPABLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable()
+  {
+    return getMaterializedTable(null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias)
+  {
+    return (com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF getMaterializedTable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReferenceIF)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName()
+  {
+    return getMaterializedViewName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDVIEWNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMaterializedViewName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.SavedSearch.MATERIALIZEDVIEWNAME, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1742,7 +1927,11 @@ public  class SavedSearchQuery extends com.runwaysdk.query.GeneratedBusinessQuer
     }
     else if (name.equals(dss.vector.solutions.query.SavedSearch.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.query.SavedSearch.MATERIALIZEDTABLE)) 
+    {
+       return new com.runwaysdk.system.metadata.MdTableQuery.MdTableQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.query.SavedSearch.OWNER)) 
     {

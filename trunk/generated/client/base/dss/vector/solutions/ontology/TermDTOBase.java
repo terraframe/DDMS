@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1877942994)
+@com.runwaysdk.business.ClassSignature(hash = -926611433)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 1877942994;
+  private static final long serialVersionUID = -926611433;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -331,7 +331,7 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -339,7 +339,7 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -1075,6 +1075,60 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllInactiveProperties(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteChildren(id, dss.vector.solutions.ontology.InactiveByDiseaseDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.ontology.TermSynonymDTO> getAllSynonyms()
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.TermSynonymDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.ontology.TermSynonymDTO> getAllSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.TermSynonymDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.ontology.HasSynonymDTO> getAllSynonymsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.HasSynonymDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.ontology.HasSynonymDTO> getAllSynonymsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.ontology.HasSynonymDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.ontology.HasSynonymDTO addSynonyms(dss.vector.solutions.ontology.TermSynonymDTO child)
+  {
+    return (dss.vector.solutions.ontology.HasSynonymDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.ontology.HasSynonymDTO addSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.ontology.TermSynonymDTO child)
+  {
+    return (dss.vector.solutions.ontology.HasSynonymDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  public void removeSynonyms(dss.vector.solutions.ontology.HasSynonymDTO relationship)
+  {
+    getRequest().deleteChild(relationship.getId());
+  }
+  
+  public static void removeSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.ontology.HasSynonymDTO relationship)
+  {
+    clientRequestIF.deleteChild(relationship.getId());
+  }
+  
+  public void removeAllSynonyms()
+  {
+    getRequest().deleteChildren(this.getId(), dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
+  }
+  
+  public static void removeAllSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteChildren(id, dss.vector.solutions.ontology.HasSynonymDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

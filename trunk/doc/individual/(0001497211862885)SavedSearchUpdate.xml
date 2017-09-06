@@ -1,0 +1,20 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object key="dss.vector.solutions.query.SavedSearchView.overwrite" type="com.runwaysdk.system.metadata.MdAttribute"/>      
+    </delete>
+    <update>
+      <mdView name="dss.vector.solutions.query.SavedSearchView">
+        <create>
+          <attributes>
+            <text name="additiveSelectables" label="Additive selectables"/>
+            <text name="deleteSelectables" label="Delete selectables"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

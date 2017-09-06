@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 500279762)
+@com.runwaysdk.business.ClassSignature(hash = -1069075539)
 public abstract class CaseTreatmentMethodDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.CaseTreatmentMethod";
-  private static final long serialVersionUID = 500279762;
+  private static final long serialVersionUID = -1069075539;
   
   protected CaseTreatmentMethodDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -338,7 +338,7 @@ public abstract class CaseTreatmentMethodDTOBase extends com.runwaysdk.business.
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -346,7 +346,7 @@ public abstract class CaseTreatmentMethodDTOBase extends com.runwaysdk.business.
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

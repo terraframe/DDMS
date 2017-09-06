@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1799384987)
+@com.runwaysdk.business.ClassSignature(hash = -672366496)
 public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.PooledInfectionAssay";
-  private static final long serialVersionUID = 1799384987;
+  private static final long serialVersionUID = -672366496;
   
   protected PooledInfectionAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -446,7 +446,7 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -454,7 +454,7 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

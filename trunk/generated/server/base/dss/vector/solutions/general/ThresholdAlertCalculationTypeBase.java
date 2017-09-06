@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -612843676)
+@com.runwaysdk.business.ClassSignature(hash = 169932159)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class ThresholdAlertCalculationTypeBase extends com.runwaysdk.bu
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -612843676;
+  private static final long serialVersionUID = 169932159;
   
   public ThresholdAlertCalculationTypeBase()
   {
@@ -352,7 +352,7 @@ public abstract class ThresholdAlertCalculationTypeBase extends com.runwaysdk.bu
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -360,7 +360,7 @@ public abstract class ThresholdAlertCalculationTypeBase extends com.runwaysdk.bu
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

@@ -542,6 +542,20 @@
 				<include name="*.*" />
 			</fileset>
 		</copy>
+		
+		<!-- Copy the map styles -->
+    <copy todir="${deploy.bin}" overwrite="true">
+      <fileset dir="${profile.root}/mapstyles">
+          <include name="**/*" />
+      </fileset>
+    </copy>
+    
+    <!-- Copy geoserver configs -->
+    <copy todir="${deploy.bin}" overwrite="true">
+      <fileset dir="${profile.root}/geoserverconfig">
+          <include name="**/*" />
+      </fileset>
+    </copy>
 
 		<!-- Finally, delete the temp directory -->
 		<delete dir="${profile.root}/$$${deploy.appname}_tmp" />
@@ -583,6 +597,7 @@
 				<include name="**/*.css" />
 				<include name="reports/**" />
 				<include name="imgs/**" />
+				<include name="dist/**" />
 			</fileset>
 		</copy>
 	</target>
@@ -699,7 +714,7 @@
 	</target>
 
 	<target name="export_tomcat_classloader" description="Exports the Tomcat webapp classloader">
-		<copy file="runwaySDKTomcatLoader.jar" tofile="${deploy.classloader.jar}" />
+		<copy file="runwaysdk-tomcatcl-2.0.5.jar" tofile="${deploy.classloader.jar}" />
 	</target>
 
 	<target name="prepare_web_service" description="Publishes web services to Apache Axis">

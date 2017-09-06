@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -764078426)
+@com.runwaysdk.business.ClassSignature(hash = 2005403243)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -37,7 +37,7 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
   public static java.lang.String WALL = "wall";
   public static java.lang.String WALLINFO = "wallInfo";
   public static java.lang.String WINDOWTYPE = "windowType";
-  private static final long serialVersionUID = -764078426;
+  private static final long serialVersionUID = 2005403243;
   
   public HouseholdBase()
   {
@@ -338,7 +338,7 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -346,7 +346,7 @@ public abstract class HouseholdBase extends com.runwaysdk.business.Business impl
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

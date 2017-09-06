@@ -1,0 +1,31 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.query.SavedSearch">
+        <create>
+          <attributes>
+            <boolean name="isMaterialized" label="Is materialized" defaultValue="false" />
+            <char name="materializedViewName" label="Materialized view name" size="255"/>
+            <reference name="materializedTable" label="Materialized table" type="com.runwaysdk.system.metadata.MdTable" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.query.SavedSearchView">
+        <create>
+          <attributes>
+            <virtual concrete="isMaterialized" type="dss.vector.solutions.query.SavedSearch" name="isMaterialized"/>
+          </attributes>
+        </create>        
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.query.SavedSearch.isMaterialized" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.query.SavedSearch.materializedViewName" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.query.SavedSearch.materializedTable" type="com.runwaysdk.system.metadata.MdAttribute"/>
+    </delete>
+  </undoIt>
+</version>

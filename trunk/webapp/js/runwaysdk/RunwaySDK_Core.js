@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 TerraFrame, Inc. All rights reserved.
+ * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
  *
  * This file is part of Runway SDK(tm).
  *
@@ -2087,7 +2087,6 @@ var ClientSession = Mojo.Meta.newClass('Mojo.ClientSession', {
     {
       this._nativeParsingEnabled = true;
       
-      // FIXME use constants for the keys
       this._ajaxOptions ={
           'method':'post',
           'contentType':'application/x-www-form-urlencoded',
@@ -2096,7 +2095,24 @@ var ClientSession = Mojo.Meta.newClass('Mojo.ClientSession', {
           'successRange':[200,299]
       };
       
-      this._baseEndpoint = (Mojo.GLOBAL.location.protocol + "//" + Mojo.GLOBAL.location.host  +'/'+ Mojo.GLOBAL.location.pathname.split( '/' )[1] +'/');
+      if (com.runwaysdk.__applicationContextPath != null)
+      {
+        this._baseEndpoint = Mojo.GLOBAL.location.protocol + "//" + Mojo.GLOBAL.location.host + com.runwaysdk.__applicationContextPath + "/";
+      }
+      else
+      {
+        // Assume ROOT context, but make sure we're complaining in the console.
+        new com.runwaysdk.Exception("Runway SDK's application context has not been set! We will assume your app is running at the ROOT context, but this may not be true, in which case your AJAX requests will fail. You can fix this by setting com.runwaysdk.__applicationContextPath to the context path.");
+        
+        if (location != null && location.origin != null)
+        {
+          this._baseEndpoint = location.origin + "/";
+        }
+        else
+        {
+          this._baseEndpoint = Mojo.GLOBAL.location.protocol + "//" + Mojo.GLOBAL.location.host + "/";
+        }
+      }
     }
   },
   
@@ -2112,7 +2128,9 @@ var ClientSession = Mojo.Meta.newClass('Mojo.ClientSession', {
     
     getAjaxOptions : function() { return Mojo.Util.copy(Mojo.ClientSession.getInstance()._ajaxOptions, {}); },
     
-    setAjaxOptions : function(defaultOptions) { Mojo.Util.copy(defaultOptions, Mojo.ClientSession.getInstance()._ajaxOptions); }
+    setAjaxOptions : function(defaultOptions) { Mojo.Util.copy(defaultOptions, Mojo.ClientSession.getInstance()._ajaxOptions); },
+    
+    getApplicationContextPath : function(contextPath) { return Mojo.ClientSession.__applicationContextPath; }
   }
 });
 
@@ -2129,7 +2147,7 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
       this.paramStr = '';
       if (parameters instanceof FormData)
       {
-        this.paramStr = parameters; 
+        this.paramStr = parameters;	
       }      
       else if(Mojo.Util.isObject(parameters))
       {
@@ -2190,12 +2208,12 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
         {
           this._xhr.open(this.options.method, this._url, this.options.asynchronous);
           this._xhr.onreadystatechange = bound;
-    
-    if(!(this.paramStr instanceof FormData))
-    {
+	  
+	  if(!(this.paramStr instanceof FormData))
+	  {
             this._xhr.setRequestHeader("Content-type", this.options.contentType + "; charset="+this.options.encoding);
-    }
-    
+	  }
+	  
           this._xhr.send(this.paramStr);
         }
         else

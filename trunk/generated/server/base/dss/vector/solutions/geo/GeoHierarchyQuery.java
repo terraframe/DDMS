@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -842295643)
+@com.runwaysdk.business.ClassSignature(hash = 3023599)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -198,27 +198,27 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY);
 
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY);
 
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -425,7 +425,7 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     }
     else if (name.equals(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.geo.GeoHierarchy.OWNER)) 
     {
@@ -699,6 +699,122 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
   }
 
 
+  public com.runwaysdk.query.Condition mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.getBusinessQuery().isChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.getBusinessQuery().isChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.getBusinessQuery().isNotChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+
   public com.runwaysdk.query.Condition acceptsGeoEntity()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -846,9 +962,9 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -937,6 +1053,18 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
   public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery);
 
 
+  public com.runwaysdk.query.Condition mappableClass();
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery);
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass();
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_allowedInGeoEntity();
   public com.runwaysdk.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
 
@@ -959,6 +1087,18 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery);
 
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass();
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery);
 
   }
 
@@ -1126,21 +1266,21 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1546,6 +1686,64 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
   }
 
 
+  public com.runwaysdk.query.Condition mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.isChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.isChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.isChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.isChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+
   public com.runwaysdk.query.Condition NOT_IN_allowedInGeoEntity()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1661,6 +1859,64 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return this.isNotChildIn_SUBSELECT(extraFieldUniversalQuery);
   }
 
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.isNotChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.kaleidoscope.ClassUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(mappableClassQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.isNotChildIn(classUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_mappableClass(dss.vector.solutions.kaleidoscope.MappableClassQuery mappableClassQuery, dss.vector.solutions.kaleidoscope.ClassUniversalQuery classUniversalQuery)
+  {
+    classUniversalQuery.AND(classUniversalQuery.hasParent(mappableClassQuery));
+    return this.isNotChildIn_SUBSELECT(classUniversalQuery);
+  }
+
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -1683,7 +1939,7 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     }
     else if (name.equals(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.geo.GeoHierarchy.OWNER)) 
     {
@@ -1733,9 +1989,9 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -1986,21 +2242,21 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -2195,7 +2451,7 @@ public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQue
     }
     else if (name.equals(dss.vector.solutions.geo.GeoHierarchy.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.geo.GeoHierarchy.OWNER)) 
     {

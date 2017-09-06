@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1178284522)
+@com.runwaysdk.business.ClassSignature(hash = 1405509922)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1178284522;
+  private static final long serialVersionUID = 1405509922;
   
   public GeoEntityBase()
   {
@@ -368,7 +368,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -376,7 +376,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   
@@ -805,6 +805,12 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   {
     GeoEntity _instance = GeoEntity.get(id);
     return _instance.getCompatibleTypes();
+  }
+  
+  public static com.runwaysdk.query.ValueQuery getGeoEntitySuggestions(java.lang.String parentId, java.lang.String universalId, java.lang.String text, java.lang.Integer limit)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public dss.vector.solutions.geo.generated.GeoEntity[] getImmediateSprayChildren()

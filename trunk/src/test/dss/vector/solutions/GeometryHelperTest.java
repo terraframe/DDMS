@@ -1,12 +1,11 @@
 package dss.vector.solutions;
 
 
-import junit.framework.TestCase;
-
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
 
 import dss.vector.solutions.util.GeometryHelper;
+import junit.framework.TestCase;
 
 public class GeometryHelperTest extends TestCase {
 	GeometryHelper helper;

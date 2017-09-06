@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -79174205)
+@com.runwaysdk.business.ClassSignature(hash = -385634722)
 public abstract class TeamSprayStatusDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayStatus";
-  private static final long serialVersionUID = -79174205;
+  private static final long serialVersionUID = -385634722;
   
   protected TeamSprayStatusDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -581,7 +581,7 @@ public abstract class TeamSprayStatusDTOBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -589,7 +589,7 @@ public abstract class TeamSprayStatusDTOBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

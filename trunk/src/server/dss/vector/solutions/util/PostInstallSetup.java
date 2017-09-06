@@ -34,11 +34,11 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 import org.xml.sax.SAXException;
 
-import sun.security.action.GetPropertyAction;
-
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.util.FileIO;
+
+import sun.security.action.GetPropertyAction;
 
 /**
  * Called at the end of NSIS installation. Edits the user-supplied app name into

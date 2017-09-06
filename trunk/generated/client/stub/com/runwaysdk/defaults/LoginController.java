@@ -74,7 +74,9 @@ public class LoginController extends LoginControllerBase implements Reloadable
       menus.put(diseaseName, DiseaseDTO.getMenuJson(this.getClientRequest()));
       req.getSession().setAttribute("menus", menus);
 
-      req.getRequestDispatcher("index.jsp").forward(req, resp);
+//      req.getRequestDispatcher("index.jsp").forward(req, resp);
+      
+      resp.sendRedirect("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo");
     }
     catch (Throwable t)
     {

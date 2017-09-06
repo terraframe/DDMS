@@ -1,0 +1,34 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdUtil name="dss.vector.solutions.kaleidoscope.DataUploader">
+        <create>
+          <mdMethod name="validateDatasetName" label="Validate dataset name" returnType="void" static="true">
+            <mdParameter name="name" label="Name" order="0" type="java.lang.String"/>          
+            <mdParameter name="id" label="id" order="1" type="java.lang.String"/>          
+          </mdMethod>
+          <mdMethod name="validateCategoryName" label="Validate category name" returnType="void" static="true">
+            <mdParameter name="name" label="Name" order="0" type="java.lang.String"/>          
+            <mdParameter name="id" label="id" order="1" type="java.lang.String"/>          
+          </mdMethod>          
+        </create>
+      </mdUtil>
+    </update>
+    <create>
+      <mdException name="dss.vector.solutions.kaleidoscope.NonUniqueDatasetException" label="Non unique dataset exception" message="A dataset with the label [{label}] already exists">
+        <attributes>
+          <text name="label" label="Label" />
+        </attributes>
+      </mdException>
+      <mdException name="dss.vector.solutions.kaleidoscope.ontology.NonUniqueCategoryException" label="Non unique category exception" message="A category with the label [{label}] already exists">
+        <attributes>
+          <text name="label" label="Label" />
+        </attributes>
+      </mdException>
+      
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

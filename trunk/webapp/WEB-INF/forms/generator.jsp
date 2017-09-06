@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.generator.MdWebIndicatorDTO"%>
 <%@page import="dss.vector.solutions.generator.MdFormUtilDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
@@ -50,6 +51,7 @@
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/jqueryBundle.js" useRandomParam="false"/>
+<jwr:script src="/bundles/formBundle.js" useRandomParam="false"/>
 
 <script type="text/javascript">
 
@@ -80,6 +82,8 @@ MdWebReferenceDTO.CLASS,
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
 MdWebCommentDTO.CLASS,
+
+MdWebIndicatorDTO.CLASS,
 
 TermViewDTO.CLASS,
 TermDTO.CLASS,

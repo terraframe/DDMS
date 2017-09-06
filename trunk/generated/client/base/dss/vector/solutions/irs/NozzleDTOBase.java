@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -2074573996)
+@com.runwaysdk.business.ClassSignature(hash = 1023365743)
 public abstract class NozzleDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.Nozzle";
-  private static final long serialVersionUID = -2074573996;
+  private static final long serialVersionUID = 1023365743;
   
   protected NozzleDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -376,7 +376,7 @@ public abstract class NozzleDTOBase extends com.runwaysdk.business.BusinessDTO i
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -384,7 +384,7 @@ public abstract class NozzleDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

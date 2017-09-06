@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -661847543)
+@com.runwaysdk.business.ClassSignature(hash = 808264590)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -661847543;
+  private static final long serialVersionUID = 808264590;
   
   public ReportItemBase()
   {
@@ -296,7 +296,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -304,7 +304,7 @@ public abstract class ReportItemBase extends com.runwaysdk.business.Business imp
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

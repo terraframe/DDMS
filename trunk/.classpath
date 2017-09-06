@@ -25,10 +25,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/common/axis.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-i18n-20050525.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/jaxrpc.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/common/json.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/mail.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/rmiio-2.0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/aspectjweaver.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/cactus-1.7.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/catalina-ant.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/catalina.jar"/>
@@ -38,12 +36,10 @@
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-collections-3.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-dbcp-1.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-discovery-0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/commons-httpclient-3.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-logging-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-math-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-pool-1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/groovy-all-1.5.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/hsqldb.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/jtds-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/junit.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/mysql-connector-java-5.0.4-bin.jar"/>
@@ -58,26 +54,21 @@
 	<classpathentry exported="true" kind="lib" path="lib/server/xercesImpl.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/xml-apis.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/xstream-1.1.3.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/org.eclipse.equinox.common_3.3.0.v20070426.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/drej.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/vecmath.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/jsp-api.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/client/jawr-3.2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/client/yuicompressor-2.4.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/opencsv-1.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/velocity-1.6.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ant-launcher.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/relaxngDatatype.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/xsom.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-server.jar" sourcepath="/runwaysdk-server">
+	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-server.jar" sourcepath="/home/terraframe/git/Runway-SDK">
 		<attributes>
 			<attribute name="org.eclipse.ajdt.aspectpath" value="org.eclipse.ajdt.aspectpath"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/common/log4j-1.2.16.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-common.jar" sourcepath="/runwaysdk-common"/>
-	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-client.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-common.jar" sourcepath="/home/terraframe/git/Runway-SDK"/>
+	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-client.jar" sourcepath="/home/terraframe/git/Runway-SDK"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-gis-server.jar" sourcepath="/runwaysdk-gis-server"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-gis-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-gis-client.jar"/>
@@ -88,87 +79,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/ant/svnClientAdapter.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ant/svnjavahl.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/ant/svnkit.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/com.ibm.icu_50.1.1.v201304230130.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/com.lowagie.text_2.1.7.v201004222200.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/commons-cli-1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/derby.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/flute.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/javax.wsdl_1.5.1.v201012040544.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/javax.xml.stream_1.0.1.v201004272200.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/js.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.bridge_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.css_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.dom_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.dom.svg_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.ext.awt_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.parser_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.pdf_1.6.0.v201105071520.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.svggen_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.transcoder_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.util_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.util.gui_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.batik.xml_1.6.0.v201011041432.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.commons.codec_1.3.0.v201101211617.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.commons.logging_1.0.4.v201101211617.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.xerces_2.9.0.v201101211617.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.xml.resolver_1.2.0.v201005080400.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.apache.xml.serializer_2.7.1.v201005080400.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.contenttype_3.4.200.v20130326-1255.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.expressions_3.4.501.v20131118-1915.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.filesystem_1.4.0.v20130514-1240.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.jobs_3.5.300.v20130429-1813.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.resources_3.8.101.v20130717-0806.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.core.runtime_3.9.100.v20131218-1515.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity_1.2.11.v201401230755.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.apache.derby_1.0.103.v201212070447.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.apache.derby.dbdefinition_1.0.2.v201107221459.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.console.profile_1.0.10.v201109250955.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.db.generic_1.0.1.v201107221459.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.dbdefinition.genericJDBC_1.0.2.v201310181001.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda_3.4.2.v201311051159.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.consumer_3.2.6.v201305170644.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.design_3.3.6.v201212070447.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.flatfile_3.1.7.v201311081026.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.profile_3.2.9.v201307270622.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.sqm.core_1.2.8.v201401230755.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.hsqldb_1.0.0.v201107221502.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.hsqldb.dbdefinition_1.0.0.v201107221502.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.db2.luw_1.0.3.v201401170830.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition_1.0.6.v201401290336.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.informix_1.0.1.v201107221502.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.informix.dbdefinition_1.0.4.v201107221502.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.msft.sqlserver_1.0.3.v201308161009.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition_1.0.1.v201201240505.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.mysql_1.0.4.v201212120617.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.mysql.dbdefinition_1.0.4.v201109022331.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oda.ws_1.2.6.v201307051812.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oda.xml_1.2.5.v201305031101.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oracle_1.0.0.v201107221506.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oracle.dbdefinition_1.0.103.v201206010214.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.postgresql_1.1.1.v201205252207.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.enablement.postgresql.dbdefinition_1.0.2.v201110070445.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.dbdefinition_1.0.2.v201107221519.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.derby_1.0.0.v201107221519.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.sql_1.0.6.v201208230744.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.sql.query_1.1.4.v201212120619.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.emf_2.6.0.v20140203-1126.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.emf.common_2.9.2.v20131212-0545.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.emf.ecore_2.9.2.v20131212-0545.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.emf.ecore.change_2.9.0.v20131212-0545.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.emf.ecore.xmi_2.9.1.v20131212-0545.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.equinox.app_1.3.100.v20130327-1442.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.equinox.preferences_3.5.100.v20130422-1538.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.equinox.registry_3.5.301.v20130717-1549.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.orbit.mongodb_2.10.1.v20130422-1135.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.osgi_3.9.1.v20140110-1610.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.osgi.services_3.3.100.v20130513-1956.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.eclipse.update.configurator_3.3.200.v20140203-1328.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.w3c.css.sac_1.3.0.v200805290154.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.w3c.dom.smil_1.0.0.v200806040011.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/org.w3c.dom.svg_1.1.0.v201011041433.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/birt/Tidy.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-configuration-1.9.jar" sourcepath="/Users/terraframe/.m2/repository/commons-configuration/commons-configuration/1.9/commons-configuration-1.9-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/commons-lang-2.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/guice-1.0.jar"/>
@@ -176,7 +86,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/common/slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/UTF8Resource.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-email-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/jdom-1.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/mdssaspect.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/postgis_jts_1.5.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/postgresql-9.1-901.jdbc4.jar"/>
@@ -186,20 +95,141 @@
 	<classpathentry exported="true" kind="lib" path="lib/test/selenium-server.jar"/>
 	<classpathentry kind="lib" path="lib/common/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="lib/common/zip4j_1.3.2.jar"/>
-	<classpathentry kind="lib" path="lib/client/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/server/ognl-3.0.8.jar"/>
-	<classpathentry kind="lib" path="lib/birt/org.apache.poi_3.9.0.v201303080712.jar"/>
-	<classpathentry kind="lib" path="lib/birt/org.eclipse.birt.runtime_4.3.2.v20140225-1404.jar"/>
 	<classpathentry kind="lib" path="lib/birt/stax-api-1.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="lib/common/aspectjrt-1.8.6.jar"/>
-	<classpathentry kind="lib" path="lib/common/aspectjtools-1.8.6.jar"/>
 	<classpathentry kind="lib" path="lib/server/cache-api-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/javassist-3.11.0.GA.jar"/>
 	<classpathentry kind="lib" path="lib/server/ecj-4.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/server/ehcache-3.0.0.m4.jar"/>
-	<classpathentry kind="lib" path="lib/server/geoserver-manager-1.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/server/management-model-2.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/offheap-store-2.1.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/server/geoserver-manager-1.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/thumbnailator-0.4.8.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpcore-4.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-main-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-api-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-image-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-metadata-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-opengis-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-coverage-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-cql-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-referencing-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-render-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-xml-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-wms-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/client/jawr-core-3.7.jar"/>
+	<classpathentry kind="lib" path="lib/common/aspectjrt-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/common/aspectjtools-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/aspectjweaver-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/dss.vector.solutions.kaleidoscope.oda.driver_1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-epsg-hsql-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/gt-geojson-11.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/hsqldb-2.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/server/imageio-ext-tiff-1.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/server/imageio-ext-utilities-1.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/server/jai_codec-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/server/jai_core-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/server/jai_imageio-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/jdom-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/server/jgridshift-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/jsr-275-1.0-beta-2.jar"/>
+	<classpathentry kind="lib" path="lib/server/jt-utils-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/jt-zonalstats-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/vecmath-1.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/server/xml-commons-resolver-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/client/reflections-0.9.10.jar"/>
+	<classpathentry kind="lib" path="lib/common/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/birt/com.ibm.icu-50.1.1.v201304230130.jar"/>
+	<classpathentry kind="lib" path="lib/birt/com.lowagie.text-2.1.7.jar"/>
+	<classpathentry kind="lib" path="lib/birt/commons-cli-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/birt/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/birt/derby-10.5.1000001.jar"/>
+	<classpathentry kind="lib" path="lib/birt/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/birt/flute-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/birt/javax.wsdl-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/birt/javax.xml.stream-1.0.1.v201004272200.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.bridge-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.css-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.dom-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.dom.svg-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.ext.awt-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.parser-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.svggen-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.transcoder-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.util-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.util.gui-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.batik.xml-1.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.commons.codec-1.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.oltu.oauth2.client-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.oltu.oauth2.common-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.xerces-2.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.xml.resolver-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.apache.xml.serializer-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.birt.runtime-4.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.core.contenttype-3.4.200.v20130326-1255.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.core.expressions-3.4.500.v20130515-1343.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.core.filesystem-1.4.0.v20130514-1240.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.core.jobs-3.6.1.v20141014-1248.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.core.resources-3.9.1.v20140825-1431.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.core.runtime-3.10.0.v20140318-2214.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity-1.2.11.v201401230755.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.apache.derby-1.0.103.v201212070447.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.apache.derby.dbdefinition-1.0.2.v201107221459.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.console.profile-1.0.10.v201109250955.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.db.generic-1.0.1.v201107221459.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.dbdefinition.genericJDBC-1.0.1.v201107221459.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda-3.4.3.v201405301249.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.consumer-3.2.6.v201305170644.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.design-3.3.6.v201212070447.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.flatfile-3.1.8.v201403010906.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.oda.profile-3.2.9.v201403131814.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.connectivity.sqm.core-1.2.8.v201401230755.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.hsqldb-1.0.0.v201107221502.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.hsqldb.dbdefinition-1.0.0.v201107221502.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.db2.luw-1.0.2.v201107221502.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition-1.0.4.v201107221502.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.informix-1.0.1.v201107221502.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.ibm.informix.dbdefinition-1.0.4.v201107221502.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.msft.sqlserver-1.0.2.v201212120617.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition-1.0.1.v201201240505.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.mysql-1.0.4.v201212120617.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.mysql.dbdefinition-1.0.4.v201109022331.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oda.ws-1.2.6.v201403131825.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oda.xml-1.2.5.v201305031101.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oracle-1.0.0.v201107221506.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.oracle.dbdefinition-1.0.103.v201206010214.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.postgresql-1.1.1.v201205252207.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.enablement.postgresql.dbdefinition-1.0.2.v201110070445.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.dbdefinition-1.0.2.v201107221519.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.derby-1.0.0.v201107221519.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.sql-1.0.6.v201208230744.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.datatools.modelbase.sql.query-1.1.4.v201212120619.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.emf-2.6.0.v20150123-0452.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.emf.common-2.10.1.v20150123-0348.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.emf.ecore-2.10.2.v20150123-0348.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.emf.ecore.change-2.10.0.v20150123-0348.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.emf.ecore.xmi-2.10.2.v20150123-0348.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.equinox.app-1.3.100.v20130327-1442.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.equinox.common-3.6.200.v20130402-1505.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.equinox.preferences-3.5.100.v20130422-1538.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.equinox.registry-3.5.400.v20140428-1507.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.orbit.mongodb-2.10.1.v20130422-1135.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.osgi-3.10.2.v20150203-1939.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.osgi.services-3.3.100.v20130513-1956.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.eclipse.update.configurator-3.3.200.v20130326-1319.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.mozilla.javascript-1.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.w3c.css.sac-1.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.w3c.dom.smil-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/org.w3c.dom.svg-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-3.9.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-ooxml-3.9.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-ooxml-schemas-3.9.jar"/>
+	<classpathentry kind="lib" path="lib/birt/Tidy-1.jar"/>
+	<classpathentry kind="lib" path="lib/birt/xml-apis-1.3.04.jar"/>
+	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/common/json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

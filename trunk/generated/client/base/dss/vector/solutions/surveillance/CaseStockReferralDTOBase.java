@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 64438520)
+@com.runwaysdk.business.ClassSignature(hash = -173255085)
 public abstract class CaseStockReferralDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.CaseStockReferral";
-  private static final long serialVersionUID = 64438520;
+  private static final long serialVersionUID = -173255085;
   
   protected CaseStockReferralDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -338,7 +338,7 @@ public abstract class CaseStockReferralDTOBase extends com.runwaysdk.business.Bu
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -346,7 +346,7 @@ public abstract class CaseStockReferralDTOBase extends com.runwaysdk.business.Bu
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

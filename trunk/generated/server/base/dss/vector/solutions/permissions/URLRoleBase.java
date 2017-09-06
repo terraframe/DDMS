@@ -1,6 +1,6 @@
 package dss.vector.solutions.permissions;
 
-@com.runwaysdk.business.ClassSignature(hash = -783598557)
+@com.runwaysdk.business.ClassSignature(hash = -786136066)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class URLRoleBase extends com.runwaysdk.business.Relationship im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -783598557;
+  private static final long serialVersionUID = -786136066;
   
   public URLRoleBase(String parentId, String childId)
   {
@@ -202,7 +202,7 @@ public abstract class URLRoleBase extends com.runwaysdk.business.Relationship im
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -210,7 +210,7 @@ public abstract class URLRoleBase extends com.runwaysdk.business.Relationship im
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

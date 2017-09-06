@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -543815983)
+@com.runwaysdk.business.ClassSignature(hash = 1207168940)
 public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.ITNCommunityDistribution";
-  private static final long serialVersionUID = -543815983;
+  private static final long serialVersionUID = 1207168940;
   
   protected ITNCommunityDistributionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -785,7 +785,7 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -793,7 +793,7 @@ public abstract class ITNCommunityDistributionDTOBase extends com.runwaysdk.busi
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

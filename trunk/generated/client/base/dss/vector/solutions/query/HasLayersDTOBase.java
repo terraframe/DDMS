@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1359193944)
+@com.runwaysdk.business.ClassSignature(hash = 406549763)
 public abstract class HasLayersDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.HasLayers";
-  private static final long serialVersionUID = -1359193944;
+  private static final long serialVersionUID = 406549763;
   
   public HasLayersDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -288,7 +288,7 @@ public abstract class HasLayersDTOBase extends com.runwaysdk.business.Relationsh
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LAYERPOSITION).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -296,7 +296,7 @@ public abstract class HasLayersDTOBase extends com.runwaysdk.business.Relationsh
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

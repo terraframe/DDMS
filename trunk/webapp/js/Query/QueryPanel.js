@@ -183,7 +183,27 @@ MDSS.QueryPanel.prototype =
   {
     return this._renderDateRange;
   },
+  
+  getIsMaterialized : function()
+  {
+    return this._materializedView.checked;    
+  },
 
+  setIsMaterialized : function(checked)
+  {
+    this._materializedView.checked = (checked != null ? checked : false);    
+  },
+  
+  getKaleidoscopes : function()
+  {
+    return this._kaleidoscopes;    
+  },
+  
+  setKaleidoscopes : function(kaleidoscopes)
+  {
+    this._kaleidoscopes = kaleidoscopes;
+  },
+  
   /**
    * Updates the column label on both the YUI column object and the listing in
    * the right panel query summary.
@@ -1126,13 +1146,13 @@ MDSS.QueryPanel.prototype =
    */
   _buildButtons : function()
   {
-    var uploadTemplate = new YAHOO.util.Element(document.createElement('input'));
-    uploadTemplate.set('type', 'button');
-    uploadTemplate.set('value', MDSS.localize('Upload_Template'));
-    uploadTemplate.set('id', "uploadTemplateButton");
-    uploadTemplate.addClass('queryButton');
-    uploadTemplate.on('click', this._uploadTemplate,
-    {}, this);
+//    var uploadTemplate = new YAHOO.util.Element(document.createElement('input'));
+//    uploadTemplate.set('type', 'button');
+//    uploadTemplate.set('value', MDSS.localize('Upload_Template'));
+//    uploadTemplate.set('id', "uploadTemplateButton");
+//    uploadTemplate.addClass('queryButton');
+//    uploadTemplate.on('click', this._uploadTemplate,
+//    {}, this);
 
     var saveButton = new YAHOO.util.Element(document.createElement('input'));
     saveButton.set('type', 'button');
@@ -1173,6 +1193,20 @@ MDSS.QueryPanel.prototype =
     importQuery.addClass('queryButton');
     importQuery.on('click', this._importQuery,
     {}, this);
+    
+    
+    // Persist result toggle for materialized views
+    var materializedViewLabel = document.createElement('span');
+    materializedViewLabel.innerHTML = MDSS.localize('Query_Persist');
+    
+    this._materializedView = document.createElement('input');
+    YAHOO.util.Dom.setAttribute(this._materializedView, 'type', 'checkbox');
+    YAHOO.util.Dom.setAttribute(this._materializedView, 'id', "materializedViewCheckbox");
+    $(materializedViewLabel).css("margin-left", "5px");
+    $(this._materializedView).css("margin-left", "5px");
+    $(this._materializedView).css("margin-right", "10px");
+    
+    
 
     this._queryList = new YAHOO.util.Element(document.createElement('select'));
     this._queryList.set('id', this.AVAILABLE_QUERY_LIST);
@@ -1194,7 +1228,7 @@ MDSS.QueryPanel.prototype =
 
     var exportQueryButton = this._buildExportQueryForm();
 
-    var exportReportButton = this._buildReportForm();
+//    var exportReportButton = this._buildReportForm();
 
     var exportCSVButton = this._buildCSVForm();
 
@@ -1211,8 +1245,8 @@ MDSS.QueryPanel.prototype =
     var rightDiv = new YAHOO.util.Element(document.createElement('div'));
     rightDiv.setStyle('float', 'right');
     rightDiv.appendChild(exportQueryButton);
-    rightDiv.appendChild(uploadTemplate);
-    rightDiv.appendChild(exportReportButton);
+//    rightDiv.appendChild(uploadTemplate);
+//    rightDiv.appendChild(exportReportButton);
     rightDiv.appendChild(exportCSVButton);
     rightDiv.appendChild(exportXLSButton);
     rightDiv.appendChild(runButton);
@@ -1221,6 +1255,8 @@ MDSS.QueryPanel.prototype =
     leftDiv.setStyle('float', 'left');
     leftDiv.appendChild(this._queryList);
 
+    leftDiv.appendChild(materializedViewLabel);
+    leftDiv.appendChild(this._materializedView);
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(saveAsButton);
     leftDiv.appendChild(getDBViewName);
@@ -1615,13 +1651,37 @@ MDSS.QueryPanel.prototype =
     // ignore the default, empty option
     var savedSearchId = queries.options[queries.selectedIndex].value;
     if (savedSearchId)
-    {
-      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId,
-          queries);
-      MDSS.confirmModal(MDSS.localize('Confirm_Delete_Query'), doDel,
-          function()
-          {
-          });
+    {    	
+      var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId, queries);
+            
+      
+      var request = new MDSS.Request({
+        onSuccess : function(response)
+        {
+          var kaleidoscopes = JSON.parse(response);
+          
+          var content = "<ul>";
+          
+          if(kaleidoscopes != null && kaleidoscopes.length > 0){
+            content += "<li>" + MDSS.localize('Confirm_Kaleidoscopes')  + "</li>";
+            content += "<li><hr /></li>";
+            
+            for(var i = 0; i < kaleidoscopes.length; i++) {
+              content += "<li>" + kaleidoscopes[i]  + "</li>";
+            }
+            
+            content += "<li></li>";
+          }
+
+          content += "<li>" + MDSS.localize('Confirm_Delete_Query') + "</li>";
+
+          content += "</ul>";
+          
+          MDSS.confirmModal(content, doDel, function() {});                    
+        }
+      });    	  
+        
+      Mojo.$.dss.vector.solutions.query.SavedSearch.getAllKaleidoscopes(request, savedSearchId);      
     }
   },
 

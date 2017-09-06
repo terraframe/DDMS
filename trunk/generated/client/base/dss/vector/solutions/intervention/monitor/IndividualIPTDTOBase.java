@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -587675643)
+@com.runwaysdk.business.ClassSignature(hash = 501074826)
 public abstract class IndividualIPTDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPT";
-  private static final long serialVersionUID = -587675643;
+  private static final long serialVersionUID = 501074826;
   
   protected IndividualIPTDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -569,7 +569,7 @@ public abstract class IndividualIPTDTOBase extends com.runwaysdk.business.Busine
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -577,7 +577,7 @@ public abstract class IndividualIPTDTOBase extends com.runwaysdk.business.Busine
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

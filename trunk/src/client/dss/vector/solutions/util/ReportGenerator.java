@@ -30,13 +30,12 @@ import org.eclipse.birt.report.model.api.OdaDataSourceHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
 import org.eclipse.birt.report.model.api.activity.SemanticException;
 
-import au.com.bytecode.opencsv.CSVReader;
-
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.io.FileWriteExceptionDTO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.util.FileIO;
 
+import au.com.bytecode.opencsv.CSVReader;
 import dss.vector.solutions.report.DataSetLimitExceptionDTO;
 import dss.vector.solutions.report.DataSourceLimitExceptionDTO;
 import dss.vector.solutions.report.QueryConfigurationExceptionDTO;

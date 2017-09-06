@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 851879662)
+@com.runwaysdk.business.ClassSignature(hash = -595619898)
 public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
-  private static final long serialVersionUID = 851879662;
+  private static final long serialVersionUID = -595619898;
   
   protected GeoHierarchyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -305,7 +305,7 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -313,7 +313,7 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -1027,6 +1027,60 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
   public static void removeAllGeoFields(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.kaleidoscope.MappableClassDTO> getAllMappableClass()
+  {
+    return (java.util.List<? extends dss.vector.solutions.kaleidoscope.MappableClassDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.kaleidoscope.MappableClassDTO> getAllMappableClass(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.kaleidoscope.MappableClassDTO>) clientRequestIF.getParents(id, dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.kaleidoscope.ClassUniversalDTO> getAllMappableClassRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.kaleidoscope.ClassUniversalDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.kaleidoscope.ClassUniversalDTO> getAllMappableClassRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.kaleidoscope.ClassUniversalDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.kaleidoscope.ClassUniversalDTO addMappableClass(dss.vector.solutions.kaleidoscope.MappableClassDTO parent)
+  {
+    return (dss.vector.solutions.kaleidoscope.ClassUniversalDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.kaleidoscope.ClassUniversalDTO addMappableClass(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.kaleidoscope.MappableClassDTO parent)
+  {
+    return (dss.vector.solutions.kaleidoscope.ClassUniversalDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  public void removeMappableClass(dss.vector.solutions.kaleidoscope.ClassUniversalDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeMappableClass(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.kaleidoscope.ClassUniversalDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllMappableClass()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
+  }
+  
+  public static void removeAllMappableClass(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.kaleidoscope.ClassUniversalDTO.CLASS);
   }
   
   public static dss.vector.solutions.geo.GeoHierarchyDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

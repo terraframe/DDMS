@@ -8,13 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.runwaysdk.constants.ClientRequestIF;
 
-import dss.vector.solutions.entomology.LifeStageDTO;
-import dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.DataGrid;

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1985593792)
+@com.runwaysdk.business.ClassSignature(hash = -1100857957)
 public abstract class AbstractCategoryDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.AbstractCategory";
-  private static final long serialVersionUID = -1985593792;
+  private static final long serialVersionUID = -1100857957;
   
   protected AbstractCategoryDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -251,7 +251,7 @@ public abstract class AbstractCategoryDTOBase extends com.runwaysdk.business.Bus
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -259,7 +259,7 @@ public abstract class AbstractCategoryDTOBase extends com.runwaysdk.business.Bus
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

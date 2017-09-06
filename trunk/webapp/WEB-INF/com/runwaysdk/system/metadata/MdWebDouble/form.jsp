@@ -5,9 +5,11 @@
 <mjl:component param="mdField" item="${item}">
 <%--   <%@include file="../MdWebAttribute/form.jsp" %> --%>
   <%@include file="../MdWebPrimitive/form.jsp" %>
+<c:if test="${isComposite == false}">
   <mjl:dt attribute="showOnSearch">
     <mjl:boolean param="showOnSearch" />
   </mjl:dt>    
+</c:if>    
   <mjl:dt attribute="decPrecision">
     <mjl:input param="decPrecision" type="text" />
   </mjl:dt>

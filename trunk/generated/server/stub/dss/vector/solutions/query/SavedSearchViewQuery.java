@@ -61,6 +61,7 @@ private static final long serialVersionUID = 1240879208564L;
       viewQuery.map(SavedSearchView.QUERYNAME, searchQuery.getQueryName());
       viewQuery.map(SavedSearchView.SAVEDQUERYID, searchQuery.getId());
       viewQuery.map(SavedSearchView.QUERYTYPE, searchQuery.getQueryType());
+      viewQuery.map(SavedSearchView.ISMATERIALIZED, searchQuery.getIsMaterialized());
 
       if(includeXML)
       {

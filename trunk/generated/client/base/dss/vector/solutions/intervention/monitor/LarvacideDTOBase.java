@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1371693074)
+@com.runwaysdk.business.ClassSignature(hash = 465572531)
 public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.Larvacide";
-  private static final long serialVersionUID = -1371693074;
+  private static final long serialVersionUID = 465572531;
   
   protected LarvacideDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -429,7 +429,7 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -437,7 +437,7 @@ public abstract class LarvacideDTOBase extends com.runwaysdk.business.BusinessDT
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

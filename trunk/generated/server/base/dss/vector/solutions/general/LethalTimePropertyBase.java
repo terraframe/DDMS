@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1889551912)
+@com.runwaysdk.business.ClassSignature(hash = -1380620115)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class LethalTimePropertyBase extends com.runwaysdk.business.Busi
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPPERPERCENT = "upperPercent";
   public static java.lang.String UPPERTIME = "upperTime";
-  private static final long serialVersionUID = 1889551912;
+  private static final long serialVersionUID = -1380620115;
   
   public LethalTimePropertyBase()
   {
@@ -288,7 +288,7 @@ public abstract class LethalTimePropertyBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -296,7 +296,7 @@ public abstract class LethalTimePropertyBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

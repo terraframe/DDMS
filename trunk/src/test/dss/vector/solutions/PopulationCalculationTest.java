@@ -2,14 +2,13 @@ package dss.vector.solutions;
 
 import java.util.Calendar;
 
-import junit.framework.TestCase;
-
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import junit.framework.TestCase;
 
 public class PopulationCalculationTest extends TestCase {
 	private static String GEOENTITY = "22220002";

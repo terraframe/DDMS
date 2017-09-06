@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.ProblemExceptionDTO;

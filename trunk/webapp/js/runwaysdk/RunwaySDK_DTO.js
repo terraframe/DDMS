@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 TerraFrame, Inc. All rights reserved.
+ * Copyright (c) 2015 TerraFrame, Inc. All rights reserved.
  *
  * This file is part of Runway SDK(tm).
  *
@@ -55,25 +55,22 @@ var RunwayRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'RunwayRequest', {
 
     _send : function()
     {
-      if (Mojo.Util.isFunction(this.clientRequest.onSend))
-      {
-        this.clientRequest.onSend();
-      }
+      this.clientRequest.performOnSend(this._xhr);
     },
     
     _complete : function()
     {
-      if (Mojo.Util.isFunction(this.clientRequest.onComplete))
-      {
-        this.clientRequest.onComplete();
-      }
+      this.clientRequest.performOnComplete(this._xhr);
     },
     
     _success : function()
     {
       var responseText = this._getResponseText();
+      
+      var response = new com.runwaysdk.AjaxResponse(this._xhr);
+      
       var obj = null;
-      if(!this.isController)
+      if(!this.isController || response.isJSON())
       {
         var json = Mojo.Util.getObject(responseText);
         obj = DTOUtil.convertToType(json.returnValue);
@@ -82,19 +79,23 @@ var RunwayRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'RunwayRequest', {
         if(Mojo.Util.isArray(json.warnings) && json.warnings.length > 0)
         {
           this.clientRequest.setWarnings(DTOUtil.convertToType(json.warnings));
+          response.setWarnings(this.clientRequest.getWarnings());
         }
  
         if(Mojo.Util.isArray(json.information) && json.information.length > 0)
         {
           this.clientRequest.setInformation(DTOUtil.convertToType(json.information));
+          response.setInformation(this.clientRequest.getInformation());
         }
       }
       else
       {
         obj = responseText;
       }
-
-      this.clientRequest.performOnSuccess(obj);
+      
+      response.setReturnValue(obj);
+      
+      this.clientRequest.performOnSuccess(obj, response);
     },
 
     _failure : function()
@@ -917,13 +918,13 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
   
       // specific callback to invokeMethod()
       var onSuccessRef = clientRequest.onSuccess;
-      var invokeCallback = function(objArray)
+      var invokeCallback = function(objArray, response)
       {
         var returnObject = objArray[0];
         var calledObject = objArray[1];
   
         if(Mojo.Util.isFunction(onSuccessRef))
-          onSuccessRef.call(clientRequest, returnObject, calledObject);
+          onSuccessRef.call(clientRequest, returnObject, calledObject, response);
       };
       clientRequest.onSuccess = invokeCallback;
   
@@ -985,6 +986,21 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
       new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
     },
   
+    /**
+     * QueryViews
+     */
+    queryViews : function(clientRequest, queryDTO)
+    {
+    	queryDTO.clearAttributes();
+    	var json = Mojo.Util.getJSON(queryDTO);
+    	
+    	var params = {
+    			'method' : 'queryViews',
+    			'queryDTO' : json};
+    	
+    	new RunwayRequest(Mojo.JSON_ENDPOINT, clientRequest, params).apply();
+    },
+    
     groovyValueQuery : function(clientRequest, queryDTO)
     {
       queryDTO.clearAttributes();
@@ -1675,6 +1691,12 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
     toJSON : function(key)
     {
       return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
+    }
+  },
+  
+  Static : {
+    getMetadata : function() {
+      return eval("new " + this.getMetaClass().getQualifiedName() + "().getMd();");
     }
   }
 });
@@ -3264,6 +3286,34 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeReferenceMdDTO', {
   }
 });
 
+// reference object
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeFileDTO', {
+	
+	Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
+	
+	Instance : {
+		
+		initialize : function(obj)
+		{
+			this.$initialize(obj);
+		}
+
+	}
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeFileMdDTO', {
+	
+	Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
+	
+	Instance : {
+		
+		initialize : function(obj)
+		{
+			this.$initialize(obj);
+		}
+	}
+});
+
 // enumeration
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeEnumerationDTO', {
 
@@ -3626,6 +3676,8 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TermDTO', {
     initialize : function(obj)
     {
       this.$initialize(obj);
+      
+      this.canCreateChildren = obj.canCreateChildren;
     },
     
     addChild : function(child, relationshipType) {
@@ -3666,6 +3718,34 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TermRelationshipDTO', {
 	  }
 });
 
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE + 'AttributeTermDTO', {
+
+  Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeReferenceDTO',
+  
+  Instance : {
+    
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
+    
+  }
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE + 'AttributeTermMdDTO', {
+
+  Extends : Mojo.MD_DTO_PACKAGE+'AttributeReferenceMdDTO',
+  
+  Instance : {
+    
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
+    
+  }
+});
+
 Mojo.Meta.newClass('com.runwaysdk.business.ontology.TermAndRel', {
   
   IsAbstract : false,
@@ -3674,7 +3754,12 @@ Mojo.Meta.newClass('com.runwaysdk.business.ontology.TermAndRel', {
 
     initialize : function(obj)
     {
-      this._term = DTOUtil.convertToType(obj.term);
+      if (obj.term instanceof com.runwaysdk.Base) {
+        this._term = obj.term;
+      }
+      else {
+        this._term = DTOUtil.convertToType(obj.term);
+      }
       this._relType = obj.relType;
       this._relId = obj.relId;
       this._dto_type = obj.dto_type;

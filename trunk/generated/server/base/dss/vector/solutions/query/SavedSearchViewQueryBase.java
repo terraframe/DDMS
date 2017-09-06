@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -2138496587)
+@com.runwaysdk.business.ClassSignature(hash = 2141624839)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,6 +25,24 @@ public  abstract  class SavedSearchViewQueryBase extends com.runwaysdk.query.Gen
   {
     return dss.vector.solutions.query.SavedSearchView.CLASS;
   }
+  public com.runwaysdk.query.SelectableChar getAdditiveSelectables()
+  {
+    return getAdditiveSelectables(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getAdditiveSelectables(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ADDITIVESELECTABLES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getAdditiveSelectables(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ADDITIVESELECTABLES, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getConfig()
   {
     return getConfig(null);
@@ -43,6 +61,24 @@ public  abstract  class SavedSearchViewQueryBase extends com.runwaysdk.query.Gen
 
   }
  
+  public com.runwaysdk.query.SelectableChar getDeleteSelectables()
+  {
+    return getDeleteSelectables(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDeleteSelectables(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.DELETESELECTABLES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDeleteSelectables(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.DELETESELECTABLES, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -58,6 +94,42 @@ public  abstract  class SavedSearchViewQueryBase extends com.runwaysdk.query.Gen
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized()
+  {
+    return getIsMaterialized(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ISMATERIALIZED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsMaterialized(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.query.SavedSearchView.ISMATERIALIZED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKaleidoscopes()
+  {
+    return getKaleidoscopes(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKaleidoscopes(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.KALEIDOSCOPES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getKaleidoscopes(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.query.SavedSearchView.KALEIDOSCOPES, alias, displayLabel);
 
   }
  

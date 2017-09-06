@@ -17,6 +17,7 @@ import java.util.Stack;
 import java.util.TreeSet;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.constants.DatabaseProperties;
@@ -44,7 +45,6 @@ import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
-import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
@@ -52,6 +52,7 @@ import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 
+import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.QueryBuilder;
@@ -90,8 +91,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Throws a localized Exception to alert the user that he is trying to modify the parent of a
-   * Term.
+   * Throws a localized Exception to alert the user that he is trying to modify the parent of a Term.
    * 
    * @throws ConfirmParentChangeException
    *           always.
@@ -109,26 +109,26 @@ public class Term extends TermBase implements Reloadable, OptionIF
     throw ex;
   }
 
-  private static final String TEMP_TABLE = "RUNWAY_ALLPATHS_MULTIPARENT_TEMP";
-  private static final String TEMP_TERM_ID_COL = "termId";
-  private static final String TEMP_PARENT_ID_COL = "parentId";
-  private static final String TEMP_DEPTH_COL = "depth";
-  private static final String INDEX_NAME = "RUNWAY_ALLPATHS_MULTIPARENT_TEMP_INDEX";
-  private static final List<String> TEMP_TABLE_COLUMNS = Arrays.asList(
-      TEMP_TERM_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
-      TEMP_PARENT_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
-      TEMP_DEPTH_COL + " " + DatabaseProperties.getDatabaseType(MdAttributeIntegerInfo.CLASS)
-  );
-  private static final List<String> TEMP_TABLE_ATTRS = Arrays.asList(
-      MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeIntegerInfo.CLASS
-  );
-  
+  private static final String       TEMP_TABLE         = "RUNWAY_ALLPATHS_MULTIPARENT_TEMP";
+
+  private static final String       TEMP_TERM_ID_COL   = "termId";
+
+  private static final String       TEMP_PARENT_ID_COL = "parentId";
+
+  private static final String       TEMP_DEPTH_COL     = "depth";
+
+  private static final String       INDEX_NAME         = "RUNWAY_ALLPATHS_MULTIPARENT_TEMP_INDEX";
+
+  private static final List<String> TEMP_TABLE_COLUMNS = Arrays.asList(TEMP_TERM_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"), TEMP_PARENT_ID_COL + " " + Database.formatCharacterField(DatabaseProperties.getDatabaseType(MdAttributeCharacterInfo.CLASS), "64"),
+      TEMP_DEPTH_COL + " " + DatabaseProperties.getDatabaseType(MdAttributeIntegerInfo.CLASS));
+
+  private static final List<String> TEMP_TABLE_ATTRS   = Arrays.asList(MdAttributeCharacterInfo.CLASS, MdAttributeCharacterInfo.CLASS, MdAttributeIntegerInfo.CLASS);
+
   /**
    * Deletes the term and maintains allpaths integrity. May be a potentially expensive operation.
    * 
-   * TODO: Multi-threading
-   * TODO: At what point is it faster to rebuild the Allpaths table?
-   * TODO: Add better support in Query API for managing tables so this temp table logic can be more cross DB
+   * TODO: Multi-threading TODO: At what point is it faster to rebuild the Allpaths table? TODO: Add better support in Query API for managing tables
+   * so this temp table logic can be more cross DB
    */
   @Override
   @Transaction
@@ -137,45 +137,45 @@ public class Term extends TermBase implements Reloadable, OptionIF
     OntologyRelationship rel = OntologyRelationship.getByKey(OBO.IS_A);
     MdBusinessDAOIF allpathsMdBiz = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
     String child_term = allpathsMdBiz.definesAttribute(AllPaths.CHILDTERM).getColumnName();
-    String allpaths_ontology = allpathsMdBiz.getTableName(); 
-    
+    String allpaths_ontology = allpathsMdBiz.getTableName();
+
     // Count how many ancestors this term has. This will be used for later calculations
     AllPathsQuery apq = new AllPathsQuery(new QueryFactory());
     apq.WHERE(apq.getChildTerm().EQ(this));
     long delRootACount = apq.getCount() - 1;
-    
+
     // Create us a temp table for storing multiple parents that need to be rebuilt on the post step.
     Database.createTempTable(TEMP_TABLE, TEMP_TABLE_COLUMNS, "DROP");
     Database.addNonUniqueIndex(TEMP_TABLE, TEMP_TERM_ID_COL, INDEX_NAME);
-    
+
     // Depth first search because we're using a stack.
     Stack<Term> s = new Stack<Term>();
     s.push(this);
-    
-    stackLoop:
-    while (!s.empty())
+
+    stackLoop: while (!s.empty())
     {
       Term current = s.pop();
-      
+
       // Push the first child
       OIterator<? extends Business> children = current.getChildren(TermRelationship.CLASS);
       try
       {
-        // We're going to save on memory here by only pushing the first (unprocessed) child. When we loop back up to this node hopefully it will be deleted.
-        childLoop:
-        while (children.hasNext())
+        // We're going to save on memory here by only pushing the first (unprocessed) child. When we loop back up to this node hopefully it will be
+        // deleted.
+        childLoop: while (children.hasNext())
         {
           Term child = (Term) children.next();
-          
-          // If this child is in our temp table, then it has already been processed (and not deleted). We have to do this query here to prevent infinite loops.
+
+          // If this child is in our temp table, then it has already been processed (and not deleted). We have to do this query here to prevent
+          // infinite loops.
           String allpathsAncestorsSql = Database.selectClause(Arrays.asList("count(*)"), Arrays.asList(allpaths_ontology), Arrays.asList(child_term + " = '" + child.getId() + "'"));
-          ResultSet resultSet = Database.selectFromWhere("count(*)", TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + child.getId() + "' AND (" + allpathsAncestorsSql + ") > " + (2 + s.size() + delRootACount));
+          ResultSet resultSet = Database.selectFromWhere("count(*)", TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + child.getId() + "' AND (" + allpathsAncestorsSql + ") > " + ( 2 + s.size() + delRootACount ));
           try
           {
             if (resultSet.next())
             {
               int count = resultSet.getInt("count");
-              
+
               if (count > 0)
               {
                 continue childLoop;
@@ -199,7 +199,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
               Database.throwDatabaseException(sqlEx2);
             }
           }
-          
+
           s.push(current);
           s.push(child);
           continue stackLoop;
@@ -209,13 +209,13 @@ public class Term extends TermBase implements Reloadable, OptionIF
       {
         children.close();
       }
-      
+
       // Calculate if this term has a multiParentAncestor
       AllPathsQuery apq2 = new AllPathsQuery(new QueryFactory());
       apq2.WHERE(apq2.getChildTerm().EQ(current));
       long ancestorCount = apq2.getCount() - 1;
       boolean multiParentAncestor = s.size() + delRootACount < ancestorCount;
-      
+
       if (multiParentAncestor)
       {
         // Fetch all the term's parents to help us with inserting into the temp table
@@ -224,7 +224,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
         TermRelationshipQuery q = new TermRelationshipQuery(f);
         q.WHERE(q.childId().EQ(current.getId()));
         OIterator<? extends TermRelationship> pRelIt = q.getIterator();
-        try {
+        try
+        {
           while (pRelIt.hasNext())
           {
             parents.add(pRelIt.next().getParent());
@@ -234,36 +235,35 @@ public class Term extends TermBase implements Reloadable, OptionIF
         {
           pRelIt.close();
         }
-        
+
         List<String> parentIds = new ArrayList<String>();
         for (Term parent : parents)
         {
           parentIds.add(parent.getId());
         }
-        
+
         insertIntoTemp(current.getId(), parentIds, s.size());
       }
       else
       {
         Database.deleteWhere(TEMP_TABLE, TEMP_TERM_ID_COL + " = '" + current.getId() + "' OR " + TEMP_PARENT_ID_COL + " = '" + current.getId() + "'");
-        
+
         AllPaths.deleteTermFromAllPaths(current.getId());
         current.delete(false);
       }
     }
-    
-    
+
     // Post step: since we destroyed terms with multiple parents those multiple parents (that aren't our children) must now be rebuilt.
-    //   We have to do 2 loops here because we need two separate phases for deleting any still existing allpaths data and then rebuilding it.
-    String selectSql = Database.selectClause(Arrays.asList(TEMP_TERM_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE),  new ArrayList<String>());
+    // We have to do 2 loops here because we need two separate phases for deleting any still existing allpaths data and then rebuilding it.
+    String selectSql = Database.selectClause(Arrays.asList(TEMP_TERM_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), Arrays.asList(TEMP_TABLE), new ArrayList<String>());
     ResultSet resultSet = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
-    
+
     try
     {
       while (resultSet.next())
       {
         String termId = resultSet.getString(TEMP_TERM_ID_COL);
-        
+
         AllPaths.deleteTermFromAllPaths(termId);
       }
     }
@@ -284,17 +284,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
         Database.throwDatabaseException(sqlEx2);
       }
     }
-    
+
     // Post Step loop #2: Rebuild the terms with multiple parents.
     ResultSet resultSet2 = Database.query(selectSql + " ORDER BY " + TEMP_DEPTH_COL + " DESC");
-    
+
     try
     {
       while (resultSet2.next())
       {
         String termId = resultSet2.getString(TEMP_TERM_ID_COL);
         String parentId = resultSet2.getString(TEMP_PARENT_ID_COL);
-        
+
         AllPaths.updateAllPathForTerm(termId, parentId, rel.getId());
       }
     }
@@ -315,26 +315,26 @@ public class Term extends TermBase implements Reloadable, OptionIF
         Database.throwDatabaseException(sqlEx2);
       }
     }
-    
+
     // We don't need to care about deleting the temp table because it drops on transaction and the transaction ends here.
   }
-  
+
   private void insertIntoTemp(String termId, List<String> parentIds, Integer depth)
   {
     List<PreparedStatement> statements = new ArrayList<PreparedStatement>();
-    
+
     for (String parentId : parentIds)
     {
-      List<String> bindVals = Arrays.asList("?","?","?");
+      List<String> bindVals = Arrays.asList("?", "?", "?");
       List<Object> vals = Arrays.asList(termId, parentId, String.valueOf(depth));
-      
+
       PreparedStatement preparedStmt = Database.buildPreparedSQLInsertStatement(TEMP_TABLE, Arrays.asList(TEMP_TERM_ID_COL, TEMP_PARENT_ID_COL, TEMP_DEPTH_COL), bindVals, vals, TEMP_TABLE_ATTRS);
       statements.add(preparedStmt);
     }
-    
+
     Database.executeStatementBatch(statements);
   }
-  
+
   /**
    * WARNING: Does not maintain allpaths table!!
    */
@@ -350,7 +350,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     if (deleteChildren)
     {
       List<? extends Term> children = this.getAllChildTerm().getAll();
-  
+
       for (Term child : children)
       {
         if (child.hasSingleParent())
@@ -374,8 +374,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Deletes the TermRElationship between this Term and the Term with the given parent id. This
-   * method should only be called if this Term has more than one parent.
+   * Deletes the TermRElationship between this Term and the Term with the given parent id. This method should only be called if this Term has more
+   * than one parent.
    */
   @Override
   @Transaction
@@ -399,7 +399,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     finally
     {
       iter.close();
-      
+
       OntologyRelationship ontRel = OntologyRelationship.getByKey(OBO.IS_A);
 
       AllPaths.deleteTermAndChildrenFromAllPaths(this.getId());
@@ -411,8 +411,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * Throws an exception to alert the user before they try to delete a Term.
    * 
    * @throws ConfirmDeleteTermException
-   *           If the Term has more than one parent.
-   * @throws
+   *           If the Term has more than one parent. @throws
    */
   @Override
   @Transaction
@@ -490,9 +489,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * 
    * Gets all the TermRelationship children of this Term.
    * 
-   * @param filterObsolete If set to true, the query only returns active terms.
+   * @param filterObsolete
+   *          If set to true, the query only returns active terms.
    * 
-   * FIXME parameterize to pass in the relationship type.
+   *          FIXME parameterize to pass in the relationship type.
    */
   @Override
   public TermViewQuery getOntologyChildren(Boolean filterObsolete)
@@ -504,20 +504,21 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return q;
   }
-  
+
   /**
    * MdMethod
    * 
    * Gets all the TermRelationship parents of this Term.
    * 
-   * @param filterInactive If set to true, the query only returns active terms.
+   * @param filterInactive
+   *          If set to true, the query only returns active terms.
    */
   @Override
   public TermViewQuery getAncestors()
   {
     QueryFactory qf = new QueryFactory();
     TermViewQuery tvq = new TermViewQuery(qf, new TermViewQuery.AncestorsQueryBuilder(qf, this));
-    
+
     return tvq;
   }
 
@@ -539,6 +540,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
     // 3) If the parentIds array has ids, restrict by those ids
     if (parentTermIds != null && parentTermIds.length > 0)
     {
+      for (int i = 0; i < parentTermIds.length; i++)
+      {
+        if (parentTermIds[i].equals("ROOT"))
+        {
+          parentTermIds[i] = RootTerm.getRootInstance().getId();
+        }
+      }
+
       conditions.add(pathsQuery.getChildTerm().EQ(termQuery));
       conditions.add(pathsQuery.getParentTerm().IN(parentTermIds));
     }
@@ -671,7 +680,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       AllPaths.deleteTermAndChildrenFromAllPaths(this.getId());
       AllPaths.updateAllPathForTerm(this.getId(), null, ontRel.getId());
     }
-    else if (!cloneOperation && isNew)  // 3) This is a new Term so we're giving it it's first parent.
+    else if (!cloneOperation && isNew) // 3) This is a new Term so we're giving it it's first parent.
     {
       AllPaths.updateAllPathForTerm(this.getId(), parent.getId(), ontRel.getId());
     }
@@ -711,9 +720,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns the InactiveProperty associated with this Term for the current disease of the session.
-   * If this Term is a new instance then a new instance of InactiveProperty is returned, which can
-   * be used for metadata purposes and default values.
+   * Returns the InactiveProperty associated with this Term for the current disease of the session. If this Term is a new instance then a new instance
+   * of InactiveProperty is returned, which can be used for metadata purposes and default values.
    */
   @Override
   public InactiveProperty getInactiveByDisease()
@@ -788,9 +796,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Returns all default roots (Terms without parents). This method WILL return all Terms regardless
-   * of obsolete status. To return the terms with obsolete marked as false, use
-   * BrowserRoot.getDefaultRoot().
+   * Returns all default roots (Terms without parents). This method WILL return all Terms regardless of obsolete status. To return the terms with
+   * obsolete marked as false, use BrowserRoot.getDefaultRoot().
    * 
    * @param filterObsolete
    * @return
@@ -1137,7 +1144,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
   }
-  
+
   /**
    * Queries for the root Term of a given ontology.
    */
@@ -1240,37 +1247,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
   @Transaction
   public static Term validateByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    // No value means they didn't specify one. Don't throw a problem; just
-    // return null
-    if (displayLabel.trim().length() == 0)
+    Term term = findByDisplayLabel(displayLabel, mdAttribute);
+
+    if (term == null)
     {
-      return null;
-    }
-
-    QueryFactory qf = new QueryFactory();
-    ValueQuery query = new ValueQuery(qf);
-    BrowserFieldQuery bfq = new BrowserFieldQuery(query);
-    BrowserRootQuery brq = new BrowserRootQuery(query);
-    AllPathsQuery apq = new AllPathsQuery(query);
-    TermQuery tq = new TermQuery(query);
-
-    tq.WHERE(OR.get(tq.getName().EQi(displayLabel), tq.getTermDisplayLabel().localize().EQi(displayLabel), tq.getTermId().EQ(displayLabel)));
-    query.SELECT_DISTINCT(tq.getId());
-    query.WHERE(apq.getChildTerm().EQ(tq.getId()));
-    query.WHERE(brq.getTerm().EQ(apq.getParentTerm()));
-    query.WHERE(bfq.getId().EQ(brq.getBrowserField().getId()));
-    query.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
-    query.WHERE(brq.getDisease().EQ(Disease.getCurrent()));
-
-    OIterator<ValueObject> iterator = query.getIterator();
-
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return Term.get(iterator.next().getValue(Term.ID));
-      }
-
       String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
       String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
 
@@ -1278,9 +1258,70 @@ public class Term extends TermBase implements Reloadable, OptionIF
       e.setTermName(displayLabel);
       e.setAttributeLabel(attributeLabel);
       e.throwIt();
+    }
 
-      // We expect to return nothing, as we're throwing a problem, but include
-      // this to satisfy the compile time requirement
+    return term;
+  }
+
+  @Transaction
+  public static Term findTermAddIfNotExist(String displayLabel, MdAttributeDAOIF mdAttribute)
+  {
+    Term term = findByDisplayLabel(displayLabel, mdAttribute);
+
+    if (term == null)
+    {
+      List<BrowserRootView> roots = BrowserRoot.getDirectAttributeRoots(mdAttribute.definedByClass().definesType(), mdAttribute.definesAttribute());
+      BrowserRootView root = roots.get(0);
+      String parentTermId = root.getTermId();
+
+      term = new Term();
+      term.setTermId(TestFixture.getRandomId());
+      term.setName(displayLabel);
+      term.getTermDisplayLabel().setValue(displayLabel);
+      term.applyWithParent(parentTermId, false, null, false);
+    }
+
+    return term;
+  }
+
+  public static Term findByDisplayLabel(String displayLabel, MdAttributeDAOIF mdAttribute)
+  {
+    // No value means they didn't specify one. Don't throw a problem; just
+    // return null
+    if (displayLabel.trim().length() == 0)
+    {
+      return null;
+    }
+
+    QueryFactory factory = new QueryFactory();
+
+    BrowserFieldQuery bfQuery = new BrowserFieldQuery(factory);
+    bfQuery.WHERE(bfQuery.getMdAttribute().EQ(mdAttribute.getId()));
+
+    BrowserRootQuery brQuery = new BrowserRootQuery(factory);
+    brQuery.WHERE(brQuery.getBrowserField().EQ(bfQuery));
+
+    AllPathsQuery aptQuery = new AllPathsQuery(factory);
+    aptQuery.WHERE(aptQuery.getParentTerm().EQ(brQuery.getTerm()));
+
+    TermSynonymQuery synonymQuery = new TermSynonymQuery(factory);
+    synonymQuery.WHERE(synonymQuery.getTermName().EQ(displayLabel));
+
+    TermQuery query = new TermQuery(factory);
+    query.AND(query.getId().EQ(aptQuery.getChildTerm().getId()));
+    query.AND(OR.get(query.getName().EQi(displayLabel), query.getTermDisplayLabel().localize().EQi(displayLabel), query.getTermId().EQ(displayLabel), query.synonyms(synonymQuery)));
+
+    OIterator<? extends Term> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        Term entity = iterator.next();
+
+        return entity;
+      }
+
       return null;
     }
     finally
@@ -1346,9 +1387,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Gets all selectable Term objects that are the first descendents of the field described by the
-   * given class and attribute names. Inheritance is already factored into the method such that if B
-   * extends A and A defines attribute m, the following calls are valid:
+   * Gets all selectable Term objects that are the first descendents of the field described by the given class and attribute names. Inheritance is
+   * already factored into the method such that if B extends A and A defines attribute m, the following calls are valid:
    * 
    * 1) Term.getAllTermsForField("A", "m") 2) Term.getAllTermsForField("B", "m")
    * 
@@ -1510,7 +1550,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     MdEntityDAOIF mdEntityDAO = MdEntityDAO.getMdEntityDAO(className);
     Collection<? extends MdAttributeConcreteDAOIF> mdAttrDAOs = mdEntityDAO.getDefinedMdAttributeMap().values(); // don't grab attributes from supers!
     List<String> list = new LinkedList<String>();
-    
+
     for (MdAttributeConcreteDAOIF mdAttrDAO : mdAttrDAOs)
     {
       if (mdAttrDAO instanceof MdAttributeReferenceDAOIF && ( (MdAttributeReferenceDAOIF) mdAttrDAO ).getReferenceMdBusinessDAO().definesType().equals(Term.CLASS))
@@ -1584,8 +1624,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   /**
    * MdMethod
    * 
-   * This method is deprecated and obsolete. Use Term.termQuery instead, because it does the exact same thing only better. I don't know why this method ever
-   * existed to begin with, other than sloppy coding. I would delete it but there's also associated metadata.
+   * This method is deprecated and obsolete. Use Term.termQuery instead, because it does the exact same thing only better. I don't know why this
+   * method ever existed to begin with, other than sloppy coding. I would delete it but there's also associated metadata.
    * 
    * @blame Naifeh
    * @deprecated rrowlands
@@ -1795,9 +1835,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
   }
 
   /**
-   * Checks all given terms against one another for the possibility of nested selections. A nested
-   * selection is one in which two terms occupy the same branch, such as when a selected term is a
-   * child of parent term that is also selected.
+   * Checks all given terms against one another for the possibility of nested selections. A nested selection is one in which two terms occupy the same
+   * branch, such as when a selected term is a child of parent term that is also selected.
    * 
    * @param termIds
    * @throws NestedTermsException
@@ -1858,7 +1897,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     OntologyExcelImporter importer = new OntologyExcelImporter("InputStream");
     importer.read(new BufferedInputStream(importFile));
   }
-  
+
   /**
    * MdMethod
    */
@@ -1866,5 +1905,31 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     OntologyExcelExporter exporter = new OntologyExcelExporter(this, outputStream);
     exporter.export();
+  }
+
+  public JSONObject getJSONObject()
+  {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Transaction
+  public String addSynonym(String termSynonymName)
+  {
+
+    TermSynonym syn = TermSynonym.getByNameAndTerm(this.getTermId(), termSynonymName);
+
+    if (syn == null)
+    {
+      TermSynonym termSynonym = new TermSynonym();
+      termSynonym.setTermName(termSynonymName);
+      termSynonym.apply();
+
+      this.addSynonyms(termSynonym).apply();
+
+      return termSynonym.getId();
+    }
+
+    return syn.getId();
   }
 }

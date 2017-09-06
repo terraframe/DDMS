@@ -147,7 +147,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
         onValidGeoEntitySelected();
       }
       
-      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{selected:selected}));
+      this._fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION,{selected:selected, info:geoInfo.innerHTML}));
     },
     
     validateSelection : function()

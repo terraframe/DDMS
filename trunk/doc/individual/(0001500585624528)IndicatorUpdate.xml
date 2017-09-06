@@ -1,0 +1,37 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.MappableClass">
+        <create>
+          <mdMethod name="lockIndicator" label="Lock indicator" returnType="java.lang.String" static="true">
+            <mdParameter name="id" label="Id" order="0" type="java.lang.String"/>
+          </mdMethod>
+          <mdMethod name="removeIndicator" label="Remove indicator" returnType="void" static="true">
+            <mdParameter name="id" label="Id" order="0" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.kaleidoscope.DataSetController">
+        <create>
+          <mdAction name="editAttribute" label="Edit attribute" isPost="true" >
+            <mdParameter name="id" label="Id" order="0" type="java.lang.String"/>          
+          </mdAction>
+          <mdAction name="removeAttribute" label="Remove attribute" isPost="true" >
+            <mdParameter name="id" label="Id" order="0" type="java.lang.String"/>          
+          </mdAction>
+          <mdAction name="unlockAttribute" label="Unlock attribute" isPost="true" >
+            <mdParameter name="id" label="Id" order="0" type="java.lang.String"/>          
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.kaleidoscope.MappableClass.lockIndicator" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.kaleidoscope.MappableClass.removeIndicator" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

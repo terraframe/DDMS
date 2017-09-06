@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 485273383)
+@com.runwaysdk.business.ClassSignature(hash = -1442184340)
 public abstract class CollectionPremiseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.CollectionPremise";
-  private static final long serialVersionUID = 485273383;
+  private static final long serialVersionUID = -1442184340;
   
   protected CollectionPremiseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -306,7 +306,7 @@ public abstract class CollectionPremiseDTOBase extends com.runwaysdk.business.Bu
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -314,7 +314,7 @@ public abstract class CollectionPremiseDTOBase extends com.runwaysdk.business.Bu
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

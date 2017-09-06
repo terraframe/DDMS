@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -639014840)
+@com.runwaysdk.business.ClassSignature(hash = -1699022941)
 public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.DiagnosticAssay";
-  private static final long serialVersionUID = -639014840;
+  private static final long serialVersionUID = -1699022941;
   
   protected DiagnosticAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -453,7 +453,7 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LIFESTAGE).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -461,7 +461,7 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 725338948)
+@com.runwaysdk.business.ClassSignature(hash = 435785033)
 public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Property";
-  private static final long serialVersionUID = 725338948;
+  private static final long serialVersionUID = 435785033;
   
   protected PropertyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -395,7 +395,7 @@ public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -403,7 +403,7 @@ public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

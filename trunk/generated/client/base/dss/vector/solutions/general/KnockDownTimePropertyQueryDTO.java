@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1440771673)
+@com.runwaysdk.business.ClassSignature(hash = 417551810)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public class KnockDownTimePropertyQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1440771673;
+private static final long serialVersionUID = 417551810;
 
   protected KnockDownTimePropertyQueryDTO(String type)
   {

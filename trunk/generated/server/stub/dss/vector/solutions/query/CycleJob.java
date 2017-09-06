@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
-import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -501,7 +500,7 @@ public class CycleJob extends CycleJobBase implements com.runwaysdk.generation.l
 
           map.refreshMap(map.getId(), configuration);
 
-          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration);
+          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration, 0F);
 
           double left = array.getDouble(0);
           double bottom = array.getDouble(1);

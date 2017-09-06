@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1457342296)
+@com.runwaysdk.business.ClassSignature(hash = -1858583933)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -35,7 +35,7 @@ public abstract class InfectionAssayBase extends com.runwaysdk.business.Business
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
-  private static final long serialVersionUID = -1457342296;
+  private static final long serialVersionUID = -1858583933;
   
   public InfectionAssayBase()
   {
@@ -362,7 +362,7 @@ public abstract class InfectionAssayBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -370,7 +370,7 @@ public abstract class InfectionAssayBase extends com.runwaysdk.business.Business
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

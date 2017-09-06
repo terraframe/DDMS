@@ -1,14 +1,10 @@
 package dss.vector.solutions.geo;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.export.ControlInterventionExcelView;

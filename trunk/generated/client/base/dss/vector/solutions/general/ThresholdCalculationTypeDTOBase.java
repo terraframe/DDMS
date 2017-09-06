@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 619762179)
+@com.runwaysdk.business.ClassSignature(hash = 1131335240)
 public abstract class ThresholdCalculationTypeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationType";
-  private static final long serialVersionUID = 619762179;
+  private static final long serialVersionUID = 1131335240;
   
   protected ThresholdCalculationTypeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -400,7 +400,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.runwaysdk.busi
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -408,7 +408,7 @@ public abstract class ThresholdCalculationTypeDTOBase extends com.runwaysdk.busi
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

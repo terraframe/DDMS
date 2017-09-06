@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -1393151863)
+@com.runwaysdk.business.ClassSignature(hash = 597258766)
 public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.ReportItem";
-  private static final long serialVersionUID = -1393151863;
+  private static final long serialVersionUID = 597258766;
   
   protected ReportItemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -367,7 +367,7 @@ public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessD
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -375,7 +375,7 @@ public abstract class ReportItemDTOBase extends com.runwaysdk.business.BusinessD
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

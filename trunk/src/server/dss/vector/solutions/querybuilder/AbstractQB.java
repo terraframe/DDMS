@@ -15,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.constants.EntityInfo;
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdTableClassIF;
@@ -45,6 +47,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.RawLeftJoinEq;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableDecimal;
 import com.runwaysdk.query.SelectableDouble;
@@ -77,7 +80,9 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.MaterializedMarkerLayer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.querybuilder.irs.Alias;
 import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
@@ -99,8 +104,6 @@ public abstract class AbstractQB implements Reloadable
 
     private String                        entityNameAlias;
 
-    private String                        idAlias;
-
     private String                        geoIdAlias;
 
     private String                        geoThematicAlias;
@@ -118,7 +121,6 @@ public abstract class AbstractQB implements Reloadable
       geoThematicAlias = null;
       geoThematicAttr = null;
       geoThematicEntity = null;
-      idAlias = null;
       attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
     }
   }
@@ -437,6 +439,7 @@ public abstract class AbstractQB implements Reloadable
   /**
    * Copies all selectables and returns them.
    */
+  @SuppressWarnings("unchecked")
   protected Selectable[] copyAll(ValueQuery vq, List<Selectable> sels, String prefix, boolean preserveAggregates, ValueQuery original)
   {
     Selectable[] replacements = new Selectable[sels.size()];
@@ -522,7 +525,30 @@ public abstract class AbstractQB implements Reloadable
         newSel = vq.aSQLCharacter(sel.getColumnAlias(), qualifiedCol, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
       }
 
+      Map<String, Object> data = (Map<String, Object>) sel.getData();
+
+      if (data == null)
+      {
+        data = new HashMap<String, Object>();
+      }
+
+      if (!data.containsKey(MetadataInfo.CLASS))
+      {
+        data.put(MetadataInfo.CLASS, sel.getMdAttributeIF());
+      }
+
+      if (!data.containsKey(SelectableAggregate.class.getName()))
+      {
+        data.put(SelectableAggregate.class.getName(), sel.isAggregateFunction());
+      }
+      
+      if (!data.containsKey(SavedSearch.ALIAS))
+      {
+        data.put(SavedSearch.ALIAS, sel.getUserDefinedAlias());
+      }      
+
       newSel.setColumnAlias(sel.getColumnAlias());
+      newSel.setData(data);
 
       replacements[count++] = newSel;
     }
@@ -992,7 +1018,7 @@ public abstract class AbstractQB implements Reloadable
         String table = MdBusiness.getMdBusiness(klass).getTableName();
         valueQuery.AND(new InnerJoinEq(id, table, query.getTableAlias(), id, sql, subSelect));
 
-        if (this.layer != null)
+        if (this.layer != null && this.layer instanceof MaterializedMarkerLayer)
         {
           // new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", allPathsAlias + "." + ALLPATHS_PARENT_TERM_COLUMN,
           // (MdAttributeReferenceDAOIF) mdAttribute);
@@ -1077,7 +1103,7 @@ public abstract class AbstractQB implements Reloadable
     String attr = null;
     String layerGeoEntityType = null;
     String thematicUserAlias = null;
-    if (layer != null)
+    if (layer != null && ! ( layer instanceof MaterializedMarkerLayer ))
     {
       thematicUserAlias = layer.getThematicUserAlias();
       layerGeoEntityType = layer.getGeoHierarchy().getQualifiedType();
@@ -1113,7 +1139,7 @@ public abstract class AbstractQB implements Reloadable
     }
 
     // Include the geometry column/attribute in the ValueQuery if we are mapping
-    if (layer != null)
+    if (layer != null && ! ( layer instanceof MaterializedMarkerLayer ))
     {
       String entityAlias = key + "__" + layerGeoEntityType;
 
@@ -1132,7 +1158,7 @@ public abstract class AbstractQB implements Reloadable
     validateQuery(valueQuery);
 
     // Set the entity name and geo id columns to something predictable
-    if (layer != null)
+    if (layer != null && ! ( layer instanceof MaterializedMarkerLayer ))
     {
       valueQuery.getSelectableRef(geoEntityJoinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
       valueQuery.getSelectableRef(geoEntityJoinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
@@ -1275,6 +1301,7 @@ public abstract class AbstractQB implements Reloadable
 
       Selectable selectable1 = geoEntityQuery.getEntityLabel().localize(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
+      
       Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, QueryUtil.GEO_DISPLAY_LABEL + "." + QueryUtil.LABEL_COLUMN, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
 
       selectables.add(selectable2);
@@ -1284,6 +1311,7 @@ public abstract class AbstractQB implements Reloadable
       selectables.add(selectable3);
 
       SelectableChar selectable6 = geoEntityQuery.getId(idAlias);
+      
       Selectable selectableId = geoEntityVQ.aSQLCharacter(PARENT_UNIVERSAL_ID, selectable6.getDbQualifiedName(), PARENT_UNIVERSAL_ID, selectable6.getUserDefinedAlias());
       selectableId.setColumnAlias(PARENT_UNIVERSAL_ID);
 
@@ -1291,18 +1319,22 @@ public abstract class AbstractQB implements Reloadable
 
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
 
-      if (this.layer != null && hierarchies.containsKey(attributeKey))
+//      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer && hierarchies.containsKey(attributeKey))
+      if (this.layer != null && this.layer instanceof MaterializedMarkerLayer)
       {
-        GeoHierarchy hierarchy = hierarchies.get(attributeKey);
-        MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
-
-        if (mdGeoEntity.definesType().equals(selectedGeoEntityType))
+//        GeoHierarchy hierarchy = hierarchies.get(attributeKey);
+//        MdBusiness mdGeoEntity = hierarchy.getGeoEntityClass();
+//
+//        if (mdGeoEntity.definesType().equals(selectedGeoEntityType))
         {
           selectables.add(selectable6);
 
           String columnName = idAlias.substring(Math.max(0, idAlias.length() - 28));
 
-          valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName, geoVQEntityAlias);
+          HashMap<String, Object> data = new HashMap<String, Object>();
+          data.put(EntityInfo.CLASS, geoVQEntityAlias);
+
+          valueQueryParser.addAttributeSelectable(geoVQEntityAlias, idAlias, idAlias, columnName, data);
         }
       }
 
@@ -1312,7 +1344,6 @@ public abstract class AbstractQB implements Reloadable
         // save the aliases used for mapping the entity name and geo id columns
         geoEntityJoinData.entityNameAlias = entityNameAlias;
         geoEntityJoinData.geoIdAlias = geoIdAlias;
-        geoEntityJoinData.idAlias = idAlias;
 
         // If the thematic variable is either the entity name or geo id
         // then create a new selectable because those columns already have

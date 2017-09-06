@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -583844191)
+@com.runwaysdk.business.ClassSignature(hash = -875994138)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class ITNCommunityTargetGroupBase extends com.runwaysdk.business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -583844191;
+  private static final long serialVersionUID = -875994138;
   
   public ITNCommunityTargetGroupBase(String parentId, String childId)
   {
@@ -231,7 +231,7 @@ public abstract class ITNCommunityTargetGroupBase extends com.runwaysdk.business
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -239,7 +239,7 @@ public abstract class ITNCommunityTargetGroupBase extends com.runwaysdk.business
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

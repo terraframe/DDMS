@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -953822701)
+@com.runwaysdk.business.ClassSignature(hash = 266126360)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
   public static java.lang.String URLNAME = "urlName";
-  private static final long serialVersionUID = -953822701;
+  private static final long serialVersionUID = 266126360;
   
   public SystemURLBase()
   {
@@ -224,7 +224,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -232,7 +232,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

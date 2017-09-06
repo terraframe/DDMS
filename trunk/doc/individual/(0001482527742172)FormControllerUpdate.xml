@@ -1,0 +1,35 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<update>
+			<mdController name="dss.vector.solutions.form.MdFormAdminController">
+				<create>
+					<mdAction name="exportDataset" label="Export dataset"
+						description="Exports a form to a dataset" isPost="true">
+						<mdParameter name="mdFormId" label="Form Id" order="0"
+							type="java.lang.String" />
+					</mdAction>
+				</create>
+			</mdController>
+			<mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+				<create>
+					<mdMethod name="exportDataset" label="Export dataset"
+						static="true" returnType="void">
+						<mdParameter name="mdFormId" label="Form Id" order="0"
+							type="java.lang.String" />
+					</mdMethod>
+				</create>
+			</mdUtil>
+		</update>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.generator.MdFormUtil.exportDataset"
+				type="com.runwaysdk.system.metadata.MdMethod" />
+			<object
+				key="dss.vector.solutions.form.MdFormAdminController.exportDataset"
+				type="com.runwaysdk.system.metadata.MdAction" />
+		</delete>
+	</undoIt>
+</version>

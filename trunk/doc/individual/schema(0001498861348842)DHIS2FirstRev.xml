@@ -1,0 +1,134 @@
+<version xsi:noNamespaceSchemaLocation="/Users/richard1/workspace/MDSS/profiles/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException" label="Numbers Must Be Aggregated Exception" message="All number columns must be aggregated. [{numberColumn}] is not aggregated.">
+        <attributes>
+          <char name="numberColumn" label="Number Column" required="true" size="2000"/>
+        </attributes>
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException" label="Max One Geo Column Exception" message="Query must contain exactly one geo column.">
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.CalendarYearRequiredException" label="Calendar Year Required Exception" message="Query must contain 'Calendar year' column.">
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException" label="Geo Field Required Exception" message="A Geo attribute is required for tracker exporting.">
+      </mdException>
+    
+      <mdException name="dss.vector.solutions.etl.dhis2.response.DHIS2DuplicateAttributeException" label="DHIS2 Duplicate Attribute Exception" message="Attributes [{dhis2Attrs}] already exist in DHIS2 as a TrackedEntityAttribute. You can: rename your Geoprism attribute(s), or delete your Geoprism dataset and reimport your spreadsheet with a different attribute name, or delete the attribute(s) in DHIS2.">
+        <attributes>
+          <char name="dhis2Attrs" label="DHIS2 Duplicate Attributes" required="true" size="2000"/>
+        </attributes>
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.response.OAuthLoginRequiredException" label="OAuth Login Required Exception" message="You must log in via OAuth to use this feature. Log out, click the 'Log in with DHIS2' button in the top left, and try your operation again.">
+      </mdException>
+      
+      <mdException name="dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException" label="DHIS2 Empty Dataset Exception" message="Your dataset does not contain any data. It has not been exported.">
+      </mdException>
+      <mdException name="dss.vector.solutions.etl.dhis2.response.DHIS2AttributeLengthException" label="DHIS2 Attribute Length Exception" message="One of your attributes is too long. DHIS2 has an attribute name length of 50, your attribute is of length [{attrLen}].">
+        <attributes>
+          <char name="attrLen" label="Attribute Length" required="true" size="50"/>
+        </attributes>
+      </mdException>
+      <mdException name="dss.vector.solutions.etl.dhis2.response.DHIS2UnexpectedResponseException" label="DHIS2 Unexpected Response Exception" message="DHIS2 returned an unexpected response [{dhis2Response}].">
+        <attributes>
+          <char name="dhis2Response" label="DHIS2 Response" required="true" size="1000"/>
+        </attributes>
+      </mdException>
+      <mdException name="dss.vector.solutions.etl.dhis2.response.DHIS2DuplicateDataException" label="DHIS2 Duplicate Data Exception" message="A DHIS2 [{dataType}] already exists with the {propertyName} [{propertyValue}]">
+        <attributes>
+          <char name="dataType" label="DHIS2 Datatype" required="true" size="500"/>
+          <char name="propertyName" label="DHIS2 property name" required="true" size="500"/>
+          <char name="propertyValue" label="DHIS2 property value" required="true" size="500"/>
+        </attributes>
+      </mdException>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.OrgUnitLevel" label="DHIS2 OrgUnitLevel">
+        <attributes>
+          <char name="name" size="128" label="name" />
+          <integer name="level" size="128" label="level" column="levelNum" />
+          <reference type="com.runwaysdk.system.metadata.MdBusiness" name="universal" label="Universal" />
+          <char name="dhis2Id" size="16" label="DHIS2 Id" indexType="unique index" />
+          <boolean name="valid" label="valid" column="validflag" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.OrgUnit" label="DHIS2 OrgUnit">
+        <attributes>
+          <char name="name" size="128" label="name" />
+          <char name="code" size="128" label="code" />
+          <char name="path" size="128" label="path" column="pathStr" />
+          <reference type="dss.vector.solutions.etl.dhis2.OrgUnit" name="parent" label="parent" />
+          <reference type="dss.vector.solutions.etl.dhis2.OrgUnitLevel" name="orgUnitLevel" label="Organisation Unit Level" />
+          <char name="dhis2Id" size="16" label="DHIS2 Id" indexType="unique index" />
+          <boolean name="valid" label="valid" column="validflag" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.BasicIdMapping" label="DHIS2 OrgUnit">
+        <attributes>
+          <!-- I tried to make this a reference to a runway object but there is simply no common base class I can use.
+               Entity or Business doesn't work, its kind of an unenforced rule that you're not supposed to use those here.
+           -->
+          <char name="runwayId" size="500" indexType="unique index" label="Arbitrary Text that is probably a runway id" />
+          
+          <char name="dhis2Id" size="32" indexType="unique index" label="DHIS2 Id" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.GeoMap" label="DHIS2 GeoMap">
+        <attributes>
+          <reference type="dss.vector.solutions.geo.generated.GeoEntity" name="geoEntity" indexType="unique index" label="GeoEntity" required="true" />
+          <reference type="dss.vector.solutions.etl.dhis2.OrgUnit" name="orgUnit" label="GeoEntity" required="false" />
+          <boolean name="confirmed" label="confirmed" defaultValue="false" />
+        </attributes>
+      </mdBusiness>
+      
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset" label="DHIS2 Exportable Dataset">
+        <attributes>
+          <reference type="com.runwaysdk.system.metadata.MdTable" label="Persisted query" name="queryRef" required="true" />
+          <char label="DHIS2 dataset name" name="dhis2Name" size="1000" required="true" />
+          <text label="Description" name="description" required="false" />
+          <reference type="dss.vector.solutions.geo.generated.GeoEntity" label="Org unit" name="geoRef" required="false" />
+        </attributes>
+      </mdBusiness>
+    
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration" label="Abstract DHIS2 configuration">
+        <attributes>
+          <char label="Url" name="url" size="1000" />
+          <char label="Name" name="name" size="1000" />
+        </attributes>
+      </mdBusiness>
+    
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration" label="DHIS2 HTTP Configuration" extends="dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration">
+        <attributes>
+          <char label="Username" name="username" size="1000" />
+          <char label="Password" name="pazzword" size="1000" />
+        </attributes>
+      </mdBusiness>
+      
+      <object type="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration" key="DEFAULT" >
+        <attribute name="url" value=""/>
+        <attribute name="username" value=""/>
+        <attribute name="pazzword" value=""/>
+      </object>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.response.DHIS2DuplicateAttributeException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.response.OAuthLoginRequiredException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.response.DHIS2AttributeLengthException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.response.DHIS2UnexpectedResponseException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.response.DHIS2DuplicateDataException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2IdMapping" type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2AbstractConfiguration" type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration" type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

@@ -1,19 +1,15 @@
 package dss.vector.solutions;
 
-import java.util.Date;
-
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.PersonWithDelegatesViewQuery.DefaultPersonWithDelegatesViewBuilder;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
-import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.stock.StockStaff;
 
 public class PersonView extends PersonViewBase implements com.runwaysdk.generation.loader.Reloadable

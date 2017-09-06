@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 2093368238)
+@com.runwaysdk.business.ClassSignature(hash = -1303775287)
 public abstract class OntologyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Ontology";
-  private static final long serialVersionUID = 2093368238;
+  private static final long serialVersionUID = -1303775287;
   
   protected OntologyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -288,7 +288,7 @@ public abstract class OntologyDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -296,7 +296,7 @@ public abstract class OntologyDTOBase extends com.runwaysdk.business.BusinessDTO
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

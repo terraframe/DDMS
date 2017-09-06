@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -2110245840)
+@com.runwaysdk.business.ClassSignature(hash = 202838027)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -42,7 +42,7 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -2110245840;
+  private static final long serialVersionUID = 202838027;
   
   public PersonBase()
   {
@@ -481,7 +481,7 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -489,7 +489,7 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 851408917)
+@com.runwaysdk.business.ClassSignature(hash = 714458992)
 public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormPerson";
-  private static final long serialVersionUID = 851408917;
+  private static final long serialVersionUID = 714458992;
   
   protected FormPersonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -352,7 +352,7 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -360,7 +360,7 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

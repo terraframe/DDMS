@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1546221496)
+@com.runwaysdk.business.ClassSignature(hash = -597537885)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
   public static java.lang.String TESTSTRAINRESULT = "testStrainResult";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
-  private static final long serialVersionUID = -1546221496;
+  private static final long serialVersionUID = -597537885;
   
   public TimeResponseAssayBase()
   {
@@ -412,7 +412,7 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -420,7 +420,7 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

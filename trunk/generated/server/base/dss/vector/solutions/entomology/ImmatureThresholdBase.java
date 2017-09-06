@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -927859620)
+@com.runwaysdk.business.ClassSignature(hash = 686571511)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class ImmatureThresholdBase extends com.runwaysdk.business.Busin
   public static java.lang.String THRESHOLDINDEX = "thresholdIndex";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -927859620;
+  private static final long serialVersionUID = 686571511;
   
   public ImmatureThresholdBase()
   {
@@ -265,7 +265,7 @@ public abstract class ImmatureThresholdBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -273,7 +273,7 @@ public abstract class ImmatureThresholdBase extends com.runwaysdk.business.Busin
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

@@ -33,6 +33,13 @@ request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !cli
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
 <script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
+    
+<script>
+  window.com = window.com || {};
+  window.com.runwaysdk = window.com.runwaysdk || {};
+  window.com.runwaysdk.__applicationContextPath = "<%=request.getContextPath()%>";
+</script>  
+
 <jwr:style src="/bundles/yuiStyle.css" useRandomParam="false"/>
 <jwr:style src="/bundles/yui3Style.css" useRandomParam="false"/>
 <%

@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1200416963)
+@com.runwaysdk.business.ClassSignature(hash = 1862503554)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class EmailBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String SUBJECT = "subject";
   public static java.lang.String TOADDRESSES = "toAddresses";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1200416963;
+  private static final long serialVersionUID = 1862503554;
   
   public EmailBase()
   {
@@ -391,7 +391,7 @@ public abstract class EmailBase extends com.runwaysdk.business.Business implemen
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -399,7 +399,7 @@ public abstract class EmailBase extends com.runwaysdk.business.Business implemen
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

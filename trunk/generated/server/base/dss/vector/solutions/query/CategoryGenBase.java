@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1181979647)
+@com.runwaysdk.business.ClassSignature(hash = 647486086)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -39,7 +39,7 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1181979647;
+  private static final long serialVersionUID = 647486086;
   
   public CategoryGenBase()
   {
@@ -414,7 +414,7 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -422,7 +422,7 @@ public abstract class CategoryGenBase extends com.runwaysdk.business.Business im
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

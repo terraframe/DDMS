@@ -9,12 +9,6 @@ import java.util.Date;
 
 import javax.xml.bind.DatatypeConverter;
 
-import net.jawr.web.resource.bundle.IOUtils;
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import net.lingala.zip4j.model.ZipParameters;
-import net.lingala.zip4j.util.Zip4jConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +23,11 @@ import com.runwaysdk.util.FileIO;
 import com.runwaysdk.vault.VaultFileDAO;
 
 import dss.vector.solutions.FileRequiredException;
+import net.jawr.web.resource.bundle.IOUtils;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.ZipParameters;
+import net.lingala.zip4j.util.Zip4jConstants;
 
 /**
  * This class is responsible for merging uploaded report resource documents.

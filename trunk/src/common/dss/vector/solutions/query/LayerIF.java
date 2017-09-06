@@ -4,15 +4,11 @@ import java.util.List;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
-public interface LayerIF extends Reloadable
+public interface LayerIF extends BasicLayerIF, Reloadable
 {
-  public String getId();
-
   public String getSldFile();
 
   public boolean hasThematicVariable();
-
-  public String getViewName();
 
   public boolean isPoint();
 

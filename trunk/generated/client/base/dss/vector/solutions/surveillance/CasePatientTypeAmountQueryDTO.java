@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -1329404464)
+@com.runwaysdk.business.ClassSignature(hash = -1481209109)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public class CasePatientTypeAmountQueryDTO extends com.runwaysdk.business.RelationshipQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1329404464;
+private static final long serialVersionUID = -1481209109;
 
   protected CasePatientTypeAmountQueryDTO(String type)
   {

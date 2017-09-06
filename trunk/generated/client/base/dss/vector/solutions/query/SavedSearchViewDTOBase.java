@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 282713100)
+@com.runwaysdk.business.ClassSignature(hash = -822994480)
 public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearchView";
-  private static final long serialVersionUID = 282713100;
+  private static final long serialVersionUID = -822994480;
   
   protected SavedSearchViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -16,12 +16,53 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
     return CLASS;
   }
   
+  public static java.lang.String ADDITIVESELECTABLES = "additiveSelectables";
   public static java.lang.String CONFIG = "config";
+  public static java.lang.String DELETESELECTABLES = "deleteSelectables";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISMATERIALIZED = "isMaterialized";
+  public static java.lang.String KALEIDOSCOPES = "kaleidoscopes";
   public static java.lang.String QUERYNAME = "queryName";
   public static java.lang.String QUERYTYPE = "queryType";
   public static java.lang.String QUERYXML = "queryXml";
   public static java.lang.String SAVEDQUERYID = "savedQueryId";
+  public String getAdditiveSelectables()
+  {
+    return getValue(ADDITIVESELECTABLES);
+  }
+  
+  public void setAdditiveSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(ADDITIVESELECTABLES, "");
+    }
+    else
+    {
+      setValue(ADDITIVESELECTABLES, value);
+    }
+  }
+  
+  public boolean isAdditiveSelectablesWritable()
+  {
+    return isWritable(ADDITIVESELECTABLES);
+  }
+  
+  public boolean isAdditiveSelectablesReadable()
+  {
+    return isReadable(ADDITIVESELECTABLES);
+  }
+  
+  public boolean isAdditiveSelectablesModified()
+  {
+    return isModified(ADDITIVESELECTABLES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getAdditiveSelectablesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(ADDITIVESELECTABLES).getAttributeMdDTO();
+  }
+  
   public String getConfig()
   {
     return getValue(CONFIG);
@@ -57,6 +98,117 @@ public abstract class SavedSearchViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getConfigMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(CONFIG).getAttributeMdDTO();
+  }
+  
+  public String getDeleteSelectables()
+  {
+    return getValue(DELETESELECTABLES);
+  }
+  
+  public void setDeleteSelectables(String value)
+  {
+    if(value == null)
+    {
+      setValue(DELETESELECTABLES, "");
+    }
+    else
+    {
+      setValue(DELETESELECTABLES, value);
+    }
+  }
+  
+  public boolean isDeleteSelectablesWritable()
+  {
+    return isWritable(DELETESELECTABLES);
+  }
+  
+  public boolean isDeleteSelectablesReadable()
+  {
+    return isReadable(DELETESELECTABLES);
+  }
+  
+  public boolean isDeleteSelectablesModified()
+  {
+    return isModified(DELETESELECTABLES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getDeleteSelectablesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(DELETESELECTABLES).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsMaterialized()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISMATERIALIZED));
+  }
+  
+  public void setIsMaterialized(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISMATERIALIZED, "");
+    }
+    else
+    {
+      setValue(ISMATERIALIZED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsMaterializedWritable()
+  {
+    return isWritable(ISMATERIALIZED);
+  }
+  
+  public boolean isIsMaterializedReadable()
+  {
+    return isReadable(ISMATERIALIZED);
+  }
+  
+  public boolean isIsMaterializedModified()
+  {
+    return isModified(ISMATERIALIZED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsMaterializedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISMATERIALIZED).getAttributeMdDTO();
+  }
+  
+  public String getKaleidoscopes()
+  {
+    return getValue(KALEIDOSCOPES);
+  }
+  
+  public void setKaleidoscopes(String value)
+  {
+    if(value == null)
+    {
+      setValue(KALEIDOSCOPES, "");
+    }
+    else
+    {
+      setValue(KALEIDOSCOPES, value);
+    }
+  }
+  
+  public boolean isKaleidoscopesWritable()
+  {
+    return isWritable(KALEIDOSCOPES);
+  }
+  
+  public boolean isKaleidoscopesReadable()
+  {
+    return isReadable(KALEIDOSCOPES);
+  }
+  
+  public boolean isKaleidoscopesModified()
+  {
+    return isModified(KALEIDOSCOPES);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getKaleidoscopesMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(KALEIDOSCOPES).getAttributeMdDTO();
   }
   
   public String getQueryName()

@@ -83,6 +83,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var editB = Mojo.Util.bind(this, this.requestEdit);
       this._MdFormAdminController.setEditFormAttributesListener(editB);
       
+//      this._MdFormAdminController.setExportDatasetListener(Mojo.Util.bind(this, this.requestDataset));
+      
       this._MdFormAdminController.setExportDefinitionListener(Mojo.Util.bind(this, this.requestExport));
       
       var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
@@ -1095,6 +1097,17 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       });
       
       this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
+    },
+    requestDataset : function()
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          console.log("Export finished");
+        }
+      });
+      
+      this._MdFormAdminController.exportDataset(request, this._currentMdFormId);
     },
     viewCloneListener : function()
     {

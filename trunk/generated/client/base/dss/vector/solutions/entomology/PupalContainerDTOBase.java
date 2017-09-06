@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -927043304)
+@com.runwaysdk.business.ClassSignature(hash = -375629773)
 public abstract class PupalContainerDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.PupalContainer";
-  private static final long serialVersionUID = -927043304;
+  private static final long serialVersionUID = -375629773;
   
   protected PupalContainerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -697,7 +697,7 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LID).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -705,7 +705,7 @@ public abstract class PupalContainerDTOBase extends com.runwaysdk.business.Busin
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

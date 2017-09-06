@@ -35,6 +35,7 @@ import com.runwaysdk.system.metadata.MdWebText;
 import com.runwaysdk.system.metadata.MdWebTime;
 
 import dss.vector.solutions.generator.MdFormUtil;
+import dss.vector.solutions.generator.MdWebIndicator;
 import dss.vector.solutions.geo.GeoField;
 
 public class DDMSFieldBuilders implements Reloadable
@@ -64,6 +65,7 @@ public class DDMSFieldBuilders implements Reloadable
     builders.put(MdWebReference.CLASS, new WebReferenceBuilder());
     builders.put(MdWebGeo.CLASS, new WebGeoBuilder());
     builders.put(MdWebGroup.CLASS, new WebGroupBuilder());
+    builders.put(MdWebIndicator.CLASS, new WebIndicatorBuilder());
   }
 
   private static WebFieldBuilder getBuilder(MdField mdField)

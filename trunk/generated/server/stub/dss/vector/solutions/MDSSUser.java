@@ -8,7 +8,6 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
-import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.CreatePermissionException;
 import com.runwaysdk.session.DeletePermissionException;
@@ -17,6 +16,7 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.Assignments;
 import com.runwaysdk.system.Roles;
+import com.runwaysdk.system.SingleActor;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -161,5 +161,19 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     boolean canDelete = ( roles.containsKey(MDSSRoleInfo.SYSTEM) || roles.containsKey(MDSSRoleInfo.RUNWAY_ADMIN) );
 
     return canDelete;
+  }
+
+  public static SingleActor getCurrentUser()
+  {
+    SessionIF session = Session.getCurrentSession();
+
+    if (session != null)
+    {
+      SingleActorDAOIF user = session.getUser();
+
+      return SingleActor.get(user.getId());
+    }
+
+    return null;
   }
 }

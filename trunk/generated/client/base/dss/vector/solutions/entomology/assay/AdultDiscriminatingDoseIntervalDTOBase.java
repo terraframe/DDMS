@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1669624865)
+@com.runwaysdk.business.ClassSignature(hash = 227502204)
 public abstract class AdultDiscriminatingDoseIntervalDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval";
-  private static final long serialVersionUID = 1669624865;
+  private static final long serialVersionUID = 227502204;
   
   protected AdultDiscriminatingDoseIntervalDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -375,7 +375,7 @@ public abstract class AdultDiscriminatingDoseIntervalDTOBase extends com.runways
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -383,7 +383,7 @@ public abstract class AdultDiscriminatingDoseIntervalDTOBase extends com.runways
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -943750591)
+@com.runwaysdk.business.ClassSignature(hash = -1252108708)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -34,7 +34,7 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
   public static java.lang.String UNITQUANTIFIER = "unitQuantifier";
   public static java.lang.String UNITSPERAPPLICATION = "unitsPerApplication";
   public static java.lang.String USEDETAIL = "useDetail";
-  private static final long serialVersionUID = -943750591;
+  private static final long serialVersionUID = -1252108708;
   
   public InsecticideBrandBase()
   {
@@ -425,7 +425,7 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -433,7 +433,7 @@ public abstract class InsecticideBrandBase extends com.runwaysdk.business.Busine
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

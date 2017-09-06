@@ -1,0 +1,38 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration">
+        <create>
+          <mdMethod name="getInstance" label="Get instance" returnType="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration" static="true"/>
+          <mdMethod name="connect" label="Connect" returnType="void" static="false"/>
+        </create>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset">
+        <create>
+          <mdMethod name="getAll" label="Get all" returnType="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset[]" static="true"/>
+          <mdMethod name="getQueries" label="Get queries" returnType="com.runwaysdk.system.metadata.MdTable[]" static="true"/>
+          <mdMethod name="xport" label="Export" returnType="java.lang.String" static="true">
+            <mdParameter name="datasets" label="Datasets" order="0" type="java.lang.String"/>
+            <mdParameter name="strategy" label="Strategy" order="1" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.kaleidoscope.UserMenuController">
+        <create>
+          <mdAction name="dhis2Management" isPost="false" label="DHIS2 Management"></mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration.getInstance" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2HTTPConfiguration.connect" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset.getAll" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset.getQueries" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset.xport" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

@@ -1,0 +1,25 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.OrgUnitLevel">
+        <create>
+         <mdMethod name="getAll" label="Get all" returnType="dss.vector.solutions.etl.dhis2.OrgUnitLevel[]" static="true"/>         
+        </create>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.etl.dhis2.GeoLevelMap">
+        <create>
+         <mdMethod name="getAll" label="Get all" returnType="java.lang.String" static="true"/>         
+        </create>
+      </mdBusiness>
+    </update>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.etl.dhis2.OrgUnitLevel.getAll" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.etl.dhis2.GeoLevelMap.getAll" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

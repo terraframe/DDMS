@@ -40,6 +40,7 @@
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
+<jwr:style src="/bundles/queryCssBundle.css" useRandomParam="false"/>
 <jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
 
 

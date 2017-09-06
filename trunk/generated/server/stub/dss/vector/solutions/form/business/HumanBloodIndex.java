@@ -4,6 +4,8 @@ public class HumanBloodIndex extends HumanBloodIndexBase implements com.runwaysd
 {
   private static final long serialVersionUID = 876561112;
   
+  public static final String FORM_TYPE        = "dss.vector.solutions.form.HumanBloodIndex";
+  
   public HumanBloodIndex()
   {
     super();

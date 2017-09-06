@@ -2,11 +2,6 @@ package dss.vector.solutions;
 
 import java.util.Locale;
 
-import junit.extensions.TestSetup;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.DoNotWeave;
 import com.runwaysdk.business.BusinessDTO;
@@ -17,6 +12,11 @@ import com.runwaysdk.constants.UserInfo;
 import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.web.WebClientSession;
+
+import junit.extensions.TestSetup;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 public class EmptyValueReadPermissionTest extends TestCase implements DoNotWeave
 {

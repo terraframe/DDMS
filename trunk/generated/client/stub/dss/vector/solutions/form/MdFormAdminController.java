@@ -29,10 +29,12 @@ import com.runwaysdk.format.AbstractFormatFactory;
 import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.AggregationFunctionDTO;
 import com.runwaysdk.system.metadata.CharacterConditionDTO;
 import com.runwaysdk.system.metadata.DateConditionDTO;
 import com.runwaysdk.system.metadata.DoubleConditionDTO;
 import com.runwaysdk.system.metadata.FieldConditionDTO;
+import com.runwaysdk.system.metadata.IndicatorAggregateFunctionDTO;
 import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdAttributeDTO;
@@ -63,6 +65,7 @@ import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
+import dss.vector.solutions.generator.MdWebIndicatorDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
@@ -89,8 +92,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String FETCH_FORM_FIELDS_JSP      = JSP_DIR + "fetchFormFields.jsp";
 
   public static final String EDIT_FORM_ATTRIBUTES_JSP   = JSP_DIR + "editFormAttributes.jsp";
-  
-  public static final String CLONE_FORM_JSP   = JSP_DIR + "cloneForm.jsp";
+
+  public static final String CLONE_FORM_JSP             = JSP_DIR + "cloneForm.jsp";
 
   public static final String CONFIRM_DELETE_FORM_JSP    = JSP_DIR + "editFormAttributes.jsp";
 
@@ -192,7 +195,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ClientRequestIF clientRequest = getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
       req.setAttribute("form", form);
-      
+
       this.req.getRequestDispatcher(EDIT_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
     catch (Throwable t)
@@ -200,7 +203,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void viewClone(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -208,7 +211,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.get(clientRequest, id);
-      
+
       req.setAttribute("form", form);
 
       this.req.getRequestDispatcher(CLONE_FORM_JSP).forward(req, resp);
@@ -218,7 +221,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   public void cancelViewClone(com.runwaysdk.system.metadata.MdWebFormDTO form) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -230,7 +233,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void availableFields() throws IOException, ServletException
   {
@@ -273,6 +276,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       // grab the appropriate MdField
       Class<?> klass = LoaderDecorator.load(mdFieldType + TypeGeneratorInfo.DTO_SUFFIX);
+      
+      List<MdWebFieldDTO> numerics = new LinkedList<MdWebFieldDTO>();
 
       if (formId != null)
       {
@@ -283,9 +288,14 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
         while (it.hasNext())
         {
           MdWebFieldDTO field = it.next();
-          if (! ( field instanceof MdWebPrimitiveDTO || field instanceof MdWebSingleTermDTO || field instanceof MdWebGeoDTO))
+          if (! ( field instanceof MdWebPrimitiveDTO || field instanceof MdWebSingleTermDTO || field instanceof MdWebGeoDTO ))
           {
             it.remove();
+          }
+          
+          if(field instanceof MdWebNumberDTO || field instanceof MdWebBooleanDTO)
+          {
+            numerics.add(field);
           }
         }
 
@@ -310,6 +320,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       else if (dto instanceof MdWebNumberDTO)
       {
         formatRanges((MdWebNumberDTO) dto);
+      }
+      else if (dto instanceof MdWebIndicatorDTO)
+      {
+        List<AggregationFunctionDTO> aggregations = IndicatorAggregateFunctionDTO.allItems(clientRequest);
+        
+        this.req.setAttribute("aggregations", aggregations);
+        this.req.setAttribute("numerics", numerics);
       }
 
       // forward to the namespaced jsp
@@ -418,9 +435,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     parsed = format.parse(end, Locale.ENGLISH);
     req.setAttribute("endRangeFormatted", format.display(parsed, locale));
   }
-  
-  static class FieldSortOrder implements Reloadable, Comparator<MdWebFieldDTO> {
-    
+
+  static class FieldSortOrder implements Reloadable, Comparator<MdWebFieldDTO>
+  {
+
     public int compare(MdWebFieldDTO result1, MdWebFieldDTO result2)
     {
       return result1.getDisplayLabel().toString().toUpperCase().compareTo(result2.getDisplayLabel().toString().toUpperCase());
@@ -435,7 +453,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
-
+      
+      List<MdWebFieldDTO> numerics = new LinkedList<MdWebFieldDTO>();
+      
       if (formId != null)
       {
         MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
@@ -449,6 +469,11 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
           {
             it.remove();
           }
+          
+          if(field instanceof MdWebNumberDTO || field instanceof MdWebBooleanDTO)
+          {
+            numerics.add(field);
+          }          
         }
 
         this.req.setAttribute("fields", fields);
@@ -485,6 +510,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       {
         formatRanges((MdWebNumberDTO) dto);
       }
+      else if (dto instanceof MdWebIndicatorDTO)
+      {
+        List<AggregationFunctionDTO> aggregations = IndicatorAggregateFunctionDTO.allItems(clientRequest);
+        
+        this.req.setAttribute("aggregations", aggregations);
+        this.req.setAttribute("numerics", numerics);
+      }      
 
       this.req.setAttribute("item", dto);
       this.req.setAttribute("isComposite", isComposite);
@@ -697,13 +729,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
-  private String[] skipAttrs = new String[]{
-      MdBusinessDTO.CACHEALGORITHM, MdBusinessDTO.TABLENAME, MdBusinessDTO.KEYNAME,
-      MdBusinessDTO.BASECLASS, MdBusinessDTO.BASESOURCE, MdBusinessDTO.DTOCLASS, MdBusinessDTO.DTOSOURCE, MdBusinessDTO.STUBCLASS, MdBusinessDTO.STUBDTOCLASS, MdBusinessDTO.STUBDTOSOURCE, MdBusinessDTO.STUBSOURCE,
-      MdAttributeConcreteDTO.GETTERVISIBILITY, MdAttributeConcreteDTO.INDEXTYPE, MdAttributeConcreteDTO.INDEXNAME, MdAttributeConcreteDTO.COLUMNNAME,
-      MdAttributeConcreteDTO.DEFININGMDCLASS, MdAttributeConcreteDTO.ENTITYDOMAIN, MdAttributeConcreteDTO.OWNER, MdAttributeConcreteDTO.SETTERVISIBILITY, MdAttributeConcreteDTO.SITEMASTER
-    };
+
+  private String[] skipAttrs = new String[] { MdBusinessDTO.CACHEALGORITHM, MdBusinessDTO.TABLENAME, MdBusinessDTO.KEYNAME, MdBusinessDTO.BASECLASS, MdBusinessDTO.BASESOURCE, MdBusinessDTO.DTOCLASS, MdBusinessDTO.DTOSOURCE, MdBusinessDTO.STUBCLASS, MdBusinessDTO.STUBDTOCLASS, MdBusinessDTO.STUBDTOSOURCE, MdBusinessDTO.STUBSOURCE, MdAttributeConcreteDTO.GETTERVISIBILITY,
+      MdAttributeConcreteDTO.INDEXTYPE, MdAttributeConcreteDTO.INDEXNAME, MdAttributeConcreteDTO.COLUMNNAME, MdAttributeConcreteDTO.DEFININGMDCLASS, MdAttributeConcreteDTO.ENTITYDOMAIN, MdAttributeConcreteDTO.OWNER, MdAttributeConcreteDTO.SETTERVISIBILITY, MdAttributeConcreteDTO.SITEMASTER };
+
   @Override
   public void clone(com.runwaysdk.system.metadata.MdWebFormDTO form) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -711,35 +740,33 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       MdWebFormDTO clonedForm = (MdWebFormDTO) ComponentDTOIFCopier.create(getClientRequest(), form, true, true);
       modifyAttrs(clonedForm);
-      
+
       List<MdFieldDTO> clonedFields = new ArrayList<MdFieldDTO>();
       List<? extends MdFieldDTO> fields = form.getAllMdFields();
       for (MdFieldDTO field : fields)
       {
-        MdFieldDTO clonedField = ((MdFieldDTO) ComponentDTOIFCopier.create(getClientRequest(), field, true, true));
+        MdFieldDTO clonedField = ( (MdFieldDTO) ComponentDTOIFCopier.create(getClientRequest(), field, true, true) );
         modifyAttrs(clonedField);
         clonedFields.add(clonedField);
       }
-      
+
       List<MdAttributeConcreteDTO> clonedAttrs = new ArrayList<MdAttributeConcreteDTO>();
       List<? extends MdAttributeDTO> attrs = form.getFormMdClass().getAllAttribute();
       for (MdAttributeDTO attr : attrs)
       {
-        if (attr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
-              !ArrayUtils.contains(skipAttrs, attr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
-            )
+        if (attr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && !ArrayUtils.contains(skipAttrs, attr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME)))
         {
-          MdAttributeConcreteDTO clonedAttr = ((MdAttributeConcreteDTO) ComponentDTOIFCopier.create(getClientRequest(), attr, true, true));
+          MdAttributeConcreteDTO clonedAttr = ( (MdAttributeConcreteDTO) ComponentDTOIFCopier.create(getClientRequest(), attr, true, true) );
           modifyAttrs(clonedAttr);
           clonedAttrs.add(clonedAttr);
         }
       }
-      
+
       MdClassDTO clonedBiz = (MdClassDTO) ComponentDTOIFCopier.create(getClientRequest(), form.getFormMdClass(), true, true);
       modifyAttrs(clonedBiz);
-      
+
       MdWebFormDTO updatedForm = MdFormUtilDTO.clone(this.getClientRequest(), clonedForm, clonedBiz, clonedFields.toArray(new MdWebFieldDTO[clonedFields.size()]), clonedAttrs.toArray(new MdAttributeConcreteDTO[clonedAttrs.size()]), form.getId());
-      
+
       this.fetchFormAttributes(updatedForm.getId());
     }
     catch (Throwable t)
@@ -747,21 +774,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+
   /**
    * Sets all the values to modified so that they'll be sent to the server.
    */
   private void modifyAttrs(MutableDTO dto)
   {
     ComponentDTOFacade.setCommonProperties(true, dto.isReadable(), dto.isWritable(), true, dto.toString(), dto);
-    
+
     List<String> attrs = dto.getAttributeNames();
     for (String attr : attrs)
     {
       if (!ArrayUtils.contains(skipAttrs, attr))
       {
         dto.setValue(attr, dto.getValue(attr));
-        
-        if (ArrayUtils.contains(new String[]{MdAttributeLocalCharacterDTO.CLASS, MdAttributeStructDTO.CLASS, MdAttributeLocalDTO.CLASS, MdAttributeLocalTextDTO.CLASS}, dto.getAttributeType(attr)))
+
+        if (ArrayUtils.contains(new String[] { MdAttributeLocalCharacterDTO.CLASS, MdAttributeStructDTO.CLASS, MdAttributeLocalDTO.CLASS, MdAttributeLocalTextDTO.CLASS }, dto.getAttributeType(attr)))
         {
           modifyAttrs(ComponentDTOFacade.getAttributeStructDTO(dto, attr).getStructDTO());
         }
@@ -774,14 +802,14 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     resp.sendError(500);
   }
-  
+
   @Override
   public void failClone(MdWebFormDTO form) throws IOException, ServletException
   {
     req.setAttribute("item", form);
     render("editComponent.jsp");
   }
-  
+
   @Override
   public void failUpdate(MdWebFormDTO form) throws IOException, ServletException
   {
@@ -963,8 +991,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   /**
-   * Formats the value on the condition if it contains a number. Request parameters are set for use
-   * in EL.
+   * Formats the value on the condition if it contains a number. Request parameters are set for use in EL.
    * 
    * @param cond
    */
@@ -992,8 +1019,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   /**
    * Prepares the request with the proper condition information.
    * 
-   * // FIXME push attributes/constants/methods to common superclass instead of using type-unsafety
-   * and type-specific constants OR create a ConditionView
+   * // FIXME push attributes/constants/methods to common superclass instead of using type-unsafety and type-specific constants OR create a
+   * ConditionView
    * 
    * @param req
    * @param condition
@@ -1186,8 +1213,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       /*
-       * ClientRequestIF clientRequest = this.getClientRequest(); MdWebFormDTO[]
-       * forms = MdFormUtilDTO.getAllForms(clientRequest);
+       * ClientRequestIF clientRequest = this.getClientRequest(); MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
        * 
        * this.req.setAttribute("forms", forms);
        */
@@ -1262,6 +1288,27 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public void failImportDefinition(MultipartFileParameter definition) throws IOException, ServletException
   {
     this.mdFormAdmin();
+  }
+
+  @Override
+  public void exportDataset(String mdFormId) throws IOException, ServletException
+  {
+    try
+    {
+      MdFormUtilDTO.exportDataset(this.getClientRequest(), mdFormId);
+    }
+    catch (Exception e)
+    {
+      ErrorUtility.prepareThrowable(e, req, resp, false);
+
+      this.failExportDataset(mdFormId);
+    }
+  }
+
+  @Override
+  public void failExportDataset(String mdFormId) throws IOException, ServletException
+  {
+    this.view(mdFormId);
   }
 
 }

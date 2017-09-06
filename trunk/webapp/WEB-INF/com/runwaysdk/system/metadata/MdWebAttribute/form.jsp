@@ -20,7 +20,8 @@
     <mjl:input param="fieldOrder" type="text" />
   </mjl:dt>
 </c:if>
+<c:if test="${isComposite == false}">
   <mjl:dt attribute="showOnViewAll">
     <mjl:boolean param="showOnViewAll" />
   </mjl:dt>
-  
+</c:if>  

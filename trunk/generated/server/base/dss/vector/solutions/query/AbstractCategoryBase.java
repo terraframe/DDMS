@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1073254336)
+@com.runwaysdk.business.ClassSignature(hash = 990998299)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class AbstractCategoryBase extends com.runwaysdk.business.Busine
   public static java.lang.String STYLES = "styles";
   public static java.lang.String THEMATICCOLOR = "thematicColor";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1073254336;
+  private static final long serialVersionUID = 990998299;
   
   public AbstractCategoryBase()
   {
@@ -204,7 +204,7 @@ public abstract class AbstractCategoryBase extends com.runwaysdk.business.Busine
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -212,7 +212,7 @@ public abstract class AbstractCategoryBase extends com.runwaysdk.business.Busine
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

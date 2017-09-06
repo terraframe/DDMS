@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1011044812)
+@com.runwaysdk.business.ClassSignature(hash = -1247513827)
 public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.Facade";
-  private static final long serialVersionUID = -1011044812;
+  private static final long serialVersionUID = -1247513827;
   
   protected FacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -249,7 +249,7 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -257,7 +257,7 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -455,14 +455,6 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     Object[] _parameters = new Object[]{inputStream, type, listenerMethod, params};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "importExcelFile", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final java.io.OutputStream importExcelWithSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequest)
-  {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "importExcelWithSynonyms", _declaredTypes);
-    return (java.io.OutputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.util.FacadeDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

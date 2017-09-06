@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 894036700)
+@com.runwaysdk.business.ClassSignature(hash = 108482167)
 public abstract class ImmatureThresholdDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ImmatureThreshold";
-  private static final long serialVersionUID = 894036700;
+  private static final long serialVersionUID = 108482167;
   
   protected ImmatureThresholdDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -327,7 +327,7 @@ public abstract class ImmatureThresholdDTOBase extends com.runwaysdk.business.Bu
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.UsersDTO getLockedBy()
+  public com.runwaysdk.system.SingleActorDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -335,7 +335,7 @@ public abstract class ImmatureThresholdDTOBase extends com.runwaysdk.business.Bu
     }
     else
     {
-      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   

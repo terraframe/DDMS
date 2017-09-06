@@ -17,7 +17,8 @@ public class GeoSynonym extends GeoSynonymBase implements com.runwaysdk.generati
 
   public static void createSynonym(java.lang.String entityName, java.lang.String geoId)
   {
-    GeoEntity.searchByGeoId(geoId).addSynonym(entityName);
+    GeoEntity entity = GeoEntity.searchByGeoId(geoId);
+    entity.addSynonym(entityName);
   }
   
   public static GeoSynonym getByNameAndGeo(String geoId, String name)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 514724739)
+@com.runwaysdk.business.ClassSignature(hash = -414728162)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,7 +29,7 @@ public abstract class ImmatureCollectionBase extends com.runwaysdk.business.Busi
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 514724739;
+  private static final long serialVersionUID = -414728162;
   
   public ImmatureCollectionBase()
   {
@@ -344,7 +344,7 @@ public abstract class ImmatureCollectionBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -352,7 +352,7 @@ public abstract class ImmatureCollectionBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

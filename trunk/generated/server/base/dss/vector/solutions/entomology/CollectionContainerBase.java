@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -366910736)
+@com.runwaysdk.business.ClassSignature(hash = -917464693)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,7 @@ public abstract class CollectionContainerBase extends com.runwaysdk.business.Rel
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -366910736;
+  private static final long serialVersionUID = -917464693;
   
   public CollectionContainerBase(String parentId, String childId)
   {
@@ -211,7 +211,7 @@ public abstract class CollectionContainerBase extends com.runwaysdk.business.Rel
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -219,7 +219,7 @@ public abstract class CollectionContainerBase extends com.runwaysdk.business.Rel
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

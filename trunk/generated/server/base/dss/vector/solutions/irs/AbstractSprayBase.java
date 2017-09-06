@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -97157141)
+@com.runwaysdk.business.ClassSignature(hash = 1169042608)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class AbstractSprayBase extends com.runwaysdk.business.Business 
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -97157141;
+  private static final long serialVersionUID = 1169042608;
   
   public AbstractSprayBase()
   {
@@ -287,7 +287,7 @@ public abstract class AbstractSprayBase extends com.runwaysdk.business.Business 
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.Users getLockedBy()
+  public com.runwaysdk.system.SingleActor getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -295,7 +295,7 @@ public abstract class AbstractSprayBase extends com.runwaysdk.business.Business 
     }
     else
     {
-      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
     }
   }
   

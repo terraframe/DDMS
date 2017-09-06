@@ -1,6 +1,6 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -337084704)
+@com.runwaysdk.business.ClassSignature(hash = 89613093)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.report;
 public class ReportItemQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -337084704;
+private static final long serialVersionUID = 89613093;
 
   protected ReportItemQueryDTO(String type)
   {
