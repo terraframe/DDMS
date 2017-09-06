@@ -1,8 +1,0 @@
-<log4j:event logger="com.runwaysdk.logging.RunwayLogUtil" timestamp="1488929899999" level="INFO" thread="main">
-<log4j:message><![CDATA[New LockHolder created.  Loaded by sun.misc.Launcher$AppClassLoader@73d16e93 at 1488929899958 with lock java.util.concurrent.locks.ReentrantLock@7f38545a[Unlocked]]]></log4j:message>
-<log4j:properties>
-<log4j:data name="ReadableTimestamp" value="Tue Mar 07 16:38:19 MST 2017"/>
-<log4j:data name="Session" value=""/>
-</log4j:properties>
-</log4j:event>
-
