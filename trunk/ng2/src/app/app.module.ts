@@ -6,7 +6,7 @@ import { HttpModule, XHRBackend, RequestOptions, Http} from '@angular/http';
 import './rxjs-extensions';
 
 import { FileUploadModule } from 'ng2-file-upload/ng2-file-upload';
-import { DropdownModule } from 'ng2-bootstrap'
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { CoreModule } from './core/core.module';
 import { ConfirmModule } from './confirm/confirm-modal.module';
@@ -25,7 +25,7 @@ import { CategoryService } from './service/category.service';
     AppRoutingModule,
     HttpModule,
     FileUploadModule,
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     CoreModule,
     ConfirmModule,
     UploaderModule

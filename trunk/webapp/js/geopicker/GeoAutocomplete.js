@@ -192,6 +192,11 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       
       if (this._geoPicker != null && this._geoPicker.getSelectHandler() != null)
       {
+        view.setPolitical(this._geoPicker.getPolitical());
+        view.setSprayTargetAllowed(this._geoPicker.getSprayTargetAllowed());
+        view.setPopulationAllowed(this._geoPicker.getPopulated());
+        view.setUrban(this._geoPicker.getUrban());
+        
         var handler = this._geoPicker.getSelectHandler();
         handler(view, true);
       }
@@ -208,9 +213,16 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       var type = this._geoFilterCriteria.filter;
       var enforceRoot = this._geoFilterCriteria.enforceRoot;
       
-      if(Mojo.Util.isString(type) && type != '')
+      if(type != null && type.length > 0)
       {
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type, value, enforceRoot);
+      	if(this._geoFilterCriteria.root != null) {
+      	  var parameters = [type[0], this._geoFilterCriteria.root];
+              
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByParameters(request, value, parameters, enforceRoot);
+      	}
+        else {          
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.searchByEntityNameOrGeoId(request, type[0], value, enforceRoot);        
+        }
       }
       else 
       {

@@ -26,13 +26,17 @@ export class GeoFieldComponent implements AfterViewInit, OnDestroy {
   
   ngAfterViewInit():any {
     let geoInput = document.getElementById(this.attribute);    
-    let selectSearch = new MDSS.SingleSelectSearch(true, this.root);
+    
+    var geoPicker = new MDSS.GeoPicker(true, this.root);
+    geoPicker.setFilter(this.universal);
     
     this.model = {id:'', label:'', geoId:''};
     
-    this.search = new MDSS.GeoSearch(geoInput, selectSearch);
+    this.search = new MDSS.GeoSearch(geoInput, geoPicker.getGeoFilterCriteria(), geoPicker);
     this.search.setFilter(this.universal);
     this.search.addListener(this.updateModel.bind(this));
+    
+    geoPicker.render();    
   }
   
   updateModel(event:any):void {

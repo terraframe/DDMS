@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -885358823)
+@com.runwaysdk.business.ClassSignature(hash = 1377764840)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN

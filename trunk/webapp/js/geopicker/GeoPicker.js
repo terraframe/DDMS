@@ -248,7 +248,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
         populated : this.getPopulated(),
         sprayTargetAllowed : this.getSprayTargetAllowed(),
         urban : this.getUrban(),
-        extraUniversals : this.getExtraUniversals()
+        extraUniversals : this.getExtraUniversals(),
+        root : this._selectSearchRootId
       }
     },
     
