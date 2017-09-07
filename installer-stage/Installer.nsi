@@ -8,7 +8,7 @@ Name DDMS
 !define VERSION 2.0
 !define COMPANY "Innovative Vector Control Consortium"
 !define URL "http://www.ivcc.com/"
-!define POSTGRES_DIR PostgreSql\9.4
+!define POSTGRES_DIR PostgreSql\9.6
 
 # MUI Symbol Definitions
 !define MUI_ICON "ivcc_roundel_1.ico"
@@ -341,14 +341,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8299
+    StrCpy $PatchVersion 8603
     StrCpy $RootsVersion 7829
     StrCpy $MenuVersion 8225
-    StrCpy $LocalizationVersion 8225
+    StrCpy $LocalizationVersion 8477
     StrCpy $PermissionsVersion 8298
-	StrCpy $RunwayVersion 8275
+	StrCpy $RunwayVersion 8531
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8299
+	StrCpy $ManagerVersion 8603
 	StrCpy $BirtVersion 7851
 	StrCpy $WebappsVersion 8118
 	StrCpy $JavaVersion 8188
@@ -514,12 +514,12 @@ Section -Main SEC0000
 	
 	CreateDirectory $INSTDIR\${POSTGRES_DIR}
 	${If} ${RunningX64}
-	  File "postgresql-9.4.5-1-windows-x64.exe"
-      push `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  File "postgresql-9.6.3-2-windows-x64.exe"
+      push `"$INSTDIR\postgresql-9.6.3-2-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
 	  Call execDos
 	${Else}
-	  File "postgresql-9.4.5-1-windows.exe"
-      push `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
+	  File "postgresql-9.6.3-2-windows.exe"
+      push `"$INSTDIR\postgresql-9.6.3-2-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
 	  Call execDos
 	${EndIf}
 	
@@ -567,13 +567,13 @@ Section -Main SEC0000
 	CreateDirectory $INSTDIR\installer\postgis
 	${If} ${RunningX64}
 	  SetOutPath "$INSTDIR\installer\postgis"
-	  File /r "..\installer-stage\postgis-bundle-pg94x64-2.2.0\*"
-	  push `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	  File /r "..\installer-stage\postgis-bundle-pg96-2.3.2x64\*"
+	  push `"$INSTDIR\installer\postgis\makepostgisdb_using_extensions.bat"`
 	  Call execDos
 	${Else}
 	  SetOutPath "$INSTDIR\installer\postgis"
-	  File /r "..\installer-stage\postgis-bundle-pg94x32-2.1.8\*"
-	  push `"$INSTDIR\installer\postgis\makepostgisdb.bat"`
+	  File /r "..\installer-stage\postgis-bundle-pg96-2.3.1x32\*"
+	  push `"$INSTDIR\installer\postgis\makepostgisdb_using_extensions.bat"`
 	  Call execDos
 	${EndIf}
 	RmDir /r "$INSTDIR\installer\postgis"
@@ -769,9 +769,7 @@ Section -Main SEC0000
 	    LogEx::Write "Exiting Find loop."
         FindClose $R0
 	  
-	  
-	
-    LogEx::Write "Writing version numbers to registry"
+	  LogEx::Write "Writing version numbers to registry"
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
@@ -813,7 +811,6 @@ Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
-    RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.5 for PostgreSQL 9.1"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayIcon $INSTDIR\uninstall.exe
@@ -872,10 +869,10 @@ Section /o -un.Main UNSEC0000
   ################################################################################
   # Uninstall Postgres
   ################################################################################
-  ExecWait `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i`
+  ExecWait `"$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i`
   
   ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
-  ExecWait `SC DELETE postgresql-x64-9.4`
+  ExecWait `SC DELETE postgresql-x64-9.6`
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL Global Development Group"
   DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostgreSQL"
