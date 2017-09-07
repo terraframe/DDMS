@@ -118,6 +118,7 @@ Var MetadataVersion         # Runway metadata version which requires a delete.
 Var ManagerVersion          # Version of the manager contained in the install.
 Var JavaVersion             # Version of Java contained in the install.
 Var BirtVersion             # Version of Birt contained in the install.
+Var EclipseVersion          # Version of Eclipse contained in the install.
 Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion            # Version of the patch contained in the install.
 Var RootsVersion            # Version of the roots contained in the install.
@@ -126,7 +127,7 @@ Var LocalizationVersion     # Version of the localization file contained in the 
 Var PermissionsVersion      # Version of the permissions contained in the install.
 Var TomcatVersion           # Version of tomcat install (using our own versioning system, not theirs)
 Var PropertiesVersion       # Version of our properties files
-Var IdVersion			    # Version of the predictive id change in the install. 
+Var IdVersion			          # Version of the predictive id change in the install. 
 Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
 Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
 Var Params                  # Variable for storing all of the params
@@ -137,6 +138,7 @@ Var TomcatExec              # Path of the tomcat service executable
 Var DatabaseSoftwareVersion # Version of database software
 Var postgresToStop
 Var GeoserverVersion
+Var BasemapDatabaseVersion
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -184,24 +186,56 @@ Section -Main SEC0000
     Abort
   ${EndIf}
   
+  # We're not doing anything if eclipse is running, it can cause (resource contention) issues.
+  ${nsProcess::FindProcess} "eclipse.exe" $0
+  Pop $0 ; The exit code
+  ${If} $0 != 603
+    LogEx::Write "FATAL: Eclipse must be closed before patching. Close Eclipse and try again. [$0]"
+    MessageBox MB_OK|MB_ICONSTOP "Eclipse must be closed before patching. Close Eclipse and try again." /SD IDOK
+    Abort
+  ${EndIf}
+  
+  # Make sure Tomcat is not running
+  SimpleSC::ServiceIsRunning "Tomcat"
+  Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+  Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
+  
+  ${If} $1 <> 0  
+  
+    # Try to stop the service
+    SimpleSC::StopService "Tomcat" 1 60
+    Pop $0 ; returns an errorcode (<>0) otherwise success (0)
+    
+    ${If} $0 <> 0        
+	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be patched."
+        MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be patched." /SD IDOK
+        Abort
+    ${EndIf}
+    
+  ${EndIf}
+  
+  
+  
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 8275
+  StrCpy $RunwayVersion 8634
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8334
-  StrCpy $PatchVersion 8334
-  StrCpy $RootsVersion 7829
-  StrCpy $MenuVersion 8330
-  StrCpy $LocalizationVersion 8334
-  StrCpy $PermissionsVersion 8298
+  StrCpy $ManagerVersion 8668
+  StrCpy $PatchVersion 8668
+  StrCpy $RootsVersion 8512
+  StrCpy $MenuVersion 8601
+  StrCpy $LocalizationVersion 8659
+  StrCpy $PermissionsVersion 8662
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $WebappsVersion 8331
+  StrCpy $EclipseVersion 8387  
+  StrCpy $WebappsVersion 8474
   StrCpy $JavaVersion 8188
-  StrCpy $TomcatVersion 8331
+  StrCpy $TomcatVersion 8474
   
-  # These ones aren't
+  # These ones aren't. If you change any of these, make sure to update them in the installer as well
   StrCpy $PropertiesVersion 1
   StrCpy $DatabaseSoftwareVersion 1
+  StrCpy $BasemapDatabaseVersion 1
   StrCpy $GeoserverVersion 2551
   
   # Set some constants
@@ -298,6 +332,14 @@ Section -Main SEC0000
   #####################################################################
   Call patchInstallerStage
   
+	LogEx::Write "Creating shortcut $SMPROGRAMS\DDMS\eclipse.lnk"
+
+  # Update the eclipse shortcut
+  SetOutPath $INSTDIR\eclipse
+  CreateDirectory "$SMPROGRAMS\DDMS"
+ 	CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.bat"  
+  
+  
   #####################################################################
   # Patch the manager jars and associated files
   #####################################################################
@@ -360,6 +402,11 @@ Section -Main SEC0000
   SetOutPath $INSTDIR\birt
   CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED  
   
+  # Update the birt shortcut
+  SetOutPath $INSTDIR\eclipse
+  CreateShortcut "$SMPROGRAMS\DDMS\ECLIPSE.lnk" "$INSTDIR\eclipse\eclipse.bat" "" "$INSTDIR\eclipse\eclipse.bat" 0 SW_SHOWMINIMIZED  
+  
+  
   # Update postgres.conf
   LogEx::Write "Updating postgres settings"  
 
@@ -399,12 +446,14 @@ Function checkIfMaster
 FunctionEnd
 
 Function deleteOldGeoserverIfNecessary
-  IfFileExists $INSTDIR\tomcat\webapps\geoserver YesGeoserver NoGeoserver
+  IfFileExists $INSTDIR\tomcat\webapps\geoserver.war YesGeoserver NoGeoserver
+  
+  NoGeoserver:
+    LogEx::Write "Geoserver included in DDMS 1.5 does not exist."
+    Goto EndDeleteOldGeoserver
   
   YesGeoserver:
-    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
-    LogEx::Write "Geoserver 1.5 version exists. We will need to check to see if any apps depend on it because we might be able to delete it."
-  
+    LogEx::Write "Geoserver included in DDMS 1.5 exists. We will need to check to see if any apps depend on it because we might be able to delete it."
   
   # 0 here means we have no unpatched apps
   StrCpy $0 0
@@ -454,12 +503,13 @@ Function deleteOldGeoserverIfNecessary
   ${If} 0 = $0
     LogEx::Write "Deleting old geoserver by the name of [geoserver] because all apps have been patched beyond that version."
 
-    Delete $INSTDIR\tomcat\webapps\geoserver
+    RMDir /r $INSTDIR\tomcat\webapps\geoserver
+    Delete $INSTDIR\tomcat\webapps\geoserver.war
   ${Else}
     LogEx::Write "There are apps that depend on the older 1.5 geoserver. We cannot delete it."
   ${EndIf}
   
-  NoGeoserver:
+  EndDeleteOldGeoserver:
 FunctionEnd
 
 Function patchApplications
@@ -632,6 +682,9 @@ Function patchApplication
     # We need to clear the old cache
     RMDir /r $INSTDIR\tomcat\cache
     
+    # When we patch the properties we'll upgrade to the new geoserver version
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" GeoserverVersion $GeoserverVersion
+    
     # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
     Call execDos
@@ -718,15 +771,15 @@ Function patchApplication
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
 
     # Ticket 3434
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
-    ${If} $0 < 8224
-      LogEx::Write "Patching ticket 3434"
-      push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "INSERT INTO dynamic_properties VALUES ('DDMS00000000000000001', '0001475091709453')"`
-      Call execDos
-      WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms 8225
-    ${Else}
-      LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
-    ${EndIf}
+    #ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
+    #${If} $0 > 8224
+    #  LogEx::Write "Patching ticket 3434"
+    #  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "INSERT INTO dynamic_properties VALUES ('DDMS00000000000000001', '0001475091709453')"`
+    #  Call execDos
+    #  WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms 8225
+    #${Else}
+    #  LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
+    #${EndIf}
     
     # Terms
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Default Terms"
@@ -948,6 +1001,8 @@ Function patchManager
 	
     # Delete the existing SWT jars, the SWT jar has been moved into the jre
     RMDir /r $INSTDIR\manager\backup-manager-1.0.0\lib
+    RMDir /r $INSTDIR\manager\geo-manager-1.0.0\lib    
+    
     Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar  
     Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar  
     Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar  
@@ -1124,6 +1179,77 @@ Function patchInstallerStage
     DetailPrint "Birt is already up to date"
     LogEx::Write "BIRT is already up to date."
   ${EndIf} 
+  
+  ################################################################################
+  # Copy over the Eclipse
+  ################################################################################
+
+  !insertmacro MUI_HEADER_TEXT "Patching Eclipse" "Patching Eclipse"
+  
+  # Before we start, check the versions to make sure this is actually a patch.
+  ReadRegStr $0 HKLM "${REGKEY}\Components" Eclipse
+  ${If} $EclipseVersion > $0    
+    LogEx::Write "Patching ECLIPSE."
+	
+  	# Remove the existing eclipse install
+	  RMDir /r $INSTDIR\eclipse\configuration
+	  RMDir /r $INSTDIR\eclipse\p2
+	  RMDir /r $INSTDIR\eclipse\plugins
+  
+    # Copy over the new eclipse files
+    SetOutPath $INSTDIR\eclipse
+    File /r /x .svn ..\installer-stage\eclipse\*  
+  
+    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion  
+  ${Else}
+    DetailPrint "Eclipse is already up to date"
+    LogEx::Write "ECLIPSE is already up to date."
+  ${EndIf}
+  
+  ################################################################################
+  # 3527 Install OSM to PGSQL
+  ################################################################################
+  
+  !insertmacro MUI_HEADER_TEXT "Installing OSM to PGSQL" "Installing OSM to PGSQL"
+  
+  # Create offline basemap cache directory
+  IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
+  BASEMAP_NO_EXIST:
+    LogEx::Write "3527 Creating offline basemap cache directory."
+    CreateDirectory $INSTDIR\basemaps
+  BASEMAP_EXIST:
+  
+  ClearErrors
+  ReadRegStr $0 HKLM "${REGKEY}\Components" BasemapDatabaseVersion
+  IfErrors BasemapDatabaseVersionErrors
+  ${If} $BasemapDatabaseVersion > $0
+    BasemapDatabaseVersionErrors:
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
+    Call execDos
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
+    Call execDos
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
+    Call execDos
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
+    Call execDos
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
+    Call execDos
+    
+    SetOutPath "C:\libs\share\osm2pgsql"
+	  File /r "..\installer-stage\osm2pgsql\*"
+    
+    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
+  ${Else}
+    LogEx::Write "Skipping osm database software update because the software is up to date."
+    DetailPrint "Skipping osm database software update because the software is up to date."
+  ${EndIf}
+  
+  
 
   ################################################################################
   # Upgrade tomcat
@@ -1134,7 +1260,7 @@ Function patchInstallerStage
   IfErrors TomcatRegErrors
   ${If} $TomcatVersion > $0
     TomcatRegErrors:
-	  LogEx::Write "Upgrading from tomcat6 to tomcat8."
+	  LogEx::Write "Updating tomcat."
 	  
 	  # copy over new tomcat
 	  SetOutPath $INSTDIR\tomcat
@@ -1145,18 +1271,18 @@ Function patchInstallerStage
 	  ${EndIf}
 	  
 	  # We don't care about the old Geoserver or the old ROOT app, so lets delete those otherwise they'll overwrite the new ones
-	  RMDir /r $INSTDIR\tomcat6\webapps\geoserver
-	  RMDir /r $INSTDIR\tomcat6\webapps\ROOT
-	  RMDir /r $INSTDIR\tomcat6\webapps\manager
-	  RMDir /r $INSTDIR\tomcat6\webapps\birt
-	  Delete $INSTDIR\tomcat6\webapps\geoserver.war
+	  #RMDir /r $INSTDIR\tomcat6\webapps\geoserver
+	  #RMDir /r $INSTDIR\tomcat6\webapps\ROOT
+	  #RMDir /r $INSTDIR\tomcat6\webapps\manager
+	  #RMDir /r $INSTDIR\tomcat6\webapps\birt
+	  #Delete $INSTDIR\tomcat6\webapps\geoserver.war
 	  
 	  # copy old webapps to the new install
-	  LogEx::Write "Copying from [$INSTDIR\tomcat6\webapps\*] to [$INSTDIR\tomcat\webapps]"
-	  CopyFiles $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
+	  #LogEx::Write "Copying from [$INSTDIR\tomcat6\webapps\*] to [$INSTDIR\tomcat\webapps]"
+	  #CopyFiles $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
 	  
 	  # delete old tomcat
-	  RMDir /r $INSTDIR\tomcat6
+	  #RMDir /r $INSTDIR\tomcat6
 	  
 	  WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
   ${Else}
@@ -1908,6 +2034,7 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components" Manager
   DeleteRegValue HKLM "${REGKEY}\Components" Java 
   DeleteRegValue HKLM "${REGKEY}\Components" Birt 
+  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse  
   DeleteRegValue HKLM "${REGKEY}\Components" Webapps
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
   
@@ -2091,6 +2218,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"    
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"
