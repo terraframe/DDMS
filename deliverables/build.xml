@@ -60,8 +60,8 @@
 		    </fileset>
 		</ftp>
 	</target>
-	
-	<target name="build" depends="update,set-properties,delete-marker,build-all,upload-test" />
+
+	<target name="build" depends="update,set-properties,delete-marker,build-all,upload-test-s3" />
 	
 	<target name="build-installer-only" depends="update,set-properties,build-installer" />
 	
