@@ -25,6 +25,13 @@
 	<property name="build.ftp.testpath" value="/ddms/testing" />
 	
 	<taskdef resource="taskdefs.xml" classpath="aws-java-sdk-ant-tasks-1.2.3.jar" />
+  
+  <path id="tasks.path">
+    <fileset dir="C:\Program Files (x86)\apache_ant\lib">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+  <taskdef resource="org/mule/ant/tasks.properties" classpathref="tasks.path"/>
 
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
@@ -61,7 +68,7 @@
 		</ftp>
 	</target>
 	
-	<target name="build" depends="update,set-properties,delete-marker,build-all,upload-test" />
+	<target name="build" depends="update,set-properties,delete-marker-s3,build-all,upload-test-s3" />
 	
 	<target name="build-installer-only" depends="update,set-properties,build-installer" />
 	
@@ -84,12 +91,13 @@
 			<update dir="../standalone" recurse="true" />
 			<update dir="../installer-stage" recurse="true" />
 			<update dir="../ddms-runway-patcher" recurse="true" />
-            <update dir="../backup-manager" recurse="true" />		
+      <update dir="../backup-manager" recurse="true" />		
 			<update dir="../ddms-initializer" recurse="true" />
 			<update dir="../tomcat-remote-listener" recurse="true" />
 			<update dir="../synch-manager" recurse="true" />
 			<update dir="../MDSSGISI" recurse="true" />
 			<update dir="../manager" recurse="true" />
+			<update dir="../branch/1.6" recurse="true" />      
 		</svn>
 	</target>
 	
@@ -168,11 +176,11 @@
 	  <copy file="${file.installer}" tofile="installer.exe"/>
 	
 	  <upload-to-s3 bucketName="dss.vector.solutions.ddms" keyPrefix="testing/" awsAccessKeyId="AKIAJX3T2RYVHDNKEPNQ" awsSecretKey="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">
-        <fileset dir=".">
-			<include name="patcher.exe"/>			  			  			
-			<include name="installer.exe"/>
-		</fileset>
-      </upload-to-s3>
+      <fileset dir=".">
+			  <include name="patcher.exe"/>			  			  			
+			  <include name="installer.exe"/>
+      </fileset>
+    </upload-to-s3>
 	</target>
 	
 	<target name="delete-marker">	
@@ -190,6 +198,12 @@
 			</fileset>
 		</ftp>
 	</target>
+  
+  <target name="delete-marker-s3">	
+    <exec executable="C:\Users\Administrator\AppData\Local\Programs\Python\Python35-32\python.exe" failonerror="true">
+		  <arg line="C:\svn\ddms\deliverables\delete-testing-s3.py"/>
+		</exec>
+  </target>
 	
 	<target name="upload-test">	
 		<ftp server="ftp.terraframe.com"
