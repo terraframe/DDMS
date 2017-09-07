@@ -10,7 +10,8 @@ RequestExecutionLevel highest
 !define VERSION 1.0.0
 !define COMPANY "Innovative Vector Control Consortium"
 !define URL "http://www.ivcc.com/"
-!define POSTGRES_DIR PostgreSql\9.4
+!define CURRENT_POSTGRES_VERSION "9.6"
+!define POSTGRES_DIR PostgreSql\${CURRENT_POSTGRES_VERSION}
 
 # MUI Symbol Definitions
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install-colorful.ico"
@@ -165,6 +166,9 @@ VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 ShowUninstDetails show
 
+# These files are part of our stack. Our NSIS codebase has gotten so large i've decided to split it into many files.
+!include postgresmigrator.nsh
+
 Function locationInputPage
   StrCpy $R8 1 ;This is the first page
   
@@ -184,13 +188,13 @@ Section -Main SEC0000
   ${EndIf}
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 8275
+  StrCpy $RunwayVersion 8531
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8299
-  StrCpy $PatchVersion 8299
+  StrCpy $ManagerVersion 8603
+  StrCpy $PatchVersion 8603
   StrCpy $RootsVersion 7829
   StrCpy $MenuVersion 8225
-  StrCpy $LocalizationVersion 8225
+  StrCpy $LocalizationVersion 8477
   StrCpy $PermissionsVersion 8298
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
@@ -564,10 +568,6 @@ Function patchApplication
     # We need to clear the old cache
     RMDir /r $INSTDIR\tomcat\cache
     
-    # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
-    Call execDos
-
     # Build any dimensional metadata with the Master domain
     LogEx::Write "Building dimensional metadata for $AppName"
     !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
@@ -650,15 +650,15 @@ Function patchApplication
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
 
     # Ticket 3434
-    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
-    ${If} $0 < 8224
-      LogEx::Write "Patching ticket 3434"
-      push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "INSERT INTO dynamic_properties VALUES ('DDMS00000000000000001', '0001475091709453')"`
-      Call execDos
-      WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms 8225
-    ${Else}
-      LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
-    ${EndIf}
+    #ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
+    #${If} $0 < 8224
+    #  LogEx::Write "Patching ticket 3434"
+    #  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "INSERT INTO dynamic_properties VALUES ('DDMS00000000000000001', '0001475091709453')"`
+    #  Call execDos
+    #  WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms 8225
+    #${Else}
+    #  LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
+    #${EndIf}
     
     # Terms
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Default Terms"
@@ -1019,17 +1019,7 @@ Function patchInstallerStage
   # Database Patching
   ################################################################################
   
-  ClearErrors
-  
-  IfFileExists $INSTDIR\PostgreSql\9.4\bin\psql.exe Yes94 No94
-  
-  No94:
-    Call upgradePostgresAndPostgis
-    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware $DatabaseSoftwareVersion
-  Yes94:
-    WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
-    LogEx::Write "Skipping database software patch because the software is up to date."
-    DetailPrint "Skipping database software patch because the software is up to date."
+  Call upgradePostgresAndPostgis
   
   ################################################################################
   # Copy over the Birt
@@ -1528,209 +1518,6 @@ Function stopPostgres
 	TestFileExist:
 	IfFileExists $INSTDIR\$postgresToStop\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
-FunctionEnd
-
-# This function uninstalls the old database software and installs the new software (postgres 9.1 -> 9.4, postgis 1.5 -> 2.2)
-Function migrateDatabaseSoftware
-    push PostgreSql\9.1
-    Call stopPostgres
-
-	# Uninstall old Postgres & PostGIS
-	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Uninstalling old software"
-    LogEx::Write "Uninstalling old software"
-	push `"$INSTDIR\PostgreSql\9.1\uninstall-postgis-pg91-1.5.3-2.exe" /S`
-	Call execDos
-	
-    push `"$INSTDIR\PostgreSql\9.1\uninstall-postgresql.exe" --mode unattended`
-	Call execDos
-	
-	RmDir /r "$INSTDIR\PostgreSql"
-	
-	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Installing PostgreSQL 9.4"
-    LogEx::Write "Installing Postgres 9.4."
-	SetOutPath $INSTDIR
-    ${If} ${RunningX64}
-	  File ..\installer-stage\postgresql-9.4.5-1-windows-x64.exe
-	  push `"$INSTDIR\postgresql-9.4.5-1-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
-	  Call execDos
-	${Else}
-	  File ..\installer-stage\postgresql-9.4.5-1-windows.exe
-	  push `"$INSTDIR\postgresql-9.4.5-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
-	  Call execDos
-	${EndIf}
-	
-	#MessageBox MB_OK|MB_ICONINFORMATION "Please run through the postgres installer and click OK here when finished."
-	
-	push ${POSTGRES_DIR}
-  Call stopPostgres
-
-  # Get the Windows Version (XP, Vista, etc.)
-  nsisos::osversion
-  
-  LogEx::Write "Installing custom pg_hba.conf"
-  # Version 5 means XP.  No IPv6
-  ${If} $0 == 5
-    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv4.conf"
-  
-  # Version 5 means Vista or Seven.  IPv6 enabled
-  ${ElseIf} $0 == 6
-    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv6.conf"
-  
-  # Who knows what version we're on.
-  ${Else}
-    LogEx::Write "ERROR: Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
-  MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
-    File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "..\installer-stage\pg_hba_ipv6.conf"
-  ${EndIf}
-  
-  # Copy the tweaked postgres config
-  LogEx::Write "Installing custom postgresql.conf"
-  File "/oname=$INSTDIR\${POSTGRES_DIR}\data\postgresql.conf" "..\installer-stage\postgresql.conf"
-	
-	Sleep 2000    
-	LogEx::Write "The database is initializing. This may take a few minutes."
-	DetailPrint "The database is initializing. This may take a few minutes."
-	Call startPostgres
-	
-	# Install PostGIS 2.2
-	!insertmacro MUI_HEADER_TEXT "Updating Database Software" "Updating PostGIS"
-    LogEx::Write "Updating PostGIS"
-	CreateDirectory $INSTDIR\migrate\postgis
-	${If} ${RunningX64}
-	  SetOutPath "$INSTDIR\migrate\postgis"
-	  File /r "..\installer-stage\postgis-bundle-pg94x64-2.2.0\*"
-	  push `"$INSTDIR\migrate\postgis\makepostgisdb.bat"`
-	  Call execDos
-	${Else}
-	  SetOutPath "$INSTDIR\migrate\postgis"
-	  File /r "..\installer-stage\postgis-bundle-pg94x32-2.1.8\*"
-	  push `"$INSTDIR\migrate\postgis\makepostgisdb.bat"`
-	  Call execDos
-	${EndIf}
-	RmDir /r "$INSTDIR\migrate\postgis"
-FunctionEnd
-
-# This function upgrades postgis 1.5 to 2.2
-Function upgradePostgresAndPostgis
-  CreateDirectory $INSTDIR\migrate
-  !insertmacro MUI_HEADER_TEXT "Updating database software" "This one time operation may take a while..."
-
-  ####################################
-  # Backup All Application Databases #
-  ####################################
-  LogEx::Write "Backing up application databases."
-  ClearErrors
-  FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-  
-  UPPOSTGRESappNameFileReadLoop:
-  # Read a line from the file into $1
-  FileRead $AppFile $1
-      
-  # Errors means end of File
-  IfErrors UPPOSTGRESappNameDone
-      
-  # Removes the newline from the end of $1
-  ${StrTrimNewLines} $1 $1
-  
-  Push $1
-  Pop $AppName
-  ${StrCase} $LowerAppName $AppName "L"
-
-  # Back it up
-  DetailPrint "Backing up $AppName"
-  LogEx::Write "Backing up $AppName."
-  push `"$INSTDIR\PostgreSql\9.1\bin\pg_dump.exe" -p 5444 -h 127.0.0.1 -U postgres -Fc -b -v -f "$INSTDIR\migrate\$LowerAppName.backup" $LowerAppName`
-  Call execDos
-  
-  Goto UPPOSTGRESappNameFileReadLoop
-          
-  UPPOSTGRESappNameDone:
-  ClearErrors
-  FileClose $AppFile
-  
-  #############################
-  # Migrate Database Software #
-  #############################
-  Call migrateDatabaseSoftware
-  
-  #################################################
-  # Restore Application Databases On New Software #
-  #################################################
-  LogEx::Write "Restoring application databases."
-  
-  # Create the mdssdeploy role
-  LogEx::Write "Creating the mdssdeploy role"
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-  Call execDos
-  
-  ClearErrors
-  FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-  
-  UPPOSTGRES2appNameFileReadLoop:
-  # Read a line from the file into $1
-  FileRead $AppFile $1
-      
-  # Errors means end of File
-  IfErrors UPPOSTGRES2appNameDone
-      
-  # Removes the newline from the end of $1
-  ${StrTrimNewLines} $1 $1
-  
-  Push $1
-  Pop $AppName
-  ${StrCase} $LowerAppName $AppName "L"
-
-  !insertmacro MUI_HEADER_TEXT "Restoring Application Databases" "Restoring $AppName"
-  LogEx::Write "Restoring application databases."
-  
-  # Create a new db
-  LogEx::Write "Creating the database"
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
-  Call execDos 
-  
-  # Set the db search path
-  LogEx::Write "Setting search path"
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
-  Call execDos
-  
-  # create extension postgis
-  LogEx::Write "Installing PostGIS extension."
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql.exe" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION postgis"`
-  Call execDos
-  
-  # Import the app data into the new db
-  LogEx::Write "Restoring $AppName database from $INSTDIR\migrate\$LowerAppName.backup."
-  DetailPrint "Restoring $AppName database."
-  SetOutPath $INSTDIR\migrate
-  File ..\patch\postgis_restore.exe
-  File ..\patch\postgis_restore_launcher.bat
-  push `"$INSTDIR\migrate\postgis_restore_launcher.bat" $LowerAppName $INSTDIR`
-  Call execDos
-	
-  # Update database.properties (databaseBinDirectory)
-  LogEx::Write "Updating database.properties in [$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties]"
-  Push PostgreSQL/9.1                                                                  # text to be replaced
-  Push ${POSTGRES_DIR}                                                                 # replace with
-  Push all                                                                             # replace all occurrences
-  Push all                                                                             # replace all occurrences
-  Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties           # file to replace in
-  Call AdvReplaceInFile
-  
-  LogEx::Write "Updating database.properties in [$INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties]"
-  Push PostgreSQL/9.1                                                                  # text to be replaced
-  Push ${POSTGRES_DIR}                                                                 # replace with
-  Push all                                                                             # replace all occurrences
-  Push all                                                                             # replace all occurrences
-  Push $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties     # file to replace in
-  Call AdvReplaceInFile
-
-  Goto UPPOSTGRES2appNameFileReadLoop
-          
-  UPPOSTGRES2appNameDone:
-  ClearErrors
-  FileClose $AppFile
-  
-  RmDir /r "$INSTDIR\migrate"
 FunctionEnd
 
 # Authored by rrowlands   #yourwelcome
