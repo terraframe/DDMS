@@ -455,7 +455,7 @@ public class DHIS2ExportHandler implements Reloadable
         for (MdAttribute mdAttr : categoryAttrs)
         {
           String attrVal = val.getValue(mdAttr.getAttributeName());
-          if (attrVal == null) { continue; }
+          if (attrVal == null || attrVal.length() == 0) { continue; }
           
           // We need to figure out values for all of these if we're to export. The problem is that the values will vary depending on the attribute.
           String name = null;
@@ -556,8 +556,32 @@ public class DHIS2ExportHandler implements Reloadable
         category.setId(dhis2Id);
         category.put("dataDimensionType", "ATTRIBUTE");
         
-        // A list of all the category options associated with this category
-        Set<String> categoryOptions = categoryMetadataMap.get(mdAttr);
+        // If this category already exists in DHIS2, then we need to fetch the existing options so we don't clear what's already there
+        Set<String> categoryOptions = categoryMetadataMap.get(mdAttr); // A list of all the category options associated with this category
+        
+        HTTPResponse response = dhis2.apiGet("metadata", new NameValuePair[]{
+            new NameValuePair("categories", "true"),
+            new NameValuePair("assumeTrue", "false"),
+            new NameValuePair("filter", "id:eq:" + dhis2Id)
+          });
+        DHIS2TrackerResponseProcessor.validateStatusCode(response);
+        
+        JSONObject existingCategoryResponse = response.getJSONObject();
+        JSONArray existingCategories = existingCategoryResponse.getJSONArray("categories");
+        
+        if (existingCategories.length() > 0)
+        {
+          JSONObject existingCategory = existingCategories.getJSONObject(0);
+          
+          JSONArray existingCategoryOptions = existingCategory.getJSONArray("categoryOptions");
+          
+          for (int i = 0; i < existingCategoryOptions.length(); ++i)
+          {
+            categoryOptions.add(existingCategoryOptions.getJSONObject(i).getString("id"));
+          }
+        }
+        
+        
         JSONArray jsonCategoryOptions = new JSONArray();
         for (String option : categoryOptions)
         {
@@ -644,7 +668,7 @@ public class DHIS2ExportHandler implements Reloadable
         for (MdAttribute mdAttr : categoryAttrs)
         {
           String attrVal = val.getValue(mdAttr.getAttributeName());
-          if (attrVal == null) { continue; } // TODO : Add the default here
+          if (attrVal == null || attrVal.length() == 0) { continue; } // TODO : Add the default here
           
           // We need to figure out values for all of these if we're to export. The problem is that the values will vary depending on the attribute.
           String name = null;
@@ -1276,6 +1300,7 @@ public class DHIS2ExportHandler implements Reloadable
             for (MdAttribute mdAttr : categoryAttrs)
             {
               String attrVal = val.getValue(mdAttr.getAttributeName());
+              if (attrVal == null || attrVal.length() == 0) { continue; }
               
               if (mdAttr instanceof MdAttributeReference)
               {
