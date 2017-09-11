@@ -567,17 +567,20 @@ public class DHIS2ExportHandler implements Reloadable
         DHIS2TrackerResponseProcessor.validateStatusCode(response);
         
         JSONObject existingCategoryResponse = response.getJSONObject();
-        JSONArray existingCategories = existingCategoryResponse.getJSONArray("categories");
-        
-        if (existingCategories.length() > 0)
+        if (existingCategoryResponse.has("categories"))
         {
-          JSONObject existingCategory = existingCategories.getJSONObject(0);
+          JSONArray existingCategories = existingCategoryResponse.getJSONArray("categories");
           
-          JSONArray existingCategoryOptions = existingCategory.getJSONArray("categoryOptions");
-          
-          for (int i = 0; i < existingCategoryOptions.length(); ++i)
+          if (existingCategories.length() > 0)
           {
-            categoryOptions.add(existingCategoryOptions.getJSONObject(i).getString("id"));
+            JSONObject existingCategory = existingCategories.getJSONObject(0);
+            
+            JSONArray existingCategoryOptions = existingCategory.getJSONArray("categoryOptions");
+            
+            for (int i = 0; i < existingCategoryOptions.length(); ++i)
+            {
+              categoryOptions.add(existingCategoryOptions.getJSONObject(i).getString("id"));
+            }
           }
         }
         
