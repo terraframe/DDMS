@@ -126,6 +126,8 @@ public class DHIS2ExportHandler implements Reloadable
   
   private ArrayList<MdAttribute> categoryAttrs = new ArrayList<MdAttribute>();
   
+  private String defaultComboId;
+  
   // The keys are categoryAttrs. The values are a set of all ids of category options associated with that attribute.
   private Map<MdAttribute, Set<String>> categoryMetadataMap = new HashMap<MdAttribute, Set<String>>();
   
@@ -646,10 +648,22 @@ public class DHIS2ExportHandler implements Reloadable
     {
       if (categoryAttrs.size() == 0) { return; }
       
+      // Fetch the default category combo
+      HTTPResponse response = dhis2.apiGet("categoryOptionCombos", new NameValuePair[]{
+          new NameValuePair("filter", "displayName:eq:default")
+      });
+      DHIS2TrackerResponseProcessor.validateStatusCode(response);
+      
+      JSONObject defaultCatJS = response.getJSONObject();
+      JSONArray defaultCombos = defaultCatJS.getJSONArray("categoryOptionCombos");
+      JSONObject defaultCombo = defaultCombos.getJSONObject(0);
+      defaultComboId = defaultCombo.getString("id");
+      
+      
       JSONArray optCombos = new JSONArray();
-    
+      
       QueryFactory qf = new QueryFactory();
-
+      
       ValueQuery vq = qf.valueQuery();
       TableQuery tq = qf.tableQuery(mdClass.definesType());
       for (MdAttribute attr : categoryAttrs)
@@ -671,13 +685,18 @@ public class DHIS2ExportHandler implements Reloadable
         for (MdAttribute mdAttr : categoryAttrs)
         {
           String attrVal = val.getValue(mdAttr.getAttributeName());
-          if (attrVal == null || attrVal.length() == 0) { continue; } // TODO : Add the default here
           
           // We need to figure out values for all of these if we're to export. The problem is that the values will vary depending on the attribute.
           String name = null;
           String runwayId = null;
           
-          if (mdAttr instanceof MdAttributeReference)
+          if (attrVal == null || attrVal.length() == 0)
+          {
+            // Null values will match to the 'default' DHIS2 category option.
+            name = "default";
+            runwayId = defaultComboId;
+          }
+          else if (mdAttr instanceof MdAttributeReference)
           {
             MdBusiness reference = ((MdAttributeReference) mdAttr).getMdBusiness();
             
@@ -709,7 +728,15 @@ public class DHIS2ExportHandler implements Reloadable
           // If we set values to those variables, then we know we have categories that need to be exported.
           if (name != null)
           {
-            String dhis2Id = DHIS2Util.getDhis2IdFromRunwayId(runwayId);
+            String dhis2Id;
+            if (name.equals("default"))
+            {
+              dhis2Id = defaultComboId;
+            }
+            else
+            {
+              dhis2Id = DHIS2Util.getDhis2IdFromRunwayId(runwayId);
+            }
             
             optComboNames.add(name);
             optComboDHIds.add(dhis2Id);
@@ -1303,9 +1330,13 @@ public class DHIS2ExportHandler implements Reloadable
             for (MdAttribute mdAttr : categoryAttrs)
             {
               String attrVal = val.getValue(mdAttr.getAttributeName());
-              if (attrVal == null || attrVal.length() == 0) { continue; }
               
-              if (mdAttr instanceof MdAttributeReference)
+              if (attrVal == null || attrVal.length() == 0)
+              {
+                // Null values will match to the 'default' DHIS2 category option.
+                runwayIds.add(defaultComboId);
+              }
+              else if (mdAttr instanceof MdAttributeReference)
               {
                 MdBusiness reference = ((MdAttributeReference) mdAttr).getMdBusiness();
                 

@@ -19,24 +19,31 @@ public class MetadataElement
     return this.json.put(key, value);
   }
   
-  public JSONObject setCode(String code) throws JSONException
-  {
-    return this.json.put("code", code + append);
-  }
-  
   public JSONObject setName(String name) throws JSONException
   {
     return this.json.put("name", name + append);
   }
   
+  public JSONObject setCode(String code) throws JSONException
+  {
+    if (code.length() > (50 - append.length()))
+    {
+      code = code.substring(0, (50 - append.length()));
+    }
+    
+    code = code + append;
+    
+    return this.json.put("code", code);
+  }
+  
   public JSONObject setShortName(String shortName) throws JSONException
   {
-    shortName = shortName + append;
-    
-    if (shortName.length() > 50)
+    if (shortName.length() > (50 - append.length()))
     {
-      shortName = shortName.substring(0, 50);
+      shortName = shortName.substring(0, (50 - append.length()));
     }
+    
+    shortName = shortName + append;
     
     return this.json.put("shortName", shortName);
   }
