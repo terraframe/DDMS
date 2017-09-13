@@ -143,6 +143,9 @@ public class DHIS2ExportHandler implements Reloadable
   
   private static final String namePrefix = " ";
   
+  // The aggregation of some calculated fields cannot be determined automatically from the query and thus we are hardcoding them here.
+  private Map<String, String> hardcodedFieldAggregationMap = new HashMap<String, String>();
+  
   static String[] skipAttrs = new String[]{
     MdBusinessDTO.CACHEALGORITHM, MdBusinessDTO.TABLENAME, MdBusinessDTO.KEYNAME,
     MdBusinessDTO.BASECLASS, MdBusinessDTO.BASESOURCE, MdBusinessDTO.DTOCLASS, MdBusinessDTO.DTOSOURCE, MdBusinessDTO.STUBCLASS, MdBusinessDTO.STUBDTOCLASS, MdBusinessDTO.STUBDTOSOURCE, MdBusinessDTO.STUBSOURCE,
@@ -255,7 +258,8 @@ public class DHIS2ExportHandler implements Reloadable
   
   protected void gatherPrereqs()
   {
-    // TODO : If you change this path you also need to change DHIS2ExportResults.toString
+    // Instantiate our logger
+      // TODO : If you change this path you also need to change DHIS2ExportResults.toString
     File dhis2Dir = new File(DeployProperties.getDeployPath() + "/DHIS2");
     dhis2Dir.mkdirs();
     try
@@ -267,6 +271,7 @@ public class DHIS2ExportHandler implements Reloadable
       logger.error("Unable to open log file [" + DeployProperties.getDeployPath() + "/DHIS2/export.log]");
     }
     
+    // Create a ValueQuery which we will use to help us with the export
     QueryFactory qf = new QueryFactory();
     SavedSearchQuery ssq = new SavedSearchQuery(qf);
     ssq.WHERE(ssq.getMaterializedTable().EQ(mdClass));
@@ -279,14 +284,28 @@ public class DHIS2ExportHandler implements Reloadable
     {
       it.close();
     }
-    
     String queryClass = QueryConstants.getQueryClass(this.savedSearch.getQueryType());
-    
     valueQuery = QueryBuilder.getValueQuery(queryClass, this.savedSearch.getQueryXml(), this.savedSearch.getConfig(), null, null, null, this.savedSearch.getDisease());
+    
+    // The aggregation of some calculated fields cannot be determined automatically from the query and thus we are hardcoding them here.
+    // The key is the attribute name (of the selectable) and the value is the DHIS2 aggregation function (so AVERAGE instead of AVG).
+    hardcodedFieldAggregationMap.put("abundance_1", "SUM");
+    hardcodedFieldAggregationMap.put("abundance_10", "SUM");
+    hardcodedFieldAggregationMap.put("abundance_100", "SUM");
+    hardcodedFieldAggregationMap.put("abundance_1000", "SUM");
+    hardcodedFieldAggregationMap.put("collectionCount", "SUM");
+    hardcodedFieldAggregationMap.put("subCollectionCount", "SUM");
+    hardcodedFieldAggregationMap.put("mosquitoCount", "SUM");
+    hardcodedFieldAggregationMap.put("mosquitoCount", "SUM");
   }
   
   private String getAggTypeFromSql(SelectableSQL sel)
   {
+    if (hardcodedFieldAggregationMap.containsKey(sel.getResultAttributeName()))
+    {
+      return hardcodedFieldAggregationMap.get(sel.getResultAttributeName());
+    }
+    
     String sql = sel.getSQL().toLowerCase();
     
     if (StringUtils.countMatches(sql, "min(") == 1 && !(sql.contains("max(") || sql.contains("avg(") || sql.contains("sum(")))
