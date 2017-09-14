@@ -1,0 +1,23 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.etl.dhis2.DatasetRequiredException" label="Dataset Required Exception" message="Please select at least one dataset for upload.">
+      </mdException>
+      <mdException name="dss.vector.solutions.etl.dhis2.TooManyDatesException" message="Dataset [{dataset}] contains too many dates. Datasets must contain either 'Calendar year' column or exactly one date.">
+        <attributes>
+          <char name="dataset" label="dataset" required="true" size="500"/>
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+      <mdException name="dss.vector.solutions.etl.dhis2.CalendarYearRequiredException" message="Dataset [{dataset}] must contain either 'Calendar year' column or exactly one date.">
+      </mdException>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object type="com.runwaysdk.system.metadata.MdException" key="dss.vector.solutions.etl.dhis2.DatasetRequiredException" />
+      <object type="com.runwaysdk.system.metadata.MdException" key="dss.vector.solutions.etl.dhis2.TooManyDatesException" />
+    </delete>
+  </undoIt>
+</version>

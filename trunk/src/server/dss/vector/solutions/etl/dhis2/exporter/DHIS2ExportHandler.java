@@ -68,7 +68,6 @@ import com.runwaysdk.query.TableQuery;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
-import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdAttributeDate;
 import com.runwaysdk.system.metadata.MdAttributeInteger;
@@ -88,6 +87,7 @@ import dss.vector.solutions.etl.dhis2.MaxOneGeoColumnException;
 import dss.vector.solutions.etl.dhis2.NumbersMustBeAggregatedException;
 import dss.vector.solutions.etl.dhis2.OrgUnit;
 import dss.vector.solutions.etl.dhis2.OrgUnitQuery;
+import dss.vector.solutions.etl.dhis2.TooManyDatesException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2EmptyDatasetException;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.GeoFieldRequiredException;
@@ -352,6 +352,7 @@ public class DHIS2ExportHandler implements Reloadable
     
     
     // Check #2 : Attribute validation
+    int numDates = 0;
     int numGeos = 0;
     boolean hasYear = false;
     OIterator<? extends MdAttribute> mdAttrs = mdClass.getAllAttribute();
@@ -401,21 +402,19 @@ public class DHIS2ExportHandler implements Reloadable
             throw ex;
           }
         }
-        // Most columns are defaulted to character (time, user, etc)
-        else if (mdAttr instanceof MdAttributeCharacter)
+        else if (mdAttr.getAttributeName().equals("dategroup_year") || mdAttr.getAttributeName().equals("dategroup_epiyear"))
         {
-          if (mdAttr.getAttributeName().equals("dategroup_year"))
-          {
-            hasYear = true;
-            continue;
-          }
-          else if (mdAttr.getAttributeName().contains("dategroup"))
-          {
-            continue;
-          }
-          
-          categoryAttrs.add(mdAttr);
+          hasYear = true;
         }
+        else if (mdAttr.getAttributeName().contains("dategroup"))
+        {
+          continue;
+        }
+        else if (mdAttr instanceof MdAttributeDate)
+        {
+          numDates++;
+        }
+        // Most columns are defaulted to character (time, user, etc)
         else
         {
           categoryAttrs.add(mdAttr);
@@ -435,7 +434,13 @@ public class DHIS2ExportHandler implements Reloadable
       ex.setDataset(this.exportable.getDhis2Name());
       throw ex;
     }
-    else if (!hasYear)
+    if (numDates > 1)
+    {
+      TooManyDatesException ex = new TooManyDatesException();
+      ex.setDataset(this.exportable.getDhis2Name());
+      throw ex;
+    }
+    else if (numDates == 0 && !hasYear)
     {
       CalendarYearRequiredException ex = new CalendarYearRequiredException();
       ex.setDataset(this.exportable.getDhis2Name());
