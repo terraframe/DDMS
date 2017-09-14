@@ -20,22 +20,24 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.runwaysdk.business.Business;
 import com.runwaysdk.dataaccess.DuplicateDataException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
+import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.gis.geo.GeoEntity;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 /**
  * This class is responsible for pulling org units from DHIS2 and associating them with a GeoEntity in DDMS
@@ -407,6 +409,8 @@ public class DHIS2GeoMapper implements Reloadable
         GeoLevelMap map = new GeoLevelMap();
         map.setValue(GeoLevelMap.UNIVERSAL, resultSet.getString("geo_entity_class"));
         map.apply();
+        
+        newMappings++;
       }
     }
     catch (SQLException sqlEx1)
@@ -443,6 +447,7 @@ public class DHIS2GeoMapper implements Reloadable
     
     vq.SELECT(levelq.getId("levelId"));
     vq.SELECT(glmq.getId("mapId"));
+    vq.WHERE(glmq.getConfirmed().EQ(false));
     vq.WHERE(F.TRIM(ghq.getGeoEntityClass().getDisplayLabel().localize()).EQi(F.TRIM(levelq.getName())));
     vq.AND(glmq.getUniversal().EQ(ghq.getGeoEntityClass()));
     
@@ -514,25 +519,29 @@ public class DHIS2GeoMapper implements Reloadable
   {
     int hits = 0;
     
-    QueryFactory qf = new QueryFactory();
     
-    ValueQuery vq = new ValueQuery(qf);
-    GeoMapQuery gmq = new GeoMapQuery(qf);
-    OrgUnitQuery ouq = new OrgUnitQuery(qf);
-    
-    vq.SELECT(gmq.getId("geoMapId"));
-    vq.SELECT(ouq.getId("orgUnitId"));
-    vq.WHERE(gmq.getConfirmed().EQ(false));
-    vq.WHERE(ouq.getName().EQi(gmq.getGeoEntity().getEntityLabel().localize()));
-    
-    OIterator<? extends ValueObject> it = vq.getIterator();
-    
+    ResultSet resultSet = Database.query("SELECT\n" + 
+        "  gm.id AS geoMapId,\n" + 
+        "  ou.id AS orgUnitId\n" + 
+        "FROM\n" + 
+        "  geo_entity AS ge\n" + 
+        "  INNER JOIN geo_entity_entity_label AS lbl ON lbl.id=ge.entity_label\n" + 
+        "  INNER JOIN geo_map AS gm ON gm.geo_entity=ge.id\n" + 
+        "  INNER JOIN metadata AS uni ON uni.key_name=ge.type\n" + 
+        "  INNER JOIN geo_level_map glm ON glm.universal=uni.id\n" + 
+        "  LEFT JOIN org_unit_level oul ON oul.id=glm.org_unit_level\n" + 
+        "  FULL OUTER JOIN org_unit AS ou ON ou.org_unit_level=oul.id\n" + 
+        "\n" + 
+        "WHERE\n" + 
+        "  gm.confirmed = 0 AND\n" + 
+        "  UPPER(ou.name) = UPPER(COALESCE(lbl.m_alaria_default_locale, lbl.default_locale))");
+
     try
     {
-      for (ValueObject obj : it)
+      while (resultSet.next())
       {
-        GeoMap map = GeoMap.get(obj.getValue("geoMapId"));
-        OrgUnit unit = OrgUnit.get(obj.getValue("orgUnitId"));
+        GeoMap map = GeoMap.get(resultSet.getString("geoMapId"));
+        OrgUnit unit = OrgUnit.get(resultSet.getString("orgUnitId"));
         
         map.appLock();
         map.setOrgUnit(unit);
@@ -542,9 +551,22 @@ public class DHIS2GeoMapper implements Reloadable
         hits++;
       }
     }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
     finally
     {
-      it.close();
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
     }
     
     logger.info("Org unit name matching completed. hits = " + hits);
