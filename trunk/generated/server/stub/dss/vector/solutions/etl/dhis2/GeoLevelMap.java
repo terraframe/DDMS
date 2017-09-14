@@ -40,6 +40,7 @@ public class GeoLevelMap extends GeoLevelMapBase implements com.runwaysdk.genera
         jObject.put("id", map.getId());
         jObject.put("levelId", map.getOrgUnitLevelId());
         jObject.put("label", map.getUniversal().getDisplayLabel().getValue());
+        jObject.put("confirmed", map.getConfirmed());
 
         response.put(jObject);
       }
