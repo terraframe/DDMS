@@ -89,6 +89,12 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
     try
     {
       JSONArray array = new JSONArray(datasets);
+      
+      if (array.length() == 0)
+      {
+        DatasetRequiredException ex = new DatasetRequiredException();
+        throw ex;
+      }
 
       for (int i = 0; i < array.length(); i++)
       {
