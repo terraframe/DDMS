@@ -187,6 +187,8 @@ public class DHIS2ExportHandler implements Reloadable
       
       createDataElementGroupMetadata(metadata);
       
+      createIndicatorTypes(metadata);
+      
       JSONObject data = createDataValues(metadata); // #14
       
       // Write json to a file
@@ -1171,6 +1173,32 @@ public class DHIS2ExportHandler implements Reloadable
       dataElementGroups.put(dataElementGroup.getJSON());
       
       payload.put("dataElementGroups", dataElementGroups);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  protected void createIndicatorTypes(JSONObject payload)
+  {
+    try
+    {
+      JSONArray indicatorTypes = new JSONArray();
+      
+      MetadataElement basic = new MetadataElement();
+      basic.setName("Basic");
+      basic.setId(DHIS2Util.queryAndMapIds("_BasicIndicatorType_", idCache));
+      basic.put("factor", 1);
+      indicatorTypes.put(basic.getJSON());
+      
+      MetadataElement percentage = new MetadataElement();
+      percentage.setName("Percentage");
+      percentage.setId(DHIS2Util.queryAndMapIds("_PercentageIndicatorType_", idCache));
+      percentage.put("factor", 100);
+      indicatorTypes.put(percentage.getJSON());
+      
+      payload.put("indicatorTypes", indicatorTypes);
     }
     catch (JSONException e)
     {
