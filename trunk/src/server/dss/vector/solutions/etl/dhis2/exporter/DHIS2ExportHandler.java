@@ -51,6 +51,11 @@ import org.slf4j.LoggerFactory;
 import com.runwaysdk.constants.Constants;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
+import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
+import com.runwaysdk.dataaccess.IndicatorCompositeDAOIF;
+import com.runwaysdk.dataaccess.IndicatorElementDAO;
+import com.runwaysdk.dataaccess.IndicatorElementDAOIF;
+import com.runwaysdk.dataaccess.IndicatorPrimitiveDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.value.Attribute;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -66,10 +71,13 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.TableQuery;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.IndicatorComposite;
+import com.runwaysdk.system.metadata.IndicatorElement;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdAttributeDate;
+import com.runwaysdk.system.metadata.MdAttributeIndicator;
 import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdAttributeNumber;
 import com.runwaysdk.system.metadata.MdAttributeReference;
@@ -188,6 +196,8 @@ public class DHIS2ExportHandler implements Reloadable
       createDataElementGroupMetadata(metadata);
       
       createIndicatorTypes(metadata);
+      
+      createIndicators(metadata);
       
       JSONObject data = createDataValues(metadata); // #14
       
@@ -415,6 +425,10 @@ public class DHIS2ExportHandler implements Reloadable
         else if (mdAttr instanceof MdAttributeDate)
         {
           numDates++;
+        }
+        else if (mdAttr instanceof MdAttributeIndicator)
+        {
+          continue; // We'll deal with these later
         }
         // Most columns are defaulted to character (time, user, etc)
         else
@@ -1206,6 +1220,65 @@ public class DHIS2ExportHandler implements Reloadable
     }
   }
   
+  protected void createIndicators(JSONObject payload)
+  {
+    try
+    {
+      JSONArray indicatorTypes = new JSONArray();
+      
+      OIterator<? extends MdAttribute> mdAttrs = mdClass.getAllAttribute();
+      for (MdAttribute mdAttr : mdAttrs)
+      {
+        if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
+            !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+          )
+        {
+          if (mdAttr instanceof MdAttributeIndicator)
+          {
+            MdAttributeIndicator mdIndi = (MdAttributeIndicator)mdAttr;
+            IndicatorElement indiEle = mdIndi.getIndicatorElement();
+            
+            if (indiEle instanceof IndicatorComposite)
+            {
+              IndicatorCompositeDAOIF composite = IndicatorCompositeDAO.get(indiEle.getId());
+              
+              IndicatorPrimitiveDAOIF leftOp = (IndicatorPrimitiveDAOIF) composite.getLeftOperand();
+              IndicatorPrimitiveDAOIF rightOp = (IndicatorPrimitiveDAOIF) composite.getRightOperand();
+              
+              MetadataElement indy = new MetadataElement();
+              
+              indy.setName(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
+              indy.setShortName(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
+              
+              indy.put("numeratorDescription", leftOp.getLocalizedLabel());
+              indy.put("denominatorDescription", rightOp.getLocalizedLabel());
+              
+              indy.put("numerator", DHIS2Util.getDhis2IdFromRunwayId(MdAttribute.get(leftOp.getMdAttributePrimitive().getId()), valueQuery));
+              indy.put("denominator", DHIS2Util.getDhis2IdFromRunwayId(MdAttribute.get(rightOp.getMdAttributePrimitive().getId()), valueQuery));
+              
+              if (composite.isPercentage())
+              {
+                indy.put("indicatorType", new JSONObject().put("id", DHIS2Util.getDhis2IdFromRunwayId("_PercentageIndicatorType_")));
+              }
+              else
+              {
+                indy.put("indicatorType", new JSONObject().put("id", DHIS2Util.getDhis2IdFromRunwayId("_BasicIndicatorType_")));
+              }
+              
+              indicatorTypes.put(indy.getJSON());
+            }
+          }
+        }
+      }
+      
+      payload.put("indicators", indicatorTypes);
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
   protected JSONObject createDataValues(JSONObject metadata)
   {
     try
@@ -1228,7 +1301,8 @@ public class DHIS2ExportHandler implements Reloadable
       for (MdAttribute mdAttr : attrs)
       {
         if (mdAttr.getValue(MdAttributeConcreteDTO.SYSTEM).equals(MdAttributeBooleanInfo.FALSE) && 
-          !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME)))
+          !ArrayUtils.contains(DHIS2ExportHandler.skipAttrs, mdAttr.getValue(MdAttributeConcreteDTO.ATTRIBUTENAME))
+          && !(mdAttr instanceof MdAttributeIndicator))
         {
           vq.SELECT(tq.get(mdAttr.getAttributeName()));
         }
