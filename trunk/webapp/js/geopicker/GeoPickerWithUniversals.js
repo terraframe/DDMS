@@ -294,35 +294,6 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       }
     },
     
-//    _geoSearchCompleteCallback : function(nodes)
-//    {
-//      this._numGeosLoading = this._numGeosLoading - 1;
-//      
-//      if (this._numGeosLoading >= 0)
-//      {
-//        for (var i = 0; i < nodes.length; ++i)
-//        {
-//          var node = nodes[i];
-//          
-//          node.highlight(); // check the checkbox
-//        }
-//      }
-//      
-//      if (this._numGeosLoading == 0)
-//      {
-//        for (var i = 0; i < this._waitingOnGeos; ++i)
-//        {
-//          var geoView = this._waitingOnGeos[i];
-//          var node = this._tree.getNodeByGeoEntityId(geoView.getGeoEntityId());
-//          
-//          this._layoutNewListGeo(geoView, node);
-//        }
-//        
-//        this._numGeosLoading = -1;
-//        this._waitingOnGeos = null;
-//      }
-//    },
-    
     /**
      * Deletes the li element from the current selection list.
      * The GeoEntity associated with that selection will no longer
@@ -349,17 +320,6 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
       }
       
       delete this._liToNodesMap[id];
-      
-      // All this code just to figure out if the ok button is enabled/disabled
-//      if (this._applied.contains(id))
-//      {
-//        this._unsaved.add(id);
-//      }
-//      else
-//      {
-//        this._unsaved.remove(id);
-//      }
-//      this._bOK.setEnabled(this._geoMap.size() > 0);
     },
     
     _layoutNewListGeo : function(geoEntityView, node)
@@ -389,7 +349,12 @@ Mojo.Meta.newClass('MDSS.GeoPickerWithUniversals', {
         
         if (node != null)
         {
-          this._liToNodesMap[liId] = [node];
+          if (!Mojo.Util.isArray(node))
+          {
+            node = [node];
+          }
+          
+          this._liToNodesMap[liId] = node;
         }
         else
         {
