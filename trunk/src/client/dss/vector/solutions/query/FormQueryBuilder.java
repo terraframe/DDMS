@@ -227,7 +227,7 @@ public class FormQueryBuilder implements Reloadable
     if (hasCollectionId)
     {
       addType((MdBusinessDTO) MdFormUtilDTO.getMdBusinessByType(request, MosquitoCollectionDTO.CLASS), groupName, 0);
-      this.geoGroup.addOption(new GeoOption(MosquitoCollectionDTO.CLASS, MosquitoCollectionDTO.COLLECTIONID, LocalizationFacade.getFromBundles("Geo_Entity")));
+      this.geoGroup.addOption(new GeoOption(MosquitoCollectionDTO.CLASS, MosquitoCollectionDTO.GEOENTITY, LocalizationFacade.getFromBundles("Geo_Entity")));
     }
   }
 
