@@ -149,7 +149,7 @@
         controller.refresh(null, false);
       }
       else {
-        MDSS.ErrorModal(localizationService.localize("dashboard", "nodrilldown"));                                                	  
+        MDSS.ErrorModal(localizationService.localize("dashboard", "nodrilldown"));
       }
     }
     
@@ -653,27 +653,15 @@
         var onSuccess = function(html){
           $( "#report-content" ).html(html);
           
-          //
-          // Removing empty chart container div's from the report area
-          //
-          var chartEls = $("#__BIRT_ROOT").find("div")
-          for(var i=0; i<chartEls.length; i++){
-            var thisChart = chartEls[i];
-            var thisClass = $(thisChart).attr('class');
-            if(thisClass && thisClass.indexOf("style_") !== -1){
-              $(thisChart).hide();
-            }
-          }
-          
           // Scroll to the report element
           if(id) {
-          $timeout(function(){
+            $timeout(function(){
               var top = $('#report-viewport').scrollTop();
               var offset = $('#report-viewport').offset().top;
               var elemOff = $('#' + id).offset().top;
                   
               $('#report-viewport').scrollTop(top - offset + elemOff);
-          }, 200);
+            }, 200);
           }
         };
         
