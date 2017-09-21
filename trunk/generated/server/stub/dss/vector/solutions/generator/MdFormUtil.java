@@ -237,7 +237,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     String sessionId = Session.getCurrentSession().getId();
 
-    // A quick hack for ticket 3188. We can extend this mdForm stuff with listeners or something later if we find ourselves doing this a lot.
+    // A quick hack for ticket 3188. We can extend this mdForm stuff with
+    // listeners or something later if we find ourselves doing this a lot.
     if (busObj.hasAttribute(HumanBloodIndex.COLLECTIONID))
     {
       new CollectionIdValidationListener().beforeApply(busObj);
@@ -350,8 +351,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns all fields that are candidates for conditions that this field will reference. For example, the given field is not allowed in the list to
-   * avoid circular references.
+   * Returns all fields that are candidates for conditions that this field will
+   * reference. For example, the given field is not allowed in the list to avoid
+   * circular references.
    */
   public static MdField[] getFieldsForConditions(String mdFieldId)
   {
@@ -414,7 +416,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Adds the MdField to the MdWebGroup and adds the field as the last child of the group.
+   * Adds the MdField to the MdWebGroup and adds the field as the last child of
+   * the group.
    * 
    * @param groupId
    * @param fieldId
@@ -448,7 +451,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
 
     /*
-     * Set the order to one higher than the group if it is the first field or add it to the highest order within the group's fields.
+     * Set the order to one higher than the group if it is the first field or
+     * add it to the highest order within the group's fields.
      */
     Integer order = getHighestOrder(group);
     field.appLock();
@@ -460,7 +464,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns the next highest Order number relative to the object with the given id, which can be an MdForm or MdWebField.
+   * Returns the next highest Order number relative to the object with the given
+   * id, which can be an MdForm or MdWebField.
    * 
    * @param id
    * @return
@@ -510,7 +515,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Creates an MdField and the associated MdAttribute in DDMS. The mapping is one-to-one.
+   * Creates an MdField and the associated MdAttribute in DDMS. The mapping is
+   * one-to-one.
    * 
    * @param mdField
    * @param mdFormId
@@ -739,7 +745,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Populates the given stacks with the primitive field conditions and composite conditions.
+   * Populates the given stacks with the primitive field conditions and
+   * composite conditions.
    * 
    * @param conditions
    * @param composites
@@ -890,7 +897,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns a JSON string representing the tree structure of the form and its fields.
+   * Returns a JSON string representing the tree structure of the form and its
+   * fields.
    * 
    * @param mdFormId
    * @return
@@ -1003,7 +1011,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns all non-group fields in order for the MdWebForm. All groups are collapsed and their children are returned in relative order.
+   * Returns all non-group fields in order for the MdWebForm. All groups are
+   * collapsed and their children are returned in relative order.
    * 
    * @param form
    * @return
@@ -1341,7 +1350,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * This method is used only for composites. Cloning for all the other types happens in the controller.
+   * This method is used only for composites. Cloning for all the other types
+   * happens in the controller.
    */
   private static MdWebPrimitive primitiveClone(MdWebPrimitive input)
   {
@@ -1420,7 +1430,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       {
         label = mdForm.getFormName();
       }
-      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export all locales.
+      // Ticket 3300: For now, we're only setting the default locale. Eventually
+      // we'll allow users to export all locales.
       mdForm.getDisplayLabel().setValue(null);
       mdForm.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, label);
 
@@ -1439,7 +1450,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdBusiness.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
       mdBusiness.setTypeName(typeName);
 
-      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export/import all locales.
+      // Ticket 3300: For now, we're only setting the default locale. Eventually
+      // we'll allow users to export/import all locales.
       mdBusiness.getDisplayLabel().setValue(null);
       mdBusiness.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, label);
 
@@ -1489,7 +1501,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdAttributeCharacter.setRemove(false);
       mdAttributeCharacter.setRequired(true);
 
-      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export/import all locales.
+      // Ticket 3300: For now, we're only setting the default locale. Eventually
+      // we'll allow users to export/import all locales.
       mdAttributeCharacter.getDisplayLabel().setValue(null);
       mdAttributeCharacter.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, DEFAULT_OID_LABEL);
 
@@ -1504,7 +1517,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdWebCharacter.setRemove(false);
       mdWebCharacter.setRequired(true);
 
-      // Ticket 3300: For now, we're only setting the default locale. Eventually we'll allow users to export/import all locales.
+      // Ticket 3300: For now, we're only setting the default locale. Eventually
+      // we'll allow users to export/import all locales.
       mdWebCharacter.getDisplayLabel().setValue(null);
       mdWebCharacter.getDisplayLabel().setValue(MdAttributeLocalInfo.DEFAULT_LOCALE, DEFAULT_OID_LABEL);
 
@@ -1539,8 +1553,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     new FormSystemURLBuilder(mdForm).delete();
 
     /*
-     * Delete all of the conditions which have been specified on fields of the form. Conditions have required attribute which reference fields of the
-     * form. If the conditions are not deleted first they will prevent the form from being deleted.
+     * Delete all of the conditions which have been specified on fields of the
+     * form. Conditions have required attribute which reference fields of the
+     * form. If the conditions are not deleted first they will prevent the form
+     * from being deleted.
      */
     OIterator<? extends MdWebField> it = mdForm.getAllMdFields();
 
@@ -1559,7 +1575,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
 
       /*
-       * We need to delete all of the GeoField objects which have been associated with a geo field.
+       * We need to delete all of the GeoField objects which have been
+       * associated with a geo field.
        */
       for (MdWebField mdField : fields)
       {
@@ -1796,7 +1813,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     for (MdFieldDAOIF mdField : mdFields)
     {
-      if (mdField.getFieldName().equals(HumanBloodIndex.COLLECTIONID)) // quick hack for ticket 3188
+      if (mdField.getFieldName().equals(HumanBloodIndex.COLLECTIONID)) // quick
+                                                                       // hack
+                                                                       // for
+                                                                       // ticket
+                                                                       // 3188
       {
         listeners.add(new CollectionIdValidationListener());
       }
@@ -2043,7 +2064,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns a query object of the given type, populated from the values specified in the criteria object. It is assumed that criteria.getType() is
+   * Returns a query object of the given type, populated from the values
+   * specified in the criteria object. It is assumed that criteria.getType() is
    * equal to type. If criteria is null then all objects are returned.
    * 
    * @param criteria
@@ -2079,7 +2101,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return query;
   }
-  
+
   public static ValueQuery searchObjectVQ(Business criteria, String type, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     ValueQuery query = getAndPopulateQueryVQ(criteria, type);
@@ -2136,27 +2158,28 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
     }
   }
-  
+
   private static ValueQuery getAndPopulateQueryVQ(Business criteria, String type)
   {
     QueryFactory factory = new QueryFactory();
     Pair<ValueQuery, GeneratedBusinessQuery> pair = getQueryObjectVQ(type, factory);
-    
-	ValueQuery vQuery = pair.getFirst();
-	GeneratedBusinessQuery query = pair.getSecond();
-    
+
+    ValueQuery vQuery = pair.getFirst();
+    GeneratedBusinessQuery query = pair.getSecond();
+
     if (criteria != null)
     {
       List<? extends MdAttributeConcreteDAOIF> mdAttributes = criteria.getMdAttributeDAOs();
 
       for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
       {
-        if (!mdAttribute.isSystem())
+        if (!mdAttribute.isSystem() && ! ( mdAttribute instanceof MdAttributeIndicatorDAOIF ))
         {
           String attributeName = mdAttribute.definesAttribute();
 
           /*
-           * Skip the key and domain attributes, the are essentially system attributes.
+           * Skip the key and domain attributes, the are essentially system
+           * attributes.
            */
           if (! ( attributeName.equals(ComponentInfo.KEY) || attributeName.equals(BusinessInfo.DOMAIN) ))
           {
@@ -2181,7 +2204,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
                 {
                   dss.vector.solutions.geo.AllPathsQuery apQuery = new dss.vector.solutions.geo.AllPathsQuery(vQuery);
                   vQuery.WHERE(apQuery.getParentGeoEntity().EQ(value));
-                  
+
                   vQuery.WHERE(sel.EQ(apQuery.getChildGeoEntity()));
                 }
                 /*
@@ -2195,11 +2218,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
                   vQuery.WHERE(sel.EQ(apQuery.getChildTerm()));
                 }
                 /*
-                 * Handle disease, survey, household, bednet, and person references
+                 * Handle disease, survey, household, bednet, and person
+                 * references
                  */
                 else if (Disease.class.isAssignableFrom(referenceClass) || FormSurvey.class.isAssignableFrom(referenceClass) || FormHousehold.class.isAssignableFrom(referenceClass) || FormPerson.class.isAssignableFrom(referenceClass) || FormBedNet.class.isAssignableFrom(referenceClass))
                 {
-                	vQuery.WHERE(sel.EQ(value));
+                  vQuery.WHERE(sel.EQ(value));
                 }
                 else
                 {
@@ -2235,7 +2259,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
           String attributeName = mdAttribute.definesAttribute();
 
           /*
-           * Skip the key and domain attributes, the are essentially system attributes.
+           * Skip the key and domain attributes, the are essentially system
+           * attributes.
            */
           if (! ( attributeName.equals(ComponentInfo.KEY) || attributeName.equals(BusinessInfo.DOMAIN) ))
           {
@@ -2274,7 +2299,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
                   query.WHERE(attribute.EQ(apQuery.getChildTerm()));
                 }
                 /*
-                 * Handle disease, survey, household, bednet, and person references
+                 * Handle disease, survey, household, bednet, and person
+                 * references
                  */
                 else if (Disease.class.isAssignableFrom(referenceClass) || FormSurvey.class.isAssignableFrom(referenceClass) || FormHousehold.class.isAssignableFrom(referenceClass) || FormPerson.class.isAssignableFrom(referenceClass) || FormBedNet.class.isAssignableFrom(referenceClass))
                 {
@@ -2303,15 +2329,15 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     try
     {
-    	ValueQuery vQuery = new ValueQuery(factory);
-    	
+      ValueQuery vQuery = new ValueQuery(factory);
+
       Class<? extends GeneratedBusinessQuery> clazz = (Class<? extends GeneratedBusinessQuery>) LoaderDecorator.load(type + "Query");
       Constructor<? extends GeneratedBusinessQuery> constructor = clazz.getConstructor(vQuery.getClass());
 
       GeneratedBusinessQuery query = constructor.newInstance(vQuery);
-      
+
       convertGeneratedBusinessQueryToValueQuery(vQuery, query);
-      
+
       return new Pair<ValueQuery, GeneratedBusinessQuery>(vQuery, query);
     }
     catch (Exception e)
@@ -2319,56 +2345,64 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
   private static void convertGeneratedBusinessQueryToValueQuery(ValueQuery vq, GeneratedComponentQuery gbq)
   {
     TableClassQuery tcq = QueryHacker.getTableClassQuery((GeneratedTableClassQuery) gbq);
     Map<String, ? extends MdAttributeDAOIF> attrMap = QueryHacker.getAttributeMap(tcq);
-    
+
     QueryFactory qf = tcq.getQueryFactory();
-    
+
     Set<String> keys = attrMap.keySet();
     for (String key : keys)
     {
       MdAttributeDAOIF attr = attrMap.get(key);
-      Selectable sel = gbq.get(key);
-      
-      if (attr instanceof MdAttributeConcreteDAOIF)
+
+      if (! ( attr instanceof MdAttributeIndicatorDAOIF ))
       {
-        if (attr instanceof MdAttributeReferenceDAO)
+        Selectable sel = gbq.get(key);
+
+        if (attr instanceof MdAttributeConcreteDAOIF)
         {
-          MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) attr;
-          MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
-          String referenceType = referenceMdBusiness.definesType();
-          
-          // Dereference some references. This is the entire reason we wanted it to be a value query.
-          if (referenceType.equals(GeoEntity.CLASS))
+          if (attr instanceof MdAttributeReferenceDAO)
           {
-            GeoEntityQuery geq = new GeoEntityQuery(qf);
-            Selectable coalesce = geq.getEntityLabel().localize();
-            String selAlias = sel.getColumnAlias();
-            
-            SelectableSQLCharacter replacement = vq.aSQLCharacter(sel._getAttributeName() + "_res", coalesce.getSQL(), sel._getAttributeName() + "_res");
-            coalesce.setColumnAlias(selAlias + "_coal");
-            sel.setColumnAlias(selAlias + "_id");
-            
-            vq.SELECT(coalesce);
-            vq.SELECT(replacement);
-            vq.WHERE(geq.EQ((SelectableReference)sel));
+            MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) attr;
+            MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+            String referenceType = referenceMdBusiness.definesType();
+
+            // Dereference some references. This is the entire reason we wanted
+            // it to be a value query.
+            if (referenceType.equals(GeoEntity.CLASS))
+            {
+              GeoEntityQuery geq = new GeoEntityQuery(qf);
+              Selectable coalesce = geq.getEntityLabel().localize();
+              String selAlias = sel.getColumnAlias();
+
+              SelectableSQLCharacter replacement = vq.aSQLCharacter(sel._getAttributeName() + "_res", coalesce.getSQL(), sel._getAttributeName() + "_res");
+              coalesce.setColumnAlias(selAlias + "_coal");
+              sel.setColumnAlias(selAlias + "_id");
+
+              vq.SELECT(coalesce);
+              vq.SELECT(replacement);
+              vq.WHERE(geq.EQ((SelectableReference) sel));
+            }
+          }
+          else
+          {
+            // sqlAttr = QueryHacker.attributeFactory((ComponentQuery) tcq, sel,
+            // tcq.getMdTableClassIF(), column.getTableName(),
+            // column.getTableAlias(), (MdAttributeConcreteDAOIF) attr,
+            // sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
           }
         }
-        else
-        {
-//          sqlAttr = QueryHacker.attributeFactory((ComponentQuery) tcq, sel, tcq.getMdTableClassIF(), column.getTableName(), column.getTableAlias(), (MdAttributeConcreteDAOIF) attr, sel.getUserDefinedAlias(), sel.getUserDefinedDisplayLabel());
-        }
+
+        vq.SELECT(sel);
       }
-      
-      vq.SELECT(sel);
     }
-    
+
     vq.FROM(tcq);
   }
-  
+
   @SuppressWarnings("unchecked")
   private static GeneratedBusinessQuery getQueryObject(String type, QueryFactory factory)
   {
@@ -2460,10 +2494,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       // if (mdField instanceof MdWebAttributeDAOIF)
       // {
       // MdWebAttributeDAOIF webAttr = (MdWebAttributeDAOIF) mdField;
-      // MdAttributeDAOIF definingMdAttribute = webAttr.getDefiningMdAttribute();
-      // List<MdAttributeDimensionDAOIF> mdAttributeDimensions = definingMdAttribute.getMdAttributeDimensions();
+      // MdAttributeDAOIF definingMdAttribute =
+      // webAttr.getDefiningMdAttribute();
+      // List<MdAttributeDimensionDAOIF> mdAttributeDimensions =
+      // definingMdAttribute.getMdAttributeDimensions();
       //
-      // for(MdAttributeDimensionDAOIF mdAttributeDimension : mdAttributeDimensions)
+      // for(MdAttributeDimensionDAOIF mdAttributeDimension :
+      // mdAttributeDimensions)
       // {
       //
       // }
@@ -2566,9 +2603,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       SAXImporter importer = new SAXImporter(source, XSD_LOCATION, new DataTypePlugin());
       importer.begin();
 
-      // The form permissions cannot be exported because they are specific to the diseases specified
-      // on the destination system. The diesease of the destination system will likely be different.
-      // Thus we need to define/re-define the permissions for any imported form as part of the
+      // The form permissions cannot be exported because they are specific to
+      // the diseases specified
+      // on the destination system. The diesease of the destination system will
+      // likely be different.
+      // Thus we need to define/re-define the permissions for any imported form
+      // as part of the
       // import process.
       ImportManager manager = importer.getManager();
       Set<String> types = manager.getImportedTypes();
