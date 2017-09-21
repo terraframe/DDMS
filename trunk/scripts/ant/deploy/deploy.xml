@@ -964,15 +964,29 @@
 		</java>
 
 	</target>
+	
+	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
+    <java classname="dss.vector.solutions.localization.DatabaseVersionedLocalizationExcelImporter" fork="true" failonerror="true" dir="../../../doc" timeout="4000000" taskname="MergeLocalization">
+      <jvmarg value="-Xmx${memory_use}" />
+      <jvmarg value="-Xms${memory_use}" />      
+      <jvmarg value="-XX:PermSize=${perm_size}" />
+      <jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
+      <classpath>
+        <path refid="framework.classpath" />
+      </classpath>
+      <arg value="localization/" />
+    </java>
+  </target>
+
+  <!--
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
 		<java classname="dss.vector.solutions.localization.LocalizationMerger" fork="true" failonerror="true" dir="../../../doc" timeout="4000000" taskname="MergeLocalization">
 			<jvmarg value="-Xmx${memory_use}" />
 			<jvmarg value="-Xms${memory_use}" />			
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-			
-			<!--<jvmarg value="-javaagent:/home/jsmethie/workspace/MDSS/lib/server/aspectjweaver.jar" />-->
+			<jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=1044" />
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -982,6 +996,7 @@
 		</java>
 		<copy file="../../../doc/MergedLocalization.xls" tofile="../../../doc/DiseaseLocalizationDefaults.xls" overwrite="true" />
 	</target>
+	-->
 
 	<target name="import_ontology" depends="" description="imports the default terms into the db">
 		<java classname="dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
