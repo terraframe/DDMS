@@ -38,6 +38,7 @@ import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.ontology.NestedTermsWarningDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.Halp;
+import dss.vector.solutions.util.LocalizationFacade;
 import dss.vector.solutions.util.QueryUtil;
 
 public class FormQueryBuilder implements Reloadable
@@ -226,6 +227,7 @@ public class FormQueryBuilder implements Reloadable
     if (hasCollectionId)
     {
       addType((MdBusinessDTO) MdFormUtilDTO.getMdBusinessByType(request, MosquitoCollectionDTO.CLASS), groupName, 0);
+      this.geoGroup.addOption(new GeoOption(MosquitoCollectionDTO.CLASS, MosquitoCollectionDTO.COLLECTIONID, LocalizationFacade.getFromBundles("Geo_Entity")));
     }
   }
 
