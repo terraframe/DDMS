@@ -904,7 +904,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
 
         // Add the north arrow to the base canvas
-        if (state.getEnableArrow() != null && state.getEnableArrow())
+        if (state != null && state.getEnableArrow() != null && state.getEnableArrow())
         {
           String deploy = DeployProperties.getDeployPath();
           String imagesDir = deploy + "/imgs";
@@ -937,7 +937,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         }
 
         // Add scale to the base canvas
-        if (state.getEnableScale() != null && state.getEnableScale())
+        if (state != null && state.getEnableScale() != null && state.getEnableScale())
         {
           CanvasInformation info = new CanvasInformation();
           info.setHeight(height);
