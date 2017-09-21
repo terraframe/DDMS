@@ -537,12 +537,13 @@
       var mapBoundsStr = JSON.stringify(mapBounds);          
       var mapSizeStr = JSON.stringify(mapSize);            
       var activeBaseMapStr = JSON.stringify(activeBaseMap);
+      var baseLayerType = activeBaseMap.LAYER_SOURCE_TYPE.toLowerCase();
             
-      if(activeBaseMap.LAYER_SOURCE_TYPE.toLowerCase() !== "osm"){        
+      if(baseLayerType !== "osm" && baseLayerType !== "osm-local"){        
         var title = localizationService.localize("dashboard", "warning");
         var message = localizationService.localize("dashboard", "InvalidBaseMap");
         
-        GDB.ExceptionHandler.renderDialog(title, message);            
+        MDSS.ErrorModal(message);            
       }
       
       var params = {
@@ -711,7 +712,7 @@
       else {
         var message = localizationService.localize("dashboard", "MissingReport");                    
           
-        GDB.ExceptionHandler.handleException(message);        
+        MDSS.ErrorModal(message);                                            
       }
     }
     
