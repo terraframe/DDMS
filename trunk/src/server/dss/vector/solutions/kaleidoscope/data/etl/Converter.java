@@ -107,6 +107,8 @@ public class Converter implements ConverterIF, Reloadable
 
   private void calculate(BusinessDAO businessDAO)
   {
+    Business business = null;
+
     // Time to process the expression attributes.
     List<? extends MdAttributeConcreteDAOIF> mdAttrList = businessDAO.getMdAttributeDAOs();
 
@@ -144,7 +146,10 @@ public class Converter implements ConverterIF, Reloadable
 
             try
             {
-              Business business = BusinessFacade.get(businessDAO);
+              if (business == null)
+              {
+                business = BusinessFacade.get(businessDAO);
+              }
 
               // I am offended that I even have to do this. OGNL stores
               // reflection method definitions which cause
