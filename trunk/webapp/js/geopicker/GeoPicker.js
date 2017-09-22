@@ -443,6 +443,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
      */
     setFilter : function(filter)
     {
+      if (filter == null) { return; }
+      
       if (!Mojo.Util.isArray(filter))
       {
         this._filterType = [filter]
