@@ -104,7 +104,7 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
         DHIS2ExportableDataset dataset = DHIS2ExportableDataset.get(datasetId);
 
         DHIS2DataExporter exporter = new DHIS2DataExporter();
-        DHIS2ExportResults result = exporter.export(dataset);
+        DHIS2ExportResults result = exporter.export(dataset, strategy);
         
         if (results != null)
         {

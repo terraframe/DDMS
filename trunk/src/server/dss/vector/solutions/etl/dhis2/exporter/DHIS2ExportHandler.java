@@ -171,7 +171,7 @@ public class DHIS2ExportHandler implements Reloadable
   }
   
   @Transaction
-  public DHIS2ExportResults export()
+  public DHIS2ExportResults export(String strategy)
   {
     try
     {
@@ -218,25 +218,15 @@ public class DHIS2ExportHandler implements Reloadable
       }
       
       // Send it to DHIS2
-      try
-      {
-        metadata.put("importStrategy", "CREATE_AND_UPDATE");
-        HTTPResponse resp = dhis2.apiPost("metadata", metadata.toString());
-        log.append("Sent metadata json to DHIS2 and received this as a response:\n" + resp.getResponse() + "\n");
-        DHIS2TrackerResponseProcessor.validateStatusCode(resp); // TODO : We need to do a better job displaying the results to the end user if it throws an exception
-        results.processMetadataResponse(resp);
+      HTTPResponse resp = dhis2.apiPost("metadata.json?importStrategy=" + strategy, metadata.toString());
+      log.append("Sent metadata json to DHIS2 and received this as a response:\n" + resp.getResponse() + "\n");
+      DHIS2TrackerResponseProcessor.validateStatusCode(resp); // TODO : We need to do a better job displaying the results to the end user if it throws an exception
+      results.processMetadataResponse(resp);
         
-        data.put("importStrategy", "CREATE_AND_UPDATE");
-        HTTPResponse resp2 = dhis2.apiPost("dataValueSets", data.toString());
-        log.append("Sent data json to DHIS2 and received this as a response:\n" + resp2.getResponse() + "\n");
-//        DHIS2TrackerResponseProcessor.validateStatusCode(resp2); // At this point the metadata has already been committed to DHIS2 so we don't want to rollback the transaction
-        results.processDataResponse(resp2);
-        
-      }
-      catch (JSONException e)
-      {
-        throw new RuntimeException(e);
-      }
+      HTTPResponse resp2 = dhis2.apiPost("dataValueSets.json?importStrategy=" + strategy, data.toString());
+      log.append("Sent data json to DHIS2 and received this as a response:\n" + resp2.getResponse() + "\n");
+//      DHIS2TrackerResponseProcessor.validateStatusCode(resp2); // At this point the metadata has already been committed to DHIS2 so we don't want to rollback the transaction
+      results.processDataResponse(resp2);
       
       return results;
     }

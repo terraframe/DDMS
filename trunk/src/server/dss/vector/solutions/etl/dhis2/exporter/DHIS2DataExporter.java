@@ -79,7 +79,7 @@ public class DHIS2DataExporter implements Reloadable
     exportable.setQueryRef((MdTable) mdClass);
     
     DHIS2DataExporter exporter = new DHIS2DataExporter();
-    exporter.exportWithCredentials(exportable, url, username, password);
+    exporter.exportWithCredentials(exportable, "CREATE_AND_UPDATE", url, username, password);
   }
   
   // Our constructor must be 0 arguments because it conforms to Java service loader paradigm.
@@ -88,15 +88,15 @@ public class DHIS2DataExporter implements Reloadable
     dhis2 = new DHIS2HTTPCredentialConnector();
   }
   
-  public void exportWithCredentials(DHIS2ExportableDataset exportable, String url, String username, String password)
+  public void exportWithCredentials(DHIS2ExportableDataset exportable, String strategy, String url, String username, String password)
   {
     dhis2.setServerUrl(url);
     dhis2.setCredentials(username, password);
     
-    actuallyDoExport(exportable);
+    actuallyDoExport(exportable, strategy);
   }
   
-  public DHIS2ExportResults export(DHIS2ExportableDataset exportable)
+  public DHIS2ExportResults export(DHIS2ExportableDataset exportable, String strategy)
   {
     // TODO : Maybe some day we'll re-enable this (when DIHS2 gets their act together)
 //    if (ExternalProfile.getAccessToken() == null)
@@ -107,12 +107,12 @@ public class DHIS2DataExporter implements Reloadable
     
     dhis2.readConfigFromDB();
     
-    return actuallyDoExport(exportable);
+    return actuallyDoExport(exportable, strategy);
   }
   
-  private DHIS2ExportResults actuallyDoExport(DHIS2ExportableDataset exportable)
+  private DHIS2ExportResults actuallyDoExport(DHIS2ExportableDataset exportable, String strategy)
   {
     DHIS2ExportHandler exporter = new DHIS2ExportHandler(exportable, dhis2);
-    return exporter.export();
+    return exporter.export(strategy);
   }
 }
