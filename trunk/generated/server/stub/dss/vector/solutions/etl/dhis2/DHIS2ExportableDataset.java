@@ -31,7 +31,7 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
   {
     String cleanName = this.getDhis2Name();
     
-    cleanName.replaceAll("\\W+", "");
+    cleanName = cleanName.replaceAll("\\W+", "");
     
     return cleanName;
   }
