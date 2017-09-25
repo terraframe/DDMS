@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.constants.EntityInfo;
 import com.runwaysdk.constants.EnumerationMasterInfo;
+import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -540,7 +541,12 @@ public class QueryUtil implements Reloadable
                 {
                   if (layer instanceof MaterializedMarkerLayer)
                   {
-                    terms.add(new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", allPathsAlias + "." + ALLPATHS_PARENT_TERM_COLUMN, (MdAttributeReferenceDAOIF) mdAttribute));
+                    HashMap<String, Object> data = new HashMap<String, Object>();
+                    data.put(MetadataInfo.CLASS, mdAttribute);
+                    data.put(SavedSearch.ALIAS, columnAlias);
+
+                    SelectableSQLKey selectable = new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", allPathsAlias + "." + ALLPATHS_PARENT_TERM_COLUMN);
+                    terms.add(selectable);
                   }
 
                   currleftJoinEq = new LeftJoinEq(ALLPATHS_PARENT_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
@@ -551,7 +557,14 @@ public class QueryUtil implements Reloadable
                 {
                   if (layer instanceof MaterializedMarkerLayer)
                   {
-                    terms.add(new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", allPathsAlias + "." + ALLPATHS_CHILD_TERM_COLUMN, (MdAttributeReferenceDAOIF) mdAttribute));
+                    HashMap<String, Object> data = new HashMap<String, Object>();
+                    data.put(MetadataInfo.CLASS, mdAttribute);
+                    data.put(SavedSearch.ALIAS, columnAlias);
+
+                    SelectableSQLKey selectable = new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", allPathsAlias + "." + ALLPATHS_CHILD_TERM_COLUMN);
+                    selectable.setData(data);
+                    
+                    terms.add(selectable);
                   }
 
                   currleftJoinEq = new LeftJoinEq(ALLPATHS_CHILD_TERM_COLUMN, ALLPATHS_ONTOLOGY_TABLE, allPathsAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
@@ -576,7 +589,14 @@ public class QueryUtil implements Reloadable
               {
                 if (layer instanceof MaterializedMarkerLayer)
                 {
-                  terms.add(new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", tableAlias + "." + columnName, (MdAttributeReferenceDAOIF) mdAttribute));
+                  HashMap<String, Object> data = new HashMap<String, Object>();
+                  data.put(MetadataInfo.CLASS, mdAttribute);
+                  data.put(SavedSearch.ALIAS, columnAlias);
+
+                  SelectableSQLKey selectable = new SelectableSQLKey(false, valueQuery, termAttrib + "_ref", tableAlias + "." + columnName);
+                  selectable.setData(data);
+                                    
+                  terms.add(selectable);
                 }
 
                 currleftJoinEq = new LeftJoinEq(columnName, tableName, tableAlias, EntityDAOIF.ID_COLUMN, termTable, newTermTableAlias);
