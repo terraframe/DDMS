@@ -69,7 +69,7 @@
               <mdss:localize key="DashboardThematicLayer.form.category"/>
             </span>
             <span ng-if="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
-              Upper Thresholds
+              <mdss:localize key="dashboard.upper.thresholds"/>
             </span>
             <span><mdss:localize key="DashboardThematicLayer.form.color"/></span>
             <span></span>
@@ -115,7 +115,7 @@
           </div>
           
           <!-- enable/disable range categories -->
-          <div class="fill-block" ng-if="dynamicDataModel.thematicAttributeDataType === 'number'">    
+          <div class="fill-block" style="margin: 0 0 0 0px;" ng-if="dynamicDataModel.thematicAttributeDataType === 'number'">    
             <styled-check-box id="cat-range-categories" model="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled" label="<mdss:localize key="DashboardThematicLayer.form.categoryRangeCategoriesLabel"/>"></styled-check-box>
           </div>  
         </div>
@@ -201,7 +201,7 @@
                     <mdss:localize key="DashboardThematicLayer.form.category"/>
                   </span>
                   <span ng-if="styleModel.secondaryAggregation.rangeCategoriesEnabled">
-                    Upper Thresholds
+                    <mdss:localize key="dashboard.upper.thresholds"/>
                   </span>
                 
                   <span><mdss:localize key="DashboardLayer.form.color"/></span>
@@ -240,7 +240,7 @@
               <mdss:localize key="DashboardThematicLayer.form.category"/>
             </span>
             <span ng-if="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
-              Upper Thresholds
+              <mdss:localize key="dashboard.upper.thresholds"/>
             </span>
             <span><mdss:localize key="DashboardThematicLayer.form.color"/></span>
             <span></span>
