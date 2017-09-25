@@ -104,7 +104,8 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
   @Transaction
   public void applyAll(DashboardStyle style, String mapId, AggregationStrategy strategy, DashboardCondition[] conditions)
   {
-    // If there is an existing aggregation strategy then delete it and use the new one
+    // If there is an existing aggregation strategy then delete it and use the
+    // new one
     AggregationStrategy existing = this.getAggregationStrategy();
 
     strategy.apply();
@@ -137,7 +138,8 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
   }
 
   /**
-   * Gets the min and max values of a data set to be used for styling based data distributions
+   * Gets the min and max values of a data set to be used for styling based data
+   * distributions
    */
   public HashMap<String, Double> getLayerMinMax(String _attribute)
   {
@@ -244,7 +246,8 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
       {
         try
         {
-          // boolean dynamic = ! ( Dashboard.getOptionCount(mdAttribute.getId()) < LIMIT );
+          // boolean dynamic = ! ( Dashboard.getOptionCount(mdAttribute.getId())
+          // < LIMIT );
 
           attrObj.put("isOntologyAttribute", true);
           attrObj.put("isTextAttribute", false);
@@ -254,7 +257,8 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
 
           // if (!dynamic)
           // {
-          // attrObj.put("nodes", Dashboard.getClassifierTreeJSON(mdAttribute.getId()));
+          // attrObj.put("nodes",
+          // Dashboard.getClassifierTreeJSON(mdAttribute.getId()));
           // }
         }
         catch (JSONException e)
@@ -495,13 +499,15 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
 
           if (mdAttributeTerm.getReferenceMdBusinessDAO().definesType().equals(Term.CLASS))
           {
-            // boolean dynamic = ! ( Dashboard.getOptionCount(secAttr.getMdAttributeId()) < LIMIT );
+            // boolean dynamic = ! (
+            // Dashboard.getOptionCount(secAttr.getMdAttributeId()) < LIMIT );
 
             secAttrObj.put("dynamic", true);
 
             // if (!dynamic)
             // {
-            // secAttrObj.put("nodes", Dashboard.getClassifierTreeJSON(secAttr.getMdAttributeId()));
+            // secAttrObj.put("nodes",
+            // Dashboard.getClassifierTreeJSON(secAttr.getMdAttributeId()));
             // }
           }
         }
@@ -578,9 +584,11 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
   }
 
   /**
-   * @prerequisite conditions is populated with any DashboardConditions necessary for restricting the view dataset.
+   * @prerequisite conditions is populated with any DashboardConditions
+   *               necessary for restricting the view dataset.
    * 
-   * @return A ValueQuery for use in creating/dropping the database view which will be used with GeoServer.
+   * @return A ValueQuery for use in creating/dropping the database view which
+   *         will be used with GeoServer.
    */
   @Override
   public ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns)
@@ -645,37 +653,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
   {
     MdAttributeConcreteDAOIF mdAttribute = this.getMdAttributeDAO().getMdAttributeConcrete();
 
-    if (mdAttribute instanceof MdAttributeDateDAOIF)
-    {
-      return AttributeType.DATE;
-    }
-    else if (mdAttribute instanceof MdAttributeDateTimeDAOIF)
-    {
-      return AttributeType.DATETIME;
-    }
-    else if (mdAttribute instanceof MdAttributeTimeDAOIF)
-    {
-      return AttributeType.TIME;
-    }
-    else if (mdAttribute instanceof MdAttributeIndicatorDAOIF)
-    {
-      IndicatorElementDAOIF indicator = ( (MdAttributeIndicatorDAOIF) mdAttribute ).getIndicator();
-
-      if (indicator.isPercentage())
-      {
-        return AttributeType.PERCENT;
-      }
-      else
-      {
-        return AttributeType.NUMBER;
-      }
-    }
-    else if (mdAttribute instanceof MdAttributeNumberDAOIF)
-    {
-      return AttributeType.NUMBER;
-    }
-
-    return AttributeType.BASIC;
+    return DashboardThematicLayer.getAttributeType(mdAttribute);
   }
 
   @Override
@@ -743,5 +721,40 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     }
 
     return json.toString();
+  }
+
+  public static AttributeType getAttributeType(MdAttributeConcreteDAOIF mdAttribute)
+  {
+    if (mdAttribute instanceof MdAttributeDateDAOIF)
+    {
+      return AttributeType.DATE;
+    }
+    else if (mdAttribute instanceof MdAttributeDateTimeDAOIF)
+    {
+      return AttributeType.DATETIME;
+    }
+    else if (mdAttribute instanceof MdAttributeTimeDAOIF)
+    {
+      return AttributeType.TIME;
+    }
+    else if (mdAttribute instanceof MdAttributeIndicatorDAOIF)
+    {
+      IndicatorElementDAOIF indicator = ( (MdAttributeIndicatorDAOIF) mdAttribute ).getIndicator();
+
+      if (indicator.isPercentage())
+      {
+        return AttributeType.PERCENT;
+      }
+      else
+      {
+        return AttributeType.NUMBER;
+      }
+    }
+    else if (mdAttribute instanceof MdAttributeNumberDAOIF)
+    {
+      return AttributeType.NUMBER;
+    }
+
+    return AttributeType.BASIC;
   }
 }

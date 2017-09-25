@@ -6,7 +6,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -34,11 +35,12 @@ import org.w3c.dom.Node;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeLongDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.conversion.ConversionException;
 
 import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardThematicStyle;
-import dss.vector.solutions.kaleidoscope.dashboard.layer.CategoryIcon;
+import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.wrapper.AttributeType;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureStrategy;
@@ -58,6 +60,26 @@ import dss.vector.solutions.util.LocalizationFacade;
  */
 public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loader.Reloadable
 {
+  private static class CategoryComparator implements Comparator<JSONObject>, Reloadable
+  {
+    @Override
+    public int compare(JSONObject o1, JSONObject o2)
+    {
+      try
+      {
+        double d1 = o1.getDouble(ThematicStyle.VAL);
+        double d2 = o2.getDouble(ThematicStyle.VAL);
+
+        return new Double(d2).compareTo(d1);
+      }
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+    }
+
+  }
+
   private static class Provider implements com.runwaysdk.generation.loader.Reloadable
   {
     protected SLDMapVisitor visitor;
@@ -122,6 +144,42 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
     protected NodeBuilder getPropertyIsEqualToNode(String attribute, String otherCatVal)
     {
       return node(OGC, "PropertyIsEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(otherCatVal));
+    }
+
+    protected List<JSONObject> getOrderedList(JSONArray categories) throws JSONException
+    {
+      LinkedList<JSONObject> list = new LinkedList<JSONObject>();
+
+      for (int i = 0; i < categories.length(); i++)
+      {
+        JSONObject category = categories.getJSONObject(i);
+        boolean isOther = category.has("otherCat") ? category.getBoolean("otherCat") : false;
+
+        if (!isOther && category.has("val"))
+        {
+          list.add(category);
+        }
+      }
+
+      Collections.sort(list, new CategoryComparator());
+
+      return list;
+    }
+
+    protected boolean isRanged(JSONArray categories) throws JSONException
+    {
+      // SLD for all the categories scraped from the client
+      for (int i = 0; i < categories.length(); i++)
+      {
+        JSONObject category = categories.getJSONObject(i);
+
+        if (category.has(ThematicStyle.ISRANGECATEGORY) && category.getBoolean(ThematicStyle.ISRANGECATEGORY))
+        {
+          return true;
+        }
+      }
+
+      return false;
     }
 
     // protected NodeBuilder getAllLabelClassesEnabledNode()
@@ -405,7 +463,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
             String currentCatMinDisplay = formatter.format(currentCatMin);
             String currentCatMaxDisplay = formatter.format(currentCatMax);
 
-            Node ruleNode = node("Rule").child(node("Name").text(currentCatMinDisplay + " - " + currentCatMaxDisplay), node("Title").text(currentCatMinDisplay + " - " + currentCatMaxDisplay), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), node(OGC, "PropertyIsBetween").child(node(OGC, "PropertyName").text(attribute), node(OGC, "LowerBoundary").child(node(OGC, "Literal").text(currentCatMin)), node(OGC, "UpperBoundary").child(node(OGC, "Literal").text(currentCatMax))))), this.getSymbolNode(wkn, currentColorHex, fillOpacity, stroke, width, strokeOpacity, radius, false, "")
+            Node ruleNode = node("Rule").child(node("Name").text(currentCatMinDisplay + " - " + currentCatMaxDisplay), node("Title").text(currentCatMinDisplay + " - " + currentCatMaxDisplay), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), node(OGC, "PropertyIsBetween").child(node(OGC, "PropertyName").text(attribute), node(OGC, "LowerBoundary").child(node(OGC, "Literal").text(currentCatMin)), node(OGC, "UpperBoundary").child(node(OGC, "Literal").text(currentCatMax))))), this.getSymbolNode(wkn, currentColorHex, fillOpacity, stroke, width, strokeOpacity, radius)
 
             ).build(root);
 
@@ -450,75 +508,51 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
             JSONArray secondaryCategories = tStyle.getSecondaryAttributeCategoriesAsJSON();
             String secondarAttributeName = secondaryAttribute.definesAttribute().toLowerCase();
 
-            Boolean hasRangeCat = false;
-
-            /**
-             * Build the other rule
-             * 
-             * NOTE: The other rule is not needed for range categories
-             */
-            // if(hasRangeCat != true)
-            // {
-            // String fill = tStyle.getBubbleFill();
-            // NodeBuilder[] filterNodes = this.getElseNode(attribute,
-            // secondaryCategories);
-            // this.createRule(root, filterNodes, fill, null, minAttrVal,
-            // maxAttrVal, minSize, maxSize, label, null);
-            // }
-
             /*
              * Create the 'Other' option first
              */
             String label = LocalizationFacade.getFromBundles("Other");
-            this.createRule(root, null, tStyle.getBubbleFill(), null, minAttrVal, maxAttrVal, minSize, maxSize, label, false);
+            this.createRule(root, null, tStyle.getBubbleFill(), null, minAttrVal, maxAttrVal, minSize, maxSize, label);
 
-            for (int i = 0; i < secondaryCategories.length(); i++)
+            boolean isRanged = this.isRanged(secondaryCategories);
+
+            if (isRanged)
             {
-              Boolean isRangeCat = false;
-              JSONObject secondaryCategory = secondaryCategories.getJSONObject(i);
-              Boolean catOtherCat = secondaryCategory.getBoolean(ThematicStyle.ISOTHERCAT);
-              String secondayryCatMaxVal = null;
-              Boolean rangeAllMin = false;
-              Boolean rangeAllMax = false;
-              String secondaryCatVal = secondaryCategory.getString(ThematicStyle.VAL);
-              String secondaryColor = secondaryCategory.getString(ThematicStyle.COLOR);
-              String title = secondaryCatVal;
+              AttributeType attributeType = DashboardThematicLayer.getAttributeType(secondaryAttribute.getMdAttributeConcrete());
+              
+              List<JSONObject> categories = this.getOrderedList(secondaryCategories);
 
-              if (catOtherCat == false && secondaryCategory.has(ThematicStyle.ISRANGECATEGORY) && secondaryCategory.getBoolean(ThematicStyle.ISRANGECATEGORY) == true)
+              // SLD for all the categories scraped from the client
+              for (JSONObject category : categories)
               {
-                hasRangeCat = true;
-                secondayryCatMaxVal = secondaryCategory.getString(ThematicStyle.VALMAX);
-                isRangeCat = secondaryCategory.getBoolean(ThematicStyle.ISRANGECATEGORY);
+                HashMap<String, Object> catsHashMap = getCategoryProps(category, attributeType);
+                String catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
+                String catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
+                String catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
 
-                if (secondaryCatVal.length() == 0)
-                {
-                  secondaryCatVal = Double.toString(minAttrVal);
-                }
-                if (secondayryCatMaxVal.length() == 0)
-                {
-                  secondayryCatMaxVal = Double.toString(maxAttrVal);
-                }
-                if (secondaryCategory.has(ThematicStyle.RANGEALLMIN))
-                {
-                  rangeAllMin = secondaryCategory.getBoolean(ThematicStyle.RANGEALLMIN);
-                }
-                if (secondaryCategory.has(ThematicStyle.RANGEALLMAX))
-                {
-                  rangeAllMax = secondaryCategory.getBoolean(ThematicStyle.RANGEALLMAX);
-                }
+                NodeBuilder filter = node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(secondarAttributeName)), this.getCategoryRangeNode(secondarAttributeName, catVal));
 
-                String currentCatMinDisplay = formatter.format(new Double(secondaryCatVal));
-                String currentCatMaxDisplay = formatter.format(new Double(secondayryCatMaxVal));
-                title = currentCatMinDisplay + " - " + currentCatMaxDisplay;
+                this.createRule(root, new NodeBuilder[] { filter }, catColor, null, minAttrVal, maxAttrVal, minSize, maxSize, "<= " + catTitle);
               }
-
-              // If this category is a defined category (i.e. not the other
-              // category)
-              if (catOtherCat == false)
+            }
+            else
+            {
+              for (int i = 0; i < secondaryCategories.length(); i++)
               {
-                NodeBuilder filter = getPropertyIsEqualToNode(secondarAttributeName, getFormattedNumericValue(secondaryCatVal));
+                JSONObject secondaryCategory = secondaryCategories.getJSONObject(i);
+                Boolean catOtherCat = secondaryCategory.getBoolean(ThematicStyle.ISOTHERCAT);
+                String secondaryCatVal = secondaryCategory.getString(ThematicStyle.VAL);
+                String secondaryColor = secondaryCategory.getString(ThematicStyle.COLOR);
 
-                this.createRule(root, new NodeBuilder[] { filter }, secondaryColor, null, minAttrVal, maxAttrVal, minSize, maxSize, title, isRangeCat);
+
+                // If this category is a defined category (i.e. not the other
+                // category)
+                if (catOtherCat == false)
+                {
+                  NodeBuilder filter = getPropertyIsEqualToNode(secondarAttributeName, getFormattedNumericValue(secondaryCatVal));
+
+                  this.createRule(root, new NodeBuilder[] { filter }, secondaryColor, null, minAttrVal, maxAttrVal, minSize, maxSize, secondaryCatVal);
+                }
               }
             }
           }
@@ -536,217 +570,155 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
 
           String title = currentCatMinDisplay + " - " + currentCatMaxDisplay;
 
-          createRule(root, null, fill, null, minAttrVal, maxAttrVal, minSize, maxSize, title, null);
+          createRule(root, null, fill, null, minAttrVal, maxAttrVal, minSize, maxSize, title);
         }
       }
       else if (this.visitor.currentLayer.getFeatureStrategy() == FeatureStrategy.CATEGORYPOINT)
       {
-
-        String catVal;
-        String catTitle;
-        String catColor;
-        String otherCatColor = null;
-        boolean otherCatEnableIcon = false;
-        String otherCatIconPath = null;
-        boolean isOtherCat = false;
-        boolean otherCatEnabled = true;
-        boolean isOntologyCat;
-        boolean isRangeCat = false;
-        String catMaxVal = null;
-        boolean rangeAllMin = false;
-        boolean rangeAllMax = false;
-        ArrayList<String> catValTracking = new ArrayList<String>();
-
-        ThematicLayer tLayer = (ThematicLayer) layer;
-        String attribute = tLayer.getAttribute().toLowerCase();
-        AttributeType attributeType = tLayer.getAttributeType();
-
-        if (style instanceof DashboardThematicStyle)
+        try
         {
-          DashboardThematicStyle dTStyle = (DashboardThematicStyle) style;
 
-          Double fillOpacity = dTStyle.getCategoryPointFillOpacity();
-          String stroke = dTStyle.getCategoryPointStroke();
-          int width = dTStyle.getCategoryPointStrokeWidth();
-          Double strokeOpacity = dTStyle.getCategoryPointStrokeOpacity();
-          int radius = dTStyle.getCategoryPointSize();
-          String currentLayerName = tLayer.getName(); // this.visitor.currentLayer.getName();
-          String wkn = dTStyle.getCategoryPointWellKnownName();
+          String catVal;
+          String catTitle;
+          String catColor;
+          String otherCatColor = null;
+          boolean isOtherCat = false;
+          boolean otherCatEnabled = true;
 
-          String cats = dTStyle.getCategoryPointStyles();
-          if (cats.length() > 0)
+          ThematicLayer tLayer = (ThematicLayer) layer;
+          String attribute = tLayer.getAttribute().toLowerCase();
+          AttributeType attributeType = tLayer.getAttributeType();
+
+          if (style instanceof DashboardThematicStyle)
           {
-            JSONArray catsArrJSON = this.getCategories(cats);
+            DashboardThematicStyle dTStyle = (DashboardThematicStyle) style;
 
-            // SLD for all the categories scraped from the client
-            for (int i = 0; i < catsArrJSON.length(); i++)
+            Double fillOpacity = dTStyle.getCategoryPointFillOpacity();
+            String stroke = dTStyle.getCategoryPointStroke();
+            int width = dTStyle.getCategoryPointStrokeWidth();
+            Double strokeOpacity = dTStyle.getCategoryPointStrokeOpacity();
+            int radius = dTStyle.getCategoryPointSize();
+            String currentLayerName = tLayer.getName(); // this.visitor.currentLayer.getName();
+            String wkn = dTStyle.getCategoryPointWellKnownName();
+
+            String cats = dTStyle.getCategoryPointStyles();
+
+            if (cats.length() > 0)
             {
-              boolean enableIcon = false;
-              String iconId = null;
-              CategoryIcon icon = null;
-              String iconPath = null;
-              int categoryRadius = radius;
+              JSONArray catsArrJSON = this.getCategories(cats);
 
-              JSONObject thisObj;
-              try
+              boolean isRanged = this.isRanged(catsArrJSON);
+
+              if (isRanged)
               {
-                thisObj = catsArrJSON.getJSONObject(i);
-                catVal = thisObj.getString(ThematicStyle.VAL);
-                catTitle = catVal;
-                catColor = thisObj.getString("color");
-                isOntologyCat = getOrAppendJSONBooleanProperty("isOntologyCat", thisObj, false);
-                if (isOntologyCat == false)
+                List<JSONObject> categories = this.getOrderedList(catsArrJSON);
+
+                // SLD for all the categories scraped from the client
+                for (JSONObject category : categories)
                 {
-                  isRangeCat = thisObj.getBoolean(ThematicStyle.ISRANGECATEGORY);
-                }
-                enableIcon = getOrAppendJSONBooleanProperty("enableIcon", thisObj, false);
+                  HashMap<String, Object> catsHashMap = getCategoryProps(category, attributeType);
+                  catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
+                  catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
+                  catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
+                  isOtherCat = (boolean) catsHashMap.get("catOtherCat");
+                  otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
 
-                if (enableIcon)
-                {
-                  try
+                  // If this category is a defined category (i.e. not the other
+                  // category)
+                  if (isOtherCat == false)
                   {
-                    iconId = thisObj.getString("icon");
-                    categoryRadius = thisObj.getInt("iconSize");
-                  }
-                  catch (JSONException e)
-                  {
-                    throw new ProgrammingErrorException(e);
-                  }
+                    Node ruleNode = node("Rule").child(node("Name").text(catTitle), node("Title").text("<= " + catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), this.getCategoryRangeNode(attribute, catVal))), this.getSymbolNode(wkn, catColor, fillOpacity, stroke, width, strokeOpacity, radius)).build(root);
 
-                  try
-                  {
-                    icon = CategoryIcon.get(iconId);
-                    iconPath = icon.getFilePath();
-                  }
-                  catch (Exception e)
-                  {
-                    // throw new ProgrammingErrorException(e);
-
-                    enableIcon = false; // to force the default point symbol
+                    this.addLabelSymbolizer(ruleNode);
                   }
                 }
-              }
-              catch (JSONException e)
-              {
-                String msg = "Can not parse JSON during SLD generation.";
-                throw new ProgrammingErrorException(msg, e);
-              }
 
-              Node ruleNode = null;
-              if (isRangeCat == true)
-              {
-                HashMap<String, Double> attributeMinMax = tLayer.getLayerMinMax(attribute);
-                HashMap<String, Object> catsHashMap = getCategoryProps(thisObj, attributeType, attributeMinMax);
-                catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
-                catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
-                catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
-                catMaxVal = (String) catsHashMap.get(ThematicStyle.CATEGORYMAXVALUE);
-                rangeAllMin = (boolean) catsHashMap.get(ThematicStyle.RANGEALLMIN);
-                rangeAllMax = (boolean) catsHashMap.get(ThematicStyle.RANGEALLMAX);
-                isOtherCat = (boolean) catsHashMap.get("catOtherCat");
-                otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
-
-                // If this category is a defined category (i.e. not the other
-                // category)
-                if (isOtherCat == false)
+                // SLD for all the categories scraped from the client
+                for (int i = 0; i < catsArrJSON.length(); i++)
                 {
-                  ruleNode = node("Rule").child(node("Name").text(catTitle), node("Title").text(catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), this.getCategoryRangeNode(attribute, catVal, catMaxVal, rangeAllMin, rangeAllMax))), this.getSymbolNode(wkn, catColor, fillOpacity, stroke, width, strokeOpacity, categoryRadius, enableIcon, iconPath)).build(root);
+                  JSONObject category = catsArrJSON.getJSONObject(i);
+                  boolean isOther = category.has("otherCat") ? category.getBoolean("otherCat") : false;
 
-                  String combined = catVal.concat("::").concat(catMaxVal);
-                  catValTracking.add(combined);
+                  if (isOther == true)
+                  {
+                    otherCatColor = category.has(ThematicStyle.COLOR) ? category.getString(ThematicStyle.COLOR) : "#E60000";
+                  }
                 }
               }
               else
               {
-                HashMap<String, Object> catsHashMap = getCategoryProps(thisObj, attributeType);
-                catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
-                catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
-                catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
-                isOtherCat = (boolean) catsHashMap.get("catOtherCat");
-                otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
-
-                // If this category is a defined category (i.e. not the other
-                // category)
-                if (isOtherCat == false)
+                // SLD for all the categories scraped from the client
+                for (int i = 0; i < catsArrJSON.length(); i++)
                 {
+                  JSONObject thisObj;
 
-                  ruleNode = node("Rule").child(node("Name").text(catTitle), node("Title").text(catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), getPropertyIsEqualToNode(attribute, catVal))), this.getSymbolNode(wkn, catColor, fillOpacity, stroke, width, strokeOpacity, categoryRadius, enableIcon, iconPath)).build(root);
+                  thisObj = catsArrJSON.getJSONObject(i);
+                  catVal = thisObj.getString(ThematicStyle.VAL);
+                  catTitle = catVal;
+                  catColor = thisObj.getString("color");
+                  Node ruleNode = null;
+                  HashMap<String, Object> catsHashMap = getCategoryProps(thisObj, attributeType);
+                  catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
+                  catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
+                  catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
+                  isOtherCat = (boolean) catsHashMap.get("catOtherCat");
+                  otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
 
-                  catValTracking.add(catVal);
-                }
-              }
+                  // If this category is a defined category (i.e. not the other
+                  // category)
+                  if (isOtherCat == false)
+                  {
 
-              if (otherCatEnabled == true && isOtherCat == true)
-              {
-                otherCatColor = catColor;
-                otherCatEnableIcon = enableIcon;
-                otherCatIconPath = iconPath;
+                    ruleNode = node("Rule").child(node("Name").text(catTitle), node("Title").text(catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), getPropertyIsEqualToNode(attribute, catVal))), this.getSymbolNode(wkn, catColor, fillOpacity, stroke, width, strokeOpacity, radius)).build(root);
+                  }
+
+                  if (otherCatEnabled == true && isOtherCat == true)
+                  {
+                    otherCatColor = catColor;
+                  }
+
+                  //
+                  // Adding labels
+                  //
+                  if (isOtherCat != true)
+                  {
+                    this.addLabelSymbolizer(ruleNode);
+                  }
+                } // end category loop
               }
 
               //
-              // Adding labels
+              // Build the 'OTHER' rule
               //
-              if (isOtherCat != true)
+              if (otherCatEnabled == true)
               {
+                String label = LocalizationFacade.getFromBundles("Other");
+
+                Node ruleNode = node("Rule").child(node("Name").text(label), node("Title").text(label), this.getSymbolNode(wkn, otherCatColor, fillOpacity, stroke, width, strokeOpacity, radius)).buildFirst(root);
+
                 this.addLabelSymbolizer(ruleNode);
               }
-            } // end category loop
-
-            //
-            // Build the 'OTHER' rule
-            //
-            if (otherCatEnabled == true)
+            }
+            else
             {
-              Node ruleNode = null;
-
-              NodeBuilder wrapperAndNode = node(OGC, "And");
-              String label = LocalizationFacade.getFromBundles("Other");
-
-              if (isRangeCat == true)
-              {
-                // Build 'OTHER' exclusion fragments
-                for (String otherCatVal : catValTracking)
-                {
-                  NodeBuilder otherNotNode = node(OGC, "Not");
-
-                  String[] rangeVals = otherCatVal.split("::");
-                  String minVal = rangeVals[0];
-                  String maxVal = rangeVals[1];
-                  otherNotNode.child(this.getCategoryRangeNode(attribute, minVal, maxVal, rangeAllMin, rangeAllMax));
-
-                  wrapperAndNode.child(otherNotNode);
-                }
-
-                ruleNode = node("Rule").child(node("Name").text(label), node("Title").text(label), node(OGC, "Filter").child(wrapperAndNode), this.getSymbolNode(wkn, otherCatColor, fillOpacity, stroke, width, strokeOpacity, radius, otherCatEnableIcon, otherCatIconPath)).build(root);
-              }
-              else
-              {
-                NodeBuilder otherOrNode = node(OGC, "Or");
-
-                // Build 'OTHER' exclusion fragments
-                for (String otherCatVal : catValTracking)
-                {
-                  otherOrNode.child(getPropertyIsEqualToNode(attribute, otherCatVal));
-                }
-
-                ruleNode = node("Rule").child(node("Name").text(label), node("Title").text(label), node(OGC, "Filter").child(node(OGC, "Not").child(otherOrNode.child(getPropertyIsNullNode(attribute)))), this.getSymbolNode(wkn, otherCatColor, fillOpacity, stroke, width, strokeOpacity, radius, otherCatEnableIcon, otherCatIconPath)).build(root);
-              }
-
-              this.addLabelSymbolizer(ruleNode);
+              //
+              // The categories data does not exist. Rather than throwing an
+              // error
+              // which will make the map unusable
+              // and prevent the user from fixing the issue without help from a
+              // developer we will render basic polygons.
+              // This isn't the prettiest way to handle this but helps to
+              // maintain
+              // app uptime in obscure situations.
+              //
+              node("Rule").child(node("Name").text(currentLayerName), node("Title").text(currentLayerName), getSymbolNode("circle", "#E60000", 0.6, "#8A0000", 1, 0.6, 20)).build(root);
             }
           }
-          else
-          {
-            //
-            // The categories data does not exist. Rather than throwing an error
-            // which will make the map unusable
-            // and prevent the user from fixing the issue without help from a
-            // developer we will render basic polygons.
-            // This isn't the prettiest way to handle this but helps to maintain
-            // app uptime in obscure situations.
-            //
-            node("Rule").child(node("Name").text(currentLayerName), node("Title").text(currentLayerName), getSymbolNode("circle", "#E60000", 0.6, "#8A0000", 1, 0.6, 20, false, "")).build(root);
-          }
+        }
+        catch (JSONException e)
+        {
+          String msg = "Can not parse JSON during SLD generation.";
+          throw new ProgrammingErrorException(msg, e);
         }
       }
 
@@ -828,7 +800,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
           {
             rangeAllMax = category.getBoolean(ThematicStyle.RANGEALLMAX);
           }
-          builder = this.getCategoryRangeNode(attributeName, lowRange, highRange, rangeAllMin, rangeAllMax);
+          builder = this.getCategoryRangeNode(attributeName, lowRange);
         }
         else
         {
@@ -882,7 +854,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       Node graphicNode = node("Graphic").build(pointSymbolNode);
       Node markNode = node("Mark").build(graphicNode);
       node("WellKnownName").text(wkn).build(markNode);
-      node("Fill").child(this.getFillNode(style, fill, isRangeCategories), css("fill-opacity", opacity)).build(markNode);
+      node("Fill").child(this.getFillNode(style, fill), css("fill-opacity", opacity)).build(markNode);
 
       node("Stroke").child(css("stroke", stroke), css("stroke-width", width), css("stroke-opacity", strokeOpacity)).build(markNode);
       node("Size").text(radius).build(graphicNode);
@@ -891,7 +863,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       this.addLabelSymbolizer(ruleNode);
     }
 
-    private void createRule(Node root, NodeBuilder[] filterNodes, String fill, String postfix, double minAttrVal, double maxAttrVal, int minSize, int maxSize, String categoryTitle, Boolean isRangeCategories)
+    private void createRule(Node root, NodeBuilder[] filterNodes, String fill, String postfix, double minAttrVal, double maxAttrVal, int minSize, int maxSize, String categoryTitle)
     {
       ThematicLayer tLayer = (ThematicLayer) layer;
       ThematicStyle tStyle = (ThematicStyle) style;
@@ -935,7 +907,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
 
         Node bubbleSymbolNode = node("PointSymbolizer").build(ruleNode);
 
-        node("Graphic").child(node("Mark").child(node("WellKnownName").text(wkn), node("Fill").child(this.getFillNode(tStyle, fill, isRangeCategories), css("fill-opacity", opacity)), node("Stroke").child(css("stroke", stroke), css("stroke-width", width), css("stroke-opacity", strokeOpacity))), sizeNode, node("Rotation").text(rotation)).build(bubbleSymbolNode);
+        node("Graphic").child(node("Mark").child(node("WellKnownName").text(wkn), node("Fill").child(this.getFillNode(tStyle, fill), css("fill-opacity", opacity)), node("Stroke").child(css("stroke", stroke), css("stroke-width", width), css("stroke-opacity", strokeOpacity))), sizeNode, node("Rotation").text(rotation)).build(bubbleSymbolNode);
 
         // Adding labels
         this.addLabelSymbolizer(ruleNode);
@@ -1004,7 +976,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
           Node graphicNode = node("Graphic").build(pointSymbolNode);
           Node markNode = node("Mark").build(graphicNode);
           node("WellKnownName").text("circle").build(markNode);
-          node("Fill").child(this.getFillNode(tStyle, fill, isRangeCategories), css("fill-opacity", opacity)).build(markNode);
+          node("Fill").child(this.getFillNode(tStyle, fill), css("fill-opacity", opacity)).build(markNode);
 
           node("Stroke").child(css("stroke", stroke), css("stroke-width", width), css("stroke-opacity", strokeOpacity)).build(markNode);
           node("Size").text(currentPointSize).build(graphicNode);
@@ -1015,69 +987,48 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       }
     }
 
-    private NodeBuilder getSymbolNode(String wellKnownType, String fill, Double fillOpacity, String strokeColor, int width, Double strokeOpacity, int radius, boolean customIcon, String iconPath)
+    private NodeBuilder getSymbolNode(String wellKnownType, String fill, Double fillOpacity, String strokeColor, int width, Double strokeOpacity, int radius)
     {
-      NodeBuilder symbolNode;
-
-      if (customIcon)
-      {
-        symbolNode = node("PointSymbolizer").child(node("Graphic").child(node("ExternalGraphic").child(node("OnlineResource xlink:type='simple' xlink:href='file://" + iconPath + "'"), node("Format").text("image/png")), node("Size").text(radius)));
-      }
-      else
-      {
-        symbolNode = node("PointSymbolizer").child(node("Graphic").child(node("Mark").child(node("WellKnownName").text(wellKnownType), node("Fill").child(css("fill", fill), css("fill-opacity", fillOpacity)), node("Stroke").child(css("stroke", strokeColor), css("stroke-width", width), css("stroke-opacity", strokeOpacity))), node("Size").text(radius)));
-      }
+      NodeBuilder symbolNode = node("PointSymbolizer").child(node("Graphic").child(node("Mark").child(node("WellKnownName").text(wellKnownType), node("Fill").child(css("fill", fill), css("fill-opacity", fillOpacity)), node("Stroke").child(css("stroke", strokeColor), css("stroke-width", width), css("stroke-opacity", strokeOpacity))), node("Size").text(radius)));
 
       return symbolNode;
     }
 
-    private NodeBuilder getCategoryRangeNode(String attribute, String lowRange, String highRange, boolean rangeAllMin, boolean rangeAllMax)
+    private NodeBuilder getCategoryRangeNode(String attribute, String upperThreshold)
     {
       NodeBuilder catNode = null;
 
-      if (rangeAllMin && !rangeAllMax)
-      {
-        catNode = node(OGC, "PropertyIsLessThanOrEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(highRange));
-      }
-      else if (rangeAllMax && !rangeAllMin)
-      {
-        catNode = node(OGC, "PropertyIsGreaterThanOrEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(lowRange));
-      }
-      else
-      {
-        catNode = node(OGC, "PropertyIsBetween").child(node(OGC, "PropertyName").text(attribute), node(OGC, "LowerBoundary").child(node(OGC, "Literal").text(lowRange)), node(OGC, "UpperBoundary").child(node(OGC, "Literal").text(highRange)));
-      }
+      // if (rangeAllMin && !rangeAllMax)
+      // {
+      catNode = node(OGC, "PropertyIsLessThanOrEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(upperThreshold));
+      // }
+      // else if (rangeAllMax && !rangeAllMin)
+      // {
+      // catNode = node(OGC, "PropertyIsGreaterThanOrEqualTo").child(node(OGC,
+      // "PropertyName").text(attribute), node(OGC, "Literal").text(lowRange));
+      // }
+      // else
+      // {
+      // catNode = node(OGC, "PropertyIsBetween").child(node(OGC,
+      // "PropertyName").text(attribute), node(OGC,
+      // "LowerBoundary").child(node(OGC, "Literal").text(lowRange)), node(OGC,
+      // "UpperBoundary").child(node(OGC, "Literal").text(highRange)));
+      // }
 
       return catNode;
     }
 
-    private NodeBuilder getFillNode(Style style, String fill, Boolean isRangeCategories)
+    private NodeBuilder getFillNode(Style style, String fill)
     {
       if (layer instanceof ThematicLayer)
       {
         if (style instanceof ThematicStyle)
         {
           ThematicStyle tStyle = (ThematicStyle) style;
-          String bubbleFill = tStyle.getBubbleFill();
 
           if (tStyle.getSecondaryAttributeDAO() != null && layer.getFeatureStrategy() == FeatureStrategy.BUBBLE)
           {
-            NodeBuilder function = null;
-            if (isRangeCategories != null && isRangeCategories == true)
-            {
-              function = node(OGC, "Function").attr("name", "if_then_else").child(node(OGC, "Function").attr("name", "isNull").child(this.getCategorizeNode(tStyle)), node("ogc:Literal").text(bubbleFill), this.getCategorizeNode(tStyle));
-            }
-            else
-            {
-              // function = node(OGC, "Function").attr("name",
-              // "if_then_else").child(node(OGC, "Function").attr("name",
-              // "isNull").child(this.getRecodeNode(tStyle)),
-              // node("ogc:Literal").text(bubbleFill),
-              // this.getRecodeNode(tStyle));
-              return css("Fill", fill);
-            }
-
-            return css("fill").child(function);
+            return css("Fill", fill);
           }
         }
       }
@@ -1188,42 +1139,6 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       }
     }
 
-    private NodeBuilder getRecodeNode(ThematicStyle tStyle)
-    {
-      try
-      {
-        String secondaryAttributeName = tStyle.getSecondaryAttributeDAO().definesAttribute().toLowerCase();
-
-        List<NodeBuilder> children = new LinkedList<NodeBuilder>();
-        children.add(node(OGC, "Function").attr("name", "strTrim").child(node(OGC, "PropertyName").text(secondaryAttributeName)));
-
-        JSONArray array = tStyle.getSecondaryAttributeCategoriesAsJSON();
-        for (int i = 0; i < array.length(); i++)
-        {
-          JSONObject category = array.getJSONObject(i);
-          String catVal = category.getString(ThematicStyle.VAL);
-          String color = category.getString(ThematicStyle.COLOR);
-          boolean otherCat = category.getBoolean(ThematicStyle.ISOTHERCAT);
-
-          String formattedCatVal = getFormattedNumericValue(catVal);
-
-          if (otherCat == false)
-          {
-            children.add(node(OGC, "Literal").text(formattedCatVal));
-            children.add(node(OGC, "Literal").text(color));
-          }
-        }
-
-        NodeBuilder recode = node(OGC, "Function").attr("name", "Recode").child(children.toArray(new NodeBuilder[children.size()]));
-
-        return recode;
-      }
-      catch (JSONException e)
-      {
-        throw new ProgrammingErrorException(e);
-      }
-    }
-
     private NodeBuilder interpolateSize(double minAttrVal, double maxAttrVal)
     {
       if (this.visitor.currentLayer.getFeatureStrategy() == FeatureStrategy.BUBBLE)
@@ -1275,22 +1190,28 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       return polyNode;
     }
 
-    private NodeBuilder getCategoryRangeNode(String attribute, String lowRange, String highRange, boolean rangeAllMin, boolean rangeAllMax)
+    private NodeBuilder getCategoryRangeNode(String attribute, String upperThreshold)
     {
       NodeBuilder catNode = null;
 
-      if (rangeAllMin)
-      {
-        catNode = node(OGC, "PropertyIsLessThanOrEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(highRange));
-      }
-      else if (rangeAllMax)
-      {
-        catNode = node(OGC, "PropertyIsGreaterThanOrEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(lowRange));
-      }
-      else
-      {
-        catNode = node(OGC, "PropertyIsBetween").child(node(OGC, "PropertyName").text(attribute), node(OGC, "LowerBoundary").child(node(OGC, "Literal").text(lowRange)), node(OGC, "UpperBoundary").child(node(OGC, "Literal").text(highRange)));
-      }
+      // if (rangeAllMin)
+      // {
+      catNode = node(OGC, "PropertyIsLessThanOrEqualTo").child(node(OGC, "PropertyName").text(attribute), node(OGC, "Literal").text(upperThreshold));
+      // }
+      // else if (rangeAllMax)
+      // {
+      // catNode = node(OGC, "PropertyIsGreaterThanOrEqualTo").child(node(OGC,
+      // "PropertyName").text(attribute), node(OGC,
+      // "Literal").text(upperThreshold));
+      // }
+      // else
+      // {
+      // catNode = node(OGC, "PropertyIsBetween").child(node(OGC,
+      // "PropertyName").text(attribute), node(OGC,
+      // "LowerBoundary").child(node(OGC, "Literal").text(upperThreshold)),
+      // node(OGC, "UpperBoundary").child(node(OGC,
+      // "Literal").text(highRange)));
+      // }
 
       return catNode;
     }
@@ -1379,171 +1300,143 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       }
       else if (this.visitor.currentLayer.getFeatureStrategy() == FeatureStrategy.CATEGORYPOLYGON)
       {
-        String catVal;
-        String catTitle;
-        String catColor;
-        String otherCatColor = null;
-        boolean isOtherCat = false;
-        boolean otherCatEnabled = true;
-        boolean isOntologyCat = false;
-        boolean isRangeCat = false;
-        String catMaxVal = null;
-        boolean rangeAllMin = false;
-        boolean rangeAllMax = false;
-        ArrayList<String> catValTracking = new ArrayList<String>();
-
-        ThematicLayer tLayer = (ThematicLayer) layer;
-        String attribute = tLayer.getAttribute().toLowerCase();
-        AttributeType attributeType = tLayer.getAttributeType();
-
-        if (style instanceof DashboardThematicStyle)
+        try
         {
-          DashboardThematicStyle dTStyle = (DashboardThematicStyle) style;
+          String catVal;
+          String catTitle;
+          String catColor;
+          String otherCatColor = null;
+          boolean isOtherCat = false;
+          boolean otherCatEnabled = true;
 
-          Double fillOpacity = dTStyle.getCategoryPolygonFillOpacity();
-          String stroke = dTStyle.getCategoryPolygonStroke();
-          int width = dTStyle.getCategoryPolygonStrokeWidth();
-          Double strokeOpacity = dTStyle.getCategoryPolygonStrokeOpacity();
+          ThematicLayer tLayer = (ThematicLayer) layer;
+          String attribute = tLayer.getAttribute().toLowerCase();
+          AttributeType attributeType = tLayer.getAttributeType();
 
-          String cats = dTStyle.getCategoryPolygonStyles();
-          if (cats.length() > 0)
+          if (style instanceof DashboardThematicStyle)
           {
-            JSONArray catsArrJSON = this.getCategories(cats);
+            DashboardThematicStyle dTStyle = (DashboardThematicStyle) style;
 
-            // SLD for all the categories scraped from the client
-            for (int i = 0; i < catsArrJSON.length(); i++)
+            Double fillOpacity = dTStyle.getCategoryPolygonFillOpacity();
+            String stroke = dTStyle.getCategoryPolygonStroke();
+            int width = dTStyle.getCategoryPolygonStrokeWidth();
+            Double strokeOpacity = dTStyle.getCategoryPolygonStrokeOpacity();
+
+            String cats = dTStyle.getCategoryPolygonStyles();
+            if (cats.length() > 0)
             {
-              JSONObject thisObj;
-              try
+              JSONArray catsArrJSON = this.getCategories(cats);
+
+              boolean isRanged = this.isRanged(catsArrJSON);
+
+              if (isRanged)
               {
-                thisObj = catsArrJSON.getJSONObject(i);
-                isOntologyCat = thisObj.getBoolean("isOntologyCat");
-                if (isOntologyCat == false)
+                List<JSONObject> categories = this.getOrderedList(catsArrJSON);
+
+                // SLD for all the categories scraped from the client
+                for (JSONObject category : categories)
                 {
-                  if (thisObj.has(ThematicStyle.ISRANGECATEGORY) == true)
+                  HashMap<String, Object> catsHashMap = getCategoryProps(category, attributeType);
+                  catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
+                  catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
+                  catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
+                  isOtherCat = (boolean) catsHashMap.get("catOtherCat");
+                  otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
+
+                  // If this category is a defined category (i.e. not the other
+                  // category)
+                  if (isOtherCat == false)
                   {
-                    isRangeCat = thisObj.getBoolean(ThematicStyle.ISRANGECATEGORY);
+                    Node ruleNode = node("Rule").child(node("Name").text(catVal), node("Title").text("<=" + catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), this.getCategoryRangeNode(attribute, catVal))), getSymbolNode(catColor, fillOpacity, stroke, width, strokeOpacity)).build(root);
+
+                    this.addLabelSymbolizer(ruleNode);
+                  }
+                }
+
+                // SLD for all the categories scraped from the client
+                for (int i = 0; i < catsArrJSON.length(); i++)
+                {
+                  JSONObject category = catsArrJSON.getJSONObject(i);
+                  boolean isOther = category.has("otherCat") ? category.getBoolean("otherCat") : false;
+
+                  if (isOther == true)
+                  {
+                    otherCatColor = category.has(ThematicStyle.COLOR) ? category.getString(ThematicStyle.COLOR) : "#E60000";
                   }
                 }
               }
-              catch (JSONException e)
-              {
-                String msg = "Can not parse JSON during SLD generation.";
-                throw new ProgrammingErrorException(msg, e);
-              }
-
-              Node ruleNode = null;
-              if (isRangeCat == true)
-              {
-                HashMap<String, Double> attributeMinMax = tLayer.getLayerMinMax(attribute);
-                HashMap<String, Object> catsHashMap = getCategoryProps(thisObj, attributeType, attributeMinMax);
-                catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
-                catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
-                catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
-                catMaxVal = (String) catsHashMap.get(ThematicStyle.CATEGORYMAXVALUE);
-                rangeAllMin = (boolean) catsHashMap.get(ThematicStyle.RANGEALLMIN);
-                rangeAllMax = (boolean) catsHashMap.get(ThematicStyle.RANGEALLMAX);
-                isOtherCat = (boolean) catsHashMap.get("catOtherCat");
-                otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
-
-                // If this category is a defined category (i.e. not the other
-                // category)
-                if (isOtherCat == false)
-                {
-                  ruleNode = node("Rule").child(node("Name").text(catVal), node("Title").text(catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), this.getCategoryRangeNode(attribute, catVal, catMaxVal, rangeAllMin, rangeAllMax))), getSymbolNode(catColor, fillOpacity, stroke, width, strokeOpacity)).build(root);
-
-                  String combined = catVal.concat("::").concat(catMaxVal);
-                  catValTracking.add(combined);
-                }
-              }
               else
               {
-                HashMap<String, Object> catsHashMap = getCategoryProps(thisObj, attributeType);
-                catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
-                catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
-                catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
-                isOtherCat = (boolean) catsHashMap.get("catOtherCat");
-                otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
 
-                // If this category is a defined category (i.e. not the other
-                // category)
-                if (isOtherCat == false)
+                // SLD for all the categories scraped from the client
+                for (int i = 0; i < catsArrJSON.length(); i++)
                 {
-                  ruleNode = node("Rule").child(node("Name").text(catVal), node("Title").text(catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), getPropertyIsEqualToNode(attribute, catVal))), getSymbolNode(catColor, fillOpacity, stroke, width, strokeOpacity)).build(root);
+                  JSONObject thisObj = catsArrJSON.getJSONObject(i);
 
-                  catValTracking.add(catVal);
+                  Node ruleNode = null;
+                  HashMap<String, Object> catsHashMap = getCategoryProps(thisObj, attributeType);
+                  catVal = (String) catsHashMap.get(ThematicStyle.CATEGORYVALUE);
+                  catColor = (String) catsHashMap.get(ThematicStyle.CATEGORYCOLOR);
+                  catTitle = (String) catsHashMap.get(ThematicStyle.CATEGORYTITLE);
+                  isOtherCat = (boolean) catsHashMap.get("catOtherCat");
+                  otherCatEnabled = (boolean) catsHashMap.get("catOtherEnabled");
+
+                  // If this category is a defined category (i.e. not the other
+                  // category)
+                  if (isOtherCat == false)
+                  {
+                    ruleNode = node("Rule").child(node("Name").text(catVal), node("Title").text(catTitle), node(OGC, "Filter").child(node(OGC, "And").child(node(OGC, "Not").child(getPropertyIsNullNode(attribute)), getPropertyIsEqualToNode(attribute, catVal))), getSymbolNode(catColor, fillOpacity, stroke, width, strokeOpacity)).build(root);
+                  }
+
+                  if (otherCatEnabled == true && isOtherCat == true)
+                  {
+                    otherCatColor = catColor;
+                  }
+
+                  //
+                  // Adding labels
+                  //
+                  if (isOtherCat != true)
+                  {
+                    this.addLabelSymbolizer(ruleNode);
+                  }
                 }
               }
 
-              if (otherCatEnabled == true && isOtherCat == true)
+              //
+              // Build the 'OTHER' rule
+              //
+              if (otherCatEnabled == true)
               {
-                otherCatColor = catColor;
-              }
+                Node ruleNode = null;
 
-              //
-              // Adding labels
-              //
-              if (isOtherCat != true)
-              {
+                String label = LocalizationFacade.getFromBundles("Other");
+
+                ruleNode = node("Rule").child(node("Name").text(label), node("Title").text(label), getSymbolNode(otherCatColor, fillOpacity, stroke, width, strokeOpacity)).buildFirst(root);
+
                 this.addLabelSymbolizer(ruleNode);
               }
             }
-
-            //
-            // Build the 'OTHER' rule
-            //
-            if (otherCatEnabled == true)
+            else
             {
-              Node ruleNode = null;
-
-              NodeBuilder wrapperAndNode = node(OGC, "And");
-              String label = LocalizationFacade.getFromBundles("Other");
-
-              if (isRangeCat == true)
-              {
-                // Build 'OTHER' exclusion fragments
-                for (String otherCatVal : catValTracking)
-                {
-                  NodeBuilder otherNotNode = node(OGC, "Not");
-                  String[] rangeVals = otherCatVal.split("::");
-                  String minVal = rangeVals[0];
-                  String maxVal = rangeVals[1];
-                  otherNotNode.child(this.getCategoryRangeNode(attribute, minVal, maxVal, rangeAllMin, rangeAllMax));
-
-                  wrapperAndNode.child(otherNotNode);
-                }
-
-                ruleNode = node("Rule").child(node("Name").text(label), node("Title").text(label), getSymbolNode(otherCatColor, fillOpacity, stroke, width, strokeOpacity), node(OGC, "Filter").child(wrapperAndNode)).build(root);
-              }
-              else
-              {
-                NodeBuilder otherOrNode = node(OGC, "Or");
-
-                // Build 'OTHER' exclusion fragments
-                for (String otherCatVal : catValTracking)
-                {
-                  otherOrNode.child(getPropertyIsEqualToNode(attribute, otherCatVal));
-                }
-
-                ruleNode = node("Rule").child(node("Name").text(label), node("Title").text(label), node(OGC, "Filter").child(node(OGC, "Not").child(otherOrNode.child(node(OGC, "Or").child(getPropertyIsNullNode(attribute))))), getSymbolNode(otherCatColor, fillOpacity, stroke, width, strokeOpacity)).build(root);
-              }
-
-              this.addLabelSymbolizer(ruleNode);
+              //
+              // The categories data does not exist. Rather than throwing an
+              // error
+              // which will make the map unusable
+              // and prevent the user from fixing the issue without help from a
+              // developer we will render basic polygons.
+              // This isn't the prettiest ways to handle this but helps to
+              // maintain app uptime in obscure situations.
+              //
+              node("Rule").child(node("Name").text(currentLayerName), node("Title").text(currentLayerName), getSymbolNode("#E60000", 0.6, "#8A0000", 1, 0.6)).build(root);
             }
           }
-          else
-          {
-            //
-            // The categories data does not exist. Rather than throwing an error
-            // which will make the map unusable
-            // and prevent the user from fixing the issue without help from a
-            // developer we will render basic polygons.
-            // This isn't the prettiest ways to handle this but helps to
-            // maintain app uptime in obscure situations.
-            //
-            node("Rule").child(node("Name").text(currentLayerName), node("Title").text(currentLayerName), getSymbolNode("#E60000", 0.6, "#8A0000", 1, 0.6)).build(root);
-          }
         }
+        catch (JSONException e)
+        {
+          throw new ProgrammingErrorException(e);
+        }
+
       }
       else
       {
@@ -1721,6 +1614,12 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
       }
 
       return this;
+    }
+
+    private Node buildFirst(Node parent)
+    {
+      parent.insertBefore(this.el, parent.getFirstChild());
+      return this.el;
     }
 
     private Node build(Node parent)

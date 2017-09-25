@@ -65,7 +65,12 @@
         <div class="color-section">
           <strong class="title"><mdss:localize key="DashboardThematicLayer.form.fill"/></strong>
           <div class="heading-list">
-            <span><mdss:localize key="DashboardThematicLayer.form.category"/></span>
+            <span ng-if="!categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
+              <mdss:localize key="DashboardThematicLayer.form.category"/>
+            </span>
+            <span ng-if="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
+              Upper Thresholds
+            </span>
             <span><mdss:localize key="DashboardThematicLayer.form.color"/></span>
             <span></span>
           </div>
@@ -108,6 +113,11 @@
               <styled-basic-select options="dynamicDataModel.pointTypes" model="styleModel.categoryPointWellKnownName" class="method-select"></styled-basic-select>            
             </div>
           </div>
+          
+          <!-- enable/disable range categories -->
+          <div class="fill-block" ng-if="dynamicDataModel.thematicAttributeDataType === 'number'">    
+            <styled-check-box id="cat-range-categories" model="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled" label="<mdss:localize key="DashboardThematicLayer.form.categoryRangeCategoriesLabel"/>"></styled-check-box>
+          </div>  
         </div>
       </div>
     
@@ -178,10 +188,22 @@
                 
               </div> 
             </div>
+            
+            <!-- enable/disable range categories -->
+            <div class="cell-holder" ng-if="styleModel.secondaryAggregation.attribute.categoryType === 'number'">    
+              <styled-check-box id="cat-range-categories" model="styleModel.secondaryAggregation.rangeCategoriesEnabled" label="<mdss:localize key="DashboardThematicLayer.form.categoryRangeCategoriesLabel"/>"></styled-check-box>
+            </div>  
+            
             <div id="secondary-cateogries">
               <div class="color-section">
                 <div class="heading-list">
-                  <span><mdss:localize key="DashboardLayer.form.category"/></span>
+                  <span ng-if="!styleModel.secondaryAggregation.rangeCategoriesEnabled">
+                    <mdss:localize key="DashboardThematicLayer.form.category"/>
+                  </span>
+                  <span ng-if="styleModel.secondaryAggregation.rangeCategoriesEnabled">
+                    Upper Thresholds
+                  </span>
+                
                   <span><mdss:localize key="DashboardLayer.form.color"/></span>
                   <span></span>
                 </div>
@@ -214,7 +236,12 @@
         <div class="color-section">
           <strong class="title"><mdss:localize key="DashboardThematicLayer.form.fill"/></strong>
           <div class="heading-list">
-            <span><mdss:localize key="DashboardThematicLayer.form.category"/></span>
+            <span ng-if="!categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
+              <mdss:localize key="DashboardThematicLayer.form.category"/>
+            </span>
+            <span ng-if="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
+              Upper Thresholds
+            </span>
             <span><mdss:localize key="DashboardThematicLayer.form.color"/></span>
             <span></span>
           </div>
@@ -227,6 +254,12 @@
       
         <!-- POLYGON CATEGORY STROKE -->        
         <style-stroke class="stroke-block" stroke="styleModel.categoryPolygonStroke" stroke-width="styleModel.categoryPolygonStrokeWidth" stroke-opacity="styleModel.categoryPolygonStrokeOpacity"></style-stroke>
+
+        <!-- enable/disable range categories -->
+        <div class="fill-block" ng-if="dynamicDataModel.thematicAttributeDataType === 'number'">    
+          <styled-check-box id="cat-range-categories" model="categoryWidget.polygonCatOptionsObj.rangeCategoriesEnabled" label="<mdss:localize key="DashboardThematicLayer.form.categoryRangeCategoriesLabel"/>"></styled-check-box>
+        </div>  
+        
       </div>    
     </div> <!--  end style container  -->
   </div>  <!--  end holder  -->
