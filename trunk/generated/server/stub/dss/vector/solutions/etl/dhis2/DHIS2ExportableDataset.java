@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -24,6 +25,30 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
   public DHIS2ExportableDataset()
   {
     super();
+  }
+  
+  private String getNameForFile()
+  {
+    String cleanName = this.getDhis2Name();
+    
+    cleanName.replaceAll("\\W+", "");
+    
+    return cleanName;
+  }
+  
+  public String getLogLocation()
+  {
+    return DeployProperties.getDeployPath() + "/DHIS2/" + this.getNameForFile() + ".log";
+  }
+  
+  public String getMetadataFileLocation()
+  {
+    return DeployProperties.getDeployPath() + "/DHIS2/" + this.getNameForFile() + "-metadata.json";
+  }
+  
+  public String getDataFileLocation()
+  {
+    return DeployProperties.getDeployPath() + "/DHIS2/" + this.getNameForFile() + "-data.json";
   }
 
   public static DHIS2ExportableDataset[] getAll()
@@ -84,7 +109,7 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
   @Transaction
   public static String xport(String datasets, String strategy)
   {
-    DHIS2ExportResults results = null;
+    JSONArray results = new JSONArray();
     
     try
     {
@@ -108,11 +133,7 @@ public class DHIS2ExportableDataset extends DHIS2ExportableDatasetBase implement
         
         if (results != null)
         {
-          results.add(result);
-        }
-        else
-        {
-          results = result;
+          results.put(result.toJSON());
         }
       }
       

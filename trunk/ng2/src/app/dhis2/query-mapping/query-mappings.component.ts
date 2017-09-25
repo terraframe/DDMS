@@ -23,7 +23,7 @@ export class QueryMappingsComponent implements OnInit, OnDestroy {
   bsModalRef: BsModalRef;  
   subscription: Subscription = null;
   
-  results: ExportResults;
+  results: ExportResults[];
 
   constructor(private service:QueryMappingService, private modalService: BsModalService) {}
 

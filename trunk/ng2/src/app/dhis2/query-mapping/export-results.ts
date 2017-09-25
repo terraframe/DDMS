@@ -1,5 +1,6 @@
 
-export class ExportResults { 
+export class ExportResults {
+  name:string;
   status:string;
   metadataStats:Stats;
   dataStats:Stats;

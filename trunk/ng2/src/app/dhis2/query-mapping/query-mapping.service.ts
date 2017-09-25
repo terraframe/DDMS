@@ -69,7 +69,7 @@ export class QueryMappingService extends BasicService {
   }    
   
   
-  xport(datasets:QueryMapping[], strategy:string): Promise<ExportResults> {
+  xport(datasets:QueryMapping[], strategy:string): Promise<ExportResults[]> {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });  
@@ -78,7 +78,7 @@ export class QueryMappingService extends BasicService {
      .post(acp + '/dhis2/xport', JSON.stringify({datasets:datasets, strategy:strategy}), {headers: headers})
      .toPromise()
      .then(response => {
-       return response.json() as ExportResults;
+       return response.json() as ExportResults[];
      })
      .catch(this.handleError.bind(this));      
   }    

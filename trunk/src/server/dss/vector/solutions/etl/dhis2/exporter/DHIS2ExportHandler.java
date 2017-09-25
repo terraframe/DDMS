@@ -167,7 +167,7 @@ public class DHIS2ExportHandler implements Reloadable
     this.mdClass = exportable.getQueryRef();
     this.dhis2 = dhis2;
     this.idCache = new DHIS2IdCache(dhis2);
-    results = new DHIS2ExportResults();
+    results = new DHIS2ExportResults(this.exportable);
   }
   
   @Transaction
@@ -204,11 +204,11 @@ public class DHIS2ExportHandler implements Reloadable
       // Write json to a file
       try
       {
-        PrintWriter writer = new PrintWriter(DeployProperties.getDeployPath() + "/DHIS2/metadata.json", "UTF-8");
+        PrintWriter writer = new PrintWriter(this.exportable.getMetadataFileLocation(), "UTF-8");
         writer.println(metadata.toString());
         writer.close();
         
-        PrintWriter writer2 = new PrintWriter(DeployProperties.getDeployPath() + "/DHIS2/data.json", "UTF-8");
+        PrintWriter writer2 = new PrintWriter(this.exportable.getDataFileLocation(), "UTF-8");
         writer2.println(data.toString());
         writer2.close();
       }
@@ -239,34 +239,14 @@ public class DHIS2ExportHandler implements Reloadable
     }
   }
   
-//  @Transaction
-//  protected void exportTransaction2(JSONObject payload)
-//  {
-////    createDataValues(payload); // #14
-//    
-//    System.out.println(payload.toString());
-//    
-//    try
-//    {
-//      PrintWriter writer = new PrintWriter(CommonProperties.getDeployRoot() + "/dhis2-export.json", "UTF-8");
-//      writer.println(payload.toString());
-//      writer.close();
-//    }
-//    catch (IOException e)
-//    {
-//      throw new RuntimeException(e);
-//    }
-//  }
-  
   protected void gatherPrereqs()
   {
     // Instantiate our logger
-      // TODO : If you change this path you also need to change DHIS2ExportResults.toString
     File dhis2Dir = new File(DeployProperties.getDeployPath() + "/DHIS2");
     dhis2Dir.mkdirs();
     try
     {
-      log = new PrintStream(new BufferedOutputStream(new FileOutputStream(DeployProperties.getDeployPath() + "/DHIS2/export.log")));
+      log = new PrintStream(new BufferedOutputStream(new FileOutputStream(this.exportable.getLogLocation())));
     }
     catch (FileNotFoundException e1)
     {

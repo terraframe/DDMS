@@ -6,15 +6,23 @@ import org.json.JSONObject;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 
 public class DHIS2ExportResults implements Reloadable
 {
+  private DHIS2ExportableDataset dataset;
+  
   private String status;
   
   private Stats metadataStats;
   
   private Stats dataStats;
+  
+  public DHIS2ExportResults(DHIS2ExportableDataset dataset)
+  {
+    this.dataset = dataset;
+  }
   
   public void processMetadataResponse(HTTPResponse response)
   {
@@ -72,24 +80,30 @@ public class DHIS2ExportResults implements Reloadable
     }
   }
   
-  @Override
-  public String toString()
+  public JSONObject toJSON()
   {
     JSONObject ret = new JSONObject();
     
     try
     {
+      ret.put("name", this.dataset.getDhis2Name());
       ret.put("status", this.status);
       ret.put("metadataStats", this.metadataStats.toJSON());
       ret.put("dataStats", this.dataStats.toJSON());
-      ret.put("logLocation", DeployProperties.getDeployPath() + "/DHIS2/export.log");
+      ret.put("logLocation", this.dataset.getLogLocation());
     }
     catch (JSONException e)
     {
       throw new RuntimeException(e);
     }
     
-    return ret.toString();
+    return ret;
+  }
+  
+  @Override
+  public String toString()
+  {
+    return this.toJSON().toString();
   }
   
   public void add(DHIS2ExportResults extra)
