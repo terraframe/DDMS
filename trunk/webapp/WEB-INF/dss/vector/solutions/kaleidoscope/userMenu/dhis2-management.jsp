@@ -165,6 +165,10 @@
     margin-bottom: 0px;
   }  
   
+  .geo-mapping .select-area {
+    font-size: 12px;
+  }  
+  
   </style>
   
 
