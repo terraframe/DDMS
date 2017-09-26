@@ -236,10 +236,10 @@
         <div class="color-section">
           <strong class="title"><mdss:localize key="DashboardThematicLayer.form.fill"/></strong>
           <div class="heading-list">
-            <span ng-if="!categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
+            <span ng-if="!categoryWidget.polygonCatOptionsObj.rangeCategoriesEnabled">
               <mdss:localize key="DashboardThematicLayer.form.category"/>
             </span>
-            <span ng-if="categoryWidget.basicPointCatOptionsObj.rangeCategoriesEnabled">
+            <span ng-if="categoryWidget.polygonCatOptionsObj.rangeCategoriesEnabled">
               <mdss:localize key="dashboard.upper.thresholds"/>
             </span>
             <span><mdss:localize key="DashboardThematicLayer.form.color"/></span>
