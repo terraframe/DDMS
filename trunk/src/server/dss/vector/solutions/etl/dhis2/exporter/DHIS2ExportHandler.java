@@ -1034,7 +1034,7 @@ public class DHIS2ExportHandler implements Reloadable
       
       dataSet.put("timelyDays", 0);
       
-      int periodInt = 4;
+      int periodInt = 5;
       
       JSONArray dataSetElements = new JSONArray();
       
