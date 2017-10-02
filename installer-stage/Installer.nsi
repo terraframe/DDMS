@@ -77,6 +77,7 @@ Var RunwayVersion           # Version of the runway metadata contained in the in
 Var ManagerVersion          # Version of the manager contained in the install.
 Var JavaVersion             # Version of Java contained in the install.
 Var BirtVersion             # Version of Birt contained in the install.
+Var EclipseVersion          # Version of Eclipse contained in the install.
 Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion
 Var RootsVersion
@@ -101,7 +102,6 @@ Var outputTrunc
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
 Page custom appNameInputPage appNameUniquenessCheck
-Page custom userInputPage exitUserInputPage
 #Page directory locationInputPage
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
@@ -127,58 +127,6 @@ VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
 RequestExecutionLevel admin
-
-Function userInputPage
-  StrCmp  $Master_Value "true" 0 +2
-    Return  
-  !insertmacro MUI_HEADER_TEXT "Installation Number" "Specify the installation number"
-  nsDialogs::Create 1018
-  Pop $TfDialog
-  
-  ${If} $TfDialog == error
-    Abort
-  ${EndIf}
-  
-  # Create the label, which gets put on the stack
-  ${NSD_CreateLabel} 0 2u 25% 12u "Installation Number"
-  # Pop the label off the stack and store it in $Label
-  Pop $Label
-  
-  ${NSD_CreateText} 25% 0 74% 12u $InstallationNumber
-  Pop $Text
-  # Set up the number validator
-  ${NSD_OnChange} $Text verifyNumber
-  
-  ${NSD_CreateHLine} 0 18u 100% 2 "HLine"
-  Pop $Label
-  
-  # Create the label, which gets put on the stack
-  ${NSD_CreateLabel} 0 23u 100% 32u "The installation number must be unique!  If any other installation shares the same number, synchronization will fail and you will not be able to share or receive any data.  The number should be between 1 and 999.  If you're not sure which installation number to use, please consult the IT professional that provided your install disc."
-  # Pop the label off the stack and store it in $Label
-  Pop $Label
-  
-  nsDialogs::Show
-FunctionEnd
-
-# Enforces an Installation number between 1 and 999
-Function verifyNumber
-  Pop $1 # $1 == $ Text
-  
-  ${NSD_GetText} $Text $0
-  ${If} $0 > 999
-    ${NSD_SetText} $Text 999
-  ${EndIf}
-  ${If} $0 < 1
-    ${NSD_SetText} $Text 1
-  ${EndIf}
-FunctionEnd
-
-Function exitUserInputPage
- StrCmp  $Master_Value "true" 0 +2
-    Return  
-  # Pull the text out of the form element and store it in $InstallationNumber
-  ${NSD_GetText} $Text $InstallationNumber
-FunctionEnd
 
 Function appNameInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
@@ -341,15 +289,16 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8603
-    StrCpy $RootsVersion 7829
-    StrCpy $MenuVersion 8225
-    StrCpy $LocalizationVersion 8477
-    StrCpy $PermissionsVersion 8298
-	StrCpy $RunwayVersion 8531
+    StrCpy $PatchVersion 8718
+    StrCpy $RootsVersion 8669
+    StrCpy $MenuVersion 8684
+    StrCpy $LocalizationVersion 8717
+    StrCpy $PermissionsVersion 8669
+	StrCpy $RunwayVersion 8634
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8603
+	StrCpy $ManagerVersion 8718
 	StrCpy $BirtVersion 7851
+	StrCpy $EclipseVersion 8676  
 	StrCpy $WebappsVersion 8118
 	StrCpy $JavaVersion 8188
 	StrCpy $TomcatVersion 8190
@@ -475,6 +424,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\birt
     File /r /x .svn birt\*
     
+    ################################################################################
+    # Copy over the Eclipse
+    ################################################################################
+
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Eclipse"
+    LogEx::Write "Installing Eclipse"
+    SetOutPath $INSTDIR\eclipse
+    File /r /x .svn eclipse\*
     
     # Add the special elevation command for backup/restore
     LogEx::Write "Adding special elevation command for backup/restore"
@@ -623,6 +580,34 @@ Section -Main SEC0000
 	File ..\standalone\manager-1.0.0\classes\applications.txt
 	SetOverwrite on
 	
+  # Create offline basemap cache directory
+  IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
+  BASEMAP_NO_EXIST:
+    LogEx::Write "3527 Creating offline basemap cache directory."
+    CreateDirectory $INSTDIR\basemaps
+  BASEMAP_EXIST:
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
+  Call execDos
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
+  Call execDos
+  
+  SetOutPath "C:\libs\share\osm2pgsql"
+  File /r "..\installer-stage\osm2pgsql\*"
+  
+  WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
+  
+  
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     LogEx::Write "Copying the webapp to $INSTDIR\tomcat\webapps\$AppName"
@@ -781,12 +766,14 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion    
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
 	WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
 	
 	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 1
     WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
+    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 1
 	
     # Write some shortcuts
     LogEx::Write "Creating shortcuts"
@@ -796,7 +783,12 @@ Section -Main SEC0000
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\birt
     #CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
-	CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat"
+	  CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat"
+
+    SetOutPath $INSTDIR\eclipse
+    #CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.exe" "" "$INSTDIR\eclipse\eclipse.exe" 0 SW_SHOWMINIMIZED
+   	CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.bat"
+  
     SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     SetOutPath $INSTDIR
@@ -894,6 +886,7 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components" Manager
   DeleteRegValue HKLM "${REGKEY}\Components" Java 
   DeleteRegValue HKLM "${REGKEY}\Components" Birt 
+  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse  
   DeleteRegValue HKLM "${REGKEY}\Components" Webapps
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
   
@@ -904,6 +897,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"    
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"
@@ -924,33 +918,14 @@ Function .onInit
   InitPluginsDir
   #SetRebootFlag true
   # Initialize the value of the text string
-  StrCpy $InstallationNumber "1"
   StrCpy $AppName "Name"
-  StrCpy $Master_Value "init"
+  
+  # Legacy variables #3651
+  StrCpy $Master_Value "true"
+  StrCpy $InstallationNumber "0"
   
   # Read the command-line parameters
   ${GetParameters} $Params
-  ${GetOptions} "$Params" "-master" $R0
-  
-  IfErrors masterFalse masterTrue
-   masterFalse:
-      StrCpy $Master_Value "false"
-      Goto masterDone
-    masterTrue:
-      StrCpy $Master_Value "true"
-      StrCpy $InstallationNumber "0"
-    masterDone:
-      ClearErrors
-    
-  ClearErrors
-  ${GetOptions} "$Params" "-install_number" $R0
-  IfErrors numberFalse numberTrue
-   numberFalse:
-      Goto numberDone
-    numberTrue:
-      StrCpy $InstallationNumber $R0
-    numberDone:
-      ClearErrors
 	
   ClearErrors
   ${GetOptions} "$Params" "-app_name" $R0
