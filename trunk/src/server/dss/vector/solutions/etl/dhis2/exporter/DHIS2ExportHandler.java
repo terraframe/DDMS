@@ -271,10 +271,10 @@ public class DHIS2ExportHandler implements Reloadable
     
     // The aggregation of some calculated fields cannot be determined automatically from the query and thus we are hardcoding them here.
     // The key is the attribute name (of the selectable) and the value is the DHIS2 aggregation function (so AVERAGE instead of AVG).
-    hardcodedFieldAggregationMap.put("abundance_1", "SUM");
-    hardcodedFieldAggregationMap.put("abundance_10", "SUM");
-    hardcodedFieldAggregationMap.put("abundance_100", "SUM");
-    hardcodedFieldAggregationMap.put("abundance_1000", "SUM");
+//    hardcodedFieldAggregationMap.put("abundance_1", "SUM");
+//    hardcodedFieldAggregationMap.put("abundance_10", "SUM");
+//    hardcodedFieldAggregationMap.put("abundance_100", "SUM");
+//    hardcodedFieldAggregationMap.put("abundance_1000", "SUM");
     hardcodedFieldAggregationMap.put("collectionCount", "SUM");
     hardcodedFieldAggregationMap.put("subCollectionCount", "SUM");
     hardcodedFieldAggregationMap.put("mosquitoCount", "SUM");
