@@ -10,6 +10,7 @@ import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.geo.GeoEntityViewDTO;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class GeoEntityController extends GeoEntityControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -50,7 +51,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     {
       JSONArray json = new JSONArray();
       
-      GeoEntityViewDTO[] ancestors = GeoEntityDTO.getAncestors(getClientRequest(), id);
+      GeoEntityViewDTO[] ancestors = GeoEntityDTO.getAncestors(getClientRequest(), id); // These ancestors are ordered by depth.
       
       for (int i = 0; i < ancestors.length; ++i)
       {
