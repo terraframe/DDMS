@@ -976,6 +976,7 @@
         <path refid="framework.classpath" />
       </classpath>
       <arg value="localization/" />
+      <arg value="false" />
     </java>
   </target>
 

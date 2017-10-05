@@ -59,8 +59,21 @@ public class DatabaseVersionedLocalizationExcelImporter
    */
   protected Map<Date, File> map;
   
+  private boolean removeExisting;
+  
   public DatabaseVersionedLocalizationExcelImporter(String location)
   {
+    initialize(location, true);
+  }
+  
+  public DatabaseVersionedLocalizationExcelImporter(String location, boolean removeExisting)
+  {
+    initialize(location, removeExisting);
+  }
+  
+  private void initialize(String location, boolean removeExisting)
+  {
+    this.removeExisting = removeExisting;
     this.map = new HashMap<Date, File>();
     this.ordered = new TreeSet<File>(new VersionComparator());
 
@@ -91,14 +104,14 @@ public class DatabaseVersionedLocalizationExcelImporter
     // Only perform the doIt if this file has not already been imported
     if (!timestamps.contains(timestamp))
     {
-      logger.info("Importing localization file [" + file.getAbsolutePath() + "]");
+      logger.info("Importing localization file [" + file.getAbsolutePath() + "] with removeExisting set to [" + removeExisting + "]");
       
       Database.addPropertyValue(Database.VERSION_NUMBER, MdAttributeCharacterInfo.CLASS, "LOCALIZ-" + new TimeFormat(timestamp.getTime()).format().substring(8), LOCALIZATION_VERSION_TIMESTAMP_PROPERTY);
 
       try
       {
         MdssLocalizationImporter mli = new MdssLocalizationImporter();
-        mli.read(new FileInputStream(file));
+        mli.read(new FileInputStream(file), removeExisting);
       }
       catch (FileNotFoundException e)
       {
@@ -142,15 +155,21 @@ public class DatabaseVersionedLocalizationExcelImporter
   @Request
   public static void run(String[] args)
   {
+    boolean removeExisting = true;
+    
     if (args.length < 1)
     {
       String errMsg = "One argument is required for DatabaseLocalizationExcelVersioning:\n" + "  1) Location of the folder containing the schema(version date).xls files\n";
       throw new CoreException(errMsg);
     }
+    if (args.length == 2)
+    {
+      removeExisting = Boolean.parseBoolean(args[1]);
+    }
 
     try
     {
-      new DatabaseVersionedLocalizationExcelImporter(args[0]).doAll();
+      new DatabaseVersionedLocalizationExcelImporter(args[0], removeExisting).doAll();
     }
     catch (ParseException e)
     {
