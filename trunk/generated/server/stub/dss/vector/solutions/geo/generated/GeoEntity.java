@@ -37,6 +37,7 @@ import com.runwaysdk.constants.MdAttributeIntegerInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
+import com.runwaysdk.dataaccess.DuplicateDataException;
 import com.runwaysdk.dataaccess.InvalidIdException;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -87,6 +88,7 @@ import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.WKTParsingProblem;
 import dss.vector.solutions.etl.dhis2.GeoMap;
+import dss.vector.solutions.etl.dhis2.OrgUnitLevel;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ChildEntityOverflowInformation;
@@ -852,9 +854,21 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       }
     }
     
-    GeoMap map = GeoMap.getByKey(this.getId());
-    map.delete();
-
+    Savepoint sp = Database.setSavepoint();
+    try
+    {
+      GeoMap map = GeoMap.getByKey(this.getId());
+      map.delete();
+    }
+    catch (DataNotFoundException e)
+    {
+      Database.rollbackSavepoint(sp);
+    }
+    finally
+    {
+      Database.releaseSavepoint(sp);
+    }
+    
     super.delete();
   }
 
