@@ -111,4 +111,14 @@ public class ManagerProperties
   {
     return instance().getString("process.perm.size");
   }
+
+  public static String getDropCommand()
+  {
+    return instance().getString("drop.cmd");
+  }
+
+  public static String getShortcutDirectory()
+  {
+    return instance().getString("shortcut.dir");
+  }
 }

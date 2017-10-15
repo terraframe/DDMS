@@ -37,8 +37,6 @@ public class UninstallAction extends Action
   /**
    * Directory containing the DDMS shortcuts
    */
-  private static final String          SHORTCUT_DIRECTORY = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\DDMS\\";
-
   private ManagerContextBean           context;
 
   private IApplicationUninstallManager manager;
@@ -108,7 +106,7 @@ public class UninstallAction extends Action
                   /*
                    *  7) Delete the menu shortcuts
                    */
-                  File shortcut = new File(SHORTCUT_DIRECTORY + "Open " + context.getApplication() + ".lnk");
+                  File shortcut = new File(ManagerProperties.getShortcutDirectory() + "Open " + context.getApplication() + ".lnk");
 
                   FileUtils.deleteQuietly(shortcut);
                 }
@@ -167,8 +165,7 @@ public class UninstallAction extends Action
 
     String port = props.getPort();
 
-    // Sigh: Yikes, dude. TODO: Make this dynamic instead of hardcoded to C:\MDSS
-    String command = "C:\\MDSS\\PostgreSql\\9.4\\bin\\dropdb.exe -p " + port + " -U postgres " + props.getDatabaseName();
+    String command = ManagerProperties.getDropCommand() +  " -p " + port + " -U postgres " + props.getDatabaseName();
 
     int results = this.execWait(command);
 
