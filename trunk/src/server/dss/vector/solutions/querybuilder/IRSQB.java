@@ -1310,8 +1310,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       partitionBy.add(group);
     }
-    partitionBy.add(seasonJoin.getColumnAlias());
-    partitionBy.add(seasonJoin.getColumnAlias());
 
     if (this.needsAreaPlanned)
     {
@@ -1538,6 +1536,11 @@ public class IRSQB extends AbstractQB implements Reloadable
       }
       aggVQ.SELECT_DISTINCT(distincts.toArray(new SelectablePrimitive[distincts.size()]));
 
+      SelectableSQL seasonJoin2 = originalVQ.aSQLCharacter(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias(), aggAlias + "." + Alias.SPRAY_SEASON.getAlias(), Alias.SPRAY_SEASON.getAlias());
+      seasonJoin2.setColumnAlias(aggAlias + "_" + Alias.SPRAY_SEASON.getAlias());
+      partitionBy.add(seasonJoin2.getColumnAlias());
+      partitionBy.add(seasonJoin2.getColumnAlias());
+      
       partitionBy.add(smallestUniversal.getColumnAlias());
       String overWindow = StringUtils.join(partitionBy, ",");
 
@@ -1659,7 +1662,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       // The aggregation query needs to sum the operator planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.OPERATOR_PLANNED_TARGET.getAlias());
-      String sum = sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias, Alias.OPERATOR_PLANNED_TARGET.getAlias());
+      String sum = sumColumnForId(null, null, aggAlias, Alias.OPERATOR_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
       // Now that everything is joined, grab the area planned target value from
@@ -1825,7 +1828,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       // The aggregation query needs to sum the team planned targets
       SelectableSQL aptSel = (SelectableSQL) aggVQ.getSelectableRef(Alias.TEAM_PLANNED_TARGET.getAlias());
-      String sum = this.sumColumnForId(sprayViewAlias, Alias.UNIQUE_PLANNED_ID.getAlias(), sprayViewAlias, Alias.TEAM_PLANNED_TARGET.getAlias());
+      String sum = this.sumColumnForId(null, null, aggAlias, Alias.TEAM_PLANNED_TARGET.getAlias());
       aptSel.setSQL(sum);
 
       // Now that everything is joined, grab the area planned target value from
@@ -1910,6 +1913,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     return "SUM(DISTINCT " + col + ")";
   }
 
+  @Override
   protected String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
@@ -1919,6 +1923,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // null ? table + "." : "" ) + column + "))";
   }
 
+  @Override
   protected String minColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
@@ -1928,6 +1933,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // null ? table + "." : "" ) + column + "))";
   }
 
+  @Override
   protected String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
@@ -1937,6 +1943,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     // null ? table + "." : "" ) + column + "))";
   }
 
+  @Override
   protected String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
     String col = ( table != null ? table + "." : "" ) + column;
