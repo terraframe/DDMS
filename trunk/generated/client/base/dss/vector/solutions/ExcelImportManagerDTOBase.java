@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1924286157)
+@com.runwaysdk.business.ClassSignature(hash = -873396200)
 public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportManager";
-  private static final long serialVersionUID = -1924286157;
+  private static final long serialVersionUID = -873396200;
   
   protected ExcelImportManagerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,7 +17,45 @@ public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.U
   }
   
   public static java.lang.String ID = "id";
+  public static java.lang.String SERIALIZEDUNKNOWNTERM = "serializedUnknownTerm";
   public static java.lang.String UNMATCHEDGEOVIEWIDSTRING = "unmatchedGeoViewIdString";
+  public String getSerializedUnknownTerm()
+  {
+    return getValue(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public void setSerializedUnknownTerm(String value)
+  {
+    if(value == null)
+    {
+      setValue(SERIALIZEDUNKNOWNTERM, "");
+    }
+    else
+    {
+      setValue(SERIALIZEDUNKNOWNTERM, value);
+    }
+  }
+  
+  public boolean isSerializedUnknownTermWritable()
+  {
+    return isWritable(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public boolean isSerializedUnknownTermReadable()
+  {
+    return isReadable(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public boolean isSerializedUnknownTermModified()
+  {
+    return isModified(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getSerializedUnknownTermMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(SERIALIZEDUNKNOWNTERM).getAttributeMdDTO();
+  }
+  
   public String getUnmatchedGeoViewIdString()
   {
     return getValue(UNMATCHEDGEOVIEWIDSTRING);
@@ -61,6 +99,22 @@ public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.U
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportManagerDTO.CLASS, "getNewInstance", _declaredTypes);
     return (dss.vector.solutions.ExcelImportManagerDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.ontology.UnknownTermDTO[] getUnknownTerms()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportManagerDTO.CLASS, "getUnknownTerms", _declaredTypes);
+    return (dss.vector.solutions.ontology.UnknownTermDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.UnknownTermDTO[] getUnknownTerms(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportManagerDTO.CLASS, "getUnknownTerms", _declaredTypes);
+    return (dss.vector.solutions.ontology.UnknownTermDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.geo.UnknownGeoEntityDTO[] getUnmatchedGeoViews()

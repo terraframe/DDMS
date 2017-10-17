@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -790890573)
+@com.runwaysdk.business.ClassSignature(hash = -1387341416)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,8 +12,9 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportManager";
   public static java.lang.String ID = "id";
+  public static java.lang.String SERIALIZEDUNKNOWNTERM = "serializedUnknownTerm";
   public static java.lang.String UNMATCHEDGEOVIEWIDSTRING = "unmatchedGeoViewIdString";
-  private static final long serialVersionUID = -790890573;
+  private static final long serialVersionUID = -1387341416;
   
   public ExcelImportManagerBase()
   {
@@ -34,6 +35,34 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportManager.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getSerializedUnknownTerm()
+  {
+    return getValue(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public void validateSerializedUnknownTerm()
+  {
+    this.validateAttribute(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getSerializedUnknownTermMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportManager.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(SERIALIZEDUNKNOWNTERM);
+  }
+  
+  public void setSerializedUnknownTerm(String value)
+  {
+    if(value == null)
+    {
+      setValue(SERIALIZEDUNKNOWNTERM, "");
+    }
+    else
+    {
+      setValue(SERIALIZEDUNKNOWNTERM, value);
+    }
   }
   
   public String getUnmatchedGeoViewIdString()
@@ -78,6 +107,18 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ExcelImportManager.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.ontology.UnknownTerm[] getUnknownTerms()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ExcelImportManager.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.ontology.UnknownTerm[] getUnknownTerms(java.lang.String id)
+  {
+    ExcelImportManager _instance = ExcelImportManager.get(id);
+    return _instance.getUnknownTerms();
   }
   
   public dss.vector.solutions.geo.UnknownGeoEntity[] getUnmatchedGeoViews()

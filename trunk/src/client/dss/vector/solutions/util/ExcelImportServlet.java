@@ -63,11 +63,6 @@ public class ExcelImportServlet extends HttpServlet
     // Create a new file upload handler
     ServletFileUpload upload = new ServletFileUpload(factory);
 
-    // Data structure that contains synonym matching information for geo
-    // entities that could not
-    // be identified.
-    ViewDTO[] unknownGeoEntityDTOArray = null;
-
     // Parse the request
     boolean isGeoImport = false;
 
@@ -93,9 +88,10 @@ public class ExcelImportServlet extends HttpServlet
         {
           size = item.getSize();
           sourceStream = item.getInputStream();
-          
+
           fileName = item.getName();
-          if (fileName != null) {
+          if (fileName != null)
+          {
             fileName = FilenameUtils.getName(fileName);
           }
         }
@@ -150,22 +146,30 @@ public class ExcelImportServlet extends HttpServlet
         Object managerInst = (Object) newInstMethod.invoke(null, clientRequest);
         Method getIdMethod = managerClass.getMethod("getId");
         String managerId = (String) getIdMethod.invoke(managerInst);
-        
+
         Method importWhatYouCanMethod = managerClass.getMethod("importWhatYouCan", ClientRequestIF.class, String.class, InputStream.class, String[].class);
         errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, managerId, new ByteArrayInputStream(bytes), new String[0]);
 
         Method getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
-        unknownGeoEntityDTOArray = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
-        
+        Method getUnknownTermsMethod = managerClass.getMethod("getUnknownTerms", ClientRequestIF.class, String.class);
+
+        // Data structure that contains synonym matching information for geo
+        // entities that could not be identified.
+        ViewDTO[] unknownEntities = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
+
+        // Data structure that contains synonym matching information for terms
+        // that could not be identified.
+        ViewDTO[] unknownTerms = (ViewDTO[]) getUnknownTermsMethod.invoke(null, clientRequest, managerId);
+
         if (errorStream.available() > 0)
         {
           // We're making up our own status codes here because we can
           int statusCode = 701; // Request completed but with errors
-          if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
+          if ( ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 ))
           {
             statusCode = 702; // Request completed with errors and synonyms
           }
-          
+
           respondError(new BufferedInputStream(errorStream), fileName, res, managerId, statusCode);
           return;
         }
@@ -180,13 +184,14 @@ public class ExcelImportServlet extends HttpServlet
       ErrorUtility.prepareThrowable(e, req, res, false);
     }
 
-//    if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
-//    {
-//      req.setAttribute("action", "excelimport");
-//      req.setAttribute("excelType", excelType);
-//      req.setAttribute("unknownGeoEntitys", unknownGeoEntityDTOArray);
-//      req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, res);
-//    }
+    // if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length >
+    // 0)
+    // {
+    // req.setAttribute("action", "excelimport");
+    // req.setAttribute("excelType", excelType);
+    // req.setAttribute("unknownGeoEntitys", unknownGeoEntityDTOArray);
+    // req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, res);
+    // }
     if (isGeoImport)
     {
       res.setContentType("text/html;charset=UTF-8");
@@ -195,25 +200,28 @@ public class ExcelImportServlet extends HttpServlet
     }
     else
     {
-//      ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
-//
-//      req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
-      
+      // ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
+      //
+      // req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req,
+      // res);
+
       if (req.getAttribute(ErrorUtility.ERROR_MESSAGE) != null)
       {
         res.addHeader(ErrorUtility.ERROR_MESSAGE, String.valueOf(req.getAttribute(ErrorUtility.ERROR_MESSAGE)));
       }
     }
   }
-  
-  // #3211 This property is used to specify a directory that, if an excel file is imported
-  //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
+
+  // #3211 This property is used to specify a directory that, if an excel file
+  // is imported
+  // and the import fails with errors, that error file will be written to this
+  // directory with the same name as the imported file.
   private void respondError(BufferedInputStream errorStream, String filename, HttpServletResponse res, String managerId, Integer statusCode)
   {
     TeeOutputStream tee = null;
     ServletOutputStream streamToBrowser = null;
     BufferedOutputStream streamToXlsLogFile = null;
-    
+
     String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
     try
     {
@@ -222,23 +230,23 @@ public class ExcelImportServlet extends HttpServlet
         byte[] errorBytes = IOUtils.toByteArray(errorStream);
         errorStream.close();
         errorStream = new BufferedInputStream(new ByteArrayInputStream(errorBytes));
-        
+
         File fDir = new File(errorDir);
-        
+
         if (!fDir.exists())
         {
           fDir.mkdirs();
         }
-        
+
         File errorFile = new File(fDir, filename);
         if (errorFile.exists())
         {
           FileIO.deleteFile(errorFile);
         }
-        
+
         FileOutputStream fos = new FileOutputStream(errorFile);
         streamToXlsLogFile = new BufferedOutputStream(fos);
-        
+
         res.setContentType("application/xls");
         res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
         if (managerId != null)
@@ -249,28 +257,38 @@ public class ExcelImportServlet extends HttpServlet
         {
           res.setStatus(statusCode);
         }
-        
+
         streamToBrowser = res.getOutputStream();
-        
-        tee = new TeeOutputStream(streamToXlsLogFile, streamToBrowser); // The tee allows us to write to 2 different places at once.
+
+        tee = new TeeOutputStream(streamToXlsLogFile, streamToBrowser); // The
+                                                                        // tee
+                                                                        // allows
+                                                                        // us to
+                                                                        // write
+                                                                        // to 2
+                                                                        // different
+                                                                        // places
+                                                                        // at
+                                                                        // once.
         try
         {
           FileIO.write(tee, errorStream);
         }
         catch (IOException e)
         {
-          // If the client closed their browser tab we'll get an IOEx. We still want to make sure that log file gets written (#3462)
+          // If the client closed their browser tab we'll get an IOEx. We still
+          // want to make sure that log file gets written (#3462)
           streamToXlsLogFile.close();
           errorStream.close();
-          
+
           if (errorFile.exists())
           {
             FileIO.deleteFile(errorFile);
           }
-          
+
           errorStream = new BufferedInputStream(new ByteArrayInputStream(errorBytes));
           streamToXlsLogFile = new BufferedOutputStream(new FileOutputStream(errorFile));
-          
+
           FileIO.write(streamToXlsLogFile, errorStream);
         }
       }
@@ -299,7 +317,7 @@ public class ExcelImportServlet extends HttpServlet
       RunwayLogUtil.logToLevel(LogLevel.ERROR, "Exception thrown while attempting to write excel error file to directory [" + errorDir + "].", e);
     }
   }
-  
+
   private InputStream importExcelFile(ClientRequestIF clientRequest, byte[] bytes, String type, String[] params) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
   {
     Class<?> facadeClass = LoaderDecorator.load("dss.vector.solutions.util.FacadeDTO");
@@ -313,29 +331,34 @@ public class ExcelImportServlet extends HttpServlet
     ClientRequestIF clientRequest = (ClientRequestIF) req.getAttribute(ClientConstants.CLIENTREQUEST);
     if (clientRequest == null)
     {
-      ClientSession session = ((ClientSession)req.getSession().getAttribute(ClientConstants.CLIENTSESSION));
+      ClientSession session = ( (ClientSession) req.getSession().getAttribute(ClientConstants.CLIENTSESSION) );
       if (session != null)
       {
         clientRequest = session.getRequest();
         req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
       }
     }
-    
+
     String path = getRequestPath(req);
-    
+
     if (path.contains("excelImportSynonyms"))
     {
       Class<?> managerClass = LoaderDecorator.load("dss.vector.solutions.ExcelImportManagerDTO");
-      
+
       String managerId = req.getParameter("managerId");
       String excelType = req.getParameter("excelType");
-      
-      Method getUnmatchedGeoViewsMethod = null;
-      ViewDTO[] unknownGeoEntityDTOArray = null;
+
+      ViewDTO[] unknownEntities = null;
+      ViewDTO[] unknownTerms = null;
+
       try
       {
-        getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
-        unknownGeoEntityDTOArray = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
+        Method getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
+        unknownEntities = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
+
+        Method getUnknownTermsMethod = managerClass.getMethod("getUnknownTerms", ClientRequestIF.class, String.class);
+        unknownTerms = (ViewDTO[]) getUnknownTermsMethod.invoke(null, clientRequest, managerId);
+
       }
       catch (InvocationTargetException e)
       {
@@ -345,12 +368,13 @@ public class ExcelImportServlet extends HttpServlet
       {
         ErrorUtility.prepareThrowable(e, req, res, false);
       }
-      
-      if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
+
+      if ( ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 ))
       {
         req.setAttribute("action", "excelimport");
         req.setAttribute("excelType", excelType);
-        req.setAttribute("unknownGeoEntitys", unknownGeoEntityDTOArray);
+        req.setAttribute("unknownGeoEntitys", unknownEntities);
+        req.setAttribute("unknownTerms", unknownTerms);
         req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, res);
       }
       else
@@ -364,7 +388,7 @@ public class ExcelImportServlet extends HttpServlet
       {
         req.setAttribute("errorMessage", req.getParameter("errorMessage"));
       }
-      
+
       req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
     }
     else
@@ -372,7 +396,7 @@ public class ExcelImportServlet extends HttpServlet
       req.getRequestDispatcher("/WEB-INF/excelImport.jsp").forward(req, res);
     }
   }
-  
+
   private String getRequestPath(HttpServletRequest req)
   {
     String servletPath = req.getServletPath();

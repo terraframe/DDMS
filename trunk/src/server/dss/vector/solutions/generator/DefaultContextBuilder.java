@@ -7,10 +7,15 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.RunwayExceptionIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.UnexpectedTypeException;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilder;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -19,13 +24,13 @@ import dss.vector.solutions.ExcelImportManager;
 public class DefaultContextBuilder extends ContextBuilder implements ContextBuilderIF, Reloadable
 {
   private static final String setupImportMethod = "setupImportListener";
-  
-  private String   methodName;
 
-  private String[] params;
-  
-  private ExcelImportManager importer;
-  
+  private String              methodName;
+
+  private String[]            params;
+
+  private ExcelImportManager  importer;
+
   public DefaultContextBuilder()
   {
     this(setupImportMethod, new String[] {});
@@ -36,7 +41,7 @@ public class DefaultContextBuilder extends ContextBuilder implements ContextBuil
     this(setupImportMethod, params);
     this.importer = importer;
   }
-  
+
   public DefaultContextBuilder(String methodName, String[] params)
   {
     this.methodName = methodName;
@@ -46,7 +51,14 @@ public class DefaultContextBuilder extends ContextBuilder implements ContextBuil
   @Override
   public ImportContext createContext(Sheet sheet, String sheetName, Workbook errorWorkbook, String type)
   {
-    ImportContext context = super.createContext(sheet, sheetName, errorWorkbook, type);
+    MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(type);
+    if (! ( mdClass instanceof MdViewDAO ) && ! ( mdClass instanceof MdBusinessDAO ))
+    {
+      throw new UnexpectedTypeException("Excel Importer does not support type [" + mdClass.definesType() + "]");
+    }
+
+    Sheet error = errorWorkbook.createSheet(sheetName);
+    ImportContext context = new ManagedImportContext(sheet, sheetName, error, mdClass, this.importer);
 
     try
     {

@@ -54,6 +54,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.ontology.UnknownTerm;
 
 public abstract class Facade extends FacadeBase implements Reloadable
 {
@@ -92,10 +93,16 @@ public abstract class Facade extends FacadeBase implements Reloadable
   /**
    * Ticket 3378
    * 
-   * Row by row the geography is checked. If there is a match, the row is imported (if all other validation also passes).
-If other validation fails, the row is written to the exception spreadsheet, as is currently the case.
-If the geography is not recognised, the row is also written to the exception spreadsheet and the entry is added to the geo synonym page, which I guess is being built in the background.A meaningful error message is written in the error tab of the exception spreadsheet.
-At the end of the process, all importable rows have been imported, all other rows have been written to the exception spreadsheet and if there were geo issues, the synonym page is called as is currently the case.
+   * Row by row the geography is checked. If there is a match, the row is
+   * imported (if all other validation also passes). If other validation fails,
+   * the row is written to the exception spreadsheet, as is currently the case.
+   * If the geography is not recognised, the row is also written to the
+   * exception spreadsheet and the entry is added to the geo synonym page, which
+   * I guess is being built in the background.A meaningful error message is
+   * written in the error tab of the exception spreadsheet. At the end of the
+   * process, all importable rows have been imported, all other rows have been
+   * written to the exception spreadsheet and if there were geo issues, the
+   * synonym page is called as is currently the case.
    * 
    * @return
    */
@@ -103,51 +110,53 @@ At the end of the process, all importable rows have been imported, all other row
   {
     return null;
     // Start caching Broswer Roots for this Thread.
-//    TermRootCache.start();
-//    EpiCache.start();
-//
-//    try
-//    {
-//      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(listenerMethod, params));
-//
-//      ExcelImporter importer = new ExcelImporter(inputStream, builder);
-//
-//      try
-//      {
-//        importer.read
-//        return new ByteArrayInputStream(importer.read());
-//      }
-//      catch (RuntimeException e)
-//      {
-        /*
-         * Ticket #2663:  Errors from reading external sheet should have a better error message.
-         * Unfortunately, the HSSF API doesn't throw a specific exception for external sheet errors,
-         * but throws a RuntimeException.  As such the only way to tell if the exception is an
-         * external sheet error is by reading the message.
-         */
-//        Throwable cause = e.getCause();
-//
-//        if (cause.getMessage().startsWith("No external workbook with name"))
-//        {
-//          throw new ExcelReadException();
-//        }
-//
-//        throw e;
-//      }
-//    }
-//    finally
-//    {
-//      TermRootCache.stop();
-//      EpiCache.stop();
-//    }
+    // TermRootCache.start();
+    // EpiCache.start();
+    //
+    // try
+    // {
+    // ContextBuilderFacade builder = new ContextBuilderFacade(new
+    // DefaultContextBuilder(listenerMethod, params));
+    //
+    // ExcelImporter importer = new ExcelImporter(inputStream, builder);
+    //
+    // try
+    // {
+    // importer.read
+    // return new ByteArrayInputStream(importer.read());
+    // }
+    // catch (RuntimeException e)
+    // {
+    /*
+     * Ticket #2663: Errors from reading external sheet should have a better
+     * error message. Unfortunately, the HSSF API doesn't throw a specific
+     * exception for external sheet errors, but throws a RuntimeException. As
+     * such the only way to tell if the exception is an external sheet error is
+     * by reading the message.
+     */
+    // Throwable cause = e.getCause();
+    //
+    // if (cause.getMessage().startsWith("No external workbook with name"))
+    // {
+    // throw new ExcelReadException();
+    // }
+    //
+    // throw e;
+    // }
+    // }
+    // finally
+    // {
+    // TermRootCache.stop();
+    // EpiCache.stop();
+    // }
   }
-  
+
   /**
    * @deprecated in favor of importExcelWithSynonyms
    * 
-   * Checks the geo entity hierarchy in the excel file and tries to find synonym
-   * matches. Each geo universal column is checked in order of depth, starting
-   * from lowest to highest.
+   *             Checks the geo entity hierarchy in the excel file and tries to
+   *             find synonym matches. Each geo universal column is checked in
+   *             order of depth, starting from lowest to highest.
    * 
    * 
    * @param inputStream
@@ -165,6 +174,15 @@ At the end of the process, all importable rows have been imported, all other row
     unknownGeoEntityList.toArray(unknownGeoEntityArray);
 
     return unknownGeoEntityArray;
+  }
+
+  public static UnknownTerm[] checkTermSynonyms(InputStream inputStream, String type)
+  {
+    TermSearcher searcher = new TermSearcher();
+
+    List<UnknownTerm> unknownTerms = searcher.checkExcelTerms(inputStream);
+
+    return unknownTerms.toArray(new UnknownTerm[unknownTerms.size()]);
   }
 
   /**
@@ -199,10 +217,11 @@ At the end of the process, all importable rows have been imported, all other row
       catch (RuntimeException e)
       {
         /*
-         * Ticket #2663:  Errors from reading external sheet should have a better error message.
-         * Unfortunately, the HSSF API doesn't throw a specific exception for external sheet errors,
-         * but throws a RuntimeException.  As such the only way to tell if the exception is an
-         * external sheet error is by reading the message.
+         * Ticket #2663: Errors from reading external sheet should have a better
+         * error message. Unfortunately, the HSSF API doesn't throw a specific
+         * exception for external sheet errors, but throws a RuntimeException.
+         * As such the only way to tell if the exception is an external sheet
+         * error is by reading the message.
          */
         Throwable cause = e.getCause();
 

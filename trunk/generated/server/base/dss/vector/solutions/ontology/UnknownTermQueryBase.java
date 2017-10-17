@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 932618229)
+@com.runwaysdk.business.ClassSignature(hash = 198680813)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,6 +25,60 @@ public  abstract  class UnknownTermQueryBase extends com.runwaysdk.query.Generat
   {
     return dss.vector.solutions.ontology.UnknownTerm.CLASS;
   }
+  public com.runwaysdk.query.SelectableChar getAttributeLabel()
+  {
+    return getAttributeLabel(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getAttributeLabel(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.ATTRIBUTELABEL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getAttributeLabel(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.ATTRIBUTELABEL, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBrowserAttribute()
+  {
+    return getBrowserAttribute(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBrowserAttribute(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.BROWSERATTRIBUTE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBrowserAttribute(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.BROWSERATTRIBUTE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBrowserClass()
+  {
+    return getBrowserClass(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBrowserClass(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.BROWSERCLASS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBrowserClass(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.BROWSERCLASS, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);

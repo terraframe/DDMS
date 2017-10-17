@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1021266020)
+@com.runwaysdk.business.ClassSignature(hash = 958972206)
 public abstract class UnknownTermProblemDTOBase extends com.runwaysdk.business.ProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.UnknownTermProblem";
-  private static final long serialVersionUID = -1021266020;
+  private static final long serialVersionUID = 958972206;
   
   public UnknownTermProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -23,6 +23,7 @@ public abstract class UnknownTermProblemDTOBase extends com.runwaysdk.business.P
   
   public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
   public static java.lang.String ID = "id";
+  public static java.lang.String TERMATTRIBUTE = "termAttribute";
   public static java.lang.String TERMNAME = "termName";
   public String getAttributeLabel()
   {
@@ -59,6 +60,55 @@ public abstract class UnknownTermProblemDTOBase extends com.runwaysdk.business.P
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeLabelMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTELABEL).getAttributeMdDTO();
+  }
+  
+  public com.runwaysdk.system.metadata.MdAttributeDTO getTermAttribute()
+  {
+    if(getValue(TERMATTRIBUTE) == null || getValue(TERMATTRIBUTE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.metadata.MdAttributeDTO.get(getRequest(), getValue(TERMATTRIBUTE));
+    }
+  }
+  
+  public String getTermAttributeId()
+  {
+    return getValue(TERMATTRIBUTE);
+  }
+  
+  public void setTermAttribute(com.runwaysdk.system.metadata.MdAttributeDTO value)
+  {
+    if(value == null)
+    {
+      setValue(TERMATTRIBUTE, "");
+    }
+    else
+    {
+      setValue(TERMATTRIBUTE, value.getId());
+    }
+  }
+  
+  public boolean isTermAttributeWritable()
+  {
+    return isWritable(TERMATTRIBUTE);
+  }
+  
+  public boolean isTermAttributeReadable()
+  {
+    return isReadable(TERMATTRIBUTE);
+  }
+  
+  public boolean isTermAttributeModified()
+  {
+    return isModified(TERMATTRIBUTE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermAttributeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERMATTRIBUTE).getAttributeMdDTO();
   }
   
   public String getTermName()
@@ -108,6 +158,7 @@ public abstract class UnknownTermProblemDTOBase extends com.runwaysdk.business.P
     
     template = template.replace("{attributeLabel}", this.getAttributeLabel().toString());
     template = template.replace("{id}", this.getId().toString());
+    template = template.replace("{termAttribute}", this.getTermAttribute().toString());
     template = template.replace("{termName}", this.getTermName().toString());
     
     return template;

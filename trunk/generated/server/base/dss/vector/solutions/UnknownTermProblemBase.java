@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 529656092)
+@com.runwaysdk.business.ClassSignature(hash = 190075566)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,8 +13,9 @@ public abstract class UnknownTermProblemBase extends com.runwaysdk.business.Prob
   public final static String CLASS = "dss.vector.solutions.UnknownTermProblem";
   public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
   public static java.lang.String ID = "id";
+  public static java.lang.String TERMATTRIBUTE = "termAttribute";
   public static java.lang.String TERMNAME = "termName";
-  private static final long serialVersionUID = 529656092;
+  private static final long serialVersionUID = 190075566;
   
   public UnknownTermProblemBase()
   {
@@ -70,6 +71,46 @@ public abstract class UnknownTermProblemBase extends com.runwaysdk.business.Prob
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
   }
   
+  public com.runwaysdk.system.metadata.MdAttribute getTermAttribute()
+  {
+    if (getValue(TERMATTRIBUTE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.metadata.MdAttribute.get(getValue(TERMATTRIBUTE));
+    }
+  }
+  
+  public String getTermAttributeId()
+  {
+    return getValue(TERMATTRIBUTE);
+  }
+  
+  public void validateTermAttribute()
+  {
+    this.validateAttribute(TERMATTRIBUTE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getTermAttributeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.UnknownTermProblem.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(TERMATTRIBUTE);
+  }
+  
+  public void setTermAttribute(com.runwaysdk.system.metadata.MdAttribute value)
+  {
+    if(value == null)
+    {
+      setValue(TERMATTRIBUTE, "");
+    }
+    else
+    {
+      setValue(TERMATTRIBUTE, value.getId());
+    }
+  }
+  
   public String getTermName()
   {
     return getValue(TERMNAME);
@@ -108,6 +149,7 @@ public abstract class UnknownTermProblemBase extends com.runwaysdk.business.Prob
     java.lang.String message = super.localize(locale);
     message = replace(message, "{attributeLabel}", this.getAttributeLabel());
     message = replace(message, "{id}", this.getId());
+    message = replace(message, "{termAttribute}", this.getTermAttribute());
     message = replace(message, "{termName}", this.getTermName());
     return message;
   }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1246444350)
+@com.runwaysdk.business.ClassSignature(hash = -1463139324)
 public abstract class UnknownTermDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.UnknownTerm";
-  private static final long serialVersionUID = 1246444350;
+  private static final long serialVersionUID = -1463139324;
   
   protected UnknownTermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -16,9 +16,123 @@ public abstract class UnknownTermDTOBase extends com.runwaysdk.business.ViewDTO 
     return CLASS;
   }
   
+  public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
+  public static java.lang.String BROWSERATTRIBUTE = "browserAttribute";
+  public static java.lang.String BROWSERCLASS = "browserClass";
   public static java.lang.String ID = "id";
   public static java.lang.String SYNONYMS = "synonyms";
   public static java.lang.String TERMNAME = "termName";
+  public String getAttributeLabel()
+  {
+    return getValue(ATTRIBUTELABEL);
+  }
+  
+  public void setAttributeLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ATTRIBUTELABEL, "");
+    }
+    else
+    {
+      setValue(ATTRIBUTELABEL, value);
+    }
+  }
+  
+  public boolean isAttributeLabelWritable()
+  {
+    return isWritable(ATTRIBUTELABEL);
+  }
+  
+  public boolean isAttributeLabelReadable()
+  {
+    return isReadable(ATTRIBUTELABEL);
+  }
+  
+  public boolean isAttributeLabelModified()
+  {
+    return isModified(ATTRIBUTELABEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAttributeLabelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ATTRIBUTELABEL).getAttributeMdDTO();
+  }
+  
+  public String getBrowserAttribute()
+  {
+    return getValue(BROWSERATTRIBUTE);
+  }
+  
+  public void setBrowserAttribute(String value)
+  {
+    if(value == null)
+    {
+      setValue(BROWSERATTRIBUTE, "");
+    }
+    else
+    {
+      setValue(BROWSERATTRIBUTE, value);
+    }
+  }
+  
+  public boolean isBrowserAttributeWritable()
+  {
+    return isWritable(BROWSERATTRIBUTE);
+  }
+  
+  public boolean isBrowserAttributeReadable()
+  {
+    return isReadable(BROWSERATTRIBUTE);
+  }
+  
+  public boolean isBrowserAttributeModified()
+  {
+    return isModified(BROWSERATTRIBUTE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrowserAttributeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERATTRIBUTE).getAttributeMdDTO();
+  }
+  
+  public String getBrowserClass()
+  {
+    return getValue(BROWSERCLASS);
+  }
+  
+  public void setBrowserClass(String value)
+  {
+    if(value == null)
+    {
+      setValue(BROWSERCLASS, "");
+    }
+    else
+    {
+      setValue(BROWSERCLASS, value);
+    }
+  }
+  
+  public boolean isBrowserClassWritable()
+  {
+    return isWritable(BROWSERCLASS);
+  }
+  
+  public boolean isBrowserClassReadable()
+  {
+    return isReadable(BROWSERCLASS);
+  }
+  
+  public boolean isBrowserClassModified()
+  {
+    return isModified(BROWSERCLASS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrowserClassMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERCLASS).getAttributeMdDTO();
+  }
+  
   public String getSynonyms()
   {
     return getValue(SYNONYMS);

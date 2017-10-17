@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 2079611326)
+@com.runwaysdk.business.ClassSignature(hash = 1879840132)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,14 +11,101 @@ package dss.vector.solutions.ontology;
 public abstract class UnknownTermBase extends com.runwaysdk.business.View implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.UnknownTerm";
+  public static java.lang.String ATTRIBUTELABEL = "attributeLabel";
+  public static java.lang.String BROWSERATTRIBUTE = "browserAttribute";
+  public static java.lang.String BROWSERCLASS = "browserClass";
   public static java.lang.String ID = "id";
   public static java.lang.String SYNONYMS = "synonyms";
   public static java.lang.String TERMNAME = "termName";
-  private static final long serialVersionUID = 2079611326;
+  private static final long serialVersionUID = 1879840132;
   
   public UnknownTermBase()
   {
     super();
+  }
+  
+  public String getAttributeLabel()
+  {
+    return getValue(ATTRIBUTELABEL);
+  }
+  
+  public void validateAttributeLabel()
+  {
+    this.validateAttribute(ATTRIBUTELABEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getAttributeLabelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.UnknownTerm.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ATTRIBUTELABEL);
+  }
+  
+  public void setAttributeLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ATTRIBUTELABEL, "");
+    }
+    else
+    {
+      setValue(ATTRIBUTELABEL, value);
+    }
+  }
+  
+  public String getBrowserAttribute()
+  {
+    return getValue(BROWSERATTRIBUTE);
+  }
+  
+  public void validateBrowserAttribute()
+  {
+    this.validateAttribute(BROWSERATTRIBUTE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrowserAttributeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.UnknownTerm.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BROWSERATTRIBUTE);
+  }
+  
+  public void setBrowserAttribute(String value)
+  {
+    if(value == null)
+    {
+      setValue(BROWSERATTRIBUTE, "");
+    }
+    else
+    {
+      setValue(BROWSERATTRIBUTE, value);
+    }
+  }
+  
+  public String getBrowserClass()
+  {
+    return getValue(BROWSERCLASS);
+  }
+  
+  public void validateBrowserClass()
+  {
+    this.validateAttribute(BROWSERCLASS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getBrowserClassMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.UnknownTerm.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(BROWSERCLASS);
+  }
+  
+  public void setBrowserClass(String value)
+  {
+    if(value == null)
+    {
+      setValue(BROWSERCLASS, "");
+    }
+    else
+    {
+      setValue(BROWSERCLASS, value);
+    }
   }
   
   public String getId()

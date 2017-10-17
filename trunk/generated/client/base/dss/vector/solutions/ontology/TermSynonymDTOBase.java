@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 457258406)
+@com.runwaysdk.business.ClassSignature(hash = -1093838834)
 public abstract class TermSynonymDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.TermSynonym";
-  private static final long serialVersionUID = 457258406;
+  private static final long serialVersionUID = -1093838834;
   
   protected TermSynonymDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -428,6 +428,14 @@ public abstract class TermSynonymDTOBase extends com.runwaysdk.business.Business
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{termName, termId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermSynonymDTO.CLASS, "createSynonym", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void createTermSynonym(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String termName, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{termName, id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermSynonymDTO.CLASS, "createTermSynonym", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

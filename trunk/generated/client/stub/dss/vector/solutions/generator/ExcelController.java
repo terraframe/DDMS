@@ -22,6 +22,7 @@ import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
+import dss.vector.solutions.ontology.UnknownTermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
@@ -114,9 +115,11 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
           try
           {
             UnknownGeoEntityDTO[] unknownEntities = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
+            
+            UnknownTermDTO[] unknownTerms = FacadeDTO.checkTermSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
 
             // all geo entities in the file were identified
-            if (unknownEntities != null && unknownEntities.length == 0)
+            if (unknownEntities != null && unknownEntities.length == 0 && unknownTerms != null && unknownTerms.length == 0)
             {
               InputStream errorStream = configuration.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType);
 
@@ -157,11 +160,12 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
                 render("importSuccess.jsp");
               }
             }
-            else if (unknownEntities != null && unknownEntities.length > 0)
+            else if ((unknownEntities != null && unknownEntities.length > 0) || (unknownTerms != null && unknownTerms.length > 0))
             {
               req.setAttribute("action", configuration.getFormUrl());
               req.setAttribute("excelType", excelType);
               req.setAttribute("unknownGeoEntitys", unknownEntities);
+              req.setAttribute("unknownTerms", unknownTerms);
               req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, resp);
             }
             else

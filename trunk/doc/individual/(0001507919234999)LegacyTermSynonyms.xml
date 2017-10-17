@@ -1,0 +1,75 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+         name="dss.vector.solutions.util.Facade">
+        <create>        
+          <mdMethod
+             name="checkTermSynonyms"
+             label="Check Term Synonym"
+             description="Checks the Synonyms of an Excel Input file"
+             static="true"
+             returnType="dss.vector.solutions.ontology.UnknownTerm[]">
+            <mdParameter name="inputStream" label="Input Stream" description="Input Stream containing the Excel file" order="0" type="java.io.InputStream" />
+            <mdParameter name="type" label="Type" description="Type of the class that rows of this " order="1" type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdBusiness
+         name="dss.vector.solutions.ontology.TermSynonym">
+        <create>        
+          <mdMethod
+             name="createTermSynonym"
+             label="Create Term Synonym"
+             static="true"
+             returnType="void">
+            <mdParameter name="termName" label="Term name" order="0" type="java.lang.String" />
+            <mdParameter name="id" label="Id" order="1" type="java.lang.String" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      
+      <mdView name="dss.vector.solutions.ontology.UnknownTerm">
+        <attributes>
+          <char name="termName" label="Term Name" />
+        </attributes>
+        <create>
+          <attributes>
+            <char name="browserClass" required="true" label="Browser Class" size="255" />
+            <char name="browserAttribute" required="true" label="Browser Attribute" size="255" />
+            <char name="attributeLabel" required="true" label="Attribute Label" size="255" />
+          </attributes>
+        </create>
+      </mdView>   
+      
+      <mdProblem name="dss.vector.solutions.UnknownTermProblem">
+        <create>
+          <attributes>
+            <reference name="termAttribute" label="Term Attribute" type="com.runwaysdk.system.metadata.MdAttribute" />
+          </attributes>
+        </create>
+      </mdProblem>
+      
+      <mdUtil name="dss.vector.solutions.ExcelImportManager">      
+        <create>
+          <attributes>
+            <text name="serializedUnknownTerm" label="Serialized Unknown Term"/>
+          </attributes>
+          <mdMethod name="getUnknownTerms" label="Get unknown terms" static="false" returnType="dss.vector.solutions.ontology.UnknownTerm[]" />          
+        </create>
+     </mdUtil>
+      
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.ontology.TermSynonym.createTermSynonym" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.util.Facade.checkTermSynonyms" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.ExcelImportManager.getUnknownTerms" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.ExcelImportManager.serializedUnknownTerm" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.UnknownTermProblem.termAttribute" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.ontology.UnknownTerm.browserClass" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.ontology.UnknownTerm.browserAttribute" type="com.runwaysdk.system.metadata.MdAttribute"/>
+    </delete>
+  </undoIt>
+</version>

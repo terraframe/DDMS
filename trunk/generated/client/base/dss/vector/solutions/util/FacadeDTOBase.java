@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1247513827)
+@com.runwaysdk.business.ClassSignature(hash = 1073983665)
 public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.Facade";
-  private static final long serialVersionUID = -1247513827;
+  private static final long serialVersionUID = 1073983665;
   
   protected FacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -391,6 +391,14 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     Object[] _parameters = new Object[]{inputStream, type};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "checkSynonyms", _declaredTypes);
     return (dss.vector.solutions.geo.UnknownGeoEntityDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.UnknownTermDTO[] checkTermSynonyms(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream inputStream, java.lang.String type)
+  {
+    String[] _declaredTypes = new String[]{"java.io.InputStream", "java.lang.String"};
+    Object[] _parameters = new Object[]{inputStream, type};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "checkTermSynonyms", _declaredTypes);
+    return (dss.vector.solutions.ontology.UnknownTermDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.io.InputStream exportAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequest)

@@ -7,6 +7,9 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspTag;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -15,6 +18,7 @@ import com.runwaysdk.controller.tag.InputTagSupport;
 import com.runwaysdk.controller.tag.develop.AttributeAnnotation;
 import com.runwaysdk.controller.tag.develop.TLDGenerator;
 import com.runwaysdk.controller.tag.develop.TagAnnotation;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.localization.LocalizedTagSupport;
@@ -132,24 +136,36 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
       ClientRequestIF request = clientSession.getRequest();
       BrowserRootViewDTO[] roots = BrowserRootDTO.getAttributeRoots(request, _browserClass, _browserAttribute);
 
-      out.write("<script type=\"text/javascript\">\n");
-      out.write("(function(){\n");
-      out.write("  YAHOO.util.Event.onDOMReady(function(){\n");
-      out.write("    var browser = new MDSS.GenericOntologyBrowser('" + _browserClass + "', [{attributeName:'" + _browserAttribute + "', enabled:" + _enabled + "}]);\n");
-
-      for (BrowserRootViewDTO root : roots)
+      try
       {
-        out.write("    browser.addRoot(['" + root.getTermId() + "','" + root.getSelectable() + "']);\n");
-      }
-      
-      if(this.getListener() != null)
-      {
-        out.write("    browser.addTermSelectedListener(" + this.getListener() + ");\n");        
-      }
+        JSONObject object = new JSONObject();
+        object.put("attributeName", _browserAttribute);
+        object.put("enabled", _enabled);
+        object.put("inputId", _id);
 
-      out.write("  })\n");
-      out.write("})();\n");
-      out.write("</script>\n");
+        out.write("<script type=\"text/javascript\">\n");
+        out.write("(function(){\n");
+        out.write("  YAHOO.util.Event.onDOMReady(function(){\n");
+        out.write("    var browser = new MDSS.GenericOntologyBrowser('" + _browserClass + "', [" + object.toString() + "]);\n");
+
+        for (BrowserRootViewDTO root : roots)
+        {
+          out.write("    browser.addRoot(['" + root.getTermId() + "','" + root.getSelectable() + "']);\n");
+        }
+
+        if (this.getListener() != null)
+        {
+          out.write("    browser.addTermSelectedListener(" + this.getListener() + ");\n");
+        }
+
+        out.write("  })\n");
+        out.write("})();\n");
+        out.write("</script>\n");
+      }
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
     }
   }
 

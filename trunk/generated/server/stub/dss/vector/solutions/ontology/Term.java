@@ -1257,6 +1257,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       UnknownTermProblem e = new UnknownTermProblem(msg);
       e.setTermName(displayLabel);
       e.setAttributeLabel(attributeLabel);
+      e.setTermAttribute(MdAttribute.get(mdAttribute.getId()));
       e.throwIt();
     }
 

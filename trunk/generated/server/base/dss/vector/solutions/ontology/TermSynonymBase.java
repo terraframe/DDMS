@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 418555686)
+@com.runwaysdk.business.ClassSignature(hash = 1843849614)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class TermSynonymBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERMNAME = "termName";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 418555686;
+  private static final long serialVersionUID = 1843849614;
   
   public TermSynonymBase()
   {
@@ -398,6 +398,12 @@ public abstract class TermSynonymBase extends com.runwaysdk.business.Business im
   }
   
   public static void createSynonym(java.lang.String termName, java.lang.String termId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermSynonym.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void createTermSynonym(java.lang.String termName, java.lang.String id)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.TermSynonym.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
