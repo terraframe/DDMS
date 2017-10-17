@@ -1249,7 +1249,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     Term term = findByDisplayLabel(displayLabel, mdAttribute);
 
-    if (term == null)
+    if (term == null && displayLabel != null && displayLabel.length() > 0)
     {
       String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
       String msg = "Unknown " + attributeLabel + " with the given name [" + displayLabel + "]";
