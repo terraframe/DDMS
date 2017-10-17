@@ -1038,7 +1038,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
       
-      dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents(request, geoEntId);
+      dss.vector.solutions.geo.generated.GeoEntityController.fetchAllParents(request, geoEntId, this._rootId);
     },
     
     _expandComplete : function(node){

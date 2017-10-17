@@ -9,6 +9,7 @@ import com.runwaysdk.transport.conversion.json.BusinessDTOToJSON;
 import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.geo.GeoEntityViewDTO;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.util.ErrorUtility;
@@ -45,7 +46,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
   }
   
   @Override
-  public void fetchAllParents(String id) throws java.io.IOException, javax.servlet.ServletException
+  public void fetchAllParents(String id, String rootId) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
@@ -53,9 +54,23 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       
       GeoEntityViewDTO[] ancestors = GeoEntityDTO.getAncestors(getClientRequest(), id); // These ancestors are ordered by depth.
       
+      // We don't want to include GeoEntities above the system root otherwise the geopicker gets confused
+      if (rootId == null)
+      {
+        DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
+        rootId = defaultGeoEntity.getGeoEntity().getId();
+      }
+      boolean foundRoot = false;
+      
       for (int i = 0; i < ancestors.length; ++i)
       {
         GeoEntityViewDTO ancestor = ancestors[i];
+        
+        if (ancestor.getGeoEntityId().equals(rootId))
+        {
+          foundRoot = true;
+        }
+        if (!foundRoot) { continue; }
         
         JSONObject ancestorJSON = new JSONObject();
 //        ancestorJSON.put("view", BusinessDTOToJSON.getConverter(ancestor).populate());
