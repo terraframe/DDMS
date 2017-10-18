@@ -2,6 +2,7 @@ package com.runwaysdk.tomcat;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -38,6 +39,8 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
 
   protected int                                   rmiRegistryPortPlatform;
 
+  protected int                                   rmiCommunctionPortPlatform;
+
   protected boolean                               useSSL;
 
   protected String[]                              ciphers;
@@ -61,11 +64,14 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
 
   public RemoteLifecycleListenerServer() throws RemoteException
   {
-    this.rmiRegistryPortPlatform = -1;
+    // Default port configurations
+    this.rmiRegistryPortPlatform = 18234;
+    this.rmiCommunctionPortPlatform = 18235;
+
     this.useSSL = true;
     this.clientAuth = true;
     this.useLocalPorts = true;
-    
+
     this.ciphers = null;
     this.protocols = null;
 
@@ -104,6 +110,27 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
   public void setRmiRegistryPortPlatform(int theRmiRegistryPortPlatform)
   {
     rmiRegistryPortPlatform = theRmiRegistryPortPlatform;
+  }
+
+  /**
+   * Get the port on which the Platform RMI registry is exported.
+   * 
+   * @returns The port number
+   */
+  public int getRmiCommunctionPortPlatform()
+  {
+    return rmiCommunctionPortPlatform;
+  }
+
+  /**
+   * Set the port on which the Platform RMI registry is exported.
+   * 
+   * @param theRmiRegistryPortPlatform
+   *          The port number
+   */
+  public void setRmiCommunctionPortPlatform(int theRmiCommunctionPortPlatform)
+  {
+    rmiCommunctionPortPlatform = theRmiCommunctionPortPlatform;
   }
 
   /**
@@ -167,23 +194,25 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
 
   private void init()
   {
-//    String protocolsValue = System.getProperty("javax.rmi.ssl.client.enabledProtocols");
-//    String ciphersValue = System.getProperty("javax.rmi.ssl.client.enabledCipherSuites");
+    // String protocolsValue =
+    // System.getProperty("javax.rmi.ssl.client.enabledProtocols");
+    // String ciphersValue =
+    // System.getProperty("javax.rmi.ssl.client.enabledCipherSuites");
 
     // Get all the other parameters required from the standard system
     // properties. Only need to get the parameters that affect the creation
     // of the server port.
 
-//    if (protocolsValue != null)
-//    {
-//      protocols = protocolsValue.split(",");
-//    }
+    // if (protocolsValue != null)
+    // {
+    // protocols = protocolsValue.split(",");
+    // }
 
-//    if (ciphersValue != null)
-//    {
-//      ciphers = ciphersValue.split(",");
-//    }
-    
+    // if (ciphersValue != null)
+    // {
+    // ciphers = ciphersValue.split(",");
+    // }
+
     log.info("Setup RMI Socket(" + useSSL + ", " + String.valueOf(protocols) + ", " + String.valueOf(ciphers) + ", " + clientAuth + ")");
   }
 
@@ -210,8 +239,28 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
       {
         log.info("Using trust/keystore(" + System.getProperty("javax.net.ssl.trustStore") + ", " + System.getProperty("javax.net.ssl.keyStore"));
 
-        csf = new SslRMIClientSocketFactory();
-        ssf = new SslRMIServerSocketFactory(ciphers, protocols, clientAuth);
+        csf = new SslRMIClientSocketFactory()
+        {
+          /**
+           * 
+           */
+          private static final long serialVersionUID = -7791454104764208653L;
+
+          @Override
+          public Socket createSocket(String host, int port) throws IOException
+          {
+            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunctionPortPlatform());
+          }
+        };
+
+        ssf = new SslRMIServerSocketFactory(ciphers, protocols, clientAuth)
+        {
+          @Override
+          public ServerSocket createServerSocket(int port) throws IOException
+          {
+            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunctionPortPlatform());
+          }
+        };
       }
 
       // Force the use of local ports if required
@@ -274,8 +323,8 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
     this.listeners.clear();
 
     this.destroyServer(registry);
-    
-    if(this.isExitOnShutdown())
+
+    if (this.isExitOnShutdown())
     {
       System.exit(0);
     }
