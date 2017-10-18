@@ -39,7 +39,7 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
 
   protected int                                   rmiRegistryPortPlatform;
 
-  protected int                                   rmiCommunctionPortPlatform;
+  protected int                                   rmiCommunicationPortPlatform;
 
   protected boolean                               useSSL;
 
@@ -66,7 +66,7 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
   {
     // Default port configurations
     this.rmiRegistryPortPlatform = 18234;
-    this.rmiCommunctionPortPlatform = 18235;
+    this.rmiCommunicationPortPlatform = 18235;
 
     this.useSSL = true;
     this.clientAuth = true;
@@ -117,9 +117,9 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
    * 
    * @returns The port number
    */
-  public int getRmiCommunctionPortPlatform()
+  public int getRmiCommunicationPortPlatform()
   {
-    return rmiCommunctionPortPlatform;
+    return rmiCommunicationPortPlatform;
   }
 
   /**
@@ -128,9 +128,9 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
    * @param theRmiRegistryPortPlatform
    *          The port number
    */
-  public void setRmiCommunctionPortPlatform(int theRmiCommunctionPortPlatform)
+  public void setRmiCommunicationPortPlatform(int theRmiCommunicationPortPlatform)
   {
-    rmiCommunctionPortPlatform = theRmiCommunctionPortPlatform;
+    rmiCommunicationPortPlatform = theRmiCommunicationPortPlatform;
   }
 
   /**
@@ -249,7 +249,7 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
           @Override
           public Socket createSocket(String host, int port) throws IOException
           {
-            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunctionPortPlatform());
+            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
           }
         };
 
@@ -258,7 +258,7 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
           @Override
           public ServerSocket createServerSocket(int port) throws IOException
           {
-            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunctionPortPlatform());
+            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
           }
         };
       }
