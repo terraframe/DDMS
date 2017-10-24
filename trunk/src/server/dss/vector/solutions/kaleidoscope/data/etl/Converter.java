@@ -139,9 +139,6 @@ public class Converter implements ConverterIF, Reloadable
               throw new InvalidExpressionSyntaxException(devMessage, mdAttributePrimitiveDAOIF, e);
             }
 
-            OgnlContext ognlContext = new OgnlContext();
-            ognlContext.put("age", businessDAO.getObjectValue("age"));
-
             Object expressionValue;
 
             try
@@ -155,7 +152,7 @@ public class Converter implements ConverterIF, Reloadable
               // reflection method definitions which cause
               // problems when classes are reloaded.
               OgnlClassResolver.clearOgnlRuntimeMethodCache();
-              expressionValue = Ognl.getValue(expression, ognlContext, business);
+              expressionValue = Ognl.getValue(expression, new OgnlContext(), business);
             }
             catch (RuntimeException e)
             {
