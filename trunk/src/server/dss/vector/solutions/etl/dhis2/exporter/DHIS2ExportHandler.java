@@ -1223,8 +1223,8 @@ public class DHIS2ExportHandler implements Reloadable
               indy.put("numeratorDescription", leftOp.getLocalizedLabel());
               indy.put("denominatorDescription", rightOp.getLocalizedLabel());
               
-              indy.put("numerator", DHIS2Util.getDhis2IdFromRunwayId(MdAttribute.get(leftOp.getMdAttributePrimitive().getId()), valueQuery));
-              indy.put("denominator", DHIS2Util.getDhis2IdFromRunwayId(MdAttribute.get(rightOp.getMdAttributePrimitive().getId()), valueQuery));
+              indy.put("numerator", "#{" + DHIS2Util.getDhis2IdFromRunwayId(MdAttribute.get(leftOp.getMdAttributePrimitive().getId()), valueQuery) + "}");
+              indy.put("denominator", "#{" + DHIS2Util.getDhis2IdFromRunwayId(MdAttribute.get(rightOp.getMdAttributePrimitive().getId()), valueQuery) + "}");
               
               if (composite.isPercentage())
               {
