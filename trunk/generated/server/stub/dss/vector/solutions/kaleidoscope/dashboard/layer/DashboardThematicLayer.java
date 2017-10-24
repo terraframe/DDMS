@@ -224,7 +224,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
     {
       return "date";
     }
-    else if (mdAttributeConcrete instanceof MdAttributeNumberDAOIF)
+    else if (mdAttributeConcrete instanceof MdAttributeNumberDAOIF || mdAttributeConcrete instanceof MdAttributeIndicatorDAOIF)
     {
       return "number";
     }
