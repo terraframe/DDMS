@@ -1217,6 +1217,8 @@ public class DHIS2ExportHandler implements Reloadable
               
               MetadataElement indy = new MetadataElement();
               
+              indy.setId(DHIS2Util.queryAndMapIds(mdAttr, idCache, valueQuery));
+              
               indy.setName(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
               indy.setShortName(mdAttr.getDisplayLabel().getValue(Locale.ROOT));
               
