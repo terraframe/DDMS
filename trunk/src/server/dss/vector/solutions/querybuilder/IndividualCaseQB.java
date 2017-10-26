@@ -391,11 +391,11 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       diagnosisAliases.put(cachedPercentPositive, percentPositive);
     }
 
-    String idCol = QueryUtil.getIdColumn();
-    String caseAlias = caseQuery.getTableAlias();
-    String posSum = this.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(posCases));
-    String negSum = this.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(negCases));
-    String clinSum = this.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(clinCases));
+//    String idCol = QueryUtil.getIdColumn();
+//    String caseAlias = caseQuery.getTableAlias();
+    String posSum = "sum(" + diagnosisAliases.get(posCases) + ")";
+    String negSum = "sum(" + diagnosisAliases.get(negCases) + ")";
+    String clinSum = "sum(" + diagnosisAliases.get(clinCases) + ")";
     String percentPositive = diagnosisAliases.get(cachedPercentPositive);
 
     // adjusted case count
