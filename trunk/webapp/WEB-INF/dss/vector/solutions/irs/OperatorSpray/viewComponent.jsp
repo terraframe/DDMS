@@ -185,6 +185,152 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
             return undefined;
         }
     }
+	  
+	  var lteStructures = function(sNewValue, sOldValue, oDataTable)
+	  {
+		  if (sNewValue === "") { return ""; }
+	    
+	    var nStructs = Number.parseInt(oDataTable.getRecord().getData().Structures);
+	    var nNewValue = Number.parseInt(sNewValue);
+	    
+	    if (Number.isNaN(nStructs) || Number.isNaN(nNewValue))
+    	{
+	    	alert("LOCALIZE ME : A value is undefined");
+    	  return undefined;
+    	}
+	    else if (!(nNewValue <= nStructs))
+	    {
+	    	alert("LOCALIZE ME : Not lte structures");
+	    	return undefined;
+	    }
+	    
+	    return sNewValue;
+	  }
+	  
+	  var ltePeopleProtected = function(sNewValue, sOldValue, oDataTable)
+	  {
+		  if (sNewValue === "") { return ""; }
+		  
+		  var nPeopleProtected = Number.parseInt(oDataTable.getRecord().getData().People);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nPeopleProtected) || Number.isNaN(nNewValue))
+      {
+        alert("LOCALIZE ME : A value is undefined");
+        return undefined;
+      }
+      else if (!(nNewValue <= nPeopleProtected))
+      {
+        alert("LOCALIZE ME : Not lte nPeopleProtected");
+        return undefined;
+      }
+      
+      return sNewValue;
+	  }
+	  
+	  var lteFemalesProtected = function(sNewValue, sOldValue, oDataTable)
+    {
+		  if (sNewValue === "") { return ""; }
+      
+      var nFemalesProtected = Number.parseInt(oDataTable.getRecord().getData().NumberFemalesProtected);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nFemalesProtected) || Number.isNaN(nNewValue))
+      {
+        alert("LOCALIZE ME : A value is undefined");
+        return undefined;
+      }
+      else if (!(nNewValue <= nFemalesProtected))
+      {
+        alert("LOCALIZE ME : Not lte nFemalesProtected");
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
+	  
+	  var lteRooms = function(sNewValue, sOldValue, oDataTable)
+    {
+		  if (sNewValue === "") { return ""; }
+      
+      var nRooms = Number.parseInt(oDataTable.getRecord().getData().Rooms);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nRooms) || Number.isNaN(nNewValue))
+      {
+        alert("LOCALIZE ME : A value is undefined");
+        return undefined;
+      }
+      else if (!(nNewValue <= nRooms))
+      {
+        alert("LOCALIZE ME : Not lte nRooms");
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
+	  
+	  var lteItns = function(sNewValue, sOldValue, oDataTable)
+    {
+		  if (sNewValue === "") { return ""; }
+      
+      var nItns = Number.parseInt(oDataTable.getRecord().getData().BedNets);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nItns) || Number.isNaN(nNewValue))
+      {
+        alert("LOCALIZE ME : A value is undefined");
+        return undefined;
+      }
+      else if (!(nNewValue <= nItns))
+      {
+        alert("LOCALIZE ME : Not lte nItns");
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
+	  
+	  var gteZero = function(sNewValue, sOldValue, oDataTable)
+    {
+		  if (sNewValue === "") { return ""; }
+      
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nNewValue))
+      {
+        alert("LOCALIZE ME : A value is undefined");
+        return undefined;
+      }
+      else if (!(nNewValue >= 0))
+      {
+        alert("LOCALIZE ME : Must be gte 0");
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
+	  
+	  var ltePeopleSleepingUnderItns = function(sNewValue, sOldValue, oDataTable)
+    {
+		  if (sNewValue === "") { return ""; }
+      
+      var nPeopleSleepingUnderItns = Number.parseInt(oDataTable.getRecord().getData().NumberPeopleSleepingUnderItns);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nPeopleSleepingUnderItns) || Number.isNaN(nNewValue))
+      {
+        alert("LOCALIZE ME : A value is undefined");
+        return undefined;
+      }
+      else if (!(nNewValue <= nPeopleSleepingUnderItns))
+      {
+        alert("LOCALIZE ME : Not lte nPeopleSleepingUnderItns");
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
 
     var beforeRowHandler = function() {
       addRows = true;

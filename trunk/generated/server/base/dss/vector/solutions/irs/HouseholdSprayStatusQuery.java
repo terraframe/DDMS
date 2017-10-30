@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -2022917462)
+@com.runwaysdk.business.ClassSignature(hash = 997741380)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -328,27 +328,112 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY);
 
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY);
 
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected()
+  {
+    return getNumberChildrenUnderFiveProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns()
+  {
+    return getNumberChildrenUnderFiveSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected()
+  {
+    return getNumberFemalesProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERFEMALESPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERFEMALESPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse()
+  {
+    return getNumberItnsInUse(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERITNSINUSE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERITNSINUSE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected()
+  {
+    return getNumberMalesProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERMALESPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERMALESPROTECTED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
@@ -366,6 +451,74 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns()
+  {
+    return getNumberPeopleSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected()
+  {
+    return getNumberPregnantWomenProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns()
+  {
+    return getNumberPregnantWomenSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick()
+  {
+    return getNumberRoomsNotSprayedSick(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOther()
@@ -698,6 +851,108 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral()
+  {
+    return getStructuresNotSprayedFuneral(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked()
+  {
+    return getStructuresNotSprayedLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome()
+  {
+    return getStructuresNotSprayedNoOneHome(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther()
+  {
+    return getStructuresNotSprayedOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused()
+  {
+    return getStructuresNotSprayedRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick()
+  {
+    return getStructuresNotSprayedSick(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -835,7 +1090,7 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.OWNER)) 
     {
@@ -940,12 +1195,39 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getLocked();
     public com.runwaysdk.query.SelectableInteger getLocked(String alias);
     public com.runwaysdk.query.SelectableInteger getLocked(String alias, String displayLabel);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns();
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberItnsInUse();
+    public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberMalesProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberOfPeople();
     public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns();
+    public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns();
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick();
+    public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOther();
     public com.runwaysdk.query.SelectableInteger getOther(String alias);
     public com.runwaysdk.query.SelectableInteger getOther(String alias, String displayLabel);
@@ -1000,6 +1282,24 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getStructures();
     public com.runwaysdk.query.SelectableInteger getStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getStructures(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1328,21 +1628,106 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected()
+  {
+    return getNumberChildrenUnderFiveProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns()
+  {
+    return getNumberChildrenUnderFiveSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected()
+  {
+    return getNumberFemalesProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERFEMALESPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERFEMALESPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse()
+  {
+    return getNumberItnsInUse(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERITNSINUSE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERITNSINUSE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected()
+  {
+    return getNumberMalesProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERMALESPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERMALESPROTECTED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
@@ -1360,6 +1745,74 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns()
+  {
+    return getNumberPeopleSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected()
+  {
+    return getNumberPregnantWomenProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns()
+  {
+    return getNumberPregnantWomenSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick()
+  {
+    return getNumberRoomsNotSprayedSick(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOther()
@@ -1668,6 +2121,108 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral()
+  {
+    return getStructuresNotSprayedFuneral(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked()
+  {
+    return getStructuresNotSprayedLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome()
+  {
+    return getStructuresNotSprayedNoOneHome(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther()
+  {
+    return getStructuresNotSprayedOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused()
+  {
+    return getStructuresNotSprayedRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick()
+  {
+    return getStructuresNotSprayedSick(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -1805,7 +2360,7 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.OWNER)) 
     {
@@ -1887,12 +2442,39 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getLocked();
     public com.runwaysdk.query.SelectableInteger getLocked(String alias);
     public com.runwaysdk.query.SelectableInteger getLocked(String alias, String displayLabel);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns();
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberItnsInUse();
+    public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberMalesProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberOfPeople();
     public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns();
+    public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected();
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns();
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick();
+    public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getOther();
     public com.runwaysdk.query.SelectableInteger getOther(String alias);
     public com.runwaysdk.query.SelectableInteger getOther(String alias, String displayLabel);
@@ -1947,6 +2529,24 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     public com.runwaysdk.query.SelectableInteger getStructures();
     public com.runwaysdk.query.SelectableInteger getStructures(String alias);
     public com.runwaysdk.query.SelectableInteger getStructures(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick();
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias);
+    public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -2324,21 +2924,106 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKED, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected()
+  {
+    return getNumberChildrenUnderFiveProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns()
+  {
+    return getNumberChildrenUnderFiveSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberChildrenUnderFiveSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected()
+  {
+    return getNumberFemalesProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERFEMALESPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberFemalesProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERFEMALESPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse()
+  {
+    return getNumberItnsInUse(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERITNSINUSE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberItnsInUse(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERITNSINUSE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected()
+  {
+    return getNumberMalesProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERMALESPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberMalesProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERMALESPROTECTED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getNumberOfPeople()
@@ -2356,6 +3041,74 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
   public com.runwaysdk.query.SelectableInteger getNumberOfPeople(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBEROFPEOPLE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns()
+  {
+    return getNumberPeopleSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPeopleSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected()
+  {
+    return getNumberPregnantWomenProtected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenProtected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns()
+  {
+    return getNumberPregnantWomenSleepingUnderItns(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberPregnantWomenSleepingUnderItns(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick()
+  {
+    return getNumberRoomsNotSprayedSick(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRoomsNotSprayedSick(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getOther()
@@ -2664,6 +3417,108 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURES, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral()
+  {
+    return getStructuresNotSprayedFuneral(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedFuneral(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked()
+  {
+    return getStructuresNotSprayedLocked(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedLocked(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome()
+  {
+    return getStructuresNotSprayedNoOneHome(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedNoOneHome(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther()
+  {
+    return getStructuresNotSprayedOther(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedOther(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused()
+  {
+    return getStructuresNotSprayedRefused(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedRefused(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick()
+  {
+    return getStructuresNotSprayedSick(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getStructuresNotSprayedSick(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -2801,7 +3656,7 @@ public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBus
     }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.irs.HouseholdSprayStatus.OWNER)) 
     {

@@ -1,0 +1,322 @@
+<version xsi:noNamespaceSchemaLocation="/home/rick/Documents/eclipse/workspace/MDSS/profiles/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.irs.HouseholdSprayStatus">
+        <create>
+          <attributes>
+            <integer name="structuresNotSprayedSick" label="# Structures not sprayed - Sick" rejectNegative="true" />
+            <integer name="structuresNotSprayedLocked" label="# Structures not sprayed - Locked" rejectNegative="true" />
+            <integer name="structuresNotSprayedFuneral" label="# Structures not sprayed - Funeral" rejectNegative="true" />
+            <integer name="structuresNotSprayedRefused" label="# Structures not sprayed - Refused" rejectNegative="true" />
+            <integer name="structuresNotSprayedNoOneHome" label="# Structures not sprayed - No-one home" rejectNegative="true" />
+            <integer name="structuresNotSprayedOther" label="# Structures not sprayed - Other" rejectNegative="true" />
+            <integer name="numberMalesProtected" label="# Males protected" rejectNegative="true" />
+            <integer name="numberFemalesProtected" label="# Females protected" rejectNegative="true" />
+            <integer name="numberPregnantWomenProtected" label="# Pregnant women protected" rejectNegative="true" />
+            <integer name="numberChildrenUnderFiveProtected" label="# Children under 5 protected" rejectNegative="true" />
+            <integer name="numberRoomsNotSprayedSick" label="# Rooms not sprayed - Sick" rejectNegative="true" />
+            <integer name="numberItnsInUse" label="# ITNs in use" rejectNegative="true" />
+            <integer name="numberPeopleSleepingUnderItns" label="# People sleeping under ITNs" rejectNegative="true" />
+            <integer name="numberPregnantWomenSleepingUnderItns" label="# Pregnant women sleeping under ITNs" rejectNegative="true" />
+            <integer name="numberChildrenUnderFiveSleepingUnderItns" label="# Children under 5 sleeping under ITNs" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.irs.OperatorSprayStatus">
+        <create>
+          <attributes>
+            <integer name="structuresNotSprayedSick" label="# Structures not sprayed - Sick" rejectNegative="true" />
+            <integer name="structuresNotSprayedLocked" label="# Structures not sprayed - Locked" rejectNegative="true" />
+            <integer name="structuresNotSprayedFuneral" label="# Structures not sprayed - Funeral" rejectNegative="true" />
+            <integer name="structuresNotSprayedRefused" label="# Structures not sprayed - Refused" rejectNegative="true" />
+            <integer name="structuresNotSprayedNoOneHome" label="# Structures not sprayed - No-one home" rejectNegative="true" />
+            <integer name="structuresNotSprayedOther" label="# Structures not sprayed - Other" rejectNegative="true" />
+            <integer name="numberMalesProtected" label="# Males protected" rejectNegative="true" />
+            <integer name="numberFemalesProtected" label="# Females protected" rejectNegative="true" />
+            <integer name="numberPregnantWomenProtected" label="# Pregnant women protected" rejectNegative="true" />
+            <integer name="numberChildrenUnderFiveProtected" label="# Children under 5 protected" rejectNegative="true" />
+            <integer name="numberRoomsNotSprayedSick" label="# Rooms not sprayed - Sick" rejectNegative="true" />
+            <integer name="numberItnsInUse" label="# ITNs in use" rejectNegative="true" />
+            <integer name="numberPeopleSleepingUnderItns" label="# People sleeping under ITNs" rejectNegative="true" />
+            <integer name="numberPregnantWomenSleepingUnderItns" label="# Pregnant women sleeping under ITNs" rejectNegative="true" />
+            <integer name="numberChildrenUnderFiveSleepingUnderItns" label="# Children under 5 sleeping under ITNs" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.irs.TeamSprayStatus">
+        <create>
+          <attributes>
+            <integer name="structuresNotSprayedSick" label="# Structures not sprayed - Sick" rejectNegative="true" />
+            <integer name="structuresNotSprayedLocked" label="# Structures not sprayed - Locked" rejectNegative="true" />
+            <integer name="structuresNotSprayedFuneral" label="# Structures not sprayed - Funeral" rejectNegative="true" />
+            <integer name="structuresNotSprayedRefused" label="# Structures not sprayed - Refused" rejectNegative="true" />
+            <integer name="structuresNotSprayedNoOneHome" label="# Structures not sprayed - No-one home" rejectNegative="true" />
+            <integer name="structuresNotSprayedOther" label="# Structures not sprayed - Other" rejectNegative="true" />
+            <integer name="numberMalesProtected" label="# Males protected" rejectNegative="true" />
+            <integer name="numberFemalesProtected" label="# Females protected" rejectNegative="true" />
+            <integer name="numberPregnantWomenProtected" label="# Pregnant women protected" rejectNegative="true" />
+            <integer name="numberChildrenUnderFiveProtected" label="# Children under 5 protected" rejectNegative="true" />
+            <integer name="numberRoomsNotSprayedSick" label="# Rooms not sprayed - Sick" rejectNegative="true" />
+            <integer name="numberItnsInUse" label="# ITNs in use" rejectNegative="true" />
+            <integer name="numberPeopleSleepingUnderItns" label="# People sleeping under ITNs" rejectNegative="true" />
+            <integer name="numberPregnantWomenSleepingUnderItns" label="# Pregnant women sleeping under ITNs" rejectNegative="true" />
+            <integer name="numberChildrenUnderFiveSleepingUnderItns" label="# Children under 5 sleeping under ITNs" rejectNegative="true" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.irs.HouseholdSprayStatusView">
+        <create>
+          <attributes>
+            <virtual concrete="structuresNotSprayedSick" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedLocked" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedFuneral" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedRefused" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedNoOneHome" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedOther" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberMalesProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberFemalesProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberPregnantWomenProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberRoomsNotSprayedSick" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberItnsInUse" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberPeopleSleepingUnderItns" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberPregnantWomenSleepingUnderItns" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveSleepingUnderItns" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.irs.OperatorSprayStatusView">
+        <create>
+          <attributes>
+            <virtual concrete="structuresNotSprayedSick" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedLocked" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedFuneral" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedRefused" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedNoOneHome" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedOther" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberMalesProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberFemalesProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberPregnantWomenProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberRoomsNotSprayedSick" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberItnsInUse" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberPeopleSleepingUnderItns" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberPregnantWomenSleepingUnderItns" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveSleepingUnderItns" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.irs.TeamSprayStatusView">
+        <create>
+          <attributes>
+            <virtual concrete="structuresNotSprayedSick" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedLocked" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedFuneral" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedRefused" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedNoOneHome" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedOther" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberMalesProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberFemalesProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberPregnantWomenProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberRoomsNotSprayedSick" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberItnsInUse" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberPeopleSleepingUnderItns" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberPregnantWomenSleepingUnderItns" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveSleepingUnderItns" type="dss.vector.solutions.irs.TeamSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.OperatorSprayExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="structuresNotSprayedSick" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedLocked" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedFuneral" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedRefused" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedNoOneHome" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="structuresNotSprayedOther" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberMalesProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberFemalesProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberPregnantWomenProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveProtected" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberRoomsNotSprayedSick" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberItnsInUse" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberPeopleSleepingUnderItns" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberPregnantWomenSleepingUnderItns" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveSleepingUnderItns" type="dss.vector.solutions.irs.HouseholdSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.TeamSprayExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="structuresNotSprayedSick" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedLocked" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedFuneral" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedRefused" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedNoOneHome" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="structuresNotSprayedOther" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberMalesProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberFemalesProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberPregnantWomenProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveProtected" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberRoomsNotSprayedSick" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberItnsInUse" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberPeopleSleepingUnderItns" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberPregnantWomenSleepingUnderItns" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveSleepingUnderItns" type="dss.vector.solutions.irs.OperatorSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.ZoneSprayExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="structuresNotSprayedSick" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedLocked" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedFuneral" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedRefused" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedNoOneHome" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="structuresNotSprayedOther" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberMalesProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberFemalesProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberPregnantWomenProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveProtected" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberRoomsNotSprayedSick" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberItnsInUse" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberPeopleSleepingUnderItns" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberPregnantWomenSleepingUnderItns" type="dss.vector.solutions.irs.TeamSprayStatus" />
+            <virtual concrete="numberChildrenUnderFiveSleepingUnderItns" type="dss.vector.solutions.irs.TeamSprayStatus" />
+          </attributes>
+        </create>
+      </mdView>
+      
+      <!-- Just label changes -->
+      <mdBusiness name="dss.vector.solutions.irs.HouseholdSprayStatus">
+	      <attributes>
+	        <reference name="reasonNotSprayed" label="Reason room not sprayed" />
+	        <integer name="locked" label="# Rooms not sprayed - locked" />
+	        <integer name="refused" label="# Rooms not sprayed - refused" />
+	        <integer name="other" label="# Rooms not sprayed - other" />
+	        <integer name="wrongSurface" label="# Rooms not sprayed - wrong surface" />
+	      </attributes>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.irs.OperatorSprayStatus">
+        <attributes>
+          <integer name="locked" label="# Rooms not sprayed - locked" />
+          <integer name="refused" label="# Rooms not sprayed - refused" />
+          <integer name="other" label="# Rooms not sprayed - other" />
+          <integer name="wrongSurface" label="# Rooms not sprayed - wrong surface" />
+        </attributes>
+      </mdBusiness>
+      <mdBusiness name="dss.vector.solutions.irs.TeamSprayStatus">
+        <attributes>
+          <integer name="locked" label="# Rooms not sprayed - locked" />
+          <integer name="refused" label="# Rooms not sprayed - refused" />
+          <integer name="other" label="# Rooms not sprayed - other" />
+          <integer name="wrongSurface" label="# Rooms not sprayed - wrong surface" />
+        </attributes>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.structuresNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.structuresNotSprayedLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.structuresNotSprayedFuneral" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.structuresNotSprayedRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.structuresNotSprayedNoOneHome" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.structuresNotSprayedOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberMalesProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberFemalesProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberPregnantWomenProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberChildrenUnderFiveProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberRoomsNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberItnsInUse" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberPeopleSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberPregnantWomenSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatus.numberChildrenUnderFiveSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.structuresNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.structuresNotSprayedLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.structuresNotSprayedFuneral" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.structuresNotSprayedRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.structuresNotSprayedNoOneHome" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.structuresNotSprayedOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberMalesProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberFemalesProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberPregnantWomenProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberChildrenUnderFiveProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberRoomsNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberItnsInUse" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberPeopleSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberPregnantWomenSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatus.numberChildrenUnderFiveSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.structuresNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.structuresNotSprayedLocked" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.structuresNotSprayedFuneral" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.structuresNotSprayedRefused" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.structuresNotSprayedNoOneHome" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.structuresNotSprayedOther" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberMalesProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberFemalesProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberPregnantWomenProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberChildrenUnderFiveProtected" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberRoomsNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberItnsInUse" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberPeopleSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberPregnantWomenSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatus.numberChildrenUnderFiveSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttribute" />
+      
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.structuresNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.structuresNotSprayedLocked" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.structuresNotSprayedFuneral" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.structuresNotSprayedRefused" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.structuresNotSprayedNoOneHome" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.structuresNotSprayedOther" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberMalesProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberFemalesProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberPregnantWomenProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberChildrenUnderFiveProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberRoomsNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberItnsInUse" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberPeopleSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberPregnantWomenSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.HouseholdSprayStatusView.numberChildrenUnderFiveSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.structuresNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.structuresNotSprayedLocked" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.structuresNotSprayedFuneral" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.structuresNotSprayedRefused" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.structuresNotSprayedNoOneHome" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.structuresNotSprayedOther" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberMalesProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberFemalesProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberPregnantWomenProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberChildrenUnderFiveProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberRoomsNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberItnsInUse" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberPeopleSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberPregnantWomenSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.OperatorSprayStatusView.numberChildrenUnderFiveSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.structuresNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.structuresNotSprayedLocked" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.structuresNotSprayedFuneral" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.structuresNotSprayedRefused" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.structuresNotSprayedNoOneHome" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.structuresNotSprayedOther" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberMalesProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberFemalesProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberPregnantWomenProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberChildrenUnderFiveProtected" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberRoomsNotSprayedSick" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberItnsInUse" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberPeopleSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberPregnantWomenSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.irs.TeamSprayStatusView.numberChildrenUnderFiveSleepingUnderItns" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+    </delete>
+  </undoIt>
+</version>

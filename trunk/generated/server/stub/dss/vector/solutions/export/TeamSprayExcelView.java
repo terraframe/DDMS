@@ -138,6 +138,24 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
       view.setWrongSurface(this.getWrongSurface());    
       view.setNozzlesUsed(this.getNozzlesUsed());
       view.setPumpsUsed(this.getPumpsUsed());
+      
+      // new as of 3792:
+      view.setStructuresNotSprayedSick(this.getStructuresNotSprayedSick());
+      view.setStructuresNotSprayedLocked(this.getStructuresNotSprayedLocked());
+      view.setStructuresNotSprayedFuneral(this.getStructuresNotSprayedFuneral());
+      view.setStructuresNotSprayedRefused(this.getStructuresNotSprayedRefused());
+      view.setStructuresNotSprayedNoOneHome(this.getStructuresNotSprayedNoOneHome());
+      view.setStructuresNotSprayedOther(this.getStructuresNotSprayedOther());
+      view.setNumberMalesProtected(this.getNumberMalesProtected());
+      view.setNumberFemalesProtected(this.getNumberFemalesProtected());
+      view.setNumberPregnantWomenProtected(this.getNumberPregnantWomenProtected());
+      view.setNumberChildrenUnderFiveProtected(this.getNumberChildrenUnderFiveProtected());
+      view.setNumberRoomsNotSprayedSick(this.getNumberRoomsNotSprayedSick());
+      view.setNumberItnsInUse(this.getNumberItnsInUse());
+      view.setNumberPeopleSleepingUnderItns(this.getNumberPeopleSleepingUnderItns());
+      view.setNumberPregnantWomenSleepingUnderItns(this.getNumberPregnantWomenSleepingUnderItns());
+      view.setNumberChildrenUnderFiveSleepingUnderItns(this.getNumberChildrenUnderFiveSleepingUnderItns());
+      
       view.apply();
     }
   }
@@ -145,6 +163,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    
     list.add(INSECTICIDETERM);
     list.add(SPRAYDATE);
     list.add(SPRAYMETHOD);
@@ -189,6 +208,23 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
     list.add(WRONGSURFACE);
     list.add(NOZZLESUSED);
     list.add(PUMPSUSED);
+    
+    // new as of 3792
+    list.add(STRUCTURESNOTSPRAYEDSICK);
+    list.add(STRUCTURESNOTSPRAYEDLOCKED);
+    list.add(STRUCTURESNOTSPRAYEDFUNERAL);
+    list.add(STRUCTURESNOTSPRAYEDREFUSED);
+    list.add(STRUCTURESNOTSPRAYEDNOONEHOME);
+    list.add(STRUCTURESNOTSPRAYEDOTHER);
+    list.add(NUMBERMALESPROTECTED);
+    list.add(NUMBERFEMALESPROTECTED);
+    list.add(NUMBERPREGNANTWOMENPROTECTED);
+    list.add(NUMBERCHILDRENUNDERFIVEPROTECTED);
+    list.add(NUMBERROOMSNOTSPRAYEDSICK);
+    list.add(NUMBERITNSINUSE);
+    list.add(NUMBERPEOPLESLEEPINGUNDERITNS);
+    list.add(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+    list.add(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
     
     return list;
   }

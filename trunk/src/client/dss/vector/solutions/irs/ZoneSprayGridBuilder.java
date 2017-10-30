@@ -60,6 +60,28 @@ public class ZoneSprayGridBuilder extends GridBuilder implements Reloadable
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.CATTLESHEDSOTHER, false);
       GridBuilder.setEditable(map, TeamSprayStatusViewDTO.WRONGSURFACE, false);
     }
+    else
+    {
+      // The validators here are javascript functions that should exist in:
+      // /MDSS/webapp/WEB-INF/dss/vector/solutions/irs/ZoneSpray/viewComponent.jsp
+      
+      // new as of 3792
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDSICK, "lteStructures");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDLOCKED, "lteStructures");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDFUNERAL, "lteStructures");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDREFUSED, "lteStructures");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDNOONEHOME, "lteStructures");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDOTHER, "lteStructures");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERMALESPROTECTED, "ltePeopleProtected");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERFEMALESPROTECTED, "ltePeopleProtected");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERPREGNANTWOMENPROTECTED, "lteFemalesProtected");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVEPROTECTED, "ltePeopleProtected");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERROOMSNOTSPRAYEDSICK, "lteRooms");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERITNSINUSE, "lteItns");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERPEOPLESLEEPINGUNDERITNS, "gteZero");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, "ltePeopleSleepingUnderItns");
+      GridBuilder.setValidator(map, TeamSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, "ltePeopleSleepingUnderItns");
+    }
 
     return new ViewDataGrid(view, map, keys, data);
   }
@@ -104,7 +126,24 @@ public class ZoneSprayGridBuilder extends GridBuilder implements Reloadable
         TeamSprayStatusViewDTO.CATTLESHEDSOTHER,
         TeamSprayStatusViewDTO.WRONGSURFACE,
         TeamSprayStatusViewDTO.NOZZLESUSED,
-        TeamSprayStatusViewDTO.PUMPSUSED
+        TeamSprayStatusViewDTO.PUMPSUSED,
+        
+        // new as of 3792
+        TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDSICK,
+        TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDLOCKED,
+        TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDFUNERAL,
+        TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDREFUSED,
+        TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDNOONEHOME,
+        TeamSprayStatusViewDTO.STRUCTURESNOTSPRAYEDOTHER,
+        TeamSprayStatusViewDTO.NUMBERMALESPROTECTED,
+        TeamSprayStatusViewDTO.NUMBERFEMALESPROTECTED,
+        TeamSprayStatusViewDTO.NUMBERPREGNANTWOMENPROTECTED,
+        TeamSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVEPROTECTED,
+        TeamSprayStatusViewDTO.NUMBERROOMSNOTSPRAYEDSICK,
+        TeamSprayStatusViewDTO.NUMBERITNSINUSE,
+        TeamSprayStatusViewDTO.NUMBERPEOPLESLEEPINGUNDERITNS,
+        TeamSprayStatusViewDTO.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS,
+        TeamSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS
      };
 
     upperFirstCharacter(keys);

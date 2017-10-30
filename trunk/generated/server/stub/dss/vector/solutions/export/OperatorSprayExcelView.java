@@ -22,6 +22,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.HouseholdSprayStatusQuery;
 import dss.vector.solutions.irs.HouseholdSprayStatusView;
+import dss.vector.solutions.irs.HouseholdSprayStatusViewDTO;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayView;
@@ -123,6 +124,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     if (this.hasHouseholdSprayValues())
     {
       HouseholdSprayStatusView view = this.getHouseholdSprayStatusView(osv);
+      
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());
@@ -151,13 +153,47 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setWrongSurface(this.getWrongSurface());
       view.setStructureType(Term.validateByDisplayLabel(this.getStructureType(), HouseholdSprayStatusView.getStructureTypeMd()));
       view.setReasonNotSprayed(Term.validateByDisplayLabel(this.getReasonNotSprayed(), HouseholdSprayStatusView.getReasonNotSprayedMd()));
+      
+      // new as of 3792:
+      view.setStructuresNotSprayedSick(this.getStructuresNotSprayedSick());
+      view.setStructuresNotSprayedLocked(this.getStructuresNotSprayedLocked());
+      view.setStructuresNotSprayedFuneral(this.getStructuresNotSprayedFuneral());
+      view.setStructuresNotSprayedRefused(this.getStructuresNotSprayedRefused());
+      view.setStructuresNotSprayedNoOneHome(this.getStructuresNotSprayedNoOneHome());
+      view.setStructuresNotSprayedOther(this.getStructuresNotSprayedOther());
+      view.setNumberMalesProtected(this.getNumberMalesProtected());
+      view.setNumberFemalesProtected(this.getNumberFemalesProtected());
+      view.setNumberPregnantWomenProtected(this.getNumberPregnantWomenProtected());
+      view.setNumberChildrenUnderFiveProtected(this.getNumberChildrenUnderFiveProtected());
+      view.setNumberRoomsNotSprayedSick(this.getNumberRoomsNotSprayedSick());
+      view.setNumberItnsInUse(this.getNumberItnsInUse());
+      view.setNumberPeopleSleepingUnderItns(this.getNumberPeopleSleepingUnderItns());
+      view.setNumberPregnantWomenSleepingUnderItns(this.getNumberPregnantWomenSleepingUnderItns());
+      view.setNumberChildrenUnderFiveSleepingUnderItns(this.getNumberChildrenUnderFiveSleepingUnderItns());
+      
       view.apply();
     }
   }
 
   private boolean hasHouseholdSprayValues()
   {
-    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, NUMBEROFPEOPLE, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE, SURFACETYPE, REASONNOTSPRAYED };
+    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, VERANDAS, CATTLESHEDS, SPRAYEDROOMS, VERANDASSPRAYED, CATTLESHEDSSPRAYED, NUMBEROFPEOPLE, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, VERANDASLOCKED, CATTLESHEDSLOCKED, OTHER, VERANDASOTHER, CATTLESHEDSOTHER, REFUSED, VERANDASREFUSED, CATTLESHEDSREFUSED, WRONGSURFACE, SURFACETYPE, REASONNOTSPRAYED,
+        STRUCTURESNOTSPRAYEDSICK,
+        STRUCTURESNOTSPRAYEDLOCKED,
+        STRUCTURESNOTSPRAYEDFUNERAL,
+        STRUCTURESNOTSPRAYEDREFUSED,
+        STRUCTURESNOTSPRAYEDNOONEHOME,
+        STRUCTURESNOTSPRAYEDOTHER,
+        NUMBERMALESPROTECTED,
+        NUMBERFEMALESPROTECTED,
+        NUMBERPREGNANTWOMENPROTECTED,
+        NUMBERCHILDRENUNDERFIVEPROTECTED,
+        NUMBERROOMSNOTSPRAYEDSICK,
+        NUMBERITNSINUSE,
+        NUMBERPEOPLESLEEPINGUNDERITNS,
+        NUMBERPREGNANTWOMENSLEEPINGUNDERITNS,
+        NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS
+    };
 
     for (String attributeName : attributeNames)
     {
@@ -253,6 +289,23 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(WRONGSURFACE);
     list.add(REASONNOTSPRAYED);
     list.add(SURFACETYPE);
+    
+    // new as of 3792
+    list.add(STRUCTURESNOTSPRAYEDSICK);
+    list.add(STRUCTURESNOTSPRAYEDLOCKED);
+    list.add(STRUCTURESNOTSPRAYEDFUNERAL);
+    list.add(STRUCTURESNOTSPRAYEDREFUSED);
+    list.add(STRUCTURESNOTSPRAYEDNOONEHOME);
+    list.add(STRUCTURESNOTSPRAYEDOTHER);
+    list.add(NUMBERMALESPROTECTED);
+    list.add(NUMBERFEMALESPROTECTED);
+    list.add(NUMBERPREGNANTWOMENPROTECTED);
+    list.add(NUMBERCHILDRENUNDERFIVEPROTECTED);
+    list.add(NUMBERROOMSNOTSPRAYEDSICK);
+    list.add(NUMBERITNSINUSE);
+    list.add(NUMBERPEOPLESLEEPINGUNDERITNS);
+    list.add(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+    list.add(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
     
     return list;
   }

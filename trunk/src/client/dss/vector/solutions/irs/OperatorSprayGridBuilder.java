@@ -83,12 +83,32 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
     }
     else
     {
+      // The validators here are javascript functions that should exist in:
+      // /MDSS/webapp/WEB-INF/dss/vector/solutions/irs/OperatorSpray/viewComponent.jsp
+      
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURES, "validateStructures");
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.SPRAYEDSTRUCTURES, "validateStructures");
       
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.SPRAYEDHOUSEHOLDS, "validateValue");
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.PREVSPRAYEDHOUSEHOLDS, "validateValue");
       GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.PREVSPRAYEDSTRUCTURES, "validateValue");
+      
+      // new as of 3792
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDSICK, "lteStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDLOCKED, "lteStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDFUNERAL, "lteStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDREFUSED, "lteStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDNOONEHOME, "lteStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDOTHER, "lteStructures");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERMALESPROTECTED, "ltePeopleProtected");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERFEMALESPROTECTED, "ltePeopleProtected");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERPREGNANTWOMENPROTECTED, "lteFemalesProtected");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVEPROTECTED, "ltePeopleProtected");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERROOMSNOTSPRAYEDSICK, "lteRooms");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERITNSINUSE, "lteItns");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERPEOPLESLEEPINGUNDERITNS, "gteZero");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, "ltePeopleSleepingUnderItns");
+      GridBuilder.setValidator(map, HouseholdSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, "ltePeopleSleepingUnderItns");
     }
 
     return new ViewDataGrid(view, map, keys, data);

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -923832175)
+@com.runwaysdk.business.ClassSignature(hash = -1161284565)
 public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSprayStatus";
-  private static final long serialVersionUID = -923832175;
+  private static final long serialVersionUID = -1161284565;
   
   protected OperatorSprayStatusDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -44,7 +44,16 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NOZZLESUSED = "nozzlesUsed";
+  public static java.lang.String NUMBERCHILDRENUNDERFIVEPROTECTED = "numberChildrenUnderFiveProtected";
+  public static java.lang.String NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS = "numberChildrenUnderFiveSleepingUnderItns";
+  public static java.lang.String NUMBERFEMALESPROTECTED = "numberFemalesProtected";
+  public static java.lang.String NUMBERITNSINUSE = "numberItnsInUse";
+  public static java.lang.String NUMBERMALESPROTECTED = "numberMalesProtected";
   public static java.lang.String NUMBEROFPEOPLE = "numberOfPeople";
+  public static java.lang.String NUMBERPEOPLESLEEPINGUNDERITNS = "numberPeopleSleepingUnderItns";
+  public static java.lang.String NUMBERPREGNANTWOMENPROTECTED = "numberPregnantWomenProtected";
+  public static java.lang.String NUMBERPREGNANTWOMENSLEEPINGUNDERITNS = "numberPregnantWomenSleepingUnderItns";
+  public static java.lang.String NUMBERROOMSNOTSPRAYEDSICK = "numberRoomsNotSprayedSick";
   public static java.lang.String OPERATORTARGET = "operatorTarget";
   public static java.lang.String OTHER = "other";
   public static java.lang.String OWNER = "owner";
@@ -66,6 +75,12 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTURES = "structures";
+  public static java.lang.String STRUCTURESNOTSPRAYEDFUNERAL = "structuresNotSprayedFuneral";
+  public static java.lang.String STRUCTURESNOTSPRAYEDLOCKED = "structuresNotSprayedLocked";
+  public static java.lang.String STRUCTURESNOTSPRAYEDNOONEHOME = "structuresNotSprayedNoOneHome";
+  public static java.lang.String STRUCTURESNOTSPRAYEDOTHER = "structuresNotSprayedOther";
+  public static java.lang.String STRUCTURESNOTSPRAYEDREFUSED = "structuresNotSprayedRefused";
+  public static java.lang.String STRUCTURESNOTSPRAYEDSICK = "structuresNotSprayedSick";
   public static java.lang.String TYPE = "type";
   public static java.lang.String USED = "used";
   public static java.lang.String VERANDAS = "verandas";
@@ -580,7 +595,7 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(LOCKED).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.SingleActorDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -588,7 +603,7 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
     }
     else
     {
-      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -654,6 +669,191 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NOZZLESUSED).getAttributeMdDTO();
   }
   
+  public Integer getNumberChildrenUnderFiveProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERCHILDRENUNDERFIVEPROTECTED));
+  }
+  
+  public void setNumberChildrenUnderFiveProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERCHILDRENUNDERFIVEPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERCHILDRENUNDERFIVEPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberChildrenUnderFiveProtectedWritable()
+  {
+    return isWritable(NUMBERCHILDRENUNDERFIVEPROTECTED);
+  }
+  
+  public boolean isNumberChildrenUnderFiveProtectedReadable()
+  {
+    return isReadable(NUMBERCHILDRENUNDERFIVEPROTECTED);
+  }
+  
+  public boolean isNumberChildrenUnderFiveProtectedModified()
+  {
+    return isModified(NUMBERCHILDRENUNDERFIVEPROTECTED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberChildrenUnderFiveProtectedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERCHILDRENUNDERFIVEPROTECTED).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberChildrenUnderFiveSleepingUnderItns()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS));
+  }
+  
+  public void setNumberChildrenUnderFiveSleepingUnderItns(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, "");
+    }
+    else
+    {
+      setValue(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberChildrenUnderFiveSleepingUnderItnsWritable()
+  {
+    return isWritable(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
+  }
+  
+  public boolean isNumberChildrenUnderFiveSleepingUnderItnsReadable()
+  {
+    return isReadable(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
+  }
+  
+  public boolean isNumberChildrenUnderFiveSleepingUnderItnsModified()
+  {
+    return isModified(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberChildrenUnderFiveSleepingUnderItnsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberFemalesProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERFEMALESPROTECTED));
+  }
+  
+  public void setNumberFemalesProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERFEMALESPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERFEMALESPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberFemalesProtectedWritable()
+  {
+    return isWritable(NUMBERFEMALESPROTECTED);
+  }
+  
+  public boolean isNumberFemalesProtectedReadable()
+  {
+    return isReadable(NUMBERFEMALESPROTECTED);
+  }
+  
+  public boolean isNumberFemalesProtectedModified()
+  {
+    return isModified(NUMBERFEMALESPROTECTED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberFemalesProtectedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERFEMALESPROTECTED).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberItnsInUse()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERITNSINUSE));
+  }
+  
+  public void setNumberItnsInUse(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERITNSINUSE, "");
+    }
+    else
+    {
+      setValue(NUMBERITNSINUSE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberItnsInUseWritable()
+  {
+    return isWritable(NUMBERITNSINUSE);
+  }
+  
+  public boolean isNumberItnsInUseReadable()
+  {
+    return isReadable(NUMBERITNSINUSE);
+  }
+  
+  public boolean isNumberItnsInUseModified()
+  {
+    return isModified(NUMBERITNSINUSE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberItnsInUseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERITNSINUSE).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberMalesProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERMALESPROTECTED));
+  }
+  
+  public void setNumberMalesProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERMALESPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERMALESPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberMalesProtectedWritable()
+  {
+    return isWritable(NUMBERMALESPROTECTED);
+  }
+  
+  public boolean isNumberMalesProtectedReadable()
+  {
+    return isReadable(NUMBERMALESPROTECTED);
+  }
+  
+  public boolean isNumberMalesProtectedModified()
+  {
+    return isModified(NUMBERMALESPROTECTED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberMalesProtectedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERMALESPROTECTED).getAttributeMdDTO();
+  }
+  
   public Integer getNumberOfPeople()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFPEOPLE));
@@ -689,6 +889,154 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberOfPeopleMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBEROFPEOPLE).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberPeopleSleepingUnderItns()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPEOPLESLEEPINGUNDERITNS));
+  }
+  
+  public void setNumberPeopleSleepingUnderItns(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERPEOPLESLEEPINGUNDERITNS, "");
+    }
+    else
+    {
+      setValue(NUMBERPEOPLESLEEPINGUNDERITNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberPeopleSleepingUnderItnsWritable()
+  {
+    return isWritable(NUMBERPEOPLESLEEPINGUNDERITNS);
+  }
+  
+  public boolean isNumberPeopleSleepingUnderItnsReadable()
+  {
+    return isReadable(NUMBERPEOPLESLEEPINGUNDERITNS);
+  }
+  
+  public boolean isNumberPeopleSleepingUnderItnsModified()
+  {
+    return isModified(NUMBERPEOPLESLEEPINGUNDERITNS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPeopleSleepingUnderItnsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPEOPLESLEEPINGUNDERITNS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberPregnantWomenProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTWOMENPROTECTED));
+  }
+  
+  public void setNumberPregnantWomenProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERPREGNANTWOMENPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERPREGNANTWOMENPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberPregnantWomenProtectedWritable()
+  {
+    return isWritable(NUMBERPREGNANTWOMENPROTECTED);
+  }
+  
+  public boolean isNumberPregnantWomenProtectedReadable()
+  {
+    return isReadable(NUMBERPREGNANTWOMENPROTECTED);
+  }
+  
+  public boolean isNumberPregnantWomenProtectedModified()
+  {
+    return isModified(NUMBERPREGNANTWOMENPROTECTED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantWomenProtectedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTWOMENPROTECTED).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberPregnantWomenSleepingUnderItns()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS));
+  }
+  
+  public void setNumberPregnantWomenSleepingUnderItns(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, "");
+    }
+    else
+    {
+      setValue(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberPregnantWomenSleepingUnderItnsWritable()
+  {
+    return isWritable(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+  }
+  
+  public boolean isNumberPregnantWomenSleepingUnderItnsReadable()
+  {
+    return isReadable(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+  }
+  
+  public boolean isNumberPregnantWomenSleepingUnderItnsModified()
+  {
+    return isModified(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberPregnantWomenSleepingUnderItnsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberRoomsNotSprayedSick()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERROOMSNOTSPRAYEDSICK));
+  }
+  
+  public void setNumberRoomsNotSprayedSick(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERROOMSNOTSPRAYEDSICK, "");
+    }
+    else
+    {
+      setValue(NUMBERROOMSNOTSPRAYEDSICK, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberRoomsNotSprayedSickWritable()
+  {
+    return isWritable(NUMBERROOMSNOTSPRAYEDSICK);
+  }
+  
+  public boolean isNumberRoomsNotSprayedSickReadable()
+  {
+    return isReadable(NUMBERROOMSNOTSPRAYEDSICK);
+  }
+  
+  public boolean isNumberRoomsNotSprayedSickModified()
+  {
+    return isModified(NUMBERROOMSNOTSPRAYEDSICK);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRoomsNotSprayedSickMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERROOMSNOTSPRAYEDSICK).getAttributeMdDTO();
   }
   
   public Integer getOperatorTarget()
@@ -1478,6 +1826,228 @@ public abstract class OperatorSprayStatusDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
+  }
+  
+  public Integer getStructuresNotSprayedFuneral()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDFUNERAL));
+  }
+  
+  public void setStructuresNotSprayedFuneral(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDFUNERAL, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDFUNERAL, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isStructuresNotSprayedFuneralWritable()
+  {
+    return isWritable(STRUCTURESNOTSPRAYEDFUNERAL);
+  }
+  
+  public boolean isStructuresNotSprayedFuneralReadable()
+  {
+    return isReadable(STRUCTURESNOTSPRAYEDFUNERAL);
+  }
+  
+  public boolean isStructuresNotSprayedFuneralModified()
+  {
+    return isModified(STRUCTURESNOTSPRAYEDFUNERAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresNotSprayedFuneralMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURESNOTSPRAYEDFUNERAL).getAttributeMdDTO();
+  }
+  
+  public Integer getStructuresNotSprayedLocked()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDLOCKED));
+  }
+  
+  public void setStructuresNotSprayedLocked(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDLOCKED, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDLOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isStructuresNotSprayedLockedWritable()
+  {
+    return isWritable(STRUCTURESNOTSPRAYEDLOCKED);
+  }
+  
+  public boolean isStructuresNotSprayedLockedReadable()
+  {
+    return isReadable(STRUCTURESNOTSPRAYEDLOCKED);
+  }
+  
+  public boolean isStructuresNotSprayedLockedModified()
+  {
+    return isModified(STRUCTURESNOTSPRAYEDLOCKED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresNotSprayedLockedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURESNOTSPRAYEDLOCKED).getAttributeMdDTO();
+  }
+  
+  public Integer getStructuresNotSprayedNoOneHome()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDNOONEHOME));
+  }
+  
+  public void setStructuresNotSprayedNoOneHome(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDNOONEHOME, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDNOONEHOME, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isStructuresNotSprayedNoOneHomeWritable()
+  {
+    return isWritable(STRUCTURESNOTSPRAYEDNOONEHOME);
+  }
+  
+  public boolean isStructuresNotSprayedNoOneHomeReadable()
+  {
+    return isReadable(STRUCTURESNOTSPRAYEDNOONEHOME);
+  }
+  
+  public boolean isStructuresNotSprayedNoOneHomeModified()
+  {
+    return isModified(STRUCTURESNOTSPRAYEDNOONEHOME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresNotSprayedNoOneHomeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURESNOTSPRAYEDNOONEHOME).getAttributeMdDTO();
+  }
+  
+  public Integer getStructuresNotSprayedOther()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDOTHER));
+  }
+  
+  public void setStructuresNotSprayedOther(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDOTHER, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDOTHER, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isStructuresNotSprayedOtherWritable()
+  {
+    return isWritable(STRUCTURESNOTSPRAYEDOTHER);
+  }
+  
+  public boolean isStructuresNotSprayedOtherReadable()
+  {
+    return isReadable(STRUCTURESNOTSPRAYEDOTHER);
+  }
+  
+  public boolean isStructuresNotSprayedOtherModified()
+  {
+    return isModified(STRUCTURESNOTSPRAYEDOTHER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresNotSprayedOtherMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURESNOTSPRAYEDOTHER).getAttributeMdDTO();
+  }
+  
+  public Integer getStructuresNotSprayedRefused()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDREFUSED));
+  }
+  
+  public void setStructuresNotSprayedRefused(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDREFUSED, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDREFUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isStructuresNotSprayedRefusedWritable()
+  {
+    return isWritable(STRUCTURESNOTSPRAYEDREFUSED);
+  }
+  
+  public boolean isStructuresNotSprayedRefusedReadable()
+  {
+    return isReadable(STRUCTURESNOTSPRAYEDREFUSED);
+  }
+  
+  public boolean isStructuresNotSprayedRefusedModified()
+  {
+    return isModified(STRUCTURESNOTSPRAYEDREFUSED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresNotSprayedRefusedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURESNOTSPRAYEDREFUSED).getAttributeMdDTO();
+  }
+  
+  public Integer getStructuresNotSprayedSick()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDSICK));
+  }
+  
+  public void setStructuresNotSprayedSick(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDSICK, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDSICK, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isStructuresNotSprayedSickWritable()
+  {
+    return isWritable(STRUCTURESNOTSPRAYEDSICK);
+  }
+  
+  public boolean isStructuresNotSprayedSickReadable()
+  {
+    return isReadable(STRUCTURESNOTSPRAYEDSICK);
+  }
+  
+  public boolean isStructuresNotSprayedSickModified()
+  {
+    return isModified(STRUCTURESNOTSPRAYEDSICK);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresNotSprayedSickMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURESNOTSPRAYEDSICK).getAttributeMdDTO();
   }
   
   public Integer getUsed()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -31483535)
+@com.runwaysdk.business.ClassSignature(hash = 796187466)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,16 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String NOZZLESUSED = "nozzlesUsed";
+  public static java.lang.String NUMBERCHILDRENUNDERFIVEPROTECTED = "numberChildrenUnderFiveProtected";
+  public static java.lang.String NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS = "numberChildrenUnderFiveSleepingUnderItns";
+  public static java.lang.String NUMBERFEMALESPROTECTED = "numberFemalesProtected";
+  public static java.lang.String NUMBERITNSINUSE = "numberItnsInUse";
+  public static java.lang.String NUMBERMALESPROTECTED = "numberMalesProtected";
   public static java.lang.String NUMBEROFPEOPLE = "numberOfPeople";
+  public static java.lang.String NUMBERPEOPLESLEEPINGUNDERITNS = "numberPeopleSleepingUnderItns";
+  public static java.lang.String NUMBERPREGNANTWOMENPROTECTED = "numberPregnantWomenProtected";
+  public static java.lang.String NUMBERPREGNANTWOMENSLEEPINGUNDERITNS = "numberPregnantWomenSleepingUnderItns";
+  public static java.lang.String NUMBERROOMSNOTSPRAYEDSICK = "numberRoomsNotSprayedSick";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
@@ -40,6 +49,12 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTURES = "structures";
+  public static java.lang.String STRUCTURESNOTSPRAYEDFUNERAL = "structuresNotSprayedFuneral";
+  public static java.lang.String STRUCTURESNOTSPRAYEDLOCKED = "structuresNotSprayedLocked";
+  public static java.lang.String STRUCTURESNOTSPRAYEDNOONEHOME = "structuresNotSprayedNoOneHome";
+  public static java.lang.String STRUCTURESNOTSPRAYEDOTHER = "structuresNotSprayedOther";
+  public static java.lang.String STRUCTURESNOTSPRAYEDREFUSED = "structuresNotSprayedRefused";
+  public static java.lang.String STRUCTURESNOTSPRAYEDSICK = "structuresNotSprayedSick";
   public static java.lang.String SUPERVISORCODE = "supervisorCode";
   public static java.lang.String SUPERVISORNAME = "supervisorName";
   public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
@@ -55,7 +70,7 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String VERANDASREFUSED = "verandasRefused";
   public static java.lang.String VERANDASSPRAYED = "verandasSprayed";
   public static java.lang.String WRONGSURFACE = "wrongSurface";
-  private static final long serialVersionUID = -31483535;
+  private static final long serialVersionUID = 796187466;
   
   public ZoneSprayExcelViewBase()
   {
@@ -426,6 +441,146 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public Integer getNumberChildrenUnderFiveProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERCHILDRENUNDERFIVEPROTECTED));
+  }
+  
+  public void validateNumberChildrenUnderFiveProtected()
+  {
+    this.validateAttribute(NUMBERCHILDRENUNDERFIVEPROTECTED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberChildrenUnderFiveProtectedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERCHILDRENUNDERFIVEPROTECTED);
+  }
+  
+  public void setNumberChildrenUnderFiveProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERCHILDRENUNDERFIVEPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERCHILDRENUNDERFIVEPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberChildrenUnderFiveSleepingUnderItns()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS));
+  }
+  
+  public void validateNumberChildrenUnderFiveSleepingUnderItns()
+  {
+    this.validateAttribute(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberChildrenUnderFiveSleepingUnderItnsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
+  }
+  
+  public void setNumberChildrenUnderFiveSleepingUnderItns(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, "");
+    }
+    else
+    {
+      setValue(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberFemalesProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERFEMALESPROTECTED));
+  }
+  
+  public void validateNumberFemalesProtected()
+  {
+    this.validateAttribute(NUMBERFEMALESPROTECTED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberFemalesProtectedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERFEMALESPROTECTED);
+  }
+  
+  public void setNumberFemalesProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERFEMALESPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERFEMALESPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberItnsInUse()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERITNSINUSE));
+  }
+  
+  public void validateNumberItnsInUse()
+  {
+    this.validateAttribute(NUMBERITNSINUSE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberItnsInUseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERITNSINUSE);
+  }
+  
+  public void setNumberItnsInUse(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERITNSINUSE, "");
+    }
+    else
+    {
+      setValue(NUMBERITNSINUSE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberMalesProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERMALESPROTECTED));
+  }
+  
+  public void validateNumberMalesProtected()
+  {
+    this.validateAttribute(NUMBERMALESPROTECTED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberMalesProtectedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERMALESPROTECTED);
+  }
+  
+  public void setNumberMalesProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERMALESPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERMALESPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
   public Integer getNumberOfPeople()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBEROFPEOPLE));
@@ -451,6 +606,118 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(NUMBEROFPEOPLE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberPeopleSleepingUnderItns()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPEOPLESLEEPINGUNDERITNS));
+  }
+  
+  public void validateNumberPeopleSleepingUnderItns()
+  {
+    this.validateAttribute(NUMBERPEOPLESLEEPINGUNDERITNS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPeopleSleepingUnderItnsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPEOPLESLEEPINGUNDERITNS);
+  }
+  
+  public void setNumberPeopleSleepingUnderItns(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERPEOPLESLEEPINGUNDERITNS, "");
+    }
+    else
+    {
+      setValue(NUMBERPEOPLESLEEPINGUNDERITNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberPregnantWomenProtected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTWOMENPROTECTED));
+  }
+  
+  public void validateNumberPregnantWomenProtected()
+  {
+    this.validateAttribute(NUMBERPREGNANTWOMENPROTECTED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantWomenProtectedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANTWOMENPROTECTED);
+  }
+  
+  public void setNumberPregnantWomenProtected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERPREGNANTWOMENPROTECTED, "");
+    }
+    else
+    {
+      setValue(NUMBERPREGNANTWOMENPROTECTED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberPregnantWomenSleepingUnderItns()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS));
+  }
+  
+  public void validateNumberPregnantWomenSleepingUnderItns()
+  {
+    this.validateAttribute(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberPregnantWomenSleepingUnderItnsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+  }
+  
+  public void setNumberPregnantWomenSleepingUnderItns(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, "");
+    }
+    else
+    {
+      setValue(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberRoomsNotSprayedSick()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERROOMSNOTSPRAYEDSICK));
+  }
+  
+  public void validateNumberRoomsNotSprayedSick()
+  {
+    this.validateAttribute(NUMBERROOMSNOTSPRAYEDSICK);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberRoomsNotSprayedSickMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERROOMSNOTSPRAYEDSICK);
+  }
+  
+  public void setNumberRoomsNotSprayedSick(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERROOMSNOTSPRAYEDSICK, "");
+    }
+    else
+    {
+      setValue(NUMBERROOMSNOTSPRAYEDSICK, java.lang.Integer.toString(value));
     }
   }
   
@@ -871,6 +1138,174 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(STRUCTURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getStructuresNotSprayedFuneral()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDFUNERAL));
+  }
+  
+  public void validateStructuresNotSprayedFuneral()
+  {
+    this.validateAttribute(STRUCTURESNOTSPRAYEDFUNERAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresNotSprayedFuneralMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURESNOTSPRAYEDFUNERAL);
+  }
+  
+  public void setStructuresNotSprayedFuneral(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDFUNERAL, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDFUNERAL, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getStructuresNotSprayedLocked()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDLOCKED));
+  }
+  
+  public void validateStructuresNotSprayedLocked()
+  {
+    this.validateAttribute(STRUCTURESNOTSPRAYEDLOCKED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresNotSprayedLockedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURESNOTSPRAYEDLOCKED);
+  }
+  
+  public void setStructuresNotSprayedLocked(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDLOCKED, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDLOCKED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getStructuresNotSprayedNoOneHome()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDNOONEHOME));
+  }
+  
+  public void validateStructuresNotSprayedNoOneHome()
+  {
+    this.validateAttribute(STRUCTURESNOTSPRAYEDNOONEHOME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresNotSprayedNoOneHomeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURESNOTSPRAYEDNOONEHOME);
+  }
+  
+  public void setStructuresNotSprayedNoOneHome(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDNOONEHOME, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDNOONEHOME, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getStructuresNotSprayedOther()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDOTHER));
+  }
+  
+  public void validateStructuresNotSprayedOther()
+  {
+    this.validateAttribute(STRUCTURESNOTSPRAYEDOTHER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresNotSprayedOtherMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURESNOTSPRAYEDOTHER);
+  }
+  
+  public void setStructuresNotSprayedOther(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDOTHER, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDOTHER, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getStructuresNotSprayedRefused()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDREFUSED));
+  }
+  
+  public void validateStructuresNotSprayedRefused()
+  {
+    this.validateAttribute(STRUCTURESNOTSPRAYEDREFUSED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresNotSprayedRefusedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURESNOTSPRAYEDREFUSED);
+  }
+  
+  public void setStructuresNotSprayedRefused(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDREFUSED, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDREFUSED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getStructuresNotSprayedSick()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STRUCTURESNOTSPRAYEDSICK));
+  }
+  
+  public void validateStructuresNotSprayedSick()
+  {
+    this.validateAttribute(STRUCTURESNOTSPRAYEDSICK);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getStructuresNotSprayedSickMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(STRUCTURESNOTSPRAYEDSICK);
+  }
+  
+  public void setStructuresNotSprayedSick(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(STRUCTURESNOTSPRAYEDSICK, "");
+    }
+    else
+    {
+      setValue(STRUCTURESNOTSPRAYEDSICK, java.lang.Integer.toString(value));
     }
   }
   
