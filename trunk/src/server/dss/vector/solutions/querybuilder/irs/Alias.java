@@ -99,6 +99,23 @@ public enum Alias implements Reloadable, AliasIF
   STRUCTURE_TYPE(HouseholdSprayStatus.STRUCTURETYPE, "setStructureType", SQLProvider.TEXT, new View[]{View.ALL_ACTUALS}),
   REASON_NOT_SPRAYED(HouseholdSprayStatus.REASONNOTSPRAYED, "setReasonNotSprayed", SQLProvider.TEXT, new View[]{View.ALL_ACTUALS}),
   
+  // New details as of 3792:
+  STRUCTURES_NOT_SPRAYED_SICK(HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, "setStructuresNotSprayedSick", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES_NOT_SPRAYED_LOCKED(HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, "setStructuresNotSprayedLocked", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES_NOT_SPRAYED_FUNERAL(HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, "setStructuresNotSprayedFuneral", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES_NOT_SPRAYED_REFUSED(HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, "setStructuresNotSprayedRefused", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES_NOT_SPRAYED_NO_ONE_HOME(HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, "setStructuresNotSprayedNoOneHome", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  STRUCTURES_NOT_SPRAYED_OTHER(HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, "setStructuresNotSprayedOther", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_MALES_PROTECTED(HouseholdSprayStatus.NUMBERMALESPROTECTED, "setNumberMalesProtected", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_FEMALES_PROTECTED(HouseholdSprayStatus.NUMBERFEMALESPROTECTED, "setNumberFemalesProtected", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_PREGNANT_WOMEN_PROTECTED(HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, "setNumberPregnantWomenProtected", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_CHILDREN_UNDER_FIVE_PROTECTED(HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, "setNumberChildrenUnderFiveProtected", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_ROOMS_NOT_SPAYED_SICK(HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, "setNumberRoomsNotSprayedSick", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_ITNS_IN_USE(HouseholdSprayStatus.NUMBERITNSINUSE, "setNumberItnsInUse", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_PEOPLE_SLEEPING_UNDER_ITNS(HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, "setNumberPeopleSleepingUnderItns", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_PREGNANT_WOMEN_SLEEPING_UNDER_ITNS(HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, "setNumberPregnantWomenSleepingUnderItns", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  NUMBER_CHILDREN_UNDER_FIVE_SLEEPING_UNDER_ITNS(HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, "setNumberChildrenUnderFiveSleepingUnderItns", SQLProvider.INTEGER, new View[]{View.ALL_ACTUALS}),
+  
   /*
    *  CUSTOM (not specified on any level as a column)
    */

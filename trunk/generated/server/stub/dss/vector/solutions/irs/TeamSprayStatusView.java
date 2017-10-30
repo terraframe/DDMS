@@ -59,6 +59,23 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     this.setWrongSurface(concrete.getWrongSurface());
     this.setNozzlesUsed(concrete.getNozzlesUsed());
     this.setPumpsUsed(concrete.getPumpsUsed());
+    
+    // new as of 3792:
+    this.setStructuresNotSprayedSick(concrete.getStructuresNotSprayedSick());
+    this.setStructuresNotSprayedLocked(concrete.getStructuresNotSprayedLocked());
+    this.setStructuresNotSprayedFuneral(concrete.getStructuresNotSprayedFuneral());
+    this.setStructuresNotSprayedRefused(concrete.getStructuresNotSprayedRefused());
+    this.setStructuresNotSprayedNoOneHome(concrete.getStructuresNotSprayedNoOneHome());
+    this.setStructuresNotSprayedOther(concrete.getStructuresNotSprayedOther());
+    this.setNumberMalesProtected(concrete.getNumberMalesProtected());
+    this.setNumberFemalesProtected(concrete.getNumberFemalesProtected());
+    this.setNumberPregnantWomenProtected(concrete.getNumberPregnantWomenProtected());
+    this.setNumberChildrenUnderFiveProtected(concrete.getNumberChildrenUnderFiveProtected());
+    this.setNumberRoomsNotSprayedSick(concrete.getNumberRoomsNotSprayedSick());
+    this.setNumberItnsInUse(concrete.getNumberItnsInUse());
+    this.setNumberPeopleSleepingUnderItns(concrete.getNumberPeopleSleepingUnderItns());
+    this.setNumberPregnantWomenSleepingUnderItns(concrete.getNumberPregnantWomenSleepingUnderItns());
+    this.setNumberChildrenUnderFiveSleepingUnderItns(concrete.getNumberChildrenUnderFiveSleepingUnderItns());
         
     if (concrete.getSprayTeam() != null)
     {
@@ -115,7 +132,24 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     concrete.setCattleShedsRefused(this.getCattleShedsRefused());
     concrete.setWrongSurface(this.getWrongSurface());    
     concrete.setNozzlesUsed(this.getNozzlesUsed());
-    concrete.setPumpsUsed(this.getPumpsUsed());    
+    concrete.setPumpsUsed(this.getPumpsUsed());
+    
+    // new as of 3792:
+    concrete.setStructuresNotSprayedSick(this.getStructuresNotSprayedSick());
+    concrete.setStructuresNotSprayedLocked(this.getStructuresNotSprayedLocked());
+    concrete.setStructuresNotSprayedFuneral(this.getStructuresNotSprayedFuneral());
+    concrete.setStructuresNotSprayedRefused(this.getStructuresNotSprayedRefused());
+    concrete.setStructuresNotSprayedNoOneHome(this.getStructuresNotSprayedNoOneHome());
+    concrete.setStructuresNotSprayedOther(this.getStructuresNotSprayedOther());
+    concrete.setNumberMalesProtected(this.getNumberMalesProtected());
+    concrete.setNumberFemalesProtected(this.getNumberFemalesProtected());
+    concrete.setNumberPregnantWomenProtected(this.getNumberPregnantWomenProtected());
+    concrete.setNumberChildrenUnderFiveProtected(this.getNumberChildrenUnderFiveProtected());
+    concrete.setNumberRoomsNotSprayedSick(this.getNumberRoomsNotSprayedSick());
+    concrete.setNumberItnsInUse(this.getNumberItnsInUse());
+    concrete.setNumberPeopleSleepingUnderItns(this.getNumberPeopleSleepingUnderItns());
+    concrete.setNumberPregnantWomenSleepingUnderItns(this.getNumberPregnantWomenSleepingUnderItns());
+    concrete.setNumberChildrenUnderFiveSleepingUnderItns(this.getNumberChildrenUnderFiveSleepingUnderItns());
   }
 
   private void populateMapping(TeamSprayStatus concrete)
@@ -155,7 +189,24 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     new AttributeNotificationMap(concrete, TeamSprayStatus.CATTLESHEDSREFUSED, this, TeamSprayStatusView.CATTLESHEDSREFUSED);
     new AttributeNotificationMap(concrete, TeamSprayStatus.WRONGSURFACE, this, TeamSprayStatusView.WRONGSURFACE);    
     new AttributeNotificationMap(concrete, TeamSprayStatus.NOZZLESUSED, this, TeamSprayStatusView.NOZZLESUSED);    
-    new AttributeNotificationMap(concrete, TeamSprayStatus.PUMPSUSED, this, TeamSprayStatusView.PUMPSUSED);        
+    new AttributeNotificationMap(concrete, TeamSprayStatus.PUMPSUSED, this, TeamSprayStatusView.PUMPSUSED);
+    
+    // new as of 3792:
+    new AttributeNotificationMap(concrete, TeamSprayStatus.STRUCTURESNOTSPRAYEDSICK, this, TeamSprayStatusView.STRUCTURESNOTSPRAYEDSICK);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, this, TeamSprayStatusView.STRUCTURESNOTSPRAYEDLOCKED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, this, TeamSprayStatusView.STRUCTURESNOTSPRAYEDFUNERAL);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, this, TeamSprayStatusView.STRUCTURESNOTSPRAYEDREFUSED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, this, TeamSprayStatusView.STRUCTURESNOTSPRAYEDNOONEHOME);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.STRUCTURESNOTSPRAYEDOTHER, this, TeamSprayStatusView.STRUCTURESNOTSPRAYEDOTHER);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERMALESPROTECTED, this, TeamSprayStatusView.NUMBERMALESPROTECTED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERFEMALESPROTECTED, this, TeamSprayStatusView.NUMBERFEMALESPROTECTED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERPREGNANTWOMENPROTECTED, this, TeamSprayStatusView.NUMBERPREGNANTWOMENPROTECTED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, this, TeamSprayStatusView.NUMBERCHILDRENUNDERFIVEPROTECTED);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, this, TeamSprayStatusView.NUMBERROOMSNOTSPRAYEDSICK);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERITNSINUSE, this, TeamSprayStatusView.NUMBERITNSINUSE);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, this, TeamSprayStatusView.NUMBERPEOPLESLEEPINGUNDERITNS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, this, TeamSprayStatusView.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+    new AttributeNotificationMap(concrete, TeamSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, this, TeamSprayStatusView.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
   }
 
   @Override

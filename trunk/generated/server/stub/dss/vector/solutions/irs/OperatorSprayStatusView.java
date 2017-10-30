@@ -62,6 +62,23 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     this.setWrongSurface(concrete.getWrongSurface());
     this.setNozzlesUsed(concrete.getNozzlesUsed());
     this.setPumpsUsed(concrete.getPumpsUsed());
+    
+    // new as of 3792:
+    this.setStructuresNotSprayedSick(concrete.getStructuresNotSprayedSick());
+    this.setStructuresNotSprayedLocked(concrete.getStructuresNotSprayedLocked());
+    this.setStructuresNotSprayedFuneral(concrete.getStructuresNotSprayedFuneral());
+    this.setStructuresNotSprayedRefused(concrete.getStructuresNotSprayedRefused());
+    this.setStructuresNotSprayedNoOneHome(concrete.getStructuresNotSprayedNoOneHome());
+    this.setStructuresNotSprayedOther(concrete.getStructuresNotSprayedOther());
+    this.setNumberMalesProtected(concrete.getNumberMalesProtected());
+    this.setNumberFemalesProtected(concrete.getNumberFemalesProtected());
+    this.setNumberPregnantWomenProtected(concrete.getNumberPregnantWomenProtected());
+    this.setNumberChildrenUnderFiveProtected(concrete.getNumberChildrenUnderFiveProtected());
+    this.setNumberRoomsNotSprayedSick(concrete.getNumberRoomsNotSprayedSick());
+    this.setNumberItnsInUse(concrete.getNumberItnsInUse());
+    this.setNumberPeopleSleepingUnderItns(concrete.getNumberPeopleSleepingUnderItns());
+    this.setNumberPregnantWomenSleepingUnderItns(concrete.getNumberPregnantWomenSleepingUnderItns());
+    this.setNumberChildrenUnderFiveSleepingUnderItns(concrete.getNumberChildrenUnderFiveSleepingUnderItns());
 
     if (concrete.getSprayOperator() != null)
     {
@@ -114,6 +131,23 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     concrete.setWrongSurface(this.getWrongSurface());
     concrete.setNozzlesUsed(this.getNozzlesUsed());
     concrete.setPumpsUsed(this.getPumpsUsed());
+    
+    // new as of 3792:
+    concrete.setStructuresNotSprayedSick(this.getStructuresNotSprayedSick());
+    concrete.setStructuresNotSprayedLocked(this.getStructuresNotSprayedLocked());
+    concrete.setStructuresNotSprayedFuneral(this.getStructuresNotSprayedFuneral());
+    concrete.setStructuresNotSprayedRefused(this.getStructuresNotSprayedRefused());
+    concrete.setStructuresNotSprayedNoOneHome(this.getStructuresNotSprayedNoOneHome());
+    concrete.setStructuresNotSprayedOther(this.getStructuresNotSprayedOther());
+    concrete.setNumberMalesProtected(this.getNumberMalesProtected());
+    concrete.setNumberFemalesProtected(this.getNumberFemalesProtected());
+    concrete.setNumberPregnantWomenProtected(this.getNumberPregnantWomenProtected());
+    concrete.setNumberChildrenUnderFiveProtected(this.getNumberChildrenUnderFiveProtected());
+    concrete.setNumberRoomsNotSprayedSick(this.getNumberRoomsNotSprayedSick());
+    concrete.setNumberItnsInUse(this.getNumberItnsInUse());
+    concrete.setNumberPeopleSleepingUnderItns(this.getNumberPeopleSleepingUnderItns());
+    concrete.setNumberPregnantWomenSleepingUnderItns(this.getNumberPregnantWomenSleepingUnderItns());
+    concrete.setNumberChildrenUnderFiveSleepingUnderItns(this.getNumberChildrenUnderFiveSleepingUnderItns());
   }
 
   private void populateMapping(OperatorSprayStatus concrete)
@@ -156,6 +190,23 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     new AttributeNotificationMap(concrete, OperatorSprayStatus.WRONGSURFACE, this, OperatorSprayStatusView.WRONGSURFACE);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.NOZZLESUSED, this, OperatorSprayStatusView.NOZZLESUSED);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.PUMPSUSED, this, OperatorSprayStatusView.PUMPSUSED);
+    
+    // new as of 3792:
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.STRUCTURESNOTSPRAYEDSICK, this, OperatorSprayStatusView.STRUCTURESNOTSPRAYEDSICK);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, this, OperatorSprayStatusView.STRUCTURESNOTSPRAYEDLOCKED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, this, OperatorSprayStatusView.STRUCTURESNOTSPRAYEDFUNERAL);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, this, OperatorSprayStatusView.STRUCTURESNOTSPRAYEDREFUSED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, this, OperatorSprayStatusView.STRUCTURESNOTSPRAYEDNOONEHOME);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.STRUCTURESNOTSPRAYEDOTHER, this, OperatorSprayStatusView.STRUCTURESNOTSPRAYEDOTHER);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERMALESPROTECTED, this, OperatorSprayStatusView.NUMBERMALESPROTECTED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERFEMALESPROTECTED, this, OperatorSprayStatusView.NUMBERFEMALESPROTECTED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERPREGNANTWOMENPROTECTED, this, OperatorSprayStatusView.NUMBERPREGNANTWOMENPROTECTED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, this, OperatorSprayStatusView.NUMBERCHILDRENUNDERFIVEPROTECTED);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, this, OperatorSprayStatusView.NUMBERROOMSNOTSPRAYEDSICK);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERITNSINUSE, this, OperatorSprayStatusView.NUMBERITNSINUSE);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, this, OperatorSprayStatusView.NUMBERPEOPLESLEEPINGUNDERITNS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, this, OperatorSprayStatusView.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, this, OperatorSprayStatusView.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
   }
 
   @Override

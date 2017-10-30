@@ -15,6 +15,7 @@ public interface SQLProvider extends Reloadable
   public static final String VARCHAR = "varchar";
   public static final String DATE = "date";
   public static final String DATETIME = "timestamp without time zone";
+  public static final String INTEGER = "integer";
   
   /**
    * Subclasses must override this to customize their columns.

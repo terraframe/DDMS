@@ -1974,7 +1974,13 @@ public class IRSQB extends AbstractQB implements Reloadable
     String[] sprayDetails = new String[] {
 
         // spray details (attributes defined by HouseholdSprayStatus)
-        Alias.HOUSEHOLDS.getAlias(), Alias.SPRAYED_HOUSEHOLDS.getAlias(), Alias.STRUCTURES.getAlias(), Alias.SPRAYED_STRUCTURES.getAlias(), Alias.ROOMS.getAlias(), Alias.SPRAYED_ROOMS.getAlias(), Alias.LOCKED.getAlias(), Alias.REFUSED.getAlias(), Alias.OTHER.getAlias(), Alias.WRONG_SURFACE.getAlias(), Alias.PEOPLE.getAlias() };
+        Alias.HOUSEHOLDS.getAlias(), Alias.SPRAYED_HOUSEHOLDS.getAlias(), Alias.STRUCTURES.getAlias(), Alias.SPRAYED_STRUCTURES.getAlias(), Alias.ROOMS.getAlias(), Alias.SPRAYED_ROOMS.getAlias(), Alias.LOCKED.getAlias(), Alias.REFUSED.getAlias(), Alias.OTHER.getAlias(), Alias.WRONG_SURFACE.getAlias(), Alias.PEOPLE.getAlias(),
+    
+        // New details as of 3792:
+        Alias.STRUCTURES_NOT_SPRAYED_SICK.getAlias(), Alias.STRUCTURES_NOT_SPRAYED_LOCKED.getAlias(), Alias.STRUCTURES_NOT_SPRAYED_FUNERAL.getAlias(), Alias.STRUCTURES_NOT_SPRAYED_REFUSED.getAlias(), Alias.STRUCTURES_NOT_SPRAYED_NO_ONE_HOME.getAlias(), Alias.STRUCTURES_NOT_SPRAYED_OTHER.getAlias(), Alias.NUMBER_MALES_PROTECTED.getAlias(),
+        Alias.NUMBER_FEMALES_PROTECTED.getAlias(), Alias.NUMBER_PREGNANT_WOMEN_PROTECTED.getAlias(), Alias.NUMBER_CHILDREN_UNDER_FIVE_PROTECTED.getAlias(), Alias.NUMBER_ROOMS_NOT_SPAYED_SICK.getAlias(), Alias.NUMBER_ITNS_IN_USE.getAlias(), Alias.NUMBER_PEOPLE_SLEEPING_UNDER_ITNS.getAlias(), Alias.NUMBER_PREGNANT_WOMEN_SLEEPING_UNDER_ITNS.getAlias(),
+        Alias.NUMBER_CHILDREN_UNDER_FIVE_SLEEPING_UNDER_ITNS.getAlias()
+    };
 
     // spray details are unique by the household and structure id
     String detailUniqueId = this.getUniqueSprayDetailsId();

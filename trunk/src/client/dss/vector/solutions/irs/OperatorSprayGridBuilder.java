@@ -63,6 +63,23 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.VERANDASOTHER, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.CATTLESHEDSOTHER, false);
       GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.WRONGSURFACE, false);
+      
+      // new as of 3792
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDSICK, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDLOCKED, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDFUNERAL, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDREFUSED, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDNOONEHOME, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDOTHER, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERMALESPROTECTED, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERFEMALESPROTECTED, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERPREGNANTWOMENPROTECTED, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVEPROTECTED, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERROOMSNOTSPRAYEDSICK, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERITNSINUSE, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERPEOPLESLEEPINGUNDERITNS, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, false);
+      GridBuilder.setEditable(map, HouseholdSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, false);
     }
     else
     {
@@ -111,7 +128,24 @@ public class OperatorSprayGridBuilder extends GridBuilder implements Reloadable
         HouseholdSprayStatusViewDTO.OTHER,
         HouseholdSprayStatusViewDTO.VERANDASOTHER,
         HouseholdSprayStatusViewDTO.CATTLESHEDSOTHER,
-        HouseholdSprayStatusViewDTO.WRONGSURFACE
+        HouseholdSprayStatusViewDTO.WRONGSURFACE,
+        
+        // new as of 3792
+        HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDSICK,
+        HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDLOCKED,
+        HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDFUNERAL,
+        HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDREFUSED,
+        HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDNOONEHOME,
+        HouseholdSprayStatusViewDTO.STRUCTURESNOTSPRAYEDOTHER,
+        HouseholdSprayStatusViewDTO.NUMBERMALESPROTECTED,
+        HouseholdSprayStatusViewDTO.NUMBERFEMALESPROTECTED,
+        HouseholdSprayStatusViewDTO.NUMBERPREGNANTWOMENPROTECTED,
+        HouseholdSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVEPROTECTED,
+        HouseholdSprayStatusViewDTO.NUMBERROOMSNOTSPRAYEDSICK,
+        HouseholdSprayStatusViewDTO.NUMBERITNSINUSE,
+        HouseholdSprayStatusViewDTO.NUMBERPEOPLESLEEPINGUNDERITNS,
+        HouseholdSprayStatusViewDTO.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS,
+        HouseholdSprayStatusViewDTO.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS
       };
 
     

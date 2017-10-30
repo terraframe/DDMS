@@ -756,4 +756,80 @@ public abstract class TargetJoin extends AbstractSprayProvider implements Reload
   {
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
+  
+//New as of 3792:
+  public String setStructuresNotSprayedSick(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setStructuresNotSprayedLocked(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setStructuresNotSprayedFuneral(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setStructuresNotSprayedRefused(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setStructuresNotSprayedNoOneHome(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setStructuresNotSprayedOther(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberMalesProtected(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberFemalesProtected(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberPregnantWomenProtected(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberChildrenUnderFiveProtected(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberRoomsNotSprayedSick(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberItnsInUse(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberPeopleSleepingUnderItns(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberPregnantWomenSleepingUnderItns(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+  
+  public String setNumberChildrenUnderFiveSleepingUnderItns(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
 }

@@ -53,6 +53,23 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     this.setWrongSurface(concrete.getWrongSurface());
     this.setReasonNotSprayed(concrete.getReasonNotSprayed());
     this.setStructureType(concrete.getStructureType());
+    
+    // new as of 3792:
+    this.setStructuresNotSprayedSick(concrete.getStructuresNotSprayedSick());
+    this.setStructuresNotSprayedLocked(concrete.getStructuresNotSprayedLocked());
+    this.setStructuresNotSprayedFuneral(concrete.getStructuresNotSprayedFuneral());
+    this.setStructuresNotSprayedRefused(concrete.getStructuresNotSprayedRefused());
+    this.setStructuresNotSprayedNoOneHome(concrete.getStructuresNotSprayedNoOneHome());
+    this.setStructuresNotSprayedOther(concrete.getStructuresNotSprayedOther());
+    this.setNumberMalesProtected(concrete.getNumberMalesProtected());
+    this.setNumberFemalesProtected(concrete.getNumberFemalesProtected());
+    this.setNumberPregnantWomenProtected(concrete.getNumberPregnantWomenProtected());
+    this.setNumberChildrenUnderFiveProtected(concrete.getNumberChildrenUnderFiveProtected());
+    this.setNumberRoomsNotSprayedSick(concrete.getNumberRoomsNotSprayedSick());
+    this.setNumberItnsInUse(concrete.getNumberItnsInUse());
+    this.setNumberPeopleSleepingUnderItns(concrete.getNumberPeopleSleepingUnderItns());
+    this.setNumberPregnantWomenSleepingUnderItns(concrete.getNumberPregnantWomenSleepingUnderItns());
+    this.setNumberChildrenUnderFiveSleepingUnderItns(concrete.getNumberChildrenUnderFiveSleepingUnderItns());
   }
 
   protected void populateConcrete(HouseholdSprayStatus concrete)
@@ -88,6 +105,23 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     concrete.setWrongSurface(this.getWrongSurface());
     concrete.setStructureType(this.getStructureType());
     concrete.setReasonNotSprayed(this.getReasonNotSprayed());
+    
+    // new as of 3792:
+    concrete.setStructuresNotSprayedSick(this.getStructuresNotSprayedSick());
+    concrete.setStructuresNotSprayedLocked(this.getStructuresNotSprayedLocked());
+    concrete.setStructuresNotSprayedFuneral(this.getStructuresNotSprayedFuneral());
+    concrete.setStructuresNotSprayedRefused(this.getStructuresNotSprayedRefused());
+    concrete.setStructuresNotSprayedNoOneHome(this.getStructuresNotSprayedNoOneHome());
+    concrete.setStructuresNotSprayedOther(this.getStructuresNotSprayedOther());
+    concrete.setNumberMalesProtected(this.getNumberMalesProtected());
+    concrete.setNumberFemalesProtected(this.getNumberFemalesProtected());
+    concrete.setNumberPregnantWomenProtected(this.getNumberPregnantWomenProtected());
+    concrete.setNumberChildrenUnderFiveProtected(this.getNumberChildrenUnderFiveProtected());
+    concrete.setNumberRoomsNotSprayedSick(this.getNumberRoomsNotSprayedSick());
+    concrete.setNumberItnsInUse(this.getNumberItnsInUse());
+    concrete.setNumberPeopleSleepingUnderItns(this.getNumberPeopleSleepingUnderItns());
+    concrete.setNumberPregnantWomenSleepingUnderItns(this.getNumberPregnantWomenSleepingUnderItns());
+    concrete.setNumberChildrenUnderFiveSleepingUnderItns(this.getNumberChildrenUnderFiveSleepingUnderItns());
   }
 
   private void populateMapping(HouseholdSprayStatus concrete)
@@ -123,6 +157,23 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.WRONGSURFACE, this, HouseholdSprayStatusView.WRONGSURFACE);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURETYPE, this, HouseholdSprayStatusView.STRUCTURETYPE);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.REASONNOTSPRAYED, this, HouseholdSprayStatusView.REASONNOTSPRAYED);
+    
+    // new as of 3792:
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURESNOTSPRAYEDSICK, this, HouseholdSprayStatusView.STRUCTURESNOTSPRAYEDSICK);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURESNOTSPRAYEDLOCKED, this, HouseholdSprayStatusView.STRUCTURESNOTSPRAYEDLOCKED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL, this, HouseholdSprayStatusView.STRUCTURESNOTSPRAYEDFUNERAL);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURESNOTSPRAYEDREFUSED, this, HouseholdSprayStatusView.STRUCTURESNOTSPRAYEDREFUSED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME, this, HouseholdSprayStatusView.STRUCTURESNOTSPRAYEDNOONEHOME);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.STRUCTURESNOTSPRAYEDOTHER, this, HouseholdSprayStatusView.STRUCTURESNOTSPRAYEDOTHER);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERMALESPROTECTED, this, HouseholdSprayStatusView.NUMBERMALESPROTECTED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERFEMALESPROTECTED, this, HouseholdSprayStatusView.NUMBERFEMALESPROTECTED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERPREGNANTWOMENPROTECTED, this, HouseholdSprayStatusView.NUMBERPREGNANTWOMENPROTECTED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED, this, HouseholdSprayStatusView.NUMBERCHILDRENUNDERFIVEPROTECTED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERROOMSNOTSPRAYEDSICK, this, HouseholdSprayStatusView.NUMBERROOMSNOTSPRAYEDSICK);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERITNSINUSE, this, HouseholdSprayStatusView.NUMBERITNSINUSE);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS, this, HouseholdSprayStatusView.NUMBERPEOPLESLEEPINGUNDERITNS);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS, this, HouseholdSprayStatusView.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS, this, HouseholdSprayStatusView.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
   }
 
   @Override

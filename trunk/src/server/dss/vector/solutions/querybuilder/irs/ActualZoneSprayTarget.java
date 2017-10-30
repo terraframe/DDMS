@@ -7,7 +7,6 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Condition;
 
-import dss.vector.solutions.irs.OperatorSprayStatus;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamSprayStatus;
 import dss.vector.solutions.irs.ZoneSpray;
@@ -107,6 +106,37 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
 
   private String numberOfPeopleCol;
   
+  // New as of 3792:
+  private String structuresNotSprayedSick;
+ 
+  private String structuresNotSprayedLocked;
+ 
+  private String structuresNotSprayedFuneral;
+ 
+  private String structuresNotSprayedRefused;
+ 
+  private String structuresNotSprayedNoOneHome;
+ 
+  private String structuresNotSprayedOther;
+ 
+  private String numberMalesProtected;
+ 
+  private String numberFemalesProtected;
+ 
+  private String numberPregnantWomenProtected;
+  
+  private String numberChildrenUnderFiveProtected;
+ 
+  private String numberRoomsNotSprayedSick;
+ 
+  private String numberItnsInUse;
+ 
+  private String numberPeopleSleepingUnderItns;
+ 
+  private String numberPregnantWomenSleepingUnderItns;
+ 
+  private String numberChildrenUnderFiveSleepingUnderItns;
+  
   public ActualZoneSprayTarget(IRSQB irsQB)
   {
     super(irsQB);
@@ -160,9 +190,24 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     this.cattleShedsLockedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.CATTLESHEDSLOCKED);
     this.cattleShedsRefusedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.CATTLESHEDSREFUSED);
     this.cattleShedsOtherCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.CATTLESHEDSOTHER);
-    this.numberOfPeopleCol = QueryUtil.getColumnName(teamSprayStatusMd, OperatorSprayStatus.NUMBEROFPEOPLE);
+    this.numberOfPeopleCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBEROFPEOPLE);
 
-    
+    // New as of 3792:
+    this.structuresNotSprayedSick = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.STRUCTURESNOTSPRAYEDSICK);
+    this.structuresNotSprayedLocked = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.STRUCTURESNOTSPRAYEDLOCKED);
+    this.structuresNotSprayedFuneral = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.STRUCTURESNOTSPRAYEDFUNERAL);
+    this.structuresNotSprayedRefused = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.STRUCTURESNOTSPRAYEDREFUSED);
+    this.structuresNotSprayedNoOneHome = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.STRUCTURESNOTSPRAYEDNOONEHOME);
+    this.structuresNotSprayedOther = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.STRUCTURESNOTSPRAYEDOTHER);
+    this.numberMalesProtected = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERMALESPROTECTED);
+    this.numberFemalesProtected = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERFEMALESPROTECTED);
+    this.numberPregnantWomenProtected = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERPREGNANTWOMENPROTECTED);
+    this.numberChildrenUnderFiveProtected = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERCHILDRENUNDERFIVEPROTECTED);
+    this.numberRoomsNotSprayedSick = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERROOMSNOTSPRAYEDSICK);
+    this.numberItnsInUse = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERITNSINUSE);
+    this.numberPeopleSleepingUnderItns = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERPEOPLESLEEPINGUNDERITNS);
+    this.numberPregnantWomenSleepingUnderItns = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
+    this.numberChildrenUnderFiveSleepingUnderItns = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
   }
   
   @Override
@@ -623,5 +668,111 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   {
     this.irsQB.addChildAggregate(alias);
     return set(this.teamSprayStatusTable, this.cattleShedsOtherCol, alias);
+  }
+  
+  // New as of 3792:
+  @Override
+  public String setStructuresNotSprayedSick(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.structuresNotSprayedSick, alias);
+  }
+  
+  @Override
+  public String setStructuresNotSprayedLocked(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.structuresNotSprayedLocked, alias);
+  }
+  
+  @Override
+  public String setStructuresNotSprayedFuneral(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.structuresNotSprayedFuneral, alias);
+  }
+  
+  @Override
+  public String setStructuresNotSprayedRefused(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.structuresNotSprayedRefused, alias);
+  }
+  
+  @Override
+  public String setStructuresNotSprayedNoOneHome(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.structuresNotSprayedNoOneHome, alias);
+  }
+  
+  @Override
+  public String setStructuresNotSprayedOther(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.structuresNotSprayedOther, alias);
+  }
+  
+  @Override
+  public String setNumberMalesProtected(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberMalesProtected, alias);
+  }
+  
+  @Override
+  public String setNumberFemalesProtected(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberFemalesProtected, alias);
+  }
+  
+  @Override
+  public String setNumberPregnantWomenProtected(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberPregnantWomenProtected, alias);
+  }
+  
+  @Override
+  public String setNumberChildrenUnderFiveProtected(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberChildrenUnderFiveProtected, alias);
+  }
+  
+  @Override
+  public String setNumberRoomsNotSprayedSick(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberRoomsNotSprayedSick, alias);
+  }
+  
+  @Override
+  public String setNumberItnsInUse(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberItnsInUse, alias);
+  }
+  
+  @Override
+  public String setNumberPeopleSleepingUnderItns(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberPeopleSleepingUnderItns, alias);
+  }
+  
+  @Override
+  public String setNumberPregnantWomenSleepingUnderItns(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberPregnantWomenSleepingUnderItns, alias);
+  }
+  
+  @Override
+  public String setNumberChildrenUnderFiveSleepingUnderItns(Alias alias)
+  {
+    this.irsQB.addChildAggregate(alias);
+    return set(this.teamSprayStatusTable, this.numberChildrenUnderFiveSleepingUnderItns, alias);
   }
 }

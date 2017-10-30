@@ -201,10 +201,10 @@ public class MdTableBuilder implements Reloadable
   
   private String getDisplayLabel(MdAttributeDAOIF mdAttr)
   {
-    if (mdAttr instanceof MdAttributeConcrete_Q)
-    {
-      return ((MdAttributeConcrete_Q) mdAttr).getMdAttributeDisplayLabel(Locale.ROOT);
-    }
+//    if (mdAttr instanceof MdAttributeConcrete_Q)
+//    {
+//      return ((MdAttributeConcrete_Q) mdAttr).getMdAttributeDisplayLabel(Locale.ROOT);
+//    }
     
     return mdAttr.getDisplayLabel(Locale.ROOT);
   }
