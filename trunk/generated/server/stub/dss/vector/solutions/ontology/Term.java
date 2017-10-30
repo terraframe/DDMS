@@ -1289,7 +1289,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     // No value means they didn't specify one. Don't throw a problem; just
     // return null
-    if (displayLabel.trim().length() == 0)
+    if (displayLabel == null || displayLabel.trim().length() == 0)
     {
       return null;
     }
