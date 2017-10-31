@@ -82,8 +82,6 @@ public class MdssLocalizationImporter implements Reloadable
   private Sheet      backupSheet;
 
   private static int modifiedCount = 0;
-  
-  private boolean removeExisting;
 
   public static void main(String[] args) throws FileNotFoundException
   {
@@ -134,17 +132,10 @@ public class MdssLocalizationImporter implements Reloadable
   public MdssLocalizationImporter()
   {
   }
-  
-  public void read(InputStream stream)
-  {
-    this.read(stream, true);
-  }
 
   @Request
-  public void read(InputStream stream, boolean removeExisting)
+  public void read(InputStream stream)
   {
-    this.removeExisting = removeExisting;
-    
     openStream(stream);
 
     checkLocales();
@@ -367,7 +358,7 @@ public class MdssLocalizationImporter implements Reloadable
         {
           props.put(key, value);
         }
-        else if (removeExisting)
+        else
         {
           // If the cell is blank, ensure that the new file will not contain the
           // key, even if it did before
@@ -489,13 +480,9 @@ public class MdssLocalizationImporter implements Reloadable
     for (LocaleDimension ld : localeDimensions)
     {
       String value = getStringValue(row.getCell(c++));
-      if (value == null && removeExisting)
+      if (value == null)
       {
         value = new String();
-      }
-      else
-      {
-        continue;
       }
 
       String localeAttributeName = ld.getAttributeName();

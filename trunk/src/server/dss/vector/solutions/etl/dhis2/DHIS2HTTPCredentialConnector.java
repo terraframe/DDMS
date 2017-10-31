@@ -81,7 +81,17 @@ public class DHIS2HTTPCredentialConnector extends AbstractDHIS2Connector impleme
       post.setRequestHeader("Content-Type", "application/json");
       
       post.setRequestEntity(new StringRequestEntity(body, null, null));
-
+      
+      // TODO
+//      StringPart filePart = new StringPart("upload", body, "utf-8");
+//      StringPart strategyPart = new StringPart("strategy", "UPDATE");
+//      
+//      Part[] parts = { filePart, strategyPart };
+//      MultipartRequestEntity multipartRequestEntity = new MultipartRequestEntity(parts, post.getParams());
+//      
+//      post.setRequestEntity(multipartRequestEntity);
+      // TODO
+      
       HTTPResponse response = this.httpRequest(this.client, post);
       
       if (response.getStatusCode() == 401)

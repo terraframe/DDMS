@@ -976,7 +976,6 @@
         <path refid="framework.classpath" />
       </classpath>
       <arg value="localization/" />
-      <arg value="false" />
     </java>
   </target>
 
@@ -1122,6 +1121,7 @@
 			<jvmarg value="-Xms${memory_use}" />			
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
+			<jvmarg value="-Xdebug" />
 
 			<classpath>
 				<path refid="framework.classpath" />

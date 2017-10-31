@@ -265,6 +265,12 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(STRUCTURES);
     list.add(SPRAYEDHOUSEHOLDS);
     list.add(SPRAYEDSTRUCTURES);
+    list.add(STRUCTURESNOTSPRAYEDSICK);
+    list.add(STRUCTURESNOTSPRAYEDLOCKED);
+    list.add(STRUCTURESNOTSPRAYEDFUNERAL);
+    list.add(STRUCTURESNOTSPRAYEDREFUSED);
+    list.add(STRUCTURESNOTSPRAYEDNOONEHOME);
+    list.add(STRUCTURESNOTSPRAYEDOTHER);
     list.add(PREVSPRAYEDHOUSEHOLDS);
     list.add(PREVSPRAYEDSTRUCTURES);
     list.add(ROOMS);
@@ -290,13 +296,6 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(REASONNOTSPRAYED);
     list.add(SURFACETYPE);
     
-    // new as of 3792
-    list.add(STRUCTURESNOTSPRAYEDSICK);
-    list.add(STRUCTURESNOTSPRAYEDLOCKED);
-    list.add(STRUCTURESNOTSPRAYEDFUNERAL);
-    list.add(STRUCTURESNOTSPRAYEDREFUSED);
-    list.add(STRUCTURESNOTSPRAYEDNOONEHOME);
-    list.add(STRUCTURESNOTSPRAYEDOTHER);
     list.add(NUMBERMALESPROTECTED);
     list.add(NUMBERFEMALESPROTECTED);
     list.add(NUMBERPREGNANTWOMENPROTECTED);
