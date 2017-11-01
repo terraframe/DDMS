@@ -126,6 +126,97 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
 
     operators = <%=request.getAttribute("operators")%>;
     
+    var genericLteCompare = function(sNewValue, oDataTable, compareColumnName)
+    {
+      if (sNewValue === "") { return ""; }
+      
+      var nCompare = Number.parseInt(oDataTable.getRecord().getData()[compareColumnName]);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nNewValue))
+      {
+        alert(MDSS.localize("IRS_CRUD_Not_A_Number"));
+        return undefined;
+      }
+      if (Number.isNaN(nCompare))
+      {
+        if (nNewValue < 0)
+        {
+          alert(MDSS.localize("IRS_CRUD_GTE_0"));
+          return undefined;
+        }
+        else
+        {
+          return sNewValue;
+        }
+      }
+      if (!(nNewValue <= nCompare))
+      {
+        var compareLabel = oDataTable.getDataTable().getColumn(compareColumnName).label;
+        var thisLabel = oDataTable.getColumn().label;
+        
+        alert("[" + thisLabel + "] " + MDSS.localize("IRS_CRUD_MUST_BE_LTE") + " [" + compareLabel + "] ")
+        return undefined;
+      }
+      if (nNewValue < 0)
+      {
+        alert(MDSS.localize("IRS_CRUD_GTE_0"));
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
+    
+    var gteZero = function(sNewValue, sOldValue, oDataTable)
+    {
+      if (sNewValue === "") { return ""; }
+      
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nNewValue))
+      {
+        alert(MDSS.localize("IRS_CRUD_Not_A_Number"));
+        return undefined;
+      }
+      else if (!(nNewValue >= 0))
+      {
+        alert(MDSS.localize("IRS_CRUD_GTE_0"));
+        return undefined;
+      }
+      
+      return sNewValue;
+    }
+    
+    var lteStructures = function(sNewValue, sOldValue, oDataTable)
+    {
+      return genericLteCompare(sNewValue, oDataTable, "Structures");
+    }
+    
+    var ltePeopleProtected = function(sNewValue, sOldValue, oDataTable)
+    {
+      return genericLteCompare(sNewValue, oDataTable, "People");
+    }
+    
+    var lteFemalesProtected = function(sNewValue, sOldValue, oDataTable)
+    {
+      return genericLteCompare(sNewValue, oDataTable, "NumberFemalesProtected");
+    }
+    
+    var lteRooms = function(sNewValue, sOldValue, oDataTable)
+    {
+      return genericLteCompare(sNewValue, oDataTable, "Rooms");
+    }
+    
+    var lteItns = function(sNewValue, sOldValue, oDataTable)
+    {
+      return genericLteCompare(sNewValue, oDataTable, "BedNets");
+    }
+    
+    var ltePeopleSleepingUnderItns = function(sNewValue, sOldValue, oDataTable)
+    {
+      return genericLteCompare(sNewValue, oDataTable, "NumberPeopleSleepingUnderItns");
+    }
+    
     data = {
       rows:<%=grid.getData()%>,
       columnDefs:<%=grid.getColumnSetupWithDelete()%>,
@@ -160,6 +251,8 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
         return oData;
       }
     }
+    
+    
 
     var getColumnIndex = function(key) {
       for(var i = 0; i < data.columnDefs.length; i++) {

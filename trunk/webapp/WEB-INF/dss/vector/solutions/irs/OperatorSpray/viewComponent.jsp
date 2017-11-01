@@ -186,152 +186,97 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
         }
     }
 	  
-	  var lteStructures = function(sNewValue, sOldValue, oDataTable)
+	  var genericLteCompare = function(sNewValue, oDataTable, compareColumnName)
 	  {
 		  if (sNewValue === "") { return ""; }
 	    
-	    var nStructs = Number.parseInt(oDataTable.getRecord().getData().Structures);
-	    var nNewValue = Number.parseInt(sNewValue);
-	    
-	    if (Number.isNaN(nStructs) || Number.isNaN(nNewValue))
+      var nCompare = Number.parseInt(oDataTable.getRecord().getData()[compareColumnName]);
+      var nNewValue = Number.parseInt(sNewValue);
+      
+      if (Number.isNaN(nNewValue))
+      {
+        alert(MDSS.localize("IRS_CRUD_Not_A_Number"));
+        return undefined;
+      }
+      if (Number.isNaN(nCompare))
+      {
+        if (nNewValue < 0)
+        {
+          alert(MDSS.localize("IRS_CRUD_GTE_0"));
+          return undefined;
+        }
+        else
+        {
+          return sNewValue;
+        }
+      }
+      if (!(nNewValue <= nCompare))
+      {
+        var compareLabel = oDataTable.getDataTable().getColumn(compareColumnName).label;
+        var thisLabel = oDataTable.getColumn().label;
+        
+        alert("[" + thisLabel + "] " + MDSS.localize("IRS_CRUD_MUST_BE_LTE") + " [" + compareLabel + "] ")
+        return undefined;
+      }
+      if (nNewValue < 0)
     	{
-	    	alert("LOCALIZE ME : A value is undefined");
-    	  return undefined;
+    	  alert(MDSS.localize("IRS_CRUD_GTE_0"));
+        return undefined;
     	}
-	    else if (!(nNewValue <= nStructs))
-	    {
-	    	alert("LOCALIZE ME : Not lte structures");
-	    	return undefined;
-	    }
-	    
-	    return sNewValue;
-	  }
-	  
-	  var ltePeopleProtected = function(sNewValue, sOldValue, oDataTable)
-	  {
-		  if (sNewValue === "") { return ""; }
-		  
-		  var nPeopleProtected = Number.parseInt(oDataTable.getRecord().getData().People);
-      var nNewValue = Number.parseInt(sNewValue);
-      
-      if (Number.isNaN(nPeopleProtected) || Number.isNaN(nNewValue))
-      {
-        alert("LOCALIZE ME : A value is undefined");
-        return undefined;
-      }
-      else if (!(nNewValue <= nPeopleProtected))
-      {
-        alert("LOCALIZE ME : Not lte nPeopleProtected");
-        return undefined;
-      }
       
       return sNewValue;
 	  }
-	  
-	  var lteFemalesProtected = function(sNewValue, sOldValue, oDataTable)
-    {
-		  if (sNewValue === "") { return ""; }
-      
-      var nFemalesProtected = Number.parseInt(oDataTable.getRecord().getData().NumberFemalesProtected);
-      var nNewValue = Number.parseInt(sNewValue);
-      
-      if (Number.isNaN(nFemalesProtected) || Number.isNaN(nNewValue))
-      {
-        alert("LOCALIZE ME : A value is undefined");
-        return undefined;
-      }
-      else if (!(nNewValue <= nFemalesProtected))
-      {
-        alert("LOCALIZE ME : Not lte nFemalesProtected");
-        return undefined;
-      }
-      
-      return sNewValue;
-    }
-	  
-	  var lteRooms = function(sNewValue, sOldValue, oDataTable)
-    {
-		  if (sNewValue === "") { return ""; }
-      
-      var nRooms = Number.parseInt(oDataTable.getRecord().getData().Rooms);
-      var nNewValue = Number.parseInt(sNewValue);
-      
-      if (Number.isNaN(nRooms) || Number.isNaN(nNewValue))
-      {
-        alert("LOCALIZE ME : A value is undefined");
-        return undefined;
-      }
-      else if (!(nNewValue <= nRooms))
-      {
-        alert("LOCALIZE ME : Not lte nRooms");
-        return undefined;
-      }
-      
-      return sNewValue;
-    }
-	  
-	  var lteItns = function(sNewValue, sOldValue, oDataTable)
-    {
-		  if (sNewValue === "") { return ""; }
-      
-      var nItns = Number.parseInt(oDataTable.getRecord().getData().BedNets);
-      var nNewValue = Number.parseInt(sNewValue);
-      
-      if (Number.isNaN(nItns) || Number.isNaN(nNewValue))
-      {
-        alert("LOCALIZE ME : A value is undefined");
-        return undefined;
-      }
-      else if (!(nNewValue <= nItns))
-      {
-        alert("LOCALIZE ME : Not lte nItns");
-        return undefined;
-      }
-      
-      return sNewValue;
-    }
 	  
 	  var gteZero = function(sNewValue, sOldValue, oDataTable)
     {
-		  if (sNewValue === "") { return ""; }
+      if (sNewValue === "") { return ""; }
       
       var nNewValue = Number.parseInt(sNewValue);
       
       if (Number.isNaN(nNewValue))
       {
-        alert("LOCALIZE ME : A value is undefined");
+        alert(MDSS.localize("IRS_CRUD_Not_A_Number"));
         return undefined;
       }
       else if (!(nNewValue >= 0))
       {
-        alert("LOCALIZE ME : Must be gte 0");
+        alert(MDSS.localize("IRS_CRUD_GTE_0"));
         return undefined;
       }
       
       return sNewValue;
     }
 	  
+	  var lteStructures = function(sNewValue, sOldValue, oDataTable)
+	  {
+		  return genericLteCompare(sNewValue, oDataTable, "Structures");
+	  }
+	  
+	  var ltePeopleProtected = function(sNewValue, sOldValue, oDataTable)
+	  {
+		  return genericLteCompare(sNewValue, oDataTable, "People");
+	  }
+	  
+	  var lteFemalesProtected = function(sNewValue, sOldValue, oDataTable)
+    {
+		  return genericLteCompare(sNewValue, oDataTable, "NumberFemalesProtected");
+    }
+	  
+	  var lteRooms = function(sNewValue, sOldValue, oDataTable)
+    {
+		  return genericLteCompare(sNewValue, oDataTable, "Rooms");
+    }
+	  
+	  var lteItns = function(sNewValue, sOldValue, oDataTable)
+    {
+		  return genericLteCompare(sNewValue, oDataTable, "BedNets");
+    }
+	  
 	  var ltePeopleSleepingUnderItns = function(sNewValue, sOldValue, oDataTable)
     {
-		  if (sNewValue === "") { return ""; }
-      
-      var nPeopleSleepingUnderItns = Number.parseInt(oDataTable.getRecord().getData().NumberPeopleSleepingUnderItns);
-      var nNewValue = Number.parseInt(sNewValue);
-      
-      if (Number.isNaN(nPeopleSleepingUnderItns) || Number.isNaN(nNewValue))
-      {
-        alert("LOCALIZE ME : A value is undefined");
-        return undefined;
-      }
-      else if (!(nNewValue <= nPeopleSleepingUnderItns))
-      {
-        alert("LOCALIZE ME : Not lte nPeopleSleepingUnderItns");
-        return undefined;
-      }
-      
-      return sNewValue;
+      return genericLteCompare(sNewValue, oDataTable, "NumberPeopleSleepingUnderItns");
     }
-
+	  
     var beforeRowHandler = function() {
       addRows = true;
       // Save the existing data before adding new rows
