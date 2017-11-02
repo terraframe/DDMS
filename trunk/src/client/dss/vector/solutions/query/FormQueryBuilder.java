@@ -35,6 +35,8 @@ import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
+import dss.vector.solutions.geo.generated.CollectionSiteDTO;
+import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.ontology.NestedTermsWarningDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.Halp;
@@ -224,10 +226,27 @@ public class FormQueryBuilder implements Reloadable
       }
     }
     
+    // NOTE : I admit this code here was a mistake, however I'm going to leave it this way because changing it is too much work (for very little benefit). If this needs to be done
+    //        again for a different form, the solution should have been:
+    //   1. Create another table which defines additional joins. The table would map this MdWebForm to an additional MdWebForm (which just contains references to MosquitoCollection).
+    //   2. In QueryController.queryType the logic is simple: check if there are additional joins in that table, then invoke 'addForm' for each additional web form.
+    //   3. When cloning, if the form being cloned contains entries in this 'additional joins' table, then create entries for those additional joins for the clone as well.
     if (hasCollectionId)
     {
       addType((MdBusinessDTO) MdFormUtilDTO.getMdBusinessByType(request, MosquitoCollectionDTO.CLASS), groupName, 0);
+      this.dateGroup.addOption(new DateOption(MosquitoCollectionDTO.CLASS, MosquitoCollectionDTO.COLLECTIONDATE));
+      
       this.geoGroup.addOption(new GeoOption(MosquitoCollectionDTO.CLASS, MosquitoCollectionDTO.GEOENTITY, LocalizationFacade.getFromBundles("Geo_Entity")));
+      
+      GeoFieldDTO hackityHackHack = new GeoFieldDTO(this.request);
+      hackityHackHack.setIsPoliticalHierarchy(true);
+      hackityHackHack.setIsPopulationHierarchy(false);
+      hackityHackHack.setIsSprayHierarchy(false);
+      hackityHackHack.setIsUnderSystemRoot(false);
+      hackityHackHack.setIsUrbanHierarchy(false);
+      hackityHackHack.addExtraUniversal(CollectionSiteDTO.CLASS);
+      hackityHackHack.addExtraUniversal(SentinelSiteDTO.CLASS);
+      this.geoField.addField(hackityHackHack);
     }
   }
 

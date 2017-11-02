@@ -1,5 +1,6 @@
 package dss.vector.solutions.geo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -18,10 +19,17 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
   private static final long   serialVersionUID      = 727056416;
 
   private static final String SELECT_SEARCH_ROOT_ID = "selectSearchRootId";
+  
+  private ArrayList<String> extraUniversals = new ArrayList<String>();
 
   public GeoFieldDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(clientRequest);
+  }
+  
+  public void addExtraUniversal(String extraUniversal)
+  {
+    extraUniversals.add(extraUniversal);
   }
 
   /**
@@ -72,16 +80,28 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
         geoFieldJSON.put("filter", JSONObject.NULL);
       }
 
-      List<? extends GeoHierarchyDTO> geoHierarchies = this.getAllGeoHierarchies();
-
-      JSONArray extraUniversals = new JSONArray();
-      geoFieldJSON.put("extraUniversals", extraUniversals);
-      for (GeoHierarchyDTO universal : geoHierarchies)
+      JSONArray jsonExtraUniversals = new JSONArray();
+      geoFieldJSON.put("extraUniversals", jsonExtraUniversals);
+      if (extraUniversals.size() == 0)
       {
-        // The GeoHierarchyView is the object that contains the qualified type
-        // name
-        GeoHierarchyViewDTO extra = GeoHierarchyDTO.getViewForGeoHierarchy(universal.getRequest(), universal.getId());
-        extraUniversals.put(MDSSInfo.GENERATED_GEO_PACKAGE + "." + extra.getTypeName());
+        List<? extends GeoHierarchyDTO> geoHierarchies = this.getAllGeoHierarchies();
+  
+        for (GeoHierarchyDTO universal : geoHierarchies)
+        {
+          // The GeoHierarchyView is the object that contains the qualified type
+          // name
+          GeoHierarchyViewDTO extra = GeoHierarchyDTO.getViewForGeoHierarchy(universal.getRequest(), universal.getId());
+          jsonExtraUniversals.put(MDSSInfo.GENERATED_GEO_PACKAGE + "." + extra.getTypeName());
+        }
+      }
+      else
+      {
+        for (String extra : extraUniversals)
+        {
+          jsonExtraUniversals.put(extra);
+        }
+        
+        
       }
     }
     catch (JSONException e)
