@@ -933,12 +933,21 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       }
     },
     
+    setOntologyTree : function(ontologyTree) {
+      this._ontologyTree = ontologyTree;
+    },
+    
     _selectFunction : function (li) {
       MDSS.Calendar.removeError(this._button); 
       
       var termId = li.id;
       var evt = new this._TermSelectedEvent(termId, undefined, li.innerText);
-      this.dispatchEvent(evt);   
+      this.dispatchEvent(evt);
+      
+      if (this._ontologyTree != null)
+      {
+        this._ontologyTree.searchForTerm(termId);
+      }
     },
         
     setField : function(selected) {

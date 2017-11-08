@@ -2,7 +2,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
 
   Instance : {
   
-    initialize : function(treeViewId, searchNode)
+    initialize : function(treeViewId)
     {
       // id of the div that will contain the TreeView
       this._treeViewId = treeViewId;
@@ -24,8 +24,6 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       
       // the current node of operation 
       this._selectedNode = null;
-      
-      this._searchNode = searchNode;
     },
     
     /**
@@ -269,35 +267,27 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       }
     },
     
-    addSearchButton : function(searchButElId)
+    searchForTerm : function(termId)
     {
-      this._tree.subscribe('expandComplete', Mojo.Util.bind(this, this._expandComplete));
-      
-      var searchBut = document.getElementById(searchButElId);
-      
       var that = this;
+      this._searchTermId = termId;
       
-      var onClick = function(e) {
-        var searchTermId = document.getElementById("searchTerm").value;
-        
-        var request = new MDSS.Request({
-          onSuccess : function(strJSON)
-          {
-            that._tree.collapseAll();
-            
-            var ancestorArray = Mojo.Util.toObject(strJSON).returnValue;
-            var rootJSON = ancestorArray[0];
-            
-            var rootNode = that._tree.getNodesByProperty('termId', rootJSON.id)[0];
-            rootNode.nextAncestors = ancestorArray.splice(1);
-            rootNode.fetchedNodes = rootJSON.children;
-            rootNode.expand();
-          }
-        });
-        
-        dss.vector.solutions.ontology.TermController.fetchAllParents(request, searchTermId);
-      }
-      YAHOO.util.Event.addListener(searchBut, "click", onClick);
+      var request = new MDSS.Request({
+        onSuccess : function(strJSON)
+        {
+          that._tree.collapseAll();
+          
+          var ancestorArray = Mojo.Util.toObject(strJSON).returnValue;
+          var rootJSON = ancestorArray[0];
+          
+          var rootNode = that._tree.getNodesByProperty('termId', rootJSON.id)[0];
+          rootNode.nextAncestors = ancestorArray.splice(1);
+          rootNode.fetchedNodes = rootJSON.children;
+          rootNode.expand();
+        }
+      });
+      
+      dss.vector.solutions.ontology.TermController.fetchAllParents(request, termId);
     },
     
     _expandComplete : function(node){
@@ -339,8 +329,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
           }
           else if (ancestorArray.length === 0)
           {
-            var searchNodeId = document.getElementById("searchTerm").value;
-            var searchNodes = this._tree.getNodesByProperty('termId', searchNodeId);
+            var searchNodes = this._tree.getNodesByProperty('termId', this._searchTermId);
             
             // All this code just to focus multiple items at once
             if (searchNodes.length > 0)
@@ -693,10 +682,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
       
       this._setupMenu();
       
-      if (this._searchNode != null)
-      {
-        this.addSearchButton(this._searchNode);
-      }
+      this._tree.subscribe('expandComplete', Mojo.Util.bind(this, this._expandComplete));
     },
 
     _setupMenu : function()
