@@ -5,7 +5,8 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 
-<c:set var="page_title" value="login"  scope="request"/>
+<c:set var="page_title" value=""  scope="request"/>
+<c:set var="window_title" value="login"  scope="request"/>
 
 <!-- Tell Runway what the application context path is. -->
 <script>
@@ -16,94 +17,42 @@ window.com.runwaysdk.__applicationContextPath = "<%=request.getContextPath()%>";
 
 <jsp:include page="/WEB-INF/templates/banner.jsp" />
 
-<style type="text/css">
-input[type="button"],input[type="submit"] {
-	display: inline;
-	background: F00;
-	height: 39px;
-	background-position: right top;
-	font-size: 18px;
-	font-weight: bold;
-	color: #FFFFFF;
-	line-height: 30px;
-	text-decoration: none;
-	margin-left: -13px;
-	margin-top: 13px;
-	text-shadow: 0 0 0 #000;
-	border-width: 0px;
-	width: 130px;
-	padding: 0px;
-	z-index: 3;
-}
-
-.submitButton:hover {
-	background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
-}
-
-.submitButton {
-	display: inline;
-	background-image: url(/DDMS/imgs/submitButtonBack.gif);
-	background-repeat: repeat-x;
-	height: 39px;
-	background-position: right top;
-	font-size: 18px;
-	font-weight: bold;
-	color: #FFFFFF;
-	line-height: 60px;
-	text-decoration: none;
-	margin-left: -13px;
-	text-shadow: 0 0 0 #000;
-	margin-top: 13px;
-}
-
-input[type="button"]:hover {
-	border: 0px
-}
-
-input[type="button"]:active {
-	border: 0px
-}
-
-.submitButton:hover {
-	background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
-}
-
-.submitButton_bl {
-	width: 24px;
-	background-image: url(/DDMS/imgs/submitButtonLeft.gif);
-	height: 39px;
-	float: left;
-	z-index: 4;
-	position: relative;
-	left: 11px;
-	margin-top: 13px;
-}
-</style>
+<link rel="stylesheet" href="css/login.css">
 
 <div class="pageContent">
-<div class="pageTitle"><mdss:localize key="login" /></div>
 
-<jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
-
-<form method="post" action="${pageContext.request.contextPath}/com.runwaysdk.defaults.LoginController.login.mojo" name="mform" id="mform"><c:if test="${bad_password}">
-  <div class="alert alertbox">
-  <p>${exception.localizedMessage}</p>
+  <div class="sectionLeft">
+    <div class="titleDiv">
+      <span class="title1"><mdss:localize key="login_ddms" /></span>
+      <span class="title2"><mdss:localize key="login_versionName" /></span>
+    </div>
+    
+    <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
+    
+    <form class="loginForm" method="post" action="${pageContext.request.contextPath}/com.runwaysdk.defaults.LoginController.login.mojo" name="mform" id="mform">
+      <c:if test="${bad_password}">
+        <div class="alert alertbox">
+          <p>${exception.localizedMessage}</p>
+        </div>
+      </c:if>
+      
+      
+      <dl class="login">
+        <dt><label> <mdss:localize key="username" />: </label></dt>
+        <dd><mjl:input param="username" type="text" /></dd>
+        <dt><label> <mdss:localize key="password" />: </label></dt>
+        <dd><mjl:input param="password" type="password" value="" /></dd>
+      </dl>
+      
+      <div class="submitButton_bl"></div>
+      <input type="submit" value="<mdss:localize key="Login" />" name="LoginController" id="submitLogin" class="submitButton" />
+    </form>
   </div>
-</c:if>
 
+  <img class="loginMosquito" src="imgs/data-mozzie.png"/>
 
-<dl>
-  <dt><label> <mdss:localize key="username" />: </label></dt>
-  <dd><mjl:input param="username" type="text" /></dd>
-  <dt><label> <mdss:localize key="password" />: </label></dt>
-  <dd><mjl:input param="password" type="password" value="" /></dd>
-</dl>
+</div>
 
-<div class="submitButton_bl"></div>
-<input type="submit" value="<mdss:localize key="Login" />" name="LoginController" id="submitLogin" class="submitButton" /></form>
-<script type="text/javascript">
-
-</script></div>
 <mdss:localize key="unsupported_browser_header" var="unsupported_browser_header" />
 <mdss:localize key="unsupported_browser_contents" var="unsupported_browser_contents" />
 

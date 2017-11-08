@@ -1,0 +1,116 @@
+
+div.sectionLeft {
+	width: 30%;
+	float: left;
+}
+
+img.loginMosquito {
+	width: 70%;
+	float: left;
+}
+
+form.loginForm {
+	width: 30em;
+	background-color: #d7dde6;
+  border: 0.2em solid #658bae;
+  padding: 0.9em;
+}
+
+dl.login {
+	
+}
+
+dl.login label {
+	font-size: 1.5em;
+	font-weight: normal;
+	color: black;
+}
+
+dl.login input {
+	width: 100%;
+}
+
+div.titleDiv {
+	font-family: "Tw Cen MT Condensed";
+	font-size: 6em;
+	margin-top: 0.55em;
+	margin-left: 0.55em;
+	margin-bottom: 0.2em;
+}
+
+/* This 'tw cen mt' font is a different size in firefox than in chrome. This code shrinks it down to chrome size */
+@-moz-document url-prefix() {
+    div.titleDiv {
+      font-size: 5em;
+    }
+}
+
+span.title1 {
+	float: left;
+}
+
+span.title2 {
+	color: #CA1413;
+}
+
+input[type="button"],input[type="submit"] {
+  display: inline;
+  background: F00;
+  height: 39px;
+  background-position: right top;
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 30px;
+  text-decoration: none;
+  margin-left: -13px;
+  margin-top: 13px;
+  text-shadow: 0 0 0 #000;
+  border-width: 0px;
+  width: 130px;
+  padding: 0px;
+  z-index: 3;
+}
+
+.submitButton:hover {
+  background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
+}
+
+.submitButton {
+  display: inline;
+  background-image: url(/DDMS/imgs/submitButtonBack.gif);
+  background-repeat: repeat-x;
+  height: 39px;
+  background-position: right top;
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+  line-height: 60px;
+  text-decoration: none;
+  margin-left: -13px;
+  text-shadow: 0 0 0 #000;
+  margin-top: 13px;
+}
+
+input[type="button"]:hover {
+  border: 0px
+}
+
+input[type="button"]:active {
+  border: 0px
+}
+
+.submitButton:hover {
+  background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
+}
+
+.submitButton_bl {
+  width: 24px;
+  background-image: url(/DDMS/imgs/submitButtonLeft.gif);
+  height: 39px;
+  float: left;
+  z-index: 4;
+  position: relative;
+  left: 11px;
+  margin-top: 13px;
+}

@@ -428,7 +428,7 @@ div#dateRange {
   margin-right: 5px;
 }
 
-dl {
+dl:not(.login) {
   border: 2px solid #CCC;
   -moz-border-radius: 10px;
   padding: 1em;

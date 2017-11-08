@@ -20,16 +20,20 @@
 <jsp:include page="${header_jsp}"  flush="false"  /> 
 <div class="pageContent"> 
 
-<div class="pageTitle">
 <c:choose>
   <c:when test='${localized_page_title != null }'>
-    ${localized_page_title}${page_title_suffix}
+    <div class="pageTitle">
+      ${localized_page_title}${page_title_suffix}
+    </div>
   </c:when>
   <c:otherwise>
-   	<mdss:localize key="${page_title}"/>${page_title_suffix}
+    <c:when test='${page_title != null }'>
+      <div class="pageTitle">
+   	    <mdss:localize key="${page_title}"/>${page_title_suffix}
+      </div>
+    </c:when>
   </c:otherwise>
 </c:choose>
-</div>
 
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 
