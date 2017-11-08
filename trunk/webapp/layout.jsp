@@ -27,11 +27,13 @@
     </div>
   </c:when>
   <c:otherwise>
+    <c:choose>
     <c:when test='${page_title != null }'>
       <div class="pageTitle">
    	    <mdss:localize key="${page_title}"/>${page_title_suffix}
       </div>
     </c:when>
+    </c:choose>
   </c:otherwise>
 </c:choose>
 
