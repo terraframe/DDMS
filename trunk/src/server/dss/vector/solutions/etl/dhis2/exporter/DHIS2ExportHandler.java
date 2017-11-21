@@ -886,16 +886,16 @@ public class DHIS2ExportHandler implements Reloadable
     try
     {
       // Fetch the org unit levels
-      HTTPResponse response = dhis2.apiGet("filledOrganisationUnitLevels", new NameValuePair[]{});
-      DHIS2TrackerResponseProcessor.validateStatusCode(response);
-      
-      JSONArray levels = response.getJSONArray();
-      JSONArray aggregationLevels = new JSONArray();
-      for (int i = 0; i < levels.length(); ++i)
-      {
-        JSONObject level = levels.getJSONObject(i);
-        aggregationLevels.put(level.getInt("level"));
-      }
+//      HTTPResponse response = dhis2.apiGet("filledOrganisationUnitLevels", new NameValuePair[]{});
+//      DHIS2TrackerResponseProcessor.validateStatusCode(response);
+//      
+//      JSONArray levels = response.getJSONArray();
+//      JSONArray aggregationLevels = new JSONArray();
+//      for (int i = 0; i < levels.length(); ++i)
+//      {
+//        JSONObject level = levels.getJSONObject(i);
+//        aggregationLevels.put(level.getInt("level"));
+//      }
       
       
       JSONArray dataElements = new JSONArray();
@@ -969,7 +969,7 @@ public class DHIS2ExportHandler implements Reloadable
             
 //            dataElement.put("categoryCombo", new JSONObject().put("id", categoryComboId));
             
-            dataElement.put("aggregationLevels", aggregationLevels);
+//            dataElement.put("aggregationLevels", aggregationLevels);
             
             dataElements.put(dataElement.getJSON());
           }
