@@ -279,6 +279,9 @@ public class DHIS2ExportHandler implements Reloadable
     hardcodedFieldAggregationMap.put("subCollectionCount", "SUM");
     hardcodedFieldAggregationMap.put("mosquitoCount", "SUM");
     hardcodedFieldAggregationMap.put("mosquitoCount", "SUM");
+    hardcodedFieldAggregationMap.put("operator_planned_target", "SUM");
+    hardcodedFieldAggregationMap.put("team_planned_target", "SUM");
+    hardcodedFieldAggregationMap.put("area_planned_target", "SUM");
   }
   
   private String getAggTypeFromSql(SelectableSQL sel)
