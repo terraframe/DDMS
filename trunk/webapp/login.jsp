@@ -117,5 +117,3 @@ return {  // Return object literal and public methods here.
 
 YAHOO.util.Event.onDOMReady(checkForFF);
 </script>
-
-<jsp:include page="/WEB-INF/templates/footer.jsp" />
