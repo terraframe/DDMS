@@ -135,7 +135,7 @@ public class ExcelImportServlet extends HttpServlet
 
         if (errorStream.available() > 0)
         {
-          respondError(new BufferedInputStream(errorStream), fileName, res, null, null);
+          ExcelUtil.respondError(new BufferedInputStream(errorStream), fileName, res, null, false);
           return;
         }
       }
@@ -163,14 +163,9 @@ public class ExcelImportServlet extends HttpServlet
 
         if (errorStream.available() > 0)
         {
-          // We're making up our own status codes here because we can
-          int statusCode = 701; // Request completed but with errors
-          if ( ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 ))
-          {
-            statusCode = 702; // Request completed with errors and synonyms
-          }
+          Boolean hasSynonyms = ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 );
 
-          respondError(new BufferedInputStream(errorStream), fileName, res, managerId, statusCode);
+          ExcelUtil.respondError(new BufferedInputStream(errorStream), fileName, res, managerId, hasSynonyms);
           return;
         }
       }
@@ -209,112 +204,6 @@ public class ExcelImportServlet extends HttpServlet
       {
         res.addHeader(ErrorUtility.ERROR_MESSAGE, String.valueOf(req.getAttribute(ErrorUtility.ERROR_MESSAGE)));
       }
-    }
-  }
-
-  // #3211 This property is used to specify a directory that, if an excel file
-  // is imported
-  // and the import fails with errors, that error file will be written to this
-  // directory with the same name as the imported file.
-  private void respondError(BufferedInputStream errorStream, String filename, HttpServletResponse res, String managerId, Integer statusCode)
-  {
-    TeeOutputStream tee = null;
-    ServletOutputStream streamToBrowser = null;
-    BufferedOutputStream streamToXlsLogFile = null;
-
-    String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
-    try
-    {
-      try
-      {
-        byte[] errorBytes = IOUtils.toByteArray(errorStream);
-        errorStream.close();
-        errorStream = new BufferedInputStream(new ByteArrayInputStream(errorBytes));
-
-        File fDir = new File(errorDir);
-
-        if (!fDir.exists())
-        {
-          fDir.mkdirs();
-        }
-
-        File errorFile = new File(fDir, filename);
-        if (errorFile.exists())
-        {
-          FileIO.deleteFile(errorFile);
-        }
-
-        FileOutputStream fos = new FileOutputStream(errorFile);
-        streamToXlsLogFile = new BufferedOutputStream(fos);
-
-        res.setContentType("application/xls");
-        res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-        if (managerId != null)
-        {
-          res.addHeader("ExcelImportManagerId", managerId);
-        }
-        if (statusCode != null)
-        {
-          res.setStatus(statusCode);
-        }
-
-        streamToBrowser = res.getOutputStream();
-
-        tee = new TeeOutputStream(streamToXlsLogFile, streamToBrowser); // The
-                                                                        // tee
-                                                                        // allows
-                                                                        // us to
-                                                                        // write
-                                                                        // to 2
-                                                                        // different
-                                                                        // places
-                                                                        // at
-                                                                        // once.
-        try
-        {
-          FileIO.write(tee, errorStream);
-        }
-        catch (IOException e)
-        {
-          // If the client closed their browser tab we'll get an IOEx. We still
-          // want to make sure that log file gets written (#3462)
-          streamToXlsLogFile.close();
-          errorStream.close();
-
-          if (errorFile.exists())
-          {
-            FileIO.deleteFile(errorFile);
-          }
-
-          errorStream = new BufferedInputStream(new ByteArrayInputStream(errorBytes));
-          streamToXlsLogFile = new BufferedOutputStream(new FileOutputStream(errorFile));
-
-          FileIO.write(streamToXlsLogFile, errorStream);
-        }
-      }
-      finally
-      {
-        if (streamToBrowser != null)
-        {
-          streamToBrowser.close();
-        }
-        if (errorStream != null)
-        {
-          errorStream.close();
-        }
-        if (streamToXlsLogFile != null)
-        {
-          streamToXlsLogFile.close();
-        }
-        if (tee != null)
-        {
-          tee.close();
-        }
-      }
-    }
-    catch (Exception e)
-    {
-      RunwayLogUtil.logToLevel(LogLevel.ERROR, "Exception thrown while attempting to write excel error file to directory [" + errorDir + "].", e);
     }
   }
 

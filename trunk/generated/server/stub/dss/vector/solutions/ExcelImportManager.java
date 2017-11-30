@@ -55,6 +55,11 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
    */
   public java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params)
   {
+    if (params == null)
+    {
+      params = new String[] {};
+    }
+    
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
     EpiCache.start();
@@ -98,7 +103,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
       EpiCache.stop();
     }
   }
-
+  
   /**
    * MdMethod
    * 

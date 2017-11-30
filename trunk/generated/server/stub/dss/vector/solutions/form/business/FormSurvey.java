@@ -17,10 +17,12 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.BedNetValidationImportListener;
 import dss.vector.solutions.generator.ContextBuilderFacade;
+import dss.vector.solutions.generator.DefaultContextBuilder;
 import dss.vector.solutions.generator.DiseaseAndValidationImportListener;
 import dss.vector.solutions.generator.FormBedNetContextBuilder;
 import dss.vector.solutions.generator.FormContextBuilder;
@@ -125,14 +127,14 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
     return listeners;
   }
 
-  public static InputStream excelImport(InputStream stream)
+  public static InputStream excelImport(InputStream stream, ExcelImportManager manager)
   {
     MdWebFormDAOIF formSurvey = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormSurvey.FORM_TYPE);
     MdWebFormDAOIF formHousehold = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormHousehold.FORM_TYPE);
     MdWebFormDAOIF formBedNet = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
     MdWebFormDAOIF formPerson = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
 
-    ContextBuilderFacade builder = new ContextBuilderFacade();
+    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(new String[] {}, manager));
 
     builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter()));
     builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder());
@@ -163,8 +165,12 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
           context.addListener(listener);
         }
       }
+      
+      InputStream outStream = new ByteArrayInputStream(importer.read());
 
-      return new ByteArrayInputStream(importer.read());
+      manager.onFinishImport();
+      
+      return outStream;
     }
     finally
     {

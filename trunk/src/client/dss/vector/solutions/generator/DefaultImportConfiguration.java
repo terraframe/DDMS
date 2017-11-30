@@ -9,13 +9,15 @@ import javax.servlet.ServletException;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManagerDTO;
+
 public class DefaultImportConfiguration implements Reloadable, ImportConfiguration
 {
 
   @Override
-  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream stream, String excelType)
+  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream stream, String excelType, ExcelImportManagerDTO manager)
   {
-    return MdFormUtilDTO.excelImport(clientRequest, stream, excelType);
+    return manager.importWhatYouCan(stream, null);
   }
 
   @Override

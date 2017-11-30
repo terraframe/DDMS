@@ -24,6 +24,7 @@ import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.ontology.Term;
 
@@ -32,7 +33,16 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
   private MdFormDAOIF   mdForm;
 
   private MdFieldFilter filter;
+  
+  private ExcelImportManager  manager;
 
+  public FormContextBuilder(MdFormDAOIF mdForm, MdFieldFilter filter, ExcelImportManager manager)
+  {
+    this.mdForm = mdForm;
+    this.filter = filter;
+    this.manager = manager;
+  }
+  
   public FormContextBuilder(MdFormDAOIF mdForm, MdFieldFilter filter)
   {
     this.mdForm = mdForm;

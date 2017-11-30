@@ -1,30 +1,23 @@
 package dss.vector.solutions.generator;
 
-import java.io.BufferedOutputStream;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.output.TeeOutputStream;
 
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.controller.MultipartFileParameter;
-import com.runwaysdk.logging.LogLevel;
-import com.runwaysdk.logging.RunwayLogUtil;
-import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.ExcelImportManagerDTO;
 import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
 import dss.vector.solutions.ontology.UnknownTermDTO;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.ExcelUtil;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -114,65 +107,20 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
 
           try
           {
-            UnknownGeoEntityDTO[] unknownEntities = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
+            ExcelImportManagerDTO importer = ExcelImportManagerDTO.getNewInstance(clientRequest);
             
-            UnknownTermDTO[] unknownTerms = FacadeDTO.checkTermSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
-
-            // all geo entities in the file were identified
-            if (unknownEntities != null && unknownEntities.length == 0 && unknownTerms != null && unknownTerms.length == 0)
+            InputStream errorStream = configuration.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType, importer);
+            
+            UnknownGeoEntityDTO[] unmatchedGeos = importer.getUnmatchedGeoViews();
+            
+            UnknownTermDTO[] unmatchedTerms = importer.getUnknownTerms();
+            
+            if (errorStream.available() > 0)
             {
-              InputStream errorStream = configuration.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType);
+              Boolean hasSynonyms = ( unmatchedGeos != null && unmatchedGeos.length > 0 ) || ( unmatchedTerms != null && unmatchedTerms.length > 0 );
 
-              if (errorStream.available() > 0)
-              {
-                // This code implemented as part of DDMS ticket #3211. This property is used to specify a directory that, if an excel file is imported
-                //  and the import fails with errors, that error file will be written to this directory with the same name as the imported file.
-                String errorDir = DeployProperties.getDeployRoot() + "/../import errors";
-                try
-                {
-                  File fDir = new File(errorDir);
-                  
-                  if (!fDir.exists())
-                  {
-                    fDir.mkdirs();
-                  }
-                  
-                  File errorFile = new File(fDir, upfile.getFilename());
-                  
-                  FileOutputStream fos = new FileOutputStream(errorFile);
-                  BufferedOutputStream buffer = new BufferedOutputStream(fos);
-                  
-                  resp.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-                  ServletOutputStream outputStream = resp.getOutputStream();
-                  
-                  TeeOutputStream tee = new TeeOutputStream(buffer, outputStream); // The tee allows us to write to 2 different places at once.
-                  FileIO.write(tee, errorStream);
-                  tee.flush();
-                  tee.close();
-                }
-                catch (Exception e)
-                {
-                  RunwayLogUtil.logToLevel(LogLevel.ERROR, "Exception thrown while attempting to write excel error file to directory [" + errorDir + "].", e);
-                }
-              }
-              else
-              {
-                render("importSuccess.jsp");
-              }
-            }
-            else if ((unknownEntities != null && unknownEntities.length > 0) || (unknownTerms != null && unknownTerms.length > 0))
-            {
-              req.setAttribute("action", configuration.getFormUrl());
-              req.setAttribute("excelType", excelType);
-              req.setAttribute("unknownGeoEntitys", unknownEntities);
-              req.setAttribute("unknownTerms", unknownTerms);
-              req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, resp);
-            }
-            else
-            {
-              ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
-
-              render("importFailure.jsp");
+              ExcelUtil.respondError(new BufferedInputStream(errorStream), upfile.getFilename(), resp, importer.getId(), hasSynonyms);
+              return;
             }
           }
           catch (Throwable t)
@@ -204,7 +152,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
       this.importType("");
     }
   }
-
+  
   @Override
   public void failExcelImport(String excelType, MultipartFileParameter upfile) throws IOException, ServletException
   {

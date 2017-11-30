@@ -9,10 +9,12 @@ import javax.servlet.ServletException;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManagerDTO;
+
 public interface ImportConfiguration extends Reloadable
 {
 
-  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream byteArrayInputStream, String excelType);
+  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream byteArrayInputStream, String excelType, ExcelImportManagerDTO manager);
 
   public void redirectError(ExcelController controller, String type) throws IOException, ServletException;
 

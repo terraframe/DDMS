@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1619438485)
+@com.runwaysdk.business.ClassSignature(hash = -1839666156)
 public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormSurvey";
-  private static final long serialVersionUID = 1619438485;
+  private static final long serialVersionUID = -1839666156;
   
   protected FormSurveyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -300,7 +300,7 @@ public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessD
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.SingleActorDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -308,7 +308,7 @@ public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessD
     }
     else
     {
-      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -481,10 +481,10 @@ public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessD
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final java.io.InputStream excelImport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream stream)
+  public static final java.io.InputStream excelImport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream stream, dss.vector.solutions.ExcelImportManagerDTO manager)
   {
-    String[] _declaredTypes = new String[]{"java.io.InputStream"};
-    Object[] _parameters = new Object[]{stream};
+    String[] _declaredTypes = new String[]{"java.io.InputStream", "dss.vector.solutions.ExcelImportManager"};
+    Object[] _parameters = new Object[]{stream, manager};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormSurveyDTO.CLASS, "excelImport", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
