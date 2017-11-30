@@ -17,12 +17,14 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
-public class FormImportContext extends ImportContext implements Reloadable
+import dss.vector.solutions.ExcelImportManager;
+
+public class FormImportContext extends ManagedImportContext implements Reloadable
 {
 
-  public FormImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass)
+  public FormImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass, ExcelImportManager manager)
   {
-    super(sheet, sheetName, error, mdClass);
+    super(sheet, sheetName, error, mdClass, manager);
   }
 
   @Override

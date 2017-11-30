@@ -10,15 +10,16 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormPersonQuery;
 
 public class FormPersonImportContext extends FormImportContext implements Reloadable
 {
 
-  public FormPersonImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass)
+  public FormPersonImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass, ExcelImportManager manager)
   {
-    super(sheet, sheetName, error, mdClass);
+    super(sheet, sheetName, error, mdClass, manager);
   }
 
   @Override

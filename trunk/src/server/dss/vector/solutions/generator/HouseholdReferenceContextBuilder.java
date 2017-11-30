@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormSurvey;
 
@@ -18,9 +19,9 @@ public abstract class HouseholdReferenceContextBuilder extends FormContextBuilde
 
   private SurveyColumn    surveyColumn;
 
-  public HouseholdReferenceContextBuilder(MdFormDAOIF mdForm)
+  public HouseholdReferenceContextBuilder(MdFormDAOIF mdForm, ExcelImportManager manager)
   {
-    super(mdForm, new FormSurveyImportFilter());
+    super(mdForm, new FormSurveyImportFilter(), manager);
 
     this.householdColumn = null;
     this.surveyColumn = null;

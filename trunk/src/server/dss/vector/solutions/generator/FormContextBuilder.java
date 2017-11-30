@@ -34,19 +34,13 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
 
   private MdFieldFilter filter;
   
-  private ExcelImportManager  manager;
+  protected ExcelImportManager  manager;
 
   public FormContextBuilder(MdFormDAOIF mdForm, MdFieldFilter filter, ExcelImportManager manager)
   {
     this.mdForm = mdForm;
     this.filter = filter;
     this.manager = manager;
-  }
-  
-  public FormContextBuilder(MdFormDAOIF mdForm, MdFieldFilter filter)
-  {
-    this.mdForm = mdForm;
-    this.filter = filter;
   }
 
   @Override
@@ -58,15 +52,15 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
     {
       throw new UnexpectedTypeException("Excel Importer does not support type [" + mdClass.definesType() + "]");
     }
-
+    
     Sheet error = errorWorkbook.createSheet(sheetName);
-
-    FormImportContext context = new FormImportContext(sheet, sheetName, error, mdClass);
-
-    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+    
+    FormImportContext context = new FormImportContext(sheet, sheetName, error, mdClass, manager);
+    
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, manager);
     List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
     List<ImportApplyListener> applyListeners = MdFormUtil.getImportApplyListeners(mdForm);
- 
+    
     for (DynamicGeoColumnListener listener : geoListeners) 
     {
       context.addListener(listener);

@@ -16,14 +16,15 @@ import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormSurvey;
 
 public class FormHouseholdContextBuilder extends FormContextBuilder implements Reloadable
 {
-  public FormHouseholdContextBuilder()
+  public FormHouseholdContextBuilder(ExcelImportManager manager)
   {
-    super((MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormHousehold.FORM_TYPE), new FormSurveyImportFilter());
+    super((MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormHousehold.FORM_TYPE), new FormSurveyImportFilter(), manager);
   }
 
   @Override
@@ -38,7 +39,7 @@ public class FormHouseholdContextBuilder extends FormContextBuilder implements R
 
     Sheet error = errorWorkbook.createSheet(sheetName);
 
-    return new FormHouseholdImportContext(sheet, sheetName, error, mdClass);
+    return new FormHouseholdImportContext(sheet, sheetName, error, mdClass, manager);
   }
 
   protected void buildAttributeColumn(ImportContext context, MdAttributeDAOIF mdAttribute)

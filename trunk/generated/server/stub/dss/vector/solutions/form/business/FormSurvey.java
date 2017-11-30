@@ -110,7 +110,7 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
   {
     List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
 
-    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
 
     for (DynamicGeoColumnListener listener : geoListeners)
     {
@@ -134,12 +134,12 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
     MdWebFormDAOIF formBedNet = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
     MdWebFormDAOIF formPerson = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
 
-    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(new String[] {}, manager));
+    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(new String[] {}, manager), manager);
 
-    builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter()));
-    builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder());
-    builder.add(FormBedNet.CLASS, new FormBedNetContextBuilder());
-    builder.add(FormPerson.CLASS, new FormPersonContextBuilder());
+    builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter(), manager));
+    builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder(manager));
+    builder.add(FormBedNet.CLASS, new FormBedNetContextBuilder(manager));
+    builder.add(FormPerson.CLASS, new FormPersonContextBuilder(manager));
 
     MdFormUtil.addGridContexts(formSurvey, builder);
     MdFormUtil.addGridContexts(formHousehold, builder);
@@ -188,7 +188,7 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
     if (mdForm != null)
     {
 
-      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
       List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
 
       for (DynamicGeoColumnListener listener : geoListeners)

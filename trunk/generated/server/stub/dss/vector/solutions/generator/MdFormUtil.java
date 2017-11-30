@@ -147,6 +147,7 @@ import com.runwaysdk.system.metadata.WebGridFieldQuery;
 import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MDSSRoleInfo;
@@ -1741,7 +1742,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
 
-    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
 
     for (DynamicGeoColumnListener listener : geoListeners)
     {
@@ -1765,26 +1766,26 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return new ByteArrayInputStream(exporter.write());
   }
 
-  public static InputStream excelImport(InputStream stream, String type)
-  {
-    // Start caching Broswer Roots for this Thread.
-    TermRootCache.start();
-    EpiCache.start();
-
-    try
-    {
-      ContextBuilderFacade builder = new ContextBuilderFacade();
-
-      ExcelImporter importer = new ExcelImporter(stream, builder);
-
-      return new ByteArrayInputStream(importer.read());
-    }
-    finally
-    {
-      TermRootCache.stop();
-      EpiCache.stop();
-    }
-  }
+//  public static InputStream excelImport(InputStream stream, String type)
+//  {
+//    // Start caching Broswer Roots for this Thread.
+//    TermRootCache.start();
+//    EpiCache.start();
+//
+//    try
+//    {
+//      ContextBuilderFacade builder = new ContextBuilderFacade();
+//
+//      ExcelImporter importer = new ExcelImporter(stream, builder);
+//
+//      return new ByteArrayInputStream(importer.read());
+//    }
+//    finally
+//    {
+//      TermRootCache.stop();
+//      EpiCache.stop();
+//    }
+//  }
 
   public static List<MultiTermListener> getMultiTermListeners(MdFormDAOIF mdForm)
   {
@@ -1880,7 +1881,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
-  public static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)
+  public static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm, ExcelImportManager manager)
   {
     List<DynamicGeoColumnListener> listeners = new LinkedList<DynamicGeoColumnListener>();
 
@@ -1905,7 +1906,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
             builder.add(universal);
           }
 
-          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder, null));
+          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder, manager));
         }
       }
     }

@@ -66,7 +66,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
 
     try
     {
-      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(params, this));
+      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(params, this), this);
 
       ExcelImporter importer = new ExcelImporter(inputStream, builder);
 

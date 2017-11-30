@@ -206,7 +206,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
 
     try
     {
-      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(listenerMethod, params));
+      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(listenerMethod, params), null);
 
       ExcelImporter importer = new ExcelImporter(inputStream, builder);
 

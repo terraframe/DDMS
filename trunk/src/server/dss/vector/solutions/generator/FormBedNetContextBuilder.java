@@ -13,13 +13,14 @@ import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.form.business.FormBedNet;
 
 public class FormBedNetContextBuilder extends HouseholdReferenceContextBuilder implements Reloadable
 {
-  public FormBedNetContextBuilder()
+  public FormBedNetContextBuilder(ExcelImportManager manager)
   {
-    super((MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE));
+    super((MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE), manager);
   }
 
   @Override
@@ -34,6 +35,6 @@ public class FormBedNetContextBuilder extends HouseholdReferenceContextBuilder i
 
     Sheet error = errorWorkbook.createSheet(sheetName);
 
-    return new FormBedNetImportContext(sheet, sheetName, error, mdClass);
+    return new FormBedNetImportContext(sheet, sheetName, error, mdClass, this.manager);
   }
 }

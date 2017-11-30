@@ -7,14 +7,15 @@ import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.form.business.FormBedNet;
 
 public class FormBedNetImportContext extends FormImportContext implements Reloadable
 {
 
-  public FormBedNetImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass)
+  public FormBedNetImportContext(Sheet sheet, String sheetName, Sheet error, MdClassDAOIF mdClass, ExcelImportManager manager)
   {
-    super(sheet, sheetName, error, mdClass);
+    super(sheet, sheetName, error, mdClass, manager);
   }
 
   @Override

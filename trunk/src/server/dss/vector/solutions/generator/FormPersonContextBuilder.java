@@ -17,6 +17,7 @@ import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormPerson;
 
@@ -24,9 +25,9 @@ public class FormPersonContextBuilder extends HouseholdReferenceContextBuilder i
 {
   private BedNetColumn bedNetColumn;
 
-  public FormPersonContextBuilder()
+  public FormPersonContextBuilder(ExcelImportManager manager)
   {
-    super((MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE));
+    super((MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE), manager);
 
     this.bedNetColumn = null;
   }
@@ -54,7 +55,7 @@ public class FormPersonContextBuilder extends HouseholdReferenceContextBuilder i
 
     Sheet error = errorWorkbook.createSheet(sheetName);
 
-    return new FormPersonImportContext(sheet, sheetName, error, mdClass);
+    return new FormPersonImportContext(sheet, sheetName, error, mdClass, manager);
   }
 
   protected void buildAttributeColumn(ImportContext context, MdAttributeDAOIF mdAttribute)

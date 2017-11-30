@@ -14,22 +14,28 @@ import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdWebForm;
 
+import dss.vector.solutions.ExcelImportManager;
+
 public class ContextBuilderFacade implements ContextBuilderIF, Reloadable
 {
   private static final String           DEFAULT = "DEFAULT";
 
   private Map<String, ContextBuilderIF> map;
+  
+  private ExcelImportManager manager;
 
-  public ContextBuilderFacade()
+  public ContextBuilderFacade(ExcelImportManager manager)
   {
     this.map = new HashMap<String, ContextBuilderIF>();
     this.map.put(DEFAULT, new DefaultContextBuilder());
+    this.manager = manager;
   }
 
-  public ContextBuilderFacade(ContextBuilderIF defaultBuilder)
+  public ContextBuilderFacade(ContextBuilderIF defaultBuilder, ExcelImportManager manager)
   {
     this.map = new HashMap<String, ContextBuilderIF>();
     this.map.put(DEFAULT, defaultBuilder);
+    this.manager = manager;
   }
   
   public void add(String contextType, ContextBuilderIF builder)
@@ -72,7 +78,7 @@ public class ContextBuilderFacade implements ContextBuilderIF, Reloadable
 
           String classType = mdForm.getFormMdClass().definesType();
 
-          this.add(classType, new FormContextBuilder(mdFormDao, new FormImportFilter()));
+          this.add(classType, new FormContextBuilder(mdFormDao, new FormImportFilter(), manager));
 
           MdFormUtil.addGridContexts(mdFormDao, this);
         }
