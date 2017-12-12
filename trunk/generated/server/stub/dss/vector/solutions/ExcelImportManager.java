@@ -60,48 +60,8 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
       params = new String[] {};
     }
     
-    // Start caching Broswer Roots for this Thread.
-    TermRootCache.start();
-    EpiCache.start();
-
-    try
-    {
-      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(params, this), this);
-
-      ExcelImporter importer = new ExcelImporter(inputStream, builder);
-
-      try
-      {
-        byte[] read = importer.read();
-
-        this.onFinishImport();
-
-        return new ByteArrayInputStream(read);
-      }
-      catch (RuntimeException e)
-      {
-        /*
-         * Ticket #2663: Errors from reading external sheet should have a better
-         * error message. Unfortunately, the HSSF API doesn't throw a specific
-         * exception for external sheet errors, but throws a RuntimeException.
-         * As such the only way to tell if the exception is an external sheet
-         * error is by reading the message.
-         */
-        Throwable cause = e.getCause();
-
-        if (cause != null && cause.getMessage().startsWith("No external workbook with name"))
-        {
-          throw new ExcelReadException();
-        }
-
-        throw e;
-      }
-    }
-    finally
-    {
-      TermRootCache.stop();
-      EpiCache.stop();
-    }
+    ExcelImportJob job = new ExcelImportJob(this, inputStream, params);
+    return job.doImport();
   }
   
   /**

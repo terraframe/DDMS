@@ -4,14 +4,20 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
 
+import dss.vector.solutions.ExcelImportHistoryDTO;
 import dss.vector.solutions.ExcelImportManagerDTO;
 import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
@@ -35,7 +41,77 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
+  
+  @Override
+  public void viewManager() throws java.io.IOException, javax.servlet.ServletException
+  {
+    URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
+    String path = url.toString();
 
+    this.req.setAttribute("path", path);
+
+    this.render("manager.jsp");
+  }
+  
+  @Override
+  public void failViewManager() throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+  }
+  
+  @Override
+  public void clearHistory() throws java.io.IOException, javax.servlet.ServletException
+  {
+    ExcelImportHistoryDTO.clearHistory(getClientRequest());
+  }
+  
+  @Override
+  public void failClearHistory() throws java.io.IOException, javax.servlet.ServletException
+  {
+    // Do nothing! Intentionally empty.
+  }
+  
+  @Override
+  public void getAllHistory() throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      JSONArray jHistories = new JSONArray();
+      
+      ExcelImportHistoryDTO[] histories = ExcelImportHistoryDTO.getAllHistory(getClientRequest());
+      
+      for (int i = 0; i < histories.length; ++i)
+      {
+        ExcelImportHistoryDTO history = histories[i];
+        
+        JSONObject jHistory = new JSONObject();
+        
+        jHistory.put("name", history.getHistoryComment());
+        jHistory.put("importCount", history.getImportCount());
+        jHistory.put("totalRecords", history.getTotalRecords());
+        jHistory.put("status", history.getStatus().get(0).name());
+        jHistory.put("startTime", new SimpleDateFormat("dd/MM/yyyy").format(history.getStartTime()));
+        jHistory.put("hasError", history.getErrorFile() != null);
+        jHistory.put("hasSynonym", history.getSerializedUnknownGeos() != null || history.getSerializedUnknownTerms() != null);
+        
+        jHistories.put(jHistory);
+      }
+      
+      resp.getWriter().write(jHistories.toString());
+    }
+    catch (JSONException e)
+    {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  @Override
+  public void failGetAllHistory() throws java.io.IOException, javax.servlet.ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+  }
+  
   @Override
   public void excelExport(String excelType) throws IOException, ServletException
   {
@@ -182,7 +258,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
       }
     }
   }
-
+  
   @Override
   public void failImportType(String excelType) throws IOException, ServletException
   {
