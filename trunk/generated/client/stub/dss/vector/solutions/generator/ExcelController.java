@@ -62,7 +62,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   @Override
   public void clearHistory() throws java.io.IOException, javax.servlet.ServletException
   {
-    ExcelImportHistoryDTO.clearHistory(getClientRequest());
+    ExcelImportHistoryDTO.deleteAllHistory(getClientRequest());
   }
   
   @Override
@@ -90,7 +90,15 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         jHistory.put("importCount", history.getImportCount());
         jHistory.put("totalRecords", history.getTotalRecords());
         jHistory.put("status", history.getStatus().get(0).name());
-        jHistory.put("startTime", new SimpleDateFormat("dd/MM/yyyy").format(history.getStartTime()));
+        jHistory.put("startTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getStartTime()));
+        if (history.getEndTime() != null)
+        {
+          jHistory.put("endTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getEndTime()));
+        }
+        else
+        {
+          jHistory.put("endTime", "");
+        }
         jHistory.put("hasError", history.getErrorFile() != null);
         jHistory.put("hasSynonym", history.getSerializedUnknownGeos() != null || history.getSerializedUnknownTerms() != null);
         

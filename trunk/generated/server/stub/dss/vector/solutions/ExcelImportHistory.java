@@ -1,8 +1,13 @@
 package dss.vector.solutions;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 
 public class ExcelImportHistory extends ExcelImportHistoryBase implements com.runwaysdk.generation.loader.Reloadable
@@ -24,16 +29,31 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
   {
     QueryFactory qf = new QueryFactory();
     
-    ExcelImportHistoryQuery query = new ExcelImportHistoryQuery(qf);
-    OIterator<? extends ExcelImportHistory> jhs = query.getIterator();
+    ExcelImportJobQuery jobQ = new ExcelImportJobQuery(qf);
+    ExcelImportHistoryQuery historyQ = new ExcelImportHistoryQuery(qf);
+    ValueQuery vq = new ValueQuery(qf);
     
-    while (jhs.hasNext())
+    vq.SELECT(jobQ.getId("jobId"));
+    vq.SELECT(historyQ.getId("historyId"));
+    
+    vq.WHERE(historyQ.getStatus().notContainsAll(AllJobStatus.RUNNING));
+    vq.AND(historyQ.job(jobQ));
+    
+    Set<String> jobs = new HashSet<String>();
+    
+    OIterator<? extends ValueObject> vqIt = vq.getIterator();
+    
+    while (vqIt.hasNext())
     {
-      ExcelImportHistory jh = jhs.next();
-      if (!jh.getStatus().contains(AllJobStatus.RUNNING))
-      {
-        jh.delete();
-      }
+      ValueObject obj = vqIt.next();
+      ExcelImportHistory.get(obj.getValue("historyId")).delete();
+      
+      jobs.add(obj.getValue("jobId"));
+    }
+    
+    for (String jobId : jobs)
+    {
+      ExcelImportJob.get(jobId).delete();
     }
   }
   

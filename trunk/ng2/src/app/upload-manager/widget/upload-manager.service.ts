@@ -24,4 +24,11 @@ export class UploadManagerService extends BasicService {
       })
       .catch(this.handleError.bind(this));
   }
+  
+  clearHistory(): Promise<Response> {
+    return this.ehttp
+    .get(acp + '/dss.vector.solutions.generator.ExcelController.clearHistory.mojo')
+    .toPromise()
+    .catch(this.handleError.bind(this));
+  }
 }

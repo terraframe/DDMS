@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import java.io.ByteArrayInputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -12,22 +11,20 @@ import java.util.TreeSet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 
-import dss.vector.solutions.export.ExcelReadException;
-import dss.vector.solutions.general.EpiCache;
-import dss.vector.solutions.generator.ContextBuilderFacade;
-import dss.vector.solutions.generator.DefaultContextBuilder;
 import dss.vector.solutions.geo.UnknownGeoEntity;
-import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.ontology.UnknownTerm;
 
 public class ExcelImportManager extends ExcelImportManagerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long        serialVersionUID        = 792922881;
 
+  private Logger logger = LoggerFactory.getLogger(ExcelImportManager.class);
+  
   private List<UnknownGeoEntity>   unknownEntityList       = new LinkedList<UnknownGeoEntity>();
 
   private List<UnknownTerm>        unknownTerms            = new LinkedList<UnknownTerm>();
@@ -61,6 +58,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     }
     
     ExcelImportJob job = new ExcelImportJob(this, inputStream, params);
+    job.apply();
     return job.doImport();
   }
   

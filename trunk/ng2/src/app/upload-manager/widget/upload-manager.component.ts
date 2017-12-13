@@ -32,8 +32,15 @@ export class UploadManagerComponent implements OnInit {
     this.uploadManagerService
       .getAllHistory()
       .then(histories => {
-    	console.log("setting histories to " + histories)
         this.histories = histories;
       })
   };
+  
+  clearHistory() : void {
+    this.uploadManagerService
+      .clearHistory()
+      .then(response => {
+      
+    })
+  }
 }
