@@ -25,7 +25,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   
   private static Map<String,SharedState> sharedStates = new HashMap<String,SharedState>();
   
-  private SharedState sharedState;
+  private SharedState sharedState; // This state is shared across threads
   
   public ExcelImportJob(ExcelImportManager manager, InputStream inputStream, String[] params)
   {
@@ -38,7 +38,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   }
   
   /**
-   * Don't invoke this.
+   * Don't invoke this. The job won't have it's sharedState set properly.
    */
   public ExcelImportJob()
   {
@@ -109,7 +109,11 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       throw this.sharedState.sharedEx;
     }
     
-    return this.sharedState.inputStreamOut;
+    InputStream streamOut = this.sharedState.inputStreamOut;
+    
+    sharedStates.remove(this.getId());
+    
+    return streamOut;
   }
   
   @Override

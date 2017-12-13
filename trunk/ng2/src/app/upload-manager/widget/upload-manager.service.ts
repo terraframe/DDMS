@@ -8,6 +8,8 @@ import { EventHttpService } from '../../core/service/event-http.service';
 
 import { ExcelImportHistory } from './upload-manager.model';
 
+import { Observable } from 'rxjs/Observable';
+
 declare var acp: any;
 
 @Injectable()
@@ -23,6 +25,12 @@ export class UploadManagerService extends BasicService {
         return response.json() as ExcelImportHistory[];
       })
       .catch(this.handleError.bind(this));
+  }
+  
+  pollAllHistory(): Observable<ExcelImportHistory[]> {
+    return Observable.interval(3000)
+      .flatMap(() => this.http.get(acp + '/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo'))
+      .map(res => res.json() as ExcelImportHistory[])
   }
   
   clearHistory(): Promise<Response> {

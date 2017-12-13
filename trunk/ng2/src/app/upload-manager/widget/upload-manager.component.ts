@@ -8,6 +8,8 @@ import { LocalizationService } from '../../core/service/localization.service';
 
 import { UploadManagerService } from './upload-manager.service';
 
+import { Observable } from 'rxjs/Observable';
+
 declare let acp: string;
 
 @Component({
@@ -26,6 +28,12 @@ export class UploadManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllHistory();
+    
+    this.uploadManagerService.pollAllHistory().subscribe(
+      histories => {
+        this.histories = histories;
+      }
+    );
   };
   
   getAllHistory() : void {
@@ -40,7 +48,7 @@ export class UploadManagerComponent implements OnInit {
     this.uploadManagerService
       .clearHistory()
       .then(response => {
-      
-    })
+        this.getAllHistory();
+      })
   }
 }
