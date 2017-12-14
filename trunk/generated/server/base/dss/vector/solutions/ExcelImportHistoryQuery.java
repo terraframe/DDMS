@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -126454787)
+@com.runwaysdk.business.ClassSignature(hash = -1511730538)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -59,6 +59,23 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.ExcelImportHistory.ERRORFILE);
 
     return (com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.ExcelImportHistory.ERRORFILE, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFileName()
+  {
+    return getFileName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getImportCount()
@@ -178,6 +195,9 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile();
     public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile(String alias);
     public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFileName();
+    public com.runwaysdk.query.SelectableChar getFileName(String alias);
+    public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getImportCount();
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias);
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias, String displayLabel);
@@ -240,6 +260,23 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
   public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF)this.get(dss.vector.solutions.ExcelImportHistory.ERRORFILE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFileName()
+  {
+    return getFileName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getImportCount()
@@ -336,6 +373,9 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile();
     public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile(String alias);
     public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFileName();
+    public com.runwaysdk.query.SelectableChar getFileName(String alias);
+    public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getImportCount();
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias);
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias, String displayLabel);
@@ -447,6 +487,23 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
   public com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF getErrorFile(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.VaultFileQuery.VaultFileQueryReferenceIF)this.get(dss.vector.solutions.ExcelImportHistory.ERRORFILE,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getFileName()
+  {
+    return getFileName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getImportCount()

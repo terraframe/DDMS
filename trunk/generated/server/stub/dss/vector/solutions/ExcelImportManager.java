@@ -50,14 +50,14 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
    * 
    * @return
    */
-  public java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params)
+  public java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params, java.lang.String fileName)
   {
     if (params == null)
     {
       params = new String[] {};
     }
     
-    ExcelImportJob job = new ExcelImportJob(this, inputStream, params);
+    ExcelImportJob job = new ExcelImportJob(this, inputStream, params, fileName);
     job.apply();
     return job.doImport();
   }

@@ -16,9 +16,9 @@ public class SurveyImportConfiguration implements ImportConfiguration, Reloadabl
 {
 
   @Override
-  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream stream, String excelType, ExcelImportManagerDTO manager)
+  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream stream, String excelType, ExcelImportManagerDTO manager, String fileName)
   {
-    return FormSurveyDTO.excelImport(clientRequest, stream, manager);
+    return FormSurveyDTO.excelImport(clientRequest, stream, manager, fileName);
   }
 
   @Override

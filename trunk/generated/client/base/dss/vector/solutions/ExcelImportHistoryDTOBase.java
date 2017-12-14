@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -445159404)
+@com.runwaysdk.business.ClassSignature(hash = 1718783085)
 public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.scheduler.JobHistoryDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportHistory";
-  private static final long serialVersionUID = -445159404;
+  private static final long serialVersionUID = 1718783085;
   
   protected ExcelImportHistoryDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -28,6 +28,7 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
   }
   
   public static java.lang.String ERRORFILE = "errorFile";
+  public static java.lang.String FILENAME = "fileName";
   public static java.lang.String IMPORTCOUNT = "importCount";
   public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
   public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
@@ -79,6 +80,43 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getErrorFileMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ERRORFILE).getAttributeMdDTO();
+  }
+  
+  public String getFileName()
+  {
+    return getValue(FILENAME);
+  }
+  
+  public void setFileName(String value)
+  {
+    if(value == null)
+    {
+      setValue(FILENAME, "");
+    }
+    else
+    {
+      setValue(FILENAME, value);
+    }
+  }
+  
+  public boolean isFileNameWritable()
+  {
+    return isWritable(FILENAME);
+  }
+  
+  public boolean isFileNameReadable()
+  {
+    return isReadable(FILENAME);
+  }
+  
+  public boolean isFileNameModified()
+  {
+    return isModified(FILENAME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getFileNameMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(FILENAME).getAttributeMdDTO();
   }
   
   public Integer getImportCount()

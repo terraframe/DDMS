@@ -86,7 +86,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         
         JSONObject jHistory = new JSONObject();
         
-        jHistory.put("name", history.getHistoryComment());
+        jHistory.put("name", history.getFileName());
         jHistory.put("importCount", history.getImportCount());
         jHistory.put("totalRecords", history.getTotalRecords());
         jHistory.put("status", history.getStatus().get(0).name());
@@ -193,7 +193,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
           {
             ExcelImportManagerDTO importer = ExcelImportManagerDTO.getNewInstance(clientRequest);
             
-            InputStream errorStream = configuration.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType, importer);
+            InputStream errorStream = configuration.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType, importer, upfile.getFilename());
             
             UnknownGeoEntityDTO[] unmatchedGeos = importer.getUnmatchedGeoViews();
             

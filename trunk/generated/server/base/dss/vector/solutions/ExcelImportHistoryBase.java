@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 447461780)
+@com.runwaysdk.business.ClassSignature(hash = 1176190445)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,11 +12,12 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportHistory";
   public static java.lang.String ERRORFILE = "errorFile";
+  public static java.lang.String FILENAME = "fileName";
   public static java.lang.String IMPORTCOUNT = "importCount";
   public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
   public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
   public static java.lang.String TOTALRECORDS = "totalRecords";
-  private static final long serialVersionUID = 447461780;
+  private static final long serialVersionUID = 1176190445;
   
   public ExcelImportHistoryBase()
   {
@@ -72,6 +73,34 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
     else
     {
       setValue(ERRORFILE, id);
+    }
+  }
+  
+  public String getFileName()
+  {
+    return getValue(FILENAME);
+  }
+  
+  public void validateFileName()
+  {
+    this.validateAttribute(FILENAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getFileNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(FILENAME);
+  }
+  
+  public void setFileName(String value)
+  {
+    if(value == null)
+    {
+      setValue(FILENAME, "");
+    }
+    else
+    {
+      setValue(FILENAME, value);
     }
   }
   

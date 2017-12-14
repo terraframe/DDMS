@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
@@ -25,9 +26,9 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   
   private static Map<String,SharedState> sharedStates = new HashMap<String,SharedState>();
   
-  private SharedState sharedState; // This state is shared across threads
+  protected SharedState sharedState; // This state is shared across threads
   
-  public ExcelImportJob(ExcelImportManager manager, InputStream inputStream, String[] params)
+  public ExcelImportJob(ExcelImportManager manager, InputStream inputStream, String[] params, String fileName)
   {
     super();
     
@@ -35,6 +36,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     this.sharedState.manager = manager;
     this.sharedState.inputStreamIn = inputStream;
     this.sharedState.params = params;
+    this.sharedState.fileName = fileName;
   }
   
   /**
@@ -62,19 +64,21 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
   }
   
-  private class SharedState implements com.runwaysdk.generation.loader.Reloadable
+  protected class SharedState implements com.runwaysdk.generation.loader.Reloadable
   {
-    private ExcelImportManager manager;
+    protected ExcelImportManager manager;
     
-    private InputStream inputStreamIn;
+    protected InputStream inputStreamIn;
     
-    private InputStream inputStreamOut;
+    protected InputStream inputStreamOut;
     
-    private String[] params;
+    protected String[] params;
     
-    private RuntimeException sharedEx;
+    protected RuntimeException sharedEx;
     
-    private Semaphore semaphore;
+    protected Semaphore semaphore;
+    
+    protected String fileName;
   }
   
   @Override
@@ -83,6 +87,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     ExcelImportHistory history = new ExcelImportHistory();
     history.setStartTime(new Date());
     history.addStatus(AllJobStatus.RUNNING);
+    history.setFileName(this.sharedState.fileName);
     history.apply();
     
     return history;
@@ -116,6 +121,16 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     return streamOut;
   }
   
+  protected ContextBuilderIF constructContextBuilder()
+  {
+    return new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
+  }
+  
+  protected void configureImporter(ExcelImporter importer)
+  {
+    
+  }
+  
   @Override
   @Request
   public void execute(ExecutionContext context)
@@ -130,9 +145,11 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   
       try
       {
-        ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
+        ContextBuilderIF builder = this.constructContextBuilder();
   
         ExcelImporter importer = new ExcelImporter(this.sharedState.inputStreamIn, builder);
+        
+        this.configureImporter(importer);
   
         try
         {
