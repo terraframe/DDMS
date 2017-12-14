@@ -69,23 +69,37 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
    */
   public dss.vector.solutions.geo.UnknownGeoEntity[] getUnmatchedGeoViews()
   {
-    String str = this.getUnmatchedGeoViewIdString();
-    if (str == null || str.equals(""))
+    try
     {
-      return null;
+      String strArray = this.getUnmatchedGeoViewIdString();
+      if (strArray == null || strArray.equals("")) { return null; }
+      
+      JSONArray array = new JSONArray(strArray);
+      UnknownGeoEntity[] views = new UnknownGeoEntity[array.length()];
+      
+      for (int i = 0; i < array.length(); i++)
+      {
+        JSONObject json = array.getJSONObject(i);
+  
+        views[i] = UnknownGeoEntity.deserialize(json);
+      }
+  
+      return views;
     }
-    String[] ids = str.split(","); // if this character is a valid character in
-                                   // an id string then we done goofed hardcore
-                                   // here
-
-    UnknownGeoEntity[] views = new UnknownGeoEntity[ids.length];
-    for (int index = 0; index < ids.length; ++index)
+    catch (JSONException e)
     {
-      String id = ids[index];
-      views[index] = UnknownGeoEntity.get(id);
+      throw new ProgrammingErrorException(e);
     }
-
-    return views;
+  }
+  
+  public boolean hasUnknownTerms()
+  {
+    return unknownTerms.size() > 0;
+  }
+  
+  public boolean hasUnknownGeos()
+  {
+    return unknownEntityList.size() > 0;
   }
 
   @Override
@@ -109,25 +123,6 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     {
       throw new ProgrammingErrorException(e);
     }
-  }
-
-  public void setUnmatchedGeoViews(List<UnknownGeoEntity> views)
-  {
-    if (views.size() <= 0)
-    {
-      return;
-    }
-
-    String str = "";
-
-    for (int index = 0; index < ( views.size() - 1 ); ++index)
-    {
-      str = str + views.get(index).getId() + ",";
-    }
-
-    str = str + views.get(views.size() - 1).getId();
-
-    this.setUnmatchedGeoViewIdString(str);
   }
 
   public void addUnknownEntity(UnknownGeoEntity unknownGeoEntity)
@@ -161,7 +156,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     }
   }
 
-  private String serializeUnknownTerms()
+  public String serializeUnknownTerms()
   {
     try
     {
@@ -179,11 +174,30 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
       throw new ProgrammingErrorException(e);
     }
   }
+  
+  public String serializeUnknownGeos()
+  {
+    try
+    {
+      JSONArray array = new JSONArray();
+      
+      for (UnknownGeoEntity geo : unknownEntityList)
+      {
+        array.put(geo.serialize());
+      }
+      
+      return array.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
 
   public void onFinishImport()
   {
-    this.setUnmatchedGeoViews(unknownEntityList);
     this.setSerializedUnknownTerm(this.serializeUnknownTerms());
+    this.setUnmatchedGeoViewIdString(this.serializeUnknownGeos());
 
     this.apply();
   }

@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
+import com.runwaysdk.system.scheduler.ExecutionContext;
 
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
@@ -67,8 +68,10 @@ public class FormSurveyImportJob extends FormSurveyImportJobBase implements com.
   }
   
   @Override
-  protected void configureImporter(ExcelImporter importer)
+  protected void configureImporter(ExcelImporter importer, ExecutionContext execContext)
   {
+    super.configureImporter(importer, execContext);
+    
     List<ImportContext> contexts = importer.getContexts();
 
     for (ImportContext context : contexts)

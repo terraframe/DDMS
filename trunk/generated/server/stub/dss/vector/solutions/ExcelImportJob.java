@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import org.json.JSONArray;
+
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.session.Request;
@@ -18,6 +20,7 @@ import dss.vector.solutions.export.ExcelReadException;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.ContextBuilderFacade;
 import dss.vector.solutions.generator.DefaultContextBuilder;
+import dss.vector.solutions.generator.ExcelImportLegacyHistoryRecordingProgressMonitor;
 import dss.vector.solutions.ontology.TermRootCache;
 
 public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.generation.loader.Reloadable
@@ -40,7 +43,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   }
   
   /**
-   * Don't invoke this. The job won't have it's sharedState set properly.
+   * Don't invoke this. The job won't have any of the necessary parameters and won't be able to execute.
    */
   public ExcelImportJob()
   {
@@ -126,9 +129,9 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     return new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
   }
   
-  protected void configureImporter(ExcelImporter importer)
+  protected void configureImporter(ExcelImporter importer, ExecutionContext context)
   {
-    
+    importer.setProgressMonitor(new ExcelImportLegacyHistoryRecordingProgressMonitor((ExcelImportHistory) context.getJobHistory()));
   }
   
   @Override
@@ -136,6 +139,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   public void execute(ExecutionContext context)
   {
     loadSharedState();
+    
+    byte[] errorBytes = null;
     
     try
     {
@@ -149,15 +154,15 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   
         ExcelImporter importer = new ExcelImporter(this.sharedState.inputStreamIn, builder);
         
-        this.configureImporter(importer);
+        this.configureImporter(importer, context);
   
         try
         {
-          byte[] read = importer.read();
+          errorBytes = importer.read();
   
           this.sharedState.manager.onFinishImport();
   
-          this.sharedState.inputStreamOut = new ByteArrayInputStream(read);
+          this.sharedState.inputStreamOut = new ByteArrayInputStream(errorBytes);
         }
         catch (RuntimeException e)
         {
@@ -192,6 +197,24 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     finally
     {
       this.sharedState.semaphore.release();
+      
+      ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
+      history.appLock();
+      
+      if (this.sharedState.manager.hasUnknownTerms())
+      {
+        history.setSerializedUnknownTerms(this.sharedState.manager.serializeUnknownTerms());
+      }
+      if (this.sharedState.manager.hasUnknownGeos())
+      {
+        history.setSerializedUnknownGeos(this.sharedState.manager.serializeUnknownGeos());
+      }
+      if (errorBytes != null)
+      {
+        history.setHasError(true);
+      }
+      
+      history.apply();
     }
   }
 }

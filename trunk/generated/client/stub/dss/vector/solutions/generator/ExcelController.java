@@ -100,7 +100,22 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
           jHistory.put("endTime", "");
         }
         jHistory.put("hasError", history.getErrorFile() != null);
-        jHistory.put("hasSynonym", history.getSerializedUnknownGeos() != null || history.getSerializedUnknownTerms() != null);
+        
+        boolean hasSyns = false;
+        String stringSyns = history.getSerializedUnknownGeos();
+        if (stringSyns != null && stringSyns.length() > 0 && new JSONArray(stringSyns).length() > 0)
+        {
+          hasSyns = true;
+        }
+        
+        boolean hasTerms = false;
+        String stringTerms = history.getSerializedUnknownTerms();
+        if (stringTerms != null && stringTerms.length() > 0 && new JSONArray(stringTerms).length() > 0)
+        {
+          hasTerms = true;
+        }
+        
+        jHistory.put("hasSynonym", hasTerms || hasSyns);
         
         jHistories.put(jHistory);
       }
