@@ -147,8 +147,8 @@ public class ExcelImportServlet extends HttpServlet
         Method getIdMethod = managerClass.getMethod("getId");
         String managerId = (String) getIdMethod.invoke(managerInst);
 
-        Method importWhatYouCanMethod = managerClass.getMethod("importWhatYouCan", ClientRequestIF.class, String.class, InputStream.class, String[].class, String.class);
-        errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, managerId, new ByteArrayInputStream(bytes), new String[0], fileName);
+        Method importWhatYouCanMethod = managerClass.getMethod("importWhatYouCan", ClientRequestIF.class, String.class, InputStream.class, String[].class);
+        errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, managerId, new ByteArrayInputStream(bytes), new String[0]);
 
         Method getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
         Method getUnknownTermsMethod = managerClass.getMethod("getUnknownTerms", ClientRequestIF.class, String.class);

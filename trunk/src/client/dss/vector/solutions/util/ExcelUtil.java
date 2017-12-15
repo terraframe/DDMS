@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.logging.LogLevel;
@@ -22,8 +20,6 @@ import com.runwaysdk.util.FileIO;
 
 public class ExcelUtil
 {
-  private static final Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
-  
   public static void respondError(BufferedInputStream errorStream, String filename, HttpServletResponse res, String managerId, Boolean hasSynonyms)
   {
     Integer statusCode = null;
@@ -97,8 +93,6 @@ public class ExcelUtil
         }
         catch (IOException e)
         {
-          logger.error("An error happened during excel import while sending the error file to the client. Perhaps they closed their browser?", e);
-          
           // If the client closed their browser tab we'll get an IOEx. We still
           // want to make sure that log file gets written (#3462)
           streamToXlsLogFile.close();

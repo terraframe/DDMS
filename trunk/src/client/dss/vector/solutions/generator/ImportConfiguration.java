@@ -14,7 +14,7 @@ import dss.vector.solutions.ExcelImportManagerDTO;
 public interface ImportConfiguration extends Reloadable
 {
 
-  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream byteArrayInputStream, String excelType, ExcelImportManagerDTO manager, String fileName);
+  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream byteArrayInputStream, String excelType, ExcelImportManagerDTO manager);
 
   public void redirectError(ExcelController controller, String type) throws IOException, ServletException;
 

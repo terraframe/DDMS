@@ -16,7 +16,6 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 import dss.vector.solutions.kaleidoscope.data.etl.ConverterIF;
-import dss.vector.solutions.kaleidoscope.data.etl.ProgressMonitorIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceContextIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceFieldIF;
 
@@ -66,13 +65,8 @@ public class SourceContentHandler implements SheetHandler, Reloadable
    * Format used for parsing and formatting dateTime fields
    */
   private DateFormat           dateFormat;
-  
-  /**
-   * Handles progress reporting
-   */
-  private ProgressMonitorIF                   monitor;
 
-  public SourceContentHandler(ConverterIF converter, SourceContextIF context, ProgressMonitorIF monitor)
+  public SourceContentHandler(ConverterIF converter, SourceContextIF context)
   {
     this.converter = converter;
     this.context = context;
@@ -82,7 +76,6 @@ public class SourceContentHandler implements SheetHandler, Reloadable
 
     this.dateTimeFormat = new SimpleDateFormat(ExcelDataFormatter.DATE_TIME_FORMAT);
     this.dateFormat = new SimpleDateFormat(ExcelDataFormatter.DATE_FORMAT);
-    this.monitor = monitor;
   }
 
   @Override
@@ -104,8 +97,6 @@ public class SourceContentHandler implements SheetHandler, Reloadable
     if (rowNum != 0)
     {
       this.view = this.context.newView(this.sheetName);
-      
-      this.monitor.setCurrentRow(rowNum);
     }
   }
 
@@ -219,11 +210,5 @@ public class SourceContentHandler implements SheetHandler, Reloadable
   @Override
   public void headerFooter(String text, boolean isHeader, String tagName)
   {
-  }
-  
-  @Override
-  public void setDatasetProperty(String dataset)
-  {
-    // Do nothing
   }
 }

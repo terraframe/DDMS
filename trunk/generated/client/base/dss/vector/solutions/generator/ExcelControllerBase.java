@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 150798840)
+@com.runwaysdk.business.ClassSignature(hash = -1894830502)
 public class ExcelControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.generator.ExcelController";
@@ -65,20 +65,6 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void clearHistory() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.clearHistory");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void failClearHistory() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failClearHistory");
-  }
-  
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)
   public void excelExport(java.lang.String excelType) throws java.io.IOException, javax.servlet.ServletException
   {
@@ -105,20 +91,6 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelImport");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void getAllHistory() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.getAllHistory");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void failGetAllHistory() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failGetAllHistory");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)
@@ -175,20 +147,6 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failSurveyImportType");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void viewManager() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.viewManager");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
-  public void failViewManager() throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failViewManager");
   }
   
 }

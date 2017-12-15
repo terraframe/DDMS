@@ -37,7 +37,7 @@ public class ExcelSheetReader implements Reloadable
     this.formatter = formatter;
   }
 
-  public void process(InputStream stream) throws Exception
+  public void process(InputStream stream, String configuration) throws Exception
   {
     try
     {

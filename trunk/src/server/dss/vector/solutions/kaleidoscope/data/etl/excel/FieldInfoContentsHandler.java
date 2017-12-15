@@ -172,8 +172,6 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
   private JSONArray           information;
 
   private String              filename;
-  
-  private String              dataset;
 
   public FieldInfoContentsHandler(String filename)
   {
@@ -356,11 +354,5 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
     }
 
     return options;
-  }
-  
-  @Override
-  public void setDatasetProperty(String dataset)
-  {
-    this.dataset = dataset;
   }
 }

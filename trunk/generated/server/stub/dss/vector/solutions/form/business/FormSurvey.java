@@ -18,7 +18,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.ExcelImportManager;
-import dss.vector.solutions.FormSurveyImportJob;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.BedNetValidationImportListener;
@@ -128,14 +127,59 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
     return listeners;
   }
 
-  public static InputStream excelImport(InputStream stream, ExcelImportManager manager, String fileName)
+  public static InputStream excelImport(InputStream stream, ExcelImportManager manager)
   {
-    FormSurveyImportJob job = new FormSurveyImportJob(manager, stream, new String[] {}, fileName);
-    job.apply();
-    return job.doImport();
+    MdWebFormDAOIF formSurvey = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormSurvey.FORM_TYPE);
+    MdWebFormDAOIF formHousehold = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormHousehold.FORM_TYPE);
+    MdWebFormDAOIF formBedNet = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
+    MdWebFormDAOIF formPerson = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
+
+    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(new String[] {}, manager), manager);
+
+    builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter(), manager));
+    builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder(manager));
+    builder.add(FormBedNet.CLASS, new FormBedNetContextBuilder(manager));
+    builder.add(FormPerson.CLASS, new FormPersonContextBuilder(manager));
+
+    MdFormUtil.addGridContexts(formSurvey, builder);
+    MdFormUtil.addGridContexts(formHousehold, builder);
+    MdFormUtil.addGridContexts(formBedNet, builder);
+    MdFormUtil.addGridContexts(formPerson, builder);
+
+    // Start caching Broswer Roots for this Thread.
+    TermRootCache.start();
+    EpiCache.start();
+
+    try
+    {
+      ExcelImporter importer = new ExcelImporter(stream, builder);
+
+      List<ImportContext> contexts = importer.getContexts();
+
+      for (ImportContext context : contexts)
+      {
+        List<ImportListener> listeners = FormSurvey.getImportListeners(context.getMdClassType());
+
+        for (ImportListener listener : listeners)
+        {
+          context.addListener(listener);
+        }
+      }
+      
+      InputStream outStream = new ByteArrayInputStream(importer.read());
+
+      manager.onFinishImport();
+      
+      return outStream;
+    }
+    finally
+    {
+      TermRootCache.stop();
+      EpiCache.stop();
+    }
   }
 
-  public static List<ImportListener> getImportListeners(String mdClassType)
+  private static List<ImportListener> getImportListeners(String mdClassType)
   {
     List<ImportListener> listeners = new LinkedList<ImportListener>();
 
