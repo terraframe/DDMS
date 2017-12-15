@@ -9,6 +9,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.scheduler.AllJobStatus;
+import com.runwaysdk.system.scheduler.ExecutableJob;
+import com.runwaysdk.system.scheduler.ExecutableJobQuery;
 
 public class ExcelImportHistory extends ExcelImportHistoryBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -29,7 +31,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
   {
     QueryFactory qf = new QueryFactory();
     
-    ExcelImportJobQuery jobQ = new ExcelImportJobQuery(qf);
+    ExecutableJobQuery jobQ = new ExecutableJobQuery(qf);
     ExcelImportHistoryQuery historyQ = new ExcelImportHistoryQuery(qf);
     ValueQuery vq = new ValueQuery(qf);
     
@@ -43,17 +45,24 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     
     OIterator<? extends ValueObject> vqIt = vq.getIterator();
     
-    while (vqIt.hasNext())
+    try
     {
-      ValueObject obj = vqIt.next();
-      ExcelImportHistory.get(obj.getValue("historyId")).delete();
-      
-      jobs.add(obj.getValue("jobId"));
+      while (vqIt.hasNext())
+      {
+        ValueObject obj = vqIt.next();
+        ExcelImportHistory.get(obj.getValue("historyId")).delete();
+        
+        jobs.add(obj.getValue("jobId"));
+      }
+    }
+    finally
+    {
+      vqIt.close();
     }
     
     for (String jobId : jobs)
     {
-      ExcelImportJob.get(jobId).delete();
+      ExecutableJob.get(jobId).delete();
     }
   }
   
@@ -64,12 +73,23 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     
     ExcelImportHistory[] histories = new ExcelImportHistory[(int) query.getCount()];
     
-    int i = 0;
-    while (jhs.hasNext())
+    try
     {
-      ExcelImportHistory jh = jhs.next();
-      histories[i] = jh;
-      ++i;
+      int i = 0;
+      while (jhs.hasNext())
+      {
+        ExcelImportHistory jh = jhs.next();
+        histories[i] = jh;
+        ++i;
+      }
+    }
+    catch (Throwable e)
+    {
+      return new ExcelImportHistory[]{};
+    }
+    finally
+    {
+      jhs.close();
     }
     
     return histories;

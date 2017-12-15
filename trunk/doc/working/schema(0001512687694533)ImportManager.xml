@@ -2,6 +2,9 @@
  <!-- classpath:com/runwaysdk/resources/xsd/version.xsd -->
  <doIt>
    <create>
+     <mdBusiness name="dss.vector.solutions.DataUploaderImportJob" label="Data Uploader Import job" extends="com.runwaysdk.system.scheduler.ExecutableJob">
+     </mdBusiness>
+   
      <mdBusiness name="dss.vector.solutions.ExcelImportJob" label="Excel Import job" extends="com.runwaysdk.system.scheduler.ExecutableJob">
      </mdBusiness>
      

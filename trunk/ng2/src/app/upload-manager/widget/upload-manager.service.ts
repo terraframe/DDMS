@@ -28,8 +28,8 @@ export class UploadManagerService extends BasicService {
   }
   
   pollAllHistory(): Observable<ExcelImportHistory[]> {
-    return Observable.interval(3000)
-      .flatMap(() => this.http.get(acp + '/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo'))
+    return Observable.interval(500)
+      .flatMap(() => this.http.get(acp + '/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo').catch(err => {console.log("ignoring error: " + err); return Observable.empty() as Observable<Response>}))
       .map(res => res.json() as ExcelImportHistory[])
   }
   

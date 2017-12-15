@@ -6,5 +6,6 @@ export class ExcelImportHistory {
   status: string;  
   startTime: string;
   hasError: boolean;
-  hasSynonym: boolean;
+  geoSyns: number;
+  termSyns: number;
 }

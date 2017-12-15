@@ -77,7 +77,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     
     protected String[] params;
     
-    protected RuntimeException sharedEx;
+    protected Throwable sharedEx;
     
     protected Semaphore semaphore;
     
@@ -114,7 +114,14 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     
     if (this.sharedState.sharedEx != null)
     {
-      throw this.sharedState.sharedEx;
+      if (this.sharedState.sharedEx instanceof RuntimeException)
+      {
+        throw (RuntimeException) this.sharedState.sharedEx;
+      }
+      else
+      {
+        throw new RuntimeException(this.sharedState.sharedEx);
+      }
     }
     
     InputStream streamOut = this.sharedState.inputStreamOut;
@@ -135,7 +142,6 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   }
   
   @Override
-  @Request
   public void execute(ExecutionContext context)
   {
     loadSharedState();
@@ -189,7 +195,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
         EpiCache.stop();
       }
     }
-    catch (RuntimeException ex)
+    catch (Throwable ex)
     {
       this.sharedState.sharedEx = ex;
       throw ex;

@@ -47,7 +47,6 @@
   div.pageContent {
   padding: 13px 25px 0 25px;
   height: 80%;
-  overflow-y: auto;
   }
   
   .modal-backdrop.in {

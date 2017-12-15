@@ -15,7 +15,8 @@
 	        <th class="label-column"><localize key='uploadmanager.status'></localize></th>
 	        <th class="label-column"><localize key='uploadmanager.records'></localize></th>
 	        <th class="label-column"><localize key='uploadmanager.hasError'></localize></th>
-	        <th class="label-column"><localize key='uploadmanager.hasSynonyms'></localize></th>
+	        <th class="label-column"><localize key='uploadmanager.geoSyns'></localize></th>
+	        <th class="label-column"><localize key='uploadmanager.termSyns'></localize></th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -26,7 +27,8 @@
 	        <td class="column-status"> {{history.status}} </td>
 	        <td class="column-records"> {{history.importCount}} / {{history.totalRecords}} </td>
 	        <td class="column-hasError"> {{history.hasError}} </td>
-	        <td class="column-hasSynonyms"> {{history.hasSynonym}} </td>
+	        <td class="column-hasSynonyms"> {{history.geoSyns}} </td>
+	        <td class="column-hasSynonyms"> {{history.termSyns}} </td>
 	      </tr>
 	    </tbody>    
 	  </table>

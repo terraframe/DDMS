@@ -44,6 +44,8 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     inst.apply();
     return inst;
   }
+  
+  
 
   /**
    * MdMethod

@@ -24,6 +24,8 @@ import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 
 public interface SheetHandler extends Reloadable
 {
+  public void setDatasetProperty(String dataset);
+  
   /**
    * A sheet with the given name has started
    * 
