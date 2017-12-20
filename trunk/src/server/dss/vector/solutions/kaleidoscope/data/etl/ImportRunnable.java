@@ -27,6 +27,7 @@ import com.runwaysdk.system.metadata.MdWebForm;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportValidator.DecimalAttribute;
+import dss.vector.solutions.kaleidoscope.data.etl.excel.CountSheetHandler;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelSheetReader;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.SourceContentHandler;
@@ -56,14 +57,18 @@ public class ImportRunnable implements Reloadable
     }
   }
 
+  private ProgressMonitorIF monitor;
+  
   private String configuration;
 
   private File   file;
 
-  public ImportRunnable(String configuration, File file)
+  public ImportRunnable(String configuration, File file, ProgressMonitorIF monitor)
   {
     this.configuration = configuration;
     this.file = file;
+    
+    this.monitor = monitor;
   }
 
   public ImportResponseIF run()
@@ -71,6 +76,9 @@ public class ImportRunnable implements Reloadable
     try
     {
       Disease current = Disease.getCurrent();
+      
+      int total = this.getRowNum(this.file);
+      monitor.setTotal(total);
 
       /*
        * First create the data types from the configuration
@@ -102,6 +110,8 @@ public class ImportRunnable implements Reloadable
       /*
        * Import the data
        */
+      monitor.setState(DataImportState.DATAIMPORT);
+      
       this.importData(file, sContext, tContext);
 
       /*
@@ -158,6 +168,8 @@ public class ImportRunnable implements Reloadable
 
       }
 
+      monitor.setState(DataImportState.COMPLETE);
+      
       // Return the new data set definition
       return new SuccessResponse(datasets);
     }
@@ -204,17 +216,17 @@ public class ImportRunnable implements Reloadable
 
   private void importData(File file, SourceContextIF sContext, TargetContextIF tContext) throws FileNotFoundException, Exception, IOException
   {
-    ConverterIF converter = new Converter(tContext, Disease.getCurrent());
+    ConverterIF converter = new Converter(tContext, Disease.getCurrent(), this.monitor);
 
     FileInputStream istream = new FileInputStream(file);
 
     try
     {
-      SourceContentHandler handler = new SourceContentHandler(converter, sContext);
+      SourceContentHandler handler = new SourceContentHandler(converter, sContext, this.monitor);
       ExcelDataFormatter formatter = new ExcelDataFormatter();
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
-      reader.process(istream, this.configuration);
+      reader.process(istream);
     }
     finally
     {
@@ -230,11 +242,11 @@ public class ImportRunnable implements Reloadable
 
     try
     {
-      SourceContentHandler handler = new SourceContentHandler(converter, sContext);
+      SourceContentHandler handler = new SourceContentHandler(converter, sContext, this.monitor);
       ExcelDataFormatter formatter = new ExcelDataFormatter();
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
-      reader.process(istream, configuration);
+      reader.process(istream);
     }
     finally
     {
@@ -249,5 +261,25 @@ public class ImportRunnable implements Reloadable
     }
 
     return new ValidationResult(response, converter.getAttributes());
+  }
+  
+  private int getRowNum(File file) throws FileNotFoundException, IOException, Exception
+  {
+    FileInputStream istream = new FileInputStream(file);
+
+    try
+    {
+      CountSheetHandler handler = new CountSheetHandler();
+      ExcelDataFormatter formatter = new ExcelDataFormatter();
+
+      ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
+      reader.process(istream);
+
+      return handler.getRowNum();
+    }
+    finally
+    {
+      istream.close();
+    }
   }
 }

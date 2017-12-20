@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1387341416)
+@com.runwaysdk.business.ClassSignature(hash = -1721207103)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
   public static java.lang.String ID = "id";
   public static java.lang.String SERIALIZEDUNKNOWNTERM = "serializedUnknownTerm";
   public static java.lang.String UNMATCHEDGEOVIEWIDSTRING = "unmatchedGeoViewIdString";
-  private static final long serialVersionUID = -1387341416;
+  private static final long serialVersionUID = -1721207103;
   
   public ExcelImportManagerBase()
   {
@@ -133,16 +133,16 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
     return _instance.getUnmatchedGeoViews();
   }
   
-  public java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params)
+  public java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params, java.lang.String fileName)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ExcelImportManager.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final java.io.InputStream importWhatYouCan(java.lang.String id, java.io.InputStream inputStream, java.lang.String[] params)
+  public static final java.io.InputStream importWhatYouCan(java.lang.String id, java.io.InputStream inputStream, java.lang.String[] params, java.lang.String fileName)
   {
     ExcelImportManager _instance = ExcelImportManager.get(id);
-    return _instance.importWhatYouCan(inputStream, params);
+    return _instance.importWhatYouCan(inputStream, params, fileName);
   }
   
   public String toString()

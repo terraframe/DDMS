@@ -36,6 +36,11 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
     this.tContext = tContext;
     this.current = current;
   }
+  
+  public Collection<ImportProblemIF> getProblems()
+  {
+    return problems;
+  }
 
   public String getJSON()
   {

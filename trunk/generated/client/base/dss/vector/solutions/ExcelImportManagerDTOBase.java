@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -873396200)
+@com.runwaysdk.business.ClassSignature(hash = 415692865)
 public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportManager";
-  private static final long serialVersionUID = -873396200;
+  private static final long serialVersionUID = 415692865;
   
   protected ExcelImportManagerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -133,18 +133,18 @@ public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.U
     return (dss.vector.solutions.geo.UnknownGeoEntityDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params)
+  public final java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params, java.lang.String fileName)
   {
-    String[] _declaredTypes = new String[]{"java.io.InputStream", "[Ljava.lang.String;"};
-    Object[] _parameters = new Object[]{inputStream, params};
+    String[] _declaredTypes = new String[]{"java.io.InputStream", "[Ljava.lang.String;", "java.lang.String"};
+    Object[] _parameters = new Object[]{inputStream, params, fileName};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportManagerDTO.CLASS, "importWhatYouCan", _declaredTypes);
     return (java.io.InputStream) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.io.InputStream importWhatYouCan(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.InputStream inputStream, java.lang.String[] params)
+  public static final java.io.InputStream importWhatYouCan(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.InputStream inputStream, java.lang.String[] params, java.lang.String fileName)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.io.InputStream", "[Ljava.lang.String;"};
-    Object[] _parameters = new Object[]{id, inputStream, params};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.io.InputStream", "[Ljava.lang.String;", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, inputStream, params, fileName};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportManagerDTO.CLASS, "importWhatYouCan", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

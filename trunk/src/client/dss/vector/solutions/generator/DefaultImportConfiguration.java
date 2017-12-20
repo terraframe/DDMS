@@ -15,9 +15,9 @@ public class DefaultImportConfiguration implements Reloadable, ImportConfigurati
 {
 
   @Override
-  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream stream, String excelType, ExcelImportManagerDTO manager)
+  public InputStream excelImport(ClientRequestIF clientRequest, ByteArrayInputStream stream, String excelType, ExcelImportManagerDTO manager, String fileName)
   {
-    return manager.importWhatYouCan(stream, null);
+    return manager.importWhatYouCan(stream, null, fileName);
   }
 
   @Override

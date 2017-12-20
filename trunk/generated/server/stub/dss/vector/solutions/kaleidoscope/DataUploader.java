@@ -26,6 +26,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.DataUploaderImportJob;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoSynonym;
@@ -35,13 +36,13 @@ import dss.vector.solutions.geoserver.SessionPredicate;
 import dss.vector.solutions.kaleidoscope.data.etl.DefinitionBuilder;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportResponseIF;
-import dss.vector.solutions.kaleidoscope.data.etl.ImportRunnable;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceDefinitionIF;
 import dss.vector.solutions.kaleidoscope.data.etl.TargetDefinitionIF;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelSheetReader;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.FieldInfoContentsHandler;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.InvalidExcelFileException;
+import dss.vector.solutions.kaleidoscope.data.etl.excel.JobHistoryProgressMonitor;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermSynonym;
 
@@ -153,7 +154,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       ExcelDataFormatter formatter = new ExcelDataFormatter();
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
-      reader.process(new FileInputStream(file), "");
+      reader.process(new FileInputStream(file));
 
       JSONObject object = new JSONObject();
       object.put("sheets", handler.getSheets());
@@ -219,7 +220,6 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
   }
 
   @Authenticate
-  @Transaction
   public static String importData(String configuration)
   {
     try
@@ -232,7 +232,9 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       File directory = new File(new File(VaultProperties.getPath("vault.default"), "files"), name);
       File file = new File(directory, filename);
 
-      ImportResponseIF response = new ImportRunnable(configuration, file).run();
+      DataUploaderImportJob job = new DataUploaderImportJob(configuration, file);
+      job.apply();
+      ImportResponseIF response = job.doImport();
 
       if (!response.hasProblems())
       {

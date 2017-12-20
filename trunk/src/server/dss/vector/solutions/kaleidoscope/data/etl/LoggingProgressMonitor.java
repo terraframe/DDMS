@@ -1,8 +1,5 @@
 package dss.vector.solutions.kaleidoscope.data.etl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.runwaysdk.generation.loader.Reloadable;
 
 public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
@@ -11,7 +8,7 @@ public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
   
   private DataImportState state;
   
-  private double currentRow;
+  private int currentRow;
   
   private String filename;
   
@@ -39,7 +36,7 @@ public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
     return this.state;
   }
   
-  public void setCurrentRow(double rowNum)
+  public void setCurrentRow(int rowNum)
   {
     this.currentRow = rowNum;
     
@@ -49,8 +46,26 @@ public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
     }
   }
   
-  public double getCurrentRow()
+  public int getCurrentRow()
   {
     return this.currentRow;
+  }
+
+  @Override
+  public void setTotal(int total)
+  {
+    
+  }
+
+  @Override
+  public void finished()
+  {
+    
+  }
+
+  @Override
+  public void entityImported(TargetDefinitionIF entity)
+  {
+    
   }
 }

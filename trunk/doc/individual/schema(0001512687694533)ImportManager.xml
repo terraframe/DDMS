@@ -1,0 +1,71 @@
+<version xsi:noNamespaceSchemaLocation="/Users/richard1/workspace/MDSS/profiles/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <!-- classpath:com/runwaysdk/resources/xsd/version.xsd -->
+ <doIt>
+   <create>
+     <mdBusiness name="dss.vector.solutions.DataUploaderImportJob" label="Data Uploader Import job" extends="com.runwaysdk.system.scheduler.ExecutableJob">
+     </mdBusiness>
+   
+     <mdBusiness name="dss.vector.solutions.ExcelImportJob" label="Excel Import job" extends="com.runwaysdk.system.scheduler.ExecutableJob">
+     </mdBusiness>
+     
+     <mdBusiness name="dss.vector.solutions.FormSurveyImportJob" label="Form Survey Import job" extends="dss.vector.solutions.ExcelImportJob">
+     </mdBusiness>
+     
+     <mdBusiness name="dss.vector.solutions.ExcelImportHistory" label="Excel Import history" extends="com.runwaysdk.system.scheduler.JobHistory">
+       <attributes>
+         <text name="serializedUnknownGeos" label="serialized unknown geos" required="false" />
+         <text name="serializedUnknownTerms" label="serialized unknown terms" required="false" />
+         <text name="fileName" label="file name" required="false" />
+         <reference name="errorFile" label="error file" type="com.runwaysdk.system.VaultFile" required="false" />
+         <boolean name="hasError" label="hasError"/>
+         <!--
+         <reference name="importFile" label="import file" type="com.runwaysdk.system.VaultFile" required="false" />
+         -->
+         <integer name="importCount" label="importCount" required="false" />
+         <integer name="totalRecords" label="totalRecords" required="false" />
+       </attributes>
+       
+       <mdMethod name="getAllHistory" label="Get all running excel import jobs" static="true" returnType="dss.vector.solutions.ExcelImportHistory[]" ></mdMethod>
+       <!-- <mdMethod name="queryHistory" label="Query running excel import jobs" static="true" returnType="dss.vector.solutions.ExcelImportHistory[]" ></mdMethod> -->
+       <mdMethod name="deleteAllHistory" label="Delete all history" static="true" returnType="void" ></mdMethod>
+     </mdBusiness>
+   </create>
+   <update>
+     <mdController name="dss.vector.solutions.generator.ExcelController">
+       <create>
+         <mdAction name="getAllHistory" label="get all history" isPost="false" ></mdAction>
+         <!-- <mdAction name="queryHistory" label="query history" isPost="true" ></mdAction> -->
+         <mdAction name="clearHistory" label="clear history" isPost="false" ></mdAction>
+         <mdAction name="viewManager" label="viewManager" isPost="false" ></mdAction>
+       </create>
+     </mdController>
+     
+     <mdUtil name="dss.vector.solutions.ExcelImportManager">
+       <mdMethod name="importWhatYouCan">
+         <create>
+           <mdParameter name="fileName" label="fileName" order="2" type="java.lang.String" />
+         </create>
+       </mdMethod>
+     </mdUtil>
+     
+     <mdBusiness name="dss.vector.solutions.form.business.FormSurvey">
+       <mdMethod name="excelImport">
+         <create>
+           <mdParameter name="fileName" label="fileName" order="2" type="java.lang.String" />
+         </create>
+       </mdMethod>
+     </mdBusiness>
+   </update>
+ </doIt>
+ <undoIt>
+   <delete>
+     <object key="dss.vector.solutions.ExcelImportJob" type="com.runwaysdk.system.metadata.MdBusiness"></object>
+     <object key="dss.vector.solutions.ExcelImportHistory" type="com.runwaysdk.system.metadata.MdBusiness"></object>
+     <object key="dss.vector.solutions.generator.ExcelController.getAllHistory" type="com.runwaysdk.system.metadata.MdAction"></object>
+     <object key="dss.vector.solutions.generator.ExcelController.viewManager" type="com.runwaysdk.system.metadata.MdAction"></object>
+     <object key="dss.vector.solutions.generator.ExcelController.clearHistory" type="com.runwaysdk.system.metadata.MdAction"></object>
+     <object key="dss.vector.solutions.ExcelImportManager.importWhatYouCan.fileName" type="com.runwaysdk.system.metadata.MdParameter"></object>
+     <object key="dss.vector.solutions.form.business.FormSurvey.excelImport.fileName" type="com.runwaysdk.system.metadata.MdParameter" ></object>
+   </delete>
+ </undoIt>
+</version>

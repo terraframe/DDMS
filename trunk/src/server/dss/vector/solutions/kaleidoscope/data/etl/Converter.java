@@ -39,11 +39,14 @@ public class Converter implements ConverterIF, Reloadable
   private TargetContextIF context;
 
   private Disease         disease;
+  
+  ProgressMonitorIF monitor;
 
-  public Converter(TargetContextIF context, Disease disease)
+  public Converter(TargetContextIF context, Disease disease, ProgressMonitorIF monitor)
   {
     this.context = context;
     this.disease = disease;
+    this.monitor = monitor;
   }
 
   @Override
@@ -96,6 +99,8 @@ public class Converter implements ConverterIF, Reloadable
         this.calculate(business);
 
         strategy.handle(business);
+        
+        this.monitor.entityImported(definition);
       }
     }
     catch (ExclusionException e)
