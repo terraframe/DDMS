@@ -109,7 +109,10 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
   {
     try
     {
-      JSONArray array = new JSONArray(this.getSerializedUnknownTerm());
+      String strArray = this.getSerializedUnknownTerm();
+      if (strArray == null || strArray.equals("")) { return null; }
+      
+      JSONArray array = new JSONArray(strArray);
       UnknownTerm[] terms = new UnknownTerm[array.length()];
 
       for (int i = 0; i < array.length(); i++)
