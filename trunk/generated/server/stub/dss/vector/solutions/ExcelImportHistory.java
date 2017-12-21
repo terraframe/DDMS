@@ -8,6 +8,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutableJobQuery;
@@ -69,6 +70,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
   public static dss.vector.solutions.ExcelImportHistory[] getAllHistory()
   {
     ExcelImportHistoryQuery query = new ExcelImportHistoryQuery(new QueryFactory());
+    query.ORDER_BY(query.getStartTime(), SortOrder.DESC);
     OIterator<? extends ExcelImportHistory> jhs = query.getIterator();
     
     ExcelImportHistory[] histories = new ExcelImportHistory[(int) query.getCount()];

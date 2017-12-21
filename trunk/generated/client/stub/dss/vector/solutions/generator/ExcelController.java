@@ -87,7 +87,16 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         JSONObject jHistory = new JSONObject();
         
         jHistory.put("name", history.getFileName());
-        jHistory.put("importCount", history.getImportCount());
+        
+        if (history.getImportCount() != null)
+        {
+          jHistory.put("importCount", history.getImportCount());
+        }
+        else
+        {
+          jHistory.put("importCount", 0);
+        }
+        
         jHistory.put("totalRecords", history.getTotalRecords());
         jHistory.put("status", history.getStatus().get(0).name());
         jHistory.put("startTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getStartTime()));

@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 
-<c:set var="page_title" value="upload-manager.header"  scope="request"/>
+<c:set var="page_title" value="uploadmanager.header"  scope="request"/>
 
 <head>
   <base href="<%=request.getContextPath()%>/dss.vector.solutions.generator.ExcelController.viewManager.mojo">
@@ -136,6 +136,9 @@
   
   .pageTitle {
     color: black;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }  
     
   body {
