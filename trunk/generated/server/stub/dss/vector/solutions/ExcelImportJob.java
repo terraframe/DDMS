@@ -215,9 +215,13 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       {
         history.setSerializedUnknownGeos(this.sharedState.manager.serializeUnknownGeos());
       }
-      if (errorBytes != null)
+      if (errorBytes != null && errorBytes.length > 0)
       {
         history.setHasError(true);
+      }
+      else
+      {
+        history.setHasError(false);
       }
       
       history.apply();
