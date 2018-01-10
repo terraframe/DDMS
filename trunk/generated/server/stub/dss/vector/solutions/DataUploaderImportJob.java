@@ -146,6 +146,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
       history.appLock();
       
+      // TODO : error file
       history.setHasError(this.sharedState.response.hasProblems());
       
       if (this.sharedState.response.hasProblems())

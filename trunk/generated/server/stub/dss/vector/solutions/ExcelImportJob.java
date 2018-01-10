@@ -7,11 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import org.json.JSONArray;
-
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
-import com.runwaysdk.session.Request;
+import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
@@ -218,6 +216,9 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       if (errorBytes != null && errorBytes.length > 0)
       {
         history.setHasError(true);
+        
+        VaultFile vf = VaultFile.createAndApply(this.sharedState.fileName, new ByteArrayInputStream(errorBytes));
+        history.setErrorFile(vf);
       }
       else
       {

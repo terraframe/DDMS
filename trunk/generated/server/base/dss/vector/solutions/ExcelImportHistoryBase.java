@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 186948046)
+@com.runwaysdk.business.ClassSignature(hash = 811413147)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
   public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
   public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
   public static java.lang.String TOTALRECORDS = "totalRecords";
-  private static final long serialVersionUID = 186948046;
+  private static final long serialVersionUID = 811413147;
   
   public ExcelImportHistoryBase()
   {
@@ -271,6 +271,18 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ExcelImportHistory.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public void downloadErrorSpreadsheet(java.io.OutputStream outputStream)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ExcelImportHistory.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void downloadErrorSpreadsheet(java.lang.String id, java.io.OutputStream outputStream)
+  {
+    ExcelImportHistory _instance = ExcelImportHistory.get(id);
+    _instance.downloadErrorSpreadsheet(outputStream);
   }
   
   public static dss.vector.solutions.ExcelImportHistory[] getAllHistory()

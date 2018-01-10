@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -897246386)
+@com.runwaysdk.business.ClassSignature(hash = -1552196325)
 public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.scheduler.JobHistoryDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportHistory";
-  private static final long serialVersionUID = -897246386;
+  private static final long serialVersionUID = -1552196325;
   
   protected ExcelImportHistoryDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -310,6 +310,22 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportHistoryDTO.CLASS, "deleteAllHistory", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void downloadErrorSpreadsheet(java.io.OutputStream outputStream)
+  {
+    String[] _declaredTypes = new String[]{"java.io.OutputStream"};
+    Object[] _parameters = new Object[]{outputStream};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportHistoryDTO.CLASS, "downloadErrorSpreadsheet", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void downloadErrorSpreadsheet(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.io.OutputStream outputStream)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.io.OutputStream"};
+    Object[] _parameters = new Object[]{id, outputStream};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportHistoryDTO.CLASS, "downloadErrorSpreadsheet", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

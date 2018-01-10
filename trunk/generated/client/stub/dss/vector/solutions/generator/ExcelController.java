@@ -43,6 +43,18 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
   
   @Override
+  public void downloadErrorSpreadsheet(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    ExcelImportHistoryDTO.downloadErrorSpreadsheet(getClientRequest(), historyId, resp.getOutputStream());
+  }
+  
+  @Override
+  public void failDownloadErrorSpreadsheet(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    // do nothing
+  }
+  
+  @Override
   public void viewManager() throws java.io.IOException, javax.servlet.ServletException
   {
     URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
@@ -85,6 +97,8 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         ExcelImportHistoryDTO history = histories[i];
         
         JSONObject jHistory = new JSONObject();
+        
+        jHistory.put("id", history.getId());
         
         jHistory.put("name", history.getFileName());
         

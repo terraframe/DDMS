@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 150798840)
+@com.runwaysdk.business.ClassSignature(hash = 864394283)
 public class ExcelControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.generator.ExcelController";
@@ -77,6 +77,20 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failClearHistory");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:historyId", post=false)
+  public void downloadErrorSpreadsheet(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:historyId", post=false)
+  public void failDownloadErrorSpreadsheet(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failDownloadErrorSpreadsheet");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)

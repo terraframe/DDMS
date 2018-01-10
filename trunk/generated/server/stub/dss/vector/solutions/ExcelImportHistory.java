@@ -1,17 +1,23 @@
 package dss.vector.solutions;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutableJobQuery;
+import com.runwaysdk.vault.VaultFileDAO;
+import com.runwaysdk.vault.VaultFileDAOIF;
+
+import net.jawr.web.resource.bundle.IOUtils;
 
 public class ExcelImportHistory extends ExcelImportHistoryBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -20,6 +26,21 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
   public ExcelImportHistory()
   {
     super();
+  }
+  
+  @Override
+  public void downloadErrorSpreadsheet(OutputStream outputStream)
+  {
+    VaultFileDAOIF file = VaultFileDAO.get(this.getErrorFileId());
+
+    try
+    {
+      IOUtils.copy(file.getFileStream(), outputStream);
+    }
+    catch (IOException e)
+    {
+      throw new RuntimeException(e);
+    }
   }
   
   /**

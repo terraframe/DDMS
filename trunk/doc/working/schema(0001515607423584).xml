@@ -1,0 +1,28 @@
+<version xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/terraframe/Runway-SDK/master/runwaysdk-server/src/main/resources/com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdController name="dss.vector.solutions.generator.ExcelController">
+        <create>
+          <mdAction name="downloadErrorSpreadsheet" label="downloadErrorSpreadsheet" isPost="false" isQuery="false">
+            <mdParameter name="historyId" label="historyId" order="0" type="java.lang.String" />
+          </mdAction>
+        </create>
+      </mdController>
+      
+      <mdBusiness name="dss.vector.solutions.ExcelImportHistory" label="Excel Import history">
+        <create>
+          <mdMethod name="downloadErrorSpreadsheet" label="downloadErrorSpreadsheet" returnType="void" static="false" >
+            <mdParameter name="outputStream" label="outputStream" order="0" type="java.io.OutputStream"  />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.ExcelImportHistory.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

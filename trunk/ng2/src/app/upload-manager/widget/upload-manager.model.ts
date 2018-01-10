@@ -1,5 +1,6 @@
 
-export class ExcelImportHistory { 
+export class ExcelImportHistory {
+  id: string;
   name: string;
   importCount: number;
   totalRecords: number;
