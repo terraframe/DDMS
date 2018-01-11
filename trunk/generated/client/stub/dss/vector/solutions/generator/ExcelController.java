@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
+import com.runwaysdk.system.VaultFileDTO;
 
 import dss.vector.solutions.ExcelImportHistoryDTO;
 import dss.vector.solutions.ExcelImportManagerDTO;
@@ -45,6 +46,13 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   @Override
   public void downloadErrorSpreadsheet(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
   {
+    VaultFileDTO vfile = ExcelImportHistoryDTO.get(getClientRequest(), historyId).getErrorFile();
+    
+    String fileName = vfile.getFileName() + "." + vfile.getFileExtension();
+    
+    resp.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    resp.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+    
     ExcelImportHistoryDTO.downloadErrorSpreadsheet(getClientRequest(), historyId, resp.getOutputStream());
   }
   
@@ -122,7 +130,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         {
           jHistory.put("endTime", "");
         }
-        jHistory.put("hasError", history.getHasError());
+        jHistory.put("hasError", history.getErrorFile() != null);
         
         int geoSyns = 0;
         String stringSyns = history.getSerializedUnknownGeos();

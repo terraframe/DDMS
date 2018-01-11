@@ -27,7 +27,7 @@
 	        <td class="column-status"> {{history.status}} </td>
 	        <td class="column-records"> {{history.importCount}} / {{history.totalRecords}} </td>
 	        <td class="column-hasError">
-            <a *ngIf="history.hasError" class="fa fa-download" href="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet?historyId={{history.id}}"></a>
+            <a *ngIf="history.hasError" class="fa fa-download" href="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet.mojo?historyId={{history.id}}"></a>
           </td>
 	        <td class="column-hasSynonyms"> {{history.geoSyns}} </td>
 	        <td class="column-hasSynonyms"> {{history.termSyns}} </td>
