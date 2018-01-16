@@ -18,10 +18,13 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.system.VaultFileDTO;
 
+import dss.vector.solutions.ExcelImportHistory;
 import dss.vector.solutions.ExcelImportHistoryDTO;
 import dss.vector.solutions.ExcelImportManagerDTO;
 import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
+import dss.vector.solutions.kaleidoscope.DataSetController;
+import dss.vector.solutions.kaleidoscope.JavascriptUtil;
 import dss.vector.solutions.ontology.UnknownTermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.ExcelUtil;
@@ -41,6 +44,71 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   public ExcelController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
+  }
+  
+  protected void renderExternal(String jsp, String dir) throws java.io.IOException, javax.servlet.ServletException
+  {
+    if(!resp.isCommitted())
+    {
+      if(this.isAsynchronous())
+      {
+        req.getRequestDispatcher(dir+jsp).forward(req, resp);
+      }
+      else
+      {
+        req.setAttribute(com.runwaysdk.controller.JSPFetcher.INNER_JSP, dir+jsp);
+        req.getRequestDispatcher(layout).forward(req, resp);
+      }
+    }
+  }
+  
+  private void resolveSynonyms(int pageNum, String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
+    String path = url.toString();
+    
+    this.req.setAttribute("path", path);
+    
+    JavascriptUtil.loadDatasets(this.getClientRequest(), req);
+    
+    ExcelImportHistory history = ExcelImportHistory.get(historyId);
+    
+    try
+    {
+      JSONObject reconstructJSON = new JSONObject(history.getReconstructionJSON());
+      reconstructJSON.put("pageNum", pageNum);
+      this.req.setAttribute("reconstructionJSON", reconstructJSON.toString());
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+    
+    this.renderExternal("dataset-management.jsp", "/WEB-INF/dss/vector/solutions/kaleidoscope/userMenu/");
+  }
+  
+  @Override
+  public void resolveGeoSynonyms(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resolveSynonyms(3, historyId);
+  }
+  
+  @Override
+  public void failResolveGeoSynonyms(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    // do nothing
+  }
+  
+  @Override
+  public void resolveTermSynonyms(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    resolveSynonyms(4, historyId);
+  }
+  
+  @Override
+  public void failResolveTermSynonyms(java.lang.String historyId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    // do nothing
   }
   
   @Override

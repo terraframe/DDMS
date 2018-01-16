@@ -5,13 +5,15 @@ import { Subscription }   from 'rxjs/Subscription';
 import * as _ from 'lodash';
 
 import { Dataset } from '../model/dataset';
-import { UploadInformation, Step, Sheet, Snapshot, Page, Locations, Problems } from './uploader-model';
+import { UploadInformation, Step, Sheet, Snapshot, Page, Locations, Problems, DatasetResponse } from './uploader-model';
 
 import { EventService } from '../core/service/core.service';
 import { LocalizationService } from '../core/service/localization.service';
 
 import { UploadService } from './service/upload.service';
 import { NavigationService } from './service/navigation.service';
+
+declare let reconstructionJSON: any;
 
 @Component({
   
@@ -35,6 +37,8 @@ export class UploadWizardComponent implements OnDestroy {
   currentStep: number;
   subscription: Subscription;
   
+  isPersisted: boolean = false;
+  
   constructor(
     private localizationService: LocalizationService,
     private uploadService: UploadService,
@@ -42,16 +46,21 @@ export class UploadWizardComponent implements OnDestroy {
  
     this.subscription = navigationService.navigationAnnounced$.subscribe(
       direction => {
+        console.log("Nav service")
         if(direction === 'next') {
+          console.log("nav service next")
           this.next(null, null);
         }
         else if(direction === 'prev') {
+          console.log("nav service prev")
           this.prev();
         }         
         else if(direction === 'cancel') {
+          console.log("nav service cancel")
           this.cancel();
         } 
         else if(direction === 'ready') {
+          console.log("nav service persist")
           this.persist();
         } 
     });
@@ -66,15 +75,15 @@ export class UploadWizardComponent implements OnDestroy {
     this.sheet = this.info.information.sheets[0];
     this.hasError = false;
     	  
-	if(this.sheet.attributes == null) {
-	  this.sheet.attributes = new Locations();
-	  this.sheet.attributes.ids = [];
-	  this.sheet.attributes.values = {};
-	}
-    
-	if(this.sheet.coordinates == null) {
-	  this.sheet.coordinates = [];
-	}    
+  	if(this.sheet.attributes == null) {
+  	  this.sheet.attributes = new Locations();
+  	  this.sheet.attributes.ids = [];
+  	  this.sheet.attributes.values = {};
+  	}
+      
+  	if(this.sheet.coordinates == null) {
+  	  this.sheet.coordinates = [];
+  	}    
 	
     if(this.info.information.locationExclusions == null){
       this.info.information.locationExclusions = [];    	
@@ -128,6 +137,7 @@ export class UploadWizardComponent implements OnDestroy {
   }
   
   refreshSteps(): void {
+    console.log("refreshSteps")
     this.steps = new Array<Step>();
     this.steps.push(new Step("1", "INITIAL"));
     this.steps.push(new Step("2", "FIELDS"));
@@ -211,6 +221,7 @@ export class UploadWizardComponent implements OnDestroy {
   }
   
   incrementStep(targetPage: string): void {
+    console.log("incrementStep")
     if(targetPage === 'MATCH-INITIAL') {
       this.currentStep = -1;
     }
@@ -259,6 +270,7 @@ export class UploadWizardComponent implements OnDestroy {
    * @param sourcePage <optional> 
    */
   next(targetPage: string, sourcePage: string) :void {
+    console.log("next")
     this.pageDirection = "NEXT";
       
     if(targetPage && sourcePage){
@@ -428,18 +440,28 @@ export class UploadWizardComponent implements OnDestroy {
   }
     
   onSubmit(): void {
+    console.log("onSubmit")
     this.onSuccess.emit();
     this.clear();
   }
     
-  cancel(): void {  
-    this.uploadService.cancelImport(this.info.information)
-      .then(response => {
-        this.clear();
-      });    
+  cancel(): void {
+    if (this.isPersisted)
+    {
+      // invoking cancel on the server is going to delete the vault file which we don't want to do if there's a job history record
+      this.clear();
+    }
+    else
+    {
+      this.uploadService.cancelImport(this.info.information)
+        .then(response => {
+          this.clear();
+        });
+    }    
   }
   
   clear(): void {
+    console.log("clear")
     this.steps = null;
     this.info = null;
     this.sheet = null;
@@ -455,52 +477,67 @@ export class UploadWizardComponent implements OnDestroy {
 	  
     this.uploadService.importData(this.info.information)
       .then(result => {
-        if(result.success) {          
+        console.log("persist importData return")
+        if(result.success || (reconstructionJSON != null && reconstructionJSON != "")) {
           this.clear();
-          
+          console.log("onSuccess emit (importData)")
           this.onSuccess.emit({datasets:result.datasets, finished : true});          
         }
-        else {          
-            
-          if(this.hasLocationField() && this.hasCoordinateField()) {
-            this.currentStep = 5;
-          }
-          else if(this.hasLocationField() || this.hasCoordinateField()) {
-            this.currentStep = 4;
-          }
-          else{
-            this.currentStep = 3;
-          }
-            
-          this.problems = result.problems;
-          this.info.information.sheets = result.sheets;
-          this.sheet = result.sheets[0];          
-          
-          if( !result.problems.locations || result.problems.locations.length > 0) {
-        	
-            let page = new Page('GEO-VALIDATION', null);
-            page.hasNext = this.hasNextPage('GEO-VALIDATION');
-            page.isReady = this.isReady('GEO-VALIDATION');
-            page.layout = 'wide-holder';
-
-            this.page = page;
-          }
-          else {
-            let page = new Page('CATEGORY-VALIDATION', null);
-            page.hasNext = false;
-            page.isReady = true;
-            page.layout = 'wide-holder';
-
-            this.page = page;        	  
-          }
-                                 
-          this.onSuccess.emit({datasets:result.datasets, finished : false});          
+        else {
+          this.afterPersist(result);
         }         
       })
       .catch(error => {
         this.hasError = true;
-      });    
-	  
+      });
+  }
+  
+  afterPersist(result: DatasetResponse): void {
+    console.log("afterPersist")
+    this.isPersisted = true;
+  
+    let externalPageRequest = -1;
+    if (reconstructionJSON != null && reconstructionJSON != "")
+    {
+      this.info = {options: {countries: []}, classifiers: [], information: reconstructionJSON.configuration}
+      this.sheet = result.sheets[0];
+      
+      externalPageRequest = reconstructionJSON.pageNum;
+    }
+    
+    if(this.hasLocationField() && this.hasCoordinateField()) {
+      this.currentStep = 5;
+    }
+    else if(this.hasLocationField() || this.hasCoordinateField()) {
+      this.currentStep = 4;
+    }
+    else{
+      this.currentStep = 3;
+    }
+    
+    this.problems = result.problems;
+    this.info.information.sheets = result.sheets;
+    this.sheet = result.sheets[0];
+    
+    if( externalPageRequest == 3 || (externalPageRequest == -1 && (!result.problems.locations || result.problems.locations.length > 0)) ) {
+    
+      let page = new Page('GEO-VALIDATION', null);
+      page.hasNext = this.hasNextPage('GEO-VALIDATION');
+      page.isReady = this.isReady('GEO-VALIDATION');
+      page.layout = 'wide-holder';
+
+      this.page = page;
+    }
+    else {
+      let page = new Page('CATEGORY-VALIDATION', null);
+      page.hasNext = false;
+      page.isReady = true;
+      page.layout = 'wide-holder';
+
+      this.page = page;           
+    }
+                           
+    this.onSuccess.emit({datasets:result.datasets, finished : false});
   }
   
   isReady(name: string) : boolean {      
@@ -516,6 +553,7 @@ export class UploadWizardComponent implements OnDestroy {
   }  
   
   onNextPage(data: any) : void {
+    console.log("onNextPage")
     this.next(data.targetPage, data.sourcePage);
   }
   

@@ -7,11 +7,20 @@
           <mdAction name="downloadErrorSpreadsheet" label="downloadErrorSpreadsheet" isPost="false" isQuery="false">
             <mdParameter name="historyId" label="historyId" order="0" type="java.lang.String" />
           </mdAction>
+          <mdAction name="resolveTermSynonyms" label="resolveTermSynonyms" isPost="false" isQuery="false">
+            <mdParameter name="historyId" label="historyId" order="0" type="java.lang.String" />
+          </mdAction>
+          <mdAction name="resolveGeoSynonyms" label="resolveGeoSynonyms" isPost="false" isQuery="false">
+            <mdParameter name="historyId" label="historyId" order="0" type="java.lang.String" />
+          </mdAction>
         </create>
       </mdController>
       
       <mdBusiness name="dss.vector.solutions.ExcelImportHistory" label="Excel Import history">
         <create>
+          <attributes>
+            <text name="reconstructionJSON" label="reconstructionJSON" description="A JSON object that can be used to reconstruct the excel import should the user decide to later modify synonyms and reimport." />
+          </attributes>
           <mdMethod name="downloadErrorSpreadsheet" label="downloadErrorSpreadsheet" returnType="void" static="false" >
             <mdParameter name="outputStream" label="outputStream" order="0" type="java.io.OutputStream"  />
           </mdMethod>
@@ -23,6 +32,9 @@
     <delete>
       <object key="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdAction" />
       <object key="dss.vector.solutions.ExcelImportHistory.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdMethod" />
+      <object key="dss.vector.solutions.generator.ExcelController.resolveTermSynonyms" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.generator.ExcelController.resolveGeoSynonyms" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.ExcelImportHistory.importResponse" type="com.runwaysdk.system.metadata.MdAttributeText" />
     </delete>
   </undoIt>
 </version>

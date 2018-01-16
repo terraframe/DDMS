@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1552196325)
+@com.runwaysdk.business.ClassSignature(hash = -172073027)
 public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.scheduler.JobHistoryDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportHistory";
-  private static final long serialVersionUID = -1552196325;
+  private static final long serialVersionUID = -172073027;
   
   protected ExcelImportHistoryDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,7 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
   public static java.lang.String FILENAME = "fileName";
   public static java.lang.String HASERROR = "hasError";
   public static java.lang.String IMPORTCOUNT = "importCount";
+  public static java.lang.String RECONSTRUCTIONJSON = "reconstructionJSON";
   public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
   public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
   public static java.lang.String TOTALRECORDS = "totalRecords";
@@ -192,6 +193,43 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getImportCountMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IMPORTCOUNT).getAttributeMdDTO();
+  }
+  
+  public String getReconstructionJSON()
+  {
+    return getValue(RECONSTRUCTIONJSON);
+  }
+  
+  public void setReconstructionJSON(String value)
+  {
+    if(value == null)
+    {
+      setValue(RECONSTRUCTIONJSON, "");
+    }
+    else
+    {
+      setValue(RECONSTRUCTIONJSON, value);
+    }
+  }
+  
+  public boolean isReconstructionJSONWritable()
+  {
+    return isWritable(RECONSTRUCTIONJSON);
+  }
+  
+  public boolean isReconstructionJSONReadable()
+  {
+    return isReadable(RECONSTRUCTIONJSON);
+  }
+  
+  public boolean isReconstructionJSONModified()
+  {
+    return isModified(RECONSTRUCTIONJSON);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getReconstructionJSONMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RECONSTRUCTIONJSON).getAttributeMdDTO();
   }
   
   public String getSerializedUnknownGeos()

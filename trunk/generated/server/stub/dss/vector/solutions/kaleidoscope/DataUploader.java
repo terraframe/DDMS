@@ -234,14 +234,16 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
 
       DataUploaderImportJob job = new DataUploaderImportJob(configuration, file);
       job.apply();
-      ImportResponseIF response = job.doImport();
+      String responseJSON = job.doImport();
+      
+      JSONObject responseJ = new JSONObject(responseJSON);
 
-      if (!response.hasProblems())
+      if (!responseJ.has("problems"))
       {
         FileUtils.deleteDirectory(directory);
       }
 
-      return response.toJSON().toString();
+      return responseJSON;
     }
     catch (JSONException | IOException e)
     {

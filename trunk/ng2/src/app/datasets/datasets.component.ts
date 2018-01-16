@@ -14,6 +14,8 @@ import { UploadWizardComponent } from '../uploader/upload-wizard.component';
 
 declare let acp: string;
 
+declare let reconstructionJSON: any;
+
 @Component({
   selector: 'datasets',
   templateUrl: './datasets.component.html',
@@ -62,6 +64,11 @@ export class DatasetsComponent implements OnInit {
     };
     this.uploader.onErrorItem = (item: any, response: string, status: number, headers: any) => {
       this.eventService.onError(response);	
+    }
+    
+    if (reconstructionJSON != null && reconstructionJSON != "")
+    {
+      this.wizard.afterPersist(reconstructionJSON.importResponse);
     }
   };
   

@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
@@ -72,7 +74,9 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     
     protected Throwable sharedEx;
     
-    protected ImportResponseIF response;
+    protected String responseJSON;
+    
+    protected ExcelImportHistory history;
   }
   
   @Override
@@ -87,7 +91,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     return history;
   }
   
-  public ImportResponseIF doImport()
+  public String doImport()
   {
     this.sharedState.semaphore = new Semaphore(0);
     
@@ -115,24 +119,20 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       }
     }
     
-    ImportResponseIF response = this.sharedState.response;
+    String responseJSON = this.sharedState.responseJSON;
     
     sharedStates.remove(this.getId());
     
-    return response;
+    // Unfortunately we have to return the response JSON because the classloader reloads and invalidates our ImportResponseIF object.
+    return responseJSON;
   }
   
   @Override
-  @Transaction
   public void execute(ExecutionContext context)
   {
-    loadSharedState();
-    
     try
     {
-      JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
-      
-      this.sharedState.response = new ImportRunnable(this.sharedState.configuration, this.sharedState.file, monitor).run();
+      doInTransaction(context);
     }
     catch (Throwable ex)
     {
@@ -142,19 +142,42 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     finally
     {
       this.sharedState.semaphore.release();
+    }
+  }
+  
+  @Transaction
+  public void doInTransaction(ExecutionContext context)
+  {
+    try
+    {
+      loadSharedState();
+      
+      this.sharedState.history = (ExcelImportHistory) context.getJobHistory();
+      
+      JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
+      
+      ImportResponseIF response = new ImportRunnable(this.sharedState.configuration, this.sharedState.file, monitor).run();
+      
+      JSONObject responseJSON = response.toJSON();
+      
+      this.sharedState.responseJSON = responseJSON.toString();
       
       ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
       history.appLock();
       
-      // TODO : error file
-      history.setHasError(this.sharedState.response.hasProblems());
+      JSONObject reconstructionJSON = new JSONObject();
+      reconstructionJSON.put("importResponse", responseJSON);
+      reconstructionJSON.put("configuration", new JSONObject(this.sharedState.configuration)); // referred to in angular as 'workbook' or 'information'
+      history.setReconstructionJSON(reconstructionJSON.toString());
       
-      if (this.sharedState.response.hasProblems())
+      history.setHasError(false); // The DDMS data uploader does not return error spreadsheets
+      
+      if (response.hasProblems())
       {
         JSONArray catProbs = new JSONArray();
         JSONArray locProbs = new JSONArray();
         
-        ProblemResponse pr = (ProblemResponse) this.sharedState.response;
+        ProblemResponse pr = (ProblemResponse) response;
         
         Collection<ImportProblemIF> problems = pr.getProblems();
         
@@ -175,6 +198,10 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       }
       
       history.apply();
+    }
+    catch(JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
     }
   }
   

@@ -60,6 +60,17 @@
 
 </head>
 
+<script type="text/javascript">
+<c:choose>
+  <c:when test="${not empty requestScope.reconstructionJSON}">
+    window.reconstructionJSON = ${requestScope.reconstructionJSON};
+  </c:when>
+  <c:otherwise>
+    window.reconstructionJSON = "";
+  </c:otherwise>
+</c:choose>
+</script>
+
 <div>
   <my-app>
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 811413147)
+@com.runwaysdk.business.ClassSignature(hash = 1166324029)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,10 +15,11 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
   public static java.lang.String FILENAME = "fileName";
   public static java.lang.String HASERROR = "hasError";
   public static java.lang.String IMPORTCOUNT = "importCount";
+  public static java.lang.String RECONSTRUCTIONJSON = "reconstructionJSON";
   public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
   public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
   public static java.lang.String TOTALRECORDS = "totalRecords";
-  private static final long serialVersionUID = 811413147;
+  private static final long serialVersionUID = 1166324029;
   
   public ExcelImportHistoryBase()
   {
@@ -158,6 +159,34 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
     else
     {
       setValue(IMPORTCOUNT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public String getReconstructionJSON()
+  {
+    return getValue(RECONSTRUCTIONJSON);
+  }
+  
+  public void validateReconstructionJSON()
+  {
+    this.validateAttribute(RECONSTRUCTIONJSON);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getReconstructionJSONMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(RECONSTRUCTIONJSON);
+  }
+  
+  public void setReconstructionJSON(String value)
+  {
+    if(value == null)
+    {
+      setValue(RECONSTRUCTIONJSON, "");
+    }
+    else
+    {
+      setValue(RECONSTRUCTIONJSON, value);
     }
   }
   

@@ -29,8 +29,16 @@
 	        <td class="column-hasError">
             <a *ngIf="history.hasError" class="fa fa-download" href="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet.mojo?historyId={{history.id}}"></a>
           </td>
-	        <td class="column-hasSynonyms"> {{history.geoSyns}} </td>
-	        <td class="column-hasSynonyms"> {{history.termSyns}} </td>
+	        <td class="column-hasSynonyms"> 
+            {{history.geoSyns}}
+            <br *ngIf="history.geoSyns > 0" />
+            <a *ngIf="history.geoSyns > 0" class="fa fa-pencil" href="dss.vector.solutions.generator.ExcelController.resolveGeoSynonyms.mojo?historyId={{history.id}}"></a>
+          </td>
+	        <td class="column-hasSynonyms">
+            {{history.termSyns}}
+            <br *ngIf="history.termSyns > 0" />
+            <a *ngIf="history.termSyns > 0" class="fa fa-pencil" href="dss.vector.solutions.generator.ExcelController.resolveTermSynonyms.mojo?historyId={{history.id}}"></a>
+          </td>
 	      </tr>
 	    </tbody>    
 	  </table>
