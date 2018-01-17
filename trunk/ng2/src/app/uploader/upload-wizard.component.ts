@@ -500,15 +500,16 @@ export class UploadWizardComponent implements OnDestroy {
     if (reconstructionJSON != null && reconstructionJSON != "")
     {
       this.info = {options: {countries: []}, classifiers: [], information: reconstructionJSON.configuration}
-      this.sheet = result.sheets[0];
       
       externalPageRequest = reconstructionJSON.pageNum;
     }
     
-    if(this.hasLocationField() && this.hasCoordinateField()) {
+    this.sheet = result.sheets[0];
+    
+    if(this.sheet != null && (this.hasLocationField() && this.hasCoordinateField())) {
       this.currentStep = 5;
     }
-    else if(this.hasLocationField() || this.hasCoordinateField()) {
+    else if(this.sheet != null && (this.hasLocationField() || this.hasCoordinateField())) {
       this.currentStep = 4;
     }
     else{
@@ -517,7 +518,7 @@ export class UploadWizardComponent implements OnDestroy {
     
     this.problems = result.problems;
     this.info.information.sheets = result.sheets;
-    this.sheet = result.sheets[0];
+//    this.sheet = result.sheets[0];
     
     if( externalPageRequest == 3 || (externalPageRequest == -1 && (!result.problems.locations || result.problems.locations.length > 0)) ) {
     
@@ -574,6 +575,6 @@ export class UploadWizardComponent implements OnDestroy {
 	
     let names = ['MATCH-INITIAL', 'MATCH'];
 	
-    return this.page && (names.indexOf(this.page.name) === -1) && !this.sheet.exists;
+    return this.sheet != null && this.page && (names.indexOf(this.page.name) === -1) && !this.sheet.exists;
   }
 }

@@ -32,6 +32,7 @@ import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.kaleidoscope.data.etl.CategoryProblem;
 import dss.vector.solutions.kaleidoscope.data.etl.LocationProblem;
 import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.ontology.UnknownTerm;
 
@@ -173,6 +174,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     catch (Throwable ex)
     {
       this.sharedState.sharedEx = ex;
+      ex.printStackTrace();
       throw ex;
     }
     finally
@@ -273,9 +275,16 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       List<UnknownTerm> uterms = this.sharedState.manager.unknownTerms;
       for (UnknownTerm uterm : uterms)
       {
-        String categoryId = BrowserField.getBrowserField(uterm.getMdAttributeId()).getRoots()[0].getTermId();
+        String categoryId = "";
+        BrowserRootView[] roots = BrowserField.getBrowserField(uterm.getMdAttributeId()).getRoots();
         
-        CategoryProblem catp = new CategoryProblem(uterm.getAttributeLabel(), categoryId, uterm.getMdAttributeId(), uterm.getAttributeLabel());
+        if (roots.length > 0)
+        {
+          // TODO : Multiple roots? Or maybe there are no roots.
+          categoryId = roots[0].getTermId();
+        }
+        
+        CategoryProblem catp = new CategoryProblem(uterm.getTermName(), categoryId, uterm.getMdAttributeId(), uterm.getAttributeLabel());
         catProbs.put(catp.toJSON());
       }
       problems.put("categories", catProbs);
@@ -298,9 +307,9 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       responseJSON.put("problems", problems);
       // END PROBLEMS //
       
-      reconstructionJSON.put("datasets", new JSONArray());
+      responseJSON.put("datasets", new JSONArray());
       
-      reconstructionJSON.put("sheets", new JSONArray());
+      responseJSON.put("sheets", new JSONArray());
       
       reconstructionJSON.put("importResponse", responseJSON);
       // END RESPONSE JSON //
