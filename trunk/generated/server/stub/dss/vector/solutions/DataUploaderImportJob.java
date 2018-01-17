@@ -75,8 +75,6 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     protected Throwable sharedEx;
     
     protected String responseJSON;
-    
-    protected ExcelImportHistory history;
   }
   
   @Override
@@ -130,6 +128,8 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   @Override
   public void execute(ExecutionContext context)
   {
+    loadSharedState();
+    
     try
     {
       doInTransaction(context);
@@ -150,10 +150,6 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   {
     try
     {
-      loadSharedState();
-      
-      this.sharedState.history = (ExcelImportHistory) context.getJobHistory();
-      
       JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
       
       ImportResponseIF response = new ImportRunnable(this.sharedState.configuration, this.sharedState.file, monitor).run();
@@ -170,12 +166,10 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       reconstructionJSON.put("configuration", new JSONObject(this.sharedState.configuration)); // referred to in angular as 'workbook' or 'information'
       history.setReconstructionJSON(reconstructionJSON.toString());
       
-      history.setHasError(false); // The DDMS data uploader does not return error spreadsheets
-      
       if (response.hasProblems())
       {
-        JSONArray catProbs = new JSONArray();
-        JSONArray locProbs = new JSONArray();
+        int catProbs = 0;
+        int locProbs = 0;
         
         ProblemResponse pr = (ProblemResponse) response;
         
@@ -185,16 +179,16 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
         {
           if (problem instanceof CategoryProblem)
           {
-            catProbs.put(new JSONObject());
+            catProbs++;
           }
           else if (problem instanceof LocationProblem)
           {
-            locProbs.put(new JSONObject());
+            locProbs++;
           }
         }
         
-        history.setSerializedUnknownTerms(catProbs.toString());
-        history.setSerializedUnknownGeos(locProbs.toString());
+        history.setNumberUnknownTerms(catProbs);
+        history.setNumberUnknownGeos(locProbs);
       }
       
       history.apply();

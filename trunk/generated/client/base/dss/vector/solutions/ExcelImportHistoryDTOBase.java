@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -172073027)
+@com.runwaysdk.business.ClassSignature(hash = -1265318006)
 public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.scheduler.JobHistoryDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportHistory";
-  private static final long serialVersionUID = -172073027;
+  private static final long serialVersionUID = -1265318006;
   
   protected ExcelImportHistoryDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -29,11 +29,10 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
   
   public static java.lang.String ERRORFILE = "errorFile";
   public static java.lang.String FILENAME = "fileName";
-  public static java.lang.String HASERROR = "hasError";
   public static java.lang.String IMPORTCOUNT = "importCount";
+  public static java.lang.String NUMBERUNKNOWNGEOS = "numberUnknownGeos";
+  public static java.lang.String NUMBERUNKNOWNTERMS = "numberUnknownTerms";
   public static java.lang.String RECONSTRUCTIONJSON = "reconstructionJSON";
-  public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
-  public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
   public static java.lang.String TOTALRECORDS = "totalRecords";
   public com.runwaysdk.system.VaultFileDTO getErrorFile()
   {
@@ -121,43 +120,6 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(FILENAME).getAttributeMdDTO();
   }
   
-  public Boolean getHasError()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASERROR));
-  }
-  
-  public void setHasError(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(HASERROR, "");
-    }
-    else
-    {
-      setValue(HASERROR, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isHasErrorWritable()
-  {
-    return isWritable(HASERROR);
-  }
-  
-  public boolean isHasErrorReadable()
-  {
-    return isReadable(HASERROR);
-  }
-  
-  public boolean isHasErrorModified()
-  {
-    return isModified(HASERROR);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getHasErrorMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(HASERROR).getAttributeMdDTO();
-  }
-  
   public Integer getImportCount()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMPORTCOUNT));
@@ -195,6 +157,80 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IMPORTCOUNT).getAttributeMdDTO();
   }
   
+  public Integer getNumberUnknownGeos()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERUNKNOWNGEOS));
+  }
+  
+  public void setNumberUnknownGeos(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERUNKNOWNGEOS, "");
+    }
+    else
+    {
+      setValue(NUMBERUNKNOWNGEOS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberUnknownGeosWritable()
+  {
+    return isWritable(NUMBERUNKNOWNGEOS);
+  }
+  
+  public boolean isNumberUnknownGeosReadable()
+  {
+    return isReadable(NUMBERUNKNOWNGEOS);
+  }
+  
+  public boolean isNumberUnknownGeosModified()
+  {
+    return isModified(NUMBERUNKNOWNGEOS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberUnknownGeosMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERUNKNOWNGEOS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberUnknownTerms()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERUNKNOWNTERMS));
+  }
+  
+  public void setNumberUnknownTerms(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERUNKNOWNTERMS, "");
+    }
+    else
+    {
+      setValue(NUMBERUNKNOWNTERMS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberUnknownTermsWritable()
+  {
+    return isWritable(NUMBERUNKNOWNTERMS);
+  }
+  
+  public boolean isNumberUnknownTermsReadable()
+  {
+    return isReadable(NUMBERUNKNOWNTERMS);
+  }
+  
+  public boolean isNumberUnknownTermsModified()
+  {
+    return isModified(NUMBERUNKNOWNTERMS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberUnknownTermsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERUNKNOWNTERMS).getAttributeMdDTO();
+  }
+  
   public String getReconstructionJSON()
   {
     return getValue(RECONSTRUCTIONJSON);
@@ -230,80 +266,6 @@ public abstract class ExcelImportHistoryDTOBase extends com.runwaysdk.system.sch
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getReconstructionJSONMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(RECONSTRUCTIONJSON).getAttributeMdDTO();
-  }
-  
-  public String getSerializedUnknownGeos()
-  {
-    return getValue(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public void setSerializedUnknownGeos(String value)
-  {
-    if(value == null)
-    {
-      setValue(SERIALIZEDUNKNOWNGEOS, "");
-    }
-    else
-    {
-      setValue(SERIALIZEDUNKNOWNGEOS, value);
-    }
-  }
-  
-  public boolean isSerializedUnknownGeosWritable()
-  {
-    return isWritable(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public boolean isSerializedUnknownGeosReadable()
-  {
-    return isReadable(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public boolean isSerializedUnknownGeosModified()
-  {
-    return isModified(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getSerializedUnknownGeosMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(SERIALIZEDUNKNOWNGEOS).getAttributeMdDTO();
-  }
-  
-  public String getSerializedUnknownTerms()
-  {
-    return getValue(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public void setSerializedUnknownTerms(String value)
-  {
-    if(value == null)
-    {
-      setValue(SERIALIZEDUNKNOWNTERMS, "");
-    }
-    else
-    {
-      setValue(SERIALIZEDUNKNOWNTERMS, value);
-    }
-  }
-  
-  public boolean isSerializedUnknownTermsWritable()
-  {
-    return isWritable(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public boolean isSerializedUnknownTermsReadable()
-  {
-    return isReadable(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public boolean isSerializedUnknownTermsModified()
-  {
-    return isModified(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getSerializedUnknownTermsMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(SERIALIZEDUNKNOWNTERMS).getAttributeMdDTO();
   }
   
   public Integer getTotalRecords()

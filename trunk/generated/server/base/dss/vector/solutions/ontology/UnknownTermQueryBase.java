@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 198680813)
+@com.runwaysdk.business.ClassSignature(hash = 154409527)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -94,6 +94,24 @@ public  abstract  class UnknownTermQueryBase extends com.runwaysdk.query.Generat
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMdAttributeId()
+  {
+    return getMdAttributeId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMdAttributeId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.MDATTRIBUTEID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMdAttributeId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.ontology.UnknownTerm.MDATTRIBUTEID, alias, displayLabel);
 
   }
  

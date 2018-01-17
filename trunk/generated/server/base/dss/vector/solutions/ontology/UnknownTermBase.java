@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1879840132)
+@com.runwaysdk.business.ClassSignature(hash = 340112334)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,9 +15,10 @@ public abstract class UnknownTermBase extends com.runwaysdk.business.View implem
   public static java.lang.String BROWSERATTRIBUTE = "browserAttribute";
   public static java.lang.String BROWSERCLASS = "browserClass";
   public static java.lang.String ID = "id";
+  public static java.lang.String MDATTRIBUTEID = "mdAttributeId";
   public static java.lang.String SYNONYMS = "synonyms";
   public static java.lang.String TERMNAME = "termName";
-  private static final long serialVersionUID = 1879840132;
+  private static final long serialVersionUID = 340112334;
   
   public UnknownTermBase()
   {
@@ -122,6 +123,34 @@ public abstract class UnknownTermBase extends com.runwaysdk.business.View implem
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.UnknownTerm.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getMdAttributeId()
+  {
+    return getValue(MDATTRIBUTEID);
+  }
+  
+  public void validateMdAttributeId()
+  {
+    this.validateAttribute(MDATTRIBUTEID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMdAttributeIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ontology.UnknownTerm.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MDATTRIBUTEID);
+  }
+  
+  public void setMdAttributeId(String value)
+  {
+    if(value == null)
+    {
+      setValue(MDATTRIBUTEID, "");
+    }
+    else
+    {
+      setValue(MDATTRIBUTEID, value);
+    }
   }
   
   public String getSynonyms()

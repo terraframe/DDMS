@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -302001900)
+@com.runwaysdk.business.ClassSignature(hash = -741549677)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public class ExcelImportHistoryQueryDTO extends com.runwaysdk.system.scheduler.JobHistoryQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -302001900;
+private static final long serialVersionUID = -741549677;
 
   protected ExcelImportHistoryQueryDTO(String type)
   {

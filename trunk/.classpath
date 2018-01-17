@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/client"/>
+	<classpathentry kind="src" path="src/backup"/>
 	<classpathentry kind="src" path="src/common"/>
 	<classpathentry kind="src" path="src/server"/>
 	<classpathentry kind="src" path="src/test"/>
@@ -61,7 +62,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/ant-launcher.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/relaxngDatatype.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/xsom.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-server.jar" sourcepath="/home/terraframe/git/Runway-SDK">
+	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-server.jar" sourcepath="/runwaysdk-server">
 		<attributes>
 			<attribute name="org.eclipse.ajdt.aspectpath" value="org.eclipse.ajdt.aspectpath"/>
 		</attributes>
@@ -92,7 +93,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/server/quartz-2.2.1.jar" sourcepath="/Users/terraframe/.m2/repository/org/quartz-scheduler/quartz/2.2.1/quartz-2.2.1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/quartz-jobs-2.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/test/selenium-java-client-driver.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/test/selenium-server.jar"/>
 	<classpathentry kind="lib" path="lib/common/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="lib/common/zip4j_1.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/server/ognl-3.0.8.jar"/>
@@ -231,5 +231,6 @@
 	<classpathentry kind="lib" path="lib/birt/xml-apis-1.3.04.jar"/>
 	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/common/json.jar"/>
+	<classpathentry kind="lib" path="lib/server/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,11 +2,18 @@ package dss.vector.solutions;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.system.VaultFile;
@@ -19,8 +26,23 @@ import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.ContextBuilderFacade;
 import dss.vector.solutions.generator.DefaultContextBuilder;
 import dss.vector.solutions.generator.ExcelImportLegacyHistoryRecordingProgressMonitor;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.UnknownGeoEntity;
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.kaleidoscope.data.etl.CategoryProblem;
+import dss.vector.solutions.kaleidoscope.data.etl.LocationProblem;
+import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.ontology.UnknownTerm;
 
+/**
+ * This class is used only for the 'legacy' importer, although it is used for both generated forms as well as hardcoded forms.
+ * Semaphores are used to join the import thread with the quartz thread and the 'sharedState' is used to share state
+ * between the 2 threads.
+ * 
+ * @author rrowlands
+ *
+ */
 public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1649401623;
@@ -144,54 +166,9 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   {
     loadSharedState();
     
-    byte[] errorBytes = null;
-    
     try
     {
-      // Start caching Broswer Roots for this Thread.
-      TermRootCache.start();
-      EpiCache.start();
-  
-      try
-      {
-        ContextBuilderIF builder = this.constructContextBuilder();
-  
-        ExcelImporter importer = new ExcelImporter(this.sharedState.inputStreamIn, builder);
-        
-        this.configureImporter(importer, context);
-  
-        try
-        {
-          errorBytes = importer.read();
-  
-          this.sharedState.manager.onFinishImport();
-  
-          this.sharedState.inputStreamOut = new ByteArrayInputStream(errorBytes);
-        }
-        catch (RuntimeException e)
-        {
-          /*
-           * Ticket #2663: Errors from reading external sheet should have a better
-           * error message. Unfortunately, the HSSF API doesn't throw a specific
-           * exception for external sheet errors, but throws a RuntimeException.
-           * As such the only way to tell if the exception is an external sheet
-           * error is by reading the message.
-           */
-          Throwable cause = e.getCause();
-  
-          if (cause != null && cause.getMessage().startsWith("No external workbook with name"))
-          {
-            throw new ExcelReadException();
-          }
-  
-          throw e;
-        }
-      }
-      finally
-      {
-        TermRootCache.stop();
-        EpiCache.stop();
-      }
+      executeInner(context);
     }
     catch (Throwable ex)
     {
@@ -201,31 +178,149 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     finally
     {
       this.sharedState.semaphore.release();
-      
-      ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
-      history.appLock();
-      
-      if (this.sharedState.manager.hasUnknownTerms())
-      {
-        history.setSerializedUnknownTerms(this.sharedState.manager.serializeUnknownTerms());
-      }
-      if (this.sharedState.manager.hasUnknownGeos())
-      {
-        history.setSerializedUnknownGeos(this.sharedState.manager.serializeUnknownGeos());
-      }
-      if (errorBytes != null && errorBytes.length > 0)
-      {
-        history.setHasError(true);
-        
-        VaultFile vf = VaultFile.createAndApply(this.sharedState.fileName, new ByteArrayInputStream(errorBytes));
-        history.setErrorFile(vf);
-      }
-      else
-      {
-        history.setHasError(false);
-      }
-      
-      history.apply();
     }
+  }
+  
+  public void executeInner(ExecutionContext context)
+  {
+    byte[] errorBytes = null;
+    ExcelImporter importer = null;
+    
+    VaultFile vf = VaultFile.createAndApply(this.sharedState.fileName, this.sharedState.inputStreamIn);
+    
+    // Start caching Broswer Roots for this Thread.
+    TermRootCache.start();
+    EpiCache.start();
+
+    try
+    {
+      ContextBuilderIF builder = this.constructContextBuilder();
+
+      importer = new ExcelImporter(vf.getFileStream(), builder);
+      
+      this.configureImporter(importer, context);
+      
+      try
+      {
+        errorBytes = importer.read();
+
+        this.sharedState.manager.onFinishImport();
+
+        this.sharedState.inputStreamOut = new ByteArrayInputStream(errorBytes);
+      }
+      catch (RuntimeException e)
+      {
+        /*
+         * Ticket #2663: Errors from reading external sheet should have a better
+         * error message. Unfortunately, the HSSF API doesn't throw a specific
+         * exception for external sheet errors, but throws a RuntimeException.
+         * As such the only way to tell if the exception is an external sheet
+         * error is by reading the message.
+         */
+        Throwable cause = e.getCause();
+
+        if (cause != null && cause.getMessage().startsWith("No external workbook with name"))
+        {
+          throw new ExcelReadException();
+        }
+
+        throw e;
+      }
+    }
+    finally
+    {
+      TermRootCache.stop();
+      EpiCache.stop();
+    }
+  
+    ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
+    history.appLock();
+    
+    history.setNumberUnknownGeos(this.sharedState.manager.getNumberUnknownGeos());
+    history.setNumberUnknownTerms(this.sharedState.manager.getNumberUnknownTerms());
+    
+    if (errorBytes != null && errorBytes.length > 0)
+    {
+      VaultFile vf2 = VaultFile.createAndApply(this.sharedState.fileName, new ByteArrayInputStream(errorBytes));
+      history.setErrorFile(vf2);
+    }
+    
+    if (importer != null)
+    {
+      history.setReconstructionJSON(generateReconstructionJSON(vf, importer));
+    }
+    
+    history.apply();
+  }
+  
+  private String generateReconstructionJSON(VaultFile vf, ExcelImporter importer)
+  {
+    Earth earth = Earth.getEarthInstance();
+    
+    try
+    {
+      JSONObject reconstructionJSON = new JSONObject();
+      
+      // RESPONSE JSON //
+      JSONObject responseJSON = new JSONObject();
+      
+      responseJSON.put("success", this.sharedState.manager.getNumberUnknownGeos() == 0 && this.sharedState.manager.getNumberUnknownTerms() == 0);
+      
+      // BEGIN PROBLEMS //
+      JSONObject problems = new JSONObject();
+      
+      JSONArray catProbs = new JSONArray();
+      List<UnknownTerm> uterms = this.sharedState.manager.unknownTerms;
+      for (UnknownTerm uterm : uterms)
+      {
+        String categoryId = BrowserField.getBrowserField(uterm.getMdAttributeId()).getRoots()[0].getTermId();
+        
+        CategoryProblem catp = new CategoryProblem(uterm.getAttributeLabel(), categoryId, uterm.getMdAttributeId(), uterm.getAttributeLabel());
+        catProbs.put(catp.toJSON());
+      }
+      problems.put("categories", catProbs);
+      
+      JSONArray locProbs = new JSONArray();
+      List<UnknownGeoEntity> ugeos = this.sharedState.manager.unknownEntityList;
+      for (UnknownGeoEntity ugeo : ugeos)
+      {
+        List<JSONObject> context = new ArrayList<JSONObject>();
+        
+        String mdType = this.sharedState.manager.getGeoTypeInfo(ugeo);
+        GeoHierarchy gh = GeoHierarchy.getGeoHierarchyFromType(mdType);
+        
+        // TODO : Context and parent geo (earth)
+        LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, earth, GeoHierarchy.getGeoHierarchyFromType(mdType));
+        locProbs.put(locp.toJSON());
+      }
+      problems.put("locations", locProbs);
+      
+      responseJSON.put("problems", problems);
+      // END PROBLEMS //
+      
+      reconstructionJSON.put("datasets", new JSONArray());
+      
+      reconstructionJSON.put("sheets", new JSONArray());
+      
+      reconstructionJSON.put("importResponse", responseJSON);
+      // END RESPONSE JSON //
+      
+      // CONFIG JSON //
+      JSONObject config = new JSONObject();
+      config.put("filename", vf.getFileName() + "." + vf.getFileExtension());
+      config.put("vaultId", vf.getId());
+      config.put("locationExclusions", new JSONArray());
+      
+      config.put("sheets", new JSONArray());
+      
+      reconstructionJSON.put("configuration", config); // referred to in angular as 'workbook' or 'information'
+      // END CONFIG JSON //
+      
+      return reconstructionJSON.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    } 
   }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1166324029)
+@com.runwaysdk.business.ClassSignature(hash = -1952848374)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,13 +13,12 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
   public final static String CLASS = "dss.vector.solutions.ExcelImportHistory";
   public static java.lang.String ERRORFILE = "errorFile";
   public static java.lang.String FILENAME = "fileName";
-  public static java.lang.String HASERROR = "hasError";
   public static java.lang.String IMPORTCOUNT = "importCount";
+  public static java.lang.String NUMBERUNKNOWNGEOS = "numberUnknownGeos";
+  public static java.lang.String NUMBERUNKNOWNTERMS = "numberUnknownTerms";
   public static java.lang.String RECONSTRUCTIONJSON = "reconstructionJSON";
-  public static java.lang.String SERIALIZEDUNKNOWNGEOS = "serializedUnknownGeos";
-  public static java.lang.String SERIALIZEDUNKNOWNTERMS = "serializedUnknownTerms";
   public static java.lang.String TOTALRECORDS = "totalRecords";
-  private static final long serialVersionUID = 1166324029;
+  private static final long serialVersionUID = -1952848374;
   
   public ExcelImportHistoryBase()
   {
@@ -106,34 +105,6 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
     }
   }
   
-  public Boolean getHasError()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(HASERROR));
-  }
-  
-  public void validateHasError()
-  {
-    this.validateAttribute(HASERROR);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getHasErrorMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(HASERROR);
-  }
-  
-  public void setHasError(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(HASERROR, "");
-    }
-    else
-    {
-      setValue(HASERROR, java.lang.Boolean.toString(value));
-    }
-  }
-  
   public Integer getImportCount()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IMPORTCOUNT));
@@ -162,6 +133,62 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
     }
   }
   
+  public Integer getNumberUnknownGeos()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERUNKNOWNGEOS));
+  }
+  
+  public void validateNumberUnknownGeos()
+  {
+    this.validateAttribute(NUMBERUNKNOWNGEOS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberUnknownGeosMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBERUNKNOWNGEOS);
+  }
+  
+  public void setNumberUnknownGeos(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERUNKNOWNGEOS, "");
+    }
+    else
+    {
+      setValue(NUMBERUNKNOWNGEOS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberUnknownTerms()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERUNKNOWNTERMS));
+  }
+  
+  public void validateNumberUnknownTerms()
+  {
+    this.validateAttribute(NUMBERUNKNOWNTERMS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberUnknownTermsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBERUNKNOWNTERMS);
+  }
+  
+  public void setNumberUnknownTerms(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERUNKNOWNTERMS, "");
+    }
+    else
+    {
+      setValue(NUMBERUNKNOWNTERMS, java.lang.Integer.toString(value));
+    }
+  }
+  
   public String getReconstructionJSON()
   {
     return getValue(RECONSTRUCTIONJSON);
@@ -187,62 +214,6 @@ public abstract class ExcelImportHistoryBase extends com.runwaysdk.system.schedu
     else
     {
       setValue(RECONSTRUCTIONJSON, value);
-    }
-  }
-  
-  public String getSerializedUnknownGeos()
-  {
-    return getValue(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public void validateSerializedUnknownGeos()
-  {
-    this.validateAttribute(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getSerializedUnknownGeosMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(SERIALIZEDUNKNOWNGEOS);
-  }
-  
-  public void setSerializedUnknownGeos(String value)
-  {
-    if(value == null)
-    {
-      setValue(SERIALIZEDUNKNOWNGEOS, "");
-    }
-    else
-    {
-      setValue(SERIALIZEDUNKNOWNGEOS, value);
-    }
-  }
-  
-  public String getSerializedUnknownTerms()
-  {
-    return getValue(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public void validateSerializedUnknownTerms()
-  {
-    this.validateAttribute(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getSerializedUnknownTermsMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.ExcelImportHistory.CLASS);
-    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(SERIALIZEDUNKNOWNTERMS);
-  }
-  
-  public void setSerializedUnknownTerms(String value)
-  {
-    if(value == null)
-    {
-      setValue(SERIALIZEDUNKNOWNTERMS, "");
-    }
-    else
-    {
-      setValue(SERIALIZEDUNKNOWNTERMS, value);
     }
   }
   

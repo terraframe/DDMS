@@ -59,6 +59,7 @@ public class ManagedImportContext extends ImportContext implements Reloadable
     unknownTerm.setBrowserAttribute(mdAttribute.definesAttribute());
     unknownTerm.setBrowserClass(mdClass.definesType());
     unknownTerm.setAttributeLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+    unknownTerm.setMdAttributeId(p.getTermAttributeId());
 
     this.manager.addUnknownTerm(unknownTerm);
   }

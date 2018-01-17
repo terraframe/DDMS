@@ -129,10 +129,10 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
         unknownGeoEntity.setSiblings(GeoEntitySearcher.getDelimitedList(siblingGeoEntityList));
         unknownGeoEntity.setKnownHierarchy(GeoEntitySearcher.getDelimitedHierarchy(parentGeoEntityMap, endPointEntityType));
         unknownGeoEntity.apply();
-  
+        
         importer.addUnknownEntity(unknownGeoEntity);
         importer.addUnknownGeoEntityName(endPointEntityName);
-        
+        importer.putGeoTypeInfo(unknownGeoEntity, endPointEntityType);
       }
       
       String msg = "Unknown Geo Entity [" + endPointEntityName + "]";

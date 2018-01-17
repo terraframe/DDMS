@@ -25,14 +25,16 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
 
   private Logger logger = LoggerFactory.getLogger(ExcelImportManager.class);
   
-  private List<UnknownGeoEntity>   unknownEntityList       = new LinkedList<UnknownGeoEntity>();
+  public List<UnknownGeoEntity>   unknownEntityList       = new LinkedList<UnknownGeoEntity>();
 
-  private List<UnknownTerm>        unknownTerms            = new LinkedList<UnknownTerm>();
+  public List<UnknownTerm>        unknownTerms            = new LinkedList<UnknownTerm>();
 
   private Set<String>              unknownGeoEntityNameSet = new HashSet<String>();
 
   private Map<String, Set<String>> unknownTermNames        = new HashMap<String, Set<String>>();
-
+  
+  public Map<UnknownGeoEntity, String> geoTypeInfo         = new HashMap<UnknownGeoEntity, String>();
+  
   public ExcelImportManager()
   {
     super();
@@ -94,14 +96,24 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     }
   }
   
-  public boolean hasUnknownTerms()
+  public void putGeoTypeInfo(UnknownGeoEntity uge, String type)
   {
-    return unknownTerms.size() > 0;
+    geoTypeInfo.put(uge, type);
   }
   
-  public boolean hasUnknownGeos()
+  public String getGeoTypeInfo(UnknownGeoEntity uge)
   {
-    return unknownEntityList.size() > 0;
+    return geoTypeInfo.get(uge);
+  }
+  
+  public int getNumberUnknownTerms()
+  {
+    return unknownTerms.size();
+  }
+  
+  public int getNumberUnknownGeos()
+  {
+    return unknownEntityList.size();
   }
 
   @Override

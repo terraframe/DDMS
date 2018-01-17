@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -466298970)
+@com.runwaysdk.business.ClassSignature(hash = -99593151)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -78,23 +78,6 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getHasError()
-  {
-    return getHasError(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getHasError(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.HASERROR, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getHasError(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.HASERROR, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getImportCount()
   {
     return getImportCount(null);
@@ -112,6 +95,40 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.IMPORTCOUNT, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos()
+  {
+    return getNumberUnknownGeos(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNGEOS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNGEOS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms()
+  {
+    return getNumberUnknownTerms(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNTERMS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNTERMS, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getReconstructionJSON()
   {
     return getReconstructionJSON(null);
@@ -127,40 +144,6 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
   public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.RECONSTRUCTIONJSON, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos()
-  {
-    return getSerializedUnknownGeos(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNGEOS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNGEOS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms()
-  {
-    return getSerializedUnknownTerms(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNTERMS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNTERMS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getTotalRecords()
@@ -232,21 +215,18 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     public com.runwaysdk.query.SelectableChar getFileName();
     public com.runwaysdk.query.SelectableChar getFileName(String alias);
     public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getHasError();
-    public com.runwaysdk.query.SelectableBoolean getHasError(String alias);
-    public com.runwaysdk.query.SelectableBoolean getHasError(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getImportCount();
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias);
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos();
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms();
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getReconstructionJSON();
     public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias);
     public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos();
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms();
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getTotalRecords();
     public com.runwaysdk.query.SelectableInteger getTotalRecords(String alias);
     public com.runwaysdk.query.SelectableInteger getTotalRecords(String alias, String displayLabel);
@@ -319,23 +299,6 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getHasError()
-  {
-    return getHasError(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getHasError(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ExcelImportHistory.HASERROR, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getHasError(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ExcelImportHistory.HASERROR, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getImportCount()
   {
     return getImportCount(null);
@@ -353,6 +316,40 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.IMPORTCOUNT, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos()
+  {
+    return getNumberUnknownGeos(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNGEOS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNGEOS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms()
+  {
+    return getNumberUnknownTerms(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNTERMS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNTERMS, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getReconstructionJSON()
   {
     return getReconstructionJSON(null);
@@ -368,40 +365,6 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
   public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.RECONSTRUCTIONJSON, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos()
-  {
-    return getSerializedUnknownGeos(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNGEOS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNGEOS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms()
-  {
-    return getSerializedUnknownTerms(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNTERMS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNTERMS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getTotalRecords()
@@ -450,21 +413,18 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     public com.runwaysdk.query.SelectableChar getFileName();
     public com.runwaysdk.query.SelectableChar getFileName(String alias);
     public com.runwaysdk.query.SelectableChar getFileName(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getHasError();
-    public com.runwaysdk.query.SelectableBoolean getHasError(String alias);
-    public com.runwaysdk.query.SelectableBoolean getHasError(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getImportCount();
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias);
     public com.runwaysdk.query.SelectableInteger getImportCount(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos();
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms();
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getReconstructionJSON();
     public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias);
     public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos();
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms();
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias);
-    public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getTotalRecords();
     public com.runwaysdk.query.SelectableInteger getTotalRecords(String alias);
     public com.runwaysdk.query.SelectableInteger getTotalRecords(String alias, String displayLabel);
@@ -586,23 +546,6 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.FILENAME, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getHasError()
-  {
-    return getHasError(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getHasError(String alias)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ExcelImportHistory.HASERROR, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableBoolean getHasError(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.ExcelImportHistory.HASERROR, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getImportCount()
   {
     return getImportCount(null);
@@ -620,6 +563,40 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.IMPORTCOUNT, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos()
+  {
+    return getNumberUnknownGeos(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNGEOS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownGeos(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNGEOS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms()
+  {
+    return getNumberUnknownTerms(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNTERMS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberUnknownTerms(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.ExcelImportHistory.NUMBERUNKNOWNTERMS, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getReconstructionJSON()
   {
     return getReconstructionJSON(null);
@@ -635,40 +612,6 @@ public  class ExcelImportHistoryQuery extends com.runwaysdk.system.scheduler.Job
   public com.runwaysdk.query.SelectableChar getReconstructionJSON(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.RECONSTRUCTIONJSON, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos()
-  {
-    return getSerializedUnknownGeos(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNGEOS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownGeos(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNGEOS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms()
-  {
-    return getSerializedUnknownTerms(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNTERMS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSerializedUnknownTerms(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.ExcelImportHistory.SERIALIZEDUNKNOWNTERMS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getTotalRecords()

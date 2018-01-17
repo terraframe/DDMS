@@ -20,21 +20,49 @@
         <create>
           <attributes>
             <text name="reconstructionJSON" label="reconstructionJSON" description="A JSON object that can be used to reconstruct the excel import should the user decide to later modify synonyms and reimport." />
+            <integer name="numberUnknownTerms" label="numberUnknownTerms" defaultValue="0" rejectNegative="true" />
+            <integer name="numberUnknownGeos" label="numberUnknownGeos" defaultValue="0" rejectNegative="true" />
           </attributes>
           <mdMethod name="downloadErrorSpreadsheet" label="downloadErrorSpreadsheet" returnType="void" static="false" >
             <mdParameter name="outputStream" label="outputStream" order="0" type="java.io.OutputStream"  />
           </mdMethod>
         </create>
       </mdBusiness>
+       
+      <mdView name="dss.vector.solutions.ontology.UnknownTerm">
+        <create>
+          <attributes>
+            <char name="mdAttributeId" label="mdAttributeId" size="64" />
+          </attributes>
+        </create>
+      </mdView>
     </update>
+    <delete>
+      <object key="dss.vector.solutions.ExcelImportHistory.serializedUnknownTerms" type="com.runwaysdk.system.metadata.MdAttributeText"/>
+      <object key="dss.vector.solutions.ExcelImportHistory.serializedUnknownGeos" type="com.runwaysdk.system.metadata.MdAttributeText"/>
+      <object key="dss.vector.solutions.ExcelImportHistory.hasError" type="com.runwaysdk.system.metadata.MdAttributeBoolean"/>
+    </delete>
   </doIt>
   <undoIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.ExcelImportHistory">
+        <create>
+          <attributes>
+            <text name="serializedUnknownGeos" label="serialized unknown geos" required="false" />
+            <text name="serializedUnknownTerms" label="serialized unknown terms" required="false" />
+            <boolean name="hasError" label="hasError"/>
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
     <delete>
       <object key="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdAction" />
-      <object key="dss.vector.solutions.ExcelImportHistory.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdMethod" />
       <object key="dss.vector.solutions.generator.ExcelController.resolveTermSynonyms" type="com.runwaysdk.system.metadata.MdAction" />
       <object key="dss.vector.solutions.generator.ExcelController.resolveGeoSynonyms" type="com.runwaysdk.system.metadata.MdAction" />
-      <object key="dss.vector.solutions.ExcelImportHistory.importResponse" type="com.runwaysdk.system.metadata.MdAttributeText" />
+      <object key="dss.vector.solutions.ExcelImportHistory.reconstructionJSON" type="com.runwaysdk.system.metadata.MdAttributeText" />
+      <object key="dss.vector.solutions.ExcelImportHistory.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdMethod" />
+      <object key="dss.vector.solutions.ExcelImportHistory.numberUnknownTerms" type="com.runwaysdk.system.metadata.MdAttributeInteger" />
+      <object key="dss.vector.solutions.ExcelImportHistory.numberUnknownGeos" type="com.runwaysdk.system.metadata.MdAttributeInteger" />
     </delete>
   </undoIt>
 </version>

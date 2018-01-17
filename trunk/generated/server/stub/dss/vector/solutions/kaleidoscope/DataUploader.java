@@ -22,9 +22,11 @@ import com.runwaysdk.constants.VaultProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.util.FileIO;
+import com.runwaysdk.vault.VaultFileDAO;
 
 import dss.vector.solutions.DataUploaderImportJob;
 import dss.vector.solutions.LocalProperty;
@@ -141,24 +143,17 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     // Save the file to the file system
     try
     {
-      String name = SessionPredicate.generateId();
-
-      File directory = new File(new File(VaultProperties.getPath("vault.default"), "files"), name);
-      directory.mkdirs();
-
-      File file = new File(directory, fileName);
-
-      FileIO.write(new FileOutputStream(file), fileStream);
+      VaultFile vf = VaultFile.createAndApply(fileName, fileStream);
 
       FieldInfoContentsHandler handler = new FieldInfoContentsHandler(fileName);
       ExcelDataFormatter formatter = new ExcelDataFormatter();
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
-      reader.process(new FileInputStream(file));
+      reader.process(vf.getFileStream());
 
       JSONObject object = new JSONObject();
       object.put("sheets", handler.getSheets());
-      object.put("directory", directory.getName());
+      object.put("vaultId", vf.getId());
       object.put("filename", fileName);
 
       return object.toString();
@@ -226,13 +221,10 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     {
       JSONObject object = new JSONObject(configuration);
 
-      String name = object.getString("directory");
-      String filename = object.getString("filename");
+      String vaultId = object.getString("vaultId");
+      VaultFile vf = VaultFile.get(vaultId);
 
-      File directory = new File(new File(VaultProperties.getPath("vault.default"), "files"), name);
-      File file = new File(directory, filename);
-
-      DataUploaderImportJob job = new DataUploaderImportJob(configuration, file);
+      DataUploaderImportJob job = new DataUploaderImportJob(configuration, vf.getFile());
       job.apply();
       String responseJSON = job.doImport();
       
@@ -240,12 +232,12 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
 
       if (!responseJ.has("problems"))
       {
-        FileUtils.deleteDirectory(directory);
+        vf.delete();
       }
 
       return responseJSON;
     }
-    catch (JSONException | IOException e)
+    catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }
@@ -262,13 +254,12 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     {
       JSONObject object = new JSONObject(configuration);
 
-      String name = object.getString("directory");
+      String vaultId = object.getString("vaultId");
+      VaultFile vf = VaultFile.get(vaultId);
 
-      File directory = new File(new File(VaultProperties.getPath("vault.default"), "files"), name);
-
-      FileUtils.deleteDirectory(directory);
+      vf.delete();
     }
-    catch (JSONException | IOException e)
+    catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }

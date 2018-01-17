@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1463139324)
+@com.runwaysdk.business.ClassSignature(hash = 1780441678)
 public abstract class UnknownTermDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.UnknownTerm";
-  private static final long serialVersionUID = -1463139324;
+  private static final long serialVersionUID = 1780441678;
   
   protected UnknownTermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -20,6 +20,7 @@ public abstract class UnknownTermDTOBase extends com.runwaysdk.business.ViewDTO 
   public static java.lang.String BROWSERATTRIBUTE = "browserAttribute";
   public static java.lang.String BROWSERCLASS = "browserClass";
   public static java.lang.String ID = "id";
+  public static java.lang.String MDATTRIBUTEID = "mdAttributeId";
   public static java.lang.String SYNONYMS = "synonyms";
   public static java.lang.String TERMNAME = "termName";
   public String getAttributeLabel()
@@ -131,6 +132,43 @@ public abstract class UnknownTermDTOBase extends com.runwaysdk.business.ViewDTO 
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrowserClassMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BROWSERCLASS).getAttributeMdDTO();
+  }
+  
+  public String getMdAttributeId()
+  {
+    return getValue(MDATTRIBUTEID);
+  }
+  
+  public void setMdAttributeId(String value)
+  {
+    if(value == null)
+    {
+      setValue(MDATTRIBUTEID, "");
+    }
+    else
+    {
+      setValue(MDATTRIBUTEID, value);
+    }
+  }
+  
+  public boolean isMdAttributeIdWritable()
+  {
+    return isWritable(MDATTRIBUTEID);
+  }
+  
+  public boolean isMdAttributeIdReadable()
+  {
+    return isReadable(MDATTRIBUTEID);
+  }
+  
+  public boolean isMdAttributeIdModified()
+  {
+    return isModified(MDATTRIBUTEID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdAttributeIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDATTRIBUTEID).getAttributeMdDTO();
   }
   
   public String getSynonyms()
