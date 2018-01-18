@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 415692865)
+@com.runwaysdk.business.ClassSignature(hash = 2086006983)
 public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ExcelImportManager";
-  private static final long serialVersionUID = 415692865;
+  private static final long serialVersionUID = 2086006983;
   
   protected ExcelImportManagerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -91,6 +91,14 @@ public abstract class ExcelImportManagerDTOBase extends com.runwaysdk.business.U
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUnmatchedGeoViewIdStringMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNMATCHEDGEOVIEWIDSTRING).getAttributeMdDTO();
+  }
+  
+  public static final void excelImportFromVault(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String vaultId, java.lang.String config)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{vaultId, config};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ExcelImportManagerDTO.CLASS, "excelImportFromVault", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.ExcelImportManagerDTO getNewInstance(com.runwaysdk.constants.ClientRequestIF clientRequest)

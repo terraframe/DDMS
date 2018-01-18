@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1721207103)
+@com.runwaysdk.business.ClassSignature(hash = 616722247)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,7 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
   public static java.lang.String ID = "id";
   public static java.lang.String SERIALIZEDUNKNOWNTERM = "serializedUnknownTerm";
   public static java.lang.String UNMATCHEDGEOVIEWIDSTRING = "unmatchedGeoViewIdString";
-  private static final long serialVersionUID = -1721207103;
+  private static final long serialVersionUID = 616722247;
   
   public ExcelImportManagerBase()
   {
@@ -101,6 +101,12 @@ public abstract class ExcelImportManagerBase extends com.runwaysdk.business.Util
   public static ExcelImportManager get(String id)
   {
     return (ExcelImportManager) com.runwaysdk.business.Util.get(id);
+  }
+  
+  public static void excelImportFromVault(java.lang.String vaultId, java.lang.String config)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ExcelImportManager.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.ExcelImportManager getNewInstance()

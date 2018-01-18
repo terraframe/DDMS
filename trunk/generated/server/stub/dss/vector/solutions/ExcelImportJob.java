@@ -117,6 +117,13 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     return history;
   }
   
+  public void importAsync()
+  {
+    this.saveSharedState();
+    
+    this.start();
+  }
+  
   public InputStream doImport()
   {
     this.sharedState.semaphore = new Semaphore(0);

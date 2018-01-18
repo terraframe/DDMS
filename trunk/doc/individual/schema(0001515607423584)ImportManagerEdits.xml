@@ -1,7 +1,16 @@
-<version xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/terraframe/Runway-SDK/master/runwaysdk-server/src/main/resources/com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create></create>
     <update>
+      <mdUtil name="dss.vector.solutions.ExcelImportManager">
+        <create>
+          <mdMethod name="excelImportFromVault" label="excelImportFromVault" returnType="void" static="true">
+            <mdParameter name="vaultId" label="vaultId" order="0" type="java.lang.String"/>
+            <mdParameter name="config" label="config" order="1" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdUtil>
+    
       <mdController name="dss.vector.solutions.generator.ExcelController">
         <create>
           <mdAction name="downloadErrorSpreadsheet" label="downloadErrorSpreadsheet" isPost="false" isQuery="false">
@@ -12,6 +21,10 @@
           </mdAction>
           <mdAction name="resolveGeoSynonyms" label="resolveGeoSynonyms" isPost="false" isQuery="false">
             <mdParameter name="historyId" label="historyId" order="0" type="java.lang.String" />
+          </mdAction>
+          <mdAction name="excelImportFromVault" label="excelImportFromVault" isPost="false" isQuery="false">
+            <mdParameter name="vaultId" label="vaultId" order="0" type="java.lang.String"/>
+            <mdParameter name="config" label="config" order="1" type="java.lang.String"/>
           </mdAction>
         </create>
       </mdController>
@@ -56,13 +69,16 @@
       </mdBusiness>
     </update>
     <delete>
+      <object key="dss.vector.solutions.ExcelImportManager.excelImportFromVault" type="com.runwaysdk.system.metadata.MdMethod" />
       <object key="dss.vector.solutions.generator.ExcelController.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdAction" />
       <object key="dss.vector.solutions.generator.ExcelController.resolveTermSynonyms" type="com.runwaysdk.system.metadata.MdAction" />
       <object key="dss.vector.solutions.generator.ExcelController.resolveGeoSynonyms" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.generator.ExcelController.excelImportFromVault" type="com.runwaysdk.system.metadata.MdAction" />
       <object key="dss.vector.solutions.ExcelImportHistory.reconstructionJSON" type="com.runwaysdk.system.metadata.MdAttributeText" />
       <object key="dss.vector.solutions.ExcelImportHistory.downloadErrorSpreadsheet" type="com.runwaysdk.system.metadata.MdMethod" />
       <object key="dss.vector.solutions.ExcelImportHistory.numberUnknownTerms" type="com.runwaysdk.system.metadata.MdAttributeInteger" />
       <object key="dss.vector.solutions.ExcelImportHistory.numberUnknownGeos" type="com.runwaysdk.system.metadata.MdAttributeInteger" />
+      <object key="dss.vector.solutions.ontology.UnknownTerm.mdAttributeId" type="com.runwaysdk.system.metadata.MdAttributeCharacter" />
     </delete>
   </undoIt>
 </version>

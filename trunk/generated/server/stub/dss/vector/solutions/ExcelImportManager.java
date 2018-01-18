@@ -1,5 +1,6 @@
 package dss.vector.solutions;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.system.VaultFile;
 
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.ontology.UnknownTerm;
@@ -47,8 +49,22 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     return inst;
   }
   
+  /**
+   * MdMethod
+   */
+  public static void excelImportFromVault(java.lang.String vaultId, String config)
+  {
+    VaultFile vf = VaultFile.get(vaultId);
+    
+    InputStream is = vf.getFileStream();
+    
+    ExcelImportManager man = getNewInstance();
+    
+    ExcelImportJob job = new ExcelImportJob(man, is, new String[]{}, vf.getFileName() + "." + vf.getFileExtension());
+    job.apply();
+    job.importAsync();
+  }
   
-
   /**
    * MdMethod
    * 

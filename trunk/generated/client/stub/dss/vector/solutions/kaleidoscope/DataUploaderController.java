@@ -17,10 +17,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.mvc.Controller;
 import com.runwaysdk.mvc.Endpoint;
 import com.runwaysdk.mvc.ErrorSerialization;
+import com.runwaysdk.mvc.RedirectResponse;
 import com.runwaysdk.mvc.RequestParamter;
 import com.runwaysdk.mvc.ResponseIF;
 import com.runwaysdk.mvc.RestBodyResponse;
-import com.runwaysdk.mvc.ViewResponse;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
@@ -54,14 +54,6 @@ public class DataUploaderController implements Reloadable
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
   public ResponseIF importData(ClientRequestIF request, @RequestParamter(name = "configuration") String configuration) throws JSONException
   {
-    // If they're trying to import an xls (instead of an xlsx), just use the legacy importer it should know what to do.
-    // This is an important usecase because they could legitimately get here from the upload manager after resolving synonyms.
-    if (new JSONObject(configuration).getString("filename").endsWith(".xls"))
-    {
-//      return new ViewResponse("/dss.vector.solutions.generator.ExcelController.viewManager.mojo");
-      return 
-    }
-    
     String result = DataUploaderDTO.importData(request, configuration);
 
     return new RestBodyResponse(new JSONObject(result));

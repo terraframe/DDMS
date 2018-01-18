@@ -18,12 +18,10 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.system.VaultFileDTO;
 
-import dss.vector.solutions.ExcelImportHistory;
 import dss.vector.solutions.ExcelImportHistoryDTO;
 import dss.vector.solutions.ExcelImportManagerDTO;
 import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
-import dss.vector.solutions.kaleidoscope.DataSetController;
 import dss.vector.solutions.kaleidoscope.JavascriptUtil;
 import dss.vector.solutions.ontology.UnknownTermDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -62,6 +60,18 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     }
   }
   
+  public void excelImportFromVault(java.lang.String vaultId, String config) throws java.io.IOException, javax.servlet.ServletException
+  {
+    ExcelImportManagerDTO.excelImportFromVault(this.getClientRequest(), vaultId, config);
+    
+    resp.sendRedirect("dss.vector.solutions.generator.ExcelController.viewManager.mojo");
+  }
+  
+  public void failExcelImportFromVault(java.lang.String vaultId) throws java.io.IOException, javax.servlet.ServletException
+  {
+    // do NOTHING (as usual)
+  }
+  
   private void resolveSynonyms(int pageNum, String historyId) throws java.io.IOException, javax.servlet.ServletException
   {
     URL url = new URL(this.req.getScheme(), this.req.getServerName(), this.req.getServerPort(), this.req.getContextPath());
@@ -71,7 +81,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     
     JavascriptUtil.loadDatasets(this.getClientRequest(), req);
     
-    ExcelImportHistory history = ExcelImportHistory.get(historyId);
+    ExcelImportHistoryDTO history = ExcelImportHistoryDTO.get(this.getClientRequest(), historyId);
     
     try
     {

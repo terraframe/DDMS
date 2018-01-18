@@ -50,6 +50,16 @@ export class UploadService extends BasicService {
       .catch(this.handleError.bind(this));
   }
   
+//   legacyImportFromVault(vaultId: String): Promise<Response> {
+//     
+//     return this.http
+//       .get(acp + 'dss.vector.solutions.generator.ExcelController.excelImportFromVault', {vaultId: vaultId})
+//       .toPromise()
+//       .then((response: any) => {
+//       })
+//       .catch(this.handleError.bind(this));
+//   }
+  
   importData(workbook: Workbook): Promise<DatasetResponse> {
     let headers = new Headers({
       'Content-Type': 'application/json'

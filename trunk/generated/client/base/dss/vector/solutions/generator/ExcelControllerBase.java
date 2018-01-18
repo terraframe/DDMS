@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1836593718)
+@com.runwaysdk.business.ClassSignature(hash = 76620379)
 public class ExcelControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.generator.ExcelController";
@@ -119,6 +119,20 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelImport");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:vaultId, java.lang.String:config", post=false)
+  public void excelImportFromVault(java.lang.String vaultId, java.lang.String config) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.excelImportFromVault");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:vaultId, java.lang.String:config", post=false)
+  public void failExcelImportFromVault(java.lang.String vaultId, java.lang.String config) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelImportFromVault");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
