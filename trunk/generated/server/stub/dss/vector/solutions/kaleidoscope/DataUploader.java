@@ -1,14 +1,9 @@
 package dss.vector.solutions.kaleidoscope;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,15 +13,13 @@ import com.runwaysdk.RunwayException;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.constants.VaultProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClassQuery;
-import com.runwaysdk.util.FileIO;
-import com.runwaysdk.vault.VaultFileDAO;
 
 import dss.vector.solutions.DataUploaderImportJob;
 import dss.vector.solutions.LocalProperty;
@@ -34,17 +27,14 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoSynonym;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geoserver.SessionPredicate;
 import dss.vector.solutions.kaleidoscope.data.etl.DefinitionBuilder;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
-import dss.vector.solutions.kaleidoscope.data.etl.ImportResponseIF;
 import dss.vector.solutions.kaleidoscope.data.etl.SourceDefinitionIF;
 import dss.vector.solutions.kaleidoscope.data.etl.TargetDefinitionIF;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelDataFormatter;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ExcelSheetReader;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.FieldInfoContentsHandler;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.InvalidExcelFileException;
-import dss.vector.solutions.kaleidoscope.data.etl.excel.JobHistoryProgressMonitor;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermSynonym;
 
@@ -225,6 +215,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       VaultFile vf = VaultFile.get(vaultId);
 
       DataUploaderImportJob job = new DataUploaderImportJob(configuration, vf.getFile());
+      job.setRunAsUser(Session.getCurrentSession().getUser().getId());
       job.apply();
       String responseJSON = job.doImport();
       

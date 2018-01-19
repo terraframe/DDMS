@@ -8,33 +8,23 @@ import java.util.List;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.FormSurveyImportJob;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
-import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.BedNetValidationImportListener;
-import dss.vector.solutions.generator.ContextBuilderFacade;
-import dss.vector.solutions.generator.DefaultContextBuilder;
 import dss.vector.solutions.generator.DiseaseAndValidationImportListener;
-import dss.vector.solutions.generator.FormBedNetContextBuilder;
-import dss.vector.solutions.generator.FormContextBuilder;
-import dss.vector.solutions.generator.FormHouseholdContextBuilder;
-import dss.vector.solutions.generator.FormImportFilter;
-import dss.vector.solutions.generator.FormPersonContextBuilder;
 import dss.vector.solutions.generator.FormSurveyColumnFactory;
 import dss.vector.solutions.generator.FormSurveyImportFilter;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.generator.MultiTermListener;
-import dss.vector.solutions.ontology.TermRootCache;
 
 public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -131,6 +121,7 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
   public static InputStream excelImport(InputStream stream, ExcelImportManager manager, String fileName)
   {
     FormSurveyImportJob job = new FormSurveyImportJob(manager, stream, new String[] {}, fileName);
+    job.setRunAsUser(Session.getCurrentSession().getUser().getId());
     job.apply();
     return job.doImport();
   }

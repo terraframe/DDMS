@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.system.SingleActor;
 import com.runwaysdk.system.VaultFile;
 
 import dss.vector.solutions.geo.UnknownGeoEntity;
@@ -61,6 +63,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     ExcelImportManager man = getNewInstance();
     
     ExcelImportJob job = new ExcelImportJob(man, is, new String[]{}, vf.getFileName() + "." + vf.getFileExtension());
+    job.setRunAsUser(Session.getCurrentSession().getUser().getId());
     job.apply();
     job.importAsync();
   }
@@ -78,6 +81,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     }
     
     ExcelImportJob job = new ExcelImportJob(this, inputStream, params, fileName);
+    job.setRunAsUser(Session.getCurrentSession().getUser().getId());
     job.apply();
     return job.doImport();
   }
