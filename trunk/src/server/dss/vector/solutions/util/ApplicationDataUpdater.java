@@ -1027,7 +1027,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       while (iter.hasNext())
       {
         MdWebForm form = iter.next();
-
+        
         if (MdFormUtil.isDatasetValid(form) && !MdFormUtil.hasDataset(form))
         {
           onRecordUpdate(dryRun, form.getId(), "0");

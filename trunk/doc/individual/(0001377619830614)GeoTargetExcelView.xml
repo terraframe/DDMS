@@ -1,4 +1,4 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
       <mdView name="dss.vector.solutions.export.GeoTargetExcelView" label="Geo Target Excel View" description="View for target on which a geo resource is assigned">

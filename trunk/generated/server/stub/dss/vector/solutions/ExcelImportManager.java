@@ -63,7 +63,8 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     ExcelImportManager man = getNewInstance();
     
     ExcelImportJob job = new ExcelImportJob(man, is, new String[]{}, vf.getFileName() + "." + vf.getFileExtension());
-    job.setRunAsUser(Session.getCurrentSession().getUser().getId());
+    job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
+    job.setRunAsDimensionId(Session.getCurrentDimension().getId());
     job.apply();
     job.importAsync();
   }
@@ -81,7 +82,8 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     }
     
     ExcelImportJob job = new ExcelImportJob(this, inputStream, params, fileName);
-    job.setRunAsUser(Session.getCurrentSession().getUser().getId());
+    job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
+    job.setRunAsDimensionId(Session.getCurrentDimension().getId());
     job.apply();
     return job.doImport();
   }

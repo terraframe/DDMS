@@ -121,7 +121,8 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
   public static InputStream excelImport(InputStream stream, ExcelImportManager manager, String fileName)
   {
     FormSurveyImportJob job = new FormSurveyImportJob(manager, stream, new String[] {}, fileName);
-    job.setRunAsUser(Session.getCurrentSession().getUser().getId());
+    job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
+    job.setRunAsDimensionId(Session.getCurrentDimension().getId());
     job.apply();
     return job.doImport();
   }

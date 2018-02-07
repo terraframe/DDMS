@@ -1,5 +1,5 @@
 <version
-  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <delete>

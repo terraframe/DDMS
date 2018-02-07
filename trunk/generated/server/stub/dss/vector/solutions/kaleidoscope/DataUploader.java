@@ -215,7 +215,8 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       VaultFile vf = VaultFile.get(vaultId);
 
       DataUploaderImportJob job = new DataUploaderImportJob(configuration, vf.getFile());
-      job.setRunAsUser(Session.getCurrentSession().getUser().getId());
+      job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
+      job.setRunAsDimensionId(Session.getCurrentDimension().getId());
       job.apply();
       String responseJSON = job.doImport();
       
