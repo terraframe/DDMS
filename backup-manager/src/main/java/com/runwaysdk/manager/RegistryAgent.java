@@ -1,11 +1,10 @@
 package com.runwaysdk.manager;
 
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
@@ -72,9 +71,10 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
       {
         file32 = new File(regPath32);
         ioExFile = file32;
+        
         execWait(command32);
         
-        if (file32.exists())
+        if (fileExistsCheck(file32))
         {
           String content = org.apache.commons.io.FileUtils.readFileToString(file32, "UTF-16LE");
           String regx = "(?i)" + BackupProperties.getRegistry32().replace("\\", "\\\\");
@@ -99,7 +99,7 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
         ioExFile = file64;
         execWait(command64);
         
-        if (file64.exists())
+        if (fileExistsCheck(file64))
         {
           String content = org.apache.commons.io.FileUtils.readFileToString(file64, "UTF-16LE");
           String regx = "(?i)" + BackupProperties.getRegistry64().replace("\\", "\\\\");
@@ -186,28 +186,61 @@ public class RegistryAgent implements BackupAgent, RestoreAgent
 
     return BackupProperties.getImportCommand() + " " + regPath;
   }
+  
+  private boolean fileExistsCheck(File f)
+  {
+    final int numWaits = 5;
+    
+    for (int i = 0; i < numWaits; ++i)
+    {
+      if (f.exists())
+      {
+        return true;
+      }
+      else
+      {
+        try {
+          String msg = "Waiting 1 second for file [" + f.getAbsolutePath() + " to exist.";
+          Logger.error(msg);
+          System.out.println(msg);
+          
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    
+    return false;
+  }
 
   private void execWait(String command) throws IOException
   {
-    Logger.info("Exec " + command);
     try
     {
+      String msg = "Executing command [" + command + "].";
+      System.out.println(msg);
+      Logger.info(msg);
+      
       Process exec = Runtime.getRuntime().exec(command);
-      // InputStream is = exec.getInputStream();
-      // InputStream es = exec.getErrorStream();
-      // StringWriter sw = new StringWriter();
-      //      
-      // int c;
-      // while ( ( c = is.read() ) != -1)
-      // sw.write(c);
-      // System.out.println("out:" + sw.toString());
-      //      
-      // sw = new StringWriter();
-      // while ( ( c = es.read() ) != -1)
-      // sw.write(c);
-      // System.out.println("err:" + sw.toString());
 
       exec.waitFor();
+      
+      String err = IOUtils.toString(new BufferedInputStream(exec.getErrorStream()));
+      String out = IOUtils.toString(new BufferedInputStream(exec.getInputStream()));
+      
+      String msg2 = "Standard output: [" + out + "]. Error output: [" + err + "].";
+      
+      if (err.length() > 0)
+      {
+        Logger.error(msg2);
+        System.out.println(msg2);
+      }
+      else
+      {
+        Logger.info(msg2);
+        System.out.println(msg2);
+      }
     }
     catch (InterruptedException e)
     {
