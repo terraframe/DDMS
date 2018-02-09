@@ -1,0 +1,1 @@
+When you download a new geoserver, unzip it and add a context.xml file to META-INF. You can copy/paste this context.xml file directly from the one we used in the manager. The reason for this is because it restricts access to geoserver to localhost. This is important since our geoserver username/password is the default, we don't want DDMS servers to get hacked.

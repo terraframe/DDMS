@@ -20,8 +20,6 @@
     Remove the comment markers from around the Valve below to limit access to
     the manager application to clients connecting from localhost
   -->
-  <!--
   <Valve className="org.apache.catalina.valves.RemoteAddrValve"
          allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
-  -->
 </Context>
