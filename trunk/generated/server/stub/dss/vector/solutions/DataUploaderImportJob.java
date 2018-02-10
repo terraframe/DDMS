@@ -38,13 +38,14 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   
   protected SharedState sharedState; // This state is shared across threads
   
-  public DataUploaderImportJob(String configuration, File file)
+  public DataUploaderImportJob(String configuration, File file, String fileName)
   {
     super();
     
     this.sharedState = new SharedState();
     this.sharedState.configuration = configuration;
     this.sharedState.file = file;
+    this.sharedState.fileName = fileName;
   }
   
   private void saveSharedState()
@@ -75,6 +76,8 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     protected Throwable sharedEx;
     
     protected String responseJSON;
+    
+    protected String fileName;
   }
   
   @Override
@@ -83,7 +86,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     ExcelImportHistory history = new ExcelImportHistory();
     history.setStartTime(new Date());
     history.addStatus(AllJobStatus.RUNNING);
-    history.setFileName(this.sharedState.file.getName());
+    history.setFileName(this.sharedState.fileName);
     history.apply();
     
     return history;
