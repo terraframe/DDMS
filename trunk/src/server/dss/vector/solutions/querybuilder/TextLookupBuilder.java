@@ -108,7 +108,7 @@ public class TextLookupBuilder implements Reloadable
 
     selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + this.concatenate() + ", ' " + sql + "'),0))");
     vQ.SELECT_DISTINCT(selectClauseArray);
-    vQ.WHERE(vQ.aSQLCharacter("fields", this.concatenate()).LIKE("% " + sql + "%"));
+    vQ.WHERE(vQ.aSQLCharacter("fields", this.concatenate()).LIKE("% " + token + "%"));
 
     for (Condition condition : conditionArray)
     {
