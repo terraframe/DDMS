@@ -60,7 +60,8 @@ public class LocationProblem implements ImportProblemIF, Comparable<ImportProble
     object.put("type", "LOCATION");
     object.put("label", label);
     object.put("parentId", parent.getId());
-    object.put("universalId", universal.getGeoEntityClass().definesType()); // If you use `univeral.getId()` here (which works for creating a new location) then it screws up the autocomplete.
+    object.put("universalId", universal.getId());
+    object.put("universalType", universal.getQualifiedType());
     object.put("universalLabel", universal.getDisplayLabel());
     object.put("context", new JSONArray(context));
 

@@ -1,0 +1,22 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.DataUploaderImportJob">
+        <create>
+          <mdMethod name="executeAuthenticated" static="false" label="executeAuthenticated" returnType="void"></mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+    <permissions>    
+      <method methodName="executeAuthenticated" type="dss.vector.solutions.DataUploaderImportJob">
+        <assignedRole roleName="Administrator"/>
+      </method>    
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.DataUploaderImportJob.executeAuthenticated" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

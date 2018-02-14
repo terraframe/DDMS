@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.system.scheduler.AllJobStatus;
@@ -53,6 +54,8 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   private static Map<String,SharedState> sharedStates = new HashMap<String,SharedState>();
   
   protected SharedState sharedState; // This state is shared across threads
+  
+  private ExecutionContext context;
   
   public DataUploaderImportJob(String configuration, File file, String fileName)
   {
@@ -148,10 +151,11 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   public void execute(ExecutionContext context)
   {
     loadSharedState();
+    this.context = context;
     
     try
     {
-      doInTransaction(context);
+      executeAuthenticated();
     }
     catch (Throwable ex)
     {
@@ -162,6 +166,12 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     {
       this.sharedState.semaphore.release();
     }
+  }
+  
+  @Authenticate
+  public void executeAuthenticated()
+  {
+    doInTransaction(context);
   }
   
   @Transaction

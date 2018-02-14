@@ -140,6 +140,7 @@ export class LocationProblem {
   parentId: string;
   universalId: string;
   universalLabel: string;
+  universalType: string;
   context: LocationContext[];
   resolved: boolean;
   synonym: {
