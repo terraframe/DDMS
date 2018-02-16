@@ -156,7 +156,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       ClientRequestIF clientRequest = this.getClientRequest();
-      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
+//      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
+      MdWebFormDTO[] forms = MdFormUtilDTO.getAllFormsForDisease(clientRequest);
 
       this.req.setAttribute("forms", forms);
 

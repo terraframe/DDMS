@@ -16,7 +16,7 @@
  ******************************************************************************/
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -844990669)
+@com.runwaysdk.business.ClassSignature(hash = -977236525)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ package dss.vector.solutions;
 public abstract class DataUploaderImportJobBase extends com.runwaysdk.system.scheduler.ExecutableJob implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.DataUploaderImportJob";
-  private static final long serialVersionUID = -844990669;
+  private static final long serialVersionUID = -977236525;
   
   public DataUploaderImportJobBase()
   {
@@ -54,6 +54,18 @@ public abstract class DataUploaderImportJobBase extends com.runwaysdk.system.sch
   public static DataUploaderImportJob getByKey(String key)
   {
     return (DataUploaderImportJob) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public void executeAuthenticated()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.DataUploaderImportJob.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void executeAuthenticated(java.lang.String id)
+  {
+    DataUploaderImportJob _instance = DataUploaderImportJob.get(id);
+    _instance.executeAuthenticated();
   }
   
   public static DataUploaderImportJob lock(java.lang.String id)

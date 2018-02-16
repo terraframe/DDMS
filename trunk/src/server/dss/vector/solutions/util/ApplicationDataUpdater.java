@@ -21,9 +21,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -63,10 +65,12 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.database.EntityDAOFactory;
 import com.runwaysdk.dataaccess.database.ServerIDGenerator;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -79,7 +83,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.EntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.util.IDGenerator;
@@ -127,6 +134,8 @@ import dss.vector.solutions.irs.InsecticideBrandUseMaster;
 import dss.vector.solutions.irs.SprayMethodMaster;
 import dss.vector.solutions.irs.SurfaceTypeMaster;
 import dss.vector.solutions.irs.TargetUnitMaster;
+import dss.vector.solutions.kaleidoscope.MappableClass;
+import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.FieldRoot;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
@@ -933,7 +942,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
 
     // For ticket #3050
     this.updateLayerSemanticId(dryRun);
-
+    
     // For ticket #3673
     this.updateFormDatasets(dryRun);
   }
@@ -1034,6 +1043,93 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
   private void updateFormDatasets(boolean dryRun)
   {
     logIt("Updating form datasets");
+    
+    
+    // Copy some disease data around
+//    QueryFactory qf = new QueryFactory();
+//    
+//    MdWebFormQuery webq = new MdWebFormQuery(qf);
+//    MdClassQuery mdcq = new MdClassQuery(qf);
+//    ValueQuery vq = new ValueQuery(qf);
+//    
+//    vq.WHERE(webq.getFormMdClass().getId().EQ(mdcq.getId()));
+//    
+//    vq.SELECT(mdcq.getKeyName("mdcType"));
+//    vq.SELECT(webq.getId("webqId"));
+//    
+//    OIterator<ValueObject> it = vq.getIterator();
+
+    ResultSet resultSet = Database.query("SELECT \n" + 
+        "     metadata_8.key_name AS key_name_9,\n" + 
+        "     md_web_form_3.id AS id_10\n" + 
+        "FROM metadata metadata_8,\n" + 
+        "     md_class md_class_6,\n" + 
+        "     md_form md_form_2,\n" + 
+        "     md_web_form md_web_form_3 \n" + 
+        "WHERE md_web_form_3.id = md_form_2.id\n" + 
+        "AND md_class_6.id = metadata_8.id\n" + 
+        "AND md_form_2.form_md_class = md_class_6.id");
+
+    try
+    {
+//      ValueObject obj = it.next();
+//      
+//      String mdcType = obj.getValue("mdcType");
+//      String webqId = obj.getValue("webqId");
+      
+      if (resultSet.next())
+      {
+        String mdcType = resultSet.getString("key_name_9");
+        String webqId = resultSet.getString("id_10");
+        
+        MdWebForm form = MdWebForm.get(webqId);
+        
+        if (form.getDimension() == null)
+        {
+          // It sucks that we have to do this in 2 different queries but you can't join a business query with a metadata query in runway.
+          BusinessQuery bq = new QueryFactory().businessQuery(mdcType);
+          OIterator<Business> bit = bq.getIterator();
+          
+          try
+          {
+            if (bit.hasNext())
+            {
+              Business biz = bit.next();
+              String diseaseId = biz.getValue(MdFormUtil.DISEASE);
+              
+              form.appLock();
+              form.setDimension(Disease.get(diseaseId).getDimension());
+              form.apply();
+            }
+          }
+          finally
+          {
+            bit.close();
+          }
+        }
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+//      it.close();
+      
+      try
+      {
+        java.sql.Statement statement = resultSet.getStatement();
+        resultSet.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    
 
     MdWebFormQuery q = new MdWebFormQuery(new QueryFactory());
     OIterator<? extends MdWebForm> iter = q.getIterator();
@@ -1044,12 +1140,32 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
       {
         MdWebForm form = iter.next();
         
-        if (MdFormUtil.isDatasetValid(form) && !MdFormUtil.hasDataset(form))
+        if (MdFormUtil.isDatasetValid(form))
         {
           onRecordUpdate(dryRun, form.getId(), "0");
           if (!dryRun)
           {
-            MdFormUtil.exportDataset(form.getId());
+            Disease dz = MdFormUtil.getFormDisease(form);
+            
+            if (dz == null)
+            {
+              Disease[] diseases = Disease.getAllDiseases();
+              
+              for (Disease loopDz : diseases)
+              {
+                if (!MdFormUtil.hasDataset(form, loopDz))
+                {
+                  MdFormUtil.exportDataset(form.getId(), loopDz);
+                }
+              }
+            }
+            else
+            {
+              if (!MdFormUtil.hasDataset(form, dz))
+              {
+                MdFormUtil.exportDataset(form.getId(), dz);
+              }
+            }
           }
         }
       }

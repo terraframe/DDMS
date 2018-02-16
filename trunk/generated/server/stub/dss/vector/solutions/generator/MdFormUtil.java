@@ -74,7 +74,6 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.ImportManager;
 import com.runwaysdk.dataaccess.io.StringMarkupWriter;
@@ -119,15 +118,19 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
+import com.runwaysdk.system.metadata.ClassAttributeQuery;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
 import com.runwaysdk.system.metadata.FieldCondition;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeConcreteQuery;
 import com.runwaysdk.system.metadata.MdAttributeIndices;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdClassQuery;
+import com.runwaysdk.system.metadata.MdDimension;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdForm;
 import com.runwaysdk.system.metadata.MdRelationship;
@@ -181,7 +184,6 @@ import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.form.business.HumanBloodIndex;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -199,7 +201,6 @@ import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.ontology.TermView;
 import dss.vector.solutions.ontology.TermViewQuery;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -859,7 +860,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return mdField;
   }
-
+  
   public static MdWebForm[] getAllForms()
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
@@ -879,6 +880,30 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
+  public static MdWebForm[] getAllFormsForDisease()
+  {
+    QueryFactory qf = new QueryFactory();
+    
+    MdWebFormQuery webq = new MdWebFormQuery(qf);
+    
+    webq.WHERE(webq.getDimension().EQ(Disease.getCurrent().getDimension()).OR(webq.getDimension().EQ("")));
+    
+    webq.ORDER_BY_ASC(webq.getDisplayLabel().localize());
+  
+    OIterator<? extends MdWebForm> it = webq.getIterator();
+  
+    try
+    {
+      List<? extends MdWebForm> forms = it.getAll();
+  
+      return forms.toArray(new MdWebForm[forms.size()]);
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+  
   public static MdWebForm getForm(String type)
   {
     MdTypeDAOIF mdTypeDAO = MdFormDAO.getMdTypeDAO(type);
@@ -1230,6 +1255,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
     mdForm.setTypeName(typeName);
     mdForm.setFormMdClass(mdClass);
+    mdForm.setDimension(MdDimension.get(Session.getCurrentDimension().getId()));
 
     // Create the disease attribute
     MdAttributeReference disease = new MdAttributeReference();
@@ -1490,6 +1516,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
       mdForm.setTypeName(typeName);
       mdForm.setFormMdClass(mdBusiness);
+      mdForm.setDimension(MdDimension.get(Session.getCurrentDimension().getId()));
 
       /*
        * Create the mappable class
@@ -2659,8 +2686,15 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       throw new ProgrammingErrorException(e);
     }
   }
-
+  
   public static void exportDataset(String mdFormId)
+  {
+    Disease disease = getFormDisease(MdWebForm.get(mdFormId));
+    
+    exportDataset(mdFormId, disease);
+  }
+
+  public static void exportDataset(String mdFormId, Disease disease)
   {
     MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
     MdClassDAOIF mdClass = mdForm.getFormMdClass();
@@ -2669,7 +2703,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     MappableClass mClass = new MappableClass();
     mClass.setWrappedMdClass(MdClass.get(mdClass.getId()));
-    mClass.setDisease(Disease.getCurrent());
+    mClass.setDisease(disease);
     mClass.setRemovable(false);
     mClass.apply();
 
@@ -2706,7 +2740,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
           }
 
           GeoNodeEntity node = new GeoNodeEntity();
-          node.setKeyName(mdField.getKey());
+          node.setKeyName(mdField.getKey() + disease.getDimension().getName());
           node.setGeoEntityAttribute((MdAttributeReference) mdAttribute);
           node.apply();
 
@@ -2793,9 +2827,23 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return fieldQuery.getCount() > 0;
   }
-
-  public static boolean hasDataset(MdWebForm form)
+  
+  public static Disease getFormDisease(MdWebForm form)
   {
-    return ( MappableClass.getMappableClass(form.getFormMdClass()) != null );
+    MdDimension dim = form.getDimension();
+    
+    if (dim == null)
+    {
+      return null;
+    }
+    else
+    {
+      return Disease.getByKey(dim.getName());
+    }
+  }
+  
+  public static boolean hasDataset(MdWebForm form, Disease dz)
+  {
+    return ( MappableClass.getMappableClass(form.getFormMdClass(), dz) != null );
   }
 }

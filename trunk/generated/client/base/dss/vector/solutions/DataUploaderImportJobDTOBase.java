@@ -16,11 +16,11 @@
  ******************************************************************************/
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1152460211)
+@com.runwaysdk.business.ClassSignature(hash = 335436883)
 public abstract class DataUploaderImportJobDTOBase extends com.runwaysdk.system.scheduler.ExecutableJobDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.DataUploaderImportJob";
-  private static final long serialVersionUID = 1152460211;
+  private static final long serialVersionUID = 335436883;
   
   protected DataUploaderImportJobDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -41,6 +41,22 @@ public abstract class DataUploaderImportJobDTOBase extends com.runwaysdk.system.
   protected java.lang.String getDeclaredType()
   {
     return CLASS;
+  }
+  
+  public final void executeAuthenticated()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.DataUploaderImportJobDTO.CLASS, "executeAuthenticated", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void executeAuthenticated(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.DataUploaderImportJobDTO.CLASS, "executeAuthenticated", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.DataUploaderImportJobDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

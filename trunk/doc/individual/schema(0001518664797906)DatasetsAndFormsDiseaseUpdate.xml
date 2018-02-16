@@ -1,0 +1,23 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    </create>
+    <update>
+      <mdUtil name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod name="getAllFormsForDisease" label="getAllFormsForDisease" returnType="com.runwaysdk.system.metadata.MdWebForm[]" static="true"></mdMethod>
+        </create>
+      </mdUtil>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.MappableAttribute">
+        <attributes>
+          <reference name="wrappedMdAttribute" indexType="no index" />
+        </attributes>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.generator.MdFormUtil.getAllFormsForDisease" type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

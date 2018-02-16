@@ -120,7 +120,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
 
     if (mdClass != null)
     {
-      return mdClass.getKey();
+      return mdClass.getKey() + this.getDisease();
     }
 
     return super.buildKey();
@@ -278,7 +278,7 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     }
 
   }
-
+  
   public static MappableClass getMappableClass(MdClass mdClass)
   {
     return MappableClass.getMappableClass(mdClass, Disease.getCurrent());
