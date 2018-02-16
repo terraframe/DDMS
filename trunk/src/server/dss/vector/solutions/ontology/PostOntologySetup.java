@@ -31,6 +31,7 @@ import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
@@ -85,13 +86,15 @@ public class PostOntologySetup
   {
     // Setup root values
     AttributeRootImporter.main(new String[] { args[0] });
+    
+    boolean isInstall = args.length >= 3 ? Boolean.parseBoolean(args[2]) : true;
 
     /*
      * Important: we only want to create the ddms user if this is an install and not a patch.
      */
-    setupMDSSUser(args.length >= 3 ? Boolean.parseBoolean(args[2]) : true);
+    setupMDSSUser(isInstall);
 
-    setupApplicationRate();
+    setupApplicationRate(isInstall);
 
     setGeoUniversals(args[1]);
   }
@@ -146,9 +149,10 @@ public class PostOntologySetup
   }
 
   @Transaction
-  private static void setupApplicationRate()
+  private static void setupApplicationRate(boolean isInstall)
   {
-    if (!PostOntologySetup.hasConfiguration())
+//    if (!PostOntologySetup.hasConfiguration())
+    if (isInstall)
     {
       final Disease DEFAULT_DISEASE = Disease.getMalaria();
 
