@@ -664,7 +664,8 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
 
     if (session != null)
     {
-      contextMap.put("sessionId", session.getId());
+      contextMap.put("SESSION_ID", session.getId());
+      contextMap.put("SESSION_LOCALE", Session.getCurrentLocale());
     }
 
     IReportRunnable design = engine.openReportDesign(stream);
