@@ -40,6 +40,13 @@ import java.util.Map;
 import org.eclipse.datatools.connectivity.oda.IResultSetMetaData;
 import org.eclipse.datatools.connectivity.oda.OdaException;
 
+/**
+ * @deprecated
+ * 
+ * This class should not be used since metadata should be fetched on the fly otherwise it cannot be updated without closing/reopening the report designer.
+ * DDMS #3849
+ *
+ */
 public class MetadataManager
 {
   private static MetadataManager          instance;

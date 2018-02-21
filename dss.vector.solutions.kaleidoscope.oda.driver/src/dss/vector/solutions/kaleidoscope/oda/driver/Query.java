@@ -115,17 +115,19 @@ public class Query implements IQuery
    */
   public IResultSetMetaData getMetaData() throws OdaException
   {
-    String key = MetadataManager.getKey(this.queryText);
+//    String key = MetadataManager.getKey(this.queryText);
 
-    if (!MetadataManager.hasMetadata(key))
-    {
+ // There's actually no reason to even cache this since we're not running the query. ddms #3849
+//    if (!MetadataManager.hasMetadata(key))
+//    {
       IResultSet resultSet = new QueryFacade().invoke(this.request, this.queryText, this.parameters, true);
       IResultSetMetaData metadata = resultSet.getMetaData();
 
-      MetadataManager.putMetadata(key, metadata);
-    }
+//      MetadataManager.putMetadata(key, metadata);
+//    }
 
-    return MetadataManager.getMetadata(key);
+//    return MetadataManager.getMetadata(key);
+      return metadata;
   }
 
   /*
