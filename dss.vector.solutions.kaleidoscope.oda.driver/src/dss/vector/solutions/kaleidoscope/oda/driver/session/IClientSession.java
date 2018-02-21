@@ -38,7 +38,9 @@ import com.runwaysdk.constants.ClientRequestIF;
 
 public interface IClientSession
 {
-  public static final String SESSION_ID = "SESSION_ID";
+  public static final String SESSION_ID = "SESSION_ID"; // These are hardcoded in KaleidoscopeReport.run
+  
+  public static final String SESSION_LOCALE = "SESSION_LOCALE"; // These are hardcoded in KaleidoscopeReport.run
 
   public ClientRequestIF getRequest();
 

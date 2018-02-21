@@ -101,7 +101,7 @@ public class ClientSessionCache
     return getInstance().get(key);
   }
 
-  public static IClientSession getClientSession(String url, String sessionId)
+  public static IClientSession getClientSession(String url, String sessionId, Locale[] locales)
   {
     String key = ExistingClientSession.buildKey(url, sessionId);
 
@@ -109,7 +109,7 @@ public class ClientSessionCache
     {
       String label = getConnectionLabel(url);
 
-      ClientSession session = ClientSession.getExistingSession(label, sessionId, new Locale[] { Locale.US });
+      ClientSession session = ClientSession.getExistingSession(label, sessionId, locales);
 
       getInstance().add(key, new ExistingClientSession(url, session));
     }

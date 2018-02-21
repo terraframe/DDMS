@@ -34,6 +34,7 @@
  */
 package dss.vector.solutions.kaleidoscope.oda.driver;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -95,7 +96,9 @@ public class Connection implements IConnection
 
         if (sessionId != null)
         {
-          this.session = ClientSessionCache.getClientSession(url, sessionId);
+          Locale locale = (Locale) this.context.get(ClientSessionProxy.SESSION_LOCALE);
+          
+          this.session = ClientSessionCache.getClientSession(url, sessionId, new Locale[] { locale });
         }
       }
 
