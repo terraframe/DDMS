@@ -97,6 +97,8 @@ Var TomcatExec              # Path of the tomcat service executable
 Var execReturn              # Contains the return value from running an executable.
 Var execDosLogCounter       # Counter used by our logging func to know how much output has been logged so far
 Var outputTrunc
+Var ODKDatabaseVersion
+Var BasemapDatabaseVersion
 
 
 # Installer pages
@@ -289,19 +291,24 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8718
+    StrCpy $PatchVersion 8816
     StrCpy $RootsVersion 8669
-    StrCpy $MenuVersion 8684
-    StrCpy $LocalizationVersion 8717
-    StrCpy $PermissionsVersion 8669
-	StrCpy $RunwayVersion 8634
+    StrCpy $MenuVersion 8776
+    StrCpy $LocalizationVersion 8797
+    StrCpy $PermissionsVersion 8812
+	StrCpy $RunwayVersion 8815
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8718
+	StrCpy $ManagerVersion 8816
 	StrCpy $BirtVersion 7851
-	StrCpy $EclipseVersion 8676  
-	StrCpy $WebappsVersion 8118
-	StrCpy $JavaVersion 8188
-	StrCpy $TomcatVersion 8190
+	StrCpy $EclipseVersion 8719  
+	StrCpy $WebappsVersion 8798
+	StrCpy $JavaVersion 8754
+	StrCpy $TomcatVersion 8798
+  
+  # These ones are not
+  StrCpy $ODKDatabaseVersion 1
+  StrCpy $BasemapDatabaseVersion 1
+  
 	
 	# Set up our logger
 	LogEx::Init "$INSTDIR\installer-log.txt"
@@ -575,6 +582,7 @@ Section -Main SEC0000
 	# Update the manager, but don't overwrite the applications.txt if it already exists.
 	SetOutPath $INSTDIR\manager\manager-1.0.0
 	File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
+
 	SetOverwrite off
 	SetOutPath $INSTDIR\manager\manager-1.0.0\classes
 	File ..\standalone\manager-1.0.0\classes\applications.txt
@@ -585,27 +593,53 @@ Section -Main SEC0000
   BASEMAP_NO_EXIST:
     LogEx::Write "3527 Creating offline basemap cache directory."
     CreateDirectory $INSTDIR\basemaps
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
+    Call execDos
+    
   BASEMAP_EXIST:
-  
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
-  Call execDos
-  
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
-  Call execDos
-  
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
-  Call execDos
-  
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
-  Call execDos
-  
-  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
-  Call execDos
-  
+    
   SetOutPath "C:\libs\share\osm2pgsql"
   File /r "..\installer-stage\osm2pgsql\*"
   
   WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
+  
+  
+  
+  # Create & Configure ODK Database
+  ClearErrors
+  ReadRegStr $0 HKLM "${REGKEY}\Components" ODKDatabaseVersion
+  IfErrors ODKDatabaseVersionErrors
+  ${If} $ODKDatabaseVersion > $0
+    ODKDatabaseVersionErrors:
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create database odk;"`
+    Call execDos
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
+    Call execDos
+    
+    
+    WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
+  ${Else}
+    LogEx::Write "Skipping odk database software update because the software is up to date."
+    DetailPrint "Skipping odk database software update because the software is up to date."
+  ${EndIf}
+  
   
   
     # Copy the webapp in the correct folder
@@ -773,7 +807,8 @@ Section -Main SEC0000
 	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 1
     WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
-    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 1
+    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
+    WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
 	
     # Write some shortcuts
     LogEx::Write "Creating shortcuts"
