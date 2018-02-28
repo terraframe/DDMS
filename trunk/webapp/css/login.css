@@ -45,8 +45,9 @@ dl.login input {
 }
 
 div.titleDiv {
-	font-family: "Tw Cen MT Condensed";
-	font-size: 6em;
+	font-family: "eras bold";
+	font-size: 4em;
+	font-weight: bold;
 	margin-top: 0.55em;
 	margin-left: 1.4em;
 	margin-bottom: 0.2em;
@@ -55,16 +56,14 @@ div.titleDiv {
 /* This 'tw cen mt' font is a different size in firefox than in chrome. This code shrinks it down to chrome size */
 @-moz-document url-prefix() {
     div.titleDiv {
-      font-size: 5em;
+      font-size: 3.5em;
     }
 }
 
 span.title1 {
 	float: left;
 }
-
 span.title2 {
-	color: #CA1413;
 }
 
 input[type="button"],input[type="submit"] {
