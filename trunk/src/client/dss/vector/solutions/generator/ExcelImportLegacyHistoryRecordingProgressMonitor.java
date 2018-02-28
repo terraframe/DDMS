@@ -25,7 +25,7 @@ import com.runwaysdk.dataaccess.io.ExcelImportProgressMonitorIF;
 import dss.vector.solutions.ExcelImportHistory;
 
 
-public class ExcelImportLegacyHistoryRecordingProgressMonitor implements ExcelImportProgressMonitorIF
+public class ExcelImportLegacyHistoryRecordingProgressMonitor implements ExcelImportProgressMonitorIF, com.runwaysdk.generation.loader.Reloadable
 {
   private int importCount = 0;
   
