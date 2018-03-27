@@ -178,17 +178,17 @@ public class BackupDevImporter
     
     try
     {
-//      this.unzipFile(this.fBackup);
-//      
-//      this.deleteCaches();
-//      
-//      this.dropApplicationTables();
-//      
-//      this.importSQL();
-//      
-//      this.restoreWebapp();
-//      
-//      this.restoreVault();
+      this.unzipFile(this.fBackup);
+      
+      this.deleteCaches();
+      
+      this.dropApplicationTables();
+      
+      this.importSQL();
+      
+      this.restoreWebapp();
+      
+      this.restoreVault();
       
       this.patch();
     }
@@ -704,7 +704,7 @@ public class BackupDevImporter
   {
     importLegacy();
     
-    RunwayPatcher.main(new String[]{});
+    RunwayPatcher.main(new String[]{"--ignoreErrors=true"});
   }
   
   @Transaction
