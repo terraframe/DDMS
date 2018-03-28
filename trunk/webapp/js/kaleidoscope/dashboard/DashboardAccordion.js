@@ -319,25 +319,31 @@
       },
       link: function (scope, element, attrs, ctrl) {
         scope.form = ctrl;
-        scope.attribute.filter.type = "DATE_CONDITION";      
-    	  
+        scope.attribute.filter.type = "DATE_CONDITION";
         
-        var checkin = $(element).find('.checkin')[0];
-        localizationService.addCalendar(checkin, function(value){
-       	  scope.attribute.filter.startDate = value;       	  
-       	  scope.$apply();
-        });
         
-        var checkout = $(element).find('.checkout')[0];        
-        localizationService.addCalendar(checkout, function(value){
-          scope.attribute.filter.endDate = value;        
-          scope.$apply();
-        });
-        
-        scope.$on('$destroy', function() {
-          localizationService.destroyCalendar(checkin);
-          localizationService.destroyCalendar(checkout);
-        });
+        (function(){
+      	  var myScope = scope;
+          
+          var checkin = $(element).find('.checkin')[0];
+          checkin.id = myScope.attribute.mdAttributeId + "-start";
+          localizationService.addCalendar(checkin, function(value){
+            myScope.attribute.filter.startDate = value;
+            myScope.$apply();
+          });
+          
+          var checkout = $(element).find('.checkout')[0];   
+          checkout.id = myScope.attribute.mdAttributeId + "-end";
+          localizationService.addCalendar(checkout, function(value){
+            myScope.attribute.filter.endDate = value;        
+            myScope.$apply();
+          });
+          
+          myScope.$on('$destroy', function() {
+            localizationService.destroyCalendar(checkin);
+            localizationService.destroyCalendar(checkout);
+          });
+        })();
       }
     }    
   }
