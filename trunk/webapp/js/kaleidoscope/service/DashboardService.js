@@ -94,7 +94,9 @@
     service.refreshMap = function(state, elementId, onSuccess, onFailure) {
       var request = runwayService.createRequest(onSuccess, onFailure);
               
-      dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.refresh(request, state.mapId, state);
+//      dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.refresh(request, state.mapId, state);
+      
+      dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.refresh(request, JSON.stringify(state), state.mapId);
     }
     
     service.getDrillDownUniversals = function(layerId, geoId, onSuccess, onFailure) {

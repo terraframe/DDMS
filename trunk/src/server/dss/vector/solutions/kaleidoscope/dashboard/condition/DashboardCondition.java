@@ -105,11 +105,24 @@ public abstract class DashboardCondition implements Reloadable
 
     return array.toString();
   }
-
+  
   public static List<DashboardCondition> deserialize(String json)
   {
-    Locale locale = Session.getCurrentLocale();
+    return deserialize(json, null);
+  }
 
+  public static List<DashboardCondition> deserialize(String json, String localeStr)
+  {
+    Locale locale;
+    if (localeStr == null)
+    {
+      locale = Session.getCurrentLocale();
+    }
+    else
+    {
+      locale = Locale.forLanguageTag(localeStr);
+    }
+    
     DateFormat source = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT, locale);
     DateFormat target = new SimpleDateFormat(Constants.DATE_FORMAT);
 
@@ -374,8 +387,13 @@ public abstract class DashboardCondition implements Reloadable
 
     return true;
   }
-
+  
   public static List<DashboardCondition> getConditionsFromState(String state)
+  {
+    return getConditionsFromState(state, null);
+  }
+
+  public static List<DashboardCondition> getConditionsFromState(String state, String locale)
   {
     if (state != null && state.length() > 0)
     {
@@ -383,7 +401,7 @@ public abstract class DashboardCondition implements Reloadable
       {
         JSONArray conditions = DashboardCondition.parseConditions(state);
 
-        return DashboardCondition.deserialize(conditions.toString());
+        return DashboardCondition.deserialize(conditions.toString(), locale);
       }
       catch (JSONException e)
       {

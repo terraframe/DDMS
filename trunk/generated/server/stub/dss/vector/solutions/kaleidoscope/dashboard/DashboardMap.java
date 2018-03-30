@@ -201,9 +201,9 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   }
 
   @Override
-  public String refresh(String state)
+  public String refresh(String state, String locale)
   {
-    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state);
+    List<DashboardCondition> conditions = DashboardCondition.getConditionsFromState(state, locale);
 
     LinkedList<Drilldown> drilldowns = Drilldown.deserialize(state);
 

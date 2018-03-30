@@ -18,9 +18,11 @@ package dss.vector.solutions.kaleidoscope.dashboard;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.CommonProperties;
@@ -40,6 +42,15 @@ public class DashboardMapController extends DashboardMapControllerBase implement
   public DashboardMapController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
+  }
+  
+  public void refresh(java.lang.String state, String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String ret = DashboardMapDTO.refresh(this.getClientRequest(), id, state, this.getRequest().getLocale().toLanguageTag());
+    
+    ServletOutputStream sos = this.getResponse().getOutputStream();
+    sos.write(ret.getBytes(Charset.forName("UTF-8")));
+    sos.close();
   }
 
   public void cancel(dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO dto) throws java.io.IOException, javax.servlet.ServletException

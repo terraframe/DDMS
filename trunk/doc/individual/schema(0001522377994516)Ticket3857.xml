@@ -1,0 +1,28 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdController name="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController">
+        <create>
+          <mdAction name="refresh" isPost="true" label="refresh" >
+            <mdParameter name="state" order="0" label="state" type="java.lang.String"/>
+            <mdParameter name="id" order="1" label="id" type="java.lang.String"/>
+          </mdAction>
+        </create>
+      </mdController>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.DashboardMap">
+        <mdMethod name="refresh">
+          <create>
+            <mdParameter name="locale" order="1" label="locale" type="java.lang.String"/>
+          </create>
+        </mdMethod>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.refresh" type="com.runwaysdk.system.metadata.MdAction"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.refresh.locale" type="com.runwaysdk.system.metadata.MdParameter"/>
+    </delete>
+  </undoIt>
+</version>

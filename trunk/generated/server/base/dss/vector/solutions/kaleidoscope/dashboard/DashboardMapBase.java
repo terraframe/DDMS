@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 510273870)
+@com.runwaysdk.business.ClassSignature(hash = 1137355492)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -42,7 +26,7 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 510273870;
+  private static final long serialVersionUID = 1137355492;
   
   public DashboardMapBase()
   {
@@ -161,6 +145,18 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
     }
   }
   
+  public void setDashboardId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(DASHBOARD, "");
+    }
+    else
+    {
+      setValue(DASHBOARD, id);
+    }
+  }
+  
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
   {
     if (getValue(ENTITYDOMAIN).trim().equals(""))
@@ -198,6 +194,18 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
     else
     {
       setValue(ENTITYDOMAIN, value.getId());
+    }
+  }
+  
+  public void setEntityDomainId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ENTITYDOMAIN, "");
+    }
+    else
+    {
+      setValue(ENTITYDOMAIN, id);
     }
   }
   
@@ -385,6 +393,18 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
     }
   }
   
+  public void setOwnerId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(OWNER, "");
+    }
+    else
+    {
+      setValue(OWNER, id);
+    }
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -561,16 +581,16 @@ public abstract class DashboardMapBase extends com.runwaysdk.business.Business i
     return _instance.orderLayers(layerIds);
   }
   
-  public java.lang.String refresh(java.lang.String state)
+  public java.lang.String refresh(java.lang.String state, java.lang.String locale)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final java.lang.String refresh(java.lang.String id, java.lang.String state)
+  public static final java.lang.String refresh(java.lang.String id, java.lang.String state, java.lang.String locale)
   {
     DashboardMap _instance = DashboardMap.get(id);
-    return _instance.refresh(state);
+    return _instance.refresh(state, locale);
   }
   
   public static DashboardMap lock(java.lang.String id)
