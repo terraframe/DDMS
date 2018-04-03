@@ -14,8 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<version xsi:noNamespaceSchemaLocation="/home/rick/Documents/eclipse/workspace/MDSS/profiles/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <!-- classpath:com/runwaysdk/resources/xsd/version.xsd -->
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   
   <doIt>
     <create></create>
