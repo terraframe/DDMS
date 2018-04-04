@@ -354,8 +354,8 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
   {
     OutputStream os = resp.getOutputStream();
     
-    resp.setContentType("application/xls");
-    resp.addHeader("Content-Disposition", "attachment;filename=\"export.xls\"");
+    resp.setContentType("application/xlsx");
+    resp.addHeader("Content-Disposition", "attachment;filename=\"export.xlsx\"");
     
     TermDTO.export(this.getClientRequest(), term, os);
     

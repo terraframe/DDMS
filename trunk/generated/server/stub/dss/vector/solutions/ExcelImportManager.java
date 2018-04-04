@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.system.SingleActor;
 import com.runwaysdk.system.VaultFile;
 
 import dss.vector.solutions.geo.UnknownGeoEntity;

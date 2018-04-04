@@ -29,11 +29,8 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableReference;
-import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusinessQuery;
 
-import dss.vector.solutions.ontology.HasSynonymQuery;
 import dss.vector.solutions.ontology.TermQuery.TermQueryReference;
 
 /**

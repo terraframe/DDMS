@@ -59,7 +59,7 @@ public class LocalizationMerger
       @Override
       public boolean accept(File pathname)
       {
-        return pathname.getAbsolutePath().endsWith(".xls");
+        return pathname.getAbsolutePath().endsWith(".xlsx") || pathname.getAbsolutePath().endsWith(".xls");
       }
     });
     

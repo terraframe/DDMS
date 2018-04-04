@@ -31,7 +31,7 @@ public class FileDownloadUtil
       throws IOException
   {
     String type = "application/octet-stream";
-    writeFile(resp, filename, "xls", inputStream, type);
+    writeFile(resp, filename, "xlsx", inputStream, type);
   }
 
   public static void writeCSV(HttpServletResponse resp, String filename, InputStream inputStream)

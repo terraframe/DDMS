@@ -18,8 +18,8 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
@@ -46,7 +46,7 @@ public class AggregatedCaseListener extends ExcelAdapter implements ExcelExportL
   {
   }
 
-  public void preWrite(HSSFWorkbook workbook)
+  public void preWrite(Workbook workbook)
   {
   }
 

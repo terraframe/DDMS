@@ -28,12 +28,13 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
@@ -130,8 +131,7 @@ public class GeoEntitySearcher implements Reloadable
 
     try
     {
-      POIFSFileSystem fileSystem = new POIFSFileSystem(inputStream);
-      HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+      Workbook workbook = WorkbookFactory.create(inputStream);
 
       int numberOfSheets = workbook.getNumberOfSheets();
 
@@ -255,6 +255,10 @@ public class GeoEntitySearcher implements Reloadable
       }
     }
     catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
+    }
+    catch (InvalidFormatException e)
     {
       throw new ExcelVersionException(e);
     }

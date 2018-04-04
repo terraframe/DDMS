@@ -23,10 +23,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
@@ -44,7 +45,7 @@ public class GeoExporter implements Reloadable
 {
   private int          rownum;
 
-  private HSSFWorkbook workbook;
+  private Workbook workbook;
 
   private Sheet    sheet;
 
@@ -146,11 +147,14 @@ public class GeoExporter implements Reloadable
     {
       ExcelExporter exporter = new ExcelExporter();
       exporter.addTemplate(GeoEntityExcelView.CLASS);
-      POIFSFileSystem fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       sheet = workbook.getSheetAt(0);
     }
     catch (IOException e)
+    {
+      throw new SystemException(e);
+    }
+    catch (InvalidFormatException e)
     {
       throw new SystemException(e);
     }

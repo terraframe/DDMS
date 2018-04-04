@@ -19,10 +19,12 @@ package dss.vector.solutions.util;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
@@ -170,7 +172,7 @@ public class MenuItemImporter
   private void importDiseaseRoots() throws Exception
   {
     InputStream is = new FileInputStream(this.fileName);
-    HSSFWorkbook wb = new HSSFWorkbook(is);
+    Workbook wb = WorkbookFactory.create(is);
     Sheet sheet = wb.getSheetAt(DISEASE_SHEET);
     int rowCount = 1; // Start at second row
     Row row = sheet.getRow(rowCount++);
@@ -195,7 +197,7 @@ public class MenuItemImporter
   private void importSystemUrls() throws Exception
   {
     InputStream is = new FileInputStream(this.fileName);
-    HSSFWorkbook wb = new HSSFWorkbook(is);
+    Workbook wb = new XSSFWorkbook(is);
     Sheet sheet = wb.getSheetAt(SYSTEMURL_SHEET); // Use first sheet
     int rowCount = 1; // Start at second row
     Row row = sheet.getRow(rowCount++);
@@ -225,7 +227,7 @@ public class MenuItemImporter
   private void importMenuItems() throws Exception
   {
     InputStream is = new FileInputStream(this.fileName);
-    HSSFWorkbook wb = new HSSFWorkbook(is);
+    Workbook wb = new XSSFWorkbook(is);
     Sheet sheet = wb.getSheetAt(MENUITEM_SHEET); // Use first sheet
     int rowCount = 1; // Start at second row
     Row row = sheet.getRow(rowCount++);

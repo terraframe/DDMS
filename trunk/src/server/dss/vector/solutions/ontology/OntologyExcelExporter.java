@@ -24,9 +24,10 @@ import java.io.OutputStream;
 import java.util.Stack;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.query.OIterator;
@@ -36,7 +37,7 @@ public class OntologyExcelExporter
 {
   private static final int NAME_COLUMN = 3;
 
-  private HSSFWorkbook workbook;
+  private Workbook workbook;
   private Sheet sheet;
   private OutputStream os;
   private int rowCount = 0;
@@ -95,7 +96,7 @@ public class OntologyExcelExporter
   public OntologyExcelExporter(Term root, OutputStream os)
   {
     this.root = root;
-    workbook = new HSSFWorkbook();
+    workbook = new XSSFWorkbook();
     sheet = workbook.createSheet();
     this.os = os;
   }

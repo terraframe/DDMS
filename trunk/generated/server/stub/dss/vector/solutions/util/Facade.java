@@ -24,12 +24,14 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdBusinessInfo;
@@ -263,44 +265,40 @@ public abstract class Facade extends FacadeBase implements Reloadable
       ExcelExporter exporter = new ExcelExporter();
       AggregatedCaseReferralsExcelView.setupExportListener(exporter);
       exporter.addTemplate(AggregatedCaseReferralsExcelView.CLASS);
-      POIFSFileSystem fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+      
+      Workbook workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet referralSheet = workbook.getSheetAt(0);
       String referralSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       AggregatedCaseTreatmentsExcelView.setupExportListener(exporter);
       exporter.addTemplate(AggregatedCaseTreatmentsExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet treatmentSheet = workbook.getSheetAt(0);
       String treatmentSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       CaseDiagnosisTypeExcelView.setupExportListener(exporter);
       exporter.addTemplate(CaseDiagnosisTypeExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet diagnosisSheet = workbook.getSheetAt(0);
       String diagnosisSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       CaseDiseaseManifestationExcelView.setupExportListener(exporter);
       exporter.addTemplate(CaseDiseaseManifestationExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet diseaseSheet = workbook.getSheetAt(0);
       String diseaseSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       CasePatientTypeExcelView.setupExportListener(exporter);
       exporter.addTemplate(CasePatientTypeExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet patientSheet = workbook.getSheetAt(0);
       String patientSheetName = workbook.getSheetName(0);
 
-      workbook = new HSSFWorkbook();
+      workbook = new XSSFWorkbook();
       copySheetIntoWorkbook(workbook, referralSheet, referralSheetName);
       copySheetIntoWorkbook(workbook, treatmentSheet, treatmentSheetName);
       copySheetIntoWorkbook(workbook, diagnosisSheet, diagnosisSheetName);
@@ -322,6 +320,10 @@ public abstract class Facade extends FacadeBase implements Reloadable
     {
       throw new SystemException(e);
     }
+    catch (InvalidFormatException e)
+    {
+      throw new ExcelVersionException(e);
+    }
   }
 
   public static InputStream exportControlIntervention()
@@ -331,36 +333,32 @@ public abstract class Facade extends FacadeBase implements Reloadable
       ExcelExporter exporter = new ExcelExporter();
       AggregatedPremiseExcelView.setupExportListener(exporter);
       exporter.addTemplate(AggregatedPremiseExcelView.CLASS);
-      POIFSFileSystem fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+      Workbook workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet premiseSheet = workbook.getSheetAt(0);
       String premiseSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       IndividualPremiseExcelView.setupExportListener(exporter);
       exporter.addTemplate(IndividualPremiseExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet individualSheet = workbook.getSheetAt(0);
       String individualSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       InsecticideInterventionExcelView.setupExportListener(exporter);
       exporter.addTemplate(InsecticideInterventionExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet insecticideSheet = workbook.getSheetAt(0);
       String insecticideSheetName = workbook.getSheetName(0);
 
       exporter = new ExcelExporter();
       PersonInterventionExcelView.setupExportListener(exporter);
       exporter.addTemplate(PersonInterventionExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
+      workbook = WorkbookFactory.create(new ByteArrayInputStream(exporter.write()));
       Sheet personSheet = workbook.getSheetAt(0);
       String personSheetName = workbook.getSheetName(0);
 
-      workbook = new HSSFWorkbook();
+      workbook = new XSSFWorkbook();
       copySheetIntoWorkbook(workbook, premiseSheet, premiseSheetName);
       copySheetIntoWorkbook(workbook, individualSheet, individualSheetName);
       copySheetIntoWorkbook(workbook, insecticideSheet, insecticideSheetName);
@@ -381,10 +379,14 @@ public abstract class Facade extends FacadeBase implements Reloadable
     {
       throw new SystemException(e);
     }
+    catch (InvalidFormatException e)
+    {
+      throw new ExcelVersionException(e);
+    }
   }
 
   @SuppressWarnings("unchecked")
-  private static void copySheetIntoWorkbook(HSSFWorkbook workbook, Sheet oldSheet, String name)
+  private static void copySheetIntoWorkbook(Workbook workbook, Sheet oldSheet, String name)
   {
     Sheet newSheet = workbook.createSheet(name);
     Iterator<Row> rowIterator = oldSheet.rowIterator();

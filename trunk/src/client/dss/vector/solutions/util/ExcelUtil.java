@@ -84,8 +84,8 @@ public class ExcelUtil
         FileOutputStream fos = new FileOutputStream(errorFile);
         streamToXlsLogFile = new BufferedOutputStream(fos);
 
-        res.setContentType("application/xls");
-        res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+        res.setContentType("application/xlsx");
+        res.addHeader("Content-Disposition", "attachment;filename=\"errors.xlsx\"");
         if (managerId != null)
         {
           res.addHeader("ExcelImportManagerId", managerId);

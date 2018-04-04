@@ -29,10 +29,12 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.postgis.jts.JtsGeometry;
 import org.postgresql.PGConnection;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -515,7 +517,7 @@ public class GeoEntityImporter
   private void buildUniversalMap() throws Exception
   {
     InputStream is = new FileInputStream(this.universalSpreadsheet);
-    HSSFWorkbook wb = new HSSFWorkbook(is);
+    Workbook wb = WorkbookFactory.create(is);
     Sheet sheet = wb.getSheetAt(1); // Use second sheet
     int rowCount = 1; // Start at second row
     Row row = sheet.getRow(rowCount++);

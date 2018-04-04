@@ -21,17 +21,18 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
@@ -231,7 +232,7 @@ public class PostOntologySetup
     try
     {
       InputStream is = new FileInputStream(excel);
-      HSSFWorkbook wb = new HSSFWorkbook(is);
+      Workbook wb = WorkbookFactory.create(is);
       Sheet sheet = wb.getSheetAt(0); // Use first sheet
 
       int rowCount = 1; // Start at second row

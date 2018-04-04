@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.permission;
 
@@ -28,10 +28,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.business.rbac.ActorDAO;
@@ -117,7 +118,7 @@ public class PermissionImporter implements Reloadable
   @Transaction
   public void read(InputStream stream)
   {
-    HSSFWorkbook workbook = openStream(stream);
+    Workbook workbook = openStream(stream);
 
     this.readURLSheet(workbook);
 
@@ -262,12 +263,12 @@ public class PermissionImporter implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private Iterator<Row> getSheetRows(HSSFWorkbook workbook, String sheetName)
+  private Iterator<Row> getSheetRows(Workbook workbook, String sheetName)
   {
     return workbook.getSheet(sheetName).iterator();
   }
 
-  private void readRoleAssignment(HSSFWorkbook workbook)
+  private void readRoleAssignment(Workbook workbook)
   {
     Iterator<Row> iterator = this.getSheetRows(workbook, ROLE_SHEET_NAME);
 
@@ -355,7 +356,7 @@ public class PermissionImporter implements Reloadable
     return list;
   }
 
-  private void readURLSheet(HSSFWorkbook workbook)
+  private void readURLSheet(Workbook workbook)
   {
     Iterator<Row> iterator = this.getSheetRows(workbook, URL_SHEET_NAME);
 
@@ -368,7 +369,7 @@ public class PermissionImporter implements Reloadable
     }
   }
 
-  private void readVisibilitySheet(HSSFWorkbook workbook)
+  private void readVisibilitySheet(Workbook workbook)
   {
     RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
     Iterator<Row> iterator = this.getSheetRows(workbook, VISIBILITY_SHEET_NAME);
@@ -561,12 +562,11 @@ public class PermissionImporter implements Reloadable
    * @return
    * @throws IOException
    */
-  private HSSFWorkbook openStream(InputStream stream)
+  private Workbook openStream(InputStream stream)
   {
     try
     {
-      POIFSFileSystem fileSystem = new POIFSFileSystem(stream);
-      HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+      Workbook workbook = WorkbookFactory.create(stream);
 
       return workbook;
     }
@@ -577,6 +577,10 @@ public class PermissionImporter implements Reloadable
     catch (IOException e)
     {
       throw new SystemException(e);
+    }
+    catch (InvalidFormatException e)
+    {
+      throw new ExcelVersionException(e);
     }
   }
 

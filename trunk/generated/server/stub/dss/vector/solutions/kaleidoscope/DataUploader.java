@@ -1,26 +1,30 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.poi.POIXMLDocument;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +42,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClassQuery;
 
 import dss.vector.solutions.DataUploaderImportJob;
+import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoSynonym;
@@ -53,6 +58,7 @@ import dss.vector.solutions.kaleidoscope.data.etl.excel.FieldInfoContentsHandler
 import dss.vector.solutions.kaleidoscope.data.etl.excel.InvalidExcelFileException;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermSynonym;
+import dss.vector.solutions.util.Facade;
 
 public class DataUploader extends DataUploaderBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -121,7 +127,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
   {
     try
     {
-      Term classifier = Term.get(classifierId);      
+      Term classifier = Term.get(classifierId);
       String synonymId = classifier.addSynonym(label);
 
       JSONObject object = new JSONObject();
@@ -146,23 +152,41 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
 
   public static String getAttributeInformation(String fileName, InputStream fileStream)
   {
+
     // Save the file to the file system
     try
     {
-      VaultFile vf = VaultFile.createAndApply(fileName, fileStream);
+      BufferedInputStream bis = new BufferedInputStream(fileStream);
 
-      FieldInfoContentsHandler handler = new FieldInfoContentsHandler(fileName);
-      ExcelDataFormatter formatter = new ExcelDataFormatter();
+      if (POIXMLDocument.hasOOXMLHeader(bis))
+      {
+        VaultFile vf = VaultFile.createAndApply(fileName, bis);
 
-      ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
-      reader.process(vf.getFileStream());
+        FieldInfoContentsHandler handler = new FieldInfoContentsHandler(fileName);
+        ExcelDataFormatter formatter = new ExcelDataFormatter();
 
-      JSONObject object = new JSONObject();
-      object.put("sheets", handler.getSheets());
-      object.put("vaultId", vf.getId());
-      object.put("filename", fileName);
+        ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
+        reader.process(vf.getFileStream());
 
-      return object.toString();
+        if (handler.getType().equals("ETL"))
+        {
+          JSONObject object = new JSONObject();
+          object.put("sheets", handler.getSheets());
+          object.put("vaultId", vf.getId());
+          object.put("filename", fileName);
+          object.put("type", "ETL");
+
+          return object.toString();
+        }
+        else
+        {
+          return handleLegacyImport(fileName, vf.getFileStream());
+        }
+      }
+      else
+      {
+        return handleLegacyImport(fileName, bis);
+      }
     }
     catch (InvalidFormatException e)
     {
@@ -179,6 +203,17 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     {
       throw new ProgrammingErrorException(e);
     }
+  }
+
+  private static String handleLegacyImport(String fileName, InputStream bis) throws JSONException
+  {
+    ExcelImportManager manager = ExcelImportManager.getNewInstance();
+    manager.importWhatYouCan(bis, new String[] {}, fileName);
+
+    JSONObject object = new JSONObject();
+    object.put("type", "LEGACY");
+
+    return object.toString();
   }
 
   public static String getOptionsJSON()
@@ -235,7 +270,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       job.setRunAsDimensionId(Session.getCurrentDimension().getId());
       job.apply();
       String responseJSON = job.doImport();
-      
+
       JSONObject responseJ = new JSONObject(responseJSON);
 
       if (!responseJ.has("problems"))
@@ -377,15 +412,14 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       throw new ProgrammingErrorException(e);
     }
   }
-  
-  
+
   @Transaction
   @Authenticate
   public static void deleteTerm(String termId)
   {
     Term.deleteTerm(termId);
   }
-  
+
   @Transaction
   @Authenticate
   public static String createTerm(String parentId, String label)
@@ -395,7 +429,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     term.setName(label);
     term.setTermId(LocalProperty.getNextId());
     term.applyWithParent(parentId, false, "", false);
-    
+
     return term.getId();
   }
 }

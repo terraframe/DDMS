@@ -73,34 +73,41 @@ export class UploadWizardComponent implements OnDestroy {
   }  
   
   initialize(info: string): void {
-    this.info = JSON.parse(info) as UploadInformation;
-    this.sheet = this.info.information.sheets[0];
-    this.hasError = false;
-    	  
-  	if(this.sheet.attributes == null) {
-  	  this.sheet.attributes = new Locations();
-  	  this.sheet.attributes.ids = [];
-  	  this.sheet.attributes.values = {};
-  	}
-      
-  	if(this.sheet.coordinates == null) {
-  	  this.sheet.coordinates = [];
-  	}    
-	
-    if(this.info.information.locationExclusions == null){
-      this.info.information.locationExclusions = [];    	
-    }
+    let uInfo = JSON.parse(info) as UploadInformation;
     
-    if(this.sheet.matches.length > 0) {
-      this.page = new Page('MATCH-INITIAL', null);
+    if(uInfo.type === 'ETL') {
+      this.info = uInfo;
+      this.sheet = this.info.information.sheets[0];
+      this.hasError = false;
+       
+      if(this.sheet.attributes == null) {
+        this.sheet.attributes = new Locations();
+        this.sheet.attributes.ids = [];
+        this.sheet.attributes.values = {};
+      }
+       
+      if(this.sheet.coordinates == null) {
+        this.sheet.coordinates = [];
+      }    
+
+      if(this.info.information.locationExclusions == null){
+        this.info.information.locationExclusions = [];    
+      }
+    
+      if(this.sheet.matches.length > 0) {
+        this.page = new Page('MATCH-INITIAL', null);
+      }
+      else {
+        this.page = new Page('BEGINNING-INFO', null);    
+      }
+                  
+      this.initializeAttributes();
+    
+      this.refreshSteps();
     }
     else {
-      this.page = new Page('BEGINNING-INFO', null);    
+      window.location.href = acp + '/dss.vector.solutions.generator.ExcelController.viewManager.mojo#/manager';      
     }
-                  
-    this.initializeAttributes();
-    
-    this.refreshSteps();
   }
   
   initializeAttributes(): void {
@@ -288,7 +295,7 @@ export class UploadWizardComponent implements OnDestroy {
     }
     else{
       this.page.snapshot = _.cloneDeep(this.sheet) as Sheet;
-    	
+    
         // Linear logic
       if(this.page.name === 'MATCH-INITIAL') {
         let page = new Page('MATCH', this.page);
@@ -398,7 +405,7 @@ export class UploadWizardComponent implements OnDestroy {
   
   prev(): void {
     this.pageDirection = "PREVIOUS";
-	  
+  
     if(this.page.prev != null) { 
       this.page = this.page.prev;
       this.sheet = this.page.snapshot;
@@ -476,13 +483,13 @@ export class UploadWizardComponent implements OnDestroy {
     
   persist(): void {
     this.info.information.sheets[0] = _.cloneDeep(this.sheet) as Sheet;
-	  
-	  if (reconstructionJSON != null && reconstructionJSON != "" && reconstructionJSON.configuration.filename.endsWith(".xls"))
-	  {
-	    window.location.href = acp + "/dss.vector.solutions.generator.ExcelController.excelImportFromVault.mojo?vaultId=" + reconstructionJSON.configuration.vaultId + "&config=" + encodeURIComponent(JSON.stringify(this.problems));
-	  }
-	  else
-	  {
+  
+  if (reconstructionJSON != null && reconstructionJSON != "" && reconstructionJSON.configuration.filename.endsWith(".xls"))
+  {
+    window.location.href = acp + "/dss.vector.solutions.generator.ExcelController.excelImportFromVault.mojo?vaultId=" + reconstructionJSON.configuration.vaultId + "&config=" + encodeURIComponent(JSON.stringify(this.problems));
+  }
+  else
+  {
       this.uploadService.importData(this.info.information)
         .then(result => {
           console.log("persist importData return")
@@ -508,7 +515,7 @@ export class UploadWizardComponent implements OnDestroy {
     let externalPageRequest = -1;
     if (reconstructionJSON != null && reconstructionJSON != "")
     {
-      this.info = {options: {countries: []}, classifiers: [], information: reconstructionJSON.configuration}
+      this.info = {options: {countries: []}, type:'ETL', classifiers: [], information: reconstructionJSON.configuration}
       
       externalPageRequest = reconstructionJSON.pageNum;
     }
@@ -570,7 +577,7 @@ export class UploadWizardComponent implements OnDestroy {
   onSelectSheet(sheet: Sheet): void {
 
     this.page.snapshot = _.cloneDeep(this.sheet) as Sheet;
-	  
+  
     // Go to summary page
     let page = new Page('SUMMARY', this.page);
     page.hasNext = this.hasNextPage('SUMMARY');
@@ -581,9 +588,9 @@ export class UploadWizardComponent implements OnDestroy {
   }
   
   showStep(): boolean {
-	
+
     let names = ['MATCH-INITIAL', 'MATCH'];
-	
+
     return this.sheet != null && this.page && (names.indexOf(this.page.name) === -1) && !this.sheet.exists;
   }
 }

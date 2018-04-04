@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.data.etl.excel;
 
@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -188,13 +189,19 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
   private JSONArray           information;
 
   private String              filename;
-  
-  private String              dataset;
+
+  private String              type;
 
   public FieldInfoContentsHandler(String filename)
   {
     this.information = new JSONArray();
     this.filename = filename;
+    this.type = "ETL";    
+  }
+
+  public String getType()
+  {
+    return type;
   }
 
   private Field getField(String cellReference)
@@ -279,7 +286,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
   @Override
   public void cell(String cellReference, String contentValue, String formattedValue, ColumnType cellType)
   {
-    if (cellType.equals(ColumnType.FORMULA))
+    if (!this.type.equals("LEGACY") && cellType.equals(ColumnType.FORMULA))
     {
       throw new ExcelFormulaException();
     }
@@ -291,11 +298,19 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
         throw new InvalidHeaderRowException();
       }
 
-      Field attribute = this.getField(cellReference);
-      attribute.setName(formattedValue);
-      attribute.setInputPosition(this.getFieldPosition(cellReference));
+      if (cellReference.equals("A1") && MdClassDAO.isDefined(formattedValue))
+      {
+        this.type = "LEGACY";
+      }
+
+      if (!this.type.equals("LEGACY"))
+      {
+        Field attribute = this.getField(cellReference);
+        attribute.setName(formattedValue);
+        attribute.setInputPosition(this.getFieldPosition(cellReference));
+      }
     }
-    else
+    else if (!this.type.equals("LEGACY"))
     {
       Field attribute = this.getField(cellReference);
       attribute.addDataType(cellType);
@@ -305,7 +320,8 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
         BigDecimal decimal = new BigDecimal(contentValue).stripTrailingZeros();
 
         /*
-         * Precision is the total number of digits. Scale is the number of digits after the decimal place.
+         * Precision is the total number of digits. Scale is the number of
+         * digits after the decimal place.
          */
         int precision = decimal.precision();
         int scale = decimal.scale();
@@ -373,10 +389,10 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
     return options;
   }
-  
+
   @Override
   public void setDatasetProperty(String dataset)
   {
-    this.dataset = dataset;
+    // this.dataset = dataset;
   }
 }

@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.ontology;
 
@@ -31,12 +31,13 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +66,7 @@ import dss.vector.solutions.export.ExcelVersionException;
 public class OntologyExcelImporter implements Reloadable
 {
   private static final Logger         logger = LoggerFactory.getLogger(OntologyExcelImporter.class);
-  
+
   private Map<String, TermNode>       terms;
 
   private Deque<TermNode>             stack;
@@ -73,10 +74,10 @@ public class OntologyExcelImporter implements Reloadable
   private static Ontology             ontology;
 
   private static OntologyRelationship ontologyRelationship;
-  
+
   private boolean                     activeByDisease;
-  
-  private String fileName;
+
+  private String                      fileName;
 
   public static void main(String[] args) throws FileNotFoundException
   {
@@ -105,7 +106,7 @@ public class OntologyExcelImporter implements Reloadable
     try
     {
       logger.info("Importing ontology file [" + file.getAbsolutePath() + "]");
-      
+
       readRequest(file);
 
       long end = System.currentTimeMillis();
@@ -123,8 +124,8 @@ public class OntologyExcelImporter implements Reloadable
     try
     {
       Class<?> thisClass = LoaderDecorator.load("dss.vector.solutions.ontology.OntologyExcelImporter");
-      Object inst = thisClass.getConstructor(new Class<?>[]{String.class}).newInstance(file.getAbsolutePath());
-      thisClass.getMethod("read", new Class<?>[]{InputStream.class}).invoke(inst, new BufferedInputStream(new FileInputStream(file)));
+      Object inst = thisClass.getConstructor(new Class<?>[] { String.class }).newInstance(file.getAbsolutePath());
+      thisClass.getMethod("read", new Class<?>[] { InputStream.class }).invoke(inst, new BufferedInputStream(new FileInputStream(file)));
     }
     catch (InstantiationException e)
     {
@@ -172,7 +173,7 @@ public class OntologyExcelImporter implements Reloadable
     QueryFactory f = new QueryFactory();
     RootTermQuery q = new RootTermQuery(f);
     OIterator<? extends RootTerm> rootIterator = q.getIterator();
-    
+
     try
     {
       if (rootIterator.hasNext())
@@ -236,17 +237,17 @@ public class OntologyExcelImporter implements Reloadable
       node.applyRelationships();
     }
   }
-  
+
   private void readHeader(Row row)
   {
     Iterator<Cell> iterator = row.cellIterator();
     Cell cell;
-    
+
     while (iterator.hasNext())
     {
       cell = iterator.next();
       String header = ExcelUtil.getString(cell);
-      
+
       if (cell.getColumnIndex() == 1)
       {
         activeByDisease = header.toLowerCase().contains("malaria");
@@ -287,7 +288,7 @@ public class OntologyExcelImporter implements Reloadable
           node.setActive(ExcelUtil.getBoolean(cell));
           cell = iterator.next();
         }
-  
+
         if (cell.getColumnIndex() == 2)
         {
           parentNode = getNodeById(ExcelUtil.getString(cell));
@@ -399,13 +400,11 @@ public class OntologyExcelImporter implements Reloadable
    * @return
    * @throws IOException
    */
-  @SuppressWarnings("unchecked")
   private Iterator<Row> openStream(InputStream stream)
   {
     try
     {
-      POIFSFileSystem fileSystem = new POIFSFileSystem(stream);
-      HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+      Workbook workbook = WorkbookFactory.create(stream);
       Sheet sheet = workbook.getSheetAt(0);
       Iterator<Row> rowIterator = sheet.rowIterator();
 
@@ -418,6 +417,10 @@ public class OntologyExcelImporter implements Reloadable
     catch (IOException e)
     {
       throw new TermImportFormatException(e);
+    }
+    catch (InvalidFormatException e)
+    {
+      throw new ExcelVersionException(e);
     }
   }
 

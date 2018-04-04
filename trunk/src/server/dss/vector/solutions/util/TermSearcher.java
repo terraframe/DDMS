@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.util;
 
@@ -27,12 +27,13 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
@@ -128,8 +129,7 @@ public class TermSearcher implements Reloadable
 
     try
     {
-      POIFSFileSystem fileSystem = new POIFSFileSystem(inputStream);
-      HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
+      Workbook workbook = WorkbookFactory.create(inputStream);
 
       int numberOfSheets = workbook.getNumberOfSheets();
 
@@ -198,7 +198,7 @@ public class TermSearcher implements Reloadable
                         unknownTerm.setTermName(termName);
                         unknownTerm.setBrowserAttribute(mdAttribute.definesAttribute());
                         unknownTerm.setBrowserClass(mdClass.definesType());
-                        unknownTerm.setAttributeLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));                        
+                        unknownTerm.setAttributeLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
                         unknownTerm.applyNoPersist();
 
                         unknownTerms.add(unknownTerm);
@@ -237,6 +237,10 @@ public class TermSearcher implements Reloadable
       {
         throw e;
       }
+    }
+    catch (InvalidFormatException e)
+    {
+      throw new ExcelVersionException(e);
     }
 
     return unknownTerms;

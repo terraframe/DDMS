@@ -102,6 +102,7 @@ export class UploadInformation {
   options: Options;
   classifiers: Classifier[];
   information: Workbook;
+  type:string;
 }
 
 export class Step {

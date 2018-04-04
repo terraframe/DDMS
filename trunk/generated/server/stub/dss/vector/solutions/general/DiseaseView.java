@@ -328,7 +328,7 @@ public class DiseaseView extends DiseaseViewBase implements com.runwaysdk.genera
   {
     // Define the static permissions
     PermissionImporter importer = new PermissionImporter(true, concrete);
-    importer.read(new BufferedInputStream(this.getClass().getResourceAsStream("/Permissions.xls")));
+    importer.read(new BufferedInputStream(this.getClass().getResourceAsStream("/Permissions.xlsx")));
 
     // Define permissions for all the existing reports
     this.addReportItemPermissions(concrete);

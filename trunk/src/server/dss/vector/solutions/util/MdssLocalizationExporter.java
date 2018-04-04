@@ -31,10 +31,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.business.BusinessFacade;
@@ -119,7 +120,7 @@ public class MdssLocalizationExporter implements Reloadable
   /**
    * The in memory representation of the xls file
    */
-  private HSSFWorkbook          workbook;
+  private Workbook          workbook;
 
   private Sheet                 exceptionSheet;
 
@@ -224,7 +225,7 @@ public class MdssLocalizationExporter implements Reloadable
 
   public void export()
   {
-    workbook = new HSSFWorkbook();
+    workbook = new XSSFWorkbook();
     exceptionSheet = workbook.createSheet(MD_EXCEPTIONS);
     termSheet = workbook.createSheet(TERM_LABELS);
     entityLabelSheet = workbook.createSheet(GEO_ENTITY_LABELS);
