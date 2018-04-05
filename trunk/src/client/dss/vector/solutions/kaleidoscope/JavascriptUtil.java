@@ -32,7 +32,6 @@ import dss.vector.solutions.geo.GeoEntityViewDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.geo.generated.GeoEntityEntityLabel;
 import dss.vector.solutions.geo.generated.GeoEntityEntityLabelDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.AggregationStrategyDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.AggregationStrategyViewDTO;

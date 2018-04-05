@@ -96,13 +96,13 @@ export class Workbook {
   sheets: Sheet[];
   locationExclusions: LocationExclusion[];
   categoryExclusion: { [key:string]:string[]};
+  type:string;  
 }
 
 export class UploadInformation {
   options: Options;
   classifiers: Classifier[];
   information: Workbook;
-  type:string;
 }
 
 export class Step {

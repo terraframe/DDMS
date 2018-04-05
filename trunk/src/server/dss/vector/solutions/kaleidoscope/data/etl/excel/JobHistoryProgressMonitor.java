@@ -42,6 +42,12 @@ public class JobHistoryProgressMonitor implements ProgressMonitorIF, Reloadable
     history.appLock();
     history.setImportCount(importCount);
     history.apply();
+  }  
+  
+  @Override
+  public int getImportCount()
+  {
+    return this.importCount;
   }
   
   @Override

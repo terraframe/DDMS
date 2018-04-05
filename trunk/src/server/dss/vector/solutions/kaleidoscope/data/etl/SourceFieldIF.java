@@ -52,4 +52,6 @@ public interface SourceFieldIF extends Reloadable
   public void persist(ExcelSourceBinding source);
 
   public JSONObject toJSON() throws JSONException;
+
+  public boolean isNumber();
 }

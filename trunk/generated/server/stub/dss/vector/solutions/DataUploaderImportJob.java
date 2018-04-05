@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions;
 
@@ -28,7 +28,6 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
@@ -38,39 +37,43 @@ import dss.vector.solutions.kaleidoscope.data.etl.ImportProblemIF;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportResponseIF;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportRunnable;
 import dss.vector.solutions.kaleidoscope.data.etl.LocationProblem;
-import dss.vector.solutions.kaleidoscope.data.etl.ProblemResponse;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.JobHistoryProgressMonitor;
 
 public class DataUploaderImportJob extends DataUploaderImportJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -97661808;
-  
+
   public DataUploaderImportJob()
   {
     super();
   }
-  
-  private static Map<String,SharedState> sharedStates = new HashMap<String,SharedState>();
-  
-  protected SharedState sharedState; // This state is shared across threads
-  
-  private ExecutionContext context;
-  
+
+  private static Map<String, SharedState> sharedStates = new HashMap<String, SharedState>();
+
+  protected SharedState                   sharedState;                                      // This
+                                                                                            // state
+                                                                                            // is
+                                                                                            // shared
+                                                                                            // across
+                                                                                            // threads
+
+  private ExecutionContext                context;
+
   public DataUploaderImportJob(String configuration, File file, String fileName)
   {
     super();
-    
+
     this.sharedState = new SharedState();
     this.sharedState.configuration = configuration;
     this.sharedState.file = file;
     this.sharedState.fileName = fileName;
   }
-  
+
   private void saveSharedState()
   {
     sharedStates.put(this.getId(), this.sharedState);
   }
-  
+
   private void loadSharedState()
   {
     if (sharedStates.containsKey(this.getId()))
@@ -82,22 +85,22 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       this.sharedState = new SharedState();
     }
   }
-  
+
   protected class SharedState implements com.runwaysdk.generation.loader.Reloadable
   {
-    protected String configuration;
-    
-    protected File file;
-    
+    protected String    configuration;
+
+    protected File      file;
+
     protected Semaphore semaphore;
-    
+
     protected Throwable sharedEx;
-    
-    protected String responseJSON;
-    
-    protected String fileName;
+
+    protected String    responseJSON;
+
+    protected String    fileName;
   }
-  
+
   @Override
   protected JobHistory createNewHistory()
   {
@@ -106,18 +109,18 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     history.addStatus(AllJobStatus.RUNNING);
     history.setFileName(this.sharedState.fileName);
     history.apply();
-    
+
     return history;
   }
-  
+
   public String doImport()
   {
     this.sharedState.semaphore = new Semaphore(0);
-    
+
     this.saveSharedState();
-    
+
     this.start();
-    
+
     try
     {
       this.sharedState.semaphore.acquire();
@@ -125,7 +128,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     catch (InterruptedException e1)
     {
     }
-    
+
     if (this.sharedState.sharedEx != null)
     {
       if (this.sharedState.sharedEx instanceof RuntimeException)
@@ -137,21 +140,22 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
         throw new RuntimeException(this.sharedState.sharedEx);
       }
     }
-    
+
     String responseJSON = this.sharedState.responseJSON;
-    
+
     sharedStates.remove(this.getId());
-    
-    // Unfortunately we have to return the response JSON because the classloader reloads and invalidates our ImportResponseIF object.
+
+    // Unfortunately we have to return the response JSON because the classloader
+    // reloads and invalidates our ImportResponseIF object.
     return responseJSON;
   }
-  
+
   @Override
   public void execute(ExecutionContext context)
   {
     loadSharedState();
     this.context = context;
-    
+
     try
     {
       executeAuthenticated();
@@ -166,43 +170,44 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       this.sharedState.semaphore.release();
     }
   }
-  
+
   @Authenticate
   public void executeAuthenticated()
   {
     doInTransaction(context);
   }
-  
-  @Transaction
+
+  // @Transaction
   public void doInTransaction(ExecutionContext context)
   {
     try
     {
       JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
-      
+
       ImportResponseIF response = new ImportRunnable(this.sharedState.configuration, this.sharedState.file, monitor).run();
-      
+
       JSONObject responseJSON = response.toJSON();
-      
+
       this.sharedState.responseJSON = responseJSON.toString();
-      
+
       ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
       history.appLock();
-      
+
       JSONObject reconstructionJSON = new JSONObject();
       reconstructionJSON.put("importResponse", responseJSON);
-      reconstructionJSON.put("configuration", new JSONObject(this.sharedState.configuration)); // referred to in angular as 'workbook' or 'information'
+      reconstructionJSON.put("configuration", new JSONObject(this.sharedState.configuration));
+
+      // referred // to // in // angular // as // 'workbook' // or //
+      // 'information'
       history.setReconstructionJSON(reconstructionJSON.toString());
-      
+
       if (response.hasProblems())
       {
         int catProbs = 0;
         int locProbs = 0;
-        
-        ProblemResponse pr = (ProblemResponse) response;
-        
-        Collection<ImportProblemIF> problems = pr.getProblems();
-        
+
+        Collection<ImportProblemIF> problems = response.getProblems();
+
         for (ImportProblemIF problem : problems)
         {
           if (problem instanceof CategoryProblem)
@@ -214,17 +219,22 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
             locProbs++;
           }
         }
-        
+
         history.setNumberUnknownTerms(catProbs);
         history.setNumberUnknownGeos(locProbs);
       }
-      
+
+      if (response.getFileId() != null)
+      {
+        history.setErrorFile(response.getFileId());
+      }
+
       history.apply();
     }
-    catch(JSONException e)
+    catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
 }

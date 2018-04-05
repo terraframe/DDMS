@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.data.etl;
 
@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.business.Transient;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -83,6 +85,12 @@ public class ImportValidator implements ConverterIF, Reloadable
   }
 
   @Override
+  public TargetContextIF getTargetContext()
+  {
+    return this.context;
+  }
+
+  @Override
   public void create(Transient source)
   {
     List<TargetFieldIF> fields = this.context.getFields(source.getType());
@@ -91,18 +99,18 @@ public class ImportValidator implements ConverterIF, Reloadable
     {
       if (field instanceof TargetFieldValidationIF)
       {
-        TargetFieldValidationIF entity = (TargetFieldValidationIF) field;
-
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("locationExclusions", this.context.getLocationExclusions());
-        parameters.put("categoryExclusions", this.context.getCategoryExclusions());
-
-        ImportProblemIF problem = entity.validate(source, parameters);
-
-        if (problem != null)
-        {
-          this.problems.add(problem);
-        }
+//        TargetFieldValidationIF entity = (TargetFieldValidationIF) field;
+//
+//        Map<String, Object> parameters = new HashMap<String, Object>();
+//        parameters.put("locationExclusions", this.context.getLocationExclusions());
+//        parameters.put("categoryExclusions", this.context.getCategoryExclusions());
+//
+//        ImportProblemIF problem = entity.validate(source, parameters);
+//
+//        if (problem != null)
+//        {
+//          this.problems.add(problem);
+//        }
       }
       else if (field instanceof TargetFieldBasic)
       {
@@ -122,7 +130,8 @@ public class ImportValidator implements ConverterIF, Reloadable
               this.attributes.putIfAbsent(mdAttribute.getId(), new DecimalAttribute());
 
               /*
-               * Precision is the total number of digits. Scale is the number of digits after the decimal place.
+               * Precision is the total number of digits. Scale is the number of
+               * digits after the decimal place.
                */
               DecimalAttribute attribute = this.attributes.get(mdAttribute.getId());
 
@@ -167,4 +176,17 @@ public class ImportValidator implements ConverterIF, Reloadable
   {
     return problems;
   }
+
+  @Override
+  public void setErrors(Workbook workbook)
+  {
+    // Do nothing
+  }
+
+  @Override
+  public Workbook getErrors()
+  {
+    return null;
+  }
+
 }

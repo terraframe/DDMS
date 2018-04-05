@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.data.etl;
 
@@ -41,6 +41,7 @@ import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.GeoEntitySelectionProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoSynonymQuery;
 import dss.vector.solutions.geo.generated.Earth;
@@ -153,9 +154,16 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
       labels.add(source.getValue(attribute.getAttributeName()));
     }
 
-    GeoEntity entity = this.getLocation(this.root, labels);
+    try
+    {
+      GeoEntity entity = this.getLocation(this.root, labels);
 
-    return new FieldValue(entity.getId());
+      return new FieldValue(entity.getId());
+    }
+    catch (ExclusionException e)
+    {
+      return e.getProblem();
+    }
   }
 
   /**
@@ -167,6 +175,7 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
   private GeoEntity getLocation(GeoEntity root, List<String> labels)
   {
     GeoEntity parent = root;
+    List<JSONObject> context = new LinkedList<JSONObject>();
 
     for (int i = 0; i < attributes.size(); i++)
     {
@@ -187,11 +196,30 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
           if (entity == null)
           {
-            throw new ExclusionException("Location not found in system.");
+            GeoEntitySelectionProblem p = new GeoEntitySelectionProblem("Unknown Geo Entity");
+            p.setEntityLabel(label);
+            p.apply();
+
+            p.throwIt();
+
+            throw new ExclusionException("Location not found in system.", new LocationProblem(label, context, earth, universal));
           }
 
           parent = entity;
         }
+      }
+
+      try
+      {
+        JSONObject object = new JSONObject();
+        object.put("label", label);
+        object.put("universal", parent.getMdClass().getDisplayLabel(Session.getCurrentLocale()));
+
+        context.add(object);
+      }
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
       }
     }
 
@@ -290,7 +318,8 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
   /*
    * (non-Javadoc)
    * 
-   * @see dss.vector.solutions.kaleidoscope.data.etl.TargetFieldGeoEntityIF#getLocationProblem(com.runwaysdk.business.Transient,
+   * @see dss.vector.solutions.kaleidoscope.data.etl.TargetFieldGeoEntityIF#
+   * getLocationProblem(com.runwaysdk.business.Transient,
    * com.runwaysdk.system.gis.geo.Universal)
    */
   @SuppressWarnings("unchecked")

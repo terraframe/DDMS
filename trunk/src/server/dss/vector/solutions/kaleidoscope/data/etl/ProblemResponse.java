@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.data.etl;
 
@@ -52,7 +52,7 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
     this.tContext = tContext;
     this.current = current;
   }
-  
+
   public Collection<ImportProblemIF> getProblems()
   {
     return problems;
@@ -75,7 +75,8 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
   public JSONObject toJSON() throws JSONException
   {
     /*
-     * Return a JSONArray of the datasets which were created a part of the import. Do not include datasets which have already been created.
+     * Return a JSONArray of the datasets which were created a part of the
+     * import. Do not include datasets which have already been created.
      */
     JSONArray datasets = new JSONArray();
 
@@ -111,7 +112,7 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
     return true;
   }
 
-  private JSONObject getProblemsJSON() throws JSONException
+  public JSONObject getProblemsJSON() throws JSONException
   {
     Map<String, JSONArray> map = new HashMap<String, JSONArray>();
     map.put(LocationProblem.TYPE, new JSONArray());
@@ -155,5 +156,11 @@ public class ProblemResponse implements ImportResponseIF, Reloadable
       sheets.put(sheet);
     }
     return sheets;
+  }
+
+  @Override
+  public String getFileId()
+  {
+    return null;
   }
 }

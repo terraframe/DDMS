@@ -75,7 +75,7 @@ export class UploadWizardComponent implements OnDestroy {
   initialize(info: string): void {
     let uInfo = JSON.parse(info) as UploadInformation;
     
-    if(uInfo.type === 'ETL') {
+    if(uInfo.information.type === 'ETL') {
       this.info = uInfo;
       this.sheet = this.info.information.sheets[0];
       this.hasError = false;
@@ -515,7 +515,7 @@ export class UploadWizardComponent implements OnDestroy {
     let externalPageRequest = -1;
     if (reconstructionJSON != null && reconstructionJSON != "")
     {
-      this.info = {options: {countries: []}, type:'ETL', classifiers: [], information: reconstructionJSON.configuration}
+      this.info = {options: {countries: []}, classifiers: [], information: reconstructionJSON.configuration}
       
       externalPageRequest = reconstructionJSON.pageNum;
     }

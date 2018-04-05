@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
-public class CategoryProblem implements ImportProblemIF, Comparable<ImportProblemIF>, Reloadable
+public class CategoryProblem extends FieldValue implements ImportProblemIF, Comparable<ImportProblemIF>, Reloadable
 {
   public static final String TYPE = "categories";
 

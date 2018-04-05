@@ -196,7 +196,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
   {
     this.information = new JSONArray();
     this.filename = filename;
-    this.type = "ETL";    
+    this.type = "ETL";
   }
 
   public String getType()
@@ -298,7 +298,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
         throw new InvalidHeaderRowException();
       }
 
-      if (cellReference.equals("A1") && MdClassDAO.isDefined(formattedValue))
+      if (cellReference.equals("A1") && formattedValue.indexOf('.') != -1 && MdClassDAO.isDefined(formattedValue))
       {
         this.type = "LEGACY";
       }

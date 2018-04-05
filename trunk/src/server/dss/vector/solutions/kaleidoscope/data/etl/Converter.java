@@ -1,24 +1,29 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.data.etl;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
@@ -39,6 +44,7 @@ import com.runwaysdk.dataaccess.MdAttributeNumberDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.LocalProperty;
@@ -52,20 +58,32 @@ import ognl.OgnlException;
 
 public class Converter implements ConverterIF, Reloadable
 {
-  private TargetContextIF context;
+  private TargetContextIF      context;
 
-  private Disease         disease;
-  
-  ProgressMonitorIF monitor;
+  private Disease              disease;
+
+  private ProgressMonitorIF    monitor;
+
+  private Workbook             errors;
+
+  private Set<ImportProblemIF> problems;
 
   public Converter(TargetContextIF context, Disease disease, ProgressMonitorIF monitor)
   {
     this.context = context;
     this.disease = disease;
     this.monitor = monitor;
+    this.problems = new TreeSet<ImportProblemIF>();
   }
 
   @Override
+  public TargetContextIF getTargetContext()
+  {
+    return this.context;
+  }
+
+  @Override
+  @Transaction
   public void create(Transient source)
   {
     try
@@ -87,14 +105,22 @@ public class Converter implements ConverterIF, Reloadable
         // location exclusion list. Note the custom effor after this TRY
         // statement.
         FieldValue fValue = field.getValue(mdAttribute, source);
-        Object value = fValue.getValue();
 
-        if (value != null)
+        if (! ( fValue instanceof ImportProblemIF ))
         {
-          business.setValue(attributeName, value);
-        }
+          Object value = fValue.getValue();
 
-        hasValues = hasValues || !fValue.isBlank();
+          if (value != null)
+          {
+            business.setValue(attributeName, value);
+          }
+
+          hasValues = hasValues || !fValue.isBlank();
+        }
+        else
+        {
+          this.problems.add((ImportProblemIF) fValue);
+        }
       }
 
       business.setValue(MdFormUtil.DISEASE, this.disease.getId());
@@ -115,7 +141,7 @@ public class Converter implements ConverterIF, Reloadable
         this.calculate(business);
 
         strategy.handle(business);
-        
+
         this.monitor.entityImported(definition);
       }
     }
@@ -243,4 +269,22 @@ public class Converter implements ConverterIF, Reloadable
     }
     return null;
   }
+
+  public Collection<ImportProblemIF> getProblems()
+  {
+    return problems;
+  }
+
+  @Override
+  public void setErrors(Workbook errors)
+  {
+    this.errors = errors;
+  }
+
+  @Override
+  public Workbook getErrors()
+  {
+    return this.errors;
+  }
+
 }

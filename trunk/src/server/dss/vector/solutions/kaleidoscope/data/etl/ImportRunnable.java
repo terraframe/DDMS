@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.data.etl;
 
@@ -20,11 +20,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONArray;
 
 import com.runwaysdk.RunwayException;
@@ -33,9 +37,11 @@ import com.runwaysdk.constants.MdAttributeDecInfo;
 import com.runwaysdk.dataaccess.MdAttributeDecDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDecDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebForm;
@@ -50,6 +56,46 @@ import dss.vector.solutions.kaleidoscope.data.etl.excel.SourceContentHandler;
 
 public class ImportRunnable implements Reloadable
 {
+  static class CopyRunnable implements Runnable, Reloadable, UncaughtExceptionHandler
+  {
+    private PipedInputStream istream;
+
+    private Workbook         errors;
+
+    private Throwable        throwable;
+
+    public CopyRunnable(PipedInputStream istream, Workbook errors)
+    {
+      this.istream = istream;
+      this.errors = errors;
+      this.throwable = null;
+    }
+
+    @Override
+    public void run()
+    {
+      try (PipedOutputStream pos = new PipedOutputStream(this.istream))
+      {
+        errors.write(pos);
+      }
+      catch (IOException e)
+      {
+        this.throwable = e;
+      }
+    }
+
+    @Override
+    public void uncaughtException(Thread t, Throwable e)
+    {
+      this.throwable = e;
+    }
+
+    public Throwable getThrowable()
+    {
+      return throwable;
+    }
+  }
+
   static class ValidationResult implements Reloadable
   {
     private ImportResponseIF              response;
@@ -74,16 +120,16 @@ public class ImportRunnable implements Reloadable
   }
 
   private ProgressMonitorIF monitor;
-  
-  private String configuration;
 
-  private File   file;
+  private String            configuration;
+
+  private File              file;
 
   public ImportRunnable(String configuration, File file, ProgressMonitorIF monitor)
   {
     this.configuration = configuration;
     this.file = file;
-    
+
     this.monitor = monitor;
   }
 
@@ -92,7 +138,7 @@ public class ImportRunnable implements Reloadable
     try
     {
       Disease current = Disease.getCurrent();
-      
+
       int total = this.getRowNum(this.file);
       monitor.setTotal(total);
 
@@ -109,29 +155,21 @@ public class ImportRunnable implements Reloadable
       TargetContextIF tContext = builder.getTargetContext();
 
       /*
-       * Before importing the data we must validate that the location text information
+       * Before importing the data we must validate that the location text
+       * information
        */
-      ValidationResult result = this.validateData(file, sContext, tContext, current);
-
-      if (result.getResponse() != null)
-      {
-        return result.getResponse();
-      }
-
-      /*
-       * Update any scale or precision which is greater than its current definition
-       */
-      this.updateScaleAndPrecision(result.getAttributes());
+      this.validateAndConfigure(sContext, tContext, current);
 
       /*
        * Import the data
        */
       monitor.setState(DataImportState.DATAIMPORT);
-      
-      this.importData(file, sContext, tContext);
+
+      SuccessResponse summary = this.importData(file, sContext, tContext, current);
 
       /*
-       * Return a JSONArray of the datasets which were created as part of the import. Do not include datasets which have already been created.
+       * Return a JSONArray of the datasets which were created as part of the
+       * import. Do not include datasets which have already been created.
        */
       JSONArray datasets = new JSONArray();
 
@@ -185,9 +223,11 @@ public class ImportRunnable implements Reloadable
       }
 
       monitor.setState(DataImportState.COMPLETE);
-      
+
+      summary.setDatasets(datasets);
+
       // Return the new data set definition
-      return new SuccessResponse(datasets);
+      return summary;
     }
     catch (RunwayException | SmartException e)
     {
@@ -197,6 +237,31 @@ public class ImportRunnable implements Reloadable
     {
       throw new ProgrammingErrorException(e);
     }
+  }
+
+  @Transaction
+  private ImportResponseIF validateAndConfigure(SourceContextIF sContext, TargetContextIF tContext, Disease current) throws FileNotFoundException, Exception, IOException
+  {
+    /*
+     * Before importing the data we must validate that the location text
+     * information
+     */
+    monitor.setState(DataImportState.VALIDATION);
+    ValidationResult result = this.validateData(file, sContext, tContext, current);
+
+    if (result.getResponse() != null)
+    {
+      monitor.setState(DataImportState.VALIDATIONFAIL);
+      return result.getResponse();
+    }
+
+    /*
+     * Update any scale or precision which is greater than its current
+     * definition
+     */
+    this.updateScaleAndPrecision(result.getAttributes());
+
+    return null;
   }
 
   private void updateScaleAndPrecision(Map<String, DecimalAttribute> attributes)
@@ -230,9 +295,9 @@ public class ImportRunnable implements Reloadable
     }
   }
 
-  private void importData(File file, SourceContextIF sContext, TargetContextIF tContext) throws FileNotFoundException, Exception, IOException
+  private SuccessResponse importData(File file, SourceContextIF sContext, TargetContextIF tContext, Disease current) throws FileNotFoundException, IOException, Exception
   {
-    ConverterIF converter = new Converter(tContext, Disease.getCurrent(), this.monitor);
+    Converter converter = new Converter(tContext, current, this.monitor);
 
     FileInputStream istream = new FileInputStream(file);
 
@@ -243,6 +308,46 @@ public class ImportRunnable implements Reloadable
 
       ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
       reader.process(istream);
+
+      SuccessResponse summary = new SuccessResponse(sContext, tContext);
+      summary.setTotal(this.monitor.getImportCount());
+      summary.setFailures(handler.getNumberOfErrors());
+
+      Workbook errors = converter.getErrors();
+
+      if (errors != null)
+      {
+        try (PipedInputStream pis = new PipedInputStream())
+        {
+          CopyRunnable runnable = new CopyRunnable(pis, errors);
+          Thread t = new Thread(runnable);
+          t.setUncaughtExceptionHandler(runnable);
+          t.setDaemon(true);
+          t.start();
+
+          VaultFile vf2 = VaultFile.createAndApply(file.getName(), pis);
+
+          t.join();
+
+          summary.setFileId(vf2.getId());
+
+          if (runnable.getThrowable() != null)
+          {
+            throw new ProgrammingErrorException(runnable.getThrowable());
+          }
+        }
+      }
+
+      if (converter.getProblems().size() > 0)
+      {
+        summary.setProblems(converter.getProblems());
+        // ProblemResponse response = new
+        // ProblemResponse(converter.getProblems(), sContext, tContext,
+        // current);
+        // summary.put("problems", response.getProblemsJSON());
+      }
+
+      return summary;
     }
     finally
     {
@@ -278,7 +383,7 @@ public class ImportRunnable implements Reloadable
 
     return new ValidationResult(response, converter.getAttributes());
   }
-  
+
   private int getRowNum(File file) throws FileNotFoundException, IOException, Exception
   {
     FileInputStream istream = new FileInputStream(file);
