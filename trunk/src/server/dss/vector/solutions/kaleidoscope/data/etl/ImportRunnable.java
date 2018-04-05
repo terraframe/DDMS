@@ -125,8 +125,11 @@ public class ImportRunnable implements Reloadable
 
   private File              file;
 
-  public ImportRunnable(String configuration, File file, ProgressMonitorIF monitor)
+  private String            filename;
+
+  public ImportRunnable(String filename, String configuration, File file, ProgressMonitorIF monitor)
   {
+    this.filename = filename;
     this.configuration = configuration;
     this.file = file;
 
@@ -325,7 +328,7 @@ public class ImportRunnable implements Reloadable
           t.setDaemon(true);
           t.start();
 
-          VaultFile vf2 = VaultFile.createAndApply(file.getName(), pis);
+          VaultFile vf2 = VaultFile.createAndApply(this.filename, pis);
 
           t.join();
 

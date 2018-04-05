@@ -308,7 +308,7 @@ public class SourceContentHandler implements SheetHandler, Reloadable
 
         if (this.rowNum == 0)
         {
-          if (!cellType.equals(ColumnType.TEXT))
+          if (! ( cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.INLINE_STRING) ))
           {
             throw new InvalidHeaderRowException();
           }
@@ -327,10 +327,10 @@ public class SourceContentHandler implements SheetHandler, Reloadable
         {
           String columnName = this.getColumnName(cellReference);
           SourceFieldIF field = this.context.getFieldByName(this.sheetName, columnName);
-          String attributeName = field.getAttributeName();
 
           if (field != null && !field.getType().equals(ColumnType.IGNORE))
           {
+            String attributeName = field.getAttributeName();
             Object original = field.isNumber() ? Double.parseDouble(contentValue) : contentValue;
 
             if (field.getType().equals(ColumnType.LONG))

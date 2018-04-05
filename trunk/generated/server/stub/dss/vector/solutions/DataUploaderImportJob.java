@@ -184,7 +184,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     {
       JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
 
-      ImportResponseIF response = new ImportRunnable(this.sharedState.configuration, this.sharedState.file, monitor).run();
+      ImportResponseIF response = new ImportRunnable(this.sharedState.fileName, this.sharedState.configuration, this.sharedState.file, monitor).run();
 
       JSONObject responseJSON = response.toJSON();
 
@@ -193,13 +193,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
       history.appLock();
 
-      JSONObject reconstructionJSON = new JSONObject();
-      reconstructionJSON.put("importResponse", responseJSON);
-      reconstructionJSON.put("configuration", new JSONObject(this.sharedState.configuration));
-
-      // referred // to // in // angular // as // 'workbook' // or //
-      // 'information'
-      history.setReconstructionJSON(reconstructionJSON.toString());
+      JSONObject config = new JSONObject(this.sharedState.configuration);
 
       if (response.hasProblems())
       {
@@ -227,8 +221,18 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
       if (response.getFileId() != null)
       {
         history.setErrorFile(response.getFileId());
+        
+        // Use the error file in the future
+        config.put("vaultId", response.getFileId());
       }
 
+      JSONObject reconstructionJSON = new JSONObject();
+      reconstructionJSON.put("importResponse", responseJSON);
+      reconstructionJSON.put("configuration", config);
+
+      // referred // to // in // angular // as // 'workbook' // or //
+      // 'information'
+      history.setReconstructionJSON(reconstructionJSON.toString());
       history.apply();
     }
     catch (JSONException e)

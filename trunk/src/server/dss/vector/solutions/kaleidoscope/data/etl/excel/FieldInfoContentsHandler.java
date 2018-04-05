@@ -29,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -39,6 +40,7 @@ import dss.vector.solutions.kaleidoscope.data.etl.ColumnType;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelFieldBindingQuery;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBinding;
 import dss.vector.solutions.kaleidoscope.data.etl.ExcelSourceBindingQuery;
+import dss.vector.solutions.util.LocalizationFacade;
 
 public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 {
@@ -192,6 +194,8 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
   private String              type;
 
+  private String              dataset;
+
   public FieldInfoContentsHandler(String filename)
   {
     this.information = new JSONArray();
@@ -293,7 +297,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
     if (this.rowNum == 0)
     {
-      if (!cellType.equals(ColumnType.TEXT) || !this.attributeNames.add(formattedValue))
+      if (! ( cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.INLINE_STRING) ) || !this.attributeNames.add(formattedValue))
       {
         throw new InvalidHeaderRowException();
       }
@@ -329,7 +333,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
         attribute.setPrecision(precision - scale);
         attribute.setScale(scale);
       }
-      else if (cellType.equals(ColumnType.TEXT))
+      else if (cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.INLINE_STRING))
       {
         attribute.addValue(contentValue);
       }
@@ -343,6 +347,28 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
   private JSONArray findMatches() throws JSONException
   {
+    if (this.dataset != null)
+    {
+      try
+      {
+        ExcelSourceBinding binding = ExcelSourceBinding.get(this.dataset);
+
+        JSONArray options = new JSONArray();
+
+        JSONObject option = this.getOption(binding);
+
+        options.put(option);
+
+        return options;
+      }
+      catch (DataNotFoundException e)
+      {
+        // Do nothing
+      }
+    }
+
+    String label = LocalizationFacade.getFromBundles("dataUploader.causeOfFailure");
+
     JSONArray options = new JSONArray();
 
     QueryFactory factory = new QueryFactory();
@@ -354,11 +380,15 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
     for (Integer key : keys)
     {
       Field field = this.map.get(key);
+      String name = field.getName();
 
-      ExcelFieldBindingQuery fieldQuery = new ExcelFieldBindingQuery(factory);
-      fieldQuery.WHERE(fieldQuery.getColumnHeader().EQ(field.getName()));
+      if (!name.equals(label))
+      {
+        ExcelFieldBindingQuery fieldQuery = new ExcelFieldBindingQuery(factory);
+        fieldQuery.WHERE(fieldQuery.getColumnHeader().EQ(name));
 
-      query.WHERE(query.EQ(fieldQuery.getSourceDefinition()));
+        query.WHERE(query.EQ(fieldQuery.getSourceDefinition()));
+      }
     }
 
     OIterator<? extends ExcelSourceBinding> iterator = null;
@@ -390,9 +420,27 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
     return options;
   }
 
+  private JSONObject getOption(ExcelSourceBinding binding)
+  {
+    try
+    {
+      MdView mdView = binding.getMdView();
+
+      JSONObject option = new JSONObject();
+      option.put("id", binding.getId());
+      option.put("label", mdView.getDisplayLabel().getValue());
+
+      return option;
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   @Override
   public void setDatasetProperty(String dataset)
   {
-    // this.dataset = dataset;
+    this.dataset = dataset;
   }
 }
