@@ -25,5 +25,9 @@ public interface DataSetBuilderIF extends Reloadable
   public SourceContextIF getSourceContext();
 
   public TargetContextIF getTargetContext();
+  
+  public String getId();
+  
+  public String getSheetName();
 
 }

@@ -271,12 +271,12 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       job.apply();
       String responseJSON = job.doImport();
 
-      JSONObject responseJ = new JSONObject(responseJSON);
-
-      if (!responseJ.has("problems"))
-      {
-        vf.delete();
-      }
+//      JSONObject responseJ = new JSONObject(responseJSON);
+//
+//      if (!responseJ.has("problems"))
+//      {
+//        vf.delete();
+//      }
 
       return responseJSON;
     }

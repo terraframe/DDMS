@@ -78,4 +78,16 @@ public class DataSetBuilder implements DataSetBuilderIF, Reloadable
   {
     return this.target;
   }
+  
+  @Override
+  public String getId()
+  {
+    return this.source.getDefinitions().iterator().next().getId();
+  }
+  
+  @Override
+  public String getSheetName()
+  {
+    return this.source.getDefinitions().iterator().next().getName();
+  }
 }

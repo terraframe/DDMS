@@ -84,7 +84,7 @@ public class LoggingProgressMonitor implements ProgressMonitorIF, Reloadable
   }
 
   @Override
-  public void entityImported(TargetDefinitionIF entity)
+  public void entityImported(String id)
   {
     this.importCount++;
   }

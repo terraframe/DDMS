@@ -142,7 +142,7 @@ public class Converter implements ConverterIF, Reloadable
 
         strategy.handle(business);
 
-        this.monitor.entityImported(definition);
+        this.monitor.entityImported(business.getId());
       }
     }
     catch (ExclusionException e)

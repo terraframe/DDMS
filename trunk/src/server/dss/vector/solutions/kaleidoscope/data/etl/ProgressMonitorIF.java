@@ -22,7 +22,7 @@ public interface ProgressMonitorIF extends Reloadable
 {
   public void setFilename(String filename);
 
-  public void setState(DataImportState state);
+//  public void setState(DataImportState state);
 
   public void setTotal(int total);
 
@@ -30,7 +30,7 @@ public interface ProgressMonitorIF extends Reloadable
 
   public void finished();
 
-  public void entityImported(TargetDefinitionIF entity);
+  public void entityImported(String id);
 
   /**
    * @return The number of successfully imported records thus far in the import

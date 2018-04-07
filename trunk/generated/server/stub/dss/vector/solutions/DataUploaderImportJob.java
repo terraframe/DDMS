@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
@@ -92,7 +93,7 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
 
     protected File      file;
 
-    protected Semaphore semaphore;
+    // protected Semaphore semaphore;
 
     protected Throwable sharedEx;
 
@@ -115,39 +116,41 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
 
   public String doImport()
   {
-    this.sharedState.semaphore = new Semaphore(0);
+    // this.sharedState.semaphore = new Semaphore(0);
 
     this.saveSharedState();
 
     this.start();
 
-    try
-    {
-      this.sharedState.semaphore.acquire();
-    }
-    catch (InterruptedException e1)
-    {
-    }
+    // try
+    // {
+    // this.sharedState.semaphore.acquire();
+    // }
+    // catch (InterruptedException e1)
+    // {
+    // }
 
-    if (this.sharedState.sharedEx != null)
-    {
-      if (this.sharedState.sharedEx instanceof RuntimeException)
-      {
-        throw (RuntimeException) this.sharedState.sharedEx;
-      }
-      else
-      {
-        throw new RuntimeException(this.sharedState.sharedEx);
-      }
-    }
-
-    String responseJSON = this.sharedState.responseJSON;
-
-    sharedStates.remove(this.getId());
+    // if (this.sharedState.sharedEx != null)
+    // {
+    // if (this.sharedState.sharedEx instanceof RuntimeException)
+    // {
+    // throw (RuntimeException) this.sharedState.sharedEx;
+    // }
+    // else
+    // {
+    // throw new RuntimeException(this.sharedState.sharedEx);
+    // }
+    // }
+    //
+    // String responseJSON = this.sharedState.responseJSON;
+    //
+    // sharedStates.remove(this.getId());
 
     // Unfortunately we have to return the response JSON because the classloader
     // reloads and invalidates our ImportResponseIF object.
-    return responseJSON;
+    // return responseJSON;
+
+    return "";
   }
 
   @Override
@@ -167,7 +170,8 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
     }
     finally
     {
-      this.sharedState.semaphore.release();
+      // this.sharedState.semaphore.release();
+      sharedStates.remove(this.getId());
     }
   }
 
@@ -180,65 +184,13 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   // @Transaction
   public void doInTransaction(ExecutionContext context)
   {
-    try
-    {
-      JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
+    JobHistoryProgressMonitor monitor = new JobHistoryProgressMonitor((ExcelImportHistory) context.getJobHistory());
 
-      ImportResponseIF response = new ImportRunnable(this.sharedState.fileName, this.sharedState.configuration, this.sharedState.file, monitor).run();
-
-      JSONObject responseJSON = response.toJSON();
-
-      this.sharedState.responseJSON = responseJSON.toString();
-
-      ExcelImportHistory history = (ExcelImportHistory) context.getJobHistory();
-      history.appLock();
-
-      JSONObject config = new JSONObject(this.sharedState.configuration);
-
-      if (response.hasProblems())
-      {
-        int catProbs = 0;
-        int locProbs = 0;
-
-        Collection<ImportProblemIF> problems = response.getProblems();
-
-        for (ImportProblemIF problem : problems)
-        {
-          if (problem instanceof CategoryProblem)
-          {
-            catProbs++;
-          }
-          else if (problem instanceof LocationProblem)
-          {
-            locProbs++;
-          }
-        }
-
-        history.setNumberUnknownTerms(catProbs);
-        history.setNumberUnknownGeos(locProbs);
-      }
-
-      if (response.getFileId() != null)
-      {
-        history.setErrorFile(response.getFileId());
-        
-        // Use the error file in the future
-        config.put("vaultId", response.getFileId());
-      }
-
-      JSONObject reconstructionJSON = new JSONObject();
-      reconstructionJSON.put("importResponse", responseJSON);
-      reconstructionJSON.put("configuration", config);
-
-      // referred // to // in // angular // as // 'workbook' // or //
-      // 'information'
-      history.setReconstructionJSON(reconstructionJSON.toString());
-      history.apply();
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    /*
+     * This can cause a reload, everything after this line needs to be invoked
+     * through reflection
+     */
+    new ImportRunnable(this.sharedState.fileName, this.sharedState.configuration, this.sharedState.file, monitor).run();
   }
 
 }

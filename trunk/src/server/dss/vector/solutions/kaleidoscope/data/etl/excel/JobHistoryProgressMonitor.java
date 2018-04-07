@@ -19,9 +19,7 @@ package dss.vector.solutions.kaleidoscope.data.etl.excel;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ExcelImportHistory;
-import dss.vector.solutions.kaleidoscope.data.etl.DataImportState;
 import dss.vector.solutions.kaleidoscope.data.etl.ProgressMonitorIF;
-import dss.vector.solutions.kaleidoscope.data.etl.TargetDefinitionIF;
 
 public class JobHistoryProgressMonitor implements ProgressMonitorIF, Reloadable
 {
@@ -35,7 +33,7 @@ public class JobHistoryProgressMonitor implements ProgressMonitorIF, Reloadable
   }
   
   @Override
-  public void entityImported(TargetDefinitionIF entity)
+  public void entityImported(String id)
   {
     importCount++;
     
@@ -56,11 +54,11 @@ public class JobHistoryProgressMonitor implements ProgressMonitorIF, Reloadable
     // Intentionally empty
   }
 
-  @Override
-  public void setState(DataImportState state)
-  {
-    // Intentionally empty
-  }
+//  @Override
+//  public void setState(DataImportState state)
+//  {
+//    // Intentionally empty
+//  }
 
   @Override
   public void setTotal(int total)
@@ -80,6 +78,11 @@ public class JobHistoryProgressMonitor implements ProgressMonitorIF, Reloadable
   public void finished()
   {
     // Intentionally empty
+  }
+  
+  public ExcelImportHistory getHistory()
+  {
+    return history;
   }
 
 }
