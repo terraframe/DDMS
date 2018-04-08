@@ -27,7 +27,6 @@ import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.geo.GeoEntityViewDTO;
-import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class GeoEntityController extends GeoEntityControllerBase implements com.runwaysdk.generation.loader.Reloadable

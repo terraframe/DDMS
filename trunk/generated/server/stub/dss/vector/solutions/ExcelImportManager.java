@@ -100,6 +100,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
     job.setRunAsDimensionId(Session.getCurrentDimension().getId());
     job.apply();
+    
     return job.doImport();
   }
   

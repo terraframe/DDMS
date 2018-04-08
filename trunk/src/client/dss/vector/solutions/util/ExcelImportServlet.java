@@ -167,7 +167,7 @@ public class ExcelImportServlet extends HttpServlet
         // that could not be identified.
         ViewDTO[] unknownTerms = (ViewDTO[]) getUnknownTermsMethod.invoke(null, clientRequest, managerId);
 
-        if (errorStream.available() > 0)
+        if (errorStream != null && errorStream.available() > 0)
         {
           Boolean hasSynonyms = ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 );
 

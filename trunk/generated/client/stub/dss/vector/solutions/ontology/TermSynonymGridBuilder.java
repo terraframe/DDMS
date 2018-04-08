@@ -22,7 +22,6 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.GridBuilder;
-import dss.vector.solutions.ontology.TermSynonymViewDTO;
 import dss.vector.solutions.util.yui.ColumnSetup;
 import dss.vector.solutions.util.yui.DataGrid;
 import dss.vector.solutions.util.yui.ViewDataGrid;

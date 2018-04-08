@@ -36,6 +36,7 @@ import com.runwaysdk.mvc.ErrorSerialization;
 import com.runwaysdk.mvc.RequestParamter;
 import com.runwaysdk.mvc.ResponseIF;
 import com.runwaysdk.mvc.RestBodyResponse;
+import com.runwaysdk.mvc.RestResponse;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
@@ -69,9 +70,10 @@ public class DataUploaderController implements Reloadable
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)
   public ResponseIF importData(ClientRequestIF request, @RequestParamter(name = "configuration") String configuration) throws JSONException
   {
-    String result = DataUploaderDTO.importData(request, configuration);
+    DataUploaderDTO.importData(request, configuration);
 
-    return new RestBodyResponse(new JSONObject(result));
+//    return new RestBodyResponse(new JSONObject(result));
+    return new RestResponse();
   }
 
   @Endpoint(method = ServletMethod.POST, error = ErrorSerialization.JSON)

@@ -327,7 +327,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
             
             UnknownTermDTO[] unmatchedTerms = importer.getUnknownTerms();
             
-            if (errorStream.available() > 0)
+            if (errorStream != null && errorStream.available() > 0)
             {
               Boolean hasSynonyms = ( unmatchedGeos != null && unmatchedGeos.length > 0 ) || ( unmatchedTerms != null && unmatchedTerms.length > 0 );
 

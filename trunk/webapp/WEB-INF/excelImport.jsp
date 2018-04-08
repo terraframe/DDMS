@@ -40,54 +40,9 @@
         xhr.open('POST', e.delegateTarget.location.href, true);
         xhr.responseType = 'blob';
         xhr.onload = function () {
-            if (
-                this.status === 702 // Request completed with errors and synonyms
-                || this.status == 701 // Request completed but with errors
-                )
-            {
-                var filename = "";
-                var disposition = xhr.getResponseHeader('Content-Disposition');
-                if (disposition && disposition.indexOf('attachment') !== -1) {
-                    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                    var matches = filenameRegex.exec(disposition);
-                    if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
-                }
-                var typee = xhr.getResponseHeader('Content-Type');
-                var managerId = xhr.getResponseHeader('ExcelImportManagerId');
-                
-                $("#busySpinner").hide();
-                
-                var blob = new Blob([this.response], {type: typee});
-                var URL = window.URL || window.webkitURL;
-                var downloadUrl = URL.createObjectURL(blob);
-                
-                // Download the xls errors spreadsheet in a hidden iframe 
-                var iframe = document.createElement('iframe');
-                iframe.style.visibility = "hidden";
-                if (this.status == 702)
-                {
-                  // Direct browser to synonyms matching
-                  iframe.onload = function() { window.location="excelImportSynonyms?managerId=" + managerId + "&excelType=${excelType}" };
-                }
-                iframe.src = downloadUrl; 
-                document.body.appendChild(iframe);
-                
-                setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
-            }
-            else if ( this.status == 200 )
-            {
-              var errorMsg = xhr.getResponseHeader('errorMessage');
-              
-              if (errorMsg == null)
-              {
-                window.location = "excelImportDone";
-              }
-              else
-              {
-                window.location = "excelImportDone?errorMessage=" + encodeURIComponent(errorMsg);
-              }
-            }
-        };
+          window.location.href = "<%=request.getContextPath()%>" + '/dss.vector.solutions.generator.ExcelController.viewManager.mojo#/manager';              	        
+        };       
+        
         xhr.send(formData);
         
         $("#busySpinner").css('display', 'inline');
