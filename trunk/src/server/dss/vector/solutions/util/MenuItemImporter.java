@@ -16,6 +16,7 @@
  ******************************************************************************/
 package dss.vector.solutions.util;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -196,8 +197,8 @@ public class MenuItemImporter
   @Transaction
   private void importSystemUrls() throws Exception
   {
-    InputStream is = new FileInputStream(this.fileName);
-    Workbook wb = new XSSFWorkbook(is);
+    InputStream is = new BufferedInputStream(new FileInputStream(this.fileName));
+    Workbook wb = WorkbookFactory.create(is);
     Sheet sheet = wb.getSheetAt(SYSTEMURL_SHEET); // Use first sheet
     int rowCount = 1; // Start at second row
     Row row = sheet.getRow(rowCount++);
@@ -226,8 +227,8 @@ public class MenuItemImporter
   @Transaction
   private void importMenuItems() throws Exception
   {
-    InputStream is = new FileInputStream(this.fileName);
-    Workbook wb = new XSSFWorkbook(is);
+    InputStream is = new BufferedInputStream(new FileInputStream(this.fileName));
+    Workbook wb = WorkbookFactory.create(is);
     Sheet sheet = wb.getSheetAt(MENUITEM_SHEET); // Use first sheet
     int rowCount = 1; // Start at second row
     Row row = sheet.getRow(rowCount++);
