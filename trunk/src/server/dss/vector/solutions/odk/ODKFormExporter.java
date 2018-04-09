@@ -208,13 +208,12 @@ public class ODKFormExporter
   private void doBody()
   {
     Element body = document.createElement("h:body");
+    root.appendChild(body);
     
     for (ODKAttribute attr : this.odkAttrs)
     {
       attr.writeBody(body, document, this.formName);
     }
-    
-    root.appendChild(body);
   }
   
   private void writeToStream()

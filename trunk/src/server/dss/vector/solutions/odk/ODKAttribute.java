@@ -140,14 +140,12 @@ public class ODKAttribute
   public void writeBody(Element parent, Document document, String title)
   {
     Element input = document.createElement("input");
-    
+    parent.appendChild(input);
     input.setAttribute("ref", "/" + title + "/" + attributeName);
     
     Element label = document.createElement("label");
-    label.setAttribute("ref", "jr:itext('/" + title + "/" + attributeName + ":label')");
     input.appendChild(label);
-    
-    parent.appendChild(input);
+    label.setAttribute("ref", "jr:itext('/" + title + "/" + attributeName + ":label')");
   }
   
   public String getODKType()

@@ -18,6 +18,9 @@
  */
 package dss.vector.solutions.odk;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
@@ -72,6 +75,20 @@ public class AttributeColumn extends ODKAttribute
   public MdAttributeDAOIF getMdAttribute()
   {
     return mdAttribute;
+  }
+  
+  public void writeInstance(Element parent, Document document, String title)
+  {
+    Element attrNode = document.createElement(attributeName);
+    
+    String def = mdAttribute.getDefaultValue();
+    if (this.getODKType().equals("boolean") && def.length() == 0) // TODO : subtypes?
+    {
+      def = "false";
+    }
+    attrNode.setTextContent(def);
+    
+    parent.appendChild(attrNode);
   }
   
   public String getODKType()
