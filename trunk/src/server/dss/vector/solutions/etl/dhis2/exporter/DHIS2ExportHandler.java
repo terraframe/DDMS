@@ -69,8 +69,6 @@ import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.IndicatorCompositeDAO;
 import com.runwaysdk.dataaccess.IndicatorCompositeDAOIF;
-import com.runwaysdk.dataaccess.IndicatorElementDAO;
-import com.runwaysdk.dataaccess.IndicatorElementDAOIF;
 import com.runwaysdk.dataaccess.IndicatorPrimitiveDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.value.Attribute;
@@ -101,9 +99,10 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClass;
 
-import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
+import dss.vector.solutions.etl.HTTPConnector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
+import dss.vector.solutions.etl.dhis2.DHIS2HTTPConnector;
 import dss.vector.solutions.etl.dhis2.DHIS2Util;
 import dss.vector.solutions.etl.dhis2.GeoMapQuery;
 import dss.vector.solutions.etl.dhis2.InvalidFieldException;
@@ -144,7 +143,7 @@ public class DHIS2ExportHandler implements Reloadable
   
   protected ValueQuery valueQuery;
   
-  protected AbstractDHIS2Connector dhis2;
+  protected DHIS2HTTPConnector dhis2;
   
   private DHIS2IdCache idCache;
   
@@ -177,7 +176,7 @@ public class DHIS2ExportHandler implements Reloadable
     MdAttributeConcreteDTO.DEFININGMDCLASS, MdAttributeConcreteDTO.ENTITYDOMAIN, MdAttributeConcreteDTO.OWNER, MdAttributeConcreteDTO.SETTERVISIBILITY, MdAttributeConcreteDTO.SITEMASTER
   };
   
-  public DHIS2ExportHandler(DHIS2ExportableDataset exportable, AbstractDHIS2Connector dhis2)
+  public DHIS2ExportHandler(DHIS2ExportableDataset exportable, DHIS2HTTPConnector dhis2)
   {
     this.exportable = exportable;
     this.mdClass = exportable.getQueryRef();
@@ -1274,7 +1273,7 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
-      GeoEntity zambia = GeoEntity.getByKey("ZA");
+      GeoEntity zambia = GeoEntity.getByKey("IND");
       OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia.getId());
       if (zambiaOrgUnit == null)
       {

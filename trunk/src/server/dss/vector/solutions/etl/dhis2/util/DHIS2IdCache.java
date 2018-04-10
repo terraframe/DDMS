@@ -43,7 +43,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
+import dss.vector.solutions.etl.dhis2.DHIS2HTTPConnector;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.DHIS2UnexpectedResponseException;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
@@ -60,9 +60,9 @@ public class DHIS2IdCache implements Reloadable
   
   Stack<String> cache = new Stack<String>();
   
-  AbstractDHIS2Connector dhis2;
+  DHIS2HTTPConnector dhis2;
   
-  public DHIS2IdCache(AbstractDHIS2Connector dhis2)
+  public DHIS2IdCache(DHIS2HTTPConnector dhis2)
   {
     this.dhis2 = dhis2;
   }

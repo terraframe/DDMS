@@ -32,11 +32,15 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
  */
-package dss.vector.solutions.etl.dhis2;
+package dss.vector.solutions.etl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 
+import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -44,26 +48,33 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.URI;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.InvalidLoginException;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 
-abstract public class AbstractDHIS2Connector implements Reloadable
+public class HTTPConnector implements Reloadable
 {
   HttpClient client;
   
-  Logger logger = LoggerFactory.getLogger(AbstractDHIS2Connector.class);
+  Logger logger = LoggerFactory.getLogger(HTTPConnector.class);
   
   String serverurl;
   
   String username;
   
   String password;
-  
-  String apiVersion = "26"; // TODO : This should be configurable
   
   public void setCredentials(String username, String password)
   {
@@ -89,6 +100,10 @@ abstract public class AbstractDHIS2Connector implements Reloadable
   synchronized public void initialize()
   {
     this.client = new HttpClient();
+    
+    client.getParams().setAuthenticationPreemptive(true);
+    Credentials defaultcreds = new UsernamePasswordCredentials(username, password);
+    client.getState().setCredentials(AuthScope.ANY, defaultcreds);
   }
   
   public boolean isInitialized()
@@ -96,35 +111,92 @@ abstract public class AbstractDHIS2Connector implements Reloadable
     return client != null;
   }
   
-  abstract public HTTPResponse httpGet(String url, NameValuePair[] params);
-  
-  abstract public HTTPResponse httpPost(String url, String body);
-  
-  public HTTPResponse apiGet(String url, NameValuePair[] params)
+  public HTTPResponse httpGet(String url, NameValuePair[] params)
   {
-    if (!url.contains("?") && !url.endsWith(".json"))
+    if (!isInitialized())
     {
-      url = url + ".json";
+      initialize();
     }
     
-    return httpGet("api/" + apiVersion + "/" + url, params);
-  }
-  
-  public HTTPResponse apiPost(String url, String body)
-  {
-    if (!url.contains("?") && !url.endsWith(".json"))
+    GetMethod get = new GetMethod(this.getServerUrl() + url);
+    
+    get.setRequestHeader("Accept", "application/json");
+    
+    get.setQueryString(params);
+    
+    HTTPResponse response = this.httpRequest(this.client, get);
+    
+    if (response.getStatusCode() == 401)
     {
-      url = url + ".json";
+      throw new InvalidLoginException("Unable to log in to " + this.getServerUrl());
     }
     
-    return httpPost("api/" + apiVersion + "/" + url, body);
+    return response;
   }
   
-  public void readConfigFromDB()
+  public HTTPResponse postAsMultipart(String url, File file)
   {
-    DHIS2HTTPConfiguration config = DHIS2HTTPConfiguration.getByKey("DEFAULT");
-    this.setServerUrl(config.getUrl());
-    this.setCredentials(config.getUsername(), config.getPazzword());
+    try {
+      if (!isInitialized())
+      {
+        initialize();
+      }
+      
+      PostMethod post = new PostMethod(this.getServerUrl() + url);
+      
+      post.setRequestHeader("Content-Type", "multipart/form-data");
+      
+      FilePart filePart;
+      
+      filePart = new FilePart("form_def_file", file, "application/xml", "UTF-8");
+      
+      
+      Part[] parts = { filePart };
+      MultipartRequestEntity multipartRequestEntity = new MultipartRequestEntity(parts, post.getParams());
+      
+      post.setRequestEntity(multipartRequestEntity);
+      
+      HTTPResponse response = this.httpRequest(this.client, post);
+      
+      if (response.getStatusCode() == 401)
+      {
+        throw new InvalidLoginException("Unable to log in to " + this.getServerUrl());
+      }
+      
+      return response;
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  public HTTPResponse httpPost(String url, String body)
+  {
+    if (!isInitialized())
+    {
+      initialize();
+    }
+    
+    try
+    {
+      PostMethod post = new PostMethod(this.getServerUrl() + url);
+      
+      post.setRequestHeader("Content-Type", "application/json");
+      
+      post.setRequestEntity(new StringRequestEntity(body, null, null));
+      
+      HTTPResponse response = this.httpRequest(this.client, post);
+      
+      if (response.getStatusCode() == 401)
+      {
+        throw new InvalidLoginException("Unable to log in to " + this.getServerUrl());
+      }
+      
+      return response;
+    }
+    catch (UnsupportedEncodingException e)
+    {
+      throw new RuntimeException(e);
+    }
   }
   
   public HTTPResponse httpRequest(HttpClient client, HttpMethod method)
@@ -170,7 +242,7 @@ abstract public class AbstractDHIS2Connector implements Reloadable
     }
     catch (ConnectException e)
     {
-      throw new DHIS2ConnectException(e);
+      throw new HttpConnectionException(e);
     }
     catch (HttpException e)
     {

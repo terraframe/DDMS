@@ -47,13 +47,13 @@ import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdTable;
 
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.etl.dhis2.AbstractDHIS2Connector;
+import dss.vector.solutions.etl.HTTPConnector;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
-import dss.vector.solutions.etl.dhis2.DHIS2HTTPCredentialConnector;
+import dss.vector.solutions.etl.dhis2.DHIS2HTTPConnector;
 
 public class DHIS2DataExporter implements Reloadable
 {
-  private AbstractDHIS2Connector dhis2;
+  private DHIS2HTTPConnector dhis2;
   
   public static void main(String[] args)
   {
@@ -101,7 +101,7 @@ public class DHIS2DataExporter implements Reloadable
   // Our constructor must be 0 arguments because it conforms to Java service loader paradigm.
   public DHIS2DataExporter()
   {
-    dhis2 = new DHIS2HTTPCredentialConnector();
+    dhis2 = new DHIS2HTTPConnector();
   }
   
   public void exportWithCredentials(DHIS2ExportableDataset exportable, String strategy, String url, String username, String password)

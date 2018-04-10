@@ -50,6 +50,7 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.system.gis.geo.GeoEntity;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
+import dss.vector.solutions.etl.HTTPConnector;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
@@ -62,7 +63,7 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
  */
 public class DHIS2GeoMapper implements Reloadable
 {
-  private AbstractDHIS2Connector dhis2;
+  private DHIS2HTTPConnector dhis2;
   
   private Map<Integer, OrgUnitLevel> levels;
   
@@ -121,7 +122,7 @@ public class DHIS2GeoMapper implements Reloadable
 //      this.countryOrgUnitExcludes = StringUtils.split(countryOrgUnitExcludes, ",");
 //    }
     
-    dhis2 = new DHIS2HTTPCredentialConnector();
+    dhis2 = new DHIS2HTTPConnector();
     dhis2.setServerUrl(url);
     dhis2.setCredentials(username, password);
     
@@ -130,7 +131,7 @@ public class DHIS2GeoMapper implements Reloadable
   
   public DHIS2GeoMapper()
   {
-    dhis2 = new DHIS2HTTPCredentialConnector();
+    dhis2 = new DHIS2HTTPConnector();
     dhis2.readConfigFromDB();
     
     levels = new HashMap<Integer, OrgUnitLevel>();
