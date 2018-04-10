@@ -35,15 +35,23 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -257,8 +265,13 @@ public class ODKFormExporter
 //        throw new RuntimeException("Invalid status code [" + statusCode + "].");
 //      }
       
-      CloseableHttpClient httpClient = HttpClients.createDefault();
-      HttpPost uploadFile = new HttpPost("http://172.19.0.1:8080/ODKAggregate/formUpload"); // TODO : don't hardcode
+      CredentialsProvider credsProvider = new BasicCredentialsProvider();
+      credsProvider.setCredentials(
+              new AuthScope("172.19.0.1", 80),
+              new UsernamePasswordCredentials("ddms", "aggregate")); // TODO : don't hardcode
+      
+      CloseableHttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
+      HttpPost post = new HttpPost("http://172.19.0.1:8080/ODKAggregate/formUpload"); // TODO : don't hardcode
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
       // This attaches the file to the POST:
@@ -269,16 +282,16 @@ public class ODKFormExporter
           ContentType.APPLICATION_XML,
           f.getName()
       );
-
+      
       HttpEntity multipart = builder.build();
-      uploadFile.setEntity(multipart);
-      CloseableHttpResponse response = httpClient.execute(uploadFile);
+      post.setEntity(multipart);
+      CloseableHttpResponse response = httpClient.execute(post);
       HttpEntity responseEntity = response.getEntity();
       int statusCode = response.getStatusLine().getStatusCode();
+      InputStream is = responseEntity.getContent();
+      System.out.println(IOUtils.toString(is, "UTF-8"));
       if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_CREATED)
       {
-        InputStream is = responseEntity.getContent();
-        System.out.println(IOUtils.toString(is, "UTF-8"));
         throw new RuntimeException("Invalid status code [" + statusCode + "].");
       }
     }
