@@ -48,12 +48,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.SSLContext;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -1580,7 +1582,10 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     CloseableHttpClient client = null;
     try
     {
-      client = HttpClients.createDefault();
+      SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(SSLContext.getDefault(),SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+
+      client = HttpClients.custom().setSSLSocketFactory(sslsf).build();
+      
 
       HttpGet method = new HttpGet(requestURL);
       response = client.execute(method);
