@@ -16,9 +16,6 @@
  ******************************************************************************/
 package dss.vector.solutions.manager;
 
-import it.sauronsoftware.junique.AlreadyLockedException;
-import it.sauronsoftware.junique.JUnique;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
@@ -34,6 +31,7 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -65,18 +63,20 @@ import org.eclipse.swt.widgets.Monitor;
 
 import dss.vector.solutions.manager.action.BackupRestoreAction;
 import dss.vector.solutions.manager.action.ChangeSettingAction;
-import dss.vector.solutions.manager.action.UninstallAction;
 import dss.vector.solutions.manager.action.ExitAction;
 import dss.vector.solutions.manager.action.GeoAction;
-import dss.vector.solutions.manager.action.SyncAction;
+import dss.vector.solutions.manager.action.KeystoreAction;
+import dss.vector.solutions.manager.action.UninstallAction;
 import dss.vector.solutions.manager.server.IServer;
 import dss.vector.solutions.manager.server.IServerListener;
 import dss.vector.solutions.manager.server.Server;
 import dss.vector.solutions.manager.server.ServerStatus;
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
 
 public class ServerManagerWindow extends ApplicationWindow implements IServerListener, PropertyChangeListener, UncaughtExceptionHandler, IApplicationUninstallManager
 {
-  private static final Point                 DIMENSION        = new Point(300, 275);
+  private static final Point                 DIMENSION        = new Point(300, 300);
 
   /**
    * 
@@ -104,6 +104,8 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   private String[]                           applications;
 
   private boolean                            hide;
+
+  private ToggleMenuManager                  configuration;
 
   public ServerManagerWindow()
   {
@@ -296,7 +298,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     this.items = new LinkedList<ActionContributionItem>();
     this.items.add(new ActionContributionItem(new BackupRestoreAction(this.context)));
     this.items.add(new ActionContributionItem(new GeoAction(this.context, this)));
-    this.items.add(new ActionContributionItem(new SyncAction(this.context)));
+    // this.items.add(new ActionContributionItem(new SyncAction(this.context)));
     this.items.add(new ActionContributionItem(new ChangeSettingAction(this.context)));
     this.items.add(new ActionContributionItem(new UninstallAction(this.context, this)));
 
@@ -327,10 +329,21 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     MenuManager fileMenu = new MenuManager(Localizer.getMessage("FILE"));
     fileMenu.add(new ExitAction(this));
 
-    MenuManager main = new MenuManager("");
-    main.add(fileMenu);
+    this.configuration = new ToggleMenuManager(Localizer.getMessage("CONFIGURATION"));
+    this.configuration.add(new Action(Localizer.getMessage("SETTINGS"))
+    {
+      @Override
+      public void run()
+      {
+        new ServerSettingDialog(Display.getCurrent().getActiveShell(), context, applications).open();
+      }
+    });
+    this.configuration.add(new KeystoreAction());
 
-    return main;
+    MenuManager menuManager = new MenuManager();
+    menuManager.add(fileMenu);
+    menuManager.add(this.configuration);
+    return menuManager;
   }
 
   private void updateState(ServerStatus status)
@@ -342,12 +355,15 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     {
       this.startButton.setEnabled(false);
       this.stopButton.setEnabled(true);
+      this.configuration.setEnabled(false);
+
       this.setServerStatus(Localizer.getMessage("STARTED"));
     }
     else if (status.equals(ServerStatus.STOPPED))
     {
       this.startButton.setEnabled(true);
       this.stopButton.setEnabled(false);
+      this.configuration.setEnabled(true);
       this.application.getCombo().setEnabled(true);
 
       for (ActionContributionItem item : items)
@@ -376,6 +392,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   {
     this.startButton.setEnabled(false);
     this.stopButton.setEnabled(false);
+    this.configuration.setEnabled(false);
     this.application.getCombo().setEnabled(false);
 
     for (ActionContributionItem item : items)
@@ -498,6 +515,8 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   {
     // Don't return from open() until window closes
     this.setBlockOnOpen(true);
+
+    this.addMenuBar();
 
     // Open the main window
     this.open();

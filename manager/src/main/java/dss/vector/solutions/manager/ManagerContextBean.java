@@ -164,5 +164,4 @@ public class ManagerContextBean
   {
     return ManagerContextBean.getApplicationWebInfPath(application) + "lib" + File.separator;
   }
-
 }

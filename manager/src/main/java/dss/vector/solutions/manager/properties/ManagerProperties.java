@@ -63,6 +63,11 @@ public class ManagerProperties
     return instance().getString("webapp.path");
   }
 
+  public static String getODKPath()
+  {
+    return instance().getString("odk.path");
+  }
+
   public static String getSynchLib()
   {
     return instance().getString("synch.lib");
@@ -117,12 +122,12 @@ public class ManagerProperties
   {
     return instance().getString("process.memory.min");
   }
-  
+
   public static String getProcessMemoryMax()
   {
     return instance().getString("process.memory.max");
   }
-  
+
   public static String getProcessPermSize()
   {
     return instance().getString("process.perm.size");
@@ -136,5 +141,20 @@ public class ManagerProperties
   public static String getShortcutDirectory()
   {
     return instance().getString("shortcut.dir");
+  }
+
+  public static String getKeystoreLocation()
+  {
+    return instance().getString("keystore.location");
+  }
+
+  public static char[] getKeystorePassword()
+  {
+    return instance().getString("keystore.password").toCharArray();
+  }
+
+  public static String getKeystoreAlias()
+  {
+    return instance().getString("keystore.alias");
   }
 }
