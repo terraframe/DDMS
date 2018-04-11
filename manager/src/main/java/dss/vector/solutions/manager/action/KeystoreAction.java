@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -64,7 +63,7 @@ public class KeystoreAction extends Action
 
         try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(ManagerProperties.getKeystoreLocation())))
         {
-          keystore.store(bos, ManagerProperties.getKeystorePassword());
+          keystore.store(bos, ManagerProperties.getKeystorePassword().toCharArray());
         }
       }
 
@@ -80,7 +79,7 @@ public class KeystoreAction extends Action
     try (BufferedInputStream kis = new BufferedInputStream(new FileInputStream(ManagerProperties.getKeystoreLocation())))
     {
       KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
-      keystore.load(kis, ManagerProperties.getKeystorePassword());
+      keystore.load(kis, ManagerProperties.getKeystorePassword().toCharArray());
 
       return keystore;
     }

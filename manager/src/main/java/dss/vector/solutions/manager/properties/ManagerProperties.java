@@ -1,21 +1,22 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.manager.properties;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 public class ManagerProperties
@@ -60,7 +61,7 @@ public class ManagerProperties
 
   public static String getWebappPath()
   {
-    return instance().getString("webapp.path");
+    return instance().getString("webapp.root") + "webapps" + File.separator;
   }
 
   public static String getODKPath()
@@ -148,13 +149,23 @@ public class ManagerProperties
     return instance().getString("keystore.location");
   }
 
-  public static char[] getKeystorePassword()
+  public static String getKeystorePassword()
   {
-    return instance().getString("keystore.password").toCharArray();
+    return instance().getString("keystore.password");
   }
 
   public static String getKeystoreAlias()
   {
     return instance().getString("keystore.alias");
+  }
+
+  public static String getServerXml()
+  {
+    return instance().getString("webapp.root") + "conf" + File.separator + "server.xml";
+  }
+  
+  public static String getWebXml()
+  {
+    return instance().getString("webapp.root") + "conf" + File.separator + "web.xml";
   }
 }
