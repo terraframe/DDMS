@@ -38,7 +38,7 @@ public class ServerSettingContextBean
 {
   public static final String    ODK_HOSTNAME_PROPERTY = "security.server.hostname";
 
-  public static final String    HOSTNAME_PROPERTY     = "server.hostname";
+  public static final String    HOSTNAME_PROPERTY     = "security.server.hostname";
 
   public static final String    HTTPS_PROPERTY        = "https.enable";
 
