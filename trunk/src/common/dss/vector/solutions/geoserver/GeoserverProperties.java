@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.geoserver;
 
@@ -56,7 +56,22 @@ public class GeoserverProperties implements Reloadable
    */
   public static String getGeoServerLocalURL()
   {
-    return instance.getBundle().getString("geoserver.local.path");
+    if (System.getProperty("https.enable", "false").equals("false"))
+    {
+      return getGeoServerLocalHttp();
+    }
+
+    return getGeoServerLocalHttps();
+  }
+
+  public static String getGeoServerLocalHttp()
+  {
+    return instance.getBundle().getString("geoserver.local.http");
+  }
+
+  public static String getGeoServerLocalHttps()
+  {
+    return instance.getBundle().getString("geoserver.local.https");
   }
 
   /**
@@ -73,40 +88,40 @@ public class GeoserverProperties implements Reloadable
   {
     return instance.getBundle().getString("geoserver.appname");
   }
-  
+
   public static String getOSMDatabaseName()
   {
-	  return instance.getBundle().getString("osm.databasename");
+    return instance.getBundle().getString("osm.databasename");
   }
-  
+
   public static String getOSMDatabaseSchema()
   {
-	  return instance.getBundle().getString("osm.databaseschema");
+    return instance.getBundle().getString("osm.databaseschema");
   }
-  
+
   public static String getOSMUserName()
   {
-	  return instance.getBundle().getString("osm.user");
+    return instance.getBundle().getString("osm.user");
   }
 
   public static String getOSMPassword()
   {
-	  return instance.getBundle().getString("osm.password");
+    return instance.getBundle().getString("osm.password");
   }
-  
+
   public static String getOSMWorkspace()
   {
-	  return instance.getBundle().getString("osm.workspace");
+    return instance.getBundle().getString("osm.workspace");
   }
-  
+
   public static String getOSMDatastore()
   {
-	  return instance.getBundle().getString("osm.datastore");
+    return instance.getBundle().getString("osm.datastore");
   }
-  
+
   public static String getOSM2PgsqlRoot()
   {
-	  return instance.getBundle().getString("osm.osm2pgsql.util.root");
+    return instance.getBundle().getString("osm.osm2pgsql.util.root");
   }
 
   public static String getLockFile()
@@ -118,22 +133,22 @@ public class GeoserverProperties implements Reloadable
   {
     return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + getAppName() + File.separator + getLockFile();
   }
-  
+
   public static String getDefaultGeoWebCacheDirPath()
   {
     return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + getAppName() + File.separator + "data" + File.separator + "gwc";
   }
-  
+
   public static Integer getZoomStart()
   {
-	  return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstart"));
+    return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstart"));
   }
-  
+
   public static Integer getZoomStop()
   {
-	  return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstop"));
+    return Integer.parseInt(instance.getBundle().getString("geoserver.zoomstop"));
   }
-  
+
   public static String getNumberOfProcessesForUploads()
   {
     return instance.getBundle().getString("osm.numberprocessesforuploads");
