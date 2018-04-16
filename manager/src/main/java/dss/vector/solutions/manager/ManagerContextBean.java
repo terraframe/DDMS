@@ -100,6 +100,11 @@ public class ManagerContextBean
     return ManagerContextBean.getApplicationPath(this.application);
   }
 
+  public String getODKApplicationPath()
+  {
+    return ManagerContextBean.getODKApplicationPath(this.application);
+  }
+  
   public String getApplicationLibPath()
   {
     return ManagerContextBean.getApplicationLibPath(this.application);
@@ -148,6 +153,11 @@ public class ManagerContextBean
   private static String getApplicationPath(String application)
   {
     return ManagerProperties.getWebappPath() + application + File.separator;
+  }
+  
+  private static String getODKApplicationPath(String application)
+  {
+    return ManagerProperties.getWebappPath() + application + "Mobile" + File.separator;
   }
 
   private static String getApplicationWebInfPath(String application)

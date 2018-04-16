@@ -97,7 +97,7 @@ public class ServerSettingContextBean
   {
     try
     {
-      URL resource = this.getClass().getResource("/manager.properties");
+      URL resource = this.getClass().getResource("/server.properties");
       File file = new File(resource.toURI());
 
       PropertyWriter writer = new PropertyWriter(file.getAbsolutePath());
@@ -288,7 +288,7 @@ public class ServerSettingContextBean
   {
     try
     {
-      URL resource = ServerSettingContextBean.class.getResource("/manager.properties");
+      URL resource = ServerSettingContextBean.class.getResource("/server.properties");
       File file = new File(resource.toURI());
 
       PropertyReader reader = new PropertyReader(file.getAbsolutePath());
@@ -308,7 +308,7 @@ public class ServerSettingContextBean
   {
     try
     {
-      URL resource = ServerSettingContextBean.class.getResource("/manager.properties");
+      URL resource = ServerSettingContextBean.class.getResource("/server.properties");
       File file = new File(resource.toURI());
 
       PropertyReader reader = new PropertyReader(file.getAbsolutePath());

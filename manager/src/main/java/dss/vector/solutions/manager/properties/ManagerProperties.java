@@ -168,4 +168,9 @@ public class ManagerProperties
   {
     return instance().getString("webapp.root") + "conf" + File.separator + "web.xml";
   }
+
+  public static String getPsqlCommand()
+  {
+    return instance().getString("psql.cmd");
+  }
 }

@@ -93,11 +93,18 @@ public class UninstallAction extends Action
                    *  1) Drop the database
                    */
                   dropDatabase();
-
+                  
                   /*
                    *  2) Delete the webapp from the tomcat directory
                    */
                   FileUtils.deleteDirectory(new File(context.getApplicationPath()));
+                  
+                  
+                  /*
+                   *  2.1) Delete the odk webapp from the tomcat directory
+                   */
+                  FileUtils.deleteDirectory(new File(context.getODKApplicationPath()));
+                  
 
                   /*
                    *  3) Delete the profiles from the backup directory
@@ -189,6 +196,27 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_DATABASE", props.getDatabaseName()));
     }
+
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres odk -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\"" ;
+    
+    results = this.execWait(command);
+
+    if (results != 0)
+    {
+      throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_SCHEMA", props.getDatabaseName()));
+    }
+
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres postgres -c \"DROP USER IF EXISTS" + props.getDatabaseName() + "_mobile;\"" ;
+    
+    results = this.execWait(command);
+
+    if (results != 0)
+    {
+      throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_USER", props.getDatabaseName()));
+    }
+
+    
+    // -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
   }
 
   private void removeIndexFiles()
