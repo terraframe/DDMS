@@ -17,7 +17,9 @@
 package dss.vector.solutions.geoserver;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import com.runwaysdk.constants.BusinessInfo;
@@ -34,9 +36,33 @@ public class GeoserverProperties implements Reloadable
    */
   private final ResourceBundle             bundle;
 
+  private boolean                          https;
+
   public GeoserverProperties()
   {
     this.bundle = UTF8ResourceBundle.getBundle("GeoServer", Locale.getDefault(), BusinessInfo.class.getClassLoader());
+    this.https = false;
+
+    try
+    {
+      String path = this.bundle.getString("manager.prop");
+
+      Properties props = new Properties();
+      props.load(new FileInputStream(path));
+
+      this.https = new Boolean(props.getProperty("https.enable"));
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+
+      this.https = false;
+    }
+  }
+
+  public boolean isHttps()
+  {
+    return https;
   }
 
   public ResourceBundle getBundle()
@@ -56,12 +82,12 @@ public class GeoserverProperties implements Reloadable
    */
   public static String getGeoServerLocalURL()
   {
-    if (System.getProperty("https.enable", "false").equals("false"))
+    if (instance.isHttps())
     {
-      return getGeoServerLocalHttp();
+      return getGeoServerLocalHttps();
     }
 
-    return getGeoServerLocalHttps();
+    return getGeoServerLocalHttp();
   }
 
   public static String getGeoServerLocalHttp()
