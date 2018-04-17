@@ -212,7 +212,7 @@ public class UninstallAction extends Action
     /*
      * Revoke ODK user permissions
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"REVOKA ALL ON DATABASE odk FROM" + props.getDatabaseName() + "_mobile;\" odk" ;
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"REVOKE ALL ON DATABASE odk FROM" + props.getDatabaseName() + "_mobile;\" odk" ;
     
     results = this.execWait(command);
     
