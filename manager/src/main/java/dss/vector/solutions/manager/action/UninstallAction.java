@@ -200,7 +200,7 @@ public class UninstallAction extends Action
     /*
      * Drop ODK Schema
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\" odk" ;
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\" odk" ;
     
     results = this.execWait(command);
 
@@ -212,7 +212,7 @@ public class UninstallAction extends Action
     /*
      * Revoke ODK user permissions
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"REVOKE ALL ON DATABASE odk FROM" + props.getDatabaseName() + "_mobile;\" odk" ;
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"REVOKE ALL ON DATABASE odk FROM" + props.getDatabaseName() + "_mobile;\" odk" ;
     
     results = this.execWait(command);
     
@@ -224,7 +224,7 @@ public class UninstallAction extends Action
     /*
      * Drop ODK user
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"DROP USER IF EXISTS" + props.getDatabaseName() + "_mobile;\" odk" ;
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP USER IF EXISTS" + props.getDatabaseName() + "_mobile;\" odk" ;
     
     results = this.execWait(command);
 
