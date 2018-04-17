@@ -196,8 +196,11 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_DATABASE", props.getDatabaseName()));
     }
-
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres odk -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\"" ;
+    
+    /*
+     * Drop ODK Schema
+     */
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\" odk" ;
     
     results = this.execWait(command);
 
@@ -205,8 +208,23 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_SCHEMA", props.getDatabaseName()));
     }
+    
+    /*
+     * Revoke ODK user permissions
+     */
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"REVOKA ALL ON DATABASE odk FROM" + props.getDatabaseName() + "_mobile;\" odk" ;
+    
+    results = this.execWait(command);
+    
+    if (results != 0)
+    {
+      throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_USER", props.getDatabaseName()));
+    }
 
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres postgres -c \"DROP USER IF EXISTS" + props.getDatabaseName() + "_mobile;\"" ;
+    /*
+     * Drop ODK user
+     */
+    command = ManagerProperties.getPsqlCommand() +  " -p " + port + "-h " + props.getServerName() + " -U postgres -c \"DROP USER IF EXISTS" + props.getDatabaseName() + "_mobile;\" odk" ;
     
     results = this.execWait(command);
 
@@ -214,9 +232,6 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_USER", props.getDatabaseName()));
     }
-
-    
-    // -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
   }
 
   private void removeIndexFiles()
