@@ -218,7 +218,7 @@ public class UninstallAction extends Action
     
     if (results != 0)
     {
-      throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_USER", props.getDatabaseName()));
+      throw new RuntimeException(Localizer.getMessage("UNABLE_TO_REVOKE_PERMISSIONS", props.getDatabaseName()));
     }
 
     /*
