@@ -155,11 +155,13 @@ public class BackupAction extends Action
   private static void doBackupInRequest(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
     Backup backup = new Backup(print, errOut, file.getName(), file.getParent(), true, true);
+    backup.addAgents(new ODKAgent(appName));
 
     if (doRegistry)
     {
       backup.addAgents(new RegistryAgent(appName));
     }
+    
     backup.backup();
   }
 }
