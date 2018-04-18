@@ -110,7 +110,9 @@ Var AgentDir                # Location of the logging agent directory on the cli
 Var PrimaryLogFile          # Path to the primary logging output file for this program.
 Var isMaster                # Temp flag denoting if the current app is a master or not.
 Var AppName                 # Temp variable for the name of the current app being patched.
+Var MobileName              # Temp variable for the name of the mobile app
 Var LowerAppName
+Var LowerMobileName              
 Var AppsToPatch             # This variable is (optionally) set from the command line, during a silent install. Its a (comma delimited) list of apps which will get patched.
 Var TargetLoc               # Location of the WEB-INF classes directory on the client install.  Changes depending on $AppName.
 Var Phase
@@ -225,18 +227,18 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 8815
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8816
-  StrCpy $PatchVersion 8816
+  StrCpy $ManagerVersion 8856
+  StrCpy $PatchVersion 8856
   StrCpy $RootsVersion 8669
   StrCpy $MenuVersion 8776
-  StrCpy $LocalizationVersion 8797
+  StrCpy $LocalizationVersion 8826
   StrCpy $PermissionsVersion 8812
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $EclipseVersion 8719  
-  StrCpy $WebappsVersion 8798
+  StrCpy $EclipseVersion 8824  
+  StrCpy $WebappsVersion 8827
   StrCpy $JavaVersion 8754
-  StrCpy $TomcatVersion 8798
+  StrCpy $TomcatVersion 8843
   
   # These ones aren't. If you change any of these, make sure to update them in the installer as well
   StrCpy $PropertiesVersion 1
@@ -921,8 +923,45 @@ Function patchApplication
     next:    
   ${Else}
     DetailPrint "The application $AppName is already up to date."
-	LogEx::Write "The application $AppName is already up to date."
+	  LogEx::Write "The application $AppName is already up to date."
   ${EndIf}    
+  
+  StrCpy $MobileName "Mobile"
+  StrCpy $LowerMobileName "_mobile"
+  
+  ${IfNot} ${FileExists} `$INSTDIR\tomcat\webapps\$AppName$MobileName\*.*`
+  
+    # Copy the ODK webapp in the correct folder    
+    !insertmacro MUI_HEADER_TEXT "Installing ODK Webapp" "Installing Tomcat"
+    LogEx::Write "Copying the ODK webapp to $INSTDIR\tomcat\webapps\$AppName$MobileName"
+    SetOutPath $INSTDIR\tomcat\webapps\$AppName$MobileName
+    File /r /x .svn ..\installer-stage\ODKAggregate\*
+    SetOutPath $INSTDIR  
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user $LowerAppName$LowerMobileName with unencrypted password 'noReply'; grant all privileges on database odk to $LowerAppName$LowerMobileName;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
+    Call execDos
+    
+	  # Update ODK jdbc properties
+	  Push jdbc.username=odk_user                                                           # text to be replaced
+	  Push jdbc.username=$LowerAppName$LowerMobileName                                      # replace with
+	  Push all                                                                              # replace all occurrences
+	  Push all                                                                              # replace all occurrences
+	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
+	  Call AdvReplaceInFile      
+    
+	  # Update ODK jdbc properties
+	  Push jdbc.schema=odk                                                                  # text to be replaced
+	  Push jdbc.schema=$LowerAppName                                                        # replace with
+	  Push all                                                                              # replace all occurrences
+	  Push all                                                                              # replace all occurrences
+	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
+	  Call AdvReplaceInFile         
+    
+  ${EndIf}  
+  
 FunctionEnd
 
 Function patchAllMetadata
@@ -1030,11 +1069,17 @@ Function patchManager
     SetOutPath $INSTDIR\manager\geo-manager-1.0.0
     File /r /x .svn ..\standalone\geo-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\manager-1.0.0
-    File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
+    File /r /x .svn /x *applications.txt /x *server.properties ..\standalone\manager-1.0.0\*
     SetOutPath $INSTDIR\manager\synch-manager-1.0.0
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
+
+    ${IfNot} ${FileExists} `$INSTDIR\manager\manager-1.0.0\classes\standalone\manager-1.0.0\classes\server.properties`    
+      SetOutPath $INSTDIR\manager\manager-1.0.0\classes
+      File ..\standalone\manager-1.0.0\classes\server.properties
+    ${EndIf}
+
 	
     # TODO : The code below references $AppName, which can't possibly be defined yet at this point because we're not patching per app, we're patching the manager as a whole.
     #        My guess is that it coincidentally works because $AppName was used elsewhere in the patcher so it uses the last set value of it. I'm not going to attempt to fix
