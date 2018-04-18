@@ -5,12 +5,14 @@ import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.apache.commons.io.FileUtils;
 
 import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.general.ProcessReader;
 import com.runwaysdk.dataaccess.io.BackupAgent;
 import com.runwaysdk.dataaccess.io.RestoreAgent;
@@ -113,6 +115,8 @@ public class ODKAgent implements BackupAgent, RestoreAgent
 
   public void postRestore()
   {
+    this.dropSchema();
+
     this.restoreDatabase();
 
     this.restoreWebapp();
@@ -125,6 +129,40 @@ public class ODKAgent implements BackupAgent, RestoreAgent
     }
     catch (IOException e)
     {
+    }
+  }
+
+  private void dropSchema()
+  {
+    String databaseBinDirectory = DatabaseProperties.getDatabaseBinDirectory();
+
+    String dbImportTool = "" + databaseBinDirectory + File.separator + "psql" + "";
+
+    ArrayList<String> argList = new ArrayList<String>();
+    argList.add(dbImportTool);
+    argList.add("-h");
+    argList.add("127.0.0.1");
+    argList.add("-p");
+    argList.add(Integer.toString(DatabaseProperties.getPort()));
+    argList.add("-U");
+    argList.add(DatabaseProperties.getUser());
+    argList.add("-d");
+    argList.add("odk");
+    argList.add("-c");
+    argList.add("\"DROP SCHEMA IF EXISTS " + this.appName.toLowerCase() + ";\"");
+    argList.add("--no-password");
+    argList.add("--quiet");
+
+    ProcessBuilder pb = new ProcessBuilder(argList);
+
+    try
+    {
+      ProcessReader reader = new ProcessReader(pb);
+      reader.start();
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
     }
   }
 
