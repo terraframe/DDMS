@@ -87,7 +87,10 @@ Var LocalizationVersion
 Var PermissionsVersion
 Var TomcatVersion
 Var AppName
+Var MobileName
 Var LowerAppName
+Var LowerMobileName
+Var HostName
 Var JavaOpts                # Memory options for java commands
 Var JavaHome                # Location of the Java JDK depending on the system OS version
 Var JvmType                 # Flag indicating if the jvm is 32-bit or not
@@ -129,6 +132,56 @@ VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKLM "${REGKEY}" Path
 ShowUninstDetails show
 RequestExecutionLevel admin
+
+; StrContains
+; This function does a case sensitive searches for an occurrence of a substring in a string. 
+; It returns the substring if it is found. 
+; Otherwise it returns null(""). 
+; Written by kenglish_hi
+; Adapted from StrReplace written by dandaman32
+ 
+ 
+Var STR_HAYSTACK
+Var STR_NEEDLE
+Var STR_CONTAINS_VAR_1
+Var STR_CONTAINS_VAR_2
+Var STR_CONTAINS_VAR_3
+Var STR_CONTAINS_VAR_4
+Var STR_RETURN_VAR
+ 
+Function StrContains
+  Exch $STR_NEEDLE
+  Exch 1
+  Exch $STR_HAYSTACK
+  ; Uncomment to debug
+  ;MessageBox MB_OK 'STR_NEEDLE = $STR_NEEDLE STR_HAYSTACK = $STR_HAYSTACK '
+    StrCpy $STR_RETURN_VAR ""
+    StrCpy $STR_CONTAINS_VAR_1 -1
+    StrLen $STR_CONTAINS_VAR_2 $STR_NEEDLE
+    StrLen $STR_CONTAINS_VAR_4 $STR_HAYSTACK
+    loop:
+      IntOp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_1 + 1
+      StrCpy $STR_CONTAINS_VAR_3 $STR_HAYSTACK $STR_CONTAINS_VAR_2 $STR_CONTAINS_VAR_1
+      StrCmp $STR_CONTAINS_VAR_3 $STR_NEEDLE found
+      StrCmp $STR_CONTAINS_VAR_1 $STR_CONTAINS_VAR_4 done
+      Goto loop
+    found:
+      StrCpy $STR_RETURN_VAR $STR_NEEDLE
+      Goto done
+    done:
+   Pop $STR_NEEDLE ;Prevent "invalid opcode" errors and keep the
+   Exch $STR_RETURN_VAR  
+FunctionEnd
+ 
+!macro _StrContainsConstructor OUT NEEDLE HAYSTACK
+  Push `${HAYSTACK}`
+  Push `${NEEDLE}`
+  Call StrContains
+  Pop `${OUT}`
+!macroend
+ 
+!define StrContains '!insertmacro "_StrContainsConstructor"'
+
 
 Function appNameInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
@@ -291,19 +344,19 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8816
+    StrCpy $PatchVersion 8856
     StrCpy $RootsVersion 8669
     StrCpy $MenuVersion 8776
-    StrCpy $LocalizationVersion 8797
+    StrCpy $LocalizationVersion 8826
     StrCpy $PermissionsVersion 8812
 	StrCpy $RunwayVersion 8815
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8816
+	StrCpy $ManagerVersion 8856
 	StrCpy $BirtVersion 7851
-	StrCpy $EclipseVersion 8719  
-	StrCpy $WebappsVersion 8798
+	StrCpy $EclipseVersion 8824  
+	StrCpy $WebappsVersion 8827
 	StrCpy $JavaVersion 8754
-	StrCpy $TomcatVersion 8798
+	StrCpy $TomcatVersion 8843
   
   # These ones are not
   StrCpy $ODKDatabaseVersion 1
@@ -455,21 +508,24 @@ Section -Main SEC0000
     LogEx::Write "Copying docs"
     SetOutPath $INSTDIR\doc
     File /r /x .svn doc\*
+
+  ${IfNot} ${FileExists} `$INSTDIR\tomcat\*.*`
     
     # To accomodate multi-installs, this does not include the user-named webapp, which is instead copied later
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat
 	
-	${If} ${RunningX64}
-	  LogEx::Write "Installing Tomcat 64-bit"
-	  File /r /x .svn /x webapps\DDMS\ tomcat\tomcat64\*
-	${Else}
-	  LogEx::Write "Installing Tomcat 32-bit"
-	  File /r /x .svn /x webapps\DDMS\ tomcat\tomcat32\*
-	${EndIf}
+  	${If} ${RunningX64}
+	    LogEx::Write "Installing Tomcat 64-bit"
+	    File /r /x .svn /x webapps\DDMS\ tomcat\tomcat64\*
+	  ${Else}
+	    LogEx::Write "Installing Tomcat 32-bit"
+	    File /r /x .svn /x webapps\DDMS\ tomcat\tomcat32\*
+  	${EndIf}
 	
-	SetOutPath $INSTDIR\tomcat\webapps
-	File /r /x .svn tomcat\webapps\*
+  	SetOutPath $INSTDIR\tomcat\webapps
+	  File /r /x .svn tomcat\webapps\*
+	${EndIf}
 	
     # Install Postgres
 	SetOutPath $INSTDIR
@@ -560,36 +616,44 @@ Section -Main SEC0000
     appInstall:
     
 	# Update the DDMS Manager
+    
+    ${IfNot} ${FileExists} `$INSTDIR\manager\*.*`
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
     LogEx::Write "Installing DDMS Managers"
-    SetOutPath $INSTDIR\manager
-    File ..\standalone\patch\manager.bat
-	File ..\standalone\patch\manager.ps1
-    File ..\standalone\patch\manager.ico
-	File ..\standalone\patch\ddmschedule.bat
-	File ..\standalone\patch\ddmscli.bat
-    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
-    File /r /x .svn ..\standalone\backup-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
-    File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
-    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
-    File /r /x .svn ..\standalone\geo-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
-    File /r /x .svn ..\standalone\synch-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\keystore
-    File /r /x .svn ..\standalone\doc\keystore\*
+    
+      SetOutPath $INSTDIR\manager
+      File ..\standalone\patch\manager.bat
+  	  File ..\standalone\patch\manager.ps1
+      File ..\standalone\patch\manager.ico
+	    File ..\standalone\patch\ddmschedule.bat
+	    File ..\standalone\patch\ddmscli.bat
+      SetOutPath $INSTDIR\manager\backup-manager-1.0.0
+      File /r /x .svn ..\standalone\backup-manager-1.0.0\*
+      SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
+      File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
+      SetOutPath $INSTDIR\manager\geo-manager-1.0.0
+      File /r /x .svn ..\standalone\geo-manager-1.0.0\*
+      SetOutPath $INSTDIR\manager\synch-manager-1.0.0
+      File /r /x .svn ..\standalone\synch-manager-1.0.0\*
+      SetOutPath $INSTDIR\manager\keystore
+      File /r /x .svn ..\standalone\doc\keystore\*
 	
-	# Update the manager, but don't overwrite the applications.txt if it already exists.
-	SetOutPath $INSTDIR\manager\manager-1.0.0
-	File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
+    	# Update the manager, but don't overwrite the applications.txt if it already exists.
+	    SetOutPath $INSTDIR\manager\manager-1.0.0
+  	  File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
 
-	SetOverwrite off
-	SetOutPath $INSTDIR\manager\manager-1.0.0\classes
-	File ..\standalone\manager-1.0.0\classes\applications.txt
-	SetOverwrite on
+    	SetOverwrite off
+	    SetOutPath $INSTDIR\manager\manager-1.0.0\classes
+  	  File ..\standalone\manager-1.0.0\classes\applications.txt
+  	  SetOverwrite on
+    
+    ${EndIf}  
+
+    
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Creating offline basemap cache"    
 	
-  # Create offline basemap cache directory
-  IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
+    # Create offline basemap cache directory
+    IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
   BASEMAP_NO_EXIST:
     LogEx::Write "3527 Creating offline basemap cache directory."
     CreateDirectory $INSTDIR\basemaps
@@ -616,8 +680,7 @@ Section -Main SEC0000
   
   WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
   
-  
-  
+    
   # Create & Configure ODK Database
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" ODKDatabaseVersion
@@ -639,15 +702,13 @@ Section -Main SEC0000
     LogEx::Write "Skipping odk database software update because the software is up to date."
     DetailPrint "Skipping odk database software update because the software is up to date."
   ${EndIf}
-  
-  
-  
+
     # Copy the webapp in the correct folder
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing $AppName"
     LogEx::Write "Copying the webapp to $INSTDIR\tomcat\webapps\$AppName"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
     File /r /x .svn webapp\*
-    SetOutPath $INSTDIR
+    SetOutPath $INSTDIR  
     
 	# Update index.html redirect
 	Push DDMS                                      # text to be replaced
@@ -660,7 +721,7 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "DO $body$ BEGIN IF NOT EXISTS ( SELECT * FROM   pg_catalog.pg_user WHERE  usename = 'mdssdeploy') THEN CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'; END IF; END $body$;"`
+	  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "DO $body$ BEGIN IF NOT EXISTS ( SELECT * FROM   pg_catalog.pg_user WHERE  usename = 'mdssdeploy') THEN CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'; END IF; END $body$;"`
     Call execDos
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template_postgis OWNER=mdssdeploy"`
     Call execDos
@@ -671,10 +732,10 @@ Section -Main SEC0000
     File "mdss.backup"
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
     Call execDos
-	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
-	Call execDos
-	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
-	Call execDos
+  	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+	  Call execDos
+	  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
+	  Call execDos
 	
     # Update the installation number
     LogEx::Write "Updating the installation number"
@@ -830,6 +891,51 @@ Section -Main SEC0000
     CreateShortcut "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     SetOutPath $INSTDIR\manager
     CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
+    
+   	LogEx::Write "Setting up ODK webapp."
+ 
+    StrCpy $MobileName "Mobile"
+    StrCpy $LowerMobileName "_mobile"
+    Call loadHostName
+ 
+    # Copy the ODK webapp in the correct folder    
+    !insertmacro MUI_HEADER_TEXT "Installing ODK Webapp" "Installing Tomcat"
+    LogEx::Write "Copying the ODK webapp to $INSTDIR\tomcat\webapps\$AppName$MobileName"
+    SetOutPath $INSTDIR\tomcat\webapps\$AppName$MobileName
+    File /r /x .svn ..\installer-stage\ODKAggregate\*
+    SetOutPath $INSTDIR  
+    
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user $LowerAppName$LowerMobileName with unencrypted password 'noReply'; grant all privileges on database odk to $LowerAppName$LowerMobileName;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
+    Call execDos
+    
+	  # Update ODK jdbc properties
+	  Push jdbc.username=odk_user                                                           # text to be replaced
+	  Push jdbc.username=$LowerAppName$LowerMobileName                                      # replace with
+	  Push all                                                                              # replace all occurrences
+	  Push all                                                                              # replace all occurrences
+	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
+	  Call AdvReplaceInFile      
+    
+	  # Update ODK jdbc properties
+	  Push jdbc.schema=odk                                                                  # text to be replaced
+	  Push jdbc.schema=$LowerAppName                                                        # replace with
+	  Push all                                                                              # replace all occurrences
+	  Push all                                                                              # replace all occurrences
+	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
+	  Call AdvReplaceInFile         
+    
+	  # Update ODK security properties
+	  Push security.server.hostname=127.0.0.1                                               # text to be replaced
+	  Push $HostName                                                                        # replace with
+	  Push all                                                                              # replace all occurrences
+	  Push all                                                                              # replace all occurrences
+	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\security.properties  # file to replace in
+	  Call AdvReplaceInFile         
+    
+    
 	LogEx::Write "Installation complete."
 	LogEx::Close
 SectionEnd
@@ -974,6 +1080,35 @@ Function .onInit
   
   ClearErrors
 FunctionEnd
+
+Function loadHostname
+  # Set default status to false
+  StrCpy $HostName "security.server.hostname=127.0.0.1"
+  
+  ClearErrors
+  FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\server.properties r
+    
+  propFileReadLoop:
+  # Read a line from the file into $1
+  FileRead $0 $1
+  # Errors means end of File
+  IfErrors isFinished
+    
+  # Removes the newline from the end of $1
+  ${StrTrimNewLines} $1 $1
+    
+  ${StrContains} $2 "security.server.hostname" $1
+  
+  StrCmp $2 "" propFileReadLoop
+    StrCpy $HostName $1
+    Goto isFinished
+  
+  isFinished:
+  ClearErrors
+  FileClose $0
+FunctionEnd
+
+
 
 # Finds the firefox executable by checking an assortment of registry keys and stores the path in $FPath
 Function findFireFox
