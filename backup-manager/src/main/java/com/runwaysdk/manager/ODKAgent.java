@@ -119,51 +119,57 @@ public class ODKAgent implements BackupAgent, RestoreAgent
   private void restoreWebapp()
   {
     File directory = new File(BackupProperties.getWebappDir() + File.separator + "ODK" + File.separator + "webapp" + File.separator);
-    
-    String webappRootDir = DeployProperties.getDeployRoot() + File.separator + "webapps";
-    String app = this.appName + "Mobile";
 
-    File webappRootFile = new File(webappRootDir, app);
-
-    FilenameFilter filenameFilter = new FilenameFilter()
+    if (directory.exists())
     {
-      public boolean accept(File dir, String name)
+
+      String webappRootDir = DeployProperties.getDeployRoot() + File.separator + "webapps";
+      String app = this.appName + "Mobile";
+
+      File webappRootFile = new File(webappRootDir, app);
+
+      FilenameFilter filenameFilter = new FilenameFilter()
       {
-        if (name.endsWith(".svn") || dir.getName().startsWith("."))
+        public boolean accept(File dir, String name)
         {
-          return false;
+          if (name.endsWith(".svn") || dir.getName().startsWith("."))
+          {
+            return false;
+          }
+
+          return true;
         }
+      };
 
-        return true;
-      }
-    };
-
-    FileFilter fileFilter = new FileFilter()
-    {
-      public boolean accept(File pathname)
+      FileFilter fileFilter = new FileFilter()
       {
-        return true;
+        public boolean accept(File pathname)
+        {
+          return true;
+        }
+      };
+
+      try
+      {
+        FileIO.deleteFolderContent(webappRootFile, fileFilter);
       }
-    };
+      catch (IOException e)
+      {
+        // Some files might have already been deleted. We will copy anyway, as
+        // the
+        // files should overwrite.
+      }
 
-    try
-    {
-      FileIO.deleteFolderContent(webappRootFile, fileFilter);
-    }
-    catch (IOException e)
-    {
-      // Some files might have already been deleted. We will copy anyway, as the
-      // files should overwrite.
-    }
-
-    boolean success = FileIO.copyFolder(directory, webappRootFile, filenameFilter);
-    if (!success)
-    {
-      // TODO : This success stuff is garbage, I want the actual IOException why
-      // swallow it
-      BackupReadException bre = new BackupReadException();
-      bre.setLocation(webappRootFile.getAbsolutePath());
-      throw bre;
+      boolean success = FileIO.copyFolder(directory, webappRootFile, filenameFilter);
+      if (!success)
+      {
+        // TODO : This success stuff is garbage, I want the actual IOException
+        // why
+        // swallow it
+        BackupReadException bre = new BackupReadException();
+        bre.setLocation(webappRootFile.getAbsolutePath());
+        throw bre;
+      }
     }
   }
 
@@ -173,35 +179,38 @@ public class ODKAgent implements BackupAgent, RestoreAgent
     File directory = new File(BackupProperties.getWebappDir() + File.separator + "ODK" + File.separator + "sql" + File.separator);
     File file = new File(directory, this.appName + "Mobile" + ".sql");
 
-    String databaseBinDirectory = DatabaseProperties.getDatabaseBinDirectory();
-
-    String dbImportTool = "" + databaseBinDirectory + File.separator + "psql" + "";
-
-    ArrayList<String> argList = new ArrayList<String>();
-    argList.add(dbImportTool);
-    argList.add("-h");
-    argList.add("127.0.0.1");
-    argList.add("-p");
-    argList.add(Integer.toString(DatabaseProperties.getPort()));
-    argList.add("-U");
-    argList.add(DatabaseProperties.getUser());
-    argList.add("-d");
-    argList.add("odk");
-    argList.add("--file");
-    argList.add(file.getAbsolutePath());
-    argList.add("--no-password");
-    argList.add("--quiet");
-
-    ProcessBuilder pb = new ProcessBuilder(argList);
-
-    try
+    if (file.exists())
     {
-      ProcessReader reader = new ProcessReader(pb);
-      reader.start();
-    }
-    catch (Exception e)
-    {
-      throw new ProgrammingErrorException(e);
+      String databaseBinDirectory = DatabaseProperties.getDatabaseBinDirectory();
+
+      String dbImportTool = "" + databaseBinDirectory + File.separator + "psql" + "";
+
+      ArrayList<String> argList = new ArrayList<String>();
+      argList.add(dbImportTool);
+      argList.add("-h");
+      argList.add("127.0.0.1");
+      argList.add("-p");
+      argList.add(Integer.toString(DatabaseProperties.getPort()));
+      argList.add("-U");
+      argList.add(DatabaseProperties.getUser());
+      argList.add("-d");
+      argList.add("odk");
+      argList.add("--file");
+      argList.add(file.getAbsolutePath());
+      argList.add("--no-password");
+      argList.add("--quiet");
+
+      ProcessBuilder pb = new ProcessBuilder(argList);
+
+      try
+      {
+        ProcessReader reader = new ProcessReader(pb);
+        reader.start();
+      }
+      catch (Exception e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
     }
   }
 
