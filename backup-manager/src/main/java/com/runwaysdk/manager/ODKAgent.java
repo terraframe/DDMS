@@ -50,7 +50,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
     ArrayList<String> argList = new ArrayList<String>();
     argList.add(dbDumpTool);
     argList.add("-U");
-    argList.add(DatabaseProperties.getUser());
+    argList.add(this.appName.toLowerCase() + "_mobile");
     argList.add("-h");
     argList.add("127.0.0.1");
     argList.add("-p");
@@ -70,7 +70,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
     // thanks to the ddms schema, we no longer need to manually specify every
     // table name
     argList.add("-n");
-    argList.add(this.appName.toLowerCase() + "_mobile");
+    argList.add(this.appName.toLowerCase());
 
     argList.add("odk");
 
