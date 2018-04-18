@@ -42,6 +42,7 @@ import com.runwaysdk.manager.EventOutputStream;
 import com.runwaysdk.manager.Localizer;
 import com.runwaysdk.manager.LogOutputStream;
 import com.runwaysdk.manager.Logger;
+import com.runwaysdk.manager.ODKAgent;
 import com.runwaysdk.manager.RegistryAgent;
 import com.runwaysdk.session.Request;
 

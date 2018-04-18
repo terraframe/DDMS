@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package com.runwaysdk.manager.action;
 
@@ -40,6 +40,7 @@ import com.runwaysdk.manager.EventOutputStream;
 import com.runwaysdk.manager.Localizer;
 import com.runwaysdk.manager.LogOutputStream;
 import com.runwaysdk.manager.Logger;
+import com.runwaysdk.manager.ODKAgent;
 import com.runwaysdk.manager.ProgressMonitorDialogAdapter;
 import com.runwaysdk.manager.PropertiesAgent;
 import com.runwaysdk.manager.RegistryAgent;
@@ -48,7 +49,7 @@ import com.runwaysdk.session.Request;
 public class RestoreAction extends Action
 {
   private BackupManagerWindow window;
-  
+
   /**
    * This function is used by the DDMS CLI (ticket 3180)
    * 
@@ -68,15 +69,15 @@ public class RestoreAction extends Action
 
     doRestore(new File(cmd.getOptionValue("f")), System.out, System.err, !cmd.hasOption("r"), cmd.getOptionValue("a"));
   }
-  
+
   public RestoreAction(BackupManagerWindow window)
   {
     super(Localizer.getMessage("RESTORE"), ImageDescriptor.createFromURL(Object.class.getResource("/icons/restore.png")));
     this.setToolTipText(Localizer.getMessage("RESTORE"));
-    
+
     this.window = window;
   }
-  
+
   @Override
   public void run()
   {
@@ -146,7 +147,7 @@ public class RestoreAction extends Action
       }
     }
   }
-  
+
   private static void doRestore(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
     try
@@ -158,16 +159,18 @@ public class RestoreAction extends Action
       CacheShutdown.shutdown();
     }
   }
+
   @Request
   private static void doRestoreInRequest(final File file, PrintStream print, PrintStream errOut, boolean doRegistry, String appName)
   {
     Restore restore = new Restore(print, errOut, file.getAbsolutePath());
+    restore.addAgent(new ODKAgent(appName));
 
     if (doRegistry)
     {
       restore.addAgent(new RegistryAgent(appName));
     }
-    
+
     restore.addAgent(new PropertiesAgent(appName));
 
     restore.restore();
