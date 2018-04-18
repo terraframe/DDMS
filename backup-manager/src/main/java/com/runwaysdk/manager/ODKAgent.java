@@ -34,7 +34,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
   private void backupDatabase()
   {
     // Make the temp sql directory
-    File directory = new File(BackupProperties.getWebappDir() + File.separator + "ODK" + File.separator + "sql" + File.separator);
+    File directory = new File(BackupProperties.getWebappDir() + appName  + File.separator + "Backup" + File.separator + "sql" + File.separator);
     directory.mkdirs();
 
     File file = new File(directory, this.appName + "Mobile" + ".sql");
@@ -85,7 +85,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
 
   private void backupWebapp()
   {
-    File directory = new File(BackupProperties.getWebappDir() + File.separator + "ODK" + File.separator + "webapp" + File.separator);
+    File directory = new File(BackupProperties.getWebappDir() + appName  + File.separator + "Backup" + File.separator + "webapp" + File.separator);
     directory.mkdirs();
 
     String webappRootDir = DeployProperties.getDeployRoot() + File.separator + "webapps";
@@ -118,7 +118,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
 
   private void restoreWebapp()
   {
-    File directory = new File(BackupProperties.getWebappDir() + File.separator + "ODK" + File.separator + "webapp" + File.separator);
+    File directory = new File(BackupProperties.getWebappDir() + appName  + File.separator + "Backup" + File.separator + "webapp" + File.separator);
 
     if (directory.exists())
     {
@@ -176,7 +176,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
   private void restoreDatabase()
   {
     // Make the temp sql directory
-    File directory = new File(BackupProperties.getWebappDir() + File.separator + "ODK" + File.separator + "sql" + File.separator);
+    File directory = new File(BackupProperties.getWebappDir() + appName  + File.separator + "Backup" + File.separator + "sql" + File.separator);
     File file = new File(directory, this.appName + "Mobile" + ".sql");
 
     if (file.exists())
