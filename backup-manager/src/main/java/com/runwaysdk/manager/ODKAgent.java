@@ -149,7 +149,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
     argList.add("-d");
     argList.add("odk");
     argList.add("-c");
-    argList.add("\"DROP SCHEMA IF EXISTS " + this.appName.toLowerCase() + ";\"");
+    argList.add("\"DROP SCHEMA IF EXISTS " + this.appName.toLowerCase() + " CASCADE;\"");
     argList.add("--no-password");
     argList.add("--quiet");
 
