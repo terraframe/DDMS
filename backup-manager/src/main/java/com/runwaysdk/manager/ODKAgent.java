@@ -145,7 +145,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
     argList.add("-p");
     argList.add(Integer.toString(DatabaseProperties.getPort()));
     argList.add("-U");
-    argList.add(DatabaseProperties.getUser());
+    argList.add(this.appName.toLowerCase() + "_mobile");
     argList.add("-d");
     argList.add("odk");
     argList.add("-c");
@@ -242,7 +242,7 @@ public class ODKAgent implements BackupAgent, RestoreAgent
       argList.add("-p");
       argList.add(Integer.toString(DatabaseProperties.getPort()));
       argList.add("-U");
-      argList.add(DatabaseProperties.getUser());
+      argList.add(this.appName.toLowerCase() + "_mobile");
       argList.add("-d");
       argList.add("odk");
       argList.add("--file");
