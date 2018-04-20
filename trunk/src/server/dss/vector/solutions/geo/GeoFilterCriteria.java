@@ -32,14 +32,14 @@ public class GeoFilterCriteria
    */
   private boolean urban;
   
-  private Class<?>[] extraUniversals;
+  private String[] extraUniversals;
   
   public GeoFilterCriteria()
   {
     this(false, false, false, false);
   }
 
-  public GeoFilterCriteria(boolean political, boolean spray, boolean populated, boolean urban, Class<?>...extraUniversals)
+  public GeoFilterCriteria(boolean political, boolean spray, boolean populated, boolean urban, String...extraUniversals)
   {
     this.political = political;
     this.spray = spray;
@@ -72,11 +72,19 @@ public class GeoFilterCriteria
     {
       return true;
     }
+    
+    for (String extra : extraUniversals)
+    {
+      if (universal.definesType().equals(extra))
+      {
+        return true;
+      }
+    }
 
     return false;
   }
   
-  public Class<?>[] getExtraUniversals()
+  public String[] getExtraUniversals()
   {
     return this.extraUniversals;
   }

@@ -76,8 +76,10 @@ import com.runwaysdk.session.Request;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.geo.GeoFilterCriteria;
+import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class ODKFormExporter
 {
@@ -131,7 +133,7 @@ public class ODKFormExporter
     // TODO : Move this somewhere specific to mosquito collections
     MdClassDAOIF subc = MdClassDAO.getMdClassDAO(SubCollection.CLASS);
     MdClassDAOIF mosq = MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS);
-    GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, MosquitoCollection.class);
+    GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, SentinelSite.CLASS, CollectionSite.CLASS);
     ODKForm form = new ODKForm(mosq, gfc, new ODKForm(subc));
     
     ODKFormExporter odkExp = new ODKFormExporter();
