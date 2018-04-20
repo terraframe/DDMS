@@ -26,7 +26,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
 
@@ -61,7 +60,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.dataaccess.CoreException;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -75,6 +73,9 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.session.Request;
 
+import dss.vector.solutions.entomology.MosquitoCollection;
+import dss.vector.solutions.entomology.SubCollection;
+import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -92,6 +93,8 @@ public class ODKFormExporter
    */
   private Element                         root;
   
+  private List<ODKForm> odkForms;
+  
   private List<ODKAttribute> odkAttrs;
   
   private String formName;
@@ -101,6 +104,7 @@ public class ODKFormExporter
   public ODKFormExporter()
   {
     this.odkAttrs = new ArrayList<ODKAttribute>();
+    this.odkForms = new ArrayList<ODKForm>();
     this.formName = null;
   }
 
@@ -108,15 +112,7 @@ public class ODKFormExporter
   {
     try
     {
-      if (args.length != 1)
-      {
-        String errMsg = "One argument is required for ODKFormExporter:\n" + "  1) MdClass typename\n";
-        throw new CoreException(errMsg);
-      }
-
-      String mdcType = args[0];
-      
-      export(mdcType);
+      export();
     }
     catch (Throwable t)
     {
@@ -129,18 +125,87 @@ public class ODKFormExporter
   }
   
   @Request
-  public static void export(String mdcType)
+  public static void export()
   {
-    MdClassDAOIF mdc = MdClassDAO.getMdClassDAO(mdcType);
+    // MosquitoCollections is locked to Political plus Sentinel site and Collection Site.
+    // TODO : Move this somewhere specific to mosquito collections
+    MdClassDAOIF subc = MdClassDAO.getMdClassDAO(SubCollection.CLASS);
+    MdClassDAOIF mosq = MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS);
+    GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, MosquitoCollection.class);
+    ODKForm form = new ODKForm(mosq, gfc, new ODKForm(subc));
     
     ODKFormExporter odkExp = new ODKFormExporter();
-    odkExp.addExportable(mdc, null);
+    odkExp.addForm(form, null);
     odkExp.doIt();
   }
   
-  public void addExportable(MdClassDAOIF exportable, List<ExcelExportListener> listeners)
+// This code is for a different kind of exportable, an MdWebForm.
+// We will need this code when we support types other than MosquitoCollection (in section 8 of the spec).
+//
+//  public void addExportable(MdWebForm exportable, List<ExcelExportListener> listeners)
+//  {
+//    
+//    for (MdWebField field : exportable.getAllMdFields())
+//    {
+//      field.setDefiningMdForm(mdForm);
+//
+//      if (field instanceof MdWebGeo)
+//      {
+//        String fieldName = field.getFieldName();
+//        
+//        MdWebGeo oldWebGeo = (MdWebGeo) oldWebForm.getField(fieldName);
+//        GeoField oldGeoField = GeoField.getGeoFieldForMdWebGeo(oldWebGeo.getId());
+//      }
+//    }
+//    
+//    if (this.formName == null)
+//    {
+//      this.setFormName(mdc.definesType()); // TODO : Figure out a real title
+//    }
+//    
+//    List<? extends MdAttributeDAOIF> mdAttributeDAOs = ExcelUtil.getAttributes(mdc, new DefaultExcelAttributeFilter());
+//
+//    // Store relevant information about all the attributes
+//    for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
+//    {
+//      if (mdAttribute.getMdAttributeConcrete() instanceof MdAttributeStructDAOIF)
+//      {
+//        MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttribute.getMdAttributeConcrete();
+//        MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
+//        List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new DefaultExcelAttributeFilter());
+//
+//        for (MdAttributeDAOIF structAttribute : structAttributes)
+//        {
+//          this.addODKAttribute(new StructColumn(struct, structAttribute));
+//        }
+//      }
+//      else
+//      {
+//        this.addODKAttribute(new AttributeColumn(mdAttribute));
+//      }
+//    }
+//    
+//    if (listeners != null)
+//    {
+//      List<ExcelColumn> excels = new ArrayList<ExcelColumn>();
+//    
+//      for (ExcelExportListener listener : listeners)
+//      {
+//        listener.addColumns(excels);
+//      }
+//      
+//      for (ExcelColumn excel : excels)
+//      {
+//        this.addODKAttribute(ODKAttributeFactory.convert(excel));
+//      }
+//    }
+//  }
+  
+  public void addForm(ODKForm form, List<ExcelExportListener> listeners)
   {
-    prepareColumns(exportable);
+    this.odkForms.add(form);
+    
+    prepareColumns(form);
     
     if (listeners != null)
     {
@@ -195,7 +260,7 @@ public class ODKFormExporter
     // High level : Select lists must be defined for each level in the tree. The GeoEntities must then be exported to the CSV file at the appropriate level.
     
     // 1. Do a depth-first search of the Universal tree to determine the number of levels. TODO : Do we want Universal or GeoEntity?
-    // 2. Create select lists for each level and for each attribute
+    // 2. Create select lists for each level  TODO : and for each attribute
     // 3. Export the GeoEntities to a CSV file
     // 4. Geo filter criteria
     // 5. Fix bug in form generator
@@ -310,6 +375,13 @@ public class ODKFormExporter
   
   private int geoLoop(GeoLoopHandler handler)
   {
+    GeoFilterCriteria[] filters = new GeoFilterCriteria[this.odkForms.size()];
+    for (int i = 0; i < this.odkForms.size(); ++i)
+    {
+      ODKForm form = odkForms.get(i);
+      filters[i] = form.getGeoFilterCriteria();
+    }
+    
     GeoEntity parent = Earth.getEarthInstance();
     Stack<GeoEntity> allChildrenStack = new Stack<GeoEntity>(); // This stack contains GeoEntitys that have not been processed yet
     LinkedMap parentMap = new LinkedMap(); // Maps the first child geo entity to the parent. This is necessary to know the parents and also when we've gone up in the hierarchy
@@ -328,15 +400,27 @@ public class ODKFormExporter
         {
           parentMap.put(child, parent);
           
-          if (parentMap.size() > maxDepth)
+          for (GeoFilterCriteria filt : filters)
           {
-            maxDepth = parentMap.size();
+            if (filt.isPartOfHierarchy(child))
+            {
+              if (parentMap.size() > maxDepth)
+              {
+                maxDepth = parentMap.size();
+              }
+            }
           }
         }
         
         if (handler != null)
         {
-          handler.processGeo(child, parentMap);
+          for (GeoFilterCriteria filt : filters)
+          {
+            if (filt.isPartOfHierarchy(child))
+            {
+              handler.processGeo(child, parentMap);
+            }
+          }
         }
         
         allChildrenStack.push(child);
@@ -570,15 +654,17 @@ public class ODKFormExporter
     this.formName = input.replaceAll("\\.", "_");
   }
   
-  protected void prepareColumns(MdClassDAOIF mdc)
+  protected void prepareColumns(ODKForm form)
   {
+    MdClassDAOIF mdc = form.getBase();
+    
     if (this.formName == null)
     {
       this.setFormName(mdc.definesType()); // TODO : Figure out a real title
     }
     
     List<? extends MdAttributeDAOIF> mdAttributeDAOs = ExcelUtil.getAttributes(mdc, new DefaultExcelAttributeFilter());
-
+    
     // Store relevant information about all the attributes
     for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
     {
