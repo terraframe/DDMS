@@ -42,6 +42,12 @@ public class ServerSettingContextBean
 
   public static final String    HTTPS_PROPERTY        = "https.enable";
 
+  public static final String    KEYSTORE_PROPERTY     = "keystore.path";
+
+  public static final String    KEYSTORE_ALIAS        = "keystore.alias";
+
+  public static final String    KEYSTORE_PASS         = "keystore.pass";
+
   private static final String   MOBILE                = "Mobile";
 
   /**
@@ -50,6 +56,12 @@ public class ServerSettingContextBean
   private PropertyChangeSupport propertyChangeSupport;
 
   private String                hostname;
+
+  private String                keystorePath;
+
+  private String                keystoreAlias;
+
+  private String                keystorePass;
 
   private Boolean               https;
 
@@ -60,6 +72,9 @@ public class ServerSettingContextBean
     this.propertyChangeSupport = new PropertyChangeSupport(this);
     this.hostname = ServerSettingContextBean.getHostnameProperty();
     this.https = ServerSettingContextBean.getHttpsEnableProperty();
+    this.keystorePath = ServerSettingContextBean.getKeystoreProperty();
+    this.keystoreAlias = ServerSettingContextBean.getKeystoreAliasProperty();
+    this.keystorePass = ServerSettingContextBean.getKeystorePassProperty();
     this.applications = applications;
   }
 
@@ -93,6 +108,36 @@ public class ServerSettingContextBean
     this.propertyChangeSupport.firePropertyChange("https", this.https, this.https = https);
   }
 
+  public String getKeystorePath()
+  {
+    return keystorePath;
+  }
+
+  public void setKeystorePath(String keystorePath)
+  {
+    this.propertyChangeSupport.firePropertyChange("keystorePath", this.keystorePath, this.keystorePath = keystorePath);
+  }
+
+  public String getKeystoreAlias()
+  {
+    return keystoreAlias;
+  }
+
+  public void setKeystoreAlias(String keystoreAlias)
+  {
+    this.propertyChangeSupport.firePropertyChange("keystoreAlias", this.keystoreAlias, this.keystoreAlias = keystoreAlias);
+  }
+
+  public String getKeystorePass()
+  {
+    return keystorePass;
+  }
+
+  public void setKeystorePass(String keystorePass)
+  {
+    this.propertyChangeSupport.firePropertyChange("keystorePass", this.keystorePass, this.keystorePass = keystorePass);
+  }
+
   public void save()
   {
     try
@@ -103,11 +148,16 @@ public class ServerSettingContextBean
       PropertyWriter writer = new PropertyWriter(file.getAbsolutePath());
       writer.write(HOSTNAME_PROPERTY, this.hostname);
       writer.write(HTTPS_PROPERTY, this.https.toString());
+      writer.write(KEYSTORE_PROPERTY, this.keystorePath);
+      writer.write(KEYSTORE_ALIAS, this.keystoreAlias);
+      writer.write(KEYSTORE_PASS, this.keystorePass);
 
       /*
        * Update tomcat server.conf file
        */
       this.writeServerConf();
+
+      this.writeWebXml();
 
       /*
        * Write all of the ODK webapp settings
@@ -122,8 +172,6 @@ public class ServerSettingContextBean
         {
           new PropertyWriter(mobileFile.getAbsolutePath()).write(ODK_HOSTNAME_PROPERTY, this.hostname);
         }
-
-        this.writeWebXml();
       }
     }
     catch (URISyntaxException e)
@@ -255,9 +303,9 @@ public class ServerSettingContextBean
           element.setAttribute("secure", "true");
           element.setAttribute("clientAuth", "false");
           element.setAttribute("sslProtocol", "TLS");
-          element.setAttribute("keystoreFile", ManagerProperties.getKeystoreLocation());
-          element.setAttribute("keyAlias", ManagerProperties.getKeystoreAlias());
-          element.setAttribute("keystorePass", ManagerProperties.getKeystorePassword());
+          element.setAttribute("keystoreFile", this.keystorePath);
+          element.setAttribute("keyAlias", this.keystoreAlias);
+          element.setAttribute("keystorePass", this.keystorePass);
 
           nodeList.item(i).appendChild(element);
         }
@@ -286,25 +334,30 @@ public class ServerSettingContextBean
 
   public static String getHostnameProperty()
   {
-    try
-    {
-      URL resource = ServerSettingContextBean.class.getResource("/server.properties");
-      File file = new File(resource.toURI());
+    return getServerProperty(HOSTNAME_PROPERTY);
+  }
 
-      PropertyReader reader = new PropertyReader(file.getAbsolutePath());
+  private static String getKeystoreProperty()
+  {
+    return getServerProperty(KEYSTORE_PROPERTY);
+  }
 
-      String hostname = reader.getValue(HOSTNAME_PROPERTY);
+  private static String getKeystoreAliasProperty()
+  {
+    return getServerProperty(KEYSTORE_ALIAS);
+  }
 
-      return hostname;
-    }
-    catch (URISyntaxException e)
-    {
-      throw new RuntimeException(e);
-    }
-
+  private static String getKeystorePassProperty()
+  {
+    return getServerProperty(KEYSTORE_PASS);
   }
 
   public static Boolean getHttpsEnableProperty()
+  {
+    return new Boolean(getServerProperty(HTTPS_PROPERTY));
+  }
+
+  private static String getServerProperty(String propertyName)
   {
     try
     {
@@ -313,9 +366,9 @@ public class ServerSettingContextBean
 
       PropertyReader reader = new PropertyReader(file.getAbsolutePath());
 
-      String https = reader.getValue(HTTPS_PROPERTY);
+      String hostname = reader.getValue(propertyName);
 
-      return new Boolean(https);
+      return hostname;
     }
     catch (URISyntaxException e)
     {

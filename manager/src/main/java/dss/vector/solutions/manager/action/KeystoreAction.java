@@ -25,15 +25,15 @@ public class KeystoreAction extends Action
 {
   public KeystoreAction()
   {
-    this.setText(Localizer.getMessage("IMPORT_CERTIFICATE"));
+    this.setText(Localizer.getMessage("IMPORT_KEYSTORE"));
   }
 
   @Override
   public void run()
   {
     FileDialog fd = new FileDialog(Display.getCurrent().getActiveShell(), SWT.OPEN);
-    fd.setText(Localizer.getMessage("SELECT_CERT"));
-    fd.setFilterExtensions(new String[] { "*.crt", "*.cer", "*.pem" });
+    fd.setText(Localizer.getMessage("SELECT_KEYSTORE"));
+    fd.setFilterExtensions(new String[] { "*.jks" });
 
     String selected = fd.open();
     String alias = ManagerProperties.getKeystoreAlias();
