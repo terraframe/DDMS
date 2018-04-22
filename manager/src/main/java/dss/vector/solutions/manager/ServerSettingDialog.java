@@ -51,7 +51,7 @@ public class ServerSettingDialog extends Dialog
     super.configureShell(shell);
 
     shell.setText(Localizer.getMessage("SERVER_SETTINGS"));
-//    shell.setSize(new Point(500, 300));
+    // shell.setSize(new Point(500, 300));
   }
 
   @Override
@@ -65,13 +65,13 @@ public class ServerSettingDialog extends Dialog
     this.hostname = new Text(composite, SWT.BORDER);
     this.hostname.setText("");
     this.hostname.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-    
+
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("ENABLE_HTTPS"));
 
     this.https = new Button(composite, SWT.CHECK);
     this.https.setText("");
     this.https.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-    
+
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("KEYSTORE_PATH"));
 
     Composite c = new Composite(composite, SWT.NONE);
@@ -95,7 +95,7 @@ public class ServerSettingDialog extends Dialog
         String selected = fd.open();
         if (selected != null)
         {
-          keystorePath.setText(selected);
+          keystorePath.setText(selected.replaceAll("\\", "/"));
         }
       }
 
@@ -110,8 +110,8 @@ public class ServerSettingDialog extends Dialog
     this.keystoreAlias = new Text(composite, SWT.BORDER);
     this.keystoreAlias.setText("");
     this.keystoreAlias.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-    
-    new Label(composite, SWT.NULL).setText(Localizer.getMessage("KEYSTORE_PASS"));    
+
+    new Label(composite, SWT.NULL).setText(Localizer.getMessage("KEYSTORE_PASS"));
 
     this.keystorePass = new Text(composite, SWT.BORDER);
     this.keystorePass.setText("");
