@@ -17,9 +17,6 @@
 package dss.vector.solutions.manager.server;
 
 import java.rmi.ConnectException;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 
 import org.apache.catalina.Lifecycle;
 import org.apache.commons.cli.CommandLine;

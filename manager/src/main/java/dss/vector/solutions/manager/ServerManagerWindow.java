@@ -65,7 +65,6 @@ import dss.vector.solutions.manager.action.BackupRestoreAction;
 import dss.vector.solutions.manager.action.ChangeSettingAction;
 import dss.vector.solutions.manager.action.ExitAction;
 import dss.vector.solutions.manager.action.GeoAction;
-import dss.vector.solutions.manager.action.KeystoreAction;
 import dss.vector.solutions.manager.action.UninstallAction;
 import dss.vector.solutions.manager.server.IServer;
 import dss.vector.solutions.manager.server.IServerListener;
