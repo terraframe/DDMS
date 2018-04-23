@@ -90,12 +90,12 @@ public class ServerSettingDialog extends Dialog
         FileDialog fd = new FileDialog(Display.getCurrent().getActiveShell(), SWT.OPEN);
         fd.setFileName(keystorePath.getText());
         fd.setText(Localizer.getMessage("SELECT_KEYSTORE"));
-        fd.setFilterExtensions(new String[] { "*.jks" });
+        fd.setFilterExtensions(new String[] { "*.jks", "*.ks" });
 
         String selected = fd.open();
         if (selected != null)
         {
-          keystorePath.setText(selected.replaceAll("\\", "/"));
+          keystorePath.setText(selected.replaceAll("\\\\", "/"));
         }
       }
 
