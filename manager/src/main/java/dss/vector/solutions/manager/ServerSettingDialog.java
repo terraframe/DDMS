@@ -10,8 +10,6 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -41,7 +39,7 @@ public class ServerSettingDialog extends Dialog
   {
     super(parentShell);
 
-    this.setShellStyle(getShellStyle() | SWT.SHELL_TRIM);
+    this.setShellStyle(getShellStyle() | SWT.SHELL_TRIM & (~SWT.RESIZE));
     this.bean = new ServerSettingContextBean(applications);
   }
 
@@ -52,19 +50,32 @@ public class ServerSettingDialog extends Dialog
 
     shell.setText(Localizer.getMessage("SERVER_SETTINGS"));
     // shell.setSize(new Point(500, 300));
+    
+    shell.setLayout(new GridLayout());
   }
 
   @Override
   protected Control createDialogArea(Composite parent)
-  {
+  {    
+    GridData comData = new GridData();
+    comData.heightHint = 170;
+    comData.widthHint = 500;
+    comData.minimumHeight = 170;
+    comData.minimumWidth = 500;
+
     Composite composite = (Composite) super.createDialogArea(parent);
-    composite.setLayout(new GridLayout(2, true));
+    composite.setLayout(new GridLayout(2, false));
+    composite.setLayoutData(comData);
 
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("HOSTNAME"));
+    
+    GridData gridData = new GridData();
+    gridData.horizontalAlignment = SWT.FILL;
+    gridData.grabExcessHorizontalSpace = true;
 
     this.hostname = new Text(composite, SWT.BORDER);
     this.hostname.setText("");
-    this.hostname.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    this.hostname.setLayoutData(gridData);
 
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("ENABLE_HTTPS"));
 
@@ -75,10 +86,15 @@ public class ServerSettingDialog extends Dialog
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("KEYSTORE_PATH"));
 
     Composite c = new Composite(composite, SWT.NONE);
-    c.setLayout(new FillLayout(SWT.HORIZONTAL));
+    c.setLayout(new GridLayout(2, false));
+    c.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    
+    GridData gd = new GridData();
+    gd.horizontalAlignment = SWT.FILL;
+    gd.grabExcessHorizontalSpace = true;
 
     this.keystorePath = new Text(c, SWT.BORDER);
-    this.keystorePath.setText("Select");
+    this.keystorePath.setLayoutData(gd);
 
     Button b = new Button(c, SWT.NONE);
     b.setText("Select File");
@@ -109,13 +125,13 @@ public class ServerSettingDialog extends Dialog
 
     this.keystoreAlias = new Text(composite, SWT.BORDER);
     this.keystoreAlias.setText("");
-    this.keystoreAlias.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    this.keystoreAlias.setLayoutData(gridData);
 
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("KEYSTORE_PASS"));
 
     this.keystorePass = new Text(composite, SWT.BORDER);
     this.keystorePass.setText("");
-    this.keystorePass.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    this.keystorePass.setLayoutData(gridData);
 
     this.bind();
 

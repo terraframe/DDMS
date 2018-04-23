@@ -286,8 +286,17 @@ public class ServerSettingContextBean
         // Use a Transformer for output
         writeXmlFile(doc, ManagerProperties.getServerXml());
       }
-      else if (this.https && nodeList.getLength() == 0)
+      else if (this.https)
       {
+        /*
+         * Remove existing settings and update
+         */
+        for (int i = 0; i < nodeList.getLength(); i++)
+        {
+          Node node = nodeList.item(i);
+          node.getParentNode().removeChild(node);
+        }
+        
         expr = xpath.compile("//Service[@name=\"Catalina\"]");
 
         nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
