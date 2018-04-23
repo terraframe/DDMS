@@ -338,7 +338,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
         new ServerSettingDialog(Display.getCurrent().getActiveShell(), context, applications).open();
       }
     });
-    this.configuration.add(new KeystoreAction());
+//    this.configuration.add(new KeystoreAction());
 
     MenuManager menuManager = new MenuManager();
     menuManager.add(fileMenu);
