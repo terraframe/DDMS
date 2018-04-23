@@ -107,7 +107,7 @@ public class ODKAttribute
     this.required = required;
   }
   
-  public void writeTranslation(Element parent, Document document, String title)
+  public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
     Element text = document.createElement("text");
     
@@ -120,14 +120,14 @@ public class ODKAttribute
     parent.appendChild(text);
   }
   
-  public void writeInstance(Element parent, Document document, String title)
+  public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
     
     parent.appendChild(attrNode);
   }
   
-  public void writeBind(Element parent, Document document, String title)
+  public void writeBind(Element parent, Document document, String title, int maxDepth)
   {
     Element bind = document.createElement("bind");
     
@@ -137,7 +137,7 @@ public class ODKAttribute
     parent.appendChild(bind);
   }
   
-  public void writeBody(Element parent, Document document, String title)
+  public void writeBody(Element parent, Document document, String title, int maxDepth)
   {
     Element input = document.createElement("input");
     parent.appendChild(input);

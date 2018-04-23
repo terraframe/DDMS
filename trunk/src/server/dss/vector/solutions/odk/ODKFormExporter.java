@@ -60,7 +60,10 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.constants.ElementInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdStructDAOIF;
@@ -70,6 +73,7 @@ import com.runwaysdk.dataaccess.io.XMLException;
 import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.session.Request;
 
@@ -262,7 +266,7 @@ public class ODKFormExporter
     // High level : Select lists must be defined for each level in the tree. The GeoEntities must then be exported to the CSV file at the appropriate level.
     
     // 1. Do a depth-first search of the Universal tree to determine the number of levels. TODO : Do we want Universal or GeoEntity?
-    // 2. Create select lists for each level  TODO : and for each attribute
+    // 2. Create select lists for each level and for each attribute
     // 3. Export the GeoEntities to a CSV file
     // 4. Geo filter criteria
     // 5. Fix bug in form generator
@@ -310,7 +314,7 @@ public class ODKFormExporter
         
         for (int i = 0; i < maxDepth-1; ++i)
         {
-          header.add("geolist_" + i);
+          header.add("geoEntity_geolist_" + i); // TODO : This is attribute specific
         }
         
         csvp.printRecord(header);
@@ -329,7 +333,7 @@ public class ODKFormExporter
       geoCSV.add(geo.getGeoId());
       
       int curDepth = (parents.size() - 1);
-      geoCSV.add("geolist_" + curDepth);
+      geoCSV.add("geoEntity_geolist_" + curDepth); // TODO : This is attribute specific
       
       for (int listIndex = 0; listIndex < maxDepth-1; ++listIndex)
       {
@@ -472,19 +476,7 @@ public class ODKFormExporter
     translation.setAttribute("lang", "English");
     for (ODKAttribute attr : this.odkAttrs)
     {
-      attr.writeTranslation(translation, document, this.formName);
-    }
-    for (int i = 0; i < maxDepth-1; ++i)
-    {
-      Element text = document.createElement("text");
-      
-      text.setAttribute("id", "/" + this.formName + "/geolist_" + i + ":label");
-      
-      Element value = document.createElement("value");
-      value.setTextContent("GeoEntity <Attribute_Name> Level " + (i+1)); // TODO : This needs to repeat for every geo attribute
-      text.appendChild(value);
-      
-      translation.appendChild(text);
+      attr.writeTranslation(translation, document, this.formName, maxDepth);
     }
     itext.appendChild(translation);
     
@@ -494,41 +486,14 @@ public class ODKFormExporter
     instance.appendChild(instRoot);
     for (ODKAttribute attr : this.odkAttrs)
     {
-      attr.writeInstance(instRoot, document, this.formName);
-    }
-    for (int i = 0; i < maxDepth-1; ++i)
-    {
-      Element geolist = document.createElement("geolist_" + i);
-      instRoot.appendChild(geolist);
+      attr.writeInstance(instRoot, document, this.formName, maxDepth);
     }
     model.appendChild(instance);
     
     for (ODKAttribute attr : this.odkAttrs)
     {
-      attr.writeBind(model, document, this.formName);
+      attr.writeBind(model, document, this.formName, maxDepth);
     }
-    
-    // Geo lists //
-    
-    Element bind0 = document.createElement("bind");
-    bind0.setAttribute("nodeset", "/" + this.formName + "/geolist_0");
-    bind0.setAttribute("type", "select1");
-    model.appendChild(bind0);
-    
-    for (int i = 1; i < maxDepth-1; ++i)
-    {
-      Element bind = document.createElement("bind");
-      bind.setAttribute("nodeset", "/" + this.formName + "/geolist_" + i);
-      bind.setAttribute("type", "string");
-      model.appendChild(bind);
-    }
-    
-    Element bindGeoId = document.createElement("bind");
-    bindGeoId.setAttribute("calculate", "concat('uuid:', uuid())");
-    bindGeoId.setAttribute("nodeset", "/" + this.formName + "/meta/instanceID");
-    bindGeoId.setAttribute("readonly", "true()");
-    bindGeoId.setAttribute("type", "string");
-    model.appendChild(bindGeoId);
   }
   
   private void doBody(int maxDepth)
@@ -538,51 +503,7 @@ public class ODKFormExporter
     
     for (ODKAttribute attr : this.odkAttrs)
     {
-      attr.writeBody(body, document, this.formName);
-    }
-    
-    // Geo lists //
-    
-    Element select1 = document.createElement("select1");
-    select1.setAttribute("ref", "/" + this.formName + "/geolist_0");
-    body.appendChild(select1);
-    
-    Element geolist0Label = document.createElement("label");
-    geolist0Label.setAttribute("ref", "jr:itext('/" + this.formName + "/geolist_0:label')");
-    select1.appendChild(geolist0Label);
-    
-    GeoEntity earth = Earth.getEarthInstance();
-    List<GeoEntity> countries = earth.getImmediateChildren();
-    for (GeoEntity country : countries)
-    {
-      Element item = document.createElement("item");
-      select1.appendChild(item);
-      
-      Element label = document.createElement("label");
-      label.setTextContent(country.getEntityLabel().getValue());
-      item.appendChild(label);
-      
-      Element value = document.createElement("value");
-      value.setTextContent(country.getGeoId());
-      item.appendChild(value);
-    }
-    
-    for (int i = 1; i < maxDepth-1; ++i)
-    {
-      ArrayList<String> queries = new ArrayList<String>();
-      for (int listIndex = 0; listIndex < i; ++listIndex)
-      {
-        queries.add("geolist_" + listIndex + "= /" + this.formName + "/geolist_" + listIndex);
-      }
-      
-      Element input = document.createElement("input");
-      input.setAttribute("query", "instance('geolist_" + i + "')/root/item[" + StringUtils.join(queries, " and ") + "]");
-      input.setAttribute("ref", "/" + this.formName + "/geolist_" + i);
-      body.appendChild(input);
-      
-      Element label = document.createElement("label");
-      input.appendChild(label);
-      label.setAttribute("ref", "jr:itext('/" + this.formName + "/geolist_" + i + ":label')");
+      attr.writeBody(body, document, this.formName, maxDepth);
     }
   }
   
@@ -665,7 +586,7 @@ public class ODKFormExporter
       this.setFormName(mdc.definesType()); // TODO : Figure out a real title
     }
     
-    List<? extends MdAttributeDAOIF> mdAttributeDAOs = ExcelUtil.getAttributes(mdc, new DefaultExcelAttributeFilter());
+    List<? extends MdAttributeDAOIF> mdAttributeDAOs = ExcelUtil.getAttributes(mdc, new ODKAttributeFilter());
     
     // Store relevant information about all the attributes
     for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
@@ -674,12 +595,16 @@ public class ODKFormExporter
       {
         MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttribute.getMdAttributeConcrete();
         MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
-        List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new DefaultExcelAttributeFilter());
+        List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new ODKAttributeFilter());
 
         for (MdAttributeDAOIF structAttribute : structAttributes)
         {
           this.addODKAttribute(new StructColumn(struct, structAttribute));
         }
+      }
+      if (mdAttribute instanceof MdAttributeReferenceDAOIF && ((MdAttributeReferenceDAOIF) mdAttribute).getReferenceMdBusinessDAO().definesType().equals(GeoEntity.CLASS))
+      {
+        this.addODKAttribute(new ODKGeoAttribute(mdAttribute));
       }
       else
       {
@@ -691,5 +616,28 @@ public class ODKFormExporter
   public void addODKAttribute(ODKAttribute column)
   {
     this.odkAttrs.add(column);
+  }
+  
+  public class ODKAttributeFilter implements MdAttributeFilter
+  {
+    @Override
+    public boolean accept(MdAttributeDAOIF mdAttribute)
+    {
+      if (mdAttribute.isSystem() || 
+          mdAttribute.definesAttribute().equals(ElementInfo.DOMAIN) || 
+          mdAttribute.definesAttribute().equals(ElementInfo.OWNER) || 
+          mdAttribute.definesAttribute().equals(ElementInfo.KEY) ||          
+          !( mdAttribute instanceof MdAttributePrimitiveDAOIF ||           
+             mdAttribute instanceof MdAttributeStructDAOIF ||
+             mdAttribute instanceof MdAttributeReferenceDAOIF))
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    
+    }
   }
 }

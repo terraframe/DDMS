@@ -37,7 +37,7 @@ public abstract class ODKPrimitiveAttribute extends ODKAttribute
   public ODKPrimitiveAttribute(MdWebAttributeDAOIF mdField, int index)
   {
     super(mdField.getDefiningMdAttribute().getValue(MdAttributeConcreteInfo.NAME), mdField.getDisplayLabel(Session.getCurrentLocale()), mdField.getDescription(Session.getCurrentLocale()), index, Boolean.parseBoolean(mdField.isRequired()));
-
+    
     this.mdField = mdField;
   }
 

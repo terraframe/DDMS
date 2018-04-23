@@ -36,7 +36,7 @@ import com.runwaysdk.session.Session;
 
 public class AttributeColumn extends ODKAttribute
 {
-  private MdAttributeDAOIF mdAttribute;
+  protected MdAttributeDAOIF mdAttribute;
 
   public AttributeColumn(MdAttributeDAOIF mdAttribute, int index)
   {
@@ -77,7 +77,8 @@ public class AttributeColumn extends ODKAttribute
     return mdAttribute;
   }
   
-  public void writeInstance(Element parent, Document document, String title)
+  @Override
+  public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
     
