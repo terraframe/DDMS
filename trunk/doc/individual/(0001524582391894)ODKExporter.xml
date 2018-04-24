@@ -1,0 +1,28 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdProblem name="dss.vector.solutions.odk.TermExportLimitProblem"
+				label="Term Export Problem"
+				message="Unable to export terms for the attribute [{attributeLabel}]. Number of options exceed the maximum limit of [{limit}]">
+				<attributes>
+					<text name="attributeLabel" label="Attribute Label"></text>
+					<integer name="limit" label="Limit" />
+				</attributes>
+			</mdProblem>
+			<mdProblem name="dss.vector.solutions.odk.TermExportProblem"
+				label="Term Export Problem"
+				message="Unable to export terms for the attribute [{attributeLabel}]. Must have at least one option">
+				<attributes>
+					<text name="attributeLabel" label="Attribute Label"></text>
+				</attributes>
+			</mdProblem>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete>
+		  <object type="com.runwaysdk.system.metadata.MdProblem" key="dss.vector.solutions.odk.TermExportProblem"/>		
+		  <object type="com.runwaysdk.system.metadata.MdProblem" key="dss.vector.solutions.odk.TermExportLimitProblem"/>		
+		</delete>
+	</undoIt>
+</version>
