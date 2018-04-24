@@ -20,7 +20,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
+
 <c:set scope="request" var="page_title" value="Create_MdWebGeo" />
+
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
@@ -30,7 +32,63 @@
     <%@include file="form.jsp" %>
 </dl>
     <mdss:localize var="Create_Localize" key="Create" />
-    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.createMdField.button" value="${Create_Localize}" action="dss.vector.solutions.form.MdFormAdminController.createGeoField.mojo" />
+    <button name="dss.vector.solutions.form.MdFormAdminController.createMdField.button" id="1obihap0bjbl5p3qmz46o8zvkvahf88g" value="${Create_Localize}">
+${Create_Localize}</button>
     <mdss:localize var="Cancel_Localize" key="Cancel" />
     <mjl:command name="dss.vector.solutions.form.MdFormAdminController.cancelMdField.button" value="${Cancel_Localize}" action="dss.vector.solutions.form.MdFormAdminController.cancelMdField.mojo" />
   </mjl:form>
+
+  
+<script type="text/javascript">
+var geoClick = function(){
+  var params = Mojo.Util.collectFormValues('com.runwaysdk.system.metadata.MdWebGeo.form.id');
+  
+  if (params["geoField.hierarchy"] != null)
+  {
+    var hierarchy = params["geoField.hierarchy"][0];
+    
+    if (hierarchy === "spray")
+    {
+      params["geoField.isPoliticalHierarchy"] = "false";
+      params["geoField.isSprayHierarchy"] = "true";
+      params["geoField.isPopulationHierarchy"] = "false";
+      params["geoField.isUrbanHierarchy"] = "false";
+    }
+    else if (hierarchy === "political")
+    {
+      params["geoField.isPoliticalHierarchy"] = "true";
+      params["geoField.isSprayHierarchy"] = "false";
+      params["geoField.isPopulationHierarchy"] = "false";
+      params["geoField.isUrbanHierarchy"] = "false";
+    }
+    else if (hierarchy === "urban")
+    {
+      params["geoField.isPoliticalHierarchy"] = "false";
+      params["geoField.isSprayHierarchy"] = "false";
+      params["geoField.isPopulationHierarchy"] = "false";
+      params["geoField.isUrbanHierarchy"] = "true";
+    }
+    else if (hierarchy === "population")
+    {
+      params["geoField.isPoliticalHierarchy"] = "false";
+      params["geoField.isSprayHierarchy"] = "false";
+      params["geoField.isPopulationHierarchy"] = "true";
+      params["geoField.isUrbanHierarchy"] = "false";
+    }
+    else
+    {
+      params["geoField.isPoliticalHierarchy"] = "false";
+      params["geoField.isSprayHierarchy"] = "false";
+      params["geoField.isPopulationHierarchy"] = "false";
+      params["geoField.isUrbanHierarchy"] = "false";
+    }
+    
+    delete params["geoField.hierarchy"];
+  }
+  
+  Mojo.$.dss.vector.solutions.form.MdFormAdminController._notifyCreateGeoFieldListener(params, 'dss.vector.solutions.form.MdFormAdminController.createGeoField.mojo', '1obihap0bjbl5p3qmz46o8zvkvahf88g');
+  return false;
+}
+var but = document.getElementById('1obihap0bjbl5p3qmz46o8zvkvahf88g');
+but.addEventListener('click', geoClick, false);
+</script>

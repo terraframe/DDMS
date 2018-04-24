@@ -32,6 +32,8 @@
   <mjl:dt attribute="isUnderSystemRoot">
     <mjl:boolean param="isUnderSystemRoot" />
   </mjl:dt>
+  
+  <!--
   <mjl:dt attribute="isPoliticalHierarchy">
     <mjl:boolean param="isPoliticalHierarchy" />
   </mjl:dt>
@@ -44,6 +46,63 @@
   <mjl:dt attribute="isUrbanHierarchy">
     <mjl:boolean param="isUrbanHierarchy" />
   </mjl:dt>
+  -->
+   
+  <dt><label title="Allows restriction of the geo field to a particular hierarchy.">Hierarchy</label></dt>
+  <dd>
+    <select name="geoField.hierarchy">
+      <c:choose>
+        <c:when test="${not geoField.isPoliticalHierarchy and not geoField.isSprayHierarchy and not geoField.isPopulationHierarchy and not geoField.isUrbanHierarchy}">
+          <option selected=selected value=""></option>
+        </c:when>
+        <c:otherwise>
+          <option value=""></option>
+        </c:otherwise>
+      </c:choose>
+      <c:choose>
+        <c:when test="${geoField.isPoliticalHierarchy}">
+          <option selected=selected value="political">
+        </c:when>
+        <c:otherwise>
+          <option value="political">
+        </c:otherwise>
+      </c:choose>
+        Political
+      </option>
+      <c:choose>
+        <c:when test="${geoField.isUrbanHierarchy}">
+          <option selected=selected value="urban">
+        </c:when>
+        <c:otherwise>
+          <option value="urban">
+        </c:otherwise>
+      </c:choose>
+        Urban
+      </option>
+      <c:choose>
+        <c:when test="${geoField.isSprayHierarchy}">
+          <option selected=selected value="spray">
+        </c:when>
+        <c:otherwise>
+          <option value="spray">
+        </c:otherwise>
+      </c:choose>
+        Spray
+      </option>
+      <c:choose>
+        <c:when test="${geoField.isPopulationHierarchy}">
+          <option selected=selected value="population">
+        </c:when>
+        <c:otherwise>
+          <option value="population">
+        </c:otherwise>
+      </c:choose>
+        Population
+      </option>
+    </select>
+  </dd>
+  
+  
   <mjl:dt attribute="filter">
     <mjl:select param="filter" items="${universals}" var="current" valueAttribute="geoHierarchyId" includeBlank="true">
       <mjl:option>
