@@ -99,8 +99,8 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     }
     else
     {
-//      disease = Disease.getMalaria();
-      disease = Disease.getByKey("VL");
+      disease = Disease.getMalaria();
+//      disease = Disease.getByKey("VL");
     }
 
     return disease;
