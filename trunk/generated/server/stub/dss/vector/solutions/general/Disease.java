@@ -19,6 +19,7 @@ package dss.vector.solutions.general;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.session.SessionIF;
@@ -98,7 +99,8 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     }
     else
     {
-      disease = Disease.getMalaria();
+//      disease = Disease.getMalaria();
+      disease = Disease.getByKey("VL");
     }
 
     return disease;
@@ -140,6 +142,30 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     return termQueryRef.EQ(t);
   }
 
+  public static Condition getInactiveCriteria(ValueQuery vQuery, TermQueryReferenceIF termQueryRef, Boolean inactive)
+  {
+    // The following has a bug in the query API
+    // Disease disease = getDisease();
+    //
+    // InactivePropertyQuery ipQ = new InactivePropertyQuery(f);
+    //
+    // ipQ.AND(ipQ.getDisease().containsExactly(disease));
+    // ipQ.AND(ipQ.getInactive().EQ(inactive));
+    //
+    // return termQueryRef.inactiveProperties(ipQ);
+    
+    TermQuery t = new TermQuery(vQuery);
+    InactivePropertyQuery ip = new InactivePropertyQuery(vQuery);
+    
+    Disease disease = getCurrent();
+    vQuery.WHERE(ip.getDisease().EQ(disease));
+    vQuery.WHERE(ip.getInactive().EQ(inactive));
+    
+    vQuery.AND(t.inactiveProperties(ip));
+    
+    return termQueryRef.EQ(t);
+  }
+  
   public static Disease[] getAllDiseases()
   {
     DiseaseQuery query = Disease.getAllInstances(null, true, 0, 0);
