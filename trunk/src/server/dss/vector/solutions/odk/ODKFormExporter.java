@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
+import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -77,6 +79,7 @@ import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Request;
 
@@ -295,7 +298,7 @@ public class ODKFormExporter
 
     doBody(maxDepth);
 
-    print();
+    // print();
 
     submit();
   }
@@ -552,7 +555,7 @@ public class ODKFormExporter
   {
     Element body = document.createElement("h:body");
     root.appendChild(body);
-    
+
     for (ODKAttribute attr : this.odkAttrs)
     {
       attr.writeBody(body, document, this.formName, maxDepth);
@@ -563,6 +566,7 @@ public class ODKFormExporter
   // multipart/form-data" --form
   // "form_def_file=@/home/rick/Documents/eclipse/workspace/MDSS/dev/mosquitos-test.xml"
   // http://172.19.0.1:8080/ODKAggregate/formUpload
+  @AbortIfProblem
   private void submit()
   {
     TransformerFactory tfactory = TransformerFactory.newInstance();
@@ -592,9 +596,9 @@ public class ODKFormExporter
       // 3. Push the document to ODK
       CredentialsProvider credsProvider = new BasicCredentialsProvider();
       credsProvider.setCredentials(new AuthScope(IP_ADDRESS, 80), new UsernamePasswordCredentials("ddms", "aggregate")); // TODO
-                                                                                                                           // :
-                                                                                                                           // don't
-                                                                                                                           // hardcode
+                                                                                                                         // :
+                                                                                                                         // don't
+                                                                                                                         // hardcode
 
       CloseableHttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
       HttpPost post = new HttpPost("http://" + IP_ADDRESS + ":8080/ODKAggregate/formUpload"); // TODO
@@ -657,6 +661,13 @@ public class ODKFormExporter
   {
     MdClassDAOIF mdc = form.getBase();
 
+    /*
+     * Global Map of all the exported term ids. This is used to prevent the same
+     * term from being translated multiple times even if the term is an item of
+     * multiple different attributes.
+     */
+    Set<String> items = new TreeSet<String>();
+
     if (this.formName == null)
     {
       this.setFormName(mdc.definesType()); // TODO : Figure out a real title
@@ -689,7 +700,7 @@ public class ODKFormExporter
         }
         else
         {
-          this.addODKAttribute(new ODKTermAttribute(mdAttribute));
+          this.addODKAttribute(new ODKTermAttribute(mdAttribute, items));
         }
       }
       else
