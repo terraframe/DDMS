@@ -84,4 +84,9 @@ public class BackupProperties
   {
     return instance().getString("elevate.import.cmd");
   }
+
+  public static String getServerPath()
+  {
+    return instance().getString("server.path");
+  }
 }
