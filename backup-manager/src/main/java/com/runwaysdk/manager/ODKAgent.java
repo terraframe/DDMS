@@ -2,17 +2,17 @@ package com.runwaysdk.manager;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
 import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.general.ProcessReader;
 import com.runwaysdk.dataaccess.io.BackupAgent;
 import com.runwaysdk.dataaccess.io.RestoreAgent;
@@ -21,7 +21,9 @@ import com.runwaysdk.util.FileIO;
 
 public class ODKAgent implements BackupAgent, RestoreAgent
 {
-  private String appName;
+  public static final String HOSTNAME_PROPERTY = "security.server.hostname";
+
+  private String             appName;
 
   public ODKAgent(String appName)
   {
@@ -121,14 +123,26 @@ public class ODKAgent implements BackupAgent, RestoreAgent
 
     this.restoreWebapp();
 
-    File directory = new File(BackupProperties.getWebappDir() + appName + File.separator + "Backup" + File.separator);
+    /*
+     * Update the security.server.hostname value of the restored odk webapp
+     */
+    String hostname = this.getServerProperty(HOSTNAME_PROPERTY);
+
+    String dir = DeployProperties.getDeployRoot() + File.separator + "webapps" + File.separator + this.appName + "Mobile" + File.separator + "WEB-INF" + File.separator + "classes";
+    File file = new File(dir, "security.properties");
+
+    if (file.exists())
+    {
+      new PropertyWriter(file.getAbsolutePath()).write(HOSTNAME_PROPERTY, hostname);
+    }
 
     try
     {
-      FileUtils.deleteDirectory(directory);
+      FileUtils.deleteDirectory(new File(BackupProperties.getWebappDir() + appName + File.separator + "Backup" + File.separator));
     }
     catch (IOException e)
     {
+      throw new RuntimeException(e);
     }
   }
 
@@ -273,4 +287,22 @@ public class ODKAgent implements BackupAgent, RestoreAgent
   {
     // noop
   }
+
+  private String getServerProperty(String propertyName)
+  {
+    try
+    {
+      File file = new File(BackupProperties.getServerPath());
+
+      Properties props = new Properties();
+      props.load(new FileInputStream(file));
+
+      return props.getProperty(propertyName);
+    }
+    catch (IOException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+
 }
