@@ -1,0 +1,19 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.odk.ODKFormMapping">
+        <attributes>
+          <integer name="revision" label="revision" />
+          <reference name="disease" label="disease" type="dss.vector.solutions.general.Disease"/>
+          <char name="formName" label="formName" indexType="unique index" size="2000"/>
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.odk.ODKFormMapping" type="com.runwaysdk.system.metadata.MdBusiness"/>
+    </delete>
+  </undoIt>
+</version>

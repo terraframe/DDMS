@@ -25,7 +25,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -44,7 +46,6 @@ import org.apache.commons.collections.map.LinkedMap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
@@ -62,10 +63,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.constants.ElementInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -81,10 +80,13 @@ import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.SubCollectionView;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
@@ -121,7 +123,7 @@ public class ODKFormExporter
 
   private static final String EXPORT_DIR = "dev/";
 
-  private static final String IP_ADDRESS = "192.168.1.187";
+  private static final String IP_ADDRESS = "172.19.0.1";
 
   /**
    * The DOM <code>document</code> that is populated with data from the core.
@@ -298,19 +300,18 @@ public class ODKFormExporter
 
     doBody(maxDepth);
 
-    // print();
+//    print();
 
     submit();
   }
 
   private int generateGeoEntityCSV()
   {
-    // High level : Select lists must be defined for each level in the tree. The
-    // GeoEntities must then be exported to the CSV file at the appropriate
-    // level.
-
-    // 1. Do a depth-first search of the Universal tree to determine the number
-    // of levels. TODO : Do we want Universal or GeoEntity?
+    // TODO : versioning of odk submissions
+    
+    // High level : Select lists must be defined for each level in the tree. The GeoEntities must then be exported to the CSV file at the appropriate level.
+    
+    // 1. Do a depth-first search of the Universal tree to determine the number of levels. TODO : Do we want Universal or GeoEntity?
     // 2. Create select lists for each level and for each attribute
     // 3. Export the GeoEntities to a CSV file
     // 4. Geo filter criteria
@@ -518,6 +519,42 @@ public class ODKFormExporter
 
     root.appendChild(head);
   }
+  
+  protected String getFormVersion()
+  {
+    ODKFormMappingQuery q = new ODKFormMappingQuery(new QueryFactory());
+    q.WHERE(q.getFormName().EQ(this.formName));
+    OIterator<? extends ODKFormMapping> it = q.getIterator();
+    try
+    {
+      String version = new SimpleDateFormat("yyyyMMdd").format(new Date());
+      
+      if (it.hasNext())
+      {
+        ODKFormMapping mapping = it.next();
+        mapping.setRevision(mapping.getRevision()+1);
+        mapping.apply();
+        
+        version = version + String.format("%02d", mapping.getRevision());
+      }
+      else
+      {
+        ODKFormMapping mapping = new ODKFormMapping();
+        mapping.setFormName(this.formName);
+        mapping.setDisease(Disease.getCurrent());
+        mapping.setRevision(0);
+        mapping.apply();
+        
+        version = version + String.format("%02d", mapping.getRevision());
+      }
+      
+      return version;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
 
   private void doModel(Element head, int maxDepth)
   {
@@ -538,7 +575,11 @@ public class ODKFormExporter
     Element instance = document.createElement("instance");
     Element instRoot = document.createElement(formName);
     instRoot.setAttribute("id", formName);
+    
+    instRoot.setAttribute("orx:version", getFormVersion());
+    
     instance.appendChild(instRoot);
+    
     for (ODKAttribute attr : this.odkAttrs)
     {
       attr.writeInstance(instRoot, document, this.formName, maxDepth);
