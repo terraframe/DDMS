@@ -96,31 +96,6 @@ import dss.vector.solutions.ontology.Term;
 
 public class ODKFormExporter
 {
-  private static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
-  {
-
-    @Override
-    public boolean accept(MdAttributeDAOIF mdAttribute)
-    {
-      if (mdAttribute instanceof MdAttributeReferenceDAOIF)
-      {
-        MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttribute ).getReferenceMdBusinessDAO();
-
-        String type = referenceMdBusiness.definesType();
-
-        return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS);
-      }
-
-      if (mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID))
-      {
-        return false;
-      }
-
-      return super.accept(mdAttribute);
-    }
-
-  }
-
   private static final String EXPORT_DIR = "dev/";
 
   private static final String IP_ADDRESS = "172.19.0.1";
@@ -137,7 +112,7 @@ public class ODKFormExporter
 
   private List<ODKForm>       odkForms;
 
-  private List<ODKAttribute>  odkAttrs;
+  private List<ODKAttribute>  baseAttrs;
 
   private String              formName;
 
@@ -145,7 +120,7 @@ public class ODKFormExporter
 
   public ODKFormExporter()
   {
-    this.odkAttrs = new ArrayList<ODKAttribute>();
+    this.baseAttrs = new ArrayList<ODKAttribute>();
     this.odkForms = new ArrayList<ODKForm>();
     this.formName = null;
   }
@@ -252,8 +227,13 @@ public class ODKFormExporter
   public void addForm(ODKForm form, List<ExcelExportListener> listeners)
   {
     this.odkForms.add(form);
+    
+    if (this.formName == null)
+    {
+      this.setFormName(form.getFormName());
+    }
 
-    prepareColumns(form);
+    this.baseAttrs.addAll(form.getBaseAttrs());
 
     if (listeners != null)
     {
@@ -566,9 +546,10 @@ public class ODKFormExporter
 
     Element translation = document.createElement("translation");
     translation.setAttribute("lang", "English");
-    for (ODKAttribute attr : this.odkAttrs)
+    
+    for (ODKForm form : this.odkForms)
     {
-      attr.writeTranslation(translation, document, this.formName, maxDepth);
+      form.writeTranslation(translation, document, this.formName, maxDepth);
     }
     itext.appendChild(translation);
 
@@ -580,15 +561,33 @@ public class ODKFormExporter
     
     instance.appendChild(instRoot);
     
-    for (ODKAttribute attr : this.odkAttrs)
+    for (ODKAttribute attr : this.baseAttrs)
     {
       attr.writeInstance(instRoot, document, this.formName, maxDepth);
     }
+    for (ODKForm form : this.odkForms)
+    {
+      ODKForm[] repeats = form.getRepeats();
+      
+      for (ODKForm repeat : repeats)
+      {
+        String repeatFormName = repeat.getFormName();
+        
+        Element repeatRoot = document.createElement(repeatFormName);
+        repeatRoot.setAttribute("id", repeatFormName);
+        instRoot.appendChild(repeatRoot);
+        
+        for (ODKAttribute attr : form.getRepeatAttrs())
+        {
+          attr.writeInstance(repeatRoot, document, repeatFormName, maxDepth);
+        }
+      }
+    }
     model.appendChild(instance);
 
-    for (ODKAttribute attr : this.odkAttrs)
+    for (ODKForm form : this.odkForms)
     {
-      attr.writeBind(model, document, this.formName, maxDepth);
+      form.writeBind(model, document, this.formName, maxDepth);
     }
   }
 
@@ -597,9 +596,9 @@ public class ODKFormExporter
     Element body = document.createElement("h:body");
     root.appendChild(body);
 
-    for (ODKAttribute attr : this.odkAttrs)
+    for (ODKForm form : this.odkForms)
     {
-      attr.writeBody(body, document, this.formName, maxDepth);
+      form.writeBody(body, document, this.formName, maxDepth);
     }
   }
 
@@ -675,84 +674,13 @@ public class ODKFormExporter
     }
   }
 
-  private void print()
-  {
-    TransformerFactory tfactory = TransformerFactory.newInstance();
-
-    try
-    {
-      // 1. Write the document to a string
-      Transformer serializer = tfactory.newTransformer();
-      serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-      serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-      serializer.transform(new DOMSource(document), new StreamResult(System.out));
-    }
-    catch (Exception e)
-    {
-      throw new XMLException(e);
-    }
-  }
-
   protected void setFormName(String input)
   {
-    this.formName = input.replaceAll("\\.", "_");
-  }
-
-  protected void prepareColumns(ODKForm form)
-  {
-    MdClassDAOIF mdc = form.getBase();
-
-    /*
-     * Global Map of all the exported term ids. This is used to prevent the same
-     * term from being translated multiple times even if the term is an item of
-     * multiple different attributes.
-     */
-    Set<String> items = new TreeSet<String>();
-
-    if (this.formName == null)
-    {
-      this.setFormName(mdc.definesType()); // TODO : Figure out a real title
-    }
-
-    List<? extends MdAttributeDAOIF> mdAttributeDAOs = ExcelUtil.getAttributes(mdc, new Filter());
-
-    // Store relevant information about all the attributes
-    for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
-    {
-      MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
-
-      if (mdAttributeConcrete instanceof MdAttributeStructDAOIF)
-      {
-        MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttributeConcrete;
-        MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
-        List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new Filter());
-
-        for (MdAttributeDAOIF structAttribute : structAttributes)
-        {
-          this.addODKAttribute(new StructColumn(struct, structAttribute));
-        }
-      }
-      else if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
-      {
-        MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttributeConcrete ).getReferenceMdBusinessDAO();
-        if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
-        {
-          this.addODKAttribute(new ODKGeoAttribute(mdAttribute));
-        }
-        else
-        {
-          this.addODKAttribute(new ODKTermAttribute(mdAttribute, items));
-        }
-      }
-      else
-      {
-        this.addODKAttribute(new AttributeColumn(mdAttribute));
-      }
-    }
+    this.formName = input;
   }
 
   public void addODKAttribute(ODKAttribute column)
   {
-    this.odkAttrs.add(column);
+    this.baseAttrs.add(column);
   }
 }
