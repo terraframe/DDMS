@@ -20,11 +20,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
+
 <!-- Tell Runway what the application context path is. -->
 <script>
 window.com = window.com || {};
 window.com.runwaysdk = window.com.runwaysdk || {};
 window.com.runwaysdk.__applicationContextPath = "<%=request.getContextPath()%>";
+
 </script>
 
 <%@ include file="/WEB-INF/templates/banner.jsp"%>
