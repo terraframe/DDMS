@@ -58,7 +58,7 @@ export class SummaryPageComponent implements OnInit {
     
       let valid = this.isValid(field);
       
-      if(valid && field.type === 'TEXT') {
+      if(valid && (field.type === 'TEXT' || field.type === 'CHARACTER')) {
         this.texts.push(field);
       }
       
@@ -70,7 +70,7 @@ export class SummaryPageComponent implements OnInit {
         this.categories.push(field);
       }
       
-      if(valid && field.type === 'DOUBLE' || field.type === 'LONG') {
+      if(valid && (field.type === 'DOUBLE' || field.type === 'LONG')) {
         this.numbers.push(field);
       }
       

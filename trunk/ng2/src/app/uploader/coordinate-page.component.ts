@@ -67,7 +67,7 @@ export class CoordinatePageComponent implements OnInit, LocalValidator {
       else if(field.type === 'LONGITUDE') {
         this.longitudes.push(field);          
       }
-      else if(field.type === 'TEXT') {
+      else if(field.type === 'TEXT' || field.type === 'CHARACTER') {
         this.featureLabels.push(field);          
       }
       else if(this.isBasic(field)) {
@@ -151,7 +151,7 @@ export class CoordinatePageComponent implements OnInit, LocalValidator {
   }
     
   isBasic(field: Field): boolean {
-    return (field.type === 'TEXT' || field.type === 'LONG' || field.type === 'DOUBLE');  
+    return (field.type === 'TEXT' || field.type === 'CHARACTER' || field.type === 'LONG' || field.type === 'DOUBLE');  
   }
   
   localValidate(value: string, config: string): {[key : string] : any} {

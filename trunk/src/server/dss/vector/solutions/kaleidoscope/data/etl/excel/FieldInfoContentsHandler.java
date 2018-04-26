@@ -297,7 +297,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
 
     if (this.rowNum == 0)
     {
-      if (! ( cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.INLINE_STRING) ) || !this.attributeNames.add(formattedValue))
+      if (! ( cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.CHARACTER) || cellType.equals(ColumnType.INLINE_STRING) ) || !this.attributeNames.add(formattedValue))
       {
         throw new InvalidHeaderRowException();
       }
@@ -333,7 +333,7 @@ public class FieldInfoContentsHandler implements SheetHandler, Reloadable
         attribute.setPrecision(precision - scale);
         attribute.setScale(scale);
       }
-      else if (cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.INLINE_STRING))
+      else if (cellType.equals(ColumnType.TEXT) || cellType.equals(ColumnType.CHARACTER) || cellType.equals(ColumnType.INLINE_STRING))
       {
         attribute.addValue(contentValue);
       }

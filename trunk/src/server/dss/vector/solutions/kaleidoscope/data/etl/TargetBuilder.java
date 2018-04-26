@@ -62,6 +62,7 @@ import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebBoolean;
+import com.runwaysdk.system.metadata.MdWebCharacter;
 import com.runwaysdk.system.metadata.MdWebDate;
 import com.runwaysdk.system.metadata.MdWebDouble;
 import com.runwaysdk.system.metadata.MdWebField;
@@ -500,6 +501,10 @@ public class TargetBuilder implements Reloadable
     {
       return true;
     }
+    else if (type.equals(ColumnType.CHARACTER.name()))
+    {
+      return true;
+    }
     else if (type.equals(ColumnType.CATEGORY.name()))
     {
       return true;
@@ -656,6 +661,18 @@ public class TargetBuilder implements Reloadable
 
       this.setValidations(mdField, cField);
 
+      MdFormUtil.createMdField(mdField, mdForm.getId(), false);
+    }
+    else if (columnType.equals(ColumnType.CHARACTER.name()))
+    {
+      MdWebCharacter mdField = new MdWebCharacter();
+      mdField.setFieldName(attributeName);
+      mdField.getDisplayLabel().setValue(label);
+      mdField.setDisplayLength(32);
+      mdField.setMaxLength(128);
+      
+      this.setValidations(mdField, cField);
+      
       MdFormUtil.createMdField(mdField, mdForm.getId(), false);
     }
 
