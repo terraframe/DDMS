@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.manager;
 
@@ -30,6 +30,10 @@ public class ServerContextBean
 
   public static final String    LOG_PROPERTY          = "log4j.rootLogger";
 
+  private static final String   ANALYTICS_PROPERTY    = "googleanalyticstrackingcode";
+
+  private static final String   MANAGER_PROPERTY      = "googletagmanagertrackingcode";
+
   /**
    * PropertyChangeSupport
    */
@@ -41,6 +45,10 @@ public class ServerContextBean
 
   private ManagerContextBean    context;
 
+  private String                managerCode;
+
+  private String                analyticsCode;
+
   private String                suffix;
 
   public ServerContextBean(ManagerContextBean context)
@@ -51,6 +59,9 @@ public class ServerContextBean
     this.logLevel = ServerContextBean.getLogLevel(context);
     this.propertyChangeSupport = new PropertyChangeSupport(this);
     this.suffix = ServerContextBean.getRootLoggerSuffix(context);
+
+    this.managerCode = ServerContextBean.getManagerCode(context);
+    this.analyticsCode = ServerContextBean.getAnalyticsCode(context);
   }
 
   public void addPropertyChangeListener(String propertyName, PropertyChangeListener listener)
@@ -83,11 +94,47 @@ public class ServerContextBean
     this.propertyChangeSupport.firePropertyChange("logLevel", this.logLevel, this.logLevel = logLevel);
   }
 
+  public String getManagerCode()
+  {
+    return managerCode;
+  }
+
+  public void setManagerCode(String managerCode)
+  {
+    this.propertyChangeSupport.firePropertyChange("managerCode", this.managerCode, this.managerCode = managerCode);
+  }
+
+  public String getAnalyticsCode()
+  {
+    return analyticsCode;
+  }
+
+  public void setAnalyticsCode(String analyticsCode)
+  {
+    this.propertyChangeSupport.firePropertyChange("analyticsCode", this.analyticsCode, this.analyticsCode = analyticsCode);
+  }
+
   public void save()
   {
     new PropertyWriter(context.getLog4jProperties()).write(LOG_PROPERTY, logLevel.name() + suffix);
     new PropertyWriter(context.getLog4jProperties()).write(CHAINSAW_LOG_PROPERTY, logLevel.name());
     new PropertyWriter(context.getCommonProperties()).write(SESSION_TIME_PROPERTY, new Integer(timeout).toString());
+    new PropertyWriter(context.getAnalyticsProperties()).write(ANALYTICS_PROPERTY, this.analyticsCode);
+    new PropertyWriter(context.getAnalyticsProperties()).write(MANAGER_PROPERTY, this.managerCode);
+  }
+
+  private static String getAnalyticsCode(ManagerContextBean context)
+  {
+    PropertyReader reader = new PropertyReader(context.getAnalyticsProperties());
+
+    return reader.getValue(ANALYTICS_PROPERTY);
+  }
+
+  private static String getManagerCode(ManagerContextBean context)
+  {
+    PropertyReader reader = new PropertyReader(context.getAnalyticsProperties());
+
+    return reader.getValue(MANAGER_PROPERTY);
   }
 
   public static LogLevel getLogLevel(ManagerContextBean context)

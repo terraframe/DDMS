@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.manager;
 
@@ -46,6 +46,10 @@ public class SettingDialog extends Dialog
   private Text              timeout;
 
   private ComboViewer       logLevel;
+
+  private Text              managerCode;
+
+  private Text              analyticsCode;
 
   private ServerContextBean bean;
 
@@ -84,6 +88,18 @@ public class SettingDialog extends Dialog
     this.logLevel.setContentProvider(new LogContentProvider());
     this.logLevel.setLabelProvider(new LogLabelProvider());
     this.logLevel.setInput(new Object());
+
+    new Label(composite, SWT.NULL).setText(Localizer.getMessage("MANAGER_CODE"));
+
+    this.managerCode = new Text(composite, SWT.BORDER);
+    this.managerCode.setText("");
+    this.managerCode.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+    new Label(composite, SWT.NULL).setText(Localizer.getMessage("ANALYTICS_CODE"));
+
+    this.analyticsCode = new Text(composite, SWT.BORDER);
+    this.analyticsCode.setText("");
+    this.analyticsCode.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
     this.bind();
 
@@ -126,6 +142,14 @@ public class SettingDialog extends Dialog
 
     Binding bindValue = bindingContext.bindValue(uiElement, modelElement, targetToModel, null);
     ControlDecorationSupport.create(bindValue, SWT.TOP | SWT.LEFT);
+    
+    uiElement = WidgetProperties.text(SWT.Modify).observe(managerCode);
+    modelElement = BeanProperties.value(ServerContextBean.class, "managerCode").observe(bean);
+    bindingContext.bindValue(uiElement, modelElement, null, null);
+    
+    uiElement = WidgetProperties.text(SWT.Modify).observe(analyticsCode);
+    modelElement = BeanProperties.value(ServerContextBean.class, "analyticsCode").observe(bean);
+    bindingContext.bindValue(uiElement, modelElement, null, null);
   }
 
   @Override
