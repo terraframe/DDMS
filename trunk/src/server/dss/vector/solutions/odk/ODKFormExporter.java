@@ -85,7 +85,7 @@ import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class ODKFormExporter implements Reloadable
 {
-  private static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/dev/";
+  private static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/ODK/";
 
   private static final String IP_ADDRESS = "172.19.0.1";
 
