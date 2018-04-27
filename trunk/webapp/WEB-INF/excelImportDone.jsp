@@ -58,9 +58,11 @@
   </c:when>
   <c:when test="${not empty param.mobileExportSuccess}">
     <div class="pageTitle"><mdss:localize key="Mobile_Export_Success" /></div>
+    <% if (request.getAttribute("msg") != null) { out.print(request.getAttribute("msg")); } %>
   </c:when>
   <c:when test="${not empty param.mobileExportFail}">
     <div class="pageTitle"><mdss:localize key="Mobile_Export_Fail" /></div>
+    <% if (request.getAttribute("msg") != null) { out.print(request.getAttribute("msg")); } %>
   </c:when>
   <c:otherwise>
     <div class="pageTitle"><mdss:localize key="Excel_Import_Success" /></div>

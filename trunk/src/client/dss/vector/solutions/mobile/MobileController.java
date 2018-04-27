@@ -29,6 +29,8 @@ import com.runwaysdk.mvc.RequestParamter;
 import com.runwaysdk.mvc.ResponseIF;
 import com.runwaysdk.mvc.RestBodyResponse;
 
+import dss.vector.solutions.util.ExcelImportServlet;
+
 @Controller(url = "mobile")
 public class MobileController implements Reloadable
 {
@@ -42,16 +44,19 @@ public class MobileController implements Reloadable
       
       if (html.contains("Successful form upload"))
       {
-        return new RedirectResponse("excelImportDone?mobileExportSuccess=true", true);
+        return new RedirectResponse("excelImportDone?mobileExportSuccess=true");
       }
       else
       {
-        return new RedirectResponse("excelExportDone?mobileExportFail=true", true);
+        ExcelImportServlet.addImportDoneMessage(request.getSessionId(), html);
+        return new RedirectResponse("excelImportDone?mobileExportFail=true");
       }
     }
     catch (Throwable t)
     {
-      return new RedirectResponse("excelExportDone?mobileExportFail=true", true);
+      String msg = t.getLocalizedMessage();
+      ExcelImportServlet.addImportDoneMessage(request.getSessionId(), msg);
+      return new RedirectResponse("excelImportDone?mobileExportFail=true");
     }
   }
 }

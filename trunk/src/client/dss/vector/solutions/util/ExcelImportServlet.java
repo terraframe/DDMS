@@ -44,6 +44,7 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 
 public class ExcelImportServlet extends HttpServlet
 {
+  private static HashMap<String,String> importDoneMessages = new HashMap<String,String>();
   /**
    *
    */
@@ -283,6 +284,10 @@ public class ExcelImportServlet extends HttpServlet
       {
         req.setAttribute("errorMessage", req.getParameter("errorMessage"));
       }
+      if (importDoneMessages.containsKey(clientRequest.getSessionId()))
+      {
+        req.setAttribute("msg", importDoneMessages.remove(clientRequest.getSessionId()));
+      }
 
       req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, res);
     }
@@ -306,5 +311,10 @@ public class ExcelImportServlet extends HttpServlet
     int endIndex = req.getPathInfo() == null ? requestUri.length() : requestUri.indexOf(req.getPathInfo());
 
     return requestUri.substring(startIndex, endIndex);
+  }
+  
+  public static void addImportDoneMessage(String sessionId, String msg)
+  {
+    importDoneMessages.put(sessionId, msg);
   }
 }
