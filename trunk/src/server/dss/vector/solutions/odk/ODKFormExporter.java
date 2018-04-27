@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
@@ -87,7 +88,7 @@ public class ODKFormExporter implements Reloadable
 {
   private static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/ODK/";
 
-  private static final String IP_ADDRESS = "172.19.0.1";
+  private static final String IP_ADDRESS = "127.0.0.1";
 
   /**
    * The DOM <code>document</code> that is populated with data from the core.
@@ -118,7 +119,7 @@ public class ODKFormExporter implements Reloadable
   {
     try
     {
-      export();
+      exportInRequest();
     }
     catch (Throwable t)
     {
@@ -128,6 +129,12 @@ public class ODKFormExporter implements Reloadable
     {
       CacheShutdown.shutdown();
     }
+  }
+  
+  @Request
+  private static void exportInRequest()
+  {
+    export();
   }
 
   public static String export()
@@ -632,7 +639,7 @@ public class ODKFormExporter implements Reloadable
                                                                                                                          // hardcode
 
       CloseableHttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
-      HttpPost post = new HttpPost("http://" + IP_ADDRESS + ":8080/ODKAggregate/formUpload"); // TODO
+      HttpPost post = new HttpPost("http://" + IP_ADDRESS + ":8080/" + CommonProperties.getDeployAppName() + "Mobile/formUpload"); // TODO
       // :
       // don't
       // hardcode
@@ -656,6 +663,7 @@ public class ODKFormExporter implements Reloadable
       String htmlResp = IOUtils.toString(is, "UTF-8");
       if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_CREATED)
       {
+        logger.error("Error occurred while sending form to ODK. " + htmlResp);
         throw new RuntimeException("Invalid status code [" + statusCode + "].");
       }
       
@@ -663,7 +671,7 @@ public class ODKFormExporter implements Reloadable
     }
     catch (Exception e)
     {
-      throw new XMLException(e);
+      throw new RuntimeException(e);
     }
   }
 
