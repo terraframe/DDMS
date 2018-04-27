@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
@@ -19,7 +20,7 @@ import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.TermQuery;
 
-public class ODKTermAttribute extends ODKAttribute
+public class ODKTermAttribute extends ODKAttribute implements Reloadable
 {
   public static final int  LIMIT = 100;
 

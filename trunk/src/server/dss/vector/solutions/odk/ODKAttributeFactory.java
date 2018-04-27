@@ -30,8 +30,9 @@ import com.runwaysdk.dataaccess.MdWebIntegerDAOIF;
 import com.runwaysdk.dataaccess.MdWebLongDAOIF;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.FieldColumn;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class ODKAttributeFactory
+public class ODKAttributeFactory implements Reloadable
 {
   public static ODKAttribute getAttribute(MdAttributeDAOIF mdField)
   {

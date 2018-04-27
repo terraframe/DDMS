@@ -21,9 +21,10 @@ package dss.vector.solutions.odk;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.generation.CommonGenerationUtil;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public class StructColumn extends AttributeColumn
+public class StructColumn extends AttributeColumn implements Reloadable
 {
   private MdAttributeStructDAOIF mdAttributeStruct;
 

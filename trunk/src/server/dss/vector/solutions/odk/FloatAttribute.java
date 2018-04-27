@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebFloatDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class FloatAttribute extends ODKPrimitiveAttribute
+public class FloatAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
 
   public FloatAttribute(MdWebFloatDAOIF mdField)

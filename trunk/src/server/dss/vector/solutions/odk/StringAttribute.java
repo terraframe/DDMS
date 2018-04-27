@@ -20,8 +20,9 @@ package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdWebAttributeDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class StringAttribute extends ODKPrimitiveAttribute
+public class StringAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
   private MdAttributeDAOIF mdAttribute;
 

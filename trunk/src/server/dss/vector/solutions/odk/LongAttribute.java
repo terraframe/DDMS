@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebLongDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class LongAttribute extends ODKPrimitiveAttribute
+public class LongAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
 
   public LongAttribute(MdWebLongDAOIF mdField)

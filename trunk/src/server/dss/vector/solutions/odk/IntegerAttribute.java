@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebIntegerDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class IntegerAttribute extends ODKPrimitiveAttribute
+public class IntegerAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
 
   public IntegerAttribute(MdWebIntegerDAOIF mdField)

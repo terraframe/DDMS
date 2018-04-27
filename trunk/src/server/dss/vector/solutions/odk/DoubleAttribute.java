@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebDoubleDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class DoubleAttribute extends ODKPrimitiveAttribute
+public class DoubleAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
 
   public DoubleAttribute(MdWebDoubleDAOIF mdField)

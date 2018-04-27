@@ -29,9 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
-import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -63,20 +61,12 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.MdStructDAOIF;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.XMLException;
-import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
-import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
-import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -92,11 +82,10 @@ import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.ontology.Term;
 
-public class ODKFormExporter
+public class ODKFormExporter implements Reloadable
 {
-  private static final String EXPORT_DIR = "dev/";
+  private static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/dev/";
 
   private static final String IP_ADDRESS = "172.19.0.1";
 
@@ -141,8 +130,7 @@ public class ODKFormExporter
     }
   }
 
-  @Request
-  public static void export()
+  public static String export()
   {
     // MosquitoCollections is locked to Political plus Sentinel site and
     // Collection Site.
@@ -154,7 +142,7 @@ public class ODKFormExporter
 
     ODKFormExporter odkExp = new ODKFormExporter();
     odkExp.addForm(form, null);
-    odkExp.doIt();
+    return odkExp.doIt();
   }
 
   // This code is for a different kind of exportable, an MdWebForm.
@@ -251,8 +239,10 @@ public class ODKFormExporter
     }
   }
 
-  private void doIt()
+  private String doIt()
   {
+    new File(EXPORT_DIR).mkdirs();
+    
     try
     {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -282,7 +272,7 @@ public class ODKFormExporter
 
 //    print();
 
-    submit();
+    return submit();
   }
 
   private int generateGeoEntityCSV()
@@ -313,7 +303,7 @@ public class ODKFormExporter
     return maxDepth;
   }
 
-  private class GeoLoopHandler
+  private class GeoLoopHandler implements Reloadable
   {
     private int        maxDepth;
 
@@ -512,6 +502,7 @@ public class ODKFormExporter
       if (it.hasNext())
       {
         ODKFormMapping mapping = it.next();
+        mapping.lock();
         mapping.setRevision(mapping.getRevision()+1);
         mapping.apply();
         
@@ -607,7 +598,7 @@ public class ODKFormExporter
   // "form_def_file=@/home/rick/Documents/eclipse/workspace/MDSS/dev/mosquitos-test.xml"
   // http://172.19.0.1:8080/ODKAggregate/formUpload
   @AbortIfProblem
-  private void submit()
+  private String submit()
   {
     TransformerFactory tfactory = TransformerFactory.newInstance();
 
@@ -662,11 +653,13 @@ public class ODKFormExporter
       HttpEntity responseEntity = response.getEntity();
       int statusCode = response.getStatusLine().getStatusCode();
       InputStream is = responseEntity.getContent();
-      System.out.println(IOUtils.toString(is, "UTF-8"));
+      String htmlResp = IOUtils.toString(is, "UTF-8");
       if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_CREATED)
       {
         throw new RuntimeException("Invalid status code [" + statusCode + "].");
       }
+      
+      return htmlResp;
     }
     catch (Exception e)
     {

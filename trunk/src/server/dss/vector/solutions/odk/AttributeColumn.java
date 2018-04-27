@@ -21,7 +21,6 @@ package dss.vector.solutions.odk;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.business.ontology.Term;
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
@@ -31,13 +30,12 @@ import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeFloatDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.generation.CommonGenerationUtil;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public class AttributeColumn extends ODKAttribute
+public class AttributeColumn extends ODKAttribute implements Reloadable
 {
   protected MdAttributeDAOIF mdAttribute;
 

@@ -120,6 +120,11 @@
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.MosquitoCollectionExcelView" name="excelType"/>
 </jsp:include>
+<form id="dss.vector.solutions.odk.MosquitoCollectionExcelView.mobile" name="dss.vector.solutions.odk.MosquitoCollectionExcelView.mobile" action="mobile/export" method="get">
+  <input type="hidden" value="dss.vector.solutions.export.MosquitoCollectionView" name="mobileType"/>
+  <mdss:localize key="Mobile_Export_Button" var="mobile_label"/>
+  <input type="submit" class="mobileButton" name="mobile.button" value="${mobile_label}"/>
+</form>
 
 <script type="text/javascript">
 YAHOO.util.Event.onDOMReady(function(){

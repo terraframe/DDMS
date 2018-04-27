@@ -8,12 +8,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class ODKGeoAttribute extends AttributeColumn
+public class ODKGeoAttribute extends AttributeColumn implements Reloadable
 {
   public ODKGeoAttribute(MdAttributeDAOIF mdAttribute)
   {

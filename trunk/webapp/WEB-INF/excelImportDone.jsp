@@ -56,6 +56,12 @@
     <div class="pageTitle"><mdss:localize key="Excel_Import_Fail" /></div>
     <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
   </c:when>
+  <c:when test="${not empty param.mobileExportSuccess}">
+    <div class="pageTitle"><mdss:localize key="Mobile_Export_Success" /></div>
+  </c:when>
+  <c:when test="${not empty param.mobileExportFail}">
+    <div class="pageTitle"><mdss:localize key="Mobile_Export_Fail" /></div>
+  </c:when>
   <c:otherwise>
     <div class="pageTitle"><mdss:localize key="Excel_Import_Success" /></div>
   </c:otherwise>

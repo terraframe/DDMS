@@ -26,7 +26,7 @@ import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
-public class ODKForm
+public class ODKForm implements Reloadable
 {
   protected MdClassDAOIF base;
   

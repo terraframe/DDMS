@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebBooleanDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class BooleanAttribute extends ODKPrimitiveAttribute
+public class BooleanAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
   private MdWebBooleanDAOIF mdWebBoolean;
 

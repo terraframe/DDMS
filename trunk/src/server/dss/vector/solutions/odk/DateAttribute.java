@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebDateDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class DateAttribute extends ODKPrimitiveAttribute
+public class DateAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
 
   public DateAttribute(MdWebDateDAOIF mdField)

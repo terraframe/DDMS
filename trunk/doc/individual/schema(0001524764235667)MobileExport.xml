@@ -1,0 +1,17 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdUtil name="dss.vector.solutions.mobile.MobileUtil">
+        <mdMethod name="export" label="export" static="true" returnType="java.lang.String">
+          <mdParameter name="mobileType" label="mobileType" type="java.lang.String" order="0"/>
+        </mdMethod>
+      </mdUtil>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.mobile.MobileUtil" type="com.runwaysdk.system.metadata.MdUtil"/>
+    </delete>
+  </undoIt>
+</version>

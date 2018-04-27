@@ -67,7 +67,7 @@
           <option value="political">
         </c:otherwise>
       </c:choose>
-        Political
+        <mdss:localize key="political"/>
       </option>
       <c:choose>
         <c:when test="${geoField.isUrbanHierarchy}">
@@ -77,7 +77,7 @@
           <option value="urban">
         </c:otherwise>
       </c:choose>
-        Urban
+        <mdss:localize key="urban"/>
       </option>
       <c:choose>
         <c:when test="${geoField.isSprayHierarchy}">
@@ -87,7 +87,7 @@
           <option value="spray">
         </c:otherwise>
       </c:choose>
-        Spray
+        <mdss:localize key="spray"/>
       </option>
       <c:choose>
         <c:when test="${geoField.isPopulationHierarchy}">
@@ -97,7 +97,7 @@
           <option value="population">
         </c:otherwise>
       </c:choose>
-        Population
+        <mdss:localize key="population"/>
       </option>
     </select>
   </dd>

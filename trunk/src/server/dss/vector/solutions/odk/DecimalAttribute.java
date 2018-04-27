@@ -19,8 +19,9 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdWebDecimalDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class DecimalAttribute extends ODKPrimitiveAttribute
+public class DecimalAttribute extends ODKPrimitiveAttribute implements Reloadable
 {
 
   public DecimalAttribute(MdWebDecimalDAOIF mdField)

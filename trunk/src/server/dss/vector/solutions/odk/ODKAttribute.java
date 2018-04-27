@@ -21,7 +21,9 @@ package dss.vector.solutions.odk;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class ODKAttribute
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class ODKAttribute implements Reloadable
 {
   protected String        attributeName;
 

@@ -23,9 +23,10 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdWebAttributeDAOIF;
 import com.runwaysdk.generation.CommonGenerationUtil;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public abstract class ODKPrimitiveAttribute extends ODKAttribute
+public abstract class ODKPrimitiveAttribute extends ODKAttribute implements Reloadable
 {
   private MdWebAttributeDAOIF mdField;
 
