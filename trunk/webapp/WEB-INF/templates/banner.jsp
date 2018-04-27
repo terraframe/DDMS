@@ -31,6 +31,9 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Locale"%>
 <%@ page import="java.util.Enumeration"%>
+
+<%@ page import="dss.vector.solutions.AnalyticsProperties"%>
+
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !clientRequest.isPublicUser()));
@@ -48,6 +51,16 @@ request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !cli
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="com.runwaysdk.constants.ClientConstants"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','<%=AnalyticsProperties.getGoogleTagManagerTrackingId()%>');</script>
+  <!-- End Google Tag Manager -->
+
+    
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
 <script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
@@ -56,6 +69,8 @@ request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !cli
   window.com = window.com || {};
   window.com.runwaysdk = window.com.runwaysdk || {};
   window.com.runwaysdk.__applicationContextPath = "<%=request.getContextPath()%>";
+  window.com.googletagmanagertrackingcode = "<%=AnalyticsProperties.getGoogleTagManagerTrackingId()%>";
+  window.com.googleanalyticstrackingcode = "<%=AnalyticsProperties.getGoogleAnalyticsTrackingId()%>";
 </script>  
 
 <jwr:style src="/bundles/yuiStyle.css" useRandomParam="false"/>
@@ -111,6 +126,12 @@ if (orientation.equals(OrientationTypeDTO.LTR)) {
 </c:choose>
 </head>
 <body class="yui-skin-sam">
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%=AnalyticsProperties.getGoogleTagManagerTrackingId()%>"
+   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
 <div id="header">
 	<div id="headerleft">
 		<div id="freeText">
