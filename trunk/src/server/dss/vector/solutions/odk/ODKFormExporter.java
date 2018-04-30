@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Stack;
 
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.X509TrustManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -47,14 +46,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -640,7 +638,7 @@ public class ODKFormExporter implements Reloadable
 
       // 3. Push the document to ODK
       CredentialsProvider credsProvider = new BasicCredentialsProvider();
-      credsProvider.setCredentials(new AuthScope(IP_ADDRESS, 80), new UsernamePasswordCredentials("ddms", "aggregate")); // TODO
+      credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), new UsernamePasswordCredentials("ddms", "aggregate")); // TODO
                                                                                                                          // :
                                                                                                                          // don't
                                                                                                                          // hardcode
@@ -648,9 +646,11 @@ public class ODKFormExporter implements Reloadable
       HttpPost post;
       if (GeoserverProperties.isHttps())
       {
-        SSLContext sslcontext = SSLContexts.custom().build();
-        SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslcontext);
-        client = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).setSSLSocketFactory(factory).build();
+        SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(SSLContext.getDefault(),SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+        client = HttpClients.custom() //
+            .setSSLHostnameVerifier(SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER) //
+            .setDefaultCredentialsProvider(credsProvider) //
+            .setSSLSocketFactory(factory).build();
         
         post = new HttpPost("https://" + IP_ADDRESS + ":8443/" + CommonProperties.getDeployAppName() + "Mobile/formUpload");
       }
