@@ -129,7 +129,7 @@ public class ServerSettingDialog extends Dialog
 
     new Label(composite, SWT.NULL).setText(Localizer.getMessage("KEYSTORE_PASS"));
 
-    this.keystorePass = new Text(composite, SWT.BORDER);
+    this.keystorePass = new Text(composite, SWT.PASSWORD | SWT.BORDER);
     this.keystorePass.setText("");
     this.keystorePass.setLayoutData(gridData);
 
