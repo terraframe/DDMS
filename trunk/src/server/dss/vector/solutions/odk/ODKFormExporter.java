@@ -31,6 +31,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.X509TrustManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,17 +47,21 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -83,6 +89,7 @@ import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geoserver.GeoserverProperties;
 
 public class ODKFormExporter implements Reloadable
 {
@@ -637,12 +644,22 @@ public class ODKFormExporter implements Reloadable
                                                                                                                          // :
                                                                                                                          // don't
                                                                                                                          // hardcode
-
-      CloseableHttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
-      HttpPost post = new HttpPost("http://" + IP_ADDRESS + ":8080/" + CommonProperties.getDeployAppName() + "Mobile/formUpload"); // TODO
-      // :
-      // don't
-      // hardcode
+      CloseableHttpClient client;
+      HttpPost post;
+      if (GeoserverProperties.isHttps())
+      {
+        SSLContext sslcontext = SSLContexts.custom().build();
+        SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslcontext);
+        client = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).setSSLSocketFactory(factory).build();
+        
+        post = new HttpPost("https://" + IP_ADDRESS + ":8443/" + CommonProperties.getDeployAppName() + "Mobile/formUpload");
+      }
+      else
+      {
+        client = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
+        post = new HttpPost("http://" + IP_ADDRESS + ":8080/" + CommonProperties.getDeployAppName() + "Mobile/formUpload");
+      }
+      
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
       // This attaches the file to the POST:
@@ -656,18 +673,25 @@ public class ODKFormExporter implements Reloadable
 
       HttpEntity multipart = builder.build();
       post.setEntity(multipart);
-      CloseableHttpResponse response = httpClient.execute(post);
-      HttpEntity responseEntity = response.getEntity();
-      int statusCode = response.getStatusLine().getStatusCode();
-      InputStream is = responseEntity.getContent();
-      String htmlResp = IOUtils.toString(is, "UTF-8");
-      if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_CREATED)
-      {
-        logger.error("Error occurred while sending form to ODK. " + htmlResp);
-        throw new RuntimeException("Invalid status code [" + statusCode + "].");
-      }
+      CloseableHttpResponse response = client.execute(post);
       
-      return htmlResp;
+      try
+      {
+        HttpEntity responseEntity = response.getEntity();
+        int statusCode = response.getStatusLine().getStatusCode();
+        InputStream is = responseEntity.getContent();
+        String htmlResp = IOUtils.toString(is, "UTF-8");
+        if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_CREATED)
+        {
+          logger.error("Error occurred while sending form to ODK. " + htmlResp);
+          throw new RuntimeException("Invalid status code [" + statusCode + "].");
+        }
+        return htmlResp;
+      }
+      finally
+      {
+        response.close();
+      }
     }
     catch (Exception e)
     {

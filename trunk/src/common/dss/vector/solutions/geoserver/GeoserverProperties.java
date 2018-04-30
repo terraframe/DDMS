@@ -60,7 +60,12 @@ public class GeoserverProperties implements Reloadable
     }
   }
 
-  public boolean isHttps()
+  public static boolean isHttps()
+  {
+    return GeoserverProperties.instance.instIsHttps();
+  }
+  
+  public boolean instIsHttps()
   {
     return https;
   }
@@ -82,7 +87,7 @@ public class GeoserverProperties implements Reloadable
    */
   public static String getGeoServerLocalURL()
   {
-    if (instance.isHttps())
+    if (instance.instIsHttps())
     {
       return getGeoServerLocalHttps();
     }
