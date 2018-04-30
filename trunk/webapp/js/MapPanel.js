@@ -1970,7 +1970,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         
           var mapData = Mojo.Util.getObject(retObj.returnValue);
         
-          var geoServerPath = mapData.geoserverURL;
+          var geoServerPath = window.location.origin+ "/" + mapData.geoserverURL;
           
           var layers = mapData.layers;
       

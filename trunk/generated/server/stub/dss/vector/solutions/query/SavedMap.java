@@ -73,6 +73,7 @@ import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geoserver.GeoserverFacade;
+import dss.vector.solutions.geoserver.GeoserverProperties;
 import dss.vector.solutions.util.ShapefileExporter;
 
 public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.loader.Reloadable
@@ -184,7 +185,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     String appName = CommonProperties.getDeployAppName();
     try
     {
-      String geoserverPath = MapUtil.getGeoServerLocalURL();
       String geoserverLocalPath = MapUtil.getGeoServerLocalURL();
 
       // this is a hack until username, password, and sld path are put in
@@ -196,7 +196,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       savedImagesJSON = new JSONArray();
       savedTextJSON = new JSONArray();
 
-      mapData.put("geoserverURL", geoserverPath);
+      mapData.put("geoserverURL", GeoserverProperties.getAppName());
       mapData.put("sldURL", sldPath);
       mapData.put("layers", layersJSON);
       mapData.put("savedImages", savedImagesJSON);
