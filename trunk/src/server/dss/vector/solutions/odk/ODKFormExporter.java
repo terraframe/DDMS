@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -41,7 +42,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.IOUtils;
@@ -52,14 +52,12 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContexts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -125,10 +123,6 @@ public class ODKFormExporter implements Reloadable
     try
     {
       exportInRequest();
-    }
-    catch (Throwable t)
-    {
-      throw new RuntimeException(t);
     }
     finally
     {
@@ -340,7 +334,7 @@ public class ODKFormExporter implements Reloadable
         header.add("name");
         header.add("list_name");
 
-        for (int i = 0; i < maxDepth - 1; ++i)
+        for (int i = 0; i <= maxDepth; ++i)
         {
           header.add("geoEntity_geolist_" + i); // TODO : This is attribute
                                                 // specific
@@ -354,26 +348,22 @@ public class ODKFormExporter implements Reloadable
       }
     }
 
-    public void processGeo(GeoEntity geo, LinkedMap parents)
+    public void processGeo(GeoEntity geo, LinkedList<String> parents)
     {
       ArrayList<String> geoCSV = new ArrayList<String>();
 
       geoCSV.add(geo.getEntityLabel().getValue());
       geoCSV.add(geo.getGeoId());
 
-      int curDepth = ( parents.size() - 1 );
-      geoCSV.add("geoEntity_geolist_" + curDepth); // TODO : This is attribute
-                                                   // specific
+      geoCSV.add("geoEntity_geolist_" + parents.size()); // TODO : This is attribute specific
 
-      for (int listIndex = 0; listIndex < maxDepth - 1; ++listIndex)
+      for (int listIndex = 0; listIndex < maxDepth; ++listIndex)
       {
-        int parentIndex = listIndex + 1;
-        if (parentIndex < parents.size())
+        if (listIndex < parents.size())
         {
-          geoCSV.add( ( (GeoEntity) parents.getValue(parentIndex) ).getGeoId());
+          geoCSV.add(parents.get(listIndex));
         }
         else
-
         {
           geoCSV.add("");
         }
@@ -408,83 +398,89 @@ public class ODKFormExporter implements Reloadable
       }
     }
   }
+  
+  private class GeoStackElement implements Reloadable
+  {
+    private String geoId;
+    private LinkedList<String> parentIds;
+    
+    public GeoStackElement(String geoId, LinkedList<String> parentIds)
+    {
+      this.geoId = geoId;
+      this.parentIds = parentIds;
+    }
+  }
 
+  @SuppressWarnings("unchecked")
   private int geoLoop(GeoLoopHandler handler)
   {
-    GeoFilterCriteria[] filters = new GeoFilterCriteria[this.odkForms.size()];
+    ArrayList<GeoFilterCriteria> filters = new ArrayList<GeoFilterCriteria>(this.odkForms.size());
     for (int i = 0; i < this.odkForms.size(); ++i)
     {
       ODKForm form = odkForms.get(i);
-      filters[i] = form.getGeoFilterCriteria();
+      filters.add(form.getGeoFilterCriteria());
     }
 
-    GeoEntity parent = Earth.getEarthInstance();
-    Stack<GeoEntity> allChildrenStack = new Stack<GeoEntity>(); // This stack
-                                                                // contains
-                                                                // GeoEntitys
-                                                                // that have not
-                                                                // been
-                                                                // processed yet
-    LinkedMap parentMap = new LinkedMap(); // Maps the first child geo entity to
-                                           // the parent. This is necessary to
-                                           // know the parents and also when
-                                           // we've gone up in the hierarchy
-
+    LinkedList<String> emptyParents = new LinkedList<String>();
+    GeoEntity earth = Earth.getEarthInstance();
+    GeoStackElement current = new GeoStackElement(earth.getGeoId(), emptyParents);
+    Stack<GeoStackElement> allChildrenStack = new Stack<GeoStackElement>();
     int maxDepth = 0;
-
-    do
+    List<GeoEntity> earthChildren = earth.getImmediateChildren();
+    if (earthChildren.size() > 0)
     {
-      List<GeoEntity> children = parent.getImmediateChildren();
-
-      for (int i = 0; i < children.size(); ++i)
+      for (int i = 0; i < earthChildren.size(); ++i)
       {
-        GeoEntity child = children.get(i);
-
-        if (i == 0)
+        allChildrenStack.push(new GeoStackElement(earthChildren.get(i).getGeoId(), emptyParents));
+      }
+      current = allChildrenStack.pop();
+  
+      while (current != null)
+      {
+        GeoEntity curGeo = GeoEntity.getByKey(current.geoId);
+        
+        boolean isPartOfHierarchies = true;
+        for (GeoFilterCriteria filt : filters)
         {
-          parentMap.put(child, parent);
-
-          for (GeoFilterCriteria filt : filters)
+          if (!filt.isPartOfHierarchy(curGeo))
           {
-            if (filt.isPartOfHierarchy(child))
-            {
-              if (parentMap.size() > maxDepth)
-              {
-                maxDepth = parentMap.size();
-              }
-            }
+            isPartOfHierarchies = false;
           }
         }
-
-        if (handler != null)
+        if (isPartOfHierarchies)
         {
-          for (GeoFilterCriteria filt : filters)
+          if (current.parentIds.size() > maxDepth)
           {
-            if (filt.isPartOfHierarchy(child))
-            {
-              handler.processGeo(child, parentMap);
-            }
+            maxDepth = current.parentIds.size();
+          }
+          
+          if (handler != null)
+          {
+            handler.processGeo(curGeo, current.parentIds);
           }
         }
-
-        allChildrenStack.push(child);
-      }
-
-      if (!allChildrenStack.empty())
-      {
-        parent = allChildrenStack.pop();
-
-        if (parent.getId().equals( ( (GeoEntity) parentMap.lastKey() ).getId()))
+        
+        List<GeoEntity> children = curGeo.getImmediateChildren();
+        LinkedList<String> parents = ((LinkedList<String>)current.parentIds.clone());
+        parents.add(curGeo.getGeoId());
+        for (int i = 0; i < children.size(); ++i)
         {
-          parentMap.remove(parentMap.size() - 1);
+          GeoEntity child = children.get(i);
+          
+          GeoStackElement childGeoStack = new GeoStackElement(child.getGeoId(), parents);
+          allChildrenStack.push(childGeoStack);
+        }
+  
+        if (!allChildrenStack.empty())
+        {
+          current = allChildrenStack.pop();
+        }
+        else
+        {
+          current = null;
         }
       }
-      else
-      {
-        parent = null;
-      }
-
-    } while (allChildrenStack.size() > 0 || parent != null);
+    }
 
     return maxDepth;
   }
@@ -660,37 +656,44 @@ public class ODKFormExporter implements Reloadable
         post = new HttpPost("http://" + IP_ADDRESS + ":8080/" + CommonProperties.getDeployAppName() + "Mobile/formUpload");
       }
       
-      MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-
-      // This attaches the file to the POST:
-      File fFormDef = new File(EXPORT_DIR + "mosquitos-test.xml"); // TODO :
-                                                                   // don't
-                                                                   // hardcode
-      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
-      File itemsets = new File(EXPORT_DIR + "itemsets.csv"); // TODO : don't
-                                                             // hardcode
-      builder.addBinaryBody("mediaFiles", new FileInputStream(itemsets), ContentType.APPLICATION_XML, itemsets.getName());
-
-      HttpEntity multipart = builder.build();
-      post.setEntity(multipart);
-      CloseableHttpResponse response = client.execute(post);
-      
       try
       {
-        HttpEntity responseEntity = response.getEntity();
-        int statusCode = response.getStatusLine().getStatusCode();
-        InputStream is = responseEntity.getContent();
-        String htmlResp = IOUtils.toString(is, "UTF-8");
-        if (statusCode != HttpStatus.SC_OK && statusCode != HttpStatus.SC_CREATED)
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+  
+        // This attaches the file to the POST:
+        File fFormDef = new File(EXPORT_DIR + "mosquitos-test.xml"); // TODO :
+                                                                     // don't
+                                                                     // hardcode
+        builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
+        File itemsets = new File(EXPORT_DIR + "itemsets.csv"); // TODO : don't
+                                                               // hardcode
+        builder.addBinaryBody("mediaFiles", new FileInputStream(itemsets), ContentType.APPLICATION_XML, itemsets.getName());
+  
+        HttpEntity multipart = builder.build();
+        post.setEntity(multipart);
+        CloseableHttpResponse response = client.execute(post);
+        
+        try
         {
-          logger.error("Error occurred while sending form to ODK. " + htmlResp);
-          throw new RuntimeException("Invalid status code [" + statusCode + "].");
+          HttpEntity responseEntity = response.getEntity();
+          InputStream is = responseEntity.getContent();
+          String htmlResp = IOUtils.toString(is, "UTF-8");
+          
+          if (htmlResp.length() == 0)
+          {
+            throw new RuntimeException("Expected a response from ODK.");
+          }
+          
+          return htmlResp;
         }
-        return htmlResp;
+        finally
+        {
+          response.close();
+        }
       }
       finally
       {
-        response.close();
+        client.close();
       }
     }
     catch (Exception e)

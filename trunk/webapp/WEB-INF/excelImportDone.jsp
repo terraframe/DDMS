@@ -26,6 +26,12 @@
   <c:when test="${!(empty errorMessage)}">
     <c:set var="page_title" value="Excel_Import_Fail"  scope="request"/>
   </c:when>
+  <c:when test="${not empty param.mobileExportSuccess}">
+    <c:set var="page_title" value="Mobile_Export_Success"  scope="request"/>
+  </c:when>
+  <c:when test="${not empty param.mobileExportFail}">
+    <c:set var="page_title" value="Mobile_Export_Fail"  scope="request"/>
+  </c:when>
   <c:otherwise>
     <c:set var="page_title" value="Excel_Import_Success"  scope="request"/>
   </c:otherwise>

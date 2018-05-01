@@ -24,7 +24,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
   @Override
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
-    for (int i = 0; i < maxDepth-1; ++i)
+    for (int i = 0; i <= maxDepth; ++i)
     {
       Element geolist = document.createElement(mdAttribute.definesAttribute() + "_geolist_" + i);
       parent.appendChild(geolist);
@@ -34,7 +34,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
   @Override
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
-    for (int i = 0; i < maxDepth-1; ++i)
+    for (int i = 0; i <= maxDepth; ++i)
     {
       Element text = document.createElement("text");
       
@@ -56,7 +56,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
     bind0.setAttribute("type", "select1");
     parent.appendChild(bind0);
     
-    for (int i = 1; i < maxDepth-1; ++i)
+    for (int i = 1; i <= maxDepth; ++i)
     {
       Element bind = document.createElement("bind");
       bind.setAttribute("nodeset", "/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_" + i);
@@ -99,7 +99,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
       item.appendChild(value);
     }
     
-    for (int i = 1; i < maxDepth-1; ++i)
+    for (int i = 1; i <= maxDepth; ++i)
     {
       ArrayList<String> queries = new ArrayList<String>();
       for (int listIndex = 0; listIndex < i; ++listIndex)
