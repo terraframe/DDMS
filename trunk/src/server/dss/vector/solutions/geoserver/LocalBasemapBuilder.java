@@ -37,6 +37,8 @@ import dss.vector.solutions.basemap.OfflineBasemapManagement;
 import dss.vector.solutions.basemap.OfflineBasemapManagementQuery;
 import dss.vector.solutions.geoserver.GeoserverLayer.LayerType;
 
+import dss.vector.solutions.FileNotFoundException;
+
 public class LocalBasemapBuilder implements Reloadable
 {
 
@@ -44,7 +46,9 @@ public class LocalBasemapBuilder implements Reloadable
 
   public static void configureGeoserverForOSM()
   {
-
+	String lineSLDFileName = "style_osm_line.sld";
+	String polygonSLDFileName = "style_osm_polygon.sld";
+	
     if (GeoserverFacade.workspaceExists(GeoserverProperties.getOSMWorkspace()))
     {
       GeoserverFacade.removeWorkspace(GeoserverProperties.getOSMWorkspace());
@@ -54,24 +58,48 @@ public class LocalBasemapBuilder implements Reloadable
     GeoserverFacade.publishWorkspace(GeoserverProperties.getOSMWorkspace());
     GeoserverFacade.publishStore(GeoserverProperties.getOSMDatastore(), GeoserverProperties.getOSMDatabaseName(), GeoserverProperties.getOSMDatabaseSchema());
 
+    // Line styles
     if (GeoserverFacade.styleExists("osm-line-style"))
     {
       GeoserverFacade.removeStyle("osm-line-style");
     }
 
-    System.out.println("finding line styles...");
-    URL lineFileURL = LocalBasemapBuilder.class.getClassLoader().getResource("style_osm_line.sld");
-    File lineFile = new File(lineFileURL.getFile());
+    URL lineFileURL = LocalBasemapBuilder.class.getClassLoader().getResource("mapstyles/".concat(lineSLDFileName));
+    File lineFile = null;
+    try
+    {
+      lineFile = new File(lineFileURL.getFile());
+    }
+    catch(NullPointerException e)
+    {
+    	FileNotFoundException fileEx = new FileNotFoundException();
+    	fileEx.setName(lineSLDFileName);
+    	fileEx.setPath(lineFileURL.getPath());
+    	throw fileEx;
+    }
 
     GeoserverFacade.publishStyle("osm-line-style", lineFile, true);
-
+    
+    
+    // Polygon styles
     if (GeoserverFacade.styleExists("osm-polygon-style"))
     {
       GeoserverFacade.removeStyle("osm-polygon-style");
     }
 
-    URL polygonFileURL = LocalBasemapBuilder.class.getClassLoader().getResource("style_osm_polygon.sld");
-    File polygonFile = new File(polygonFileURL.getFile());
+    URL polygonFileURL = LocalBasemapBuilder.class.getClassLoader().getResource("mapstyles/".concat(polygonSLDFileName));
+    File polygonFile = null;
+    try
+    {
+      polygonFile = new File(polygonFileURL.getFile());
+    }
+    catch(NullPointerException e)
+    {
+    	FileNotFoundException fileEx = new FileNotFoundException();
+    	fileEx.setName(polygonSLDFileName);
+    	fileEx.setPath(polygonFileURL.getPath());
+    	throw fileEx;
+    }
 
     GeoserverFacade.publishStyle("osm-polygon-style", polygonFile, true);
 
