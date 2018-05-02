@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { EventService, BasicService } from '../core/service/core.service';
 import { EventHttpService } from '../core/service/event-http.service';
+import { AnalyticsService } from '../core/service/analytics.service';
 
 import { Category, BasicCategory } from '../model/category';
 
@@ -13,7 +14,7 @@ declare var acp: any;
 @Injectable()
 export class CategoryService extends BasicService {
   
-  constructor(service: EventService, private ehttp: EventHttpService, private http: Http) {
+  constructor(service: EventService, private ehttp: EventHttpService, private http: Http, private analyticsService: AnalyticsService) {
     super(service); 
   }
   
@@ -22,6 +23,9 @@ export class CategoryService extends BasicService {
       .get(acp + '/category/all')
       .toPromise()
       .then(response => {
+    	  
+        this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/category/all", "post", {});
+
         return response.json() as BasicCategory[];
       })
       .catch(this.handleError.bind(this));
@@ -36,7 +40,10 @@ export class CategoryService extends BasicService {
       .post(acp + '/category/edit', JSON.stringify({parentId:parentId, id:id}), { headers: headers })
       .toPromise()
       .then(response => {
-        return response.json() as Category;
+    	
+    	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/category/edit", "post", {parentId:parentId, id:id});
+        
+    	return response.json() as Category;
       })      
       .catch(this.handleError.bind(this));
   }
@@ -50,6 +57,9 @@ export class CategoryService extends BasicService {
     .post(acp + '/category/get', JSON.stringify({id:id}), { headers: headers })
     .toPromise()
     .then(response => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/category/get", "post", {id:id});
+
       return response.json() as Category;
     })
     .catch(this.handleError.bind(this));
@@ -59,6 +69,8 @@ export class CategoryService extends BasicService {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });    
+    
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/category/unlock", "post", {id:category.id});
     
     return this.ehttp
       .post(acp + '/category/unlock', JSON.stringify({id:category.id}), { headers: headers })
@@ -71,6 +83,8 @@ export class CategoryService extends BasicService {
       'Content-Type': 'application/json'
     });    
        
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/category/apply", "post", {config:config});
+
     return this.ehttp
     .post(acp + '/category/apply', JSON.stringify({config:config}), { headers: headers })
     .toPromise()
@@ -82,6 +96,8 @@ export class CategoryService extends BasicService {
       'Content-Type': 'application/json'
     });
     
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/category/apply", "post", {id:id});
+    
     return this.ehttp
       .post(acp + '/category/remove', JSON.stringify({id:id}), { headers: headers })
       .toPromise()
@@ -92,7 +108,9 @@ export class CategoryService extends BasicService {
     
     let params: URLSearchParams = new URLSearchParams();
     params.set('name', name);
-    params.set('id', id);    
+    params.set('id', id);  
+    
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/category/validate", "post", params);
     
     return this.http
       .get(acp + '/category/validate', {search: params})
@@ -111,6 +129,9 @@ export class CategoryService extends BasicService {
     .post(acp + '/category/create', JSON.stringify({option:option}), { headers: headers })
     .toPromise()
     .then((response:any) => {
+        
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/category/create", "post", {option:option});
+
       return response.json() as BasicCategory;
     })          
     .catch(this.handleError.bind(this));
@@ -125,6 +146,9 @@ export class CategoryService extends BasicService {
     .post(acp + '/category/update', JSON.stringify({category:category}), { headers: headers })
     .toPromise()
     .then((response:any) => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/category/update", "post", {category:category});
+
       return response.json() as BasicCategory;
     })          
     .catch(this.handleError.bind(this));

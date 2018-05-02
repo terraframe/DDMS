@@ -20,6 +20,8 @@ import { EventService, IdService, BasicService} from './service/core.service';
 import { LocalizationService } from './service/localization.service';
 import { EventHttpService } from './service/event-http.service';
 
+import { AnalyticsService } from './service/analytics.service';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import { EventHttpService } from './service/event-http.service';
         return new EventHttpService(xhrBackend, requestOptions, service)
       },
       deps: [XHRBackend, RequestOptions, EventService]
-    }   
+    },
+    AnalyticsService
   ],
   exports: [
     LocalizeComponent,

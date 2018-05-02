@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { EventService, BasicService } from '../../core/service/core.service';
 import { EventHttpService } from '../../core/service/event-http.service';
+import { AnalyticsService } from '../../core/service/analytics.service';
 
 import { Sheet, Workbook, GeoSynonym, ClassifierSynonym, Entity, DatasetResponse } from '../uploader-model';
 
@@ -17,7 +18,9 @@ declare var acp: any;
 @Injectable()
 export class UploadService extends BasicService {
 
-  constructor(service: EventService, private ehttp: EventHttpService, private http: Http) { super(service); }
+  constructor(service: EventService, private ehttp: EventHttpService, private http: Http, private analyticsService: AnalyticsService) { 
+	  super(service); 
+  }
 
   getSavedConfiguration(id: string, sheetName: string): Promise<any> {
     
@@ -31,6 +34,9 @@ export class UploadService extends BasicService {
       .post(acp + '/uploader/getSavedConfiguration', data, {headers: headers})
       .toPromise() 
       .then((response: any) => {
+    	  
+      	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/getSavedConfiguration", "post", {id:id, sheetName: sheetName});
+
         return response.json();
       })           
       .catch(this.handleError.bind(this));
@@ -43,6 +49,8 @@ export class UploadService extends BasicService {
     });    
     
     let data = JSON.stringify({configuration : workbook });
+    
+	this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/uploader/cancelImport", "post", {configuration : workbook });
     
     return this.ehttp
       .post(acp + '/uploader/cancelImport', data, {headers: headers})
@@ -71,9 +79,14 @@ export class UploadService extends BasicService {
       .post(acp + '/uploader/importData', data, {headers: headers})
       .toPromise() 
       .then((response: any) => {
-        return response.json() as DatasetResponse;
+    	
+    	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/importData", "post", {configuration : workbook });
+        
+    	return response.json() as DatasetResponse;
       })      
-      .catch(this.handleError.bind(this));
+      .catch(
+         this.handleError.bind(this)
+       );
   }
   
   getGeoEntitySuggestions(parentId: string, universalId: string, text: string, limit: string): Promise<Array<{ text: string, data: any }>> {
@@ -88,6 +101,9 @@ export class UploadService extends BasicService {
       .get(acp + '/uploader/getGeoEntitySuggestions', {search: params})
       .toPromise()
       .then((response: any) => {
+    	  
+      	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/getGeoEntitySuggestions", "get", params);
+
         return response.json() as Array<{ text: string, data: any }>;
       })
       .catch(this.handleError.bind(this));    
@@ -104,6 +120,9 @@ export class UploadService extends BasicService {
       .post(acp + '/uploader/createGeoEntitySynonym', data, {headers: headers})
       .toPromise() 
       .then((response: any) => {
+    	
+        this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/createGeoEntitySynonym", "post", {entityId: entityId, label: label });
+
         return response.json() as GeoSynonym;
       })      
       .catch(this.handleError.bind(this));
@@ -120,6 +139,9 @@ export class UploadService extends BasicService {
       .post(acp + '/uploader/createGeoEntity', data, {headers: headers})
       .toPromise() 
       .then((response: any) => {
+    	  
+        this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/createGeoEntity", "post", {parentId: parentId, universalId: universalId, label: label });
+
         return response.json() as Entity;
       })      
       .catch(this.handleError.bind(this));    
@@ -131,6 +153,9 @@ export class UploadService extends BasicService {
     });    
     
     let data = JSON.stringify({entityId: entityId});
+    
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/uploader/deleteGeoEntity", "post", {entityId: entityId});
+
     
     return this.ehttp
     .post(acp + '/uploader/deleteGeoEntity', data, {headers: headers})
@@ -144,6 +169,8 @@ export class UploadService extends BasicService {
     });    
     
     let data = JSON.stringify({synonymId: synonymId});
+    
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/uploader/deleteGeoEntitySynonym", "post", {synonymId: synonymId});
     
     return this.ehttp
     .post(acp + '/uploader/deleteGeoEntitySynonym', data, {headers: headers})
@@ -162,6 +189,9 @@ export class UploadService extends BasicService {
     .post(acp + '/uploader/createTermSynonym', data, {headers: headers})
     .toPromise() 
     .then((response: any) => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/createTermSynonym", "post", {termId: termId, label: label });
+
       return response.json() as ClassifierSynonym;
     })      
     .catch(this.handleError.bind(this));
@@ -173,6 +203,8 @@ export class UploadService extends BasicService {
     });    
     
     let data = JSON.stringify({synonymId: synonymId});
+    
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/uploader/deleteTermSynonym", "post", {synonymId: synonymId});
     
     return this.ehttp
     .post(acp + '/uploader/deleteTermSynonym', data, {headers: headers})
@@ -191,6 +223,9 @@ export class UploadService extends BasicService {
     .post(acp + '/uploader/createTerm', data, {headers: headers})
     .toPromise() 
     .then((response: any) => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/uploader/createTerm", "post", {parentId: parentId, label: label });
+
       return response.json() as ClassifierSynonym;
     })      
     .catch(this.handleError.bind(this));
@@ -203,11 +238,12 @@ export class UploadService extends BasicService {
     
     let data = JSON.stringify({termId: termId});
     
+    this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/uploader/deleteTerm", "post", {termId: termId});
+    
     return this.ehttp
     .post(acp + '/uploader/deleteTerm', data, {headers: headers})
     .toPromise() 
     .catch(this.handleError.bind(this));    
   }
-  
   
 }

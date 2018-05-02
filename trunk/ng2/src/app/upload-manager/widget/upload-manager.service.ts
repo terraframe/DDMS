@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { EventService, BasicService } from '../../core/service/core.service';
 import { EventHttpService } from '../../core/service/event-http.service';
+import { AnalyticsService } from '../../core/service/analytics.service';
 
 import { ExcelImportHistory } from './upload-manager.model';
 
@@ -15,13 +16,16 @@ declare var acp: any;
 @Injectable()
 export class UploadManagerService extends BasicService {
 
-  constructor(service: EventService, private ehttp: EventHttpService, private http: Http) { super(service); }
+  constructor(service: EventService, private ehttp: EventHttpService, private http: Http, private analyticsService: AnalyticsService) { super(service); }
 
   getAllHistory(): Promise<ExcelImportHistory[]> {
     return this.ehttp
       .get(acp + '/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo')
       .toPromise()
       .then(response => {
+    	  
+    	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo", "get", {});
+ 
         return response.json() as ExcelImportHistory[];
       })
       .catch(this.handleError.bind(this));
@@ -34,6 +38,9 @@ export class UploadManagerService extends BasicService {
   }
   
   clearHistory(): Promise<Response> {
+	
+  	this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/dss.vector.solutions.generator.ExcelController.clearHistory.mojo", "get", {});
+
     return this.ehttp
     .get(acp + '/dss.vector.solutions.generator.ExcelController.clearHistory.mojo')
     .toPromise()

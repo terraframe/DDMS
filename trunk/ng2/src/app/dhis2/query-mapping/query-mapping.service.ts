@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { EventService, BasicService } from '../../core/service/core.service';
 import { EventHttpService } from '../../core/service/event-http.service';
+import { AnalyticsService } from '../../core/service/analytics.service';
 
 import { QueryMapping } from './query-mapping';
 
@@ -16,7 +17,7 @@ declare var alert: any;
 @Injectable()
 export class QueryMappingService extends BasicService {
 
-  constructor(service: EventService, private ehttp: EventHttpService, private http: Http) { super(service); }
+  constructor(service: EventService, private ehttp: EventHttpService, private http: Http, private analyticsService: AnalyticsService) { super(service); }
 
   getAll(): Promise<QueryMapping[]> {
     let headers = new Headers({
@@ -27,6 +28,9 @@ export class QueryMappingService extends BasicService {
       .post(acp + '/dhis2/mappings', JSON.stringify({}), {headers: headers})
       .toPromise()
       .then(response => {
+    	  
+      	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/mappings", "post", {});
+
         return response.json() as QueryMapping[];
       })
       .catch(this.handleError.bind(this));      
@@ -41,6 +45,9 @@ export class QueryMappingService extends BasicService {
     .post(acp + '/dhis2/newInstance', JSON.stringify({}), {headers: headers})
     .toPromise()
     .then(response => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/newInstance", "post", {});
+
       return response.json() as {id:string, label:string}[];
     })
     .catch(this.handleError.bind(this));      
@@ -50,6 +57,8 @@ export class QueryMappingService extends BasicService {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });  
+    
+  	this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/dhis2/apply", "post", {mapping:mapping});
     
     return this.ehttp
     .post(acp + '/dhis2/apply', JSON.stringify({mapping:mapping}), {headers: headers})
@@ -61,6 +70,8 @@ export class QueryMappingService extends BasicService {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });  
+    
+  	this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/dhis2/remove", "post", {id:id});
     
     return this.ehttp
     .post(acp + '/dhis2/remove', JSON.stringify({id:id}), {headers: headers})

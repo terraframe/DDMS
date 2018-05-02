@@ -5,6 +5,8 @@ import 'rxjs/add/operator/toPromise';
 
 import { EventService, BasicService } from '../../core/service/core.service';
 import { EventHttpService } from '../../core/service/event-http.service';
+import { AnalyticsService } from '../../core/service/analytics.service';
+
 
 import { GeoMapping, UniversalMapping, OrgLevel } from './geo-mapping'
 
@@ -13,7 +15,7 @@ declare var acp: any;
 @Injectable()
 export class GeoMappingService extends BasicService {
 
-  constructor(service: EventService, private ehttp: EventHttpService, private http: Http) { super(service); }
+  constructor(service: EventService, private ehttp: EventHttpService, private http: Http, private analyticsService: AnalyticsService) { super(service); }
 
   getRoots(): Promise<{roots:GeoMapping[],mappings:UniversalMapping[],levels:OrgLevel[]}> {
     let headers = new Headers({
@@ -24,6 +26,9 @@ export class GeoMappingService extends BasicService {
       .post(acp + '/dhis2/roots', JSON.stringify({}), {headers: headers})
       .toPromise()
       .then(response => {
+          
+    	this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/roots", "post", {});
+
         return response.json() as {roots:GeoMapping[],mappings:UniversalMapping[],levels:OrgLevel[]};
       })
       .catch(this.handleError.bind(this));      
@@ -38,6 +43,9 @@ export class GeoMappingService extends BasicService {
     .post(acp + '/dhis2/children', JSON.stringify({parentId:parentId}), {headers: headers})
     .toPromise()
     .then(response => {
+      
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/children", "post", {parentId:parentId});
+
       return response.json() as {id:string, label:string}[];
     })
     .catch(this.handleError.bind(this));      
@@ -52,6 +60,9 @@ export class GeoMappingService extends BasicService {
     .post(acp + '/dhis2/search', JSON.stringify({text:text, geoId:geoId}), {headers: headers})
     .toPromise()
     .then(response => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/search", "post", {text:text, geoId:geoId});
+
       return response.json() as {data:string, text:string}[];
     })    
     .catch(this.handleError.bind(this));      
@@ -66,6 +77,9 @@ export class GeoMappingService extends BasicService {
     .post(acp + '/dhis2/apply-geo-mapping', JSON.stringify({mapping:mapping}), {headers: headers})
     .toPromise()
     .then(response => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/apply-geo-mapping", "post", {mapping:mapping});
+
       return response.json() as GeoMapping;
     })    
     .catch(this.handleError.bind(this));      
@@ -80,6 +94,9 @@ export class GeoMappingService extends BasicService {
     .post(acp + '/dhis2/apply-level-mapping', JSON.stringify({mapping:mapping}), {headers: headers})
     .toPromise()
     .then(response => {
+    	
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dhis2/apply-level-mapping", "post", {mapping:mapping});
+
       return response.json() as UniversalMapping;
     })    
     .catch(this.handleError.bind(this));      

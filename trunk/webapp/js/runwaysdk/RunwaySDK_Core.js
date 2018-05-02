@@ -2133,7 +2133,6 @@ var ClientSession = Mojo.Meta.newClass('Mojo.ClientSession', {
 });
 
 var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
-
   Instance : {
     
     initialize: function (url, parameters, options)
@@ -2142,7 +2141,7 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
       this._xhr = this._xhrFactory();
       
       // encode the parameters if given a map
-      this.paramStr = '';
+      this.paramStr = ''; 
       if (parameters instanceof FormData)
       {
         this.paramStr = parameters;	
@@ -2207,11 +2206,11 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
           this._xhr.open(this.options.method, this._url, this.options.asynchronous);
           this._xhr.onreadystatechange = bound;
 	  
-	  if(!(this.paramStr instanceof FormData))
-	  {
+          if(!(this.paramStr instanceof FormData))
+          {
             this._xhr.setRequestHeader("Content-type", this.options.contentType + "; charset="+this.options.encoding);
-	  }
-	  
+	  	  }
+          
           this._xhr.send(this.paramStr);
         }
         else
@@ -2271,12 +2270,77 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
           && this._xhr.status <= this.options.successRange[1])
         {
           this._success();
+          this.pushAalyticsTrackingTagEvent("SUCCESS")
         }
         else
         {
           this._failure();
         }
       }
+    },
+    
+    /*
+     * param requestState: send, complete, success, or failure
+     */
+    pushAalyticsTrackingTagEvent : function(requestState)
+    {
+    	console.log("Sending Google Analytics data...");
+    	var metadataIdentifier = "";
+        var paramString = decodeURIComponent(this.paramStr)
+        var paramArray = [];
+        if(paramString.length > 0)
+        {
+      	  var tempParamArray = paramString.split("&");
+      	  
+      	  tempParamArray.forEach(function(param)
+      	  {
+      		  paramObj = {};
+      		  var urlKey = param.substr(0, param.indexOf('='));
+      		  var urlVal = param.substr(param.indexOf('=') + 1);
+      		  if(urlVal.indexOf("null") == 1)
+      		  {
+      			urlVal = "";
+      		  }
+      		  
+      		  try
+      		  {
+      			if(urlKey === "mutableDTO" || urlKey === "metadata" || urlKey === "parameters")
+      		    {
+      			  paramObj[urlKey] = urlVal.length > 0 ? JSON.parse(urlVal) : urlVal;
+      			  
+      			  if(urlKey === "metadata")
+    			  {
+    				metadataIdentifier = paramObj[urlKey].className + "." + paramObj[urlKey].methodName;
+    			  }
+      		    }
+      			else
+      			{
+      		      paramObj[urlKey] = urlVal;
+      			}
+      			
+      		  }
+      		  catch(e)
+      		  {
+      			  //skipping because we don't want analytics tracking to break the app
+      			  console.log("We had troubles parsing: " + urlKey + " : " + urlVal);
+      		  }
+      		  
+      		  paramArray.push(paramObj);
+      	  })
+        }
+        
+        // Push to the global Google Tag Manager Variable which triggers the GTM event listener.
+        // Each variable in the dataLayer should map to a variable in GTM
+        window.dataLayer.push({
+    	  "event":'mdssAjaxRequest',
+    	  "requestParams":  paramArray,
+    	  "requestMethod": this.options.method,
+    	  "url": this._url,
+    	  "options": this.options,
+    	  "xhr": this._xhr,
+    	  "requestState": requestState,
+    	  "metadataIdentifier": metadataIdentifier
+        });
     }
   }
 });
