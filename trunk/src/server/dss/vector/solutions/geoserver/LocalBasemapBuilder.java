@@ -17,9 +17,11 @@
 package dss.vector.solutions.geoserver;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +30,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -36,7 +40,6 @@ import com.runwaysdk.query.QueryFactory;
 import dss.vector.solutions.basemap.OfflineBasemapManagement;
 import dss.vector.solutions.basemap.OfflineBasemapManagementQuery;
 import dss.vector.solutions.geoserver.GeoserverLayer.LayerType;
-
 import dss.vector.solutions.FileNotFoundException;
 
 public class LocalBasemapBuilder implements Reloadable
@@ -48,7 +51,11 @@ public class LocalBasemapBuilder implements Reloadable
   {
 	String lineSLDFileName = "style_osm_line.sld";
 	String polygonSLDFileName = "style_osm_polygon.sld";
-	
+    String defaultStylesPathStr = CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + GeoserverProperties.getAppName() + File.separator + "data" + File.separator + "styles" ;
+    Path defaultStylesPath = Paths.get(defaultStylesPathStr);
+    Path lineSLDFilePath = Paths.get(defaultStylesPath + File.separator + "osm-line-style.sld");
+    Path polygonSLDFilePath = Paths.get(defaultStylesPath + File.separator + "osm-polygon-style.sld");
+    
     if (GeoserverFacade.workspaceExists(GeoserverProperties.getOSMWorkspace()))
     {
       GeoserverFacade.removeWorkspace(GeoserverProperties.getOSMWorkspace());
@@ -61,8 +68,13 @@ public class LocalBasemapBuilder implements Reloadable
     // Line styles
 //    if (GeoserverFacade.styleExists("osm-line-style"))
 //    {
-//      GeoserverFacade.removeStyle("osm-line-style");
-//    }
+    GeoserverFacade.removeStyle("osm-line-style");
+  
+    File targetLineFile = new File(lineSLDFilePath.toString());
+    if(targetLineFile.exists() && !targetLineFile.isDirectory())
+    {
+    	targetLineFile.delete();
+    }
 
     URL lineFileURL = LocalBasemapBuilder.class.getClassLoader().getResource(lineSLDFileName);
     File lineFile = null;
@@ -84,8 +96,13 @@ public class LocalBasemapBuilder implements Reloadable
     // Polygon styles
 //    if (GeoserverFacade.styleExists("osm-polygon-style"))
 //    {
-//      GeoserverFacade.removeStyle("osm-polygon-style");
-//    }
+    GeoserverFacade.removeStyle("osm-polygon-style");
+      
+    File targetPolyFile = new File(lineSLDFilePath.toString());
+	if(targetPolyFile.exists() && !targetPolyFile.isDirectory())
+	{
+	  targetPolyFile.delete();
+	}
 
     URL polygonFileURL = LocalBasemapBuilder.class.getClassLoader().getResource(polygonSLDFileName);
     File polygonFile = null;
