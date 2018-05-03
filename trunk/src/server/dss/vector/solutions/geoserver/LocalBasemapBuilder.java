@@ -98,7 +98,7 @@ public class LocalBasemapBuilder implements Reloadable
 //    {
     GeoserverFacade.removeStyle("osm-polygon-style");
       
-    File targetPolyFile = new File(lineSLDFilePath.toString());
+    File targetPolyFile = new File(polygonSLDFilePath.toString());
 	if(targetPolyFile.exists() && !targetPolyFile.isDirectory())
 	{
 	  targetPolyFile.delete();
