@@ -59,12 +59,12 @@ public class LocalBasemapBuilder implements Reloadable
     GeoserverFacade.publishStore(GeoserverProperties.getOSMDatastore(), GeoserverProperties.getOSMDatabaseName(), GeoserverProperties.getOSMDatabaseSchema());
 
     // Line styles
-    if (GeoserverFacade.styleExists("osm-line-style"))
-    {
-      GeoserverFacade.removeStyle("osm-line-style");
-    }
+//    if (GeoserverFacade.styleExists("osm-line-style"))
+//    {
+//      GeoserverFacade.removeStyle("osm-line-style");
+//    }
 
-    URL lineFileURL = LocalBasemapBuilder.class.getClassLoader().getResource("mapstyles/".concat(lineSLDFileName));
+    URL lineFileURL = LocalBasemapBuilder.class.getClassLoader().getResource(lineSLDFileName);
     File lineFile = null;
     try
     {
@@ -82,12 +82,12 @@ public class LocalBasemapBuilder implements Reloadable
     
     
     // Polygon styles
-    if (GeoserverFacade.styleExists("osm-polygon-style"))
-    {
-      GeoserverFacade.removeStyle("osm-polygon-style");
-    }
+//    if (GeoserverFacade.styleExists("osm-polygon-style"))
+//    {
+//      GeoserverFacade.removeStyle("osm-polygon-style");
+//    }
 
-    URL polygonFileURL = LocalBasemapBuilder.class.getClassLoader().getResource("mapstyles/".concat(polygonSLDFileName));
+    URL polygonFileURL = LocalBasemapBuilder.class.getClassLoader().getResource(polygonSLDFileName);
     File polygonFile = null;
     try
     {
