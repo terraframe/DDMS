@@ -23,7 +23,7 @@ export class AnalyticsService {
   	  "requestMethod": requestMethod,
   	  "url": url,
   	  "options": "",
-  	  "xhr": "",
+  	  "xhrResponse": "",
   	  "requestState": requestState,
   	  "mainIdentifier": url
     });
