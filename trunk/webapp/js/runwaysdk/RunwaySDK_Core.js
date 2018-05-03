@@ -2337,7 +2337,7 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
     	  "requestMethod": this.options.method,
     	  "url": this._url,
     	  "options": this.options,
-    	  "xhr": this._xhr,
+    	  "xhrResponse": this._xhr.response,
     	  "requestState": requestState,
     	  "metadataIdentifier": metadataIdentifier
         });
