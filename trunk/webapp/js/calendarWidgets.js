@@ -435,13 +435,31 @@ MDSS.Calendar = {
         }
       }
       
+      var hide_all_cals = function(){
+        over_cal = false;
+        document.activeElement.blur();
+        hideCal();
+        for (key in calendars) {
+            if (calendars.hasOwnProperty(key))
+              hideCal(null, calendars[key])
+        }
+      };
+      
       if (init_not_done){
         // DDMS #3868 - Calendar widget in Kaleidoscopes doesn't close
         // This is a workaround for the unfortunate fact that JQuery sortable is clobbering the blur event.
-        $(".ui-sortable").click(function(ev, arg1){
-          var tagName = $(ev.target).prop("tagName");
-          if (tagName !== "INPUT") { document.activeElement.blur(); }
-        });
+        setTimeout(function(){ 
+          $(".ui-sortable").click(function(ev, arg1){
+            var tagName = $(ev.target).prop("tagName");
+            if (tagName !== "INPUT") { hide_all_cals(); }
+            
+            $(document).keyup(function(e) {
+              if (e.keyCode == 27 ) {
+                hide_all_cals();
+              }
+            });
+          });
+        }, 1000);
       }
 
       if(init_not_done){
