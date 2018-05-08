@@ -2270,17 +2270,18 @@ var AjaxRequest = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'AjaxRequest', {
           && this._xhr.status <= this.options.successRange[1])
         {
           this._success();
-          this.pushAalyticsTrackingTagEvent("SUCCESS")
+          this.pushAalyticsTrackingTagEvent("SUCCESS");
         }
         else
         {
+          this.pushAalyticsTrackingTagEvent("FAILURE")
           this._failure();
         }
       }
     },
     
     /*
-     * param requestState: send, complete, success, or failure
+     * param requestState: SEND, COMPLETE, SUCCESS, or FAILURE
      */
     pushAalyticsTrackingTagEvent : function(requestState)
     {
