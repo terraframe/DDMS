@@ -30,7 +30,10 @@ public class Patcher3883 implements DDMSPatchIF
     {
       for (MenuItem item : it)
       {
-        item.delete();
+        if (!(item.getTerm().getTermId().equals("DDSS:0000561") || item.getTerm().getTermId().equals("MDSS:0000561")))
+        {
+          item.delete();
+        }
       }
     }
     finally

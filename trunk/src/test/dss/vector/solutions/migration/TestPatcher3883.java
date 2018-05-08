@@ -18,16 +18,12 @@ public class TestPatcher3883
   @Request
   public static void doInRequest() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException
   {
-    long menuItems = getCount();
-    if (menuItems == 0)
-    {
-//      throw new UnsupportedOperationException("Bad count! Your database is not in the correct state to test this patch (it is already patched).");
-    }
+    long beforeMenuItems = getCount();
     
     ApplicationPatcher.main(new String[]{"-f 8935", "-t 8936"});
     
-    menuItems = getCount();
-    if (menuItems != 0)
+    long afterMenuItems = getCount();
+    if (beforeMenuItems == afterMenuItems)
     {
       throw new RuntimeException("Patch did not work.");
     }
