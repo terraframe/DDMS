@@ -22,6 +22,7 @@
 <%@page import="dss.vector.solutions.kaleidoscope.dashboard.DashboardJobDTO"%>
 <%@page import="dss.vector.solutions.query.RefreshViewJobDTO"%>
 <%@page import="dss.vector.solutions.query.CycleJobDTO"%>
+<%@page import="dss.vector.solutions.report.ReportJobDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.JobHistoryViewDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.JobHistoryDTO"%>
 <%@page import="com.runwaysdk.system.scheduler.QualifiedTypeJobDTO"%>
@@ -33,7 +34,6 @@
 <%@page import="dss.vector.solutions.report.SchedulerUtilDTO"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
-<%@page import="dss.vector.solutions.report.ReportJobDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
@@ -173,6 +173,11 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
    com.runwaysdk.Localize.defineLanguage('com.runwaysdk.ui.scheduler.Scheduler', {
      "jobs" : MDSS.localize("Jobs"),
      "history" : MDSS.localize("History"),
+     "all_jobs" : MDSS.localize("all_jobs"),
+     "cycle_jobs" : MDSS.localize("cycle_jobs"),
+     "refresh_view_jobs" : MDSS.localize("refresh_view_jobs"),
+     "report_jobs" : MDSS.localize("report_jobs"),
+     "odk_data_pull" : MDSS.localize("odk_data_pull"),
      
      "editJobTitle" : MDSS.localize("EditJob"),
      "scheduledRun" : MDSS.localize("ScheduledRun"),

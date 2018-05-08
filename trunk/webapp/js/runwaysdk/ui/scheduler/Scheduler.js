@@ -26,8 +26,6 @@
   var JOBS_POLLING_INTERVAL = 600;
   var HISTORY_POLLING_INTERVAL = 6000;
 
-  var JOB_QUERY_TYPE = "com.runwaysdk.system.scheduler.ExecutableJob";
-  
   var schedulerName = 'com.runwaysdk.ui.scheduler.Scheduler';
   var jobTableName = 'com.runwaysdk.ui.scheduler.JobTable';
   var jobHistoryTableName = "com.runwaysdk.ui.scheduler.JobHistoryTable";
@@ -36,7 +34,11 @@
    * LANGUAGE
    */
   com.runwaysdk.Localize.defineLanguage(schedulerName, {
-    "jobs" : "Jobs",
+    "all_jobs" : "All Jobs",
+    "cycle_jobs" : "Cycle Jobs",
+    "refresh_view_jobs" : "Refresh View Jobs",
+    "report_jobs" : "Report Jobs",
+    "odk_data_pull" : "Mobile Data Upload Jobs",
     "history" : "History",
   });
   
@@ -119,8 +121,20 @@
         this._config.language = this._config.language || {};
         Util.merge(com.runwaysdk.Localize.getLanguage(schedulerName), this._config.language);
         
-        this._jobTable = new JobTable(this._config, this);
-        this._tabPanel.addPanel(this.localize("jobs"), this._jobTable);
+        this._allJobsTable = new JobTable(this._config, "com.runwaysdk.system.scheduler.ExecutableJob", this);
+        this._tabPanel.addPanel(this.localize("all_jobs"), this._allJobsTable);
+        
+        this._cycleJobTable = new JobTable(this._config, "dss.vector.solutions.query.CycleJob", this);
+        this._tabPanel.addPanel(this.localize("cycle_jobs"), this._cycleJobTable);
+        
+        this._refreshViewTable = new JobTable(this._config, "dss.vector.solutions.query.RefreshViewJob", this);
+        this._tabPanel.addPanel(this.localize("refresh_view_jobs"), this._refreshViewTable);
+        
+        this._reportTable = new JobTable(this._config, "dss.vector.solutions.report.ReportJob", this);
+        this._tabPanel.addPanel(this.localize("report_jobs"), this._reportTable);
+        
+//        this._odkDataTable = new JobTable(this._config, "dss.vector.solutions.", this);
+//        this._tabPanel.addPanel(this.localize("odk_data_pull"), this._odkDataTable);
         
         this._historyTable = new JobHistoryTable(this._config, this);
         this._tabPanel.addPanel(this.localize("history"), this._historyTable);
@@ -131,12 +145,39 @@
       onSwitchPanel : function(switchPanelEvent) {
         var panel = switchPanelEvent.getPanel();
         
-        if (panel.getPanelNumber() === 0) { // Jobs
-          this._jobTable.getPollingRequest().enable();
+        if (panel.getPanelNumber() === 0) { // All Jobs
+          this._allJobsTable.getPollingRequest().enable();
+          this._cycleJobTable.getPollingRequest().disable();
+          this._refreshViewTable.getPollingRequest().disable();
+          this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 1) { // History
-          this._jobTable.getPollingRequest().disable();
+        else if (panel.getPanelNumber() === 1) { // Cycle jobs
+          this._allJobsTable.getPollingRequest().disable();
+          this._cycleJobTable.getPollingRequest().enable();
+          this._refreshViewTable.getPollingRequest().disable();
+          this._reportTable.getPollingRequest().disable();
+          this._historyTable.getPollingRequest().disable();
+        }
+        else if (panel.getPanelNumber() === 2) { // Refresh View jobs
+          this._allJobsTable.getPollingRequest().disable();
+          this._cycleJobTable.getPollingRequest().disable();
+          this._refreshViewTable.getPollingRequest().enable();
+          this._reportTable.getPollingRequest().disable();
+          this._historyTable.getPollingRequest().disable();
+        }
+        else if (panel.getPanelNumber() === 2) { // Report jobs
+          this._allJobsTable.getPollingRequest().disable();
+          this._cycleJobTable.getPollingRequest().disable();
+          this._refreshViewTable.getPollingRequest().disable();
+          this._reportTable.getPollingRequest().enable();
+          this._historyTable.getPollingRequest().disable();
+        }
+        else if (panel.getPanelNumber() === 4) { // History
+          this._allJobsTable.getPollingRequest().disable();
+          this._cycleJobTable.getPollingRequest().disable();
+          this._refreshViewTable.getPollingRequest().disable();
+          this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().enable();
         }
       },
@@ -153,12 +194,13 @@
     
     Instance : {
       
-      initialize : function(config, scheduler) {
+      initialize : function(config, typename, scheduler) {
         
         this.$initialize("table");
         
         this._config = config;
         this._scheduler = scheduler;
+        this._typename = typename;
       },
       
       _onClickStartJob : function(contextMenu, contextMenuItem, mouseEvent) {
@@ -335,7 +377,7 @@
       render : function(parent) {
         
         var ds = new InstanceQueryDataSource({
-          className: JOB_QUERY_TYPE,
+          className: this._typename,
           columns: [
             { queryAttr: "jobId" },
             { queryAttr: "description",  customFormatter: function(jobDTO){ return jobDTO.getDescription().getLocalizedValue(); } },
