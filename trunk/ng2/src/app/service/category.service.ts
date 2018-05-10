@@ -28,7 +28,10 @@ export class CategoryService extends BasicService {
 
         return response.json() as BasicCategory[];
       })
-      .catch(this.handleError.bind(this));
+      .catch(
+    		  this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/all", "post", {});
+    		  this.handleError.bind(this)
+      );
   }
   
   edit(parentId: string, id : string): Promise<Category> {
@@ -45,7 +48,10 @@ export class CategoryService extends BasicService {
         
     	return response.json() as Category;
       })      
-      .catch(this.handleError.bind(this));
+      .catch(
+    	    	this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/edit", "post", {parentId:parentId, id:id});
+    	    	this.handleError.bind(this)
+       );
   }
   
   get(id : string): Promise<Category> {
@@ -62,7 +68,10 @@ export class CategoryService extends BasicService {
 
       return response.json() as Category;
     })
-    .catch(this.handleError.bind(this));
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/get", "post", {id:id});
+    		this.handleError.bind(this)
+    		);
   }
   
   unlock(category: Category): Promise<Response> {
@@ -75,7 +84,11 @@ export class CategoryService extends BasicService {
     return this.ehttp
       .post(acp + '/category/unlock', JSON.stringify({id:category.id}), { headers: headers })
       .toPromise()
-      .catch(this.handleError.bind(this));
+      .catch(
+    		    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/unlock", "post", {id:category.id});
+
+    		    this.handleError.bind(this)
+    		    );
   }
   
   apply(config: any): Promise<Response> {
@@ -88,7 +101,9 @@ export class CategoryService extends BasicService {
     return this.ehttp
     .post(acp + '/category/apply', JSON.stringify({config:config}), { headers: headers })
     .toPromise()
-    .catch(this.handleError.bind(this));
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/apply", "post", {config:config});
+    		this.handleError.bind(this));
   }
   
   remove(id: string): Promise<Response> {
@@ -101,7 +116,9 @@ export class CategoryService extends BasicService {
     return this.ehttp
       .post(acp + '/category/remove', JSON.stringify({id:id}), { headers: headers })
       .toPromise()
-      .catch(this.handleError.bind(this));
+      .catch(
+    		  this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/apply", "post", {id:id});
+    		  this.handleError.bind(this));
   }
   
   validate(name: string, id:string): Promise<Response> {
@@ -134,7 +151,9 @@ export class CategoryService extends BasicService {
 
       return response.json() as BasicCategory;
     })          
-    .catch(this.handleError.bind(this));
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/create", "post", {option:option});
+    		this.handleError.bind(this));
   }
   
   update(category:Category): Promise<Category> {
@@ -151,7 +170,9 @@ export class CategoryService extends BasicService {
 
       return response.json() as BasicCategory;
     })          
-    .catch(this.handleError.bind(this));
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/category/update", "post", {category:category});
+    		this.handleError.bind(this));
   }
   
 }

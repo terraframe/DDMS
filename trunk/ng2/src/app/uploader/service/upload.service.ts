@@ -39,7 +39,10 @@ export class UploadService extends BasicService {
 
         return response.json();
       })           
-      .catch(this.handleError.bind(this));
+      .catch(
+    	this.handleError.bind(this)
+      	this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/getSavedConfiguration", "post", {id:id, sheetName: sheetName});
+      );
   }
     
   cancelImport(workbook: Workbook): Promise<Response> {
@@ -55,7 +58,10 @@ export class UploadService extends BasicService {
     return this.ehttp
       .post(acp + '/uploader/cancelImport', data, {headers: headers})
       .toPromise() 
-      .catch(this.handleError.bind(this));
+      .catch(
+    		  this.handleError.bind(this)
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/cancelImport", "post", {configuration : workbook });
+      );
   }
   
 //   legacyImportFromVault(vaultId: String): Promise<Response> {
@@ -86,6 +92,7 @@ export class UploadService extends BasicService {
       })      
       .catch(
          this.handleError.bind(this)
+     	this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/importData", "post", {configuration : workbook });
        );
   }
   
@@ -106,7 +113,10 @@ export class UploadService extends BasicService {
 
         return response.json() as Array<{ text: string, data: any }>;
       })
-      .catch(this.handleError.bind(this));    
+      .catch(
+    		  this.handleError.bind(this)
+    	      this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/getGeoEntitySuggestions", "get", params);
+      );    
   }
 
   createGeoEntitySynonym(entityId: string, label: string): Promise<GeoSynonym> {
@@ -125,7 +135,10 @@ export class UploadService extends BasicService {
 
         return response.json() as GeoSynonym;
       })      
-      .catch(this.handleError.bind(this));
+      .catch(
+    		  this.handleError.bind(this)
+    	      this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/createGeoEntitySynonym", "post", {entityId: entityId, label: label });
+      );
   }
   
   createGeoEntity(parentId: string, universalId: string, label: string): Promise<Entity> {
@@ -144,7 +157,10 @@ export class UploadService extends BasicService {
 
         return response.json() as Entity;
       })      
-      .catch(this.handleError.bind(this));    
+      .catch(
+    		  this.handleError.bind(this)
+    	        this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/createGeoEntity", "post", {parentId: parentId, universalId: universalId, label: label });
+      );    
   }
   
   deleteGeoEntity(entityId: string): Promise<Response> {
@@ -160,7 +176,10 @@ export class UploadService extends BasicService {
     return this.ehttp
     .post(acp + '/uploader/deleteGeoEntity', data, {headers: headers})
     .toPromise() 
-    .catch(this.handleError.bind(this));    
+    .catch(
+    		this.handleError.bind(this)
+    	    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/deleteGeoEntity", "post", {entityId: entityId});
+    );    
   }
   
   deleteGeoEntitySynonym(synonymId: string): Promise<Response> {
@@ -175,7 +194,10 @@ export class UploadService extends BasicService {
     return this.ehttp
     .post(acp + '/uploader/deleteGeoEntitySynonym', data, {headers: headers})
     .toPromise() 
-    .catch(this.handleError.bind(this));    
+    .catch(
+    		this.handleError.bind(this)
+    	    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/deleteGeoEntitySynonym", "post", {synonymId: synonymId});
+    );    
   }
     
   createTermSynonym(termId: string, label: string): Promise<ClassifierSynonym> {
@@ -194,7 +216,10 @@ export class UploadService extends BasicService {
 
       return response.json() as ClassifierSynonym;
     })      
-    .catch(this.handleError.bind(this));
+    .catch(
+    		this.handleError.bind(this)
+    	      this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/createTermSynonym", "post", {termId: termId, label: label });
+    );
   }
   
   deleteTermSynonym(synonymId: string): Promise<Response> {
@@ -209,7 +234,10 @@ export class UploadService extends BasicService {
     return this.ehttp
     .post(acp + '/uploader/deleteTermSynonym', data, {headers: headers})
     .toPromise() 
-    .catch(this.handleError.bind(this));    
+    .catch(
+    		this.handleError.bind(this)
+    	    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/deleteTermSynonym", "post", {synonymId: synonymId});
+    );    
   }
   
   createTerm(label: string, parentId: string): Promise<BasicCategory> {
@@ -228,7 +256,10 @@ export class UploadService extends BasicService {
 
       return response.json() as ClassifierSynonym;
     })      
-    .catch(this.handleError.bind(this));
+    .catch(
+    		this.handleError.bind(this)
+    	      this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/createTerm", "post", {parentId: parentId, label: label });
+    );
   }
   
   deleteTerm(termId: string): Promise<Response> {
@@ -243,7 +274,10 @@ export class UploadService extends BasicService {
     return this.ehttp
     .post(acp + '/uploader/deleteTerm', data, {headers: headers})
     .toPromise() 
-    .catch(this.handleError.bind(this));    
+    .catch(
+    		this.handleError.bind(this)
+    	    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/uploader/deleteTerm", "post", {termId: termId});
+    );    
   }
   
 }
