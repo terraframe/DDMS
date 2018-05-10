@@ -20,10 +20,10 @@ package dss.vector.solutions.odk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,17 +42,15 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
@@ -68,36 +66,38 @@ import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.SubCollectionView;
+import dss.vector.solutions.etl.EndpointUrl;
+import dss.vector.solutions.etl.SecureHttpConnector;
+import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
+import dss.vector.solutions.geoserver.GeoserverProperties;
 
 public class ODKFormExporter implements Reloadable
 {
-  public static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/ODK/";
-
-  public static final String IP_ADDRESS = "127.0.0.1";
+  private static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/ODK/";
 
   /**
    * The DOM <code>document</code> that is populated with data from the core.
    */
-  private Document           document;
+  private Document            document;
 
   /**
    * The <code>root</code> element of the DOM document.
    */
-  private Element            root;
+  private Element             root;
 
-  private List<ODKForm>      odkForms;
+  private List<ODKForm>       odkForms;
 
-  private List<ODKAttribute> baseAttrs;
+  private List<ODKAttribute>  baseAttrs;
 
-  private String             formName;
+  private String              formName;
 
-  private Logger             logger     = LoggerFactory.getLogger(ODKFormExporter.class);
+  private Logger              logger     = LoggerFactory.getLogger(ODKFormExporter.class);
 
   public ODKFormExporter()
   {
@@ -117,7 +117,7 @@ public class ODKFormExporter implements Reloadable
       CacheShutdown.shutdown();
     }
   }
-
+  
   @Request
   private static void exportInRequest()
   {
@@ -209,7 +209,7 @@ public class ODKFormExporter implements Reloadable
   public void addForm(ODKForm form, List<ExcelExportListener> listeners)
   {
     this.odkForms.add(form);
-
+    
     if (this.formName == null)
     {
       this.setFormName(form.getFormName());
@@ -236,7 +236,7 @@ public class ODKFormExporter implements Reloadable
   private String doIt()
   {
     new File(EXPORT_DIR).mkdirs();
-
+    
     try
     {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -264,7 +264,7 @@ public class ODKFormExporter implements Reloadable
 
     doBody(maxDepth);
 
-    // print();
+//    print();
 
     return submit();
   }
@@ -272,13 +272,10 @@ public class ODKFormExporter implements Reloadable
   private int generateGeoEntityCSV()
   {
     // TODO : versioning of odk submissions
-
-    // High level : Select lists must be defined for each level in the tree. The
-    // GeoEntities must then be exported to the CSV file at the appropriate
-    // level.
-
-    // 1. Do a depth-first search of the Universal tree to determine the number
-    // of levels. TODO : Do we want Universal or GeoEntity?
+    
+    // High level : Select lists must be defined for each level in the tree. The GeoEntities must then be exported to the CSV file at the appropriate level.
+    
+    // 1. Do a depth-first search of the Universal tree to determine the number of levels. TODO : Do we want Universal or GeoEntity?
     // 2. Create select lists for each level and for each attribute
     // 3. Export the GeoEntities to a CSV file
     // 4. Geo filter criteria
@@ -346,8 +343,7 @@ public class ODKFormExporter implements Reloadable
       geoCSV.add(geo.getEntityLabel().getValue());
       geoCSV.add(geo.getGeoId());
 
-      geoCSV.add("geoEntity_geolist_" + parents.size()); // TODO : This is
-                                                         // attribute specific
+      geoCSV.add("geoEntity_geolist_" + parents.size()); // TODO : This is attribute specific
 
       for (int listIndex = 0; listIndex < maxDepth; ++listIndex)
       {
@@ -390,13 +386,12 @@ public class ODKFormExporter implements Reloadable
       }
     }
   }
-
+  
   private class GeoStackElement implements Reloadable
   {
-    private String             geoId;
-
+    private String geoId;
     private LinkedList<String> parentIds;
-
+    
     public GeoStackElement(String geoId, LinkedList<String> parentIds)
     {
       this.geoId = geoId;
@@ -427,11 +422,11 @@ public class ODKFormExporter implements Reloadable
         allChildrenStack.push(new GeoStackElement(earthChildren.get(i).getGeoId(), emptyParents));
       }
       current = allChildrenStack.pop();
-
+  
       while (current != null)
       {
         GeoEntity curGeo = GeoEntity.getByKey(current.geoId);
-
+        
         boolean isPartOfHierarchies = true;
         for (GeoFilterCriteria filt : filters)
         {
@@ -446,24 +441,24 @@ public class ODKFormExporter implements Reloadable
           {
             maxDepth = current.parentIds.size();
           }
-
+          
           if (handler != null)
           {
             handler.processGeo(curGeo, current.parentIds);
           }
         }
-
+        
         List<GeoEntity> children = curGeo.getImmediateChildren();
-        LinkedList<String> parents = ( (LinkedList<String>) current.parentIds.clone() );
+        LinkedList<String> parents = ((LinkedList<String>)current.parentIds.clone());
         parents.add(curGeo.getGeoId());
         for (int i = 0; i < children.size(); ++i)
         {
           GeoEntity child = children.get(i);
-
+          
           GeoStackElement childGeoStack = new GeoStackElement(child.getGeoId(), parents);
           allChildrenStack.push(childGeoStack);
         }
-
+  
         if (!allChildrenStack.empty())
         {
           current = allChildrenStack.pop();
@@ -490,7 +485,7 @@ public class ODKFormExporter implements Reloadable
 
     root.appendChild(head);
   }
-
+  
   protected String getFormVersion()
   {
     ODKFormMappingQuery q = new ODKFormMappingQuery(new QueryFactory());
@@ -499,14 +494,14 @@ public class ODKFormExporter implements Reloadable
     try
     {
       String version = new SimpleDateFormat("yyyyMMdd").format(new Date());
-
+      
       if (it.hasNext())
       {
         ODKFormMapping mapping = it.next();
         mapping.lock();
-        mapping.setRevision(mapping.getRevision() + 1);
+        mapping.setRevision(mapping.getRevision()+1);
         mapping.apply();
-
+        
         version = version + String.format("%02d", mapping.getRevision());
       }
       else
@@ -516,10 +511,10 @@ public class ODKFormExporter implements Reloadable
         mapping.setDisease(Disease.getCurrent());
         mapping.setRevision(0);
         mapping.apply();
-
+        
         version = version + String.format("%02d", mapping.getRevision());
       }
-
+      
       return version;
     }
     finally
@@ -538,7 +533,7 @@ public class ODKFormExporter implements Reloadable
 
     Element translation = document.createElement("translation");
     translation.setAttribute("lang", "English");
-
+    
     for (ODKForm form : this.odkForms)
     {
       form.writeTranslation(translation, document, this.formName, maxDepth);
@@ -548,11 +543,11 @@ public class ODKFormExporter implements Reloadable
     Element instance = document.createElement("instance");
     Element instRoot = document.createElement(formName);
     instRoot.setAttribute("id", formName);
-
+    
     instRoot.setAttribute("orx:version", getFormVersion());
-
+    
     instance.appendChild(instRoot);
-
+    
     for (ODKAttribute attr : this.baseAttrs)
     {
       attr.writeInstance(instRoot, document, this.formName, maxDepth);
@@ -560,15 +555,15 @@ public class ODKFormExporter implements Reloadable
     for (ODKForm form : this.odkForms)
     {
       ODKForm[] repeats = form.getRepeats();
-
+      
       for (ODKForm repeat : repeats)
       {
         String repeatFormName = repeat.getFormName();
-
+        
         Element repeatRoot = document.createElement(repeatFormName);
         repeatRoot.setAttribute("id", repeatFormName);
         instRoot.appendChild(repeatRoot);
-
+        
         for (ODKAttribute attr : form.getRepeatAttrs())
         {
           attr.writeInstance(repeatRoot, document, repeatFormName, maxDepth);
@@ -626,41 +621,21 @@ public class ODKFormExporter implements Reloadable
       fos.close();
 
       // 3. Push the document to ODK
-      try (CloseableHttpClient client = ODKFacade.getClient())
+      MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+      File fFormDef = new File(EXPORT_DIR + "mosquitos-test.xml");
+      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
+      File itemsets = new File(EXPORT_DIR + "itemsets.csv");
+      builder.addBinaryBody("mediaFiles", new FileInputStream(itemsets), ContentType.APPLICATION_XML, itemsets.getName());
+      HttpEntity multipart = builder.build();
+      
+      HTTPResponse resp = ODKConnector.postToOdk("Mobile/formUpload", multipart);
+      
+      if (resp.getResponse().length() == 0)
       {
-        HttpPost post = new HttpPost(ODKFacade.getBaseURL() + "/formUpload");
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-
-        // This attaches the file to the POST:
-        File fFormDef = new File(EXPORT_DIR + "mosquitos-test.xml"); // TODO :
-                                                                     // don't
-                                                                     // hardcode
-        // builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef),
-        // ContentType.APPLICATION_XML, fFormDef.getName());
-        builder.addBinaryBody("form_def_file", fFormDef);
-        File itemsets = new File(EXPORT_DIR + "itemsets.csv"); // TODO : don't
-                                                               // hardcode
-        // builder.addBinaryBody("mediaFiles", new FileInputStream(itemsets),
-        // ContentType.APPLICATION_XML, itemsets.getName());
-        builder.addBinaryBody("mediaFiles", itemsets);
-
-        HttpEntity multipart = builder.build();
-        post.setEntity(multipart);
-
-        try (CloseableHttpResponse response = client.execute(post))
-        {
-          HttpEntity responseEntity = response.getEntity();
-          InputStream is = responseEntity.getContent();
-          String htmlResp = IOUtils.toString(is, "UTF-8");
-
-          if (htmlResp.length() == 0)
-          {
-            throw new RuntimeException("Expected a response from ODK.");
-          }
-
-          return htmlResp;
-        }
+        throw new RuntimeException("Expected a response from ODK.");
       }
+      
+      return resp.getResponse();
     }
     catch (Exception e)
     {

@@ -49,10 +49,10 @@ public class ODKFacade
   {
     if (GeoserverProperties.isHttps())
     {
-      return "https://" + ODKFormExporter.IP_ADDRESS + ":8443/" + CommonProperties.getDeployAppName() + "Mobile";
+      return "https://127.0.0.1:8443/" + CommonProperties.getDeployAppName() + "Mobile";
     }
 
-    return "http://" + ODKFormExporter.IP_ADDRESS + ":8080/" + CommonProperties.getDeployAppName() + "Mobile/";
+    return "http://127.0.0.1:8080/" + CommonProperties.getDeployAppName() + "Mobile/";
   }
 
   public static CredentialsProvider getCredentialsProvider()

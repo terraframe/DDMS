@@ -258,36 +258,46 @@
         
         // convert each DTO into an object literal
         var json = [];
-        var resultSet = this._resultsQueryDTO.getResultSet();   
+        var resultSet = this._resultsQueryDTO.getResultSet();
+        
         for(var i=0; i<resultSet.length; i++)
         {
           var result = resultSet[i];
           
-          var obj = [];
-          
-          for(var j = 0; j < thisDS._config.columns.length; j++) {
-            var queryAttr = thisDS._config.columns[j].queryAttr;
-            var customFormatter = thisDS._config.columns[j].customFormatter;
-            
-            var value = "";
-            if (customFormatter != null) {
-              value = customFormatter(result);
-            }
-            else if (queryAttr != null) {
-              
-              if (queryAttr === "displayLabel") {
-                value = result.getDisplayLabel().getLocalizedValue();
-              }
-              else {
-                value = result.getAttributeDTO(queryAttr).getValue();
-              }
-            }
-            
-            value = value != null ? value : '';
-            obj.push(value);
+          var passesDataFilter = true;
+          if (thisDS._config.dataFilter != null && !thisDS._config.dataFilter(result))
+          {
+            passesDataFilter = false;
           }
           
-          json.push(obj);
+          if (passesDataFilter)
+          {
+            var obj = [];
+            
+            for(var j = 0; j < thisDS._config.columns.length; j++) {
+              var queryAttr = thisDS._config.columns[j].queryAttr;
+              var customFormatter = thisDS._config.columns[j].customFormatter;
+              
+              var value = "";
+              if (customFormatter != null) {
+                value = customFormatter(result);
+              }
+              else if (queryAttr != null) {
+                
+                if (queryAttr === "displayLabel") {
+                  value = result.getDisplayLabel().getLocalizedValue();
+                }
+                else {
+                  value = result.getAttributeDTO(queryAttr).getValue();
+                }
+              }
+              
+              value = value != null ? value : '';
+              obj.push(value);
+            }
+            
+            json.push(obj);
+          }
         }
         
         this.setTotalResults(this._resultsQueryDTO.getCount());
