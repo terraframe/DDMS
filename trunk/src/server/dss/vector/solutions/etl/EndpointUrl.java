@@ -1,5 +1,8 @@
 package dss.vector.solutions.etl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class EndpointUrl
 {
   String protocol;
@@ -12,28 +15,46 @@ public class EndpointUrl
   
   String resourcePath;
   
+  String queryString;
+  
   public EndpointUrl(String protocol, String hostname, int port, String webappContextPath)
   {
     setProtocol(protocol);
     setHostname(hostname);
     setPort(port);
     setWebappContextPath(webappContextPath);
+    resourcePath = "";
+    queryString = "";
   }
   
   public String toString()
   {
-    String url = protocol + "://" + hostname + ":" + String.valueOf(port) + "/";
-    
-    if (webappContextPath.equals(""))
+    try
     {
-      url += resourcePath;
+      String url = protocol + "://" + hostname + ":" + String.valueOf(port) + "/";
+      
+      if (webappContextPath.equals(""))
+      {
+        url += resourcePath;
+      }
+      else
+      {
+        url += webappContextPath + "/" + resourcePath;
+      }
+      
+      if (queryString.length() > 0)
+      {
+        String encodedQuery = URLEncoder.encode(queryString, "UTF-8");
+        
+        url += "?" + encodedQuery;
+      }
+      
+      return url;
     }
-    else
+    catch (UnsupportedEncodingException e)
     {
-      url += webappContextPath + "/" + resourcePath;
+      throw new RuntimeException(e);
     }
-    
-    return url;
   }
   
   public String getProtocol() {
@@ -46,6 +67,14 @@ public class EndpointUrl
     if (protocol.endsWith("://")) { protocol = protocol.substring(0, protocol.length()-3); }
     
     this.protocol = protocol;
+  }
+  
+  public String getQueryString() {
+    return queryString;
+  }
+
+  public void setQueryString(String queryString) {
+    this.queryString = queryString;
   }
 
   public String getHostname() {
