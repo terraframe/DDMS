@@ -628,7 +628,7 @@ public class ODKFormExporter implements Reloadable
       builder.addBinaryBody("mediaFiles", new FileInputStream(itemsets), ContentType.APPLICATION_XML, itemsets.getName());
       HttpEntity multipart = builder.build();
       
-      HTTPResponse resp = ODKConnector.postToOdk("Mobile/formUpload", multipart);
+      HTTPResponse resp = ODKConnector.postToOdk("formUpload", multipart);
       
       if (resp.getResponse().length() == 0)
       {

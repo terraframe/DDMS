@@ -69,7 +69,7 @@ public class ODKForm implements Reloadable
   {
     return this.getBase().definesType().replaceAll("\\.", "_");
   }
-
+  
   public ODKForm[] getRepeats() {
     return repeats;
   }

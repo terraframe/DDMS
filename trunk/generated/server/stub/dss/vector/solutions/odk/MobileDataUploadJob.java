@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,6 +18,7 @@ import com.runwaysdk.business.View;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.scheduler.ExecutionContext;
@@ -23,10 +26,13 @@ import com.runwaysdk.system.scheduler.ExecutionContext;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1002885144;
+  
+  private static Logger logger = LoggerFactory.getLogger(MobileDataUploadJob.class);
   
   private ArrayList<String> ids = new ArrayList<String>();
   
@@ -105,6 +111,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     
     ArrayList<View> views = new ArrayList<View>();
     
+    int j = 0;
     try
     {
       for (String id : ids)
@@ -112,7 +119,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
         View view = new MosquitoCollectionView();
         views.add(view);
         
-        String query = "dss_vector_solutions_entomology_MosquitoCollectionView[@version=null and @uiVersion=null]/dss_vector_solutions_entomology_MosquitoCollectionView[@key=uuid:" + id + "]";
+        String mainType = "dss_vector_solutions_entomology_MosquitoCollectionView";
+        String query = mainType + "[@version=null and @uiVersion=null]/" + mainType + "[@key=uuid:" + id + "]";
         String encodedQuery = URLEncoder.encode(query, "UTF-8");
         
         HTTPResponse resp2 = ODKConnector.getFromOdk("view/downloadSubmission?formId=" + encodedQuery);
@@ -144,28 +152,49 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           if (child.getNodeType() == Node.ELEMENT_NODE)
           {
             String name = child.getNodeName();
+            String value = child.getTextContent();
             
-            if (name.startsWith("dss_vector_solutions"))
+            if (value != null && value.length() > 0)
             {
-              // Sub collection
-            }
-            else if (name.contains("_geolist_"))
-            {
-              // Geo Entity attribute
-            }
-            else
-            {
-              MdAttributeConcreteDAOIF mdAttr = mdBiz.definesAttribute(name);
-              
-              if (mdAttr instanceof MdAttributePrimitiveDAOIF)
+              if (name.startsWith("dss_vector_solutions")) // Sub collection
               {
-                String value = child.getTextContent();
+              }
+              else if (name.contains("_geolist_")) // Geo Entity attribute
+              {
+                String attrName = name.substring(0, name.indexOf("_geolist_"));
+                try
+                {
+                  GeoEntity ge = GeoEntity.getByKey(value);
+                  
+                  view.setValue(attrName, ge.getId());
+                  
+                  System.out.println(name + " : " + value);
+                }
+                catch (DataNotFoundException e)
+                {
+                  // TODO : Create a problem to give to the spreadsheet exporter?
+                  logger.error("Problem importing data from ODK. ODK contains a GeoEntity with geoId [" + value + "] but the DDMS does not.");
+                }
+              }
+              else
+              {
+                MdAttributeConcreteDAOIF mdAttr = mdBiz.definesAttribute(name);
                 
-                view.setValue(name, value);
+                if (mdAttr instanceof MdAttributePrimitiveDAOIF)
+                {
+                  view.setValue(name, value);
+                  
+                  if (j == 0)
+                  {
+                    System.out.println(name + " : " + value);
+                  }
+                }
               }
             }
           }
         }
+        
+        ++j;
       }
     }
     catch (Exception e)
