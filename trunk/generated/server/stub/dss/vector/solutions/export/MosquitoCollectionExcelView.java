@@ -338,5 +338,5 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     builder.add(GeoHierarchy.getGeoHierarchyFromType(CollectionSite.CLASS));
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder, importer);
-  }
+  }  
 }

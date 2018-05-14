@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.export;
 
@@ -53,7 +53,7 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
   private String             excelType;
 
   private List<GeoHierarchy> hierarchyList;
-  
+
   private ExcelImportManager importer;
 
   public static final String PREFIX = "Geo ";
@@ -64,7 +64,8 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
    * @param excelType
    * @param attributeName
    * @param mainHierarchyBuilder
-   * @param importer May be null, if used for an export.
+   * @param importer
+   *          May be null, if used for an export.
    */
   public DynamicGeoColumnListener(String excelType, String attributeName, HierarchyBuilder mainHierarchyBuilder, ExcelImportManager importer)
   {
@@ -83,7 +84,7 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
       String geoLabel = geoEntityClass.getDisplayLabel().getValue();
       String geoAttribute = getExcelAttribute(geoEntityClass);
 
-      extraColumns.add(new ExcelColumn(geoAttribute, geoLabel));
+      extraColumns.add(new GeoExcelColumn(this.attributeName, geoAttribute, geoLabel));
     }
   }
 
@@ -135,9 +136,9 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
       {
         // Unable to find a match look up synonyms
         List<GeoEntity> synonymEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
-  
+
         List<GeoEntity> siblingGeoEntityList = GeoEntitySearcher.searchChildren(parentGeoEntityMap, endPointEntityType, synonymEntityList);
-  
+
         UnknownGeoEntity unknownGeoEntity = new UnknownGeoEntity();
         unknownGeoEntity.setEntityType(MdBusiness.getMdBusiness(endPointEntityType).getDisplayLabel().getValue());
         unknownGeoEntity.setEntityName(endPointEntityName);
@@ -145,12 +146,12 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
         unknownGeoEntity.setSiblings(GeoEntitySearcher.getDelimitedList(siblingGeoEntityList));
         unknownGeoEntity.setKnownHierarchy(GeoEntitySearcher.getDelimitedHierarchy(parentGeoEntityMap, endPointEntityType));
         unknownGeoEntity.apply();
-        
+
         importer.addUnknownEntity(unknownGeoEntity);
         importer.addUnknownGeoEntityName(endPointEntityName);
         importer.putGeoTypeInfo(unknownGeoEntity, endPointEntityType);
       }
-      
+
       String msg = "Unknown Geo Entity [" + endPointEntityName + "]";
       UnknownGeoEntityException e = new UnknownGeoEntityException(msg);
       e.setEntityName(endPointEntityName);
@@ -188,7 +189,7 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
     String geoTypeName = geoEntityClass.getTypeName();
     return PREFIX + this.attributeName + " " + geoTypeName;
   }
-  
+
   @Override
   public void onFinishImport()
   {

@@ -50,7 +50,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
@@ -66,8 +65,6 @@ import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.SubCollectionView;
-import dss.vector.solutions.etl.EndpointUrl;
-import dss.vector.solutions.etl.SecureHttpConnector;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoFilterCriteria;
@@ -75,7 +72,6 @@ import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
-import dss.vector.solutions.geoserver.GeoserverProperties;
 
 public class ODKFormExporter implements Reloadable
 {

@@ -83,8 +83,8 @@ public class ODKPermissionExporter implements Reloadable
 
         if (!this.isSetup())
         {
-          SystemURL captureURL = SystemURL.getByName("");
-          SystemURL adminURL = SystemURL.getByName("");
+          SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);
+          SystemURL adminURL = SystemURL.getByName(SystemURL.ODK_ADMINISTRATOR);
 
           RoleDAO read = captureURL.getRole(PermissionOption.READ);
           RoleDAO write = captureURL.getRole(PermissionOption.WRITE);
