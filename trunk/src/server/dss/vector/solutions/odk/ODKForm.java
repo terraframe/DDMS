@@ -49,7 +49,7 @@ public class ODKForm implements Reloadable
   {
     this(base, target, null, repeats);
   }
-  
+
   public ODKForm(MdClassDAOIF base, GeoFilterCriteria gfc, ODKForm... repeats)
   {
     this(base, null, gfc, repeats);
@@ -66,34 +66,42 @@ public class ODKForm implements Reloadable
     this.init();
   }
 
-  private void init()
+  private final void init()
+  {
+    init(this.target);
+  }
+
+  private final void init(MdClassDAOIF target)
   {
     /*
-     * Initialize with a simple name check
+     * Initialize default mapping with a simple name match
      */
-    if (this.target != null)
+    if (target != null)
     {
-      this.populateMapping(this.base);
+      this.populateMapping(this.base, target);
 
-      for (ODKForm repeat : repeats)
+      for (ODKForm repeat : this.repeats)
       {
-        this.populateMapping(repeat.getBase());
+        repeat.init(target);
       }
     }
   }
 
-  private void populateMapping(MdClassDAOIF sourceClass)
+  private void populateMapping(MdClassDAOIF sourceClass, MdClassDAOIF target)
   {
     List<? extends MdAttributeDAOIF> mdAttributes = sourceClass.getAllDefinedMdAttributes();
 
     for (MdAttributeDAOIF mdAttribute : mdAttributes)
     {
-      String sourceName = mdAttribute.definesAttribute();
-      MdAttributeDAOIF targetAttribute = this.target.definesAttribute(sourceName);
-
-      if (targetAttribute != null)
+      if (!mdAttribute.isSystem())
       {
-        this.mapping.put(sourceName, targetAttribute.definesAttribute());
+        String sourceName = mdAttribute.definesAttribute();
+        MdAttributeDAOIF targetAttribute = target.definesAttribute(sourceName);
+
+        if (targetAttribute != null)
+        {
+          this.mapping.put(sourceName, targetAttribute.definesAttribute());
+        }
       }
     }
   }
