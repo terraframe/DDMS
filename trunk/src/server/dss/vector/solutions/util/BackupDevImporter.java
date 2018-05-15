@@ -28,6 +28,7 @@ import java.util.TreeSet;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,6 +72,7 @@ import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.localization.DatabaseVersionedLocalizationExcelImporter;
 import dss.vector.solutions.ontology.AttributeRootImporter;
 import dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter;
+import dss.vector.solutions.ontology.PostOntologySetup;
 import dss.vector.solutions.permission.PermissionImporter;
 import dss.vector.solutions.report.CacheDocumentManager;
 
@@ -194,7 +196,13 @@ public class BackupDevImporter
     }
     finally
     {
-      fRestoreUnzip.delete();
+      try
+      {
+        FileUtils.deleteDirectory(fRestoreUnzip);
+      }
+      catch (IOException e)
+      {
+      }
     }
     
     System.out.println("Restore is completed.");
@@ -489,6 +497,9 @@ public class BackupDevImporter
       
       // Import Permissions
       PermissionImporter.main(new String[]{root + "profiles/Permissions.xls"});
+      
+      // Run PostOntologySetup      
+      PostOntologySetup.main(new String[]{null, null, "false"});      
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

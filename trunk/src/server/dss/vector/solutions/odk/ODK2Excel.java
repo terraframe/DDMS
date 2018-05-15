@@ -302,10 +302,10 @@ public class ODK2Excel implements Reloadable
 
     MdClassDAOIF subc = MdClassDAO.getMdClassDAO(SubCollectionView.CLASS);
     MdClassDAOIF mosq = MdClassDAO.getMdClassDAO(MosquitoCollectionView.CLASS);
+    MdClassDAOIF target = MdClassDAO.getMdClassDAO(MosquitoCollectionExcelView.CLASS);
     GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, SentinelSite.CLASS, CollectionSite.CLASS);
 
-    ODKForm form = new ODKForm(mosq, gfc, mapping, new ODKForm(subc, mapping));
-    form.setTarget(MdClassDAO.getMdClassDAO(MosquitoCollectionExcelView.CLASS));
+    ODKForm form = new ODKForm(mosq, target, gfc, new ODKForm(subc));
 
     ODK2Excel importer = new ODK2Excel(form);
     Collection<String> uuids = importer.getUUIDs(cursor);

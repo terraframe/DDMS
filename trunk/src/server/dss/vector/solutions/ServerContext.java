@@ -115,6 +115,9 @@ public class ServerContext
 
     // Startup geo server layers
     this.initializeGeoserver();
+    
+    // Setup ODK
+    this.initializeODK();
   }
 
   private void deleteGeoserverLayers()
@@ -175,6 +178,26 @@ public class ServerContext
     try
     {
       Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.geoserver.GeoserverInitializer");
+      savedSearch.getMethod("setup").invoke(null);
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+  
+  private void initializeODK()
+  {
+    /*
+     * Must use reflection in order to break the reloadable infectionious.
+     */
+    try
+    {
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.odk.ODKInitializer");
       savedSearch.getMethod("setup").invoke(null);
     }
     catch (RuntimeException e)

@@ -1,22 +1,23 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Operation;
@@ -24,6 +25,7 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.CreatePermissionException;
 import com.runwaysdk.session.DeletePermissionException;
@@ -35,8 +37,11 @@ import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.SingleActor;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.odk.ODKPermissionExporter;
 import dss.vector.solutions.permission.MDSSRole;
+import dss.vector.solutions.permission.PermissionOption;
 
 public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -51,11 +56,12 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   public void apply()
   {
     boolean isNew = this.isNew();
+    boolean isUsernameModified = this.isModified(USERNAME);
+
     // Change for ticket #664
     if (isNew)
     {
       this.setSessionLimit(5);
-
     }
 
     super.apply();
@@ -64,14 +70,26 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     {
       UserSettings.createIfNotExists(this);
     }
+
+    if (isUsernameModified)
+    {
+      ODKPermissionExporter.export();
+    }
   }
 
   @Override
   public void delete()
   {
+    boolean isODK = this.hasODKRole();
+
     UserSettings.deleteIfExists(this);
 
     super.delete();
+
+    if (isODK)
+    {
+      ODKPermissionExporter.export();
+    }
   }
 
   @Transaction
@@ -94,6 +112,8 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     // You need to do an explict CRUD check on the Assignments
     // class to ensure that the user has permission to
     // assign permissions
+    boolean before = this.hasODKRole();
+
     SessionIF session = Session.getCurrentSession();
 
     UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
@@ -129,6 +149,13 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
       }
 
       role.assignMember(userDAO);
+    }
+
+    boolean after = this.hasODKRole();
+
+    if (before != after)
+    {
+      ODKPermissionExporter.export();
     }
   }
 
@@ -166,6 +193,26 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
       return disease.getKeyName();
     }
     return Disease.MALARIA;
+  }
+
+  public boolean hasODKRole()
+  {
+    // If the person is an ODK user update the password
+    SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);
+    SystemURL adminURL = SystemURL.getByName(SystemURL.ODK_ADMINISTRATOR);
+
+    RoleDAO read = captureURL.getRole(PermissionOption.READ);
+    RoleDAO write = captureURL.getRole(PermissionOption.WRITE);
+    RoleDAO admin = adminURL.getRole(PermissionOption.WRITE);
+
+    UserDAOIF userDAO = UserDAO.get(this.getId());
+    Set<RoleDAOIF> roles = userDAO.authorizedRoles();
+
+    boolean isRead = roles.contains(read);
+    boolean isWrite = roles.contains(write);
+    boolean isAdmin = roles.contains(admin);
+
+    return ( isRead || isWrite || isAdmin );
   }
 
   @Request

@@ -1,27 +1,30 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.permission;
 
 import java.util.List;
+import java.util.Set;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
+import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -45,6 +48,7 @@ import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.odk.ODKPermissionExporter;
 
 public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -94,7 +98,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
       throw exception;
     }
-    
+
     MDSSRole concrete = new MDSSRole();
     Roles role = new Roles();
 
@@ -175,6 +179,8 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
     RoleDAO role = this.getRole().getBusinessDAO();
 
+    boolean before = this.hasODKRole();
+
     for (PermissionView view : permissions)
     {
       List<PermissionOption> permission = view.getPermission();
@@ -198,6 +204,33 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
         role.removeAscendant(readRole);
       }
     }
+
+    boolean after = this.hasODKRole();
+
+    if (before != after)
+    {
+      ODKPermissionExporter.export();
+    }
+  }
+
+  public boolean hasODKRole()
+  {
+    // If the person is an ODK user update the password
+    SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);
+    SystemURL adminURL = SystemURL.getByName(SystemURL.ODK_ADMINISTRATOR);
+
+    RoleDAO read = captureURL.getRole(PermissionOption.READ);
+    RoleDAO write = captureURL.getRole(PermissionOption.WRITE);
+    RoleDAO admin = adminURL.getRole(PermissionOption.WRITE);
+
+    RoleDAO role = this.getRole().getBusinessDAO();
+    Set<RoleDAOIF> roles = role.getSuperRoles();
+
+    boolean isRead = roles.contains(read);
+    boolean isWrite = roles.contains(write);
+    boolean isAdmin = roles.contains(admin);
+
+    return ( isRead || isWrite || isAdmin );
   }
 
   @Override
@@ -229,7 +262,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
         role.grantPermission(Operation.CREATE, universal.getId());
         role.grantPermission(Operation.WRITE, universal.getId());
         role.grantPermission(Operation.DELETE, universal.getId());
-        
+
         // Don't forget about the dimension...
         String mdClassDim = universal.getMdClassDimension(dimension).getId();
         role.revokePermission(Operation.DENY_CREATE, mdClassDim);
@@ -256,7 +289,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
         role.grantPermission(Operation.DENY_CREATE, universal.getId());
         role.grantPermission(Operation.DENY_DELETE, universal.getId());
         role.grantPermission(Operation.DENY_WRITE, universal.getId());
-        
+
         // Don't forget about the dimension...
         String mdClassDim = universal.getMdClassDimension(dimension).getId();
         role.revokePermission(Operation.CREATE, mdClassDim);

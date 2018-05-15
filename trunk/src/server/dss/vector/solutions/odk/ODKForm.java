@@ -1,6 +1,7 @@
 package dss.vector.solutions.odk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,30 +42,65 @@ public class ODKForm implements Reloadable
 
   public ODKForm(MdClassDAOIF base, ODKForm... repeats)
   {
-    this.base = base;
-    this.repeats = repeats;
+    this(base, null, null, repeats);
   }
 
-  public ODKForm(MdClassDAOIF base, Map<String, String> mapping, ODKForm... repeats)
+  public ODKForm(MdClassDAOIF base, MdClassDAOIF target, ODKForm... repeats)
   {
-    this.base = base;
-    this.mapping = mapping;
-    this.repeats = repeats;
+    this(base, target, null, repeats);
   }
-
+  
   public ODKForm(MdClassDAOIF base, GeoFilterCriteria gfc, ODKForm... repeats)
   {
-    this.base = base;
-    this.gfc = gfc;
-    this.repeats = repeats;
+    this(base, null, gfc, repeats);
   }
 
-  public ODKForm(MdClassDAOIF base, GeoFilterCriteria gfc, Map<String, String> mapping, ODKForm... repeats)
+  public ODKForm(MdClassDAOIF base, MdClassDAOIF target, GeoFilterCriteria gfc, ODKForm... repeats)
   {
     this.base = base;
+    this.target = target;
     this.gfc = gfc;
-    this.mapping = mapping;
     this.repeats = repeats;
+    this.mapping = new HashMap<String, String>(1);
+
+    this.init();
+  }
+
+  private void init()
+  {
+    /*
+     * Initialize with a simple name check
+     */
+    if (this.target != null)
+    {
+      this.populateMapping(this.base);
+
+      for (ODKForm repeat : repeats)
+      {
+        this.populateMapping(repeat.getBase());
+      }
+    }
+  }
+
+  private void populateMapping(MdClassDAOIF sourceClass)
+  {
+    List<? extends MdAttributeDAOIF> mdAttributes = sourceClass.getAllDefinedMdAttributes();
+
+    for (MdAttributeDAOIF mdAttribute : mdAttributes)
+    {
+      String sourceName = mdAttribute.definesAttribute();
+      MdAttributeDAOIF targetAttribute = this.target.definesAttribute(sourceName);
+
+      if (targetAttribute != null)
+      {
+        this.mapping.put(sourceName, targetAttribute.definesAttribute());
+      }
+    }
+  }
+
+  public void setMapping(String sourceAttribute, String targetAttribute)
+  {
+    this.mapping.put(sourceAttribute, targetAttribute);
   }
 
   public void setTarget(MdClassDAOIF target)
@@ -111,7 +147,7 @@ public class ODKForm implements Reloadable
   {
     return this.getBase().definesType().replaceAll("\\.", "_");
   }
-  
+
   public ODKForm[] getRepeats()
   {
     return repeats;
