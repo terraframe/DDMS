@@ -33,7 +33,9 @@ export class QueryMappingService extends BasicService {
 
         return response.json() as QueryMapping[];
       })
-      .catch(this.handleError.bind(this));      
+      .catch(
+    		  this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/mappings", "post", {});
+    		  this.handleError.bind(this));      
   }    
   
   newInstance(): Promise<{id:string, label:string}[]> {
@@ -50,7 +52,9 @@ export class QueryMappingService extends BasicService {
 
       return response.json() as {id:string, label:string}[];
     })
-    .catch(this.handleError.bind(this));      
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/newInstance", "post", {});
+    		this.handleError.bind(this));      
   }    
   
   apply(mapping:QueryMapping): Promise<Response> {
@@ -63,7 +67,9 @@ export class QueryMappingService extends BasicService {
     return this.ehttp
     .post(acp + '/dhis2/apply', JSON.stringify({mapping:mapping}), {headers: headers})
     .toPromise()
-    .catch(this.handleError.bind(this));      
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/apply", "post", {mapping:mapping});
+    		this.handleError.bind(this));      
   }    
   
   remove(id:string): Promise<Response> {
@@ -76,7 +82,9 @@ export class QueryMappingService extends BasicService {
     return this.ehttp
     .post(acp + '/dhis2/remove', JSON.stringify({id:id}), {headers: headers})
     .toPromise()
-    .catch(this.handleError.bind(this));      
+    .catch(
+    		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/remove", "post", {id:id});
+    		this.handleError.bind(this));      
   }    
   
   
