@@ -1,6 +1,5 @@
 package dss.vector.solutions.odk;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -12,15 +11,13 @@ import java.util.TreeSet;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
-import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.system.metadata.MdView;
 
 import dss.vector.solutions.geo.GeoFilterCriteria;
 
@@ -256,7 +253,7 @@ public class ODKForm implements Reloadable
   
   private void mapAttributes()
   {
-    MobileImportViewIF mobileView = ((MobileImportViewIF)this.base);
+    MobileImportViewIF mobileView = ((MobileImportViewIF)BusinessFacade.newMutable(this.base.definesType()));
     Map<String,String[]> sourceMap = mobileView.getAttributeSourceMap();
     this.repeats = new HashMap<String, LinkedList<ODKAttribute>>();
     LinkedList<String> attrOrder = mobileView.getAttributeOrder();
