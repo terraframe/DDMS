@@ -82,7 +82,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   @Request
   private static void mainInRequest()
   {
-    MobileUtil.export(AggregatedIPTExcelView.CLASS);
+    MobileUtil.export(MosquitoCollectionExcelView.CLASS);
   }
   
   public static String export(java.lang.String mobileType)
