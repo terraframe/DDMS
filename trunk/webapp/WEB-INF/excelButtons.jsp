@@ -29,3 +29,8 @@
   <input type="hidden" value="<%= request.getParameter("excelType") %>" name="excelType"/>
   <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
 </form>
+<form id="<%= request.getParameter("excelType") %>.mobile" name="<%= request.getParameter("excelType") %>.mobile" action="mobile/export" method="get">
+  <input type="hidden" value="<%= request.getParameter("excelType") %>" name="type"/>
+  <mdss:localize key="Mobile_Export_Button" var="mobile_label"/>
+  <input type="submit" class="mobileButton" name="mobile.button" value="${mobile_label}"/>
+</form>

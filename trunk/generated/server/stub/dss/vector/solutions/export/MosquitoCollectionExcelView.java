@@ -17,14 +17,17 @@
 package dss.vector.solutions.export;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.RequiredAttributeProblem;
@@ -40,10 +43,11 @@ import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.odk.MobileImportViewIF;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
+public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable, MobileImportViewIF
 {
   private static final long serialVersionUID = -9941268;
 
@@ -51,7 +55,18 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   {
     super();
   }
-
+  
+  @Override
+  public Map<String,String[]> getAttributeSourceMap()
+  {
+    Map<String,String[]> map = new HashMap<String,String[]>();
+    
+    map.put(MosquitoCollection.CLASS, new String[]{ABUNDANCE, COLLECTIONDATE, COLLECTIONID, COLLECTIONMETHOD, COLLECTIONROUND, COLLECTIONTYPE, DATELASTSPRAYED, DISECTED, GEOENTITY, INSECTICIDEBRAND, LIFESTAGE, NUMBEROFANIMALOCCUPANTS, NUMBEROFHUMANOCCUPANTS, NUMBEROFLLINS, WALLTYPE});
+    map.put(SubCollection.CLASS, new String[]{SUBCOLLECTIONID, TAXON, EGGS, FEMALESFED, FEMALESGRAVID, FEMALESHALFGRAVID, FEMALESUNFED, FEMALESUNKNOWN, IDENTMETHOD, LARVAE, MALE, PAROUS, PUPAE, UNKNOWNS });
+    
+    return map;
+  }
+  
   @Override
   public void apply()
   {
@@ -284,7 +299,12 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     return view;
   }
 
-  public static List<String> customAttributeOrder()
+  public LinkedList<String> getAttributeOrder()
+  {
+    return customAttributeOrder();
+  }
+  
+  public static LinkedList<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
     list.add(COLLECTIONMETHOD);

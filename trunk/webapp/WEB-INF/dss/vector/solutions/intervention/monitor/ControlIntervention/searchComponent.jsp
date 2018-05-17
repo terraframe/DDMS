@@ -102,6 +102,11 @@
   <mdss:localize key="Excel_Import_Header" var="import_label"/>
   <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
 </form>
+<form id="dss.vector.solutions.export.ControlInterventionExcelView.mobile" name="<%= request.getParameter("excelType") %>.mobile" action="mobile/export" method="get">
+  <input type="hidden" value="dss.vector.solutions.export.ControlInterventionExcelView" name="type"/>
+  <mdss:localize key="Mobile_Export_Button" var="mobile_label"/>
+  <input type="submit" class="mobileButton" name="mobile.button" value="${mobile_label}"/>
+</form>
 
 <script type="text/javascript">
 (function(){

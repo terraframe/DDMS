@@ -102,6 +102,11 @@
   <mdss:localize key="Excel_Import_Header" var="import_label"/>
   <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
 </form>
+<form id="dss.vector.solutions.export.AggregatedCaseExcelView.mobile" name="dss.vector.solutions.export.AggregatedCaseExcelView.mobile" action="mobile/export" method="get">
+  <input type="hidden" value="dss.vector.solutions.export.AggregatedCaseExcelView" name="type"/>
+  <mdss:localize key="Mobile_Export_Button" var="mobile_label"/>
+  <input type="submit" class="mobileButton" name="mobile.button" value="${mobile_label}"/>
+</form>
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 

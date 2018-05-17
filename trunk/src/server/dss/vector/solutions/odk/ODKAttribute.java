@@ -18,10 +18,22 @@
  */
 package dss.vector.solutions.odk;
 
+import java.util.Set;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
+import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.generation.loader.Reloadable;
+
+import dss.vector.solutions.entomology.MosquitoCollectionView;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public class ODKAttribute implements Reloadable
 {
@@ -43,7 +55,7 @@ public class ODKAttribute implements Reloadable
     this.index = index;
     this.required = required;
   }
-
+  
   public ODKAttribute(String attributeName, String displayLabel, int index)
   {
     this(attributeName, displayLabel, null, index, false);
@@ -57,6 +69,64 @@ public class ODKAttribute implements Reloadable
   public ODKAttribute(String attributeName, String displayLabel)
   {
     this(attributeName, displayLabel, null, 0, false);
+  }
+  
+  protected static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
+  {
+
+    @Override
+    public boolean accept(MdAttributeDAOIF mdAttribute)
+    {
+      if (mdAttribute instanceof MdAttributeReferenceDAOIF)
+      {
+        MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttribute ).getReferenceMdBusinessDAO();
+
+        String type = referenceMdBusiness.definesType();
+
+        return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS);
+      }
+
+      if (mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID))
+      {
+        return false;
+      }
+
+      return super.accept(mdAttribute);
+    }
+
+  }
+  
+  public static ODKAttribute factory(MdAttributeDAOIF mdAttr, Set<String> exportedTerms)
+  {
+    if (mdAttr instanceof MdAttributeStructDAOIF)
+    {
+//      MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttr;
+//      MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
+//      List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new Filter());
+//
+//      for (MdAttributeDAOIF structAttribute : structAttributes)
+//      {
+//        attrs.add(new StructColumn(struct, structAttribute));
+//      }
+    }
+    else if (mdAttr instanceof MdAttributeReferenceDAOIF)
+    {
+      MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttr ).getReferenceMdBusinessDAO();
+      if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
+      {
+        return new ODKGeoAttribute(mdAttr);
+      }
+      else
+      {
+        return new ODKTermAttribute(mdAttr, exportedTerms);
+      }
+    }
+    else
+    {
+      return new AttributeColumn(mdAttr);
+    }
+    
+    return null;
   }
 
   public String getDisplayLabel()

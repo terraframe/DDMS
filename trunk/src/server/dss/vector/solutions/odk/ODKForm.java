@@ -1,7 +1,9 @@
 package dss.vector.solutions.odk;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,55 +14,58 @@ import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.MdStructDAOIF;
-import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
-import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
-import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdView;
 
-import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.geo.GeoFilterCriteria;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.ontology.Term;
 
 public class ODKForm implements Reloadable
 {
   protected MdClassDAOIF        base;
-
-  protected ODKForm[]           repeats;
 
   protected GeoFilterCriteria   gfc;
 
   protected MdClassDAOIF        target;
 
   protected Map<String, String> mapping;
-
-  public ODKForm(MdClassDAOIF base, ODKForm... repeats)
+  
+  protected Map<String,LinkedList<ODKAttribute>> repeats;
+  
+  protected LinkedList<ODKAttribute> baseAttrs;
+  
+  /*
+   * Global Map of all the exported term ids. This is used to prevent the same
+   * term from being translated multiple times even if the term is an item of
+   * multiple different attributes.
+   */
+  protected Set<String> exportedTerms = new TreeSet<String>();
+  
+  public ODKForm(MdClassDAOIF base)
   {
-    this(base, null, null, repeats);
+    this(base, null, null);
+  }
+  
+  public ODKForm(String base, GeoFilterCriteria gfc)
+  {
+    this(MdClassDAO.getMdClassDAO(base), null, gfc);
   }
 
-  public ODKForm(MdClassDAOIF base, MdClassDAOIF target, ODKForm... repeats)
+  public ODKForm(MdClassDAOIF base, GeoFilterCriteria gfc)
   {
-    this(base, target, null, repeats);
+    this(base, null, gfc);
   }
 
-  public ODKForm(MdClassDAOIF base, GeoFilterCriteria gfc, ODKForm... repeats)
-  {
-    this(base, null, gfc, repeats);
-  }
-
-  public ODKForm(MdClassDAOIF base, MdClassDAOIF target, GeoFilterCriteria gfc, ODKForm... repeats)
+  public ODKForm(MdClassDAOIF base, MdClassDAOIF target, GeoFilterCriteria gfc)
   {
     this.base = base;
     this.target = target;
     this.gfc = gfc;
-    this.repeats = repeats;
+    this.baseAttrs = new LinkedList<ODKAttribute>();
     this.mapping = new HashMap<String, String>(1);
 
     this.init();
@@ -85,6 +90,8 @@ public class ODKForm implements Reloadable
         repeat.init(target);
       }
     }
+    
+    mapAttributes();
   }
 
   private void populateMapping(MdClassDAOIF sourceClass, MdClassDAOIF target)
@@ -153,17 +160,7 @@ public class ODKForm implements Reloadable
 
   public String getFormName()
   {
-    return this.getBase().definesType().replaceAll("\\.", "_");
-  }
-
-  public ODKForm[] getRepeats()
-  {
-    return repeats;
-  }
-
-  public void setRepeats(ODKForm[] repeats)
-  {
-    this.repeats = repeats;
+    return ODKForm.dataTypeToFormName(this.getBase().definesType());
   }
 
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
@@ -173,9 +170,12 @@ public class ODKForm implements Reloadable
       attr.writeTranslation(parent, document, title, maxDepth);
     }
 
-    for (ODKForm repeat : repeats)
+    for (String sourceDataType : repeats.keySet())
     {
-      repeat.writeTranslation(parent, document, title + "/" + repeat.getFormName(), maxDepth);
+      for (ODKAttribute odkAttr : repeats.get(sourceDataType))
+      {
+        odkAttr.writeTranslation(parent, document, title + "/" + ODKForm.dataTypeToFormName(sourceDataType), maxDepth);
+      }
     }
   }
 
@@ -186,9 +186,12 @@ public class ODKForm implements Reloadable
       attr.writeBind(parent, document, title, maxDepth);
     }
 
-    for (ODKForm repeat : repeats)
+    for (String sourceDataType : repeats.keySet())
     {
-      repeat.writeBind(parent, document, title + "/" + repeat.getFormName(), maxDepth);
+      for (ODKAttribute odkAttr : repeats.get(sourceDataType))
+      {
+        odkAttr.writeBind(parent, document, title + "/" + ODKForm.dataTypeToFormName(sourceDataType), maxDepth);
+      }
     }
   }
 
@@ -199,111 +202,121 @@ public class ODKForm implements Reloadable
       attr.writeBody(parent, document, title, maxDepth);
     }
 
-    for (ODKForm repeat : repeats)
+    for (String sourceDataType : repeats.keySet())
     {
-      Element group = document.createElement("group");
-      parent.appendChild(group);
-      group.setAttribute("ref", "/" + title + "/" + repeat.getFormName());
-
-      Element label = document.createElement("label");
-      group.appendChild(label);
-      label.setTextContent(repeat.getBase().getDisplayLabel(Session.getCurrentLocale()));
-
-      Element repeatEl = document.createElement("repeat");
-      group.appendChild(repeatEl);
-      repeatEl.setAttribute("nodeset", "/" + title + "/" + repeat.getFormName());
-
-      repeat.writeBody(repeatEl, document, title + "/" + repeat.getFormName(), maxDepth);
+      MdClassDAOIF sourceMdClass = MdClassDAO.getMdClassDAO(sourceDataType);
+      
+      for (ODKAttribute odkAttr : repeats.get(sourceDataType))
+      {
+        String repeatFormName = ODKForm.dataTypeToFormName(sourceDataType);
+        
+        Element group = document.createElement("group");
+        parent.appendChild(group);
+        group.setAttribute("ref", "/" + title + "/" + repeatFormName);
+  
+        Element label = document.createElement("label");
+        group.appendChild(label);
+        label.setTextContent(sourceMdClass.getDisplayLabel(Session.getCurrentLocale()));
+  
+        Element repeatEl = document.createElement("repeat");
+        group.appendChild(repeatEl);
+        repeatEl.setAttribute("nodeset", "/" + title + "/" + repeatFormName);
+  
+        odkAttr.writeBody(repeatEl, document, title + "/" + repeatFormName, maxDepth);
+      }
     }
   }
-
-  public List<ODKAttribute> getBaseAttrs()
+  
+  public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
-    ArrayList<ODKAttribute> attrs = new ArrayList<ODKAttribute>();
-
-    MdClassDAOIF mdc = this.getBase();
-
-    /*
-     * Global Map of all the exported term ids. This is used to prevent the same
-     * term from being translated multiple times even if the term is an item of
-     * multiple different attributes.
-     */
-    Set<String> items = new TreeSet<String>();
-
-    List<? extends MdAttributeDAOIF> mdAttributeDAOs = ExcelUtil.getAttributes(mdc, new Filter());
-
-    // Store relevant information about all the attributes
-    for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
+    for (ODKAttribute attr : this.baseAttrs)
     {
-      MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
-
-      if (mdAttributeConcrete instanceof MdAttributeStructDAOIF)
+      attr.writeInstance(parent, document, title, maxDepth);
+    }
+    
+    for (String repeatDatatype : repeats.keySet())
+    {
+      String repeatFormName = ODKForm.dataTypeToFormName(repeatDatatype);
+      
+      Element repeatRoot = document.createElement(repeatFormName);
+      repeatRoot.setAttribute("id", repeatFormName);
+      parent.appendChild(repeatRoot);
+      
+      for (ODKAttribute attr : repeats.get(repeatDatatype))
       {
-        MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttributeConcrete;
-        MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
-        List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new Filter());
-
-        for (MdAttributeDAOIF structAttribute : structAttributes)
-        {
-          attrs.add(new StructColumn(struct, structAttribute));
-        }
+        attr.writeInstance(repeatRoot, document, repeatFormName, maxDepth);
       }
-      else if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
+    }
+  }
+  
+  public static String dataTypeToFormName(String dataType)
+  {
+    return dataType.replaceAll("\\.", "_");
+  }
+  
+  private void mapAttributes()
+  {
+    MobileImportViewIF mobileView = ((MobileImportViewIF)this.base);
+    Map<String,String[]> sourceMap = mobileView.getAttributeSourceMap();
+    this.repeats = new HashMap<String, LinkedList<ODKAttribute>>();
+    LinkedList<String> attrOrder = mobileView.getAttributeOrder();
+
+    for (String sourceDatatype : sourceMap.keySet())
+    {
+      String[] saMdAttr = sourceMap.get(sourceDatatype);
+      
+      LinkedList<ODKAttribute> repeatAttrs = new LinkedList<ODKAttribute>();
+      
+      for (String sMdAttr : saMdAttr)
       {
-        MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttributeConcrete ).getReferenceMdBusinessDAO();
-        if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
+        MdAttributeDAOIF mdAttr = MdAttributeDAO.getByKey(sourceDatatype + "." + sMdAttr);
+        ODKAttribute odkAttr = ODKAttribute.factory(mdAttr, exportedTerms);
+        
+        if (sourceDatatype.equals(this.base.definesType()))
         {
-          attrs.add(new ODKGeoAttribute(mdAttribute));
+          this.baseAttrs.add(odkAttr);
         }
         else
         {
-          attrs.add(new ODKTermAttribute(mdAttribute, items));
+          repeatAttrs.add(odkAttr);
         }
       }
-      else
+      
+      if (!sourceDatatype.equals(this.base.definesType()))
       {
-        attrs.add(new AttributeColumn(mdAttribute));
+        this.repeats.put(sourceDatatype, repeatAttrs);
       }
     }
-
-    return attrs;
+    
+    Comparator<ODKAttribute> sorter = new Comparator<ODKAttribute>(){
+      @Override
+      public int compare(ODKAttribute one,ODKAttribute two)
+      {
+        int oneI = attrOrder.indexOf(one.getAttributeName());
+        int twoI = attrOrder.indexOf(two.getAttributeName());
+        
+        if (oneI < twoI) { return -1; }
+        else if (oneI == twoI) { return 0; }
+        else { return 1; }
+      }
+    };
+    
+    this.baseAttrs.sort(sorter);
+    
+    for (String sourceDatatype : this.repeats.keySet())
+    {
+      this.repeats.get(sourceDatatype).sort(sorter);
+    }
+  }
+  
+  public List<ODKAttribute> getBaseAttrs()
+  {
+    return this.baseAttrs;
   }
 
-  public List<ODKAttribute> getRepeatAttrs()
+  public Map<String,LinkedList<ODKAttribute>> getRepeatAttrs()
   {
-    ArrayList<ODKAttribute> attrs = new ArrayList<ODKAttribute>();
-
-    for (ODKForm repeat : repeats)
-    {
-      attrs.addAll(repeat.getBaseAttrs());
-    }
-
-    return attrs;
-  }
-
-  private static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
-  {
-
-    @Override
-    public boolean accept(MdAttributeDAOIF mdAttribute)
-    {
-      if (mdAttribute instanceof MdAttributeReferenceDAOIF)
-      {
-        MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttribute ).getReferenceMdBusinessDAO();
-
-        String type = referenceMdBusiness.definesType();
-
-        return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS);
-      }
-
-      if (mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID))
-      {
-        return false;
-      }
-
-      return super.accept(mdAttribute);
-    }
-
+    return this.repeats;
   }
 
   public boolean isGeoAttribute(String attributeName)
@@ -315,7 +328,7 @@ public class ODKForm implements Reloadable
   {
     return ( this.getRepeatable(attributeName) != null );
   }
-
+  
   public ODKForm getRepeatable(String attributeName)
   {
     if (attributeName.contains("_"))

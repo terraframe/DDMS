@@ -102,39 +102,6 @@ public class ODKFormExporter implements Reloadable
     this.formName = null;
   }
 
-  public static void main(String[] args)
-  {
-    try
-    {
-      exportInRequest();
-    }
-    finally
-    {
-      CacheShutdown.shutdown();
-    }
-  }
-  
-  @Request
-  private static void exportInRequest()
-  {
-    export();
-  }
-
-  public static String export()
-  {
-    // MosquitoCollections is locked to Political plus Sentinel site and
-    // Collection Site.
-    // TODO : Move this somewhere specific to mosquito collections
-    MdClassDAOIF subc = MdClassDAO.getMdClassDAO(SubCollectionView.CLASS);
-    MdClassDAOIF mosq = MdClassDAO.getMdClassDAO(MosquitoCollectionView.CLASS);
-    GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, SentinelSite.CLASS, CollectionSite.CLASS);
-    ODKForm form = new ODKForm(mosq, gfc, new ODKForm(subc));
-
-    ODKFormExporter odkExp = new ODKFormExporter();
-    odkExp.addForm(form, null);
-    return odkExp.doIt();
-  }
-
   // This code is for a different kind of exportable, an MdWebForm.
   // We will need this code when we support types other than MosquitoCollection
   // (in section 8 of the spec).
@@ -202,7 +169,7 @@ public class ODKFormExporter implements Reloadable
   // }
   // }
 
-  public void addForm(ODKForm form, List<ExcelExportListener> listeners)
+  public void addForm(ODKForm form, ExcelExportListener... listeners)
   {
     this.odkForms.add(form);
     
@@ -229,7 +196,7 @@ public class ODKFormExporter implements Reloadable
     }
   }
 
-  private String doIt()
+  public String doIt()
   {
     new File(EXPORT_DIR).mkdirs();
     
@@ -537,6 +504,7 @@ public class ODKFormExporter implements Reloadable
     itext.appendChild(translation);
 
     Element instance = document.createElement("instance");
+    model.appendChild(instance);
     Element instRoot = document.createElement(formName);
     instRoot.setAttribute("id", formName);
     
@@ -544,29 +512,10 @@ public class ODKFormExporter implements Reloadable
     
     instance.appendChild(instRoot);
     
-    for (ODKAttribute attr : this.baseAttrs)
-    {
-      attr.writeInstance(instRoot, document, this.formName, maxDepth);
-    }
     for (ODKForm form : this.odkForms)
     {
-      ODKForm[] repeats = form.getRepeats();
-      
-      for (ODKForm repeat : repeats)
-      {
-        String repeatFormName = repeat.getFormName();
-        
-        Element repeatRoot = document.createElement(repeatFormName);
-        repeatRoot.setAttribute("id", repeatFormName);
-        instRoot.appendChild(repeatRoot);
-        
-        for (ODKAttribute attr : form.getRepeatAttrs())
-        {
-          attr.writeInstance(repeatRoot, document, repeatFormName, maxDepth);
-        }
-      }
+      form.writeInstance(instRoot, document, this.formName, maxDepth);
     }
-    model.appendChild(instance);
 
     for (ODKForm form : this.odkForms)
     {

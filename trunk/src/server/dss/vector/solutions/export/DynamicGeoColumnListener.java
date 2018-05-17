@@ -74,6 +74,11 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
     this.hierarchyList = mainHierarchyBuilder.getHierarchy();
     this.importer = importer;
   }
+  
+  public List<GeoHierarchy> getHierarchyList()
+  {
+    return hierarchyList;
+  }
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {

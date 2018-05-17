@@ -1,5 +1,7 @@
 package dss.vector.solutions.geo;
 
+import java.util.List;
+
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -32,7 +34,26 @@ public class GeoFilterCriteria
    */
   private boolean urban;
   
+  /**
+   * Sometimes in DDMS we want to specify exactly what universals to use and not go through the whole flag thing.
+   */
+  private boolean extraUniOnly;
+  
   private String[] extraUniversals;
+  
+  public GeoFilterCriteria(List<GeoHierarchy> hierarchyList)
+  {
+    extraUniversals = new String[hierarchyList.size()];
+    
+    for (int i = 0; i < hierarchyList.size(); ++i)
+    {
+      GeoHierarchy hierarchy = hierarchyList.get(i);
+      
+      extraUniversals[i] = hierarchy.getGeoEntityClass().definesType();
+    }
+    
+    extraUniOnly = true;
+  }
   
   public GeoFilterCriteria()
   {
@@ -46,6 +67,7 @@ public class GeoFilterCriteria
     this.populated = populated;
     this.urban = urban;
     this.extraUniversals = extraUniversals;
+    this.extraUniOnly = false;
   }
   
   public boolean isPartOfHierarchy(GeoEntity geo)
@@ -54,23 +76,26 @@ public class GeoFilterCriteria
     
     GeoHierarchy uniMetadata = GeoHierarchy.getGeoHierarchyFromType(universal);
     
-    if (!political && !spray && !urban)
+    if (!extraUniOnly)
     {
-      // Special criteria: Accept all entities
-
-      return true;
-    }
-    else if (political && uniMetadata.getPolitical())
-    {
-      return true;
-    }
-    else if (spray && uniMetadata.getSprayTargetAllowed())
-    {
-      return true;
-    }
-    else if (urban && uniMetadata.getUrban())
-    {
-      return true;
+      if (!political && !spray && !urban)
+      {
+        // Special criteria: Accept all entities
+  
+        return true;
+      }
+      else if (political && uniMetadata.getPolitical())
+      {
+        return true;
+      }
+      else if (spray && uniMetadata.getSprayTargetAllowed())
+      {
+        return true;
+      }
+      else if (urban && uniMetadata.getUrban())
+      {
+        return true;
+      }
     }
     
     for (String extra : extraUniversals)
