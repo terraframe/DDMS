@@ -114,9 +114,9 @@ public class CaseDiseaseManifestationExcelView extends CaseDiseaseManifestationE
     }
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = AggregatedCaseExcelView.customAttributeOrder();
+    LinkedList<String> list = AggregatedCaseExcelView.customAttributeOrder();
     list.add(DISEASEMANIFESTATION);
     return list;
   }

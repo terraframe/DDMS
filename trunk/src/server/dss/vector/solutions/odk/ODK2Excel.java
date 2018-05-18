@@ -305,21 +305,21 @@ public class ODK2Excel implements Reloadable
     MdClassDAOIF target = MdClassDAO.getMdClassDAO(MosquitoCollectionExcelView.CLASS);
     GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, SentinelSite.CLASS, CollectionSite.CLASS);
 
-    ODKForm form = new ODKForm(mosq, target, gfc, new ODKForm(subc));
-
-    ODK2Excel importer = new ODK2Excel(form);
-    Collection<String> uuids = importer.getUUIDs(cursor);
-
-    importer.export(uuids, sheet);
-
-    try
-    {
-      exporter.write(new FileOutputStream("test.xlsx"));
-    }
-    catch (FileNotFoundException e)
-    {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+//    ODKForm form = new ODKForm(mosq, target, gfc, new ODKForm(subc));
+//
+//    ODK2Excel importer = new ODK2Excel(form);
+//    Collection<String> uuids = importer.getUUIDs(cursor);
+//
+//    importer.export(uuids, sheet);
+//
+//    try
+//    {
+//      exporter.write(new FileOutputStream("test.xlsx"));
+//    }
+//    catch (FileNotFoundException e)
+//    {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
   }
 }

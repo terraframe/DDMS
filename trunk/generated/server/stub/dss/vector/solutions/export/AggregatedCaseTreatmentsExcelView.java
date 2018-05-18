@@ -144,9 +144,9 @@ public class AggregatedCaseTreatmentsExcelView extends AggregatedCaseTreatmentsE
     acv.applyAll(treatmentArray, methodArray, stockArray, new CaseDiagnosticView[0], new CaseReferralView[0], new CaseStockReferralView[0], new CaseDiagnosisTypeView[0], new CaseDiagnosisTypeAmountView[0][0], new CaseDiseaseManifestationView[0], new CaseDiseaseManifestationAmountView[0][0], new CasePatientTypeView[0], new CasePatientTypeAmountView[0][0]);
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = AggregatedCaseExcelView.customAttributeOrder();
+    LinkedList<String> list = AggregatedCaseExcelView.customAttributeOrder();
     return list;
   }
   

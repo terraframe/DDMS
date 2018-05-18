@@ -117,9 +117,9 @@ public class CasePatientTypeExcelView extends CasePatientTypeExcelViewBase imple
     }
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = AggregatedCaseExcelView.customAttributeOrder();
+    LinkedList<String> list = AggregatedCaseExcelView.customAttributeOrder();
     list.add(PATIENTTYPE);
     return list;
   }

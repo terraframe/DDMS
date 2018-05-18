@@ -173,9 +173,9 @@ public class AggregatedCaseReferralsExcelView extends AggregatedCaseReferralsExc
     acv.applyAll(new CaseTreatmentView[0], new CaseTreatmentMethodView[0], new CaseTreatmentStockView[0], diagnosticArray, reasonArray, referralArray, new CaseDiagnosisTypeView[0], new CaseDiagnosisTypeAmountView[0][0], new CaseDiseaseManifestationView[0], new CaseDiseaseManifestationAmountView[0][0], new CasePatientTypeView[0], new CasePatientTypeAmountView[0][0]);
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = AggregatedCaseExcelView.customAttributeOrder();
+    LinkedList<String> list = AggregatedCaseExcelView.customAttributeOrder();
     list.add(CASES);
     list.add(POSITIVECASES);
     list.add(NEGATIVECASES);

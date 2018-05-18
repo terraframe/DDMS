@@ -20,24 +20,21 @@ import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.TermQuery;
 
-public class ODKTermAttribute extends ODKAttribute implements Reloadable
+public class ODKTermAttribute extends AttributeColumn implements Reloadable
 {
   public static final int  LIMIT = 100;
 
-  private MdAttributeDAOIF mdAttribute;
-
   private Set<String>      exported;
 
-  public ODKTermAttribute(MdAttributeDAOIF mdAttribute, Set<String> exported)
+  public ODKTermAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
   {
-    this(mdAttribute, exported, 0);
+    this(sourceMdAttr, viewMdAttr, exported, 0);
   }
 
-  public ODKTermAttribute(MdAttributeDAOIF mdAttribute, Set<String> exported, int index)
+  public ODKTermAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported, int index)
   {
-    super(mdAttribute.definesAttribute(), mdAttribute.getDisplayLabel(Session.getCurrentLocale()), mdAttribute.getDescription(Session.getCurrentLocale()), index, mdAttribute.isRequired());
+    super(sourceMdAttr, viewMdAttr);
 
-    this.mdAttribute = mdAttribute;
     this.exported = exported;
   }
 
@@ -46,14 +43,14 @@ public class ODKTermAttribute extends ODKAttribute implements Reloadable
   {
     super.writeTranslation(parent, document, title, maxDepth);
 
-    ValueQuery query = termQuery(this.mdAttribute);
+    ValueQuery query = termQuery(this.sourceMdAttr);
 
     long count = query.getCount();
 
     if (count == 0)
     {
       TermExportProblem problem = new TermExportProblem();
-      problem.setAttributeLabel(this.mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+      problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
       problem.apply();
 
       problem.throwIt();
@@ -61,7 +58,7 @@ public class ODKTermAttribute extends ODKAttribute implements Reloadable
     else if (count > LIMIT)
     {
       TermExportLimitProblem problem = new TermExportLimitProblem();
-      problem.setAttributeLabel(this.mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+      problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
       problem.setLimit(LIMIT);
       problem.apply();
 
@@ -112,7 +109,7 @@ public class ODKTermAttribute extends ODKAttribute implements Reloadable
   {
     Set<String> items = new TreeSet<String>();
 
-    ValueQuery query = termQuery(this.mdAttribute);
+    ValueQuery query = termQuery(this.sourceMdAttr);
     long count = query.getCount();
 
     Element select1 = document.createElement("select1");

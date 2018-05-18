@@ -116,9 +116,9 @@ public class CaseDiagnosisTypeExcelView extends CaseDiagnosisTypeExcelViewBase i
     }
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = AggregatedCaseExcelView.customAttributeOrder();
+    LinkedList<String> list = AggregatedCaseExcelView.customAttributeOrder();
     list.add(DIAGNOSISTYPE);
     return list;
   }

@@ -37,53 +37,28 @@ import com.runwaysdk.session.Session;
 
 public class AttributeColumn extends ODKAttribute implements Reloadable
 {
-  protected MdAttributeDAOIF mdAttribute;
-
-  public AttributeColumn(MdAttributeDAOIF mdAttribute, int index)
-  {
-    super(mdAttribute.definesAttribute(), mdAttribute.getDisplayLabel(Session.getCurrentLocale()), mdAttribute.getDescription(Session.getCurrentLocale()), index, mdAttribute.isRequired());
-    this.mdAttribute = mdAttribute;
-  }
-
-  public AttributeColumn(MdAttributeDAOIF mdAttribute)
-  {
-    this(mdAttribute, 0);
-  }
-
-  /**
-   * @return The name of the setter method (in the generated source) for this
-   *         column
-   */
-  public String getSetterMethodName()
-  {
-    String attributeName = CommonGenerationUtil.upperFirstCharacter(mdAttribute.definesAttribute());
-
-    if (mdAttribute instanceof MdAttributeEnumerationDAOIF)
-    {
-      return "add" + attributeName;
-    }
-    else
-    {
-      return CommonGenerationUtil.SET + attributeName;
-    }
-  }
-
-  public boolean isEnum()
-  {
-    return mdAttribute instanceof MdAttributeEnumerationDAOIF;
-  }
-
-  public MdAttributeDAOIF getMdAttribute()
-  {
-    return mdAttribute;
-  }
+  protected MdAttributeDAOIF sourceMdAttr;
   
+  protected MdAttributeDAOIF viewMdAttr;
+
+  public AttributeColumn(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, int index)
+  {
+    super(viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), index, viewMdAttr.isRequired());
+    this.sourceMdAttr = sourceMdAttr;
+    this.viewMdAttr = viewMdAttr;
+  }
+
+  public AttributeColumn(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
+  {
+    this(sourceMdAttr, viewMdAttr, 0);
+  }
+
   @Override
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
     
-    String def = mdAttribute.getDefaultValue();
+    String def = viewMdAttr.getDefaultValue();
     if (this.getODKType().equals("boolean") && def.length() == 0) // TODO : subtypes?
     {
       def = "false";
@@ -95,11 +70,11 @@ public class AttributeColumn extends ODKAttribute implements Reloadable
   
   public String getODKType()
   {
-    MdAttributeDAOIF attr = mdAttribute;
+    MdAttributeDAOIF attr = sourceMdAttr;
     
-    if (mdAttribute instanceof MdAttributeVirtualDAOIF)
+    if (sourceMdAttr instanceof MdAttributeVirtualDAOIF)
     {
-      attr = mdAttribute.getMdAttributeConcrete();
+      attr = sourceMdAttr.getMdAttributeConcrete();
     }
     
     if (attr instanceof MdAttributeBooleanDAOIF)

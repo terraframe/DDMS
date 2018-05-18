@@ -39,49 +39,13 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   private void doIt()
   {
-    HashMap<String, String> mapping = new HashMap<String, String>();
-    mapping.put(MosquitoCollectionView.ABUNDANCE, MosquitoCollectionExcelView.ABUNDANCE);
-    mapping.put(MosquitoCollectionView.COLLECTIONID, MosquitoCollectionExcelView.COLLECTIONID);
-    mapping.put(MosquitoCollectionView.COLLECTIONDATE, MosquitoCollectionExcelView.COLLECTIONDATE);
-    mapping.put(MosquitoCollectionView.COLLECTIONMETHOD, MosquitoCollectionExcelView.COLLECTIONMETHOD);
-    mapping.put(MosquitoCollectionView.COLLECTIONROUND, MosquitoCollectionExcelView.COLLECTIONROUND);
-    mapping.put(MosquitoCollectionView.COLLECTIONTYPE, MosquitoCollectionExcelView.COLLECTIONTYPE);
-    mapping.put(MosquitoCollectionView.DATELASTSPRAYED, MosquitoCollectionExcelView.DATELASTSPRAYED);
-    mapping.put(MosquitoCollectionView.GEOENTITY, MosquitoCollectionExcelView.GEOENTITY);
-    mapping.put(MosquitoCollectionView.INSECTICIDEBRAND, MosquitoCollectionExcelView.INSECTICIDEBRAND);
-    mapping.put(MosquitoCollectionView.LIFESTAGE, MosquitoCollectionExcelView.LIFESTAGE);
-    mapping.put(MosquitoCollectionView.NUMBEROFANIMALOCCUPANTS, MosquitoCollectionExcelView.NUMBEROFANIMALOCCUPANTS);
-    mapping.put(MosquitoCollectionView.NUMBEROFHUMANOCCUPANTS, MosquitoCollectionExcelView.NUMBEROFHUMANOCCUPANTS);
-    mapping.put(MosquitoCollectionView.NUMBEROFLLINS, MosquitoCollectionExcelView.NUMBEROFLLINS);
-    mapping.put(MosquitoCollectionView.WALLTYPE, MosquitoCollectionExcelView.WALLTYPE);
-
-    mapping.put(SubCollectionView.DISECTED, MosquitoCollectionExcelView.DISECTED);
-    mapping.put(SubCollectionView.EGGS, MosquitoCollectionExcelView.EGGS);
-    mapping.put(SubCollectionView.FEMALESFED, MosquitoCollectionExcelView.FEMALESFED);
-    mapping.put(SubCollectionView.FEMALESGRAVID, MosquitoCollectionExcelView.FEMALESGRAVID);
-    mapping.put(SubCollectionView.FEMALESHALFGRAVID, MosquitoCollectionExcelView.FEMALESHALFGRAVID);
-    mapping.put(SubCollectionView.FEMALESUNFED, MosquitoCollectionExcelView.FEMALESUNFED);
-    mapping.put(SubCollectionView.FEMALESUNKNOWN, MosquitoCollectionExcelView.FEMALESUNKNOWN);
-    mapping.put(SubCollectionView.IDENTMETHOD, MosquitoCollectionExcelView.IDENTMETHOD);
-    mapping.put(SubCollectionView.LARVAE, MosquitoCollectionExcelView.LARVAE);
-    mapping.put(SubCollectionView.MALE, MosquitoCollectionExcelView.MALE);
-    mapping.put(SubCollectionView.PAROUS, MosquitoCollectionExcelView.PAROUS);
-    mapping.put(SubCollectionView.PUPAE, MosquitoCollectionExcelView.PUPAE);
-    mapping.put(SubCollectionView.SUBCOLLECTIONID, MosquitoCollectionExcelView.SUBCOLLECTIONID);
-    mapping.put(SubCollectionView.TAXON, MosquitoCollectionExcelView.TAXON);
-    mapping.put(SubCollectionView.UNKNOWNS, MosquitoCollectionExcelView.UNKNOWNS);
-
-    MdClassDAOIF subc = MdClassDAO.getMdClassDAO(SubCollectionView.CLASS);
-    MdClassDAOIF mosq = MdClassDAO.getMdClassDAO(MosquitoCollectionView.CLASS);
-
-    ODKForm form = new ODKForm(mosq, mapping, new ODKForm(subc, mapping));
-    form.setTarget(MdClassDAO.getMdClassDAO(MosquitoCollectionExcelView.CLASS));
-
+    ODKForm master = ODKForm.factory(this.getFormType());
+    
     ExcelExporter exporter = new ExcelExporter();
     MosquitoCollectionExcelView.setupExportListener(exporter);
-    ExcelExportSheet sheet = exporter.addTemplate(MosquitoCollectionExcelView.CLASS);
+    ExcelExportSheet sheet = exporter.addTemplate(this.getFormType());
 
-    ODK2Excel importer = new ODK2Excel(form);
+    ODK2Excel importer = new ODK2Excel(master);
     Collection<String> uuids = importer.getUUIDs(null);
 
     importer.export(uuids, sheet);

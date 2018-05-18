@@ -23,6 +23,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
@@ -71,7 +72,7 @@ public class ODKAttribute implements Reloadable
     this(attributeName, displayLabel, null, 0, false);
   }
   
-  protected static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
+  public static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
   {
 
     @Override
@@ -86,19 +87,16 @@ public class ODKAttribute implements Reloadable
         return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS);
       }
 
-      if (mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID))
-      {
-        return false;
-      }
-
       return super.accept(mdAttribute);
     }
 
   }
   
-  public static ODKAttribute factory(MdAttributeDAOIF mdAttr, Set<String> exportedTerms)
+  public static ODKAttribute factory(MdAttributeDAOIF source, MdAttributeDAOIF viewAttr, Set<String> exportedTerms)
   {
-    if (mdAttr instanceof MdAttributeStructDAOIF)
+    MdAttributeConcreteDAOIF concrete = source.getMdAttributeConcrete();
+    
+    if (concrete instanceof MdAttributeStructDAOIF)
     {
 //      MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttr;
 //      MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
@@ -109,21 +107,21 @@ public class ODKAttribute implements Reloadable
 //        attrs.add(new StructColumn(struct, structAttribute));
 //      }
     }
-    else if (mdAttr instanceof MdAttributeReferenceDAOIF)
+    else if (concrete instanceof MdAttributeReferenceDAOIF)
     {
-      MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttr ).getReferenceMdBusinessDAO();
+      MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO();
       if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
       {
-        return new ODKGeoAttribute(mdAttr);
+        return new ODKGeoAttribute(source, viewAttr);
       }
       else
       {
-        return new ODKTermAttribute(mdAttr, exportedTerms);
+        return new ODKTermAttribute(source, viewAttr, exportedTerms);
       }
     }
     else
     {
-      return new AttributeColumn(mdAttr);
+      return new AttributeColumn(source, viewAttr);
     }
     
     return null;

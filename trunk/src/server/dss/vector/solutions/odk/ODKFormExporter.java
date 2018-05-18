@@ -89,111 +89,15 @@ public class ODKFormExporter implements Reloadable
 
   private List<ODKForm>       odkForms;
 
-  private List<ODKAttribute>  baseAttrs;
-
   private String              formName;
 
   private Logger              logger     = LoggerFactory.getLogger(ODKFormExporter.class);
 
-  public ODKFormExporter()
+  public ODKFormExporter(ODKForm master)
   {
-    this.baseAttrs = new ArrayList<ODKAttribute>();
     this.odkForms = new ArrayList<ODKForm>();
-    this.formName = null;
-  }
-
-  // This code is for a different kind of exportable, an MdWebForm.
-  // We will need this code when we support types other than MosquitoCollection
-  // (in section 8 of the spec).
-  //
-  // public void addExportable(MdWebForm exportable, List<ExcelExportListener>
-  // listeners)
-  // {
-  //
-  // for (MdWebField field : exportable.getAllMdFields())
-  // {
-  // field.setDefiningMdForm(mdForm);
-  //
-  // if (field instanceof MdWebGeo)
-  // {
-  // String fieldName = field.getFieldName();
-  //
-  // MdWebGeo oldWebGeo = (MdWebGeo) oldWebForm.getField(fieldName);
-  // GeoField oldGeoField = GeoField.getGeoFieldForMdWebGeo(oldWebGeo.getId());
-  // }
-  // }
-  //
-  // if (this.formName == null)
-  // {
-  // this.setFormName(mdc.definesType()); // TODO : Figure out a real title
-  // }
-  //
-  // List<? extends MdAttributeDAOIF> mdAttributeDAOs =
-  // ExcelUtil.getAttributes(mdc, new DefaultExcelAttributeFilter());
-  //
-  // // Store relevant information about all the attributes
-  // for (MdAttributeDAOIF mdAttribute : mdAttributeDAOs)
-  // {
-  // if (mdAttribute.getMdAttributeConcrete() instanceof MdAttributeStructDAOIF)
-  // {
-  // MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF)
-  // mdAttribute.getMdAttributeConcrete();
-  // MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
-  // List<? extends MdAttributeDAOIF> structAttributes =
-  // ExcelUtil.getAttributes(mdStruct, new DefaultExcelAttributeFilter());
-  //
-  // for (MdAttributeDAOIF structAttribute : structAttributes)
-  // {
-  // this.addODKAttribute(new StructColumn(struct, structAttribute));
-  // }
-  // }
-  // else
-  // {
-  // this.addODKAttribute(new AttributeColumn(mdAttribute));
-  // }
-  // }
-  //
-  // if (listeners != null)
-  // {
-  // List<ExcelColumn> excels = new ArrayList<ExcelColumn>();
-  //
-  // for (ExcelExportListener listener : listeners)
-  // {
-  // listener.addColumns(excels);
-  // }
-  //
-  // for (ExcelColumn excel : excels)
-  // {
-  // this.addODKAttribute(ODKAttributeFactory.convert(excel));
-  // }
-  // }
-  // }
-
-  public void addForm(ODKForm form, ExcelExportListener... listeners)
-  {
-    this.odkForms.add(form);
-    
-    if (this.formName == null)
-    {
-      this.setFormName(form.getFormName());
-    }
-
-    this.baseAttrs.addAll(form.getBaseAttrs());
-
-    if (listeners != null)
-    {
-      List<ExcelColumn> excels = new ArrayList<ExcelColumn>();
-
-      for (ExcelExportListener listener : listeners)
-      {
-        listener.addColumns(excels);
-      }
-
-      for (ExcelColumn excel : excels)
-      {
-        this.addODKAttribute(ODKAttributeFactory.convert(excel));
-      }
-    }
+    this.odkForms.add(master);
+    this.formName = master.getFormName();
   }
 
   public String doIt()
@@ -586,15 +490,5 @@ public class ODKFormExporter implements Reloadable
     {
       throw new RuntimeException(e);
     }
-  }
-
-  protected void setFormName(String input)
-  {
-    this.formName = input;
-  }
-
-  public void addODKAttribute(ODKAttribute column)
-  {
-    this.baseAttrs.add(column);
   }
 }

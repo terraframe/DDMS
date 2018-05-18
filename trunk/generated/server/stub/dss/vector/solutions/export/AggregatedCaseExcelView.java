@@ -74,7 +74,7 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     return this.acv;
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
     list.add(STARTDATE);

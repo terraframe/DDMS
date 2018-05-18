@@ -28,35 +28,18 @@ public class StructColumn extends AttributeColumn implements Reloadable
 {
   private MdAttributeStructDAOIF mdAttributeStruct;
 
-  public StructColumn(MdAttributeStructDAOIF struct, MdAttributeDAOIF mdAttribute)
+  public StructColumn(MdAttributeStructDAOIF struct, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    this(struct, mdAttribute, 0);
+    this(struct, sourceMdAttr, viewMdAttr, 0);
   }
 
-  public StructColumn(MdAttributeStructDAOIF struct, MdAttributeDAOIF mdAttribute, int index)
+  public StructColumn(MdAttributeStructDAOIF struct, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, int index)
   {
-    super(mdAttribute, index);
+    super(sourceMdAttr, viewMdAttr, index);
 
     this.mdAttributeStruct = struct;
     this.attributeName = mdAttributeStruct.definesAttribute() + '.' + attributeName;
     this.displayLabel = mdAttributeStruct.getDisplayLabel(Session.getCurrentLocale()) + ": " + displayLabel;
-  }
-
-  /**
-   * @return The name of the getter method (in the generated source) for the
-   *         struct attribute this column represents
-   */
-  public String getStructGetter()
-  {
-    return CommonGenerationUtil.GET + CommonGenerationUtil.upperFirstCharacter(mdAttributeStruct.definesAttribute());
-  }
-
-  /**
-   * @return The fully qualified type of the struct this column references
-   */
-  public String getStructType()
-  {
-    return mdAttributeStruct.javaType(false);
   }
 
 }

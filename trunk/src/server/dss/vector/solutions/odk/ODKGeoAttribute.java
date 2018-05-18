@@ -16,9 +16,9 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class ODKGeoAttribute extends AttributeColumn implements Reloadable
 {
-  public ODKGeoAttribute(MdAttributeDAOIF mdAttribute)
+  public ODKGeoAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    super(mdAttribute);
+    super(sourceMdAttr, viewMdAttr);
   }
   
   @Override
@@ -26,7 +26,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
   {
     for (int i = 0; i <= maxDepth; ++i)
     {
-      Element geolist = document.createElement(mdAttribute.definesAttribute() + "_geolist_" + i);
+      Element geolist = document.createElement(viewMdAttr.definesAttribute() + "_geolist_" + i);
       parent.appendChild(geolist);
     }
   }
@@ -38,10 +38,10 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
     {
       Element text = document.createElement("text");
       
-      text.setAttribute("id", "/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_" + i + ":label");
+      text.setAttribute("id", "/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_" + i + ":label");
       
       Element value = document.createElement("value");
-      value.setTextContent(mdAttribute.getDisplayLabel(Session.getCurrentLocale()) + " Level " + (i+1));
+      value.setTextContent(viewMdAttr.getDisplayLabel(Session.getCurrentLocale()) + " Level " + (i+1));
       text.appendChild(value);
       
       parent.appendChild(text);
@@ -52,14 +52,14 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
   public void writeBind(Element parent, Document document, String title, int maxDepth)
   {
     Element bind0 = document.createElement("bind");
-    bind0.setAttribute("nodeset", "/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_0");
+    bind0.setAttribute("nodeset", "/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_0");
     bind0.setAttribute("type", "select1");
     parent.appendChild(bind0);
     
     for (int i = 1; i <= maxDepth; ++i)
     {
       Element bind = document.createElement("bind");
-      bind.setAttribute("nodeset", "/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_" + i);
+      bind.setAttribute("nodeset", "/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_" + i);
       bind.setAttribute("type", "string");
       parent.appendChild(bind);
     }
@@ -76,11 +76,11 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
   public void writeBody(Element parent, Document document, String title, int maxDepth)
   {
     Element select1 = document.createElement("select1");
-    select1.setAttribute("ref", "/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_0");
+    select1.setAttribute("ref", "/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_0");
     parent.appendChild(select1);
     
     Element geolist0Label = document.createElement("label");
-    geolist0Label.setAttribute("ref", "jr:itext('/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_0:label')");
+    geolist0Label.setAttribute("ref", "jr:itext('/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_0:label')");
     select1.appendChild(geolist0Label);
     
     GeoEntity earth = Earth.getEarthInstance();
@@ -104,17 +104,17 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
       ArrayList<String> queries = new ArrayList<String>();
       for (int listIndex = 0; listIndex < i; ++listIndex)
       {
-        queries.add(mdAttribute.definesAttribute() + "_geolist_" + listIndex + "= /" + title + "/" + mdAttribute.definesAttribute() + "_geolist_" + listIndex);
+        queries.add(viewMdAttr.definesAttribute() + "_geolist_" + listIndex + "= /" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_" + listIndex);
       }
       
       Element input = document.createElement("input");
-      input.setAttribute("query", "instance('" + mdAttribute.definesAttribute() + "_geolist_" + i + "')/root/item[" + StringUtils.join(queries, " and ") + "]");
-      input.setAttribute("ref", "/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_" + i);
+      input.setAttribute("query", "instance('" + viewMdAttr.definesAttribute() + "_geolist_" + i + "')/root/item[" + StringUtils.join(queries, " and ") + "]");
+      input.setAttribute("ref", "/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_" + i);
       parent.appendChild(input);
       
       Element label = document.createElement("label");
       input.appendChild(label);
-      label.setAttribute("ref", "jr:itext('/" + title + "/" + mdAttribute.definesAttribute() + "_geolist_" + i + ":label')");
+      label.setAttribute("ref", "jr:itext('/" + title + "/" + viewMdAttr.definesAttribute() + "_geolist_" + i + ":label')");
     }
   }
 }

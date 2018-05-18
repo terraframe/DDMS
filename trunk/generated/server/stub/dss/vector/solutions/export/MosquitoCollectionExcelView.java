@@ -47,24 +47,13 @@ import dss.vector.solutions.odk.MobileImportViewIF;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable, MobileImportViewIF
+public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -9941268;
 
   public MosquitoCollectionExcelView()
   {
     super();
-  }
-  
-  @Override
-  public Map<String,String[]> getAttributeSourceMap()
-  {
-    Map<String,String[]> map = new HashMap<String,String[]>();
-    
-    map.put(MosquitoCollectionView.CLASS, new String[]{ABUNDANCE, COLLECTIONDATE, COLLECTIONID, COLLECTIONMETHOD, COLLECTIONROUND, COLLECTIONTYPE, DATELASTSPRAYED, GEOENTITY, INSECTICIDEBRAND, LIFESTAGE, NUMBEROFANIMALOCCUPANTS, NUMBEROFHUMANOCCUPANTS, NUMBEROFLLINS, WALLTYPE});
-    map.put(SubCollectionView.CLASS, new String[]{SUBCOLLECTIONID, TAXON, EGGS, FEMALESFED, FEMALESGRAVID, FEMALESHALFGRAVID, FEMALESUNFED, DISECTED, IDENTMETHOD, LARVAE, MALE, PAROUS, PUPAE, UNKNOWNS });
-    
-    return map;
   }
   
   @Override
@@ -297,11 +286,6 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     }
 
     return view;
-  }
-
-  public LinkedList<String> getAttributeOrder()
-  {
-    return customAttributeOrder();
   }
   
   public static LinkedList<String> customAttributeOrder()

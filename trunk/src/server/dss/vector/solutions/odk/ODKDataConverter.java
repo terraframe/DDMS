@@ -124,7 +124,7 @@ public class ODKDataConverter implements Reloadable
 
   public List<ODKRow> convert(ODKForm form, Node node, List<ExcelColumn> extraColumns)
   {
-    MdClassDAOIF mdType = form.getTarget();
+    MdClassDAOIF mdType = form.getViewMd();
     ODKRow root = new ODKRow(BusinessFacade.newMutable(mdType.definesType()));
 
     return convert(root, form, node, extraColumns);
@@ -142,9 +142,9 @@ public class ODKDataConverter implements Reloadable
       Node child = children.item(i);
       String sourceAttribute = child.getNodeName();
 
-      if (form.hasSourceAttribute(sourceAttribute))
+      if (form.hasViewAttribute(sourceAttribute))
       {
-        String attributeName = form.getTargetAttribute(sourceAttribute);
+        String attributeName = sourceAttribute;
 
         MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(attributeName);
         String value = this.getValue(mdAttribute, child.getTextContent());
