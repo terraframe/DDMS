@@ -1094,6 +1094,13 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("arrowXPosition", state.getArrowXPosition());
     object.put("arrowYPosition", state.getArrowYPosition());
     object.put("enableArrow", state.getEnableArrow());
+    object.put("reportXPosition", state.getReportXPosition());
+    object.put("reportYPosition", state.getReportYPosition());
+    object.put("isReportVertical", state.getIsReportVertical());
+    object.put("isReportOpaque", state.getIsReportOpaque());
+    object.put("isExpandRight", state.getIsExpandRight());
+    object.put("isExpandLeft", state.getIsExpandLeft());
+    object.put("mapExtent", state.getMapExtent());
     object.put("types", types);
 
     List<GeoEntity> countries = this.getCountries();
@@ -1224,6 +1231,41 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
         state.setEnableArrow(object.getBoolean("enableArrow"));
       }
 
+      if (object.has("reportXPosition"))
+      {
+        state.setReportXPosition(object.getInt("reportXPosition"));
+      }
+      
+      if (object.has("reportYPosition"))
+      {
+        state.setReportYPosition(object.getInt("reportYPosition"));
+      }
+      
+      if (object.has("isReportVertical"))
+      {
+        state.setIsReportVertical(object.getBoolean("isReportVertical"));
+      }
+      
+      if (object.has("isReportOpaque"))
+      {
+        state.setIsReportOpaque(object.getBoolean("isReportOpaque"));
+      }
+      
+      if (object.has("isExpandRight"))
+      {
+        state.setIsExpandRight(object.getBoolean("isExpandRight"));
+      }
+      
+      if (object.has("isExpandLeft"))
+      {
+        state.setIsExpandLeft(object.getBoolean("isExpandLeft"));
+      }
+      
+      if (object.has("mapExtent"))
+      {
+        state.setMapExtent(object.getString("mapExtent"));
+      }
+      
       state.apply();
 
       this.executeThumbnailThread(user);

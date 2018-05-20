@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 1661692988)
+@com.runwaysdk.business.ClassSignature(hash = -222421)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,12 +22,19 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOPRISMUSER = "geoprismUser";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISEXPANDLEFT = "isExpandLeft";
+  public static java.lang.String ISEXPANDRIGHT = "isExpandRight";
+  public static java.lang.String ISREPORTOPAQUE = "isReportOpaque";
+  public static java.lang.String ISREPORTVERTICAL = "isReportVertical";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MAPEXTENT = "mapExtent";
   public static java.lang.String MAPTHUMBNAIL = "mapThumbnail";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String REPORTXPOSITION = "reportXPosition";
+  public static java.lang.String REPORTYPOSITION = "reportYPosition";
   public static java.lang.String SAVEDHEIGHT = "savedHeight";
   public static java.lang.String SAVEDWIDTH = "savedWidth";
   public static java.lang.String SCALEXPOSITION = "scaleXPosition";
@@ -51,7 +42,7 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1661692988;
+  private static final long serialVersionUID = -222421;
   
   public DashboardStateBase()
   {
@@ -226,6 +217,18 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setDashboardId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(DASHBOARD, "");
+    }
+    else
+    {
+      setValue(DASHBOARD, id);
+    }
+  }
+  
   public Boolean getEnableArrow()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLEARROW));
@@ -322,6 +325,18 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setEntityDomainId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ENTITYDOMAIN, "");
+    }
+    else
+    {
+      setValue(ENTITYDOMAIN, id);
+    }
+  }
+  
   public com.runwaysdk.system.SingleActor getGeoprismUser()
   {
     if (getValue(GEOPRISMUSER).trim().equals(""))
@@ -362,6 +377,18 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setGeoprismUserId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(GEOPRISMUSER, "");
+    }
+    else
+    {
+      setValue(GEOPRISMUSER, id);
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -376,6 +403,118 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
     return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(ID);
+  }
+  
+  public Boolean getIsExpandLeft()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISEXPANDLEFT));
+  }
+  
+  public void validateIsExpandLeft()
+  {
+    this.validateAttribute(ISEXPANDLEFT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsExpandLeftMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISEXPANDLEFT);
+  }
+  
+  public void setIsExpandLeft(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISEXPANDLEFT, "");
+    }
+    else
+    {
+      setValue(ISEXPANDLEFT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsExpandRight()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISEXPANDRIGHT));
+  }
+  
+  public void validateIsExpandRight()
+  {
+    this.validateAttribute(ISEXPANDRIGHT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsExpandRightMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISEXPANDRIGHT);
+  }
+  
+  public void setIsExpandRight(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISEXPANDRIGHT, "");
+    }
+    else
+    {
+      setValue(ISEXPANDRIGHT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsReportOpaque()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISREPORTOPAQUE));
+  }
+  
+  public void validateIsReportOpaque()
+  {
+    this.validateAttribute(ISREPORTOPAQUE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsReportOpaqueMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISREPORTOPAQUE);
+  }
+  
+  public void setIsReportOpaque(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISREPORTOPAQUE, "");
+    }
+    else
+    {
+      setValue(ISREPORTOPAQUE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsReportVertical()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISREPORTVERTICAL));
+  }
+  
+  public void validateIsReportVertical()
+  {
+    this.validateAttribute(ISREPORTVERTICAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getIsReportVerticalMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(ISREPORTVERTICAL);
+  }
+  
+  public void setIsReportVertical(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISREPORTVERTICAL, "");
+    }
+    else
+    {
+      setValue(ISREPORTVERTICAL, java.lang.Boolean.toString(value));
+    }
   }
   
   public String getKeyName()
@@ -478,6 +617,34 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LOCKEDBY);
   }
   
+  public String getMapExtent()
+  {
+    return getValue(MAPEXTENT);
+  }
+  
+  public void validateMapExtent()
+  {
+    this.validateAttribute(MAPEXTENT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getMapExtentMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(MAPEXTENT);
+  }
+  
+  public void setMapExtent(String value)
+  {
+    if(value == null)
+    {
+      setValue(MAPEXTENT, "");
+    }
+    else
+    {
+      setValue(MAPEXTENT, value);
+    }
+  }
+  
   public byte[] getMapThumbnail()
   {
     return getBlob(MAPTHUMBNAIL);
@@ -543,6 +710,74 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public void setOwnerId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(OWNER, "");
+    }
+    else
+    {
+      setValue(OWNER, id);
+    }
+  }
+  
+  public Integer getReportXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REPORTXPOSITION));
+  }
+  
+  public void validateReportXPosition()
+  {
+    this.validateAttribute(REPORTXPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getReportXPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(REPORTXPOSITION);
+  }
+  
+  public void setReportXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(REPORTXPOSITION, "");
+    }
+    else
+    {
+      setValue(REPORTXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getReportYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REPORTYPOSITION));
+  }
+  
+  public void validateReportYPosition()
+  {
+    this.validateAttribute(REPORTYPOSITION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getReportYPositionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(REPORTYPOSITION);
+  }
+  
+  public void setReportYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(REPORTYPOSITION, "");
+    }
+    else
+    {
+      setValue(REPORTYPOSITION, java.lang.Integer.toString(value));
     }
   }
   

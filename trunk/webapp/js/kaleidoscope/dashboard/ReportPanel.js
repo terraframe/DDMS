@@ -19,6 +19,23 @@
     var controller = this;
     controller.state = 'min';
     
+    controller.init = function(state) {
+      $scope.vertical = state.isReportVertical || false;
+      $scope.opaque = state.isReportOpaque || false;
+      
+      if($scope.vertical) {
+    	$timeout(function(){
+          controller.setReportPanelWidth(state.reportXPosition, (state.reportXPosition === state.savedWidth));    		
+    	}, 2);
+      }
+      else {
+      	$timeout(function(){    	  
+          controller.setReportPanelHeight(state.reportYPosition, (state.reportYPosition === state.savedHeight));    	  
+    	}, 2);          
+      }
+      
+      controller.setupMenu($scope.hasReport);      
+    }
     
     controller.setupMenu = function(hasReport) {
       $scope.menuOptions = [];      
@@ -62,7 +79,8 @@
       
       if($scope.opaque) {
         $scope.menuOptions.push([localizationService.localize("report", "translucent"), function ($itemScope, $event, modelValue, text, $li) {
-          $scope.opaque = false;
+          $scope.opaque = false;          
+          $scope.$emit("isReportOpaque", {opaque:false});
           
           controller.setupMenu($scope.hasReport);
         }]);
@@ -70,6 +88,7 @@
       else {
         $scope.menuOptions.push([localizationService.localize("report", "opaque"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.opaque = true;
+          $scope.$emit("isReportOpaque", {opaque:true});
 
           controller.setupMenu($scope.hasReport);
         }]);        
@@ -78,11 +97,12 @@
       if($scope.vertical) {
         $scope.menuOptions.push([localizationService.localize("report", "horizontal"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.vertical = false;
+          $scope.$emit("isReportVertical", {vertical:false});
+          
           controller.state = 'min';
           
           var panelCollapsed = dashboardService.getDashboardPanelCollapsed();
           $scope.panelCollapsed = panelCollapsed;
-          console.log("yaaaaa")
           
           controller.setupMenu($scope.hasReport);          
           
@@ -97,6 +117,8 @@
       else {
         $scope.menuOptions.push([localizationService.localize("report", "vertical"), function ($itemScope, $event, modelValue, text, $li) {
           $scope.vertical = true;
+          $scope.$emit("isReportVertical", {vertical:true});
+          
           controller.state = 'min';  
           
           controller.setupMenu($scope.hasReport);          
@@ -187,7 +209,9 @@
         // animate the loading spinner
         $(".standby-overlay").animate({top: "-=" + difference + "px"}, 1000);
         $(".standby-overlay").css("height", current + difference);
-      }          
+      }   
+      
+      $scope.$emit("reportYPosition", {height:height});
     }
     
     controller.horizontalCollapse = function() {
@@ -263,6 +287,8 @@
         $(".standby-overlay").animate({left: "-=" + difference + "px"}, 1000);
         $(".standby-overlay").css("width", current + difference);
       }          
+
+      $scope.$emit("reportXPosition", {width:width});
     }
     
     controller.upload = function(e) {
@@ -326,7 +352,7 @@
       else {
         $("#report-viewport").height(info.height);    
       }
-    });        
+    });            
     
     $scope.$on('angular-resizable.resizing', function(event, info){
       if($scope.vertical) {
@@ -339,6 +365,8 @@
                   
           controller.state = 'max';
         }
+        
+        $scope.$emit("reportXPosition", {width:info.width});        
       }
       else {      	
         var max = $("#mapDivId").height();
@@ -350,8 +378,14 @@
                 
           controller.state = 'max';
         }
+        
+        $scope.$emit("reportYPosition", {height:info.height});        
       }
     });        
+    
+    $scope.$on('dashboardStateChange', function(event, data){
+      controller.init(data.state);
+    });    
   }
   
   function ReportPanel() {

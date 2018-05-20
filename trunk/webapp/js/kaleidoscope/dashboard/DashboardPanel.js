@@ -29,6 +29,8 @@
           controller.expanded = false;
           dashboardService.setDashboardPanelCollapsed(true);
           $scope.$apply();
+          
+          $scope.$emit("isExpandRight", false);          
         });
 
         // Report Panel background
@@ -42,6 +44,8 @@
           controller.expanded = true;
           dashboardService.setDashboardPanelCollapsed(false);
           $scope.$apply();
+          
+          $scope.$emit("isExpandRight", true);                    
         });
 
         // Report Panel background
@@ -51,6 +55,16 @@
         widgetService.animate("#report-toolbar", {marginRight: "300px"}, speed);
       }
     }
+    
+    controller.init = function(state) {
+      if(state.isExpandRight != null && controller.expanded !== state.isExpandRight) {
+        controller.toggle();
+      }
+    }    
+    
+    $scope.$on('dashboardStateChange', function(event, data){
+      controller.init(data.state);
+    });        
   }
 	  
   function DashboardPanel() {

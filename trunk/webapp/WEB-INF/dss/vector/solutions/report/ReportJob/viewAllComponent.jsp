@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 --%>
+<%@page import="dss.vector.solutions.odk.MobileDataUploadJobDTO"%>
 <%@page import="dss.vector.solutions.DataUploaderImportJobDTO"%>
 <%@page import="dss.vector.solutions.FormSurveyImportJobDTO"%>
 <%@page import="dss.vector.solutions.ExcelImportJobDTO"%>
@@ -120,7 +121,7 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
 <%
     String[] types = new String[]{AllJobStatusDTO.CLASS, RefreshViewJobDTO.CLASS, DashboardJobDTO.CLASS, CycleJobDTO.CLASS, ReportJobDTO.CLASS, ExecutableJobDTO.CLASS, ExecutableJobDescriptionDTO.CLASS,
     QualifiedTypeJobDTO.CLASS, JobHistoryViewDTO.CLASS, JobHistoryDTO.CLASS, JobViewDTO.CLASS, DownstreamJobRelationshipDTO.CLASS, SchedulerUtilDTO.CLASS,
-    ExcelImportJobDTO.CLASS, FormSurveyImportJobDTO.CLASS, DataUploaderImportJobDTO.CLASS };
+    ExcelImportJobDTO.CLASS, FormSurveyImportJobDTO.CLASS, DataUploaderImportJobDTO.CLASS, MobileDataUploadJobDTO.CLASS };
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(types));

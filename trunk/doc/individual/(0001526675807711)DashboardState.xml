@@ -1,0 +1,45 @@
+<!--
+  Copyright (C) 2018 IVCC
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.DashboardState">
+        <create>
+          <attributes>
+            <char name="mapExtent" label="Map Extent" size="6000" />          
+            <boolean name="isExpandRight" label="Is Expand Right" defaultValue="true"/>
+            <boolean name="isExpandLeft" label="Is Expand Left" defaultValue="true"/>
+            <boolean name="isReportOpaque" label="Enable report" defaultValue="false"/>
+            <boolean name="isReportVertical" label="Enable report" defaultValue="false"/>
+            <integer name="reportXPosition" label="Report X Position" defaultValue="0" />
+            <integer name="reportYPosition" label="Report Y Position" defaultValue="0" />            
+          </attributes>
+        </create>
+      </mdBusiness>    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.isExpandLeft" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.isExpandRight" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.isReportOpaque" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.isReportVertical" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.reportXPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardState.reportYPosition" type="com.runwaysdk.system.metadata.MdAttribute"/>
+    </delete>
+  </undoIt>
+</version>

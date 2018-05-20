@@ -109,6 +109,8 @@
     
     /* Refresh Map Function */
     controller.refresh = function(buttonId, initialRender) {
+      var state = controller.getCompressedState();    	
+    	
       var onSuccess = function(json, dto, response) {
       
         if(buttonId){
@@ -124,6 +126,19 @@
           controller.setMapState(map, false, initialRender);
           
           controller.renderReport();
+          
+          if(initialRender && state.mapExtent != null) {
+            var mapExtent = JSON.parse(state.mapExtent);
+            var bbox = [ mapExtent.left, mapExtent.bottom, mapExtent.right, mapExtent.top ]
+            
+            if(bbox.length === 2){
+              mapService.setView(null, bbox, 5, "EPSG:4326");
+            }
+            else if(bbox.length === 4){
+              mapService.setView(bbox, null, null, "EPSG:4326");
+            }    
+          }
+          
         }, 10);
         
         var info = (response != null ? response.getInformation() : null);
@@ -131,8 +146,7 @@
         if(info != null){
           for(var i = 0; i < info.length; i++) {
             MDSS.ErrorModal(info[i].getMessage());                                            
-          }
-          
+          }          
         }
       };      
       
@@ -140,8 +154,9 @@
         controller.icoSpin = buttonId;
       }
       
-      var state = controller.getCompressedState();
       dashboardService.refreshMap(state, '#filter-buttons-container', onSuccess);
+      
+      $scope.$broadcast('dashboardStateChange', {state:state});
     }
     
     controller.drillDown = function(data) {
@@ -201,6 +216,7 @@
     
     controller.save = function(global, buttonId) {
       var state = controller.getCompressedState();
+      state.mapExtent = JSON.stringify(controller.getMapExtent());
        
       var onSuccess = function(json, dto, response) {
           if(buttonId){
@@ -286,6 +302,11 @@
         if(state.arrowXPosition !== undefined && state.arrowXPosition !== 0) {
           state.arrowXPosition = Math.floor(state.arrowXPosition / state.savedWidth * mapWidth);
           state.arrowYPosition = Math.floor(state.arrowYPosition / state.savedHeight * mapHeight);          
+        }
+        
+        if(state.reportXPosition !== undefined && state.reportXPosition !== 0) {
+          state.reportXPosition = Math.floor(state.reportXPosition / state.savedWidth * mapWidth);
+          state.reportYPosition = Math.floor(state.reportYPosition / state.savedHeight * mapHeight);          
         }
         
         // Update the saved width and height incase the state is saved      
@@ -734,7 +755,14 @@
         enableScale : oState.enableScale,
         arrowXPosition : oState.arrowXPosition,
         arrowYPosition : oState.arrowYPosition,
-        enableArrow : oState.enableArrow
+        enableArrow : oState.enableArrow,
+        reportXPosition : oState.reportXPosition,
+        reportYPosition : oState.reportYPosition,
+        isReportVertical : oState.isReportVertical,
+        isReportOpaque : oState.isReportOpaque,
+        isExpandLeft : oState.isExpandLeft,
+        isExpandRight : oState.isExpandRight,
+        mapExtent : oState.mapExtent,
       };
       
       if(!dashboardService.isEmptyFilter(oState.location)) {
@@ -934,6 +962,30 @@
       controller.renderReport(data.pageNumber, data.id);
     });   
     
+    $scope.$on('isReportVertical', function(event, data) {
+      controller.model.isReportVertical = data.vertical; 
+    });   
+    
+    $scope.$on('isReportOpaque', function(event, data) {
+      controller.model.isReportOpaque = data.opaque; 
+    });   
+    
+    $scope.$on('isExpandLeft', function(event, data) {
+      controller.model.isExpandLeft = data; 
+    });   
+    
+    $scope.$on('isExpandRight', function(event, data) {
+      controller.model.isExpandRight = data; 
+    });   
+    
+    $scope.$on('reportYPosition', function(event, data) {
+      controller.model.reportYPosition = data.height; 
+    });   
+    
+    $scope.$on('reportXPosition', function(event, data) {
+      controller.model.reportXPosition = data.width; 
+    });   
+    
     /*
      * Map Events
      */    
@@ -967,7 +1019,7 @@
     
     $scope.$on('rollup', function(event, data) {
       controller.rollup();
-    });
+    });    
   }
   
   angular.module("dashboard", ["dashboard-service", "localization-service", "map-service", "report-panel", "dashboard-layer", "dashboard-map", "dashboard-panel", "dashboard-layer-form", "dashboard-builder", "data-uploader"]);

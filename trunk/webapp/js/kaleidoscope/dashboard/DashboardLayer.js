@@ -61,6 +61,8 @@
         widgetService.animate("#control-form", {left: "-=281"}, speed, function(){
           controller.expanded = false;
           $scope.$apply();
+          
+          $scope.$emit("isExpandLeft", false);                              
         });
         
         widgetService.animate(".ol-zoom.ol-unselectable.ol-control", {left: "-=281"}, speed);
@@ -69,6 +71,8 @@
         widgetService.animate("#control-form", {left: "+=281"}, speed, function(){
             controller.expanded = true;
             $scope.$apply();
+            
+            $scope.$emit("isExpandLeft", true);                                          
         });        
         widgetService.animate(".ol-zoom.ol-unselectable.ol-control", {left: "+=281"}, speed);
       }
@@ -117,6 +121,16 @@
       
       dashboardService.getJobJSON(onSuccess);      
     }
+    
+    controller.init = function(state) {
+      if(state.isExpandLeft != null && controller.expanded !== state.isExpandLeft) {
+        controller.toggle();
+      }
+    }    
+      
+    $scope.$on('dashboardStateChange', function(event, data){
+      controller.init(data.state);
+    });        
   }
   
   function MapPanel() {

@@ -1,26 +1,10 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -31860036)
+@com.runwaysdk.business.ClassSignature(hash = 581917867)
 public abstract class DashboardStateDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardState";
-  private static final long serialVersionUID = -31860036;
+  private static final long serialVersionUID = 581917867;
   
   protected DashboardStateDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -54,12 +38,19 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOPRISMUSER = "geoprismUser";
   public static java.lang.String ID = "id";
+  public static java.lang.String ISEXPANDLEFT = "isExpandLeft";
+  public static java.lang.String ISEXPANDRIGHT = "isExpandRight";
+  public static java.lang.String ISREPORTOPAQUE = "isReportOpaque";
+  public static java.lang.String ISREPORTVERTICAL = "isReportVertical";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String MAPEXTENT = "mapExtent";
   public static java.lang.String MAPTHUMBNAIL = "mapThumbnail";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String REPORTXPOSITION = "reportXPosition";
+  public static java.lang.String REPORTYPOSITION = "reportYPosition";
   public static java.lang.String SAVEDHEIGHT = "savedHeight";
   public static java.lang.String SAVEDWIDTH = "savedWidth";
   public static java.lang.String SCALEXPOSITION = "scaleXPosition";
@@ -461,6 +452,154 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOPRISMUSER).getAttributeMdDTO();
   }
   
+  public Boolean getIsExpandLeft()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISEXPANDLEFT));
+  }
+  
+  public void setIsExpandLeft(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISEXPANDLEFT, "");
+    }
+    else
+    {
+      setValue(ISEXPANDLEFT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsExpandLeftWritable()
+  {
+    return isWritable(ISEXPANDLEFT);
+  }
+  
+  public boolean isIsExpandLeftReadable()
+  {
+    return isReadable(ISEXPANDLEFT);
+  }
+  
+  public boolean isIsExpandLeftModified()
+  {
+    return isModified(ISEXPANDLEFT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsExpandLeftMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISEXPANDLEFT).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsExpandRight()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISEXPANDRIGHT));
+  }
+  
+  public void setIsExpandRight(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISEXPANDRIGHT, "");
+    }
+    else
+    {
+      setValue(ISEXPANDRIGHT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsExpandRightWritable()
+  {
+    return isWritable(ISEXPANDRIGHT);
+  }
+  
+  public boolean isIsExpandRightReadable()
+  {
+    return isReadable(ISEXPANDRIGHT);
+  }
+  
+  public boolean isIsExpandRightModified()
+  {
+    return isModified(ISEXPANDRIGHT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsExpandRightMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISEXPANDRIGHT).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsReportOpaque()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISREPORTOPAQUE));
+  }
+  
+  public void setIsReportOpaque(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISREPORTOPAQUE, "");
+    }
+    else
+    {
+      setValue(ISREPORTOPAQUE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsReportOpaqueWritable()
+  {
+    return isWritable(ISREPORTOPAQUE);
+  }
+  
+  public boolean isIsReportOpaqueReadable()
+  {
+    return isReadable(ISREPORTOPAQUE);
+  }
+  
+  public boolean isIsReportOpaqueModified()
+  {
+    return isModified(ISREPORTOPAQUE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsReportOpaqueMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISREPORTOPAQUE).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsReportVertical()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISREPORTVERTICAL));
+  }
+  
+  public void setIsReportVertical(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISREPORTVERTICAL, "");
+    }
+    else
+    {
+      setValue(ISREPORTVERTICAL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsReportVerticalWritable()
+  {
+    return isWritable(ISREPORTVERTICAL);
+  }
+  
+  public boolean isIsReportVerticalReadable()
+  {
+    return isReadable(ISREPORTVERTICAL);
+  }
+  
+  public boolean isIsReportVerticalModified()
+  {
+    return isModified(ISREPORTVERTICAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsReportVerticalMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISREPORTVERTICAL).getAttributeMdDTO();
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -597,6 +736,43 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public String getMapExtent()
+  {
+    return getValue(MAPEXTENT);
+  }
+  
+  public void setMapExtent(String value)
+  {
+    if(value == null)
+    {
+      setValue(MAPEXTENT, "");
+    }
+    else
+    {
+      setValue(MAPEXTENT, value);
+    }
+  }
+  
+  public boolean isMapExtentWritable()
+  {
+    return isWritable(MAPEXTENT);
+  }
+  
+  public boolean isMapExtentReadable()
+  {
+    return isReadable(MAPEXTENT);
+  }
+  
+  public boolean isMapExtentModified()
+  {
+    return isModified(MAPEXTENT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMapExtentMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MAPEXTENT).getAttributeMdDTO();
+  }
+  
   public byte[] getMapThumbnail()
   {
     return super.getBlob(MAPTHUMBNAIL);
@@ -674,6 +850,80 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public Integer getReportXPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REPORTXPOSITION));
+  }
+  
+  public void setReportXPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(REPORTXPOSITION, "");
+    }
+    else
+    {
+      setValue(REPORTXPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isReportXPositionWritable()
+  {
+    return isWritable(REPORTXPOSITION);
+  }
+  
+  public boolean isReportXPositionReadable()
+  {
+    return isReadable(REPORTXPOSITION);
+  }
+  
+  public boolean isReportXPositionModified()
+  {
+    return isModified(REPORTXPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReportXPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REPORTXPOSITION).getAttributeMdDTO();
+  }
+  
+  public Integer getReportYPosition()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REPORTYPOSITION));
+  }
+  
+  public void setReportYPosition(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(REPORTYPOSITION, "");
+    }
+    else
+    {
+      setValue(REPORTYPOSITION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isReportYPositionWritable()
+  {
+    return isWritable(REPORTYPOSITION);
+  }
+  
+  public boolean isReportYPositionReadable()
+  {
+    return isReadable(REPORTYPOSITION);
+  }
+  
+  public boolean isReportYPositionModified()
+  {
+    return isModified(REPORTYPOSITION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getReportYPositionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(REPORTYPOSITION).getAttributeMdDTO();
   }
   
   public Integer getSavedHeight()
