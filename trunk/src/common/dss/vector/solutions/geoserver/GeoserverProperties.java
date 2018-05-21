@@ -154,6 +154,11 @@ public class GeoserverProperties implements Reloadable
   {
     return instance.getBundle().getString("osm.osm2pgsql.util.root");
   }
+  
+  public static String getOSMConvertRoot()
+  {
+    return instance.getBundle().getString("osm.osmconvert.util.root");
+  }
 
   public static String getLockFile()
   {

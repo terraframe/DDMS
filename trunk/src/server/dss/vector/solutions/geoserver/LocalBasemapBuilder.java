@@ -26,12 +26,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -201,61 +203,253 @@ public class LocalBasemapBuilder implements Reloadable
 
     return filteredFilesArr;
   }
+  
+  public static File[] getConvertedBasemapFiles()
+  {
+	ArrayList<File> filteredFiles = new ArrayList<File>();
+	File[] filteredFilesArr = null;
+
+    File folder = new File(GeoserverProperties.getBasemapDirectory()+ File.separator +"processing");
+    
+    if(folder != null && folder.exists())
+    {
+	    File[] listOfFiles = folder.listFiles();
+	
+	    if(listOfFiles != null)
+	    {
+		    for (int i = 0; i < listOfFiles.length; i++)
+		    {
+		      if (listOfFiles[i].isFile() && FilenameUtils.getExtension(listOfFiles[i].getName()).equals("o5m"))
+		      {
+		        filteredFiles.add(listOfFiles[i]);
+		      }
+		      else if (listOfFiles[i].isDirectory())
+		      {
+		        // skip any sub-directories
+		      }
+		    }
+		
+		    filteredFilesArr = new File[filteredFiles.size()];
+		    for (int i = 0; i < filteredFiles.size(); i++)
+		    {
+		      filteredFilesArr[i] = filteredFiles.get(i);
+		    }
+	    }
+    }
+
+    return filteredFilesArr;
+  }
 
   public static boolean importBasemapFiles(String[] fileNames)
   {
-    boolean cleanDB = true;
-    boolean allSuccessful = true;
-    ArrayList<String> uploadedFiles = new ArrayList<String>();
-    for (String fileName : fileNames)
+    boolean successfullImport = false;
+    
+    if(fileNames.length > 1)
     {
-      File file = new File(GeoserverProperties.getBasemapDirectory() + File.separator + fileName);
-
-      if (file.exists())
-      {
-        // OfflineBasemapManagement persistedFile = null;
-        // try
-        // {
-        // persistedFile = new OfflineBasemapManagement();
-        // persistedFile.setFileName(file.getName());
-        // persistedFile.setUploadSuccessful(false);
-        // persistedFile.setQuedForUpload(true);
-        // persistedFile.apply();
-        //
-        // } catch(Exception e)
-        // {
-        // throw new ProgrammingErrorException(e);
-        // }
-        boolean successfulImport = importBasemapFile(file, cleanDB);
-        // boolean successfulImport = true;
-        if (successfulImport)
-        {
-          uploadedFiles.add(file.getName());
-
-          // persistedFile.lock();
-          // persistedFile.setUploadSuccessful(true);
-          // persistedFile.setQuedForUpload(false);
-          // persistedFile.apply();
-
-        }
-        else
-        {
-          allSuccessful = false;
-        }
-
-        cleanDB = false;
-      }
+	    List<File> files = new ArrayList<File>();
+	    for (String fileName : fileNames)
+	    {
+	      File file = new File(GeoserverProperties.getBasemapDirectory() + File.separator + fileName);
+	
+	      if (file.exists())
+	      {
+	    	  files.add(file);
+	      }
+	    }
+	    
+	    successfullImport = combineBasemapFilesAndImport( files.toArray( new File[files.size()] ) );
     }
+    else if(fileNames.length == 1)
+    {
+      File file = new File(GeoserverProperties.getBasemapDirectory() + File.separator + fileNames[0]);
+      successfullImport = importBasemapFile(file, true);
+    }
+    
 
     // ONLY run after all data is uploaded and if there are actually updates
-    if (fileNames.length > 0)
+    if (successfullImport == true && fileNames.length > 0)
     {
       buildOSMGeoserverServices();
     }
 
-    return allSuccessful;
+    return successfullImport;
+  }
+  
+  public static List<File> convertPbfToO5m(File[] files, File processingDirectory)
+  {
+	 List<File> convertedFiles = new ArrayList<File>();
+	 for(File file : files)
+	 {
+	  	File convertedFile = convertPbfToO5m(file, processingDirectory);
+	  	convertedFiles.add(convertedFile);
+	 }
+	 
+	 return convertedFiles;
+  }
+  
+  public static File convertPbfToO5m(File file, File processingDirectory)
+  {
+	  List<String> command = new ArrayList<String>();
+	  
+      boolean tempDirCreated = new File(processingDirectory + File.separator + "processing").mkdir();
+      File tempDir = new File(processingDirectory + File.separator + "processing");
+	  
+	  command.add(getOsmConvertRoot());
+	  command.add(file.getName());
+	  command.add("-o=processing/"+file.getName().replace(".pbf", ".o5m"));
+	  
+	  try
+      {
+        ProcessBuilderWrapper proc = new ProcessBuilderWrapper(processingDirectory, command);
+
+        if (proc.getStatus() == 0)
+        {
+          File convertedFile = new File(tempDir + File.separator + file.getName().replace(".pbf", ".o5m"));
+      	  
+      	  if(convertedFile.exists() && convertedFile.length() > 0)
+      	  {
+      		  log.debug("\n\nBasemap merge successful!");
+      		  return convertedFile;
+      	  }
+      	  else
+      	  {
+      		  return null;
+      	  }
+        }
+        else
+        {
+          log.debug("\n\nProblem merging basemap!");
+          log.debug(proc.getErrors());
+          return null;
+        }
+      } 
+	  catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	  }
+	  
+	  
+	  return null;
+  }
+  
+  public static String getOsmConvertRoot()
+  {
+     String osmConvertRoot = "osmconvert"; // if installed as a service. Typically a dev environment.
+     if (System.getProperty("os.name").toLowerCase().contains("windows"))
+     {
+//	      String arch = System.getenv("PROCESSOR_ARCHITECTURE");
+//	      String wow64Arch = System.getenv("PROCESSOR_ARCHITEW6432");
+//	      String realArch = arch != null && arch.endsWith("64") || wow64Arch != null && wow64Arch.endsWith("64") ? "64" : "32";
+	      
+	      osmConvertRoot = GeoserverProperties.getOSMConvertRoot();
+	      
+//	      if(realArch == "64" && osmConvertRoot.contains("osmconvert64"))
+//	      {
+//	    	  // 64 bit OS referencing 64 bit osmconvert. 64 bit osmconvert files are named osmconvert64-x.x.x.exe by default.
+//	      }
+//	      else if(realArch == "32" && osmConvertRoot.contains("osmconvert") && !osmConvertRoot.contains("osmconvert64"))
+//	      {
+//	    	  // 32 bit OS referencing 32 bit osmconvert. 32 bit osmconvert files are named osmconvert.exe by default.
+//	      }
+//	      else if(osmConvertRoot.isEmpty())
+//	      {
+//	    	  // Property not set.
+//	      }
+     }
+     
+     return osmConvertRoot;
+  }
+  
+  /**
+   * Combine multiplbe OSM .pbf files into one. 
+   * 
+   * Potential performance enhancement: https://wiki.openstreetmap.org/wiki/Osmconvert#Parallel_Processing
+   * 
+   * @param files
+   * @return
+   */
+  public static Boolean combineBasemapFilesAndImport(File[] files)
+  {
+    boolean success = false;
+    String mergedFileName = "merged.pbf";
+    File basemapDir = new File(GeoserverProperties.getBasemapDirectory());
+    //osmconvert <(osmconvert a.pbf --out-o5m) <(osmconvert b.pbf --out-o5m) -o merged.pbf
+    List<String> command = new ArrayList<String>();
+    
+    // convert all .pbf to .o5m format which is required for merge
+    List<File> convertedBasemapFiles = convertPbfToO5m(files, basemapDir);
+    
+    File tempDir = new File(basemapDir + File.separator + "processing");
+    
+    command.add(getOsmConvertRoot());
+    
+    for(File file : convertedBasemapFiles)
+    {
+      command.add("processing"+ File.separator + file.getName());
+    }
+    command.add("-o=" + "processing" + File.separator + mergedFileName);
+    
+    try
+    {
+        ProcessBuilderWrapper proc = new ProcessBuilderWrapper(basemapDir, command);
+
+        System.out.println("Command has terminated with status: " + proc.getStatus());
+        System.out.println("Output:\n" + proc.getInfos());
+        System.out.println("Error: " + proc.getErrors());
+
+        if (proc.getStatus() == 0)
+        {
+          success = true;
+          File mergedFile = new File(tempDir + File.separator + mergedFileName);
+      	  
+      	  if(mergedFile.exists() && mergedFile.length() > 0)
+      	  {
+      	    Boolean importComplete = importBasemapFile(mergedFile, true);
+        	
+      	    if(importComplete)
+          	{
+              log.debug("\n\nBasemap import successful!");
+          	}
+      	    else
+      	    {
+      	      log.debug("\n\nBasemap import failure!");
+      	    }
+      	  }
+      	  else
+      	  {
+      		  // throw exception
+      	  }
+      	  
+      	  log.debug("\n\nBasemap merge successful!");
+        }
+        else
+        {
+          log.debug("\n\nProblem merging basemap!");
+          log.debug(proc.getErrors());
+        }
+    } catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    finally
+    {
+    	try {
+    		FileUtils.deleteDirectory(tempDir);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    return success;
   }
 
+  /**
+   * 
+   * @param file
+   * @param cleanFirst
+   * @return
+   */
   public static boolean importBasemapFile(File file, boolean cleanFirst)
   {
     boolean success = false;
@@ -323,6 +517,7 @@ public class LocalBasemapBuilder implements Reloadable
     {
       // TODO Auto-generated catch block
       e2.printStackTrace();
+      //throw new ProgrammingErrorException(e2);
     }
 
     return success;
@@ -332,11 +527,14 @@ public class LocalBasemapBuilder implements Reloadable
   {
     File[] files = getBasemapFiles();
 
-    boolean cleanDB = true;
-    for (File file : files)
+    if(files.length > 1)
     {
-      importBasemapFile(file, cleanDB);
-      cleanDB = false;
+      // Combine the files to improve upload performance with osm2pgsql
+  	  combineBasemapFilesAndImport(files);
+    }
+    else
+    {
+      importBasemapFile(files[0], true);
     }
   }
 
