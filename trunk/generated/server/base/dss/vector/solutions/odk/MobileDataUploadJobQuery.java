@@ -1,6 +1,6 @@
 package dss.vector.solutions.odk;
 
-@com.runwaysdk.business.ClassSignature(hash = 1647402732)
+@com.runwaysdk.business.ClassSignature(hash = -304127439)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -38,6 +38,29 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
   {
     return dss.vector.solutions.odk.MobileDataUploadJob.CLASS;
   }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getFormType()
   {
     return getFormType(null);
@@ -55,6 +78,54 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.odk.MobileDataUploadJob.FORMTYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableMoment getLastExportDate()
+  {
+    return getLastExportDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.odk.MobileDataUploadJob.LASTEXPORTDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.odk.MobileDataUploadJob.LASTEXPORTDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getQueryCursor()
+  {
+    return getQueryCursor(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getQueryCursor(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.odk.MobileDataUploadJob.QUERYCURSOR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getQueryCursor(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.odk.MobileDataUploadJob.QUERYCURSOR, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -87,9 +158,18 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
   public interface MobileDataUploadJobQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.scheduler.ExecutableJobQuery.ExecutableJobQueryReferenceIF
   {
 
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getFormType();
     public com.runwaysdk.query.SelectableChar getFormType(String alias);
     public com.runwaysdk.query.SelectableChar getFormType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastExportDate();
+    public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getQueryCursor();
+    public com.runwaysdk.query.SelectableChar getQueryCursor(String alias);
+    public com.runwaysdk.query.SelectableChar getQueryCursor(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.odk.MobileDataUploadJob mobileDataUploadJob);
 
@@ -125,6 +205,23 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
       return this.NE(mobileDataUploadJob.getId());
     }
 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getFormType()
   {
     return getFormType(null);
@@ -142,6 +239,54 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.odk.MobileDataUploadJob.FORMTYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableMoment getLastExportDate()
+  {
+    return getLastExportDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.odk.MobileDataUploadJob.LASTEXPORTDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.odk.MobileDataUploadJob.LASTEXPORTDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getQueryCursor()
+  {
+    return getQueryCursor(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getQueryCursor(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.odk.MobileDataUploadJob.QUERYCURSOR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getQueryCursor(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.odk.MobileDataUploadJob.QUERYCURSOR, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
   }
 
 /**
@@ -151,9 +296,18 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
   public interface MobileDataUploadJobQueryMultiReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.system.scheduler.ExecutableJobQuery.ExecutableJobQueryMultiReferenceIF
   {
 
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getFormType();
     public com.runwaysdk.query.SelectableChar getFormType(String alias);
     public com.runwaysdk.query.SelectableChar getFormType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getLastExportDate();
+    public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getQueryCursor();
+    public com.runwaysdk.query.SelectableChar getQueryCursor(String alias);
+    public com.runwaysdk.query.SelectableChar getQueryCursor(String alias, String displayLabel);
 
     public com.runwaysdk.query.Condition containsAny(dss.vector.solutions.odk.MobileDataUploadJob ... mobileDataUploadJob);
     public com.runwaysdk.query.Condition notContainsAny(dss.vector.solutions.odk.MobileDataUploadJob ... mobileDataUploadJob);
@@ -238,6 +392,23 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
 
       return this.containsExactly(itemIdArray);
   }
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
+  {
+    return getDisease(null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getFormType()
   {
     return getFormType(null);
@@ -255,5 +426,53 @@ public  class MobileDataUploadJobQuery extends com.runwaysdk.system.scheduler.Ex
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.odk.MobileDataUploadJob.FORMTYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableMoment getLastExportDate()
+  {
+    return getLastExportDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.odk.MobileDataUploadJob.LASTEXPORTDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getLastExportDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.odk.MobileDataUploadJob.LASTEXPORTDATE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getQueryCursor()
+  {
+    return getQueryCursor(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getQueryCursor(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.odk.MobileDataUploadJob.QUERYCURSOR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getQueryCursor(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.odk.MobileDataUploadJob.QUERYCURSOR, alias, displayLabel);
+
+  }
+  protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.odk.MobileDataUploadJob.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      return super.referenceFactory(mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+  }
+
   }
 }

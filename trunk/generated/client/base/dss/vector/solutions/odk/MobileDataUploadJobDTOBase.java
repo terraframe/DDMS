@@ -1,10 +1,10 @@
 package dss.vector.solutions.odk;
 
-@com.runwaysdk.business.ClassSignature(hash = 1218077045)
+@com.runwaysdk.business.ClassSignature(hash = 1909809352)
 public abstract class MobileDataUploadJobDTOBase extends com.runwaysdk.system.scheduler.ExecutableJobDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.odk.MobileDataUploadJob";
-  private static final long serialVersionUID = 1218077045;
+  private static final long serialVersionUID = 1909809352;
   
   protected MobileDataUploadJobDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,7 +27,59 @@ public abstract class MobileDataUploadJobDTOBase extends com.runwaysdk.system.sc
     return CLASS;
   }
   
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String FORMTYPE = "formType";
+  public static java.lang.String LASTEXPORTDATE = "lastExportDate";
+  public static java.lang.String QUERYCURSOR = "queryCursor";
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
+  }
+  
   public String getFormType()
   {
     return getValue(FORMTYPE);
@@ -63,6 +115,80 @@ public abstract class MobileDataUploadJobDTOBase extends com.runwaysdk.system.sc
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFormTypeMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FORMTYPE).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getLastExportDate()
+  {
+    return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(LASTEXPORTDATE));
+  }
+  
+  public void setLastExportDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(LASTEXPORTDATE, "");
+    }
+    else
+    {
+      setValue(LASTEXPORTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATETIME_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isLastExportDateWritable()
+  {
+    return isWritable(LASTEXPORTDATE);
+  }
+  
+  public boolean isLastExportDateReadable()
+  {
+    return isReadable(LASTEXPORTDATE);
+  }
+  
+  public boolean isLastExportDateModified()
+  {
+    return isModified(LASTEXPORTDATE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO getLastExportDateMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateTimeMdDTO) getAttributeDTO(LASTEXPORTDATE).getAttributeMdDTO();
+  }
+  
+  public String getQueryCursor()
+  {
+    return getValue(QUERYCURSOR);
+  }
+  
+  public void setQueryCursor(String value)
+  {
+    if(value == null)
+    {
+      setValue(QUERYCURSOR, "");
+    }
+    else
+    {
+      setValue(QUERYCURSOR, value);
+    }
+  }
+  
+  public boolean isQueryCursorWritable()
+  {
+    return isWritable(QUERYCURSOR);
+  }
+  
+  public boolean isQueryCursorReadable()
+  {
+    return isReadable(QUERYCURSOR);
+  }
+  
+  public boolean isQueryCursorModified()
+  {
+    return isModified(QUERYCURSOR);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getQueryCursorMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(QUERYCURSOR).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.odk.MobileDataUploadJobDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

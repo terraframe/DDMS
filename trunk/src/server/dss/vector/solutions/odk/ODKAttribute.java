@@ -25,6 +25,7 @@ import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -32,7 +33,6 @@ import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
@@ -107,6 +107,10 @@ public class ODKAttribute implements Reloadable
 //        attrs.add(new StructColumn(struct, structAttribute));
 //      }
     }
+    else if (concrete instanceof MdAttributeEnumerationDAOIF)
+    {
+      return new ODKEnumAttribute(source, viewAttr, exportedTerms);
+    }    
     else if (concrete instanceof MdAttributeReferenceDAOIF)
     {
       MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO();

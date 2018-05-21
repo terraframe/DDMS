@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions;
 
@@ -40,50 +40,39 @@ import dss.vector.solutions.ontology.UnknownTerm;
 
 public class ExcelImportManager extends ExcelImportManagerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long        serialVersionUID        = 792922881;
+  private static final long            serialVersionUID        = 792922881;
 
-  private Logger logger = LoggerFactory.getLogger(ExcelImportManager.class);
-  
-  public List<UnknownGeoEntity>   unknownEntityList       = new LinkedList<UnknownGeoEntity>();
+  private Logger                       logger                  = LoggerFactory.getLogger(ExcelImportManager.class);
 
-  public List<UnknownTerm>        unknownTerms            = new LinkedList<UnknownTerm>();
+  public List<UnknownGeoEntity>        unknownEntityList       = new LinkedList<UnknownGeoEntity>();
 
-  private Set<String>              unknownGeoEntityNameSet = new HashSet<String>();
+  public List<UnknownTerm>             unknownTerms            = new LinkedList<UnknownTerm>();
 
-  private Map<String, Set<String>> unknownTermNames        = new HashMap<String, Set<String>>();
-  
-  public Map<UnknownGeoEntity, String> geoTypeInfo         = new HashMap<UnknownGeoEntity, String>();
-  
+  private Set<String>                  unknownGeoEntityNameSet = new HashSet<String>();
+
+  private Map<String, Set<String>>     unknownTermNames        = new HashMap<String, Set<String>>();
+
+  public Map<UnknownGeoEntity, String> geoTypeInfo             = new HashMap<UnknownGeoEntity, String>();
+
+  private String                       userId;
+
+  private String                       dimensionId;
+
   public ExcelImportManager()
   {
     super();
   }
 
-  public static dss.vector.solutions.ExcelImportManager getNewInstance()
+  public void setUserId(String userId)
   {
-    ExcelImportManager inst = new ExcelImportManager();
-    inst.apply();
-    return inst;
+    this.userId = userId;
   }
-  
-  /**
-   * MdMethod
-   */
-  public static void excelImportFromVault(java.lang.String vaultId, String config)
+
+  public void setDimensionId(String dimensionId)
   {
-    VaultFile vf = VaultFile.get(vaultId);
-    
-    InputStream is = vf.getFileStream();
-    
-    ExcelImportManager man = getNewInstance();
-    
-    ExcelImportJob job = new ExcelImportJob(man, is, new String[]{}, vf.getFileName() + "." + vf.getFileExtension());
-    job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
-    job.setRunAsDimensionId(Session.getCurrentDimension().getId());
-    job.apply();
-    job.importAsync();
+    this.dimensionId = dimensionId;
   }
-  
+
   /**
    * MdMethod
    * 
@@ -91,19 +80,29 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
    */
   public java.io.InputStream importWhatYouCan(java.io.InputStream inputStream, java.lang.String[] params, java.lang.String fileName)
   {
+    if (this.userId == null)
+    {
+      this.userId = Session.getCurrentSession().getUser().getId();
+    }
+
+    if (this.dimensionId == null)
+    {
+      this.dimensionId = Session.getCurrentDimension().getId();
+    }
+
     if (params == null)
     {
       params = new String[] {};
     }
-    
+
     ExcelImportJob job = new ExcelImportJob(this, inputStream, params, fileName);
-    job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
-    job.setRunAsDimensionId(Session.getCurrentDimension().getId());
+    job.setRunAsUserId(this.userId);
+    job.setRunAsDimensionId(this.dimensionId);
     job.apply();
-    
+
     return job.doImport();
   }
-  
+
   /**
    * MdMethod
    * 
@@ -114,18 +113,21 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     try
     {
       String strArray = this.getUnmatchedGeoViewIdString();
-      if (strArray == null || strArray.equals("")) { return null; }
-      
+      if (strArray == null || strArray.equals(""))
+      {
+        return null;
+      }
+
       JSONArray array = new JSONArray(strArray);
       UnknownGeoEntity[] views = new UnknownGeoEntity[array.length()];
-      
+
       for (int i = 0; i < array.length(); i++)
       {
         JSONObject json = array.getJSONObject(i);
-  
+
         views[i] = UnknownGeoEntity.deserialize(json);
       }
-  
+
       return views;
     }
     catch (JSONException e)
@@ -133,22 +135,22 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
   public void putGeoTypeInfo(UnknownGeoEntity uge, String type)
   {
     geoTypeInfo.put(uge, type);
   }
-  
+
   public String getGeoTypeInfo(UnknownGeoEntity uge)
   {
     return geoTypeInfo.get(uge);
   }
-  
+
   public int getNumberUnknownTerms()
   {
     return unknownTerms.size();
   }
-  
+
   public int getNumberUnknownGeos()
   {
     return unknownEntityList.size();
@@ -160,8 +162,11 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     try
     {
       String strArray = this.getSerializedUnknownTerm();
-      if (strArray == null || strArray.equals("")) { return null; }
-      
+      if (strArray == null || strArray.equals(""))
+      {
+        return null;
+      }
+
       JSONArray array = new JSONArray(strArray);
       UnknownTerm[] terms = new UnknownTerm[array.length()];
 
@@ -229,18 +234,18 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
   public String serializeUnknownGeos()
   {
     try
     {
       JSONArray array = new JSONArray();
-      
+
       for (UnknownGeoEntity geo : unknownEntityList)
       {
         array.put(geo.serialize());
       }
-      
+
       return array.toString();
     }
     catch (JSONException e)
@@ -256,4 +261,30 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
 
     this.apply();
   }
+
+  public static dss.vector.solutions.ExcelImportManager getNewInstance()
+  {
+    ExcelImportManager inst = new ExcelImportManager();
+    inst.apply();
+    return inst;
+  }
+
+  /**
+   * MdMethod
+   */
+  public static void excelImportFromVault(java.lang.String vaultId, String config)
+  {
+    VaultFile vf = VaultFile.get(vaultId);
+
+    InputStream is = vf.getFileStream();
+
+    ExcelImportManager man = getNewInstance();
+
+    ExcelImportJob job = new ExcelImportJob(man, is, new String[] {}, vf.getFileName() + "." + vf.getFileExtension());
+    job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
+    job.setRunAsDimensionId(Session.getCurrentDimension().getId());
+    job.apply();
+    job.importAsync();
+  }
+
 }

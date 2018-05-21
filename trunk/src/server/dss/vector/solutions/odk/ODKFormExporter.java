@@ -20,7 +20,6 @@ package dss.vector.solutions.odk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,7 +42,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.http.HttpEntity;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -472,9 +470,10 @@ public class ODKFormExporter implements Reloadable
       // 3. Push the document to ODK
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
       File fFormDef = new File(EXPORT_DIR + "mosquitos-test.xml");
-      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
+      builder.addBinaryBody("form_def_file", fFormDef);
+//      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
       File itemsets = new File(EXPORT_DIR + "itemsets.csv");
-      builder.addBinaryBody("mediaFiles", new FileInputStream(itemsets), ContentType.APPLICATION_XML, itemsets.getName());
+      builder.addBinaryBody("mediaFiles", itemsets);
       HttpEntity multipart = builder.build();
       
       HTTPResponse resp = ODKConnector.postToOdk("formUpload", multipart);

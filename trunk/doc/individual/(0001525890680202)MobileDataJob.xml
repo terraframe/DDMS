@@ -1,0 +1,24 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.odk.MobileDataUploadJob" label="Mobile Data Upload Job" extends="com.runwaysdk.system.scheduler.ExecutableJob">
+        <attributes>
+          <char name="formType" label="formType" size="512" />
+					<reference
+						name="disease"
+						label="Disease"
+						type="dss.vector.solutions.general.Disease" />
+          <char name="queryCursor" label="Cursor" size="6000" />
+          <dateTime name="lastExportDate" label="Last Export Date" />
+          
+        </attributes>
+      </mdBusiness>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.odk.MobileDataUploadJob" type="com.runwaysdk.system.metadata.MdBusiness"/>
+    </delete>
+  </undoIt>
+</version>

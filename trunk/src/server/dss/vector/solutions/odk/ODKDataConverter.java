@@ -76,6 +76,11 @@ public class ODKDataConverter implements Reloadable
       return this.mutable.getMdAttributeDAO(attributeName);
     }
 
+    public boolean hasAttribute(String attributeName)
+    {
+      return this.mutable.hasAttribute(attributeName);
+    }
+
     public ODKRow clone()
     {
       ODKRow clone = new ODKRow(BusinessFacade.newMutable(mutable.getType()));
@@ -142,14 +147,12 @@ public class ODKDataConverter implements Reloadable
       Node child = children.item(i);
       String sourceAttribute = child.getNodeName();
 
-      if (form.hasViewAttribute(sourceAttribute))
+      if(root.hasAttribute(sourceAttribute))
       {
-        String attributeName = sourceAttribute;
-
-        MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(attributeName);
+        MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
         String value = this.getValue(mdAttribute, child.getTextContent());
 
-        root.setValue(attributeName, value);
+        root.setValue(sourceAttribute, value);
       }
       else if (form.isGeoAttribute(sourceAttribute))
       {

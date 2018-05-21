@@ -1,6 +1,6 @@
 package dss.vector.solutions.odk;
 
-@com.runwaysdk.business.ClassSignature(hash = -1196133698)
+@com.runwaysdk.business.ClassSignature(hash = -255842145)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.odk;
 public class MobileDataUploadJobQueryDTO extends com.runwaysdk.system.scheduler.ExecutableJobQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1196133698;
+private static final long serialVersionUID = -255842145;
 
   protected MobileDataUploadJobQueryDTO(String type)
   {

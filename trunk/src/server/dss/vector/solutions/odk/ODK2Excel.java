@@ -1,15 +1,18 @@
 package dss.vector.solutions.odk;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -26,22 +29,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.ExcelExportSheet;
-import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.XMLException;
-import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.session.Request;
 
-import dss.vector.solutions.entomology.MosquitoCollectionView;
-import dss.vector.solutions.entomology.SubCollectionView;
-import dss.vector.solutions.export.MosquitoCollectionExcelView;
-import dss.vector.solutions.geo.GeoFilterCriteria;
-import dss.vector.solutions.geo.generated.CollectionSite;
-import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.odk.ODKDataConverter.ODKRow;
 
 public class ODK2Excel implements Reloadable
@@ -50,12 +42,33 @@ public class ODK2Excel implements Reloadable
 
   private ODKForm             form;
 
-  public ODK2Excel(ODKForm form)
+  private String              cursor;
+
+  private Date                exportDateTime;
+
+  public ODK2Excel(ODKForm form, String cursor)
   {
     this.form = form;
+    this.cursor = cursor;
+    this.exportDateTime = null;
   }
 
-  public Collection<String> getUUIDs(String cursor)
+  public ODKForm getForm()
+  {
+    return form;
+  }
+
+  public String getCursor()
+  {
+    return cursor;
+  }
+
+  public Date getExportDateTime()
+  {
+    return exportDateTime;
+  }
+
+  public Collection<String> getUUIDs()
   {
     List<String> uuids = new LinkedList<String>();
 
@@ -71,9 +84,9 @@ public class ODK2Excel implements Reloadable
         builder.setParameter("formId", this.form.getFormName());
         builder.setParameter("numEntries", NUM_ENTRIES);
 
-        if (cursor != null)
+        if (this.cursor != null)
         {
-          builder.setParameter("cursor", cursor);
+          builder.setParameter("cursor", this.cursor);
         }
 
         HttpGet get = new HttpGet(builder.build());
@@ -93,9 +106,19 @@ public class ODK2Excel implements Reloadable
             DocumentBuilder docBuilder = factory.newDocumentBuilder();
             Document document = docBuilder.parse(entity.getContent());
 
+            // Print for testing
+            TransformerFactory tfactory = TransformerFactory.newInstance();
+
+            Transformer serializer = tfactory.newTransformer();
+            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+            serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            serializer.transform(new DOMSource(document), new StreamResult(System.out));
+
             Collection<String> chunk = this.getUUIDs(document);
 
-            cursor = this.getCursor(document);
+            this.cursor = this.getCursor(document);
+            this.exportDateTime = new Date();
+
             hasMore = ( chunk.size() > 0 );
 
             uuids.addAll(chunk);
@@ -149,14 +172,12 @@ public class ODK2Excel implements Reloadable
               Document document = docBuilder.parse(entity.getContent());
 
               // Print for testing
-              // TransformerFactory tfactory = TransformerFactory.newInstance();
-              //
-              // Transformer serializer = tfactory.newTransformer();
-              // serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-              // serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
-              // "2");
-              // serializer.transform(new DOMSource(document), new
-              // StreamResult(System.out));
+              TransformerFactory tfactory = TransformerFactory.newInstance();
+
+              Transformer serializer = tfactory.newTransformer();
+              serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+              serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+              serializer.transform(new DOMSource(document), new StreamResult(System.out));
 
               XPathFactory xPathfactory = XPathFactory.newInstance();
               XPath xpath = xPathfactory.newXPath();
@@ -240,86 +261,5 @@ public class ODK2Excel implements Reloadable
     }
 
     return null;
-  }
-
-  public static void main(String[] args)
-  {
-    try
-    {
-      runInRequest();
-    }
-    finally
-    {
-      CacheShutdown.shutdown();
-    }
-  }
-
-  @Request
-  private static void runInRequest()
-  {
-    run();
-  }
-
-  public static void run()
-  {
-    ExcelExporter exporter = new ExcelExporter();
-    MosquitoCollectionExcelView.setupExportListener(exporter);
-    ExcelExportSheet sheet = exporter.addTemplate(MosquitoCollectionExcelView.CLASS);
-
-    String cursor = "<cursor xmlns=\"http://www.opendatakit.org/cursor\"><attributeName>_LAST_UPDATE_DATE</attributeName><attributeValue>2018-05-08T23:08:33.275+0000</attributeValue><isForwardCursor>true</isForwardCursor></cursor>";
-
-    HashMap<String, String> mapping = new HashMap<String, String>();
-    mapping.put(MosquitoCollectionView.ABUNDANCE, MosquitoCollectionExcelView.ABUNDANCE);
-    mapping.put(MosquitoCollectionView.COLLECTIONID, MosquitoCollectionExcelView.COLLECTIONID);
-    mapping.put(MosquitoCollectionView.COLLECTIONDATE, MosquitoCollectionExcelView.COLLECTIONDATE);
-    mapping.put(MosquitoCollectionView.COLLECTIONMETHOD, MosquitoCollectionExcelView.COLLECTIONMETHOD);
-    mapping.put(MosquitoCollectionView.COLLECTIONROUND, MosquitoCollectionExcelView.COLLECTIONROUND);
-    mapping.put(MosquitoCollectionView.COLLECTIONTYPE, MosquitoCollectionExcelView.COLLECTIONTYPE);
-    mapping.put(MosquitoCollectionView.DATELASTSPRAYED, MosquitoCollectionExcelView.DATELASTSPRAYED);
-    mapping.put(MosquitoCollectionView.GEOENTITY, MosquitoCollectionExcelView.GEOENTITY);
-    mapping.put(MosquitoCollectionView.INSECTICIDEBRAND, MosquitoCollectionExcelView.INSECTICIDEBRAND);
-    mapping.put(MosquitoCollectionView.LIFESTAGE, MosquitoCollectionExcelView.LIFESTAGE);
-    mapping.put(MosquitoCollectionView.NUMBEROFANIMALOCCUPANTS, MosquitoCollectionExcelView.NUMBEROFANIMALOCCUPANTS);
-    mapping.put(MosquitoCollectionView.NUMBEROFHUMANOCCUPANTS, MosquitoCollectionExcelView.NUMBEROFHUMANOCCUPANTS);
-    mapping.put(MosquitoCollectionView.NUMBEROFLLINS, MosquitoCollectionExcelView.NUMBEROFLLINS);
-    mapping.put(MosquitoCollectionView.WALLTYPE, MosquitoCollectionExcelView.WALLTYPE);
-
-    mapping.put(SubCollectionView.DISECTED, MosquitoCollectionExcelView.DISECTED);
-    mapping.put(SubCollectionView.EGGS, MosquitoCollectionExcelView.EGGS);
-    mapping.put(SubCollectionView.FEMALESFED, MosquitoCollectionExcelView.FEMALESFED);
-    mapping.put(SubCollectionView.FEMALESGRAVID, MosquitoCollectionExcelView.FEMALESGRAVID);
-    mapping.put(SubCollectionView.FEMALESHALFGRAVID, MosquitoCollectionExcelView.FEMALESHALFGRAVID);
-    mapping.put(SubCollectionView.FEMALESUNFED, MosquitoCollectionExcelView.FEMALESUNFED);
-    mapping.put(SubCollectionView.FEMALESUNKNOWN, MosquitoCollectionExcelView.FEMALESUNKNOWN);
-    mapping.put(SubCollectionView.IDENTMETHOD, MosquitoCollectionExcelView.IDENTMETHOD);
-    mapping.put(SubCollectionView.LARVAE, MosquitoCollectionExcelView.LARVAE);
-    mapping.put(SubCollectionView.MALE, MosquitoCollectionExcelView.MALE);
-    mapping.put(SubCollectionView.PAROUS, MosquitoCollectionExcelView.PAROUS);
-    mapping.put(SubCollectionView.PUPAE, MosquitoCollectionExcelView.PUPAE);
-    mapping.put(SubCollectionView.SUBCOLLECTIONID, MosquitoCollectionExcelView.SUBCOLLECTIONID);
-    mapping.put(SubCollectionView.TAXON, MosquitoCollectionExcelView.TAXON);
-    mapping.put(SubCollectionView.UNKNOWNS, MosquitoCollectionExcelView.UNKNOWNS);
-
-    MdClassDAOIF subc = MdClassDAO.getMdClassDAO(SubCollectionView.CLASS);
-    MdClassDAOIF mosq = MdClassDAO.getMdClassDAO(MosquitoCollectionView.CLASS);
-    MdClassDAOIF target = MdClassDAO.getMdClassDAO(MosquitoCollectionExcelView.CLASS);
-    GeoFilterCriteria gfc = new GeoFilterCriteria(true, false, false, false, SentinelSite.CLASS, CollectionSite.CLASS);
-
-//    ODKForm form = new ODKForm(mosq, target, gfc, new ODKForm(subc));
-//
-//    ODK2Excel importer = new ODK2Excel(form);
-//    Collection<String> uuids = importer.getUUIDs(cursor);
-//
-//    importer.export(uuids, sheet);
-//
-//    try
-//    {
-//      exporter.write(new FileOutputStream("test.xlsx"));
-//    }
-//    catch (FileNotFoundException e)
-//    {
-//      // TODO Auto-generated catch block
-//      e.printStackTrace();
-//    }
   }
 }
