@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,11 @@ import com.runwaysdk.dataaccess.io.ExcelSheetMetadata;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
+import com.runwaysdk.system.scheduler.JobHistory;
 
+import dss.vector.solutions.ExcelImportJob;
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.entomology.MosquitoCollection;
@@ -45,17 +49,17 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   @Override
   public void execute(ExecutionContext executionContext)
   {
-    doIt();
+    doIt(executionContext.getJobHistory());
   }
 
-  private void doIt()
+  private void doIt(JobHistory history)
   {
     ODKForm form = ODKForm.factory(this.getFormType());
 
-    this.doIt(form);
+    this.doIt(form, history);
   }
 
-  private void doIt(ODKForm form)
+  private void doIt(ODKForm form, JobHistory history)
   {
     File parent = new File("process");
     parent.mkdirs();
@@ -105,7 +109,13 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           ExcelImportManager manager = ExcelImportManager.getNewInstance();
           manager.setUserId(userId);
           manager.setDimensionId(dimensionId);
-          manager.importWhatYouCan(new FileInputStream(file), new String[] {}, file.getName());
+
+          String historyId = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
+
+          JobHistory result = JobHistory.get(historyId);
+          AllJobStatus status = result.getStatus().get(0);
+          
+          System.out.println(status);
         }
         catch (IOException e)
         {
@@ -181,9 +191,9 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   private static void mainInRequest(String[] args)
   {
     MobileDataUploadJob job = new MobileDataUploadJob();
-//    job.setJobId("Mosquito Collection ODK");
+    job.setJobId("Mosquito Collection View ODK");
     job.setDisease(Disease.getCurrent());
     job.setFormType(MosquitoCollectionExcelView.CLASS);
-    job.doIt();
+    job.apply();
   }
 }

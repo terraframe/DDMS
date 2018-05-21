@@ -103,6 +103,33 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     return job.doImport();
   }
 
+  public String importAndWait(InputStream inputStream, String[] params, String fileName)
+  {
+    if (this.userId == null)
+    {
+      this.userId = Session.getCurrentSession().getUser().getId();
+    }
+
+    if (this.dimensionId == null)
+    {
+      this.dimensionId = Session.getCurrentDimension().getId();
+    }
+
+    if (params == null)
+    {
+      params = new String[] {};
+    }
+
+    ExcelImportJob job = new ExcelImportJob(this, inputStream, params, fileName);
+    job.setRunAsUserId(this.userId);
+    job.setRunAsDimensionId(this.dimensionId);
+    job.apply();
+    String historyId = job.importAndWait();
+
+    return historyId;
+
+  }
+
   /**
    * MdMethod
    * 
@@ -286,5 +313,4 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     job.apply();
     job.importAsync();
   }
-
 }

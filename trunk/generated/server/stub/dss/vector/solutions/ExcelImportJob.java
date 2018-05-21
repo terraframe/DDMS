@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,9 +123,11 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
     protected Throwable          sharedEx;
 
-    // protected Semaphore semaphore;
+    protected Semaphore          semaphore;
 
     protected String             fileName;
+
+    protected String             historyId;
   }
 
   @Override
@@ -144,6 +147,29 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     this.saveSharedState();
 
     this.start();
+  }
+
+  public String importAndWait()
+  {
+    this.sharedState.semaphore = new Semaphore(0);
+
+    this.saveSharedState();
+
+    this.start();
+
+    /*
+     * Wait until the semaphore is done
+     */
+    try
+    {
+      this.sharedState.semaphore.acquire();
+    }
+    catch (InterruptedException e1)
+    {
+      // Do nothing
+    }
+
+    return this.sharedState.historyId;
   }
 
   public InputStream doImport()
@@ -194,11 +220,13 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   @Override
   public void execute(ExecutionContext context)
   {
-    loadSharedState();
-
     try
     {
+      loadSharedState();
+
       executeInner(context);
+
+      this.sharedState.historyId = context.getJobHistory().getId();
     }
     catch (Throwable ex)
     {
@@ -208,7 +236,11 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
     finally
     {
-      // this.sharedState.semaphore.release();
+      if (this.sharedState.semaphore != null)
+      {
+        this.sharedState.semaphore.release();
+      }
+
       sharedStates.remove(this.getId());
     }
   }
@@ -235,6 +267,11 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       try
       {
         errorBytes = importer.read();
+
+        if (errorBytes != null)
+        {
+          context.setStatus(AllJobStatus.WARNING);
+        }
 
         this.sharedState.manager.onFinishImport();
 
