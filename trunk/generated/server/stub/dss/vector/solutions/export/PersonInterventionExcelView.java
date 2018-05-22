@@ -86,9 +86,9 @@ public class PersonInterventionExcelView extends PersonInterventionExcelViewBase
     controlPoint.applyWithPersonInterventionViews(new PersonInterventionView[] {piv}, methodArray);
   }
 
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = ControlInterventionExcelView.customAttributeOrder();
+    LinkedList<String> list = ControlInterventionExcelView.customAttributeOrder();
     list.add(VEHICLEDAYS);
     return list;
   }

@@ -187,7 +187,7 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
     ipt.applyAll(patientArray, visitArray, doseArray, treatmentArray);
   }
   
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
     list.add(PERIODTYPE);

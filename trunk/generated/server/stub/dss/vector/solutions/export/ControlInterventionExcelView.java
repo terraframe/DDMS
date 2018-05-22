@@ -88,7 +88,7 @@ public class ControlInterventionExcelView extends ControlInterventionExcelViewBa
     }
   }
 
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
     list.add(STARTDATE);

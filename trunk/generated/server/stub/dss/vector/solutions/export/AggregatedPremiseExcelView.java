@@ -133,9 +133,9 @@ public class AggregatedPremiseExcelView extends AggregatedPremiseExcelViewBase i
     controlPoint.applyWithAggregatedPremiseViews(new AggregatedPremiseVisitView[] {apv}, reasonArray, methodArray);
   }
 
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = ControlInterventionExcelView.customAttributeOrder();
+    LinkedList<String> list = ControlInterventionExcelView.customAttributeOrder();
     list.add(PREMISESAVAILABLE);
     list.add(PREMISESINCLUDED);
     list.add(PREMISES);

@@ -101,9 +101,9 @@ public class IndividualPremiseExcelView extends IndividualPremiseExcelViewBase i
     controlPoint.applyWithIndividualPremiseViews(new IndividualPremiseVisitView[] {ipv}, methodArray);
   }
 
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = ControlInterventionExcelView.customAttributeOrder();
+    LinkedList<String> list = ControlInterventionExcelView.customAttributeOrder();
     list.add(VISITED);
     list.add(TREATED);
     list.add(REASONSFORNOTTREATED);

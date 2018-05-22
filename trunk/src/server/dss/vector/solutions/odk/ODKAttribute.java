@@ -96,18 +96,7 @@ public class ODKAttribute implements Reloadable
   {
     MdAttributeConcreteDAOIF concrete = source.getMdAttributeConcrete();
     
-    if (concrete instanceof MdAttributeStructDAOIF)
-    {
-//      MdAttributeStructDAOIF struct = (MdAttributeStructDAOIF) mdAttr;
-//      MdStructDAOIF mdStruct = struct.getMdStructDAOIF();
-//      List<? extends MdAttributeDAOIF> structAttributes = ExcelUtil.getAttributes(mdStruct, new Filter());
-//
-//      for (MdAttributeDAOIF structAttribute : structAttributes)
-//      {
-//        attrs.add(new StructColumn(struct, structAttribute));
-//      }
-    }
-    else if (concrete instanceof MdAttributeEnumerationDAOIF)
+    if (concrete instanceof MdAttributeEnumerationDAOIF)
     {
       return new ODKEnumAttribute(source, viewAttr, exportedTerms);
     }    
@@ -123,12 +112,14 @@ public class ODKAttribute implements Reloadable
         return new ODKTermAttribute(source, viewAttr, exportedTerms);
       }
     }
+    else if (concrete instanceof MdAttributeStructDAOIF)
+    {
+      return new ODKStructAttribute(source, viewAttr, exportedTerms);
+    }
     else
     {
       return new AttributeColumn(source, viewAttr);
     }
-    
-    return null;
   }
 
   public String getDisplayLabel()
@@ -241,6 +232,6 @@ public class ODKAttribute implements Reloadable
   @Override
   public String toString()
   {
-    return "(" + attributeName + ", " + index + ")";
+    return displayLabel + " (" + attributeName + ")";
   }
 }

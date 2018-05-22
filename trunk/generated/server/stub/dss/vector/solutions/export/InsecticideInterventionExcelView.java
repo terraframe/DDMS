@@ -16,7 +16,7 @@
  ******************************************************************************/
 package dss.vector.solutions.export;
 
-import java.util.List;
+import java.util.LinkedList;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
@@ -69,9 +69,9 @@ public class InsecticideInterventionExcelView extends InsecticideInterventionExc
     controlPoint.applyWithInsecticideInterventionViews(new InsecticideInterventionView[] {iiv});
   }
 
-  public static List<String> customAttributeOrder()
+  public static LinkedList<String> customAttributeOrder()
   {
-    List<String> list = ControlInterventionExcelView.customAttributeOrder();
+    LinkedList<String> list = ControlInterventionExcelView.customAttributeOrder();
     list.add(INTERVENTIONMETHOD);
     list.add(INSECTICIDE);
     list.add(QUANTITY);
