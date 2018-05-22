@@ -7,10 +7,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,10 +40,8 @@ import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
 
-import dss.vector.solutions.ExcelImportJob;
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.export.MosquitoCollectionExcelView;
 import dss.vector.solutions.general.Disease;
 
@@ -50,7 +60,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   public void execute(ExecutionContext executionContext)
   {
     AllJobStatus status = doIt(executionContext.getJobHistory());
-    
+
     executionContext.setStatus(status);
   }
 
@@ -80,52 +90,62 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
     // ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
     ODK2Excel importer = new ODK2Excel(form, null);
-    Collection<String> uuids = importer.getUUIDs();
+    Collection<String> allUUIDS = importer.getUUIDs();
 
-    if (uuids.size() > 0)
+    if (allUUIDS.size() > 0)
     {
-      importer.export(uuids, sheet);
+      Map<String, Collection<String>> groupedUUIDS = this.group(form, allUUIDS);
 
-      try
+      Set<Entry<String, Collection<String>>> entries = groupedUUIDS.entrySet();
+
+      for (Entry<String, Collection<String>> entry : entries)
       {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Collection<String> uuids = entry.getValue();
+        String username = entry.getKey();
 
-        String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
-        exporter.write(new FileOutputStream(new File(parent, filename)));
-      }
-      catch (FileNotFoundException e)
-      {
-        logger.error("Unable to write file");
-      }
+        importer.export(uuids, sheet);
 
-      String userId = this.getUser();
-      String dimensionId = this.getDisease().getDimensionId();
-
-      /*
-       * 
-       */
-      File[] files = parent.listFiles();
-      
-      for (File file : files)
-      {
         try
         {
-          ExcelImportManager manager = ExcelImportManager.getNewInstance();
-          manager.setUserId(userId);
-          manager.setDimensionId(dimensionId);
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-          String historyId = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
-
-          JobHistory result = JobHistory.get(historyId);
-          
-          if(result.getStatus().get(0).equals(AllJobStatus.WARNING))
-          {
-            status = AllJobStatus.WARNING;
-          }
+          String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
+          exporter.write(new FileOutputStream(new File(parent, filename)));
         }
-        catch (IOException e)
+        catch (FileNotFoundException e)
         {
-          throw new ProgrammingErrorException(e);
+          logger.error("Unable to write file");
+        }
+
+        String userId = this.getUser(username);
+        String dimensionId = this.getDisease().getDimensionId();
+
+        /*
+         * 
+         */
+        File[] files = parent.listFiles();
+
+        for (File file : files)
+        {
+          try
+          {
+            ExcelImportManager manager = ExcelImportManager.getNewInstance();
+            manager.setUserId(userId);
+            manager.setDimensionId(dimensionId);
+
+            String historyId = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
+
+            JobHistory result = JobHistory.get(historyId);
+
+            if (result.getStatus().get(0).equals(AllJobStatus.WARNING))
+            {
+              status = AllJobStatus.WARNING;
+            }
+          }
+          catch (IOException e)
+          {
+            throw new ProgrammingErrorException(e);
+          }
         }
       }
 
@@ -136,14 +156,46 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     {
       logger.debug("No ODK data to export for type [" + form.getViewMd().definesType() + "]");
     }
-    
+
+    try
+    {
+      FileUtils.deleteDirectory(parent);
+    }
+    catch (IOException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+
     return status;
   }
 
-  private String getUser()
+  private Map<String, Collection<String>> group(ODKForm form, Collection<String> uuids)
   {
-    // TODO Determine how the user is going to be setup
-    return UserDAO.findUser("ddms").getId();
+    Map<String, Collection<String>> map = new HashMap<String, Collection<String>>();
+
+    String tableName = getODKTableName(form.getFormName());
+
+    for (String uuid : uuids)
+    {
+      if (uuid != null && uuid.length() > 0)
+      {
+        String username = getODKUser(tableName, uuid);
+
+        if (!map.containsKey(username))
+        {
+          map.put(username, new LinkedList<String>());
+        }
+
+        map.get(username).add(uuid);
+      }
+    }
+
+    return map;
+  }
+
+  private String getUser(String username)
+  {
+    return UserDAO.findUser(username).getId();
   }
 
   private void setupListener(ExcelExporter exporter, MdClassDAOIF target)
@@ -190,18 +242,119 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     }
   }
 
+  public static String getODKUser(String tableName, String uuid)
+  {
+    Properties props = getODKProperties();
+
+    String schema = props.getProperty("jdbc.schema");
+
+    try (Connection connection = getConnection(props))
+    {
+      StringBuilder builder = new StringBuilder();
+      builder.append("SELECT \"_CREATOR_URI_USER\", \"_LAST_UPDATE_URI_USER\"");
+      builder.append(" FROM " + schema + ".\"" + tableName + "\" AS tab");
+      builder.append(" WHERE tab.\"_URI\" = '" + uuid + "'");
+
+      Statement statement = connection.createStatement();
+      ResultSet results = statement.executeQuery(builder.toString());
+
+      if (results.next())
+      {
+        String updator = results.getString("_LAST_UPDATE_URI_USER");
+        String creator = results.getString("_CREATOR_URI_USER");
+        String uri = updator != null ? updator : creator;
+
+        String username = uri.split("\\|")[0].replaceFirst("uid:", "");
+
+        return username;
+      }
+      else
+      {
+        throw new ProgrammingErrorException("Unable to find the ODK Table Name for the ODK Form with id [" + uuid + "]");
+      }
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  public static String getODKTableName(String formId)
+  {
+    Properties props = getODKProperties();
+
+    String schema = props.getProperty("jdbc.schema");
+
+    try (Connection connection = getConnection(props))
+    {
+      StringBuilder builder = new StringBuilder();
+      builder.append("SELECT \"PERSIST_AS_TABLE_NAME\"");
+      builder.append(" FROM " + schema + "._form_data_model AS fdm");
+      builder.append(" WHERE fdm.\"ELEMENT_TYPE\" = 'GROUP' AND fdm.\"ELEMENT_NAME\" = '" + formId + "'");
+
+      Statement statement = connection.createStatement();
+      ResultSet results = statement.executeQuery(builder.toString());
+
+      if (results.next())
+      {
+        String tableName = results.getString("PERSIST_AS_TABLE_NAME");
+
+        return tableName;
+      }
+      else
+      {
+        throw new ProgrammingErrorException("Unable to find the ODK Table Name for the ODK Form with id [" + formId + "]");
+      }
+    }
+    catch (SQLException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
+  private static Connection getConnection(Properties props) throws SQLException
+  {
+    String url = props.getProperty("jdbc.url");
+    String username = props.getProperty("jdbc.username");
+    String password = props.getProperty("jdbc.password");
+
+    return DriverManager.getConnection(url, username, password);
+  }
+
+  private static Properties getODKProperties()
+  {
+    Properties props = new Properties();
+
+    try (FileInputStream istream = new FileInputStream(ODKFacade.getJDBCProperties()))
+    {
+      props.load(istream);
+    }
+    catch (IOException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    return props;
+  }
+
   public static void main(String[] args)
   {
-    mainInRequest(args);
+    // mainInRequest(args);
+    String tableName = getODKTableName("dss_vector_solutions_export_MosquitoCollectionExcelView");
+
+    System.out.println(tableName);
   }
 
   @Request
   private static void mainInRequest(String[] args)
   {
-    MobileDataUploadJob job = new MobileDataUploadJob();
-    job.setJobId("Mosquito Collection View ODK");
-    job.setDisease(Disease.getCurrent());
-    job.setFormType(MosquitoCollectionExcelView.CLASS);
-    job.apply();
+    for (int i = 0; i < 10; i++)
+    {
+      MobileDataUploadJob job = new MobileDataUploadJob();
+      job.setJobId("Mosquito Collection View ODK: " + i);
+      job.getDescription().setValue("Mosquito Collection View ODK: " + i);
+      job.setDisease(Disease.getCurrent());
+      job.setFormType(MosquitoCollectionExcelView.CLASS);
+      job.apply();
+    }
   }
 }

@@ -1,5 +1,6 @@
 package dss.vector.solutions.odk;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 
 import javax.net.ssl.SSLContext;
@@ -119,5 +120,10 @@ public class ODKFacade
     {
       return false;
     }
+  }
+
+  public static String getJDBCProperties()
+  {
+    return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + CommonProperties.getDeployAppName() + "Mobile" + File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "jdbc.properties";
   }
 }
