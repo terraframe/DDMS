@@ -49,18 +49,22 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   @Override
   public void execute(ExecutionContext executionContext)
   {
-    doIt(executionContext.getJobHistory());
+    AllJobStatus status = doIt(executionContext.getJobHistory());
+    
+    executionContext.setStatus(status);
   }
 
-  private void doIt(JobHistory history)
+  private AllJobStatus doIt(JobHistory history)
   {
     ODKForm form = ODKForm.factory(this.getFormType());
 
-    this.doIt(form, history);
+    return this.doIt(form, history);
   }
 
-  private void doIt(ODKForm form, JobHistory history)
+  private AllJobStatus doIt(ODKForm form, JobHistory history)
   {
+    AllJobStatus status = AllJobStatus.SUCCESS;
+
     File parent = new File("process");
     parent.mkdirs();
 
@@ -101,7 +105,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
        * 
        */
       File[] files = parent.listFiles();
-
+      
       for (File file : files)
       {
         try
@@ -113,9 +117,11 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           String historyId = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
 
           JobHistory result = JobHistory.get(historyId);
-          AllJobStatus status = result.getStatus().get(0);
           
-          System.out.println(status);
+          if(result.getStatus().get(0).equals(AllJobStatus.WARNING))
+          {
+            status = AllJobStatus.WARNING;
+          }
         }
         catch (IOException e)
         {
@@ -130,6 +136,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     {
       logger.debug("No ODK data to export for type [" + form.getViewMd().definesType() + "]");
     }
+    
+    return status;
   }
 
   private String getUser()

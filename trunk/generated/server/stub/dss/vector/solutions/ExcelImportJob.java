@@ -363,7 +363,6 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
         List<JSONObject> context = new ArrayList<JSONObject>();
 
         String mdType = this.sharedState.manager.getGeoTypeInfo(ugeo);
-        GeoHierarchy gh = GeoHierarchy.getGeoHierarchyFromType(mdType);
 
         // TODO : Context and parent geo (earth)
         LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, earth, GeoHierarchy.getGeoHierarchyFromType(mdType));

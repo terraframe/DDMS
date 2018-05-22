@@ -214,7 +214,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         }
         
         jHistory.put("totalRecords", history.getTotalRecords());
-        jHistory.put("status", history.getStatus().get(0).name());
+        jHistory.put("status", history.getStatus().get(0).item(getClientRequest()).getDisplayLabel().getValue());
         jHistory.put("startTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getStartTime()));
         if (history.getEndTime() != null)
         {
