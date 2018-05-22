@@ -127,7 +127,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
     protected String             fileName;
 
-    protected String             historyId;
+    protected AllJobStatus       status;
   }
 
   @Override
@@ -149,7 +149,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     this.start();
   }
 
-  public String importAndWait()
+  public AllJobStatus importAndWait()
   {
     this.sharedState.semaphore = new Semaphore(0);
 
@@ -169,7 +169,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       // Do nothing
     }
 
-    return this.sharedState.historyId;
+    return this.sharedState.status;
   }
 
   public InputStream doImport()
@@ -226,7 +226,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
       executeInner(context);
 
-      this.sharedState.historyId = context.getJobHistory().getId();
+      this.sharedState.status = context.getStatus();
     }
     catch (Throwable ex)
     {

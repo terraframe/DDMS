@@ -43,7 +43,6 @@ import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.transport.conversion.json.JSONUtil;
 
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.TermQuery;

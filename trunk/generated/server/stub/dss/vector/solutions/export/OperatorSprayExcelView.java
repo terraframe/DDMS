@@ -38,7 +38,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.HouseholdSprayStatusQuery;
 import dss.vector.solutions.irs.HouseholdSprayStatusView;
-import dss.vector.solutions.irs.HouseholdSprayStatusViewDTO;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayView;

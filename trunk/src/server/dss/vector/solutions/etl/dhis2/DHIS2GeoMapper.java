@@ -42,19 +42,14 @@ import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.system.gis.geo.GeoEntity;
-import com.runwaysdk.system.metadata.MdBusinessQuery;
 
-import dss.vector.solutions.etl.HTTPConnector;
 import dss.vector.solutions.etl.dhis2.response.DHIS2TrackerResponseProcessor;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 /**
  * This class is responsible for pulling org units from DHIS2 and associating them with a GeoEntity in DDMS

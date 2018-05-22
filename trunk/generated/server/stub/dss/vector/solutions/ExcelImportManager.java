@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.VaultFile;
+import com.runwaysdk.system.scheduler.AllJobStatus;
 
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.ontology.UnknownTerm;
@@ -41,8 +42,6 @@ import dss.vector.solutions.ontology.UnknownTerm;
 public class ExcelImportManager extends ExcelImportManagerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long            serialVersionUID        = 792922881;
-
-  private Logger                       logger                  = LoggerFactory.getLogger(ExcelImportManager.class);
 
   public List<UnknownGeoEntity>        unknownEntityList       = new LinkedList<UnknownGeoEntity>();
 
@@ -103,7 +102,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     return job.doImport();
   }
 
-  public String importAndWait(InputStream inputStream, String[] params, String fileName)
+  public AllJobStatus importAndWait(InputStream inputStream, String[] params, String fileName)
   {
     if (this.userId == null)
     {
@@ -124,10 +123,9 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     job.setRunAsUserId(this.userId);
     job.setRunAsDimensionId(this.dimensionId);
     job.apply();
-    String historyId = job.importAndWait();
 
-    return historyId;
-
+    AllJobStatus status = job.importAndWait();
+    return status;
   }
 
   /**

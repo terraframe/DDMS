@@ -22,7 +22,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,13 +132,11 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             manager.setUserId(userId);
             manager.setDimensionId(dimensionId);
 
-            String historyId = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
+            AllJobStatus result = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
 
-            JobHistory result = JobHistory.get(historyId);
-
-            if (result.getStatus().get(0).equals(AllJobStatus.WARNING))
+            if (result != null)
             {
-              status = AllJobStatus.WARNING;
+              status = result;
             }
           }
           catch (IOException e)

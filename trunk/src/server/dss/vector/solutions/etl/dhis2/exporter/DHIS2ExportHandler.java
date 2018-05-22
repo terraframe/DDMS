@@ -99,7 +99,6 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClass;
 
-import dss.vector.solutions.etl.HTTPConnector;
 import dss.vector.solutions.etl.dhis2.CalendarYearRequiredException;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.DHIS2HTTPConnector;

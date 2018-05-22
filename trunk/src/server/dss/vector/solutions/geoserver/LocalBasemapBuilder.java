@@ -33,16 +33,14 @@ import org.apache.commons.logging.LogFactory;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.FileNotFoundException;
 import dss.vector.solutions.basemap.OfflineBasemapManagement;
 import dss.vector.solutions.basemap.OfflineBasemapManagementQuery;
 import dss.vector.solutions.geoserver.GeoserverLayer.LayerType;
-import dss.vector.solutions.FileNotFoundException;
 
 public class LocalBasemapBuilder implements Reloadable
 {

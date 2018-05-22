@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.ontology;
 
@@ -26,7 +26,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
@@ -86,12 +85,16 @@ public class PostOntologySetup
   public static void start(String[] args) throws Exception
   {
     // Setup root values
-    AttributeRootImporter.main(new String[] { args[0] });
-    
+    if (args[0] != null)
+    {
+      AttributeRootImporter.main(new String[] { args[0] });
+    }
+
     boolean isInstall = args.length >= 3 ? Boolean.parseBoolean(args[2]) : true;
 
     /*
-     * Important: we only want to create the ddms user if this is an install and not a patch.
+     * Important: we only want to create the ddms user if this is an install and
+     * not a patch.
      */
     setupMDSSUser(isInstall);
 
@@ -152,7 +155,7 @@ public class PostOntologySetup
   @Transaction
   private static void setupApplicationRate(boolean isInstall)
   {
-//    if (!PostOntologySetup.hasConfiguration())
+    // if (!PostOntologySetup.hasConfiguration())
     if (isInstall)
     {
       final Disease DEFAULT_DISEASE = Disease.getMalaria();
@@ -229,36 +232,38 @@ public class PostOntologySetup
   @Transaction
   private static void setGeoUniversals(String excel)
   {
-    try
+    if (excel != null)
     {
-      InputStream is = new FileInputStream(excel);
-      Workbook wb = WorkbookFactory.create(is);
-      Sheet sheet = wb.getSheetAt(0); // Use first sheet
-
-      int rowCount = 1; // Start at second row
-      Row row = sheet.getRow(rowCount++);
-
-      while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
+      try
       {
-        String universalName = ExcelUtil.getString(row.getCell(0));
-        String termId = ExcelUtil.getString(row.getCell(6));
+        InputStream is = new FileInputStream(excel);
+        Workbook wb = WorkbookFactory.create(is);
+        Sheet sheet = wb.getSheetAt(0); // Use first sheet
 
-        if (termId != null && termId.length() > 0)
+        int rowCount = 1; // Start at second row
+        Row row = sheet.getRow(rowCount++);
+
+        while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
         {
-          Term term = Term.getByTermId(termId);
+          String universalName = ExcelUtil.getString(row.getCell(0));
+          String termId = ExcelUtil.getString(row.getCell(6));
 
-          GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromLabel(universalName);
-          geoHierarchy.setTerm(term);
-          geoHierarchy.apply();
+          if (termId != null && termId.length() > 0)
+          {
+            Term term = Term.getByTermId(termId);
+
+            GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromLabel(universalName);
+            geoHierarchy.setTerm(term);
+            geoHierarchy.apply();
+          }
+
+          row = sheet.getRow(rowCount++);
         }
-
-        row = sheet.getRow(rowCount++);
+      }
+      catch (Exception e)
+      {
+        throw new RuntimeException();
       }
     }
-    catch (Exception e)
-    {
-      throw new RuntimeException();
-    }
   }
-
 }

@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
-import dss.vector.solutions.geoserver.GeoserverProperties;
 
 public class SecureHttpConnector
 {

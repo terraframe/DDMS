@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -97,11 +96,11 @@ public class AttributeRootExporter
     OIterator<? extends BrowserField> iterator = query.getIterator();
 
     Row header = sheet.createRow(rowCount++);
-    header.createCell(0).setCellValue(new HSSFRichTextString("Key"));
-    header.createCell(1).setCellValue(new HSSFRichTextString("Class"));
-    header.createCell(2).setCellValue(new HSSFRichTextString("Attribute"));
-    header.createCell(3).setCellValue(new HSSFRichTextString("Default"));
-    header.createCell(4).setCellValue(new HSSFRichTextString("Disease"));
+    header.createCell(0).setCellValue(workbook.getCreationHelper().createRichTextString("Key"));
+    header.createCell(1).setCellValue(workbook.getCreationHelper().createRichTextString("Class"));
+    header.createCell(2).setCellValue(workbook.getCreationHelper().createRichTextString("Attribute"));
+    header.createCell(3).setCellValue(workbook.getCreationHelper().createRichTextString("Default"));
+    header.createCell(4).setCellValue(workbook.getCreationHelper().createRichTextString("Disease"));
 
     for (BrowserField field : iterator)
     {
@@ -205,7 +204,7 @@ public class AttributeRootExporter
 
   private void createAndSet(Row row, int cellNum, String value)
   {
-    row.createCell(cellNum).setCellValue(new HSSFRichTextString(value));
+    row.createCell(cellNum).setCellValue(workbook.getCreationHelper().createRichTextString(value));
   }
 
   /**

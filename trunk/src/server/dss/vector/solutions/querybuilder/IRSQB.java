@@ -47,7 +47,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedTableClassQuery;
-import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OR;

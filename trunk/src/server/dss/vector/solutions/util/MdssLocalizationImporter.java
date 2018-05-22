@@ -66,39 +66,37 @@ import dss.vector.solutions.InstallProperties;
 
 public class MdssLocalizationImporter implements Reloadable
 {
-  private Sheet      exceptionSheet;
+  private Sheet exceptionSheet;
 
-  private Sheet      termSheet;
+  private Sheet termSheet;
 
-  private Sheet      entityLabelSheet;
+  private Sheet entityLabelSheet;
 
-  private Sheet      labelSheet;
+  private Sheet labelSheet;
 
-  private Sheet      localPropertySheet;
+  private Sheet localPropertySheet;
 
-  private Sheet      malariaSeasonSheet;
+  private Sheet malariaSeasonSheet;
 
-  private Sheet      descriptionSheet;
+  private Sheet descriptionSheet;
 
-  private Sheet      clientSheet;
+  private Sheet clientSheet;
 
-  private Sheet      serverSheet;
+  private Sheet serverSheet;
 
-  private Sheet      commonSheet;
+  private Sheet commonSheet;
 
-  private Sheet      propertySheet;
+  private Sheet propertySheet;
 
-  private Sheet      managerSheet;
+  private Sheet managerSheet;
 
-  private Sheet      synchSheet;
+  private Sheet synchSheet;
 
-  private Sheet      geoSheet;
+  private Sheet geoSheet;
 
-  private Sheet      initializerSheet;
+  private Sheet initializerSheet;
 
-  private Sheet      backupSheet;
-
-  private static int modifiedCount = 0;
+  private Sheet backupSheet;
 
   public static void main(String[] args) throws FileNotFoundException
   {
@@ -294,7 +292,6 @@ public class MdssLocalizationImporter implements Reloadable
     }
   }
 
-  @SuppressWarnings("unchecked")
   private List<LocaleDimension> getColumnHeaders(Sheet sheet)
   {
     List<LocaleDimension> list = new ArrayList<LocaleDimension>();
@@ -335,7 +332,6 @@ public class MdssLocalizationImporter implements Reloadable
     }
   }
 
-  @SuppressWarnings("unchecked")
   private void updateProperties(File dir, String bundleName, Sheet sheet)
   {
     // Bail if there's no tab for this bundle
@@ -421,7 +417,6 @@ public class MdssLocalizationImporter implements Reloadable
     }
   }
 
-  @SuppressWarnings("unchecked")
   @Transaction
   private void updateLocalAttribute(Sheet sheet)
   {
@@ -526,8 +521,6 @@ public class MdssLocalizationImporter implements Reloadable
       {
         EntityDAOFactory.logTransactionItem(entity, ActionEnumDAO.UPDATE, true);
       }
-
-      modifiedCount++;
     }
   }
 

@@ -47,7 +47,6 @@ import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdTable;
 
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.etl.HTTPConnector;
 import dss.vector.solutions.etl.dhis2.DHIS2ExportableDataset;
 import dss.vector.solutions.etl.dhis2.DHIS2HTTPConnector;
 

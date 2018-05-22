@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Stack;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -104,18 +103,18 @@ public class OntologyExcelExporter
   private void exportTerm(Term t, int indent, boolean active)
   {
     Row row = sheet.createRow(rowCount++);
-    row.createCell(0).setCellValue(new HSSFRichTextString(t.getTermId()));
+    row.createCell(0).setCellValue(workbook.getCreationHelper().createRichTextString(t.getTermId()));
     row.createCell(1).setCellValue(active);
-    row.createCell(indent++).setCellValue(new HSSFRichTextString(t.getName()));
+    row.createCell(indent++).setCellValue(workbook.getCreationHelper().createRichTextString(t.getName()));
   }
   
   private void open()
   {
     Row header = sheet.createRow(rowCount++);
-    header.createCell(0).setCellValue(new HSSFRichTextString("ID"));
-    header.createCell(1).setCellValue(new HSSFRichTextString("Active"));
-    header.createCell(2).setCellValue(new HSSFRichTextString("ParentId"));
-    header.createCell(NAME_COLUMN).setCellValue(new HSSFRichTextString("Name"));
+    header.createCell(0).setCellValue(workbook.getCreationHelper().createRichTextString("ID"));
+    header.createCell(1).setCellValue(workbook.getCreationHelper().createRichTextString("Active"));
+    header.createCell(2).setCellValue(workbook.getCreationHelper().createRichTextString("ParentId"));
+    header.createCell(NAME_COLUMN).setCellValue(workbook.getCreationHelper().createRichTextString("Name"));
   }
   
   private void close()

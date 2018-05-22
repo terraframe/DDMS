@@ -35,7 +35,6 @@ import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.dataaccess.MdAttributeGeometryDAOIF;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeLocal;
 import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.GeneratedComponentQuery;

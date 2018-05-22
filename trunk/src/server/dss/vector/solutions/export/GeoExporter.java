@@ -22,7 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -111,20 +110,20 @@ public class GeoExporter implements Reloadable
     Row row = sheet.createRow(rownum++);
 
     // Follows GeoEntityExcelView.customAttributeOrder()
-    row.createCell(0).setCellValue(new HSSFRichTextString(geo.getEntityLabel().getValue()));
-    row.createCell(1).setCellValue(new HSSFRichTextString(geo.getGeoId()));
-    row.createCell(2).setCellValue(new HSSFRichTextString(geo.getType()));
+    row.createCell(0).setCellValue(workbook.getCreationHelper().createRichTextString(geo.getEntityLabel().getValue()));
+    row.createCell(1).setCellValue(workbook.getCreationHelper().createRichTextString(geo.getGeoId()));
+    row.createCell(2).setCellValue(workbook.getCreationHelper().createRichTextString(geo.getType()));
 
     Term term = geo.getTerm();
     if (term != null)
     {
-      row.createCell(3).setCellValue(new HSSFRichTextString(term.getName()));
+      row.createCell(3).setCellValue(workbook.getCreationHelper().createRichTextString(term.getName()));
     }
 
     if (parent != null)
     {
-      row.createCell(4).setCellValue(new HSSFRichTextString(parent.getGeoId()));
-      row.createCell(5).setCellValue(new HSSFRichTextString(parent.getType()));
+      row.createCell(4).setCellValue(workbook.getCreationHelper().createRichTextString(parent.getGeoId()));
+      row.createCell(5).setCellValue(workbook.getCreationHelper().createRichTextString(parent.getType()));
     }
 
     row.createCell(6).setCellValue(geo.getActivated());
@@ -138,7 +137,7 @@ public class GeoExporter implements Reloadable
     {
       geoData = GeoEntityExcelView.NOT_EXPORTED;
     }
-    row.createCell(7).setCellValue(new HSSFRichTextString(geoData));
+    row.createCell(7).setCellValue(workbook.getCreationHelper().createRichTextString(geoData));
   }
 
   private void newWorkbook()

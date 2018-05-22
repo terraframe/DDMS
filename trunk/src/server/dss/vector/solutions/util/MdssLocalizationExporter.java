@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.util;
 
@@ -30,7 +30,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -120,7 +119,7 @@ public class MdssLocalizationExporter implements Reloadable
   /**
    * The in memory representation of the xls file
    */
-  private Workbook          workbook;
+  private Workbook              workbook;
 
   private Sheet                 exceptionSheet;
 
@@ -276,11 +275,11 @@ public class MdssLocalizationExporter implements Reloadable
 
       if (attributeSheet)
       {
-        row.createCell(i++).setCellValue(new HSSFRichTextString("Type"));
-        row.createCell(i++).setCellValue(new HSSFRichTextString("Attribute Name"));
+        row.createCell(i++).setCellValue(workbook.getCreationHelper().createRichTextString("Type"));
+        row.createCell(i++).setCellValue(workbook.getCreationHelper().createRichTextString("Attribute Name"));
       }
 
-      row.createCell(i++).setCellValue(new HSSFRichTextString("Key"));
+      row.createCell(i++).setCellValue(workbook.getCreationHelper().createRichTextString("Key"));
 
       for (LocaleDimension c : columns)
       {
@@ -289,23 +288,13 @@ public class MdssLocalizationExporter implements Reloadable
           continue;
         }
 
-        row.createCell(i++).setCellValue(new HSSFRichTextString(c.getColumnName()));
+        row.createCell(i++).setCellValue(workbook.getCreationHelper().createRichTextString(c.getColumnName()));
       }
 
       for (short s = 0; s < i; s++)
       {
         sheet.autoSizeColumn(s);
       }
-    }
-  }
-
-  private void setExceptionMessage(Map<String, String> templates, Row row, int c, String localeString)
-  {
-    Cell cell = row.createCell(c);
-    String message = templates.get(localeString);
-    if (message != null)
-    {
-      cell.setCellValue(new HSSFRichTextString(message));
     }
   }
 
@@ -415,8 +404,7 @@ public class MdssLocalizationExporter implements Reloadable
         {
           MdAttributeDAOIF mdAttribute = (MdAttributeDAOIF) entity;
           String definedAttribute = mdAttribute.getValue(MdAttributeConcrete.ATTRIBUTENAME);
-          if (definedAttribute.equalsIgnoreCase(Metadata.ID) || definedAttribute.equalsIgnoreCase(Metadata.CREATEDBY) || definedAttribute.equalsIgnoreCase(Metadata.ENTITYDOMAIN) || definedAttribute.equalsIgnoreCase(Metadata.KEYNAME) || definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDATE) || definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDBY) || definedAttribute.equalsIgnoreCase(Metadata.LOCKEDBY) || definedAttribute.equalsIgnoreCase(Metadata.OWNER)
-              || definedAttribute.equalsIgnoreCase(Metadata.SEQ) || definedAttribute.equalsIgnoreCase(Metadata.TYPE))
+          if (definedAttribute.equalsIgnoreCase(Metadata.ID) || definedAttribute.equalsIgnoreCase(Metadata.CREATEDBY) || definedAttribute.equalsIgnoreCase(Metadata.ENTITYDOMAIN) || definedAttribute.equalsIgnoreCase(Metadata.KEYNAME) || definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDATE) || definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDBY) || definedAttribute.equalsIgnoreCase(Metadata.LOCKEDBY) || definedAttribute.equalsIgnoreCase(Metadata.OWNER) || definedAttribute.equalsIgnoreCase(Metadata.SEQ) || definedAttribute.equalsIgnoreCase(Metadata.TYPE))
           {
             continue;
           }
@@ -463,9 +451,9 @@ public class MdssLocalizationExporter implements Reloadable
 
         Row row = sheet.createRow(r++);
         int c = 0;
-        row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getType()));
-        row.createCell(c++).setCellValue(new HSSFRichTextString(attributeName));
-        row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getKey()));
+        row.createCell(c++).setCellValue(workbook.getCreationHelper().createRichTextString(entity.getType()));
+        row.createCell(c++).setCellValue(workbook.getCreationHelper().createRichTextString(attributeName));
+        row.createCell(c++).setCellValue(workbook.getCreationHelper().createRichTextString(entity.getKey()));
         // row.createCell(c++).setCellValue(new
         // HSSFRichTextString(struct.getValue(MdAttributeLocalInfo.DEFAULT_LOCALE)));
 
@@ -481,14 +469,13 @@ public class MdssLocalizationExporter implements Reloadable
           String value = struct.getValue(col.getAttributeName());
           if (value.trim().length() > 0)
           {
-            cell.setCellValue(new HSSFRichTextString(value));
+            cell.setCellValue(workbook.getCreationHelper().createRichTextString(value));
           }
         }
       }
     }
   }
 
-  @SuppressWarnings("unchecked")
   private void prepareProperties(File dir, String bundleName, Sheet sheet)
   {
     File base = new File(dir + File.separator + bundleName + ".properties");
@@ -510,7 +497,7 @@ public class MdssLocalizationExporter implements Reloadable
       {
         Row row = sheet.createRow(r++);
 
-        row.createCell(0).setCellValue(new HSSFRichTextString(key));
+        row.createCell(0).setCellValue(workbook.getCreationHelper().createRichTextString(key));
       }
     }
     catch (Exception e)
@@ -559,7 +546,7 @@ public class MdssLocalizationExporter implements Reloadable
 
           if (value != null)
           {
-            row.createCell(cellIndex).setCellValue(new HSSFRichTextString(value));
+            row.createCell(cellIndex).setCellValue(workbook.getCreationHelper().createRichTextString(value));
           }
         }
       }
