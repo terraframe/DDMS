@@ -77,16 +77,6 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     File parent = new File("process");
     parent.mkdirs();
 
-    ExcelExporter exporter = new ExcelExporter();
-
-    // Setup the listeners excel export listeners
-    this.setupListener(exporter, form.getViewMd());
-
-    ExcelSheetMetadata metadata = new ExcelSheetMetadata();
-    metadata.setValues(this.getDisease().getDisplayLabel());
-
-    ExcelExportSheet sheet = exporter.addTemplate(form.getViewMd().definesType(), metadata);
-
     // ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
     ODK2Excel importer = new ODK2Excel(form, null);
     Collection<String> allUUIDS = importer.getUUIDs();
@@ -102,11 +92,25 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
         Collection<String> uuids = entry.getValue();
         String username = entry.getKey();
 
+        ExcelExporter exporter = new ExcelExporter();
+
+        // Setup the listeners excel export listeners
+        this.setupListener(exporter, form.getViewMd());
+
+        // Add a listener for the UUID column
+        exporter.addListener(new UUIDExcelListener());
+
+        ExcelSheetMetadata metadata = new ExcelSheetMetadata();
+        metadata.setValues(this.getDisease().getDisplayLabel());
+        metadata.setValues(username);
+
+        ExcelExportSheet sheet = exporter.addTemplate(form.getViewMd().definesType(), metadata);
+
         importer.export(uuids, sheet);
 
         try
         {
-          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
           String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
           exporter.write(new FileOutputStream(new File(parent, filename)));
@@ -126,6 +130,10 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
         for (File file : files)
         {
+          String path = file.getAbsolutePath();
+
+          System.out.println(path);
+
           try
           {
             ExcelImportManager manager = ExcelImportManager.getNewInstance();
@@ -335,10 +343,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   public static void main(String[] args)
   {
-    // mainInRequest(args);
-    String tableName = getODKTableName("dss_vector_solutions_export_MosquitoCollectionExcelView");
-
-    System.out.println(tableName);
+    mainInRequest(args);
   }
 
   @Request

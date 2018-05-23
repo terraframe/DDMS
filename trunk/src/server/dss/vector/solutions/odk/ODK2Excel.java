@@ -195,7 +195,7 @@ public class ODK2Excel implements Reloadable
                 {
                   Node child = children.item(j);
 
-                  List<ODKRow> rows = converter.convert(form, child, sheet.getExtraColumns());
+                  List<ODKRow> rows = converter.convert(uuid, form, child, sheet.getExtraColumns());
 
                   for (ODKRow row : rows)
                   {

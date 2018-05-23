@@ -127,10 +127,12 @@ public class ODKDataConverter implements Reloadable
     this.runwayFormat = new SimpleDateFormat(Constants.DATE_FORMAT);
   }
 
-  public List<ODKRow> convert(ODKForm form, Node node, List<ExcelColumn> extraColumns)
+  public List<ODKRow> convert(String uuid, ODKForm form, Node node, List<ExcelColumn> extraColumns)
   {
     MdClassDAOIF mdType = form.getViewMd();
+
     ODKRow root = new ODKRow(BusinessFacade.newMutable(mdType.definesType()));
+    root.setOverride("_UUID_", uuid);
 
     return convert(root, form, node, extraColumns);
   }
@@ -147,7 +149,7 @@ public class ODKDataConverter implements Reloadable
       Node child = children.item(i);
       String sourceAttribute = child.getNodeName();
 
-      if(root.hasAttribute(sourceAttribute))
+      if (root.hasAttribute(sourceAttribute))
       {
         MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
         String value = this.getValue(mdAttribute, child.getTextContent());

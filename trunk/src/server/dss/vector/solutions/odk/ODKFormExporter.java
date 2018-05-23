@@ -49,27 +49,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.constants.DeployProperties;
-import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
-import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.XMLException;
-import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
-import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.Request;
 
-import dss.vector.solutions.entomology.MosquitoCollectionView;
-import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoFilterCriteria;
-import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.SentinelSite;
 
 public class ODKFormExporter implements Reloadable
 {

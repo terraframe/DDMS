@@ -268,7 +268,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       {
         errorBytes = importer.read();
 
-        if (errorBytes != null)
+        if (errorBytes != null && errorBytes.length > 0)
         {
           context.setStatus(AllJobStatus.WARNING);
         }
