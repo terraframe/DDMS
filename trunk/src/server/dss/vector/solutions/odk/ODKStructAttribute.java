@@ -62,6 +62,15 @@ public class ODKStructAttribute extends AttributeColumn implements Reloadable
   }
   
   @Override
+  public void writeBind(Element parent, Document document, String title, int maxDepth)
+  {
+    for (ODKAttribute structAttr : structAttrs)
+    {
+      structAttr.writeBind(parent, document, title, maxDepth);
+    }
+  }
+  
+  @Override
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
     super.writeTranslation(parent, document, title, maxDepth);

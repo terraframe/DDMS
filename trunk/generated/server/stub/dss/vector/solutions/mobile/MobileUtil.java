@@ -1,8 +1,6 @@
 package dss.vector.solutions.mobile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
@@ -48,8 +46,8 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   @Request
   private static void mainInRequest()
   {
-    MobileUtil.export(EfficacyAssayExcelView.CLASS);
-//    MobileUtil.exportAll();
+//    MobileUtil.export(AggregatedCaseExcelView.CLASS);
+    MobileUtil.exportAll(0);
   }
   
   public static String convertToOdkId(String seed)
@@ -79,20 +77,41 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
       LarvacideExcelView.CLASS, OperatorSprayExcelView.CLASS, TeamSprayExcelView.CLASS, ZoneSprayExcelView.CLASS, PersonExcelView.CLASS, PopulationDataExcelView.CLASS,
       PupalCollectionExcelView.CLASS, SurveyExcelView.CLASS, ThresholdDataExcelView.CLASS, ImmatureCollectionExcelView.CLASS
   };
-  public static void exportAll()
+  public static void exportAll(int startIndex)
   {
-    for (String type : allTypes)
+    File devGen = new File("/home/rick/Documents/eclipse/workspace/MDSS/dev/gen");
+    if (devGen.exists())
     {
+      try {
+        FileUtils.deleteDirectory(devGen);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    devGen.mkdirs();
+    
+    for (int i = startIndex; i < allTypes.length; ++i)
+    {
+      String type = allTypes[i];
+      
       System.out.println("Starting export of form [" + type + "].");
       
       ODKForm master = ODKForm.factory(type);
       
       ODKFormExporter odkExp = new ODKFormExporter(master);
       
+      odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
+      
       String html = odkExp.doIt();
       
+      if (!html.contains("Successful form upload"))
+      {
+        System.out.println(type + " was not successful.");
+      }
+      
       try {
-        FileUtils.writeStringToFile(new File("/home/rick/Documents/eclipse/workspace/MDSS/dev/" + type + ".html"), html);
+        FileUtils.writeStringToFile(new File("/home/rick/Documents/eclipse/workspace/MDSS/dev/gen/" + type + ".html"), html);
       } catch (IOException e) {
         throw new RuntimeException(e);
       }

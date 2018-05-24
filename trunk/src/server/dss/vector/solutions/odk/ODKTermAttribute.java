@@ -49,7 +49,7 @@ public class ODKTermAttribute extends AttributeColumn implements Reloadable
 
     if (count == 0)
     {
-      TermExportProblem problem = new TermExportProblem();
+      TermExportProblem problem = new TermExportProblem("No terms found for attribute [" + this.sourceMdAttr.getKey() + "].");
       problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
       problem.apply();
 
@@ -57,7 +57,7 @@ public class ODKTermAttribute extends AttributeColumn implements Reloadable
     }
     else if (count > LIMIT)
     {
-      TermExportLimitProblem problem = new TermExportLimitProblem();
+      TermExportLimitProblem problem = new TermExportLimitProblem("Max term limit reached for attribute [" + this.sourceMdAttr.getKey() + "].");
       problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
       problem.setLimit(LIMIT);
       problem.apply();

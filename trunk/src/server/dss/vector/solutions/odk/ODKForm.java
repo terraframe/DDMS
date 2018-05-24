@@ -4,11 +4,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -95,6 +99,8 @@ import dss.vector.solutions.surveillance.CasePatientTypeView;
 
 public class ODKForm implements Reloadable
 {
+  public static final Logger logger = LoggerFactory.getLogger(ODKForm.class);
+  
 //  public static class ViewMapper extends DefaultODKAttributeMapper implements Reloadable
 //  {
 //    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF mdAttribute, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
@@ -187,6 +193,19 @@ public class ODKForm implements Reloadable
   public void setBase(MdClassDAOIF base)
   {
     this.viewMd = base;
+  }
+  
+  public void validate()
+  {
+    if (this.attrs.isEmpty())
+    {
+      logger.error("Form [" + this.getFormName() + "] has no attributes!");
+    }
+    
+    for (ODKFormJoin join : joins)
+    {
+      join.getChild().validate();
+    }
   }
 
   public String getFormName()
@@ -293,11 +312,11 @@ public class ODKForm implements Reloadable
 
   public static class DefaultODKAttributeMapper implements ODKAttributeMapper
   {
-    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF source, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
+    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF sourceAttr, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
     {
-      MdAttributeConcreteDAOIF concrete = source.getMdAttributeConcrete();
+      MdAttributeConcreteDAOIF concrete = sourceAttr.getMdAttributeConcrete();
 
-      if (viewMdc.definesAttribute(source.definesAttribute()) == null)
+      if (viewMdc.definesAttribute(sourceAttr.definesAttribute()) == null)
       {
         return null;
       }
@@ -308,7 +327,7 @@ public class ODKForm implements Reloadable
 
         String type = referenceMdBusiness.definesType();
 
-        return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS) ? viewMdc.definesAttribute(source.definesAttribute()) : null;
+        return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS) ? viewMdc.definesAttribute(sourceAttr.definesAttribute()) : null;
       }
 
       if (concrete.isSystem() || concrete.definesAttribute().equals(ElementInfo.DOMAIN) || concrete.definesAttribute().equals(ElementInfo.OWNER) || concrete.definesAttribute().equals(ElementInfo.KEY) || ! ( concrete instanceof MdAttributePrimitiveDAOIF || concrete instanceof MdAttributeEnumerationDAOIF || concrete instanceof MdAttributeStructDAOIF ))
@@ -317,8 +336,31 @@ public class ODKForm implements Reloadable
       }
       else
       {
-        return viewMdc.definesAttribute(source.definesAttribute());
+        return viewMdc.definesAttribute(sourceAttr.definesAttribute());
       }
+    }
+  }
+  
+  public static class MapODKAttributeMapper extends DefaultODKAttributeMapper
+  {
+    private Map<String, String> map;
+    
+    public MapODKAttributeMapper(Map<String, String> map)
+    {
+      this.map = map;
+    }
+
+    @Override
+    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF sourceAttr, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
+    {
+      String sViewAttr = this.map.get(sourceAttr.definesAttribute());
+      
+      if (sViewAttr != null && viewMdc.definesAttribute(sViewAttr) != null)
+      {
+        return viewMdc.definesAttribute(sViewAttr);
+      }
+        
+      return super.getViewAttr(sourceAttr, sourceMdc, viewMdc);
     }
   }
 
@@ -331,7 +373,7 @@ public class ODKForm implements Reloadable
      * @param mdAttribute
      * @return
      */
-    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF mdAttribute, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc);
+    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF sourceAttr, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc);
   }
 
   public boolean hasViewAttribute(String attributeName)
@@ -384,15 +426,21 @@ public class ODKForm implements Reloadable
       master.join(new RepeatFormJoin(master, aggCaseRefer));
 
       ODKForm caseDiag = new ODKForm(CaseDiagnosisTypeExcelView.CLASS);
-      caseDiag.buildAttributes(CaseDiagnosisTypeView.CLASS, CaseDiagnosisTypeExcelView.customAttributeOrder(), null);
+      Map<String,String> caseDiagAttrMappings = new HashMap<String, String>();
+      caseDiagAttrMappings.put(CaseDiagnosisTypeView.TERM, CaseDiagnosisTypeExcelView.DIAGNOSISTYPE);
+      caseDiag.buildAttributes(CaseDiagnosisTypeView.CLASS, CaseDiagnosisTypeExcelView.customAttributeOrder(), new MapODKAttributeMapper(caseDiagAttrMappings));
       master.join(new RepeatFormJoin(master, caseDiag));
 
       ODKForm caseDisease = new ODKForm(CaseDiseaseManifestationExcelView.CLASS);
-      caseDisease.buildAttributes(CaseDiseaseManifestationView.CLASS, CaseDiseaseManifestationExcelView.customAttributeOrder(), null);
+      Map<String,String> caseDiseaseAttrMappings = new HashMap<String, String>();
+      caseDiseaseAttrMappings.put(CaseDiseaseManifestationView.TERM, CaseDiseaseManifestationExcelView.DISEASEMANIFESTATION);
+      caseDisease.buildAttributes(CaseDiseaseManifestationView.CLASS, CaseDiseaseManifestationExcelView.customAttributeOrder(), new MapODKAttributeMapper(caseDiseaseAttrMappings));
       master.join(new RepeatFormJoin(master, caseDisease));
 
       ODKForm casePatient = new ODKForm(CasePatientTypeExcelView.CLASS);
-      casePatient.buildAttributes(CasePatientTypeView.CLASS, CasePatientTypeExcelView.customAttributeOrder(), null);
+      Map<String,String> casePatientAttrMappings = new HashMap<String, String>();
+      casePatientAttrMappings.put(CasePatientTypeView.TERM, CasePatientTypeExcelView.PATIENTTYPE);
+      casePatient.buildAttributes(CasePatientTypeView.CLASS, CasePatientTypeExcelView.customAttributeOrder(), new MapODKAttributeMapper(casePatientAttrMappings));
       master.join(new RepeatFormJoin(master, casePatient));
     }
     else if (mobileType.equals(ControlInterventionExcelView.CLASS))

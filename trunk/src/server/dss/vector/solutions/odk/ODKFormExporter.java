@@ -41,6 +41,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class ODKFormExporter implements Reloadable
 {
-  private static final String EXPORT_DIR = DeployProperties.getDeployPath() + "/ODK/";
+  private String exportDir = DeployProperties.getDeployPath() + "/ODK/";
 
   /**
    * The DOM <code>document</code> that is populated with data from the core.
@@ -80,6 +81,10 @@ public class ODKFormExporter implements Reloadable
   private String              formName;
 
   private Logger              logger     = LoggerFactory.getLogger(ODKFormExporter.class);
+  
+  private Integer             providedMaxDepth = null;
+  
+  private File                providedGeoFile = null;
 
   public ODKFormExporter(ODKForm master)
   {
@@ -87,10 +92,34 @@ public class ODKFormExporter implements Reloadable
     this.odkForms.add(master);
     this.formName = master.getFormName();
   }
+  
+  public String getExportDir() {
+    return exportDir;
+  }
+
+  public void setExportDir(String exportDir) {
+    this.exportDir = exportDir;
+  }
+  
+  public void useMyGeo(int maxDepth, File myGeo)
+  {
+    providedMaxDepth = maxDepth;
+    providedGeoFile = myGeo;
+  }
+  
+  public File getItemsetsFile()
+  {
+    if (providedGeoFile != null)
+    {
+      return providedGeoFile;
+    }
+    
+    return new File(exportDir + this.formName + "-itemsets.csv");
+  }
 
   public String doIt()
   {
-    new File(EXPORT_DIR).mkdirs();
+    validate();
     
     try
     {
@@ -113,8 +142,16 @@ public class ODKFormExporter implements Reloadable
     root.setAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
     document.appendChild(root);
 
-    int maxDepth = generateGeoEntityCSV();
-
+    int maxDepth = 0;
+    if (providedMaxDepth != null)
+    {
+      maxDepth = providedMaxDepth;
+    }
+    else
+    {
+      maxDepth = generateGeoEntityCSV();
+    }
+    
     doHead(maxDepth);
 
     doBody(maxDepth);
@@ -122,6 +159,16 @@ public class ODKFormExporter implements Reloadable
 //    print();
 
     return submit();
+  }
+  
+  private void validate()
+  {
+    new File(exportDir).mkdirs();
+    
+    for (int i = 0; i < this.odkForms.size(); ++i)
+    {
+      this.odkForms.get(i).validate();
+    }
   }
 
   private int generateGeoEntityCSV()
@@ -169,7 +216,7 @@ public class ODKFormExporter implements Reloadable
 
       try
       {
-        writer = new FileWriter(EXPORT_DIR + "itemsets.csv");
+        writer = new FileWriter(ODKFormExporter.this.getItemsetsFile());
         csvp = new CSVPrinter(writer, CSVFormat.DEFAULT.withRecordSeparator(System.getProperty("line.separator")));
 
         ArrayList<String> header = new ArrayList<String>();
@@ -226,6 +273,8 @@ public class ODKFormExporter implements Reloadable
     {
       try
       {
+        logger.info("Exported geo entity csv definition to [" + ODKFormExporter.this.getItemsetsFile().getAbsolutePath() + "].");
+        
         if (writer != null)
         {
           writer.close();
@@ -448,7 +497,7 @@ public class ODKFormExporter implements Reloadable
       baos.close();
 
       // 2. Write the document to a file (for reference)
-      FileOutputStream fos = new FileOutputStream(new File(EXPORT_DIR + "mosquitos-test.xml")); // TODO
+      FileOutputStream fos = new FileOutputStream(new File(exportDir + this.formName + ".xml")); // TODO
                                                                                                 // :
                                                                                                 // This
                                                                                                 // shouldn't
@@ -456,13 +505,16 @@ public class ODKFormExporter implements Reloadable
                                                                                                 // hardcoded
       fos.write(form.getBytes());
       fos.close();
+      logger.info("Exported form definition to [" + new File(exportDir + this.formName + ".xml").getAbsolutePath() + "].");
 
       // 3. Push the document to ODK
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-      File fFormDef = new File(EXPORT_DIR + "mosquitos-test.xml");
+      File fFormDef = new File(exportDir + this.formName + ".xml");
       builder.addBinaryBody("form_def_file", fFormDef);
 //      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
-      File itemsets = new File(EXPORT_DIR + "itemsets.csv");
+      File refItemsets = this.getItemsetsFile();
+      File itemsets = new File(refItemsets.getParentFile(), "itemsets.csv");
+      FileUtils.copyFile(refItemsets, itemsets);
       builder.addBinaryBody("mediaFiles", itemsets);
       HttpEntity multipart = builder.build();
       
