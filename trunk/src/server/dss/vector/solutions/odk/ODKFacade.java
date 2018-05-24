@@ -28,7 +28,7 @@ public class ODKFacade
 {
   public static final String USERNAME = "ddms";
 
-  public static final String PASSWORD = "mz}k?5;dZTE[z$g#";
+  public static final String PASSWORD = "##odk_ddms1";
 
   public static boolean isInitialize()
   {
