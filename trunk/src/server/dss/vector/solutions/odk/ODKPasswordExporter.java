@@ -3,6 +3,7 @@ package dss.vector.solutions.odk;
 import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -16,21 +17,33 @@ import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.MDSSUser;
 
-public class ODKPasswordExporter implements Reloadable
+public class ODKPasswordExporter implements Reloadable, Runnable
 {
 
-  private MDSSUser user;
+  private String              username;
 
-  private String   password;
+  private String              password;
+
+  private CredentialsProvider provider;
 
   public ODKPasswordExporter(MDSSUser user, String password)
   {
-    this.user = user;
+    this.username = user.getUsername();
     this.password = password;
+    this.provider = ODKFacade.getCredentialsProvider();
+  }
+
+  public ODKPasswordExporter(String username, String password, CredentialsProvider provider)
+  {
+    this.username = username;
+    this.password = password;
+    this.provider = provider;
   }
 
   @Request
-  private void doIt()
+
+  @Override
+  public void run()
   {
     CredentialsInfo credentials = generateCredentials();
 
@@ -41,7 +54,7 @@ public class ODKPasswordExporter implements Reloadable
   {
     try
     {
-      return CredentialsInfoBuilder.build(this.user.getUsername().replaceAll(" ", ""), this.password);
+      return CredentialsInfoBuilder.build(this.username, this.password);
     }
     catch (NoSuchAlgorithmException e)
     {
@@ -53,7 +66,7 @@ public class ODKPasswordExporter implements Reloadable
   private String submit(CredentialsInfo credentials)
   {
     // Update the password
-    try (CloseableHttpClient client = ODKFacade.getClient())
+    try (CloseableHttpClient client = ODKFacade.getClient(this.provider))
     {
       URIBuilder builder = new URIBuilder(ODKFacade.getBaseURL() + "/ssl/user-manage-passwords");
       builder.setParameter("username", credentials.getUsername());
@@ -82,22 +95,9 @@ public class ODKPasswordExporter implements Reloadable
     }
   }
 
-  @Request
-  public static void export()
-  {
-    MDSSUser user = MDSSUser.getByKey("Users.test");
-
-    ODKPasswordExporter.export(user, "test");
-  }
-
   public static void export(MDSSUser user, String password)
   {
     ODKPasswordExporter exporter = new ODKPasswordExporter(user, password);
-    exporter.doIt();
-  }
-
-  public static void main(String[] args)
-  {
-    ODKPasswordExporter.export();
+    exporter.run();
   }
 }

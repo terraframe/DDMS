@@ -1,0 +1,21 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>      
+      <mdException
+        name="dss.vector.solutions.odk.BadODKUsername"
+        label="Bad ODK Username"
+        message="Cannot export ODK permissions for the user [{username}].  Username cannot contain spaces">
+        <attributes>
+          <char
+            name="username"
+            label="Username"
+            size="255"/>
+        </attributes>
+      </mdException>
+      
+    </create>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

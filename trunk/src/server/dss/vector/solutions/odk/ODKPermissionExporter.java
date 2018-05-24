@@ -97,23 +97,34 @@ public class ODKPermissionExporter implements Reloadable
             UserDAOIF userDAO = UserDAO.get(user.getId());
             Set<RoleDAOIF> roles = userDAO.authorizedRoles();
 
-            boolean isRead = roles.contains(read);
-            boolean isWrite = roles.contains(write);
-            boolean isAdmin = roles.contains(admin);
-
-            if (isRead || isWrite || isAdmin)
+            if (roles != null)
             {
-              /*
-               * ODK users can not have spaces in them
-               */
-              String username = user.getUsername().replaceAll(" ", "");
-              Person person = user.getPerson();
-              String fullName = person.getFirstName() + " " + person.getLastName();
-              String writeValue = isWrite ? "X" : "";
-              String readValue = isRead ? "X" : "";
-              String adminValue = isAdmin ? "X" : "";
+              boolean isRead = roles.contains(read);
+              boolean isWrite = roles.contains(write);
+              boolean isAdmin = roles.contains(admin);
 
-              writer.writeNext(new String[] { username, fullName, "ODK", writeValue, readValue, adminValue, adminValue, adminValue, adminValue, adminValue });
+              if (isRead || isWrite || isAdmin)
+              {
+                /*
+                 * ODK users can not have spaces in them
+                 */
+                String username = user.getUsername();
+                Person person = user.getPerson();
+                String fullName = person.getFirstName() + " " + person.getLastName();
+                String writeValue = isWrite ? "X" : "";
+                String readValue = isRead ? "X" : "";
+                String adminValue = isAdmin ? "X" : "";
+
+                if (username.contains(" "))
+                {
+                  BadODKUsername ex = new BadODKUsername();
+                  ex.setUsername(username);
+
+                  throw ex;
+                }
+
+                writer.writeNext(new String[] { username, fullName, "ODK", writeValue, readValue, adminValue, adminValue, adminValue, adminValue, adminValue });
+              }
             }
           }
         }

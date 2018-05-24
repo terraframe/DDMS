@@ -23,7 +23,7 @@ public class ODKConnector
       endpoint = new EndpointUrl("http", "127.0.0.1", 8080, CommonProperties.getDeployAppName() + "Mobile");
     }
     
-    HTTPResponse resp = new SecureHttpConnector(endpoint, "ddms", "aggregate").httpPost(resourcePath, multipart);
+    HTTPResponse resp = new SecureHttpConnector(endpoint, ODKFacade.USERNAME, ODKFacade.PASSWORD).httpPost(resourcePath, multipart);
     
     if (resp.getResponse().length() == 0)
     {
@@ -45,7 +45,7 @@ public class ODKConnector
       endpoint = new EndpointUrl("http", "127.0.0.1", 8080, CommonProperties.getDeployAppName() + "Mobile");
     }
     
-    HTTPResponse resp = new SecureHttpConnector(endpoint, "ddms", "aggregate").httpGet(resourcePath);
+    HTTPResponse resp = new SecureHttpConnector(endpoint, ODKFacade.USERNAME, ODKFacade.PASSWORD).httpGet(resourcePath);
     
     if (resp.getResponse().length() == 0)
     {

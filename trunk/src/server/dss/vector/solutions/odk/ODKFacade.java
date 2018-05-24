@@ -28,17 +28,7 @@ public class ODKFacade
 {
   public static final String USERNAME = "ddms";
 
-  public static final String PASSWORD = "aggregate";
-
-  public static String getPassword()
-  {
-    return PASSWORD;
-  }
-
-  public static String getUsername()
-  {
-    return USERNAME;
-  }
+  public static final String PASSWORD = "mz}k?5;dZTE[z$g#";
 
   public static boolean isInitialize()
   {
@@ -57,17 +47,27 @@ public class ODKFacade
 
   public static CredentialsProvider getCredentialsProvider()
   {
+    return getCredentialsProvider(USERNAME, PASSWORD);
+  }
+
+  public static CredentialsProvider getCredentialsProvider(String username, String password)
+  {
     CredentialsProvider credsProvider = new BasicCredentialsProvider();
-    credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), new UsernamePasswordCredentials(getUsername(), getPassword()));
+    credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), new UsernamePasswordCredentials(username, password));
 
     return credsProvider;
   }
 
-  @SuppressWarnings("deprecation")
   public static CloseableHttpClient getClient() throws NoSuchAlgorithmException
   {
     CredentialsProvider provider = getCredentialsProvider();
 
+    return getClient(provider);
+  }
+
+  @SuppressWarnings("deprecation")
+  public static CloseableHttpClient getClient(CredentialsProvider provider) throws NoSuchAlgorithmException
+  {
     if (GeoserverProperties.isHttps())
     {
       SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(SSLContext.getDefault(), SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);

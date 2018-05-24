@@ -21,6 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.client.CredentialsProvider;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -55,13 +56,30 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
 
           if (ODKFacade.existODK())
           {
+            /*
+             * Update the default "aggregate" password to the hard-coded
+             * password
+             */
+            try
+            {
+              CredentialsProvider provider = ODKFacade.getCredentialsProvider(ODKFacade.USERNAME, "aggregate");
+              ODKPasswordExporter exporter = new ODKPasswordExporter(ODKFacade.USERNAME, ODKFacade.PASSWORD, provider);
+              exporter.run();
+            }
+            catch (Exception e)
+            {
+              // Ignore: this may fail if the default password has already been
+              // changed
+              log.debug(e.getMessage());
+            }            
+            
             ODKPermissionExporter.export(true);
 
             initialized = true;
             log.debug("ODK initialized.");
-            
+
             ODKProperties.writeInitialize(false);
-            
+
             return; // we are done here
           }
           else
