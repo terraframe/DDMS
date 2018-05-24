@@ -42,7 +42,7 @@ public class ODKProperties implements Reloadable
 
   public static void writeInitialize(boolean initialize)
   {
-    URL resource = ODKProperties.class.getResource("odk.properties");
+    URL resource = ODKProperties.class.getResource("/odk.properties");
 
     try
     {
