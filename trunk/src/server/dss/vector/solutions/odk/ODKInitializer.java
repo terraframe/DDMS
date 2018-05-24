@@ -59,6 +59,9 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
 
             initialized = true;
             log.debug("ODK initialized.");
+            
+            ODKProperties.writeInitialize(false);
+            
             return; // we are done here
           }
           else

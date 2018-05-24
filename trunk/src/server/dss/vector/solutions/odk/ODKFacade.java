@@ -42,8 +42,7 @@ public class ODKFacade
 
   public static boolean isInitialize()
   {
-    // TODO Figure out how this is stored
-    return true;
+    return ODKProperties.getInitialize();
   }
 
   public static String getBaseURL()
