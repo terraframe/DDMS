@@ -55,6 +55,11 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   @Override
   public void apply()
   {
+    apply(true);
+  }
+
+  public void apply(boolean exportODK)
+  {
     boolean isNew = this.isNew();
     boolean isUsernameModified = this.isModified(USERNAME);
 
@@ -71,7 +76,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
       UserSettings.createIfNotExists(this);
     }
 
-    if (isUsernameModified)
+    if (isUsernameModified && exportODK)
     {
       ODKPermissionExporter.export();
     }

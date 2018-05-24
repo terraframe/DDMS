@@ -128,7 +128,7 @@ public class PostOntologySetup
       user.setPassword(USERNAME);
       user.setSessionLimit(25);
       user.setPerson(person);
-      user.apply();
+      user.apply(false);
 
       RoleDAO.findRole(RoleDAOIF.ADMIN_ROLE).assignMember(UserDAO.get(user.getId()));
 
