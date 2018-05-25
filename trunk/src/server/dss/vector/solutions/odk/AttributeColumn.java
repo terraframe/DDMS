@@ -56,9 +56,10 @@ public class AttributeColumn extends ODKAttribute implements Reloadable
   {
     Element attrNode = document.createElement(attributeName);
     
-    String def = viewMdAttr.getDefaultValue();
-    if (this.getODKType().equals("boolean") && def.length() == 0) // TODO : subtypes?
+    String def = sourceMdAttr.getDefaultValue();
+    if (this.getODKType().equals("boolean") && def.length() == 0)
     {
+      // ODK breaks if you don't provide a default value for booleans.
       def = "false";
     }
     attrNode.setTextContent(def);

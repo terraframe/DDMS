@@ -47,9 +47,22 @@ public class ODKAttribute implements Reloadable
   private int             index;
 
   private boolean         required;
+  
+  private String          type;
 
+  public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
+  {
+    this.type = type;
+    this.attributeName = attributeName;
+    this.displayLabel = displayLabel;
+    this.description = description;
+    this.index = index;
+    this.required = required;
+  }
+  
   public ODKAttribute(String attributeName, String displayLabel, String description, int index, boolean required)
   {
+    this.type = "string";
     this.attributeName = attributeName;
     this.displayLabel = displayLabel;
     this.description = description;
@@ -188,6 +201,12 @@ public class ODKAttribute implements Reloadable
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
+    
+    // ODK breaks if you don't provide a default value for booleans.
+    if (this.getODKType().equals("boolean"))
+    {
+      attrNode.setTextContent("false");
+    }
     
     parent.appendChild(attrNode);
   }

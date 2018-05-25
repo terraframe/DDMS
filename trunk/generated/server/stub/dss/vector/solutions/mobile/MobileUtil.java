@@ -46,8 +46,8 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   @Request
   private static void mainInRequest()
   {
-//    MobileUtil.export(AggregatedCaseExcelView.CLASS);
-    MobileUtil.exportAll(0);
+//    MobileUtil.export(EfficacyAssayExcelView.CLASS);
+    MobileUtil.exportAll(5,6);
   }
   
   public static String convertToOdkId(String seed)
@@ -77,7 +77,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
       LarvacideExcelView.CLASS, OperatorSprayExcelView.CLASS, TeamSprayExcelView.CLASS, ZoneSprayExcelView.CLASS, PersonExcelView.CLASS, PopulationDataExcelView.CLASS,
       PupalCollectionExcelView.CLASS, SurveyExcelView.CLASS, ThresholdDataExcelView.CLASS, ImmatureCollectionExcelView.CLASS
   };
-  public static void exportAll(int startIndex)
+  public static void exportAll(int startIndex, int endIndex)
   {
     File devGen = new File("/home/rick/Documents/eclipse/workspace/MDSS/dev/gen");
     if (devGen.exists())
@@ -91,7 +91,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
     }
     devGen.mkdirs();
     
-    for (int i = startIndex; i < allTypes.length; ++i)
+    for (int i = startIndex; i < endIndex; ++i)
     {
       String type = allTypes[i];
       
