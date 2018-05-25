@@ -16,6 +16,7 @@ import org.w3c.dom.NodeList;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Mutable;
+import com.runwaysdk.business.MutableWithStructs;
 import com.runwaysdk.constants.Constants;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -23,8 +24,10 @@ import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdStructDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -61,6 +64,11 @@ public class ODKDataConverter implements Reloadable
       this.mutable.setValue(name, value);
     }
 
+    public void setStructValue(String structName, String attributeName, String value)
+    {
+      ( (MutableWithStructs) this.mutable ).setStructValue(structName, attributeName, value);
+    }
+
     public void setOverride(String name, String value)
     {
       this.overrides.put(name, value);
@@ -74,6 +82,14 @@ public class ODKDataConverter implements Reloadable
     public MdAttributeDAOIF getMdAttributeDAO(String attributeName)
     {
       return this.mutable.getMdAttributeDAO(attributeName);
+    }
+
+    public MdAttributeDAOIF getStructMdAttributeDAO(String structName, String sourceAttribute)
+    {
+      MdAttributeStructDAOIF mdAttributeStruct = (MdAttributeStructDAOIF) this.mutable.getMdAttributeDAO(structName).getMdAttributeConcrete();
+      MdStructDAOIF mdStruct = mdAttributeStruct.getMdStructDAOIF();
+
+      return mdStruct.definesAttribute(sourceAttribute);
     }
 
     public boolean hasAttribute(String attributeName)
@@ -156,17 +172,33 @@ public class ODKDataConverter implements Reloadable
 
         root.setValue(sourceAttribute, value);
       }
+      else if (form.isStructAttribute(sourceAttribute))
+      {
+        ODKStructAttribute struct = form.getStructAttribute(sourceAttribute);
+        String structName = struct.getAttributeName();
+
+        MdAttributeDAOIF mdAttribute = root.getStructMdAttributeDAO(structName, sourceAttribute);
+        String value = this.getValue(mdAttribute, child.getTextContent());
+
+        root.setStructValue(structName, sourceAttribute, value);
+      }
       else if (form.isGeoAttribute(sourceAttribute))
       {
         String[] split = sourceAttribute.split("_geolist_");
 
         String base = split[0];
-        int index = Integer.parseInt(split[1]);
         String value = child.getTextContent();
 
-        ExcelColumn column = getColumn(extraColumns, base, index);
+        if (value != null && value.length() > 0)
+        {
+          int index = value.lastIndexOf("##");
+          String geoId = value.substring(0, index);
+          String universalId = value.substring(index + 2);
 
-        root.setOverride(column.getAttributeName(), value);
+          ExcelColumn column = getColumn(extraColumns, base, universalId);
+
+          root.setOverride(column.getAttributeName(), geoId);
+        }
       }
       else if (form.isRepeatable(sourceAttribute))
       {
@@ -193,19 +225,22 @@ public class ODKDataConverter implements Reloadable
     return rows;
   }
 
-  private ExcelColumn getColumn(List<ExcelColumn> extraColumns, String base, int index)
+  private ExcelColumn getColumn(List<ExcelColumn> extraColumns, String base, String universalId)
   {
-    for (int i = 0; i < extraColumns.size(); i++)
+    for (ExcelColumn column : extraColumns)
     {
-      ExcelColumn column = extraColumns.get(i);
-
-      if (column instanceof GeoExcelColumn && ( (GeoExcelColumn) column ).getBaseAttribute().equals(base))
+      if (column instanceof GeoExcelColumn)
       {
-        return extraColumns.get(i + index);
+        GeoExcelColumn geoColumn = (GeoExcelColumn) column;
+
+        if (geoColumn.getBaseAttribute().equals(base) && geoColumn.getUniversalId().equals(universalId))
+        {
+          return column;
+        }
       }
     }
 
-    return extraColumns.get(index);
+    return null;
   }
 
   private String getValue(MdAttributeDAOIF mdAttribute, String textContent)

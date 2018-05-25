@@ -40,7 +40,6 @@ import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.PupalCollectionView;
 import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.entomology.SubCollectionView;
-import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
 import dss.vector.solutions.export.AggregatedCaseExcelView;
 import dss.vector.solutions.export.AggregatedCaseReferralsExcelView;
@@ -103,21 +102,6 @@ public class ODKForm implements Reloadable
 {
   public static final Logger logger = LoggerFactory.getLogger(ODKForm.class);
   
-//  public static class ViewMapper extends DefaultODKAttributeMapper implements Reloadable
-//  {
-//    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF mdAttribute, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
-//    {
-//      return mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID) ? null : super.getViewAttr(mdAttribute, sourceMdc, viewMdc);
-//    }
-//  }
-
-  /*
-   * Global Map of all the exported term ids. This is used to prevent the same
-   * term from being translated multiple times even if the term is an item of
-   * multiple different attributes.
-   */
-  Set<String> exportedTerms = new TreeSet<String>();
-  
   public static class AttributeComparator implements Comparator<ODKAttribute>, Reloadable
   {
     private List<String> orderList;
@@ -155,6 +139,15 @@ public class ODKForm implements Reloadable
   protected LinkedList<ODKAttribute> attrs;
 
   protected LinkedList<ODKFormJoin>  joins;
+  
+
+  /*
+   * Global Map of all the exported term ids. This is used to prevent the same
+   * term from being translated multiple times even if the term is an item of
+   * multiple different attributes.
+   */
+  Set<String> exportedTerms = new TreeSet<String>();
+
 
   public ODKForm(MdClassDAOIF base)
   {
@@ -203,14 +196,14 @@ public class ODKForm implements Reloadable
   {
     this.viewMd = base;
   }
-  
+
   public void validate()
   {
     if (this.attrs.isEmpty())
     {
       logger.error("Form [" + this.getFormName() + "] has no attributes!");
     }
-    
+
     for (ODKFormJoin join : joins)
     {
       join.getChild().validate();
@@ -220,6 +213,42 @@ public class ODKForm implements Reloadable
   public String getFormName()
   {
     return MobileUtil.convertToOdkId(this.getViewMd().definesType());
+  }
+
+  public boolean isStructAttribute(String sourceAttribute)
+  {
+    for (ODKAttribute attr : this.attrs)
+    {
+      if (attr instanceof ODKStructAttribute)
+      {
+        ODKStructAttribute structAttribute = (ODKStructAttribute) attr;
+
+        if (structAttribute.hasAttribute(sourceAttribute))
+        {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  public ODKStructAttribute getStructAttribute(String sourceAttribute)
+  {
+    for (ODKAttribute attr : this.attrs)
+    {
+      if (attr instanceof ODKStructAttribute)
+      {
+        ODKStructAttribute structAttribute = (ODKStructAttribute) attr;
+
+        if (structAttribute.hasAttribute(sourceAttribute))
+        {
+          return structAttribute;
+        }
+      }
+    }
+
+    return null;
   }
 
   public void writeTranslation(Element parent, Document document, String context, int maxDepth)
@@ -341,14 +370,14 @@ public class ODKForm implements Reloadable
       {
         return null;
       }
-      
+
       if (concrete instanceof MdAttributeReferenceDAOIF)
       {
         MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO();
 
-        String type = referenceMdBusiness.definesType();
+        boolean isValid = isValidReference(referenceMdBusiness);
 
-        return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS) ? viewMdc.definesAttribute(sourceAttr.definesAttribute()) : null;
+        return isValid ? viewMdc.definesAttribute(sourceAttr.definesAttribute()) : null;
       }
 
       if (concrete.isSystem() || concrete.definesAttribute().equals(ElementInfo.DOMAIN) || concrete.definesAttribute().equals(ElementInfo.OWNER) || concrete.definesAttribute().equals(ElementInfo.KEY) || ! ( concrete instanceof MdAttributePrimitiveDAOIF || concrete instanceof MdAttributeEnumerationDAOIF || concrete instanceof MdAttributeStructDAOIF ))
@@ -360,12 +389,19 @@ public class ODKForm implements Reloadable
         return viewMdc.definesAttribute(sourceAttr.definesAttribute());
       }
     }
+
+    private boolean isValidReference(MdBusinessDAOIF referenceMdBusiness)
+    {
+      String type = referenceMdBusiness.definesType();
+
+      return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS) || type.equals(InsecticideBrand.CLASS);
+    }
   }
-  
+
   public static class MapODKAttributeMapper extends DefaultODKAttributeMapper
   {
     private Map<String, String> map;
-    
+
     public MapODKAttributeMapper(Map<String, String> map)
     {
       this.map = map;
@@ -375,12 +411,12 @@ public class ODKForm implements Reloadable
     public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF sourceAttr, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
     {
       String sViewAttr = this.map.get(sourceAttr.definesAttribute());
-      
+
       if (sViewAttr != null && viewMdc.definesAttribute(sViewAttr) != null)
       {
         return viewMdc.definesAttribute(sViewAttr);
       }
-        
+
       return super.getViewAttr(sourceAttr, sourceMdc, viewMdc);
     }
   }
@@ -527,7 +563,8 @@ public class ODKForm implements Reloadable
      {
        Map<String,String> attrMappings = new HashMap<String, String>();
        attrMappings.put(EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.GEOENTITY, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.GEOENTITY);
-       attrMappings.put(InsecticideBrand.CLASS + "." + InsecticideBrand.PRODUCTNAME, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.INSECTICIDETERM);
+       attrMappings.put(EfficacyAssayView.CLASS + "." + EfficacyAssayView.INSECTICIDEBRAND, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.INSECTICIDETERM);
+       attrMappings.put(EfficacyAssayView.CLASS + "." + EfficacyAssayView.SURFACEPOSTION, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.SURFACEPOSITION);
        
        master = new ODKForm(EfficacyAssayExcelView.CLASS, gfc);
        master.buildAttributes(EfficacyAssayView.CLASS, EfficacyAssayExcelView.customAttributeOrder(), null);

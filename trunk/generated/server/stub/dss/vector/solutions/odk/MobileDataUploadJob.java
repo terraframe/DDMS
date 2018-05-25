@@ -22,9 +22,11 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.io.Files;
 import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -41,6 +43,7 @@ import com.runwaysdk.system.scheduler.JobHistory;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.export.EfficacyAssayExcelView;
 import dss.vector.solutions.export.MosquitoCollectionExcelView;
 import dss.vector.solutions.general.Disease;
 
@@ -74,101 +77,112 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   {
     AllJobStatus status = AllJobStatus.SUCCESS;
 
-    File parent = new File("process");
-    parent.mkdirs();
-
-    // ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
-    ODK2Excel importer = new ODK2Excel(form, null);
-    Collection<String> allUUIDS = importer.getUUIDs();
-
-    if (allUUIDS.size() > 0)
-    {
-      Map<String, Collection<String>> groupedUUIDS = this.group(form, allUUIDS);
-
-      Set<Entry<String, Collection<String>>> entries = groupedUUIDS.entrySet();
-
-      for (Entry<String, Collection<String>> entry : entries)
-      {
-        Collection<String> uuids = entry.getValue();
-        String username = entry.getKey();
-
-        ExcelExporter exporter = new ExcelExporter();
-
-        // Setup the listeners excel export listeners
-        this.setupListener(exporter, form.getViewMd());
-
-        // Add a listener for the UUID column
-        exporter.addListener(new UUIDExcelListener());
-
-        ExcelSheetMetadata metadata = new ExcelSheetMetadata();
-        metadata.setValues(this.getDisease().getDisplayLabel());
-        metadata.setValues(username);
-
-        ExcelExportSheet sheet = exporter.addTemplate(form.getViewMd().definesType(), metadata);
-
-        importer.export(uuids, sheet);
-
-        try
-        {
-          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-          String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
-          exporter.write(new FileOutputStream(new File(parent, filename)));
-        }
-        catch (FileNotFoundException e)
-        {
-          logger.error("Unable to write file");
-        }
-
-        String userId = this.getUser(username);
-        String dimensionId = this.getDisease().getDimensionId();
-
-        /*
-         * 
-         */
-        File[] files = parent.listFiles();
-
-        for (File file : files)
-        {
-          String path = file.getAbsolutePath();
-
-          System.out.println(path);
-
-          try
-          {
-            ExcelImportManager manager = ExcelImportManager.getNewInstance();
-            manager.setUserId(userId);
-            manager.setDimensionId(dimensionId);
-
-            AllJobStatus result = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
-
-            if (result != null)
-            {
-              status = result;
-            }
-          }
-          catch (IOException e)
-          {
-            throw new ProgrammingErrorException(e);
-          }
-        }
-      }
-
-      this.setQueryCursor(importer.getCursor());
-      this.setLastExportDate(importer.getExportDateTime());
-    }
-    else
-    {
-      logger.debug("No ODK data to export for type [" + form.getViewMd().definesType() + "]");
-    }
+    File parent = Files.createTempDir();
 
     try
     {
-      FileUtils.deleteDirectory(parent);
+
+      // ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
+      ODK2Excel importer = new ODK2Excel(form, null);
+      Collection<String> allUUIDS = importer.getUUIDs();
+
+      if (allUUIDS.size() > 0)
+      {
+        Map<String, Collection<String>> groupedUUIDS = this.group(form, allUUIDS);
+
+        Set<Entry<String, Collection<String>>> entries = groupedUUIDS.entrySet();
+
+        for (Entry<String, Collection<String>> entry : entries)
+        {
+          Collection<String> uuids = entry.getValue();
+          String username = entry.getKey();
+
+          ExcelExporter exporter = new ExcelExporter();
+
+          // Setup the listeners excel export listeners
+          this.setupListener(exporter, form.getViewMd());
+
+          // Add a listener for the UUID column
+          exporter.addListener(new UUIDExcelListener());
+
+          ExcelSheetMetadata metadata = new ExcelSheetMetadata();
+          metadata.setValues(this.getDisease().getDisplayLabel());
+          metadata.setValues(username);
+
+          ExcelExportSheet sheet = exporter.addTemplate(form.getViewMd().definesType(), metadata);
+
+          importer.export(uuids, sheet);
+
+          try
+          {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
+            exporter.write(new FileOutputStream(new File(parent, filename)));
+          }
+          catch (FileNotFoundException e)
+          {
+            logger.error("Unable to write file");
+          }
+
+          String userId = this.getUser(username);
+          String dimensionId = this.getDisease().getDimensionId();
+
+          /*
+           * 
+           */
+          File[] files = parent.listFiles();
+
+          for (File file : files)
+          {
+            try
+            {
+              ExcelImportManager manager = ExcelImportManager.getNewInstance();
+              manager.setUserId(userId);
+              manager.setDimensionId(dimensionId);
+
+              AllJobStatus result = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
+
+              if (result != null)
+              {
+                status = result;
+              }
+              else
+              {
+                /*
+                 * Copy file to the archive directory
+                 */
+                File archive = new File("archive");
+                archive.mkdirs();
+
+                IOUtils.copy(new FileInputStream(file), new FileOutputStream(new File(archive, file.getName())));
+              }
+            }
+            catch (IOException e)
+            {
+              throw new ProgrammingErrorException(e);
+            }
+          }
+        }
+
+        this.setQueryCursor(importer.getCursor());
+        this.setLastExportDate(importer.getExportDateTime());
+      }
+      else
+      {
+        logger.debug("No ODK data to export for type [" + form.getViewMd().definesType() + "]");
+      }
     }
-    catch (IOException e)
+    finally
     {
-      throw new ProgrammingErrorException(e);
+      try
+      {
+        FileUtils.deleteDirectory(parent);
+      }
+      catch (IOException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
     }
 
     return status;
@@ -352,10 +366,10 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     for (int i = 0; i < 10; i++)
     {
       MobileDataUploadJob job = new MobileDataUploadJob();
-      job.setJobId("Mosquito Collection View ODK: " + i);
-      job.getDescription().setValue("Mosquito Collection View ODK: " + i);
+      job.setJobId("Efficacy Assay View ODK: " + i);
+      job.getDescription().setValue("Efficacy Assay View ODK: " + i);
       job.setDisease(Disease.getCurrent());
-      job.setFormType(MosquitoCollectionExcelView.CLASS);
+      job.setFormType(EfficacyAssayExcelView.CLASS);
       job.apply();
     }
   }

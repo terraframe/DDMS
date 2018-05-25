@@ -34,6 +34,7 @@ import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.Term;
 
 public class ODKAttribute implements Reloadable
@@ -119,6 +120,10 @@ public class ODKAttribute implements Reloadable
       if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
       {
         return new ODKGeoAttribute(source, viewAttr);
+      }
+      else if (referenceMdBusiness.definesType().equals(InsecticideBrand.CLASS))
+      {
+        return new ODKInsecticideBrandAttribute(source, viewAttr, exportedTerms);
       }
       else
       {

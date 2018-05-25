@@ -95,7 +95,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
       item.appendChild(label);
       
       Element value = document.createElement("value");
-      value.setTextContent(country.getGeoId());
+      value.setTextContent(country.getGeoId() + "##" + country.getMdClass().getId());
       item.appendChild(value);
     }
     

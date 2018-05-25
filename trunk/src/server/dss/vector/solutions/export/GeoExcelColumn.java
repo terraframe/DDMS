@@ -8,13 +8,21 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class GeoExcelColumn extends ExcelColumn implements Reloadable
 {
+  private String universalId;
+
   private String baseAttribute;
 
-  public GeoExcelColumn(String baseAttribute, String attributeName, String displayLabel)
+  public GeoExcelColumn(String universalId, String baseAttribute, String attributeName, String displayLabel)
   {
     super(attributeName, displayLabel);
 
+    this.universalId = universalId;
     this.baseAttribute = baseAttribute;
+  }
+
+  public String getUniversalId()
+  {
+    return universalId;
   }
 
   public String getBaseAttribute()

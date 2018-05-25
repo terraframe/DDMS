@@ -89,7 +89,7 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
       String geoLabel = geoEntityClass.getDisplayLabel().getValue();
       String geoAttribute = getExcelAttribute(geoEntityClass);
 
-      extraColumns.add(new GeoExcelColumn(this.attributeName, geoAttribute, geoLabel));
+      extraColumns.add(new GeoExcelColumn(geoEntityClass.getId(), this.attributeName, geoAttribute, geoLabel));
     }
   }
 

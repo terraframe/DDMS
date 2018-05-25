@@ -243,7 +243,7 @@ public class ODKFormExporter implements Reloadable
       ArrayList<String> geoCSV = new ArrayList<String>();
 
       geoCSV.add(geo.getEntityLabel().getValue());
-      geoCSV.add(geo.getGeoId());
+      geoCSV.add(geo.getGeoId() + "##" + geo.getMdClass().getId());
 
       geoCSV.add("geoEntity_geolist_" + parents.size()); // TODO : This is attribute specific
 
@@ -323,7 +323,8 @@ public class ODKFormExporter implements Reloadable
     {
       for (int i = 0; i < earthChildren.size(); ++i)
       {
-        allChildrenStack.push(new GeoStackElement(earthChildren.get(i).getGeoId(), emptyParents));
+        GeoEntity child = earthChildren.get(i);
+        allChildrenStack.push(new GeoStackElement(child.getGeoId(), emptyParents));
       }
       current = allChildrenStack.pop();
   
@@ -354,7 +355,7 @@ public class ODKFormExporter implements Reloadable
         
         List<GeoEntity> children = curGeo.getImmediateChildren();
         LinkedList<String> parents = ((LinkedList<String>)current.parentIds.clone());
-        parents.add(curGeo.getGeoId());
+        parents.add(curGeo.getGeoId() + "##" + curGeo.getMdClass().getId());
         for (int i = 0; i < children.size(); ++i)
         {
           GeoEntity child = children.get(i);
