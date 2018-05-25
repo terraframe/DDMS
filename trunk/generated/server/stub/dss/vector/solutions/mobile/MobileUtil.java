@@ -47,7 +47,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   private static void mainInRequest()
   {
 //    MobileUtil.export(EfficacyAssayExcelView.CLASS);
-    MobileUtil.exportAll(5,6);
+    MobileUtil.exportAll(0,1);
   }
   
   public static String convertToOdkId(String seed)

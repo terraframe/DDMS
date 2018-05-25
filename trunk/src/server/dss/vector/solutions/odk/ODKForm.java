@@ -28,7 +28,6 @@ import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -97,10 +96,27 @@ import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeView;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
+import dss.vector.solutions.surveillance.CasePatientTypeView;
 
 public class ODKForm implements Reloadable
 {
   public static final Logger logger = LoggerFactory.getLogger(ODKForm.class);
+  
+//  public static class ViewMapper extends DefaultODKAttributeMapper implements Reloadable
+//  {
+//    public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF mdAttribute, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
+//    {
+//      return mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID) ? null : super.getViewAttr(mdAttribute, sourceMdc, viewMdc);
+//    }
+//  }
+
+  /*
+   * Global Map of all the exported term ids. This is used to prevent the same
+   * term from being translated multiple times even if the term is an item of
+   * multiple different attributes.
+   */
+  Set<String> exportedTerms = new TreeSet<String>();
   
   public static class AttributeComparator implements Comparator<ODKAttribute>, Reloadable
   {
@@ -116,19 +132,13 @@ public class ODKForm implements Reloadable
     {
       int oneI = orderList.indexOf(one.getAttributeName());
       int twoI = orderList.indexOf(two.getAttributeName());
-
-      if (oneI < twoI)
-      {
-        return -1;
-      }
-      else if (oneI == twoI)
-      {
-        return 0;
-      }
-      else
-      {
-        return 1;
-      }
+      
+      // I don't know why, but the Geo attributes always end up at the front of the list (even though we were returning -1).
+      // This code here is just a dumb hack that honestly I don't even understand why it works. (in theory it shouldn't work).
+      if (oneI == -1 && twoI != -1) { return 1; }
+      if (twoI == -1 && oneI != -1) { return -1; }
+      
+      return Integer.compare(oneI, twoI);
     }
   };
 
@@ -139,15 +149,6 @@ public class ODKForm implements Reloadable
   protected LinkedList<ODKAttribute> attrs;
 
   protected LinkedList<ODKFormJoin>  joins;
-  
-
-  /*
-   * Global Map of all the exported term ids. This is used to prevent the same
-   * term from being translated multiple times even if the term is an item of
-   * multiple different attributes.
-   */
-  Set<String> exportedTerms = new TreeSet<String>();
-
 
   public ODKForm(MdClassDAOIF base)
   {
@@ -196,25 +197,20 @@ public class ODKForm implements Reloadable
   {
     this.viewMd = base;
   }
-
+  
   public void validate()
   {
     if (this.attrs.isEmpty())
     {
       logger.error("Form [" + this.getFormName() + "] has no attributes!");
     }
-
+    
     for (ODKFormJoin join : joins)
     {
       join.getChild().validate();
     }
   }
-
-  public String getFormName()
-  {
-    return MobileUtil.convertToOdkId(this.getViewMd().definesType());
-  }
-
+  
   public boolean isStructAttribute(String sourceAttribute)
   {
     for (ODKAttribute attr : this.attrs)
@@ -249,6 +245,11 @@ public class ODKForm implements Reloadable
     }
 
     return null;
+  }
+
+  public String getFormName()
+  {
+    return MobileUtil.convertToOdkId(this.getViewMd().definesType());
   }
 
   public void writeTranslation(Element parent, Document document, String context, int maxDepth)
@@ -347,17 +348,26 @@ public class ODKForm implements Reloadable
     this.attrs.sort(new AttributeComparator(orderList));
   }
   
-  public void buildAttributes(Map<String,String> attrMap, List<String> orderList)
+  public void buildAttributes(Map<MdAttributeDAOIF,MdAttributeDAOIF> attrMap, List<String> orderList)
   {
-    for (String sSourceAttr : attrMap.keySet())
+    for (MdAttributeDAOIF sourceAttr : attrMap.keySet())
     {
-      MdAttributeDAOIF sourceAttr = MdAttributeDAO.getByKey(sSourceAttr);
-      MdAttributeDAOIF viewAttr = MdAttributeDAO.getByKey(attrMap.get(sSourceAttr));
+      MdAttributeDAOIF viewAttr = attrMap.get(sourceAttr);
       
       attrs.add(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
     }
     
     this.attrs.sort(new AttributeComparator(orderList));
+  }
+  
+  public void addAttribute(ODKAttribute attr)
+  {
+    this.attrs.add(attr);
+  }
+  
+  public void addAttribute(MdAttributeDAOIF sourceAttr, MdAttributeDAOIF viewAttr)
+  {
+    attrs.add(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
   }
 
   public static class DefaultODKAttributeMapper implements ODKAttributeMapper
@@ -370,7 +380,7 @@ public class ODKForm implements Reloadable
       {
         return null;
       }
-
+      
       if (concrete instanceof MdAttributeReferenceDAOIF)
       {
         MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO();
@@ -389,7 +399,7 @@ public class ODKForm implements Reloadable
         return viewMdc.definesAttribute(sourceAttr.definesAttribute());
       }
     }
-
+    
     private boolean isValidReference(MdBusinessDAOIF referenceMdBusiness)
     {
       String type = referenceMdBusiness.definesType();
@@ -397,11 +407,11 @@ public class ODKForm implements Reloadable
       return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS) || type.equals(InsecticideBrand.CLASS);
     }
   }
-
+  
   public static class MapODKAttributeMapper extends DefaultODKAttributeMapper
   {
     private Map<String, String> map;
-
+    
     public MapODKAttributeMapper(Map<String, String> map)
     {
       this.map = map;
@@ -411,12 +421,12 @@ public class ODKForm implements Reloadable
     public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF sourceAttr, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
     {
       String sViewAttr = this.map.get(sourceAttr.definesAttribute());
-
+      
       if (sViewAttr != null && viewMdc.definesAttribute(sViewAttr) != null)
       {
         return viewMdc.definesAttribute(sViewAttr);
       }
-
+        
       return super.getViewAttr(sourceAttr, sourceMdc, viewMdc);
     }
   }
@@ -477,45 +487,47 @@ public class ODKForm implements Reloadable
     {
       master = new ODKForm(AggregatedCaseExcelView.CLASS, gfc);
 
-      Map<String,String> sharedAttrs = new HashMap<String, String>();
-      sharedAttrs.put(AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.STARTDATE, AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.STARTDATE);
-      sharedAttrs.put(AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.ENDDATE, AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.ENDDATE);
-      sharedAttrs.put(AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.DISPLAYLABEL, AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.DISPLAYLABEL);
-      sharedAttrs.put(AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.GEOENTITY, AggregatedCaseExcelView.CLASS + "." + AggregatedCaseExcelView.GEOENTITY);
+      Map<MdAttributeDAOIF,MdAttributeDAOIF> sharedAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      sharedAttrs.put(AggregatedCaseExcelView.getStartDateMd(), AggregatedCaseExcelView.getStartDateMd());
+      sharedAttrs.put(AggregatedCaseExcelView.getEndDateMd(), AggregatedCaseExcelView.getEndDateMd());
+      sharedAttrs.put(AggregatedCaseExcelView.getDisplayLabelMd(), AggregatedCaseExcelView.getDisplayLabelMd());
+      sharedAttrs.put(AggregatedCaseExcelView.getGeoEntityMd(), AggregatedCaseExcelView.getGeoEntityMd());
       
       ODKForm aggCaseRefer = new ODKForm(AggregatedCaseReferralsExcelView.CLASS);
-      Map<String,String> aggCaseAttrs = new HashMap<String, String>(sharedAttrs);
-      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.CASES, AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.CASES);
-      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.POSITIVECASES, AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.POSITIVECASES);
-      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.NEGATIVECASES, AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.NEGATIVECASES);
-      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.DEATHS, AggregatedCaseReferralsExcelView.CLASS + "." + AggregatedCaseReferralsExcelView.DEATHS);
+      Map<MdAttributeDAOIF,MdAttributeDAOIF> aggCaseAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
+      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getCasesMd(), AggregatedCaseReferralsExcelView.getCasesMd());
+      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getPositiveCasesMd(), AggregatedCaseReferralsExcelView.getPositiveCasesMd());
+      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getNegativeCasesMd(), AggregatedCaseReferralsExcelView.getNegativeCasesMd());
+      aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getDeathsMd(), AggregatedCaseReferralsExcelView.getDeathsMd());
       aggCaseRefer.buildAttributes(aggCaseAttrs, AggregatedCaseReferralsExcelView.customAttributeOrder());
+      aggCaseRefer.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseStockReferralMd(), AggregatedCaseView.getCaseStockReferralMd(), "int"));
+      aggCaseRefer.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseReferralsMd(), AggregatedCaseView.getCaseReferralsMd(), "int"));
+      aggCaseRefer.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseDiagnosticMd(), AggregatedCaseView.getCaseDiagnosticMd(), "int"));
       master.join(new RepeatFormJoin(master, aggCaseRefer));
       
       ODKForm caseTreats = new ODKForm(AggregatedCaseTreatmentsExcelView.CLASS);
-      caseTreats.buildAttributes(AggregatedCaseView.CLASS, AggregatedCaseExcelView.CLASS, AggregatedCaseExcelView.customAttributeOrder(), null);
-      caseTreats.buildAttributes(CaseDiagnosisTypeView.CLASS, CaseDiagnosisTypeExcelView.customAttributeOrder(), null);
+      caseTreats.buildAttributes(sharedAttrs, AggregatedCaseTreatmentsExcelView.customAttributeOrder());
+      caseTreats.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseTreatmentsMd(), AggregatedCaseView.getCaseTreatmentsMd(), "int"));
+      caseTreats.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseTreatmentMethodMd(), AggregatedCaseView.getCaseTreatmentMethodMd(), "int"));
+      caseTreats.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseStocksMd(), AggregatedCaseView.getCaseStocksMd(), "boolean"));
       master.join(new RepeatFormJoin(master, caseTreats));
       
       ODKForm caseDiag = new ODKForm(CaseDiagnosisTypeExcelView.CLASS);
-      Map<String,String> caseDiagAttrMappings = new HashMap<String, String>();
-      caseDiagAttrMappings.put(AggregatedCaseView.CASEDIAGNOSISTYPE, CaseDiagnosisTypeExcelView.DIAGNOSISTYPE);
-      caseDiag.buildAttributes(AggregatedCaseView.CLASS, AggregatedCaseExcelView.CLASS, AggregatedCaseExcelView.customAttributeOrder(), null);
-      caseDiag.buildAttributes(AggregatedCaseView.CLASS, CaseDiagnosisTypeExcelView.customAttributeOrder(), new MapODKAttributeMapper(caseDiagAttrMappings));
+      caseDiag.addAttribute(CaseDiagnosisTypeExcelView.getDiagnosisTypeMd(), CaseDiagnosisTypeView.getTermMd());
+      caseDiag.buildAttributes(sharedAttrs, CaseDiagnosisTypeExcelView.customAttributeOrder());
+      caseDiag.addAttribute(new ODKGridAttribute(CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeView.getDiagnosisCategoryMd(), "int"));
       master.join(new RepeatFormJoin(master, caseDiag));
 
       ODKForm caseDisease = new ODKForm(CaseDiseaseManifestationExcelView.CLASS);
-      Map<String,String> caseDiseaseAttrMappings = new HashMap<String, String>();
-      caseDiseaseAttrMappings.put(AggregatedCaseView.CASEDISEASEMANIFESTATION, CaseDiseaseManifestationExcelView.DISEASEMANIFESTATION);
-      caseDisease.buildAttributes(AggregatedCaseView.CLASS, AggregatedCaseExcelView.CLASS, AggregatedCaseExcelView.customAttributeOrder(), null);
-      caseDisease.buildAttributes(AggregatedCaseView.CLASS, CaseDiseaseManifestationExcelView.customAttributeOrder(), new MapODKAttributeMapper(caseDiseaseAttrMappings));
+      caseDisease.addAttribute(CaseDiseaseManifestationExcelView.getDiseaseManifestationMd(), CaseDiseaseManifestationView.getTermMd());
+      caseDisease.buildAttributes(sharedAttrs, CaseDiseaseManifestationExcelView.customAttributeOrder());
+      caseDisease.addAttribute(new ODKGridAttribute(CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationView.getDiseaseCategoryMd(), "int"));
       master.join(new RepeatFormJoin(master, caseDisease));
 
       ODKForm casePatient = new ODKForm(CasePatientTypeExcelView.CLASS);
-      Map<String,String> casePatientAttrMappings = new HashMap<String, String>();
-      casePatientAttrMappings.put(AggregatedCaseView.CASEPATIENTTYPE, CasePatientTypeExcelView.PATIENTTYPE);
-      casePatient.buildAttributes(AggregatedCaseView.CLASS, AggregatedCaseExcelView.CLASS, AggregatedCaseExcelView.customAttributeOrder(), null);
-      casePatient.buildAttributes(AggregatedCaseView.CLASS, CasePatientTypeExcelView.customAttributeOrder(), new MapODKAttributeMapper(casePatientAttrMappings));
+      casePatient.addAttribute(CasePatientTypeExcelView.getPatientTypeMd(), CasePatientTypeView.getTermMd());
+      casePatient.buildAttributes(sharedAttrs, CasePatientTypeExcelView.customAttributeOrder());
+      casePatient.addAttribute(new ODKGridAttribute(CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeView.getPatientCategoryMd(), "int"));
       master.join(new RepeatFormJoin(master, casePatient));
     }
     else if (mobileType.equals(ControlInterventionExcelView.CLASS))
@@ -561,10 +573,10 @@ public class ODKForm implements Reloadable
      }
      else if (mobileType.equals(EfficacyAssayExcelView.CLASS))
      {
-       Map<String,String> attrMappings = new HashMap<String, String>();
-       attrMappings.put(EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.GEOENTITY, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.GEOENTITY);
-       attrMappings.put(EfficacyAssayView.CLASS + "." + EfficacyAssayView.INSECTICIDEBRAND, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.INSECTICIDETERM);
-       attrMappings.put(EfficacyAssayView.CLASS + "." + EfficacyAssayView.SURFACEPOSTION, EfficacyAssayExcelView.CLASS + "." + EfficacyAssayExcelView.SURFACEPOSITION);
+       Map<MdAttributeDAOIF,MdAttributeDAOIF> attrMappings = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+       attrMappings.put(EfficacyAssayExcelView.getGeoEntityMd(), EfficacyAssayExcelView.getGeoEntityMd());
+       attrMappings.put(EfficacyAssayView.getInsecticideBrandMd(), EfficacyAssayExcelView.getInsecticideTermMd());
+       attrMappings.put(EfficacyAssayView.getSurfacePostionMd(), EfficacyAssayExcelView.getSurfacePositionMd());
        
        master = new ODKForm(EfficacyAssayExcelView.CLASS, gfc);
        master.buildAttributes(EfficacyAssayView.CLASS, EfficacyAssayExcelView.customAttributeOrder(), null);

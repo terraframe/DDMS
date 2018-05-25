@@ -15,6 +15,8 @@ import dss.vector.solutions.ontology.TermRootCache;
 
 public class ODKGridAttribute extends AttributeColumn implements Reloadable
 {
+  public static final String GRID_ATTR_PREFIX = "_GRID_";
+  
   List<ODKAttribute> gridAttrs = new ArrayList<ODKAttribute>();
   
   public ODKGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type)
@@ -23,7 +25,7 @@ public class ODKGridAttribute extends AttributeColumn implements Reloadable
     
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
-//      gridAttrs.add(new ODKAttribute(type, ));
+      gridAttrs.add(new ODKAttribute(type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + "." + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), 0, sourceMdAttr.isRequired()));
     }
   }
   

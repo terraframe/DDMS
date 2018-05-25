@@ -54,7 +54,7 @@ public class ODKAttribute implements Reloadable
   public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
   {
     this.type = type;
-    this.attributeName = attributeName;
+    this.attributeName = this.sanitizeAttributeName(attributeName);
     this.displayLabel = displayLabel;
     this.description = description;
     this.index = index;
@@ -63,12 +63,7 @@ public class ODKAttribute implements Reloadable
   
   public ODKAttribute(String attributeName, String displayLabel, String description, int index, boolean required)
   {
-    this.type = "string";
-    this.attributeName = attributeName;
-    this.displayLabel = displayLabel;
-    this.description = description;
-    this.index = index;
-    this.required = required;
+    this("string", attributeName, displayLabel, description, index, required);
   }
   
   public ODKAttribute(String attributeName, String displayLabel, int index)
@@ -84,6 +79,11 @@ public class ODKAttribute implements Reloadable
   public ODKAttribute(String attributeName, String displayLabel)
   {
     this(attributeName, displayLabel, null, 0, false);
+  }
+  
+  public String sanitizeAttributeName(String attrName)
+  {
+    return attrName.replaceAll(":", "_");
   }
   
   public static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
