@@ -192,7 +192,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   {
     Map<String, Collection<String>> map = new HashMap<String, Collection<String>>();
 
-    String tableName = getODKTableName(form.getFormName());
+    String tableName = getODKTableName(form.getFormId());
 
     for (String uuid : uuids)
     {

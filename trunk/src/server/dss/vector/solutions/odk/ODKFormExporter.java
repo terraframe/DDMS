@@ -78,7 +78,9 @@ public class ODKFormExporter implements Reloadable
 
   private List<ODKForm>       odkForms;
 
-  private String              formName;
+  private String              formId;
+  
+  private String              formTitle;
 
   private Logger              logger     = LoggerFactory.getLogger(ODKFormExporter.class);
   
@@ -90,7 +92,8 @@ public class ODKFormExporter implements Reloadable
   {
     this.odkForms = new ArrayList<ODKForm>();
     this.odkForms.add(master);
-    this.formName = master.getFormName();
+    this.formId = master.getFormId();
+    this.formTitle = master.getFormTitle();
   }
   
   public String getExportDir() {
@@ -114,7 +117,7 @@ public class ODKFormExporter implements Reloadable
       return providedGeoFile;
     }
     
-    return new File(exportDir + this.formName + "-itemsets.csv");
+    return new File(exportDir + this.formId + "-itemsets.csv");
   }
 
   public String doIt()
@@ -226,8 +229,7 @@ public class ODKFormExporter implements Reloadable
 
         for (int i = 0; i <= maxDepth; ++i)
         {
-          header.add("geoEntity_geolist_" + i); // TODO : This is attribute
-                                                // specific
+          header.add(ODKGeoAttribute.PREFIX + i);
         }
 
         csvp.printRecord(header);
@@ -245,7 +247,7 @@ public class ODKFormExporter implements Reloadable
       geoCSV.add(geo.getEntityLabel().getValue());
       geoCSV.add(geo.getGeoId() + "##" + geo.getMdClass().getId());
 
-      geoCSV.add("geoEntity_geolist_" + parents.size()); // TODO : This is attribute specific
+      geoCSV.add(ODKGeoAttribute.PREFIX + parents.size()); // TODO : This is attribute specific
 
       for (int listIndex = 0; listIndex < maxDepth; ++listIndex)
       {
@@ -383,7 +385,7 @@ public class ODKFormExporter implements Reloadable
     Element head = document.createElement("h:head");
 
     Element title = document.createElement("h:title");
-    title.setTextContent(this.formName);
+    title.setTextContent(this.formTitle);
     head.appendChild(title);
 
     doModel(head, maxDepth);
@@ -394,7 +396,7 @@ public class ODKFormExporter implements Reloadable
   protected String getFormVersion()
   {
     ODKFormMappingQuery q = new ODKFormMappingQuery(new QueryFactory());
-    q.WHERE(q.getFormName().EQ(this.formName));
+    q.WHERE(q.getFormName().EQ(this.formId));
     OIterator<? extends ODKFormMapping> it = q.getIterator();
     try
     {
@@ -412,7 +414,7 @@ public class ODKFormExporter implements Reloadable
       else
       {
         ODKFormMapping mapping = new ODKFormMapping();
-        mapping.setFormName(this.formName);
+        mapping.setFormName(this.formId);
         mapping.setDisease(Disease.getCurrent());
         mapping.setRevision(0);
         mapping.apply();
@@ -441,14 +443,14 @@ public class ODKFormExporter implements Reloadable
     
     for (ODKForm form : this.odkForms)
     {
-      form.writeTranslation(translation, document, this.formName, maxDepth);
+      form.writeTranslation(translation, document, this.formId, maxDepth);
     }
     itext.appendChild(translation);
 
     Element instance = document.createElement("instance");
     model.appendChild(instance);
-    Element instRoot = document.createElement(formName);
-    instRoot.setAttribute("id", formName);
+    Element instRoot = document.createElement(formId);
+    instRoot.setAttribute("id", formId);
     
     instRoot.setAttribute("orx:version", getFormVersion());
     
@@ -456,12 +458,12 @@ public class ODKFormExporter implements Reloadable
     
     for (ODKForm form : this.odkForms)
     {
-      form.writeInstance(instRoot, document, this.formName, maxDepth);
+      form.writeInstance(instRoot, document, this.formId, maxDepth);
     }
 
     for (ODKForm form : this.odkForms)
     {
-      form.writeBind(model, document, this.formName, maxDepth);
+      form.writeBind(model, document, this.formId, maxDepth);
     }
   }
 
@@ -472,7 +474,7 @@ public class ODKFormExporter implements Reloadable
 
     for (ODKForm form : this.odkForms)
     {
-      form.writeBody(body, document, this.formName, maxDepth);
+      form.writeBody(body, document, this.formId, maxDepth);
     }
   }
 
@@ -498,7 +500,7 @@ public class ODKFormExporter implements Reloadable
       baos.close();
 
       // 2. Write the document to a file (for reference)
-      FileOutputStream fos = new FileOutputStream(new File(exportDir + this.formName + ".xml")); // TODO
+      FileOutputStream fos = new FileOutputStream(new File(exportDir + this.formId + ".xml")); // TODO
                                                                                                 // :
                                                                                                 // This
                                                                                                 // shouldn't
@@ -506,11 +508,11 @@ public class ODKFormExporter implements Reloadable
                                                                                                 // hardcoded
       fos.write(form.getBytes());
       fos.close();
-      logger.info("Exported form definition to [" + new File(exportDir + this.formName + ".xml").getAbsolutePath() + "].");
+      logger.info("Exported form definition to [" + new File(exportDir + this.formId + ".xml").getAbsolutePath() + "].");
 
       // 3. Push the document to ODK
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-      File fFormDef = new File(exportDir + this.formName + ".xml");
+      File fFormDef = new File(exportDir + this.formId + ".xml");
       builder.addBinaryBody("form_def_file", fFormDef);
 //      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
       File refItemsets = this.getItemsetsFile();

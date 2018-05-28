@@ -46,7 +46,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   @Request
   private static void mainInRequest()
   {
-//    MobileUtil.export(EfficacyAssayExcelView.CLASS);
+//    MobileUtil.export(AggregatedCaseExcelView.CLASS);
     MobileUtil.exportAll(0,1);
   }
   

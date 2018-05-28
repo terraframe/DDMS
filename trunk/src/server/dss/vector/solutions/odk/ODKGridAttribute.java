@@ -23,6 +23,11 @@ public class ODKGridAttribute extends AttributeColumn implements Reloadable
   {
     super(sourceMdAttr, viewMdAttr, 0);
     
+    constructGridAttrs(sourceMdAttr, viewMdAttr, type);
+  }
+  
+  protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type)
+  {
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
       gridAttrs.add(new ODKAttribute(type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + "." + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), 0, sourceMdAttr.isRequired()));

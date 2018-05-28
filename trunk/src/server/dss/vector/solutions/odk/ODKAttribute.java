@@ -239,7 +239,7 @@ public class ODKAttribute implements Reloadable
   
   public String getODKType()
   {
-    return "string";
+    return type;
   }
 
   @Override

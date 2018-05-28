@@ -31,14 +31,20 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.entomology.CollectionContainerView;
+import dss.vector.solutions.entomology.ImmatureCollection;
 import dss.vector.solutions.entomology.ImmatureCollectionView;
+import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionView;
+import dss.vector.solutions.entomology.PupalCollection;
 import dss.vector.solutions.entomology.PupalCollectionView;
 import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.entomology.SubCollectionView;
+import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
 import dss.vector.solutions.export.AggregatedCaseExcelView;
 import dss.vector.solutions.export.AggregatedCaseReferralsExcelView;
@@ -70,14 +76,21 @@ import dss.vector.solutions.export.SurveyExcelView;
 import dss.vector.solutions.export.TeamSprayExcelView;
 import dss.vector.solutions.export.ThresholdDataExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
+import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.general.ThresholdDataView;
 import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.intervention.monitor.AggregatedIPT;
+import dss.vector.solutions.intervention.monitor.ControlIntervention;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
+import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
+import dss.vector.solutions.intervention.monitor.ITNData;
+import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNInstanceView;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
@@ -87,13 +100,17 @@ import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.irs.HouseholdSprayStatusView;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
+import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayStatusView;
 import dss.vector.solutions.irs.TeamSprayView;
+import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.irs.ZoneSprayView;
 import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.AggregatedCase;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeView;
 import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
@@ -149,6 +166,8 @@ public class ODKForm implements Reloadable
   protected LinkedList<ODKAttribute> attrs;
 
   protected LinkedList<ODKFormJoin>  joins;
+  
+  protected String                   formTitle;
 
   public ODKForm(MdClassDAOIF base)
   {
@@ -176,6 +195,7 @@ public class ODKForm implements Reloadable
     this.gfc = gfc;
     this.joins = new LinkedList<ODKFormJoin>();
     this.attrs = new LinkedList<ODKAttribute>();
+    this.formTitle = this.getViewMd().getDisplayLabel(Session.getCurrentLocale());
   }
 
   public void setGeoFilterCriteria(GeoFilterCriteria geoFilters)
@@ -202,7 +222,7 @@ public class ODKForm implements Reloadable
   {
     if (this.attrs.isEmpty())
     {
-      logger.error("Form [" + this.getFormName() + "] has no attributes!");
+      logger.error("Form [" + this.getFormId() + "] has no attributes!");
     }
     
     for (ODKFormJoin join : joins)
@@ -247,9 +267,19 @@ public class ODKForm implements Reloadable
     return null;
   }
 
-  public String getFormName()
+  public String getFormId()
   {
     return MobileUtil.convertToOdkId(this.getViewMd().definesType());
+  }
+  
+  public String getFormTitle()
+  {
+    return this.formTitle;
+  }
+  
+  public void setFormTitle(String title)
+  {
+    this.formTitle = title;
   }
 
   public void writeTranslation(Element parent, Document document, String context, int maxDepth)
@@ -450,7 +480,7 @@ public class ODKForm implements Reloadable
 
   public boolean isGeoAttribute(String attributeName)
   {
-    return attributeName.contains("_geolist_");
+    return attributeName.contains(ODKGeoAttribute.PREFIX);
   }
 
   public boolean isRepeatable(String attributeName)
@@ -486,7 +516,8 @@ public class ODKForm implements Reloadable
     if (mobileType.equals(AggregatedCaseExcelView.CLASS))
     {
       master = new ODKForm(AggregatedCaseExcelView.CLASS, gfc);
-
+      master.setFormTitle(MdClassDAO.getMdClassDAO(AggregatedCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      
       Map<MdAttributeDAOIF,MdAttributeDAOIF> sharedAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       sharedAttrs.put(AggregatedCaseExcelView.getStartDateMd(), AggregatedCaseExcelView.getStartDateMd());
       sharedAttrs.put(AggregatedCaseExcelView.getEndDateMd(), AggregatedCaseExcelView.getEndDateMd());
@@ -502,7 +533,7 @@ public class ODKForm implements Reloadable
       aggCaseRefer.buildAttributes(aggCaseAttrs, AggregatedCaseReferralsExcelView.customAttributeOrder());
       aggCaseRefer.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseStockReferralMd(), AggregatedCaseView.getCaseStockReferralMd(), "int"));
       aggCaseRefer.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseReferralsMd(), AggregatedCaseView.getCaseReferralsMd(), "int"));
-      aggCaseRefer.addAttribute(new ODKGridAttribute(AggregatedCaseView.getCaseDiagnosticMd(), AggregatedCaseView.getCaseDiagnosticMd(), "int"));
+      aggCaseRefer.addAttribute(new ODKCaseDiagnosticGridAttribute(AggregatedCaseView.getCaseDiagnosticMd(), AggregatedCaseView.getCaseDiagnosticMd(), "int"));
       master.join(new RepeatFormJoin(master, aggCaseRefer));
       
       ODKForm caseTreats = new ODKForm(AggregatedCaseTreatmentsExcelView.CLASS);
@@ -533,6 +564,7 @@ public class ODKForm implements Reloadable
     else if (mobileType.equals(ControlInterventionExcelView.CLASS))
     {
       master = new ODKForm(ControlInterventionExcelView.CLASS, gfc);
+      master.setFormTitle(MdClassDAO.getMdClassDAO(ControlIntervention.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(ControlInterventionView.CLASS, ControlInterventionExcelView.customAttributeOrder(), null);
       
       ODKForm aggPremise = new ODKForm(AggregatedPremiseExcelView.CLASS);
@@ -554,6 +586,7 @@ public class ODKForm implements Reloadable
     else if (mobileType.equals(MosquitoCollectionExcelView.CLASS))
     {
       master = new ODKForm(MosquitoCollectionExcelView.CLASS, gfc);
+      master.setFormTitle(MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(MosquitoCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
 
       ODKForm subc = new ODKForm(MosquitoCollectionExcelView.CLASS);
@@ -564,11 +597,13 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(AggregatedIPTExcelView.CLASS))
      {
        master = new ODKForm(AggregatedIPTExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(AggregatedIPT.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(AggregatedIPTExcelView.CLASS, AggregatedIPTExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(AggregatedITNExcelView.CLASS))
      {
        master = new ODKForm(AggregatedITNExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(AggregatedITNExcelView.CLASS, AggregatedITNExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(EfficacyAssayExcelView.CLASS))
@@ -579,12 +614,14 @@ public class ODKForm implements Reloadable
        attrMappings.put(EfficacyAssayView.getSurfacePostionMd(), EfficacyAssayExcelView.getSurfacePositionMd());
        
        master = new ODKForm(EfficacyAssayExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(EfficacyAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(EfficacyAssayView.CLASS, EfficacyAssayExcelView.customAttributeOrder(), null);
        master.buildAttributes(attrMappings, EfficacyAssayExcelView.customAttributeOrder());
      }
      else if (mobileType.equals(IndividualCaseExcelView.CLASS))
      {
        master = new ODKForm(IndividualCaseExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(IndividualCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        
        ODKForm individPremise = new ODKForm(IndividualCaseExcelView.CLASS);
        individPremise.buildAttributes(IndividualCase.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
@@ -597,26 +634,31 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(IndividualIPTExcelView.CLASS))
      {
        master = new ODKForm(IndividualIPTExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(IndividualCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(IndividualIPTView.CLASS, IndividualIPTExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(ITNCommunityExcelView.CLASS))
      {
        master = new ODKForm(ITNCommunityExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNCommunityDistribution.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(ITNCommunityDistributionView.CLASS, ITNCommunityExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(ITNDistributionExcelView.CLASS))
      {
        master = new ODKForm(ITNDistributionExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNDistribution.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(ITNDistributionView.CLASS, ITNDistributionExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(LarvacideExcelView.CLASS))
      {
        master = new ODKForm(LarvacideExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(Larvacide.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(Larvacide.CLASS, LarvacideExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(OperatorSprayExcelView.CLASS))
      {
        master = new ODKForm(OperatorSprayExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(OperatorSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(OperatorSprayView.CLASS, OperatorSprayExcelView.customAttributeOrder(), null);
        
        ODKForm individInst = new ODKForm(OperatorSprayExcelView.CLASS);
@@ -626,6 +668,7 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(TeamSprayExcelView.CLASS))
      {
        master = new ODKForm(TeamSprayExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(TeamSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(TeamSprayView.CLASS, OperatorSprayExcelView.customAttributeOrder(), null);
        
        ODKForm individInst = new ODKForm(TeamSprayExcelView.CLASS);
@@ -635,6 +678,7 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(ZoneSprayExcelView.CLASS))
      {
        master = new ODKForm(ZoneSprayExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(ZoneSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(ZoneSprayView.CLASS, ZoneSprayExcelView.customAttributeOrder(), null);
        
        ODKForm individInst = new ODKForm(ZoneSprayExcelView.CLASS);
@@ -644,16 +688,19 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(PersonExcelView.CLASS))
      {
        master = new ODKForm(PersonExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(Person.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(PersonView.CLASS, PersonExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(PopulationDataExcelView.CLASS))
      {
        master = new ODKForm(PopulationDataExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(PopulationData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(PopulationData.CLASS, PopulationDataExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(PupalCollectionExcelView.CLASS))
      {
        master = new ODKForm(PupalCollectionExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(PupalCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(PupalCollectionView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
        
        ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);
@@ -663,6 +710,7 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(SurveyExcelView.CLASS))
      {
        master = new ODKForm(SurveyExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(FormSurvey.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        
        ODKForm household = new ODKForm(SurveyExcelView.CLASS);
        household.buildAttributes(HouseholdView.CLASS, SurveyExcelView.customAttributeOrder(), null);
@@ -679,11 +727,13 @@ public class ODKForm implements Reloadable
      else if (mobileType.equals(ThresholdDataExcelView.CLASS))
      {
        master = new ODKForm(ThresholdDataExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(ThresholdData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(ThresholdDataView.CLASS, ThresholdDataExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(ImmatureCollectionExcelView.CLASS))
      {
        master = new ODKForm(ImmatureCollectionExcelView.CLASS, gfc);
+       master.setFormTitle(MdClassDAO.getMdClassDAO(ImmatureCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
        master.buildAttributes(ImmatureCollectionView.CLASS, ImmatureCollectionExcelView.customAttributeOrder(), null);
        
        ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);

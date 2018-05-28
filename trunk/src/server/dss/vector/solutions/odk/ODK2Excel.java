@@ -81,7 +81,7 @@ public class ODK2Excel implements Reloadable
       try (CloseableHttpClient client = ODKFacade.getClient())
       {
         URIBuilder builder = new URIBuilder(ODKFacade.getBaseURL() + "/view/submissionList");
-        builder.setParameter("formId", this.form.getFormName());
+        builder.setParameter("formId", this.form.getFormId());
         builder.setParameter("numEntries", NUM_ENTRIES);
 
         if (this.cursor != null)
@@ -149,7 +149,7 @@ public class ODK2Excel implements Reloadable
         // Get the form instance
         try (CloseableHttpClient client = ODKFacade.getClient())
         {
-          String formId = this.form.getFormName() + "[@version=null and @uiVersion=null]/" + this.form.getFormName() + "[@key=" + uuid + "]";
+          String formId = this.form.getFormId() + "[@version=null and @uiVersion=null]/" + this.form.getFormId() + "[@key=" + uuid + "]";
 
           URIBuilder builder = new URIBuilder(ODKFacade.getBaseURL() + "/view/downloadSubmission");
           builder.setParameter("formId", formId);

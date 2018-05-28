@@ -184,7 +184,7 @@ public class ODKDataConverter implements Reloadable
       }
       else if (form.isGeoAttribute(sourceAttribute))
       {
-        String[] split = sourceAttribute.split("_geolist_");
+        String[] split = sourceAttribute.split(ODKGeoAttribute.PREFIX);
 
         String base = split[0];
         String value = child.getTextContent();
