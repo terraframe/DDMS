@@ -13,7 +13,7 @@ import com.runwaysdk.session.Session;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class ODKGridAttribute extends AttributeColumn implements Reloadable
+public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
 {
   public static final String GRID_ATTR_PREFIX = "_GRID_";
   

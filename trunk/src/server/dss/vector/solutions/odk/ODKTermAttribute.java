@@ -20,7 +20,7 @@ import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.TermQuery;
 
-public class ODKTermAttribute extends AttributeColumn implements Reloadable
+public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 {
   public static final int  LIMIT = 100;
 

@@ -15,7 +15,7 @@ import com.runwaysdk.dataaccess.attributes.entity.AttributeLocal;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public class ODKEnumAttribute extends AttributeColumn implements Reloadable
+public class ODKEnumAttribute extends ODKMetadataAttribute implements Reloadable
 {
   private MdAttributeEnumerationDAOIF mdAttribute;
 

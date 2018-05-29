@@ -15,7 +15,7 @@ import com.runwaysdk.session.Session;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class ODKGeoAttribute extends AttributeColumn implements Reloadable
+public class ODKGeoAttribute extends ODKMetadataAttribute implements Reloadable
 {
   public static final String PREFIX = "_GEOLIST_";
   
@@ -58,6 +58,11 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
     bind0.setAttribute("nodeset", "/" + title + "/" + viewMdAttr.definesAttribute() + PREFIX +"0");
     bind0.setAttribute("type", "select1");
     parent.appendChild(bind0);
+    
+    if (this.isRequired())
+    {
+      bind0.setAttribute("required", "true()");
+    }
     
     for (int i = 1; i <= maxDepth; ++i)
     {

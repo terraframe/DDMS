@@ -136,7 +136,7 @@ public class ODKAttribute implements Reloadable
     }
     else
     {
-      return new AttributeColumn(source, viewAttr);
+      return new ODKMetadataAttribute(source, viewAttr);
     }
   }
 
@@ -222,6 +222,11 @@ public class ODKAttribute implements Reloadable
     
     bind.setAttribute("nodeset", "/" + title + "/" + attributeName);
     bind.setAttribute("type", this.getODKType());
+    
+    if (this.required)
+    {
+      bind.setAttribute("required", "true()");
+    }
     
     parent.appendChild(bind);
   }

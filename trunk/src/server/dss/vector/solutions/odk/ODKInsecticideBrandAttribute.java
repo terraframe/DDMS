@@ -10,7 +10,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.InsecticideBrand;
 
-public class ODKInsecticideBrandAttribute extends AttributeColumn implements Reloadable
+public class ODKInsecticideBrandAttribute extends ODKMetadataAttribute implements Reloadable
 {
   private Set<String> exported;
 

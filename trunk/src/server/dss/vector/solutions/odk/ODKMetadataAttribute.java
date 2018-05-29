@@ -33,20 +33,20 @@ import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public class AttributeColumn extends ODKAttribute implements Reloadable
+public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 {
   protected MdAttributeDAOIF sourceMdAttr;
   
   protected MdAttributeDAOIF viewMdAttr;
 
-  public AttributeColumn(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, int index)
+  public ODKMetadataAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, int index)
   {
     super(viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), index, viewMdAttr.isRequired());
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
   }
 
-  public AttributeColumn(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
+  public ODKMetadataAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
     this(sourceMdAttr, viewMdAttr, 0);
   }

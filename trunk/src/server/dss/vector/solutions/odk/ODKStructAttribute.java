@@ -33,7 +33,7 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public class ODKStructAttribute extends AttributeColumn implements Reloadable
+public class ODKStructAttribute extends ODKMetadataAttribute implements Reloadable
 {
   List<ODKAttribute> structAttrs;
 
