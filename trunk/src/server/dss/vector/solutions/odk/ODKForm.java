@@ -52,30 +52,41 @@ import dss.vector.solutions.export.AggregatedCaseTreatmentsExcelView;
 import dss.vector.solutions.export.AggregatedIPTExcelView;
 import dss.vector.solutions.export.AggregatedITNExcelView;
 import dss.vector.solutions.export.AggregatedPremiseExcelView;
+import dss.vector.solutions.export.BiochemicalAssayExcelView;
 import dss.vector.solutions.export.CaseDiagnosisTypeExcelView;
 import dss.vector.solutions.export.CaseDiseaseManifestationExcelView;
 import dss.vector.solutions.export.CasePatientTypeExcelView;
 import dss.vector.solutions.export.ControlInterventionExcelView;
+import dss.vector.solutions.export.DiagnosticAssayExcelView;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.EfficacyAssayExcelView;
+import dss.vector.solutions.export.GeoTargetExcelView;
 import dss.vector.solutions.export.ITNCommunityExcelView;
 import dss.vector.solutions.export.ITNDistributionExcelView;
 import dss.vector.solutions.export.ImmatureCollectionExcelView;
 import dss.vector.solutions.export.IndividualCaseExcelView;
 import dss.vector.solutions.export.IndividualIPTExcelView;
 import dss.vector.solutions.export.IndividualPremiseExcelView;
+import dss.vector.solutions.export.InfectionAssayExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
+import dss.vector.solutions.export.KnockDownAssayExcelView;
 import dss.vector.solutions.export.LarvacideExcelView;
+import dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView;
+import dss.vector.solutions.export.MolecularAssayExcelView;
 import dss.vector.solutions.export.MosquitoCollectionExcelView;
 import dss.vector.solutions.export.OperatorSprayExcelView;
 import dss.vector.solutions.export.PersonExcelView;
 import dss.vector.solutions.export.PersonInterventionExcelView;
+import dss.vector.solutions.export.PooledInfectionAssayExcelView;
 import dss.vector.solutions.export.PopulationDataExcelView;
 import dss.vector.solutions.export.PupalCollectionExcelView;
+import dss.vector.solutions.export.ResourceTargetExcelView;
 import dss.vector.solutions.export.SurveyExcelView;
 import dss.vector.solutions.export.TeamSprayExcelView;
 import dss.vector.solutions.export.ThresholdDataExcelView;
+import dss.vector.solutions.export.TimeResponseAssayExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
+import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.ThresholdData;
@@ -86,7 +97,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.AggregatedIPT;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
 import dss.vector.solutions.intervention.monitor.ControlIntervention;
-import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
@@ -105,6 +115,8 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
+import dss.vector.solutions.irs.SprayTeamExcelView;
+import dss.vector.solutions.irs.SprayTeamView;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayStatusView;
 import dss.vector.solutions.irs.TeamSprayView;
@@ -377,7 +389,10 @@ public class ODKForm implements Reloadable
       attrs.add(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
     }
 
-    this.attrs.sort(new AttributeComparator(orderList));
+    if (orderList != null)
+    {
+      this.attrs.sort(new AttributeComparator(orderList));
+    }
   }
   
   public void buildAttributes(Map<MdAttributeDAOIF,MdAttributeDAOIF> attrMap, List<String> orderList)
@@ -758,6 +773,56 @@ public class ODKForm implements Reloadable
        ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);
        container.buildAttributes(CollectionContainerView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
        master.join(new RepeatFormJoin(master, container));
+     }
+     else if (mobileType.equals(SprayTeamExcelView.CLASS))
+     {
+//       master = new ODKForm(SprayTeamExcelView.CLASS, gfc);
+//       master.setFormTitle(MdClassDAO.getMdClassDAO(Person.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+//       master.buildAttributes(SprayTeamView.CLASS, null, null);
+     }
+     else if (mobileType.equals(DiagnosticAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(AdultDiscriminatingDoseAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(BiochemicalAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(InfectionAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(KnockDownAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(LarvaeDiscriminatingDoseAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(MolecularAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(PooledInfectionAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(TimeResponseAssayExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(GeoTargetExcelView.CLASS))
+     {
+       
+     }
+     else if (mobileType.equals(ResourceTargetExcelView.CLASS))
+     {
+       
      }
      else
      {

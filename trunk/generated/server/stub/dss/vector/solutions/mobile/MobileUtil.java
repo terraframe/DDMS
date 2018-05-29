@@ -10,23 +10,35 @@ import com.runwaysdk.session.Request;
 import dss.vector.solutions.export.AggregatedCaseExcelView;
 import dss.vector.solutions.export.AggregatedIPTExcelView;
 import dss.vector.solutions.export.AggregatedITNExcelView;
+import dss.vector.solutions.export.BiochemicalAssayExcelView;
 import dss.vector.solutions.export.ControlInterventionExcelView;
+import dss.vector.solutions.export.DiagnosticAssayExcelView;
 import dss.vector.solutions.export.EfficacyAssayExcelView;
+import dss.vector.solutions.export.GeoTargetExcelView;
 import dss.vector.solutions.export.ITNCommunityExcelView;
 import dss.vector.solutions.export.ITNDistributionExcelView;
 import dss.vector.solutions.export.ImmatureCollectionExcelView;
 import dss.vector.solutions.export.IndividualCaseExcelView;
 import dss.vector.solutions.export.IndividualIPTExcelView;
+import dss.vector.solutions.export.InfectionAssayExcelView;
+import dss.vector.solutions.export.KnockDownAssayExcelView;
 import dss.vector.solutions.export.LarvacideExcelView;
+import dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView;
+import dss.vector.solutions.export.MolecularAssayExcelView;
 import dss.vector.solutions.export.MosquitoCollectionExcelView;
 import dss.vector.solutions.export.OperatorSprayExcelView;
 import dss.vector.solutions.export.PersonExcelView;
+import dss.vector.solutions.export.PooledInfectionAssayExcelView;
 import dss.vector.solutions.export.PopulationDataExcelView;
 import dss.vector.solutions.export.PupalCollectionExcelView;
+import dss.vector.solutions.export.ResourceTargetExcelView;
 import dss.vector.solutions.export.SurveyExcelView;
 import dss.vector.solutions.export.TeamSprayExcelView;
 import dss.vector.solutions.export.ThresholdDataExcelView;
+import dss.vector.solutions.export.TimeResponseAssayExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
+import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
+import dss.vector.solutions.irs.SprayTeamExcelView;
 import dss.vector.solutions.odk.ODKForm;
 import dss.vector.solutions.odk.ODKFormExporter;
 
@@ -47,7 +59,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   private static void mainInRequest()
   {
 //    MobileUtil.export(AggregatedCaseExcelView.CLASS);
-    MobileUtil.exportAll(0,1);
+    MobileUtil.exportAll(0,allTypes.length);
   }
   
   public static String convertToOdkId(String seed)
@@ -75,7 +87,9 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
       AggregatedCaseExcelView.CLASS, ControlInterventionExcelView.CLASS, MosquitoCollectionExcelView.CLASS, AggregatedIPTExcelView.CLASS, AggregatedITNExcelView.CLASS,
       EfficacyAssayExcelView.CLASS, IndividualCaseExcelView.CLASS, IndividualIPTExcelView.CLASS, ITNCommunityExcelView.CLASS, ITNDistributionExcelView.CLASS,
       LarvacideExcelView.CLASS, OperatorSprayExcelView.CLASS, TeamSprayExcelView.CLASS, ZoneSprayExcelView.CLASS, PersonExcelView.CLASS, PopulationDataExcelView.CLASS,
-      PupalCollectionExcelView.CLASS, SurveyExcelView.CLASS, ThresholdDataExcelView.CLASS, ImmatureCollectionExcelView.CLASS
+      PupalCollectionExcelView.CLASS, SurveyExcelView.CLASS, ThresholdDataExcelView.CLASS, ImmatureCollectionExcelView.CLASS, SprayTeamExcelView.CLASS, DiagnosticAssayExcelView.CLASS,
+      AdultDiscriminatingDoseAssayExcelView.CLASS, BiochemicalAssayExcelView.CLASS, InfectionAssayExcelView.CLASS, KnockDownAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.CLASS,
+      MolecularAssayExcelView.CLASS, PooledInfectionAssayExcelView.CLASS, TimeResponseAssayExcelView.CLASS, GeoTargetExcelView.CLASS, ResourceTargetExcelView.CLASS
   };
   public static void exportAll(int startIndex, int endIndex)
   {
