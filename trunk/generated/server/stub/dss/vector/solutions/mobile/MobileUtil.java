@@ -46,8 +46,8 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   @Request
   private static void mainInRequest()
   {
-//    MobileUtil.export(AggregatedCaseExcelView.CLASS);
-    MobileUtil.exportAll(0,1);
+    MobileUtil.export(AggregatedCaseExcelView.CLASS);
+//    MobileUtil.exportAll(0,allTypes.length);
   }
   
   public static String convertToOdkId(String seed)

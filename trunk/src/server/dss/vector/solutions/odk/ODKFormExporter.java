@@ -24,11 +24,14 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -54,13 +57,16 @@ import com.runwaysdk.dataaccess.io.XMLException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoFilterCriteria;
+import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class ODKFormExporter implements Reloadable
 {
@@ -209,7 +215,7 @@ public class ODKFormExporter implements Reloadable
     private CSVPrinter csvp;
 
     private FileWriter writer;
-
+    
     public GeoLoopHandler(int maxDepth)
     {
       this.maxDepth = maxDepth;
@@ -247,7 +253,7 @@ public class ODKFormExporter implements Reloadable
       geoCSV.add(geo.getEntityLabel().getValue());
       geoCSV.add(geo.getGeoId() + "##" + geo.getMdClass().getId());
 
-      geoCSV.add(ODKGeoAttribute.PREFIX + parents.size()); // TODO : This is attribute specific
+      geoCSV.add(ODKGeoAttribute.PREFIX + parents.size());
 
       for (int listIndex = 0; listIndex < maxDepth; ++listIndex)
       {
@@ -314,61 +320,68 @@ public class ODKFormExporter implements Reloadable
       ODKForm form = odkForms.get(i);
       filters.add(form.getGeoFilterCriteria());
     }
+    
+    Set<String> exported = new HashSet<String>();
 
     LinkedList<String> emptyParents = new LinkedList<String>();
     GeoEntity earth = Earth.getEarthInstance();
     GeoStackElement current = new GeoStackElement(earth.getGeoId(), emptyParents);
-    Stack<GeoStackElement> allChildrenStack = new Stack<GeoStackElement>();
+    Queue<GeoStackElement> allChildrenStack = new ArrayDeque<GeoStackElement>();
     int maxDepth = 0;
-    List<GeoEntity> earthChildren = earth.getImmediateChildren();
+    List<? extends GeoEntity> earthChildren = getOrderedChildren(earth);
     if (earthChildren.size() > 0)
     {
       for (int i = 0; i < earthChildren.size(); ++i)
       {
         GeoEntity child = earthChildren.get(i);
-        allChildrenStack.push(new GeoStackElement(child.getGeoId(), emptyParents));
+        allChildrenStack.add(new GeoStackElement(child.getGeoId(), emptyParents));
       }
-      current = allChildrenStack.pop();
+      current = allChildrenStack.remove();
   
       while (current != null)
       {
         GeoEntity curGeo = GeoEntity.getByKey(current.geoId);
         
-        boolean isPartOfHierarchies = true;
-        for (GeoFilterCriteria filt : filters)
+        if (!exported.contains(curGeo.getId()))
         {
-          if (!filt.isPartOfHierarchy(curGeo))
+          boolean isPartOfHierarchies = true;
+          for (GeoFilterCriteria filt : filters)
           {
-            isPartOfHierarchies = false;
+            if (!filt.isPartOfHierarchy(curGeo))
+            {
+              isPartOfHierarchies = false;
+            }
           }
-        }
-        if (isPartOfHierarchies)
-        {
-          if (current.parentIds.size() > maxDepth)
+          if (isPartOfHierarchies)
           {
-            maxDepth = current.parentIds.size();
+            if (current.parentIds.size() > maxDepth)
+            {
+              maxDepth = current.parentIds.size();
+            }
+            
+            if (handler != null)
+            {
+              handler.processGeo(curGeo, current.parentIds);
+            }
+            
+            List<? extends GeoEntity> children = getOrderedChildren(curGeo);
+            LinkedList<String> parents = ((LinkedList<String>)current.parentIds.clone());
+            parents.add(curGeo.getGeoId() + "##" + curGeo.getMdClass().getId());
+            for (int i = 0; i < children.size(); ++i)
+            {
+              GeoEntity child = children.get(i);
+              
+              GeoStackElement childGeoStack = new GeoStackElement(child.getGeoId(), parents);
+              allChildrenStack.add(childGeoStack);
+            }
           }
           
-          if (handler != null)
-          {
-            handler.processGeo(curGeo, current.parentIds);
-          }
-        }
-        
-        List<GeoEntity> children = curGeo.getImmediateChildren();
-        LinkedList<String> parents = ((LinkedList<String>)current.parentIds.clone());
-        parents.add(curGeo.getGeoId() + "##" + curGeo.getMdClass().getId());
-        for (int i = 0; i < children.size(); ++i)
-        {
-          GeoEntity child = children.get(i);
-          
-          GeoStackElement childGeoStack = new GeoStackElement(child.getGeoId(), parents);
-          allChildrenStack.push(childGeoStack);
+          exported.add(curGeo.getId());
         }
   
-        if (!allChildrenStack.empty())
+        if (!allChildrenStack.isEmpty())
         {
-          current = allChildrenStack.pop();
+          current = allChildrenStack.remove();
         }
         else
         {
@@ -378,6 +391,36 @@ public class ODKFormExporter implements Reloadable
     }
 
     return maxDepth;
+  }
+  
+  protected static LinkedList<? extends GeoEntity> getOrderedChildren(GeoEntity parent)
+  {
+    LinkedList<GeoEntity> list = new LinkedList<GeoEntity>();
+    
+    QueryFactory qf = new QueryFactory();
+    GeoEntityQuery geq = new GeoEntityQuery(qf);
+    LocatedInQuery loq = new LocatedInQuery(qf);
+    
+    loq.WHERE(loq.getParent().EQ(parent));
+    geq.WHERE(geq.EQ(loq.getChild()));
+    
+    geq.ORDER_BY(geq.getEntityLabel().localize(), SortOrder.ASC);
+    
+    OIterator<? extends GeoEntity> it = geq.getIterator();
+    
+    try
+    {
+      for (GeoEntity ge : it)
+      {
+        list.add(ge);
+      }
+      
+      return list;
+    }
+    finally
+    {
+      it.close();
+    }
   }
 
   private void doHead(int maxDepth)

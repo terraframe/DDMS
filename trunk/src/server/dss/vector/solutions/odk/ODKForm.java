@@ -565,21 +565,30 @@ public class ODKForm implements Reloadable
     {
       master = new ODKForm(ControlInterventionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ControlIntervention.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(ControlInterventionView.CLASS, ControlInterventionExcelView.customAttributeOrder(), null);
+
+      Map<MdAttributeDAOIF,MdAttributeDAOIF> sharedAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      sharedAttrs.put(ControlInterventionExcelView.getStartDateMd(), ControlInterventionExcelView.getStartDateMd());
+      sharedAttrs.put(ControlInterventionExcelView.getEndDateMd(), ControlInterventionExcelView.getEndDateMd());
+      sharedAttrs.put(ControlInterventionExcelView.getCommentsMd(), ControlInterventionExcelView.getCommentsMd());
+      sharedAttrs.put(ControlInterventionExcelView.getGeoEntityMd(), ControlInterventionExcelView.getGeoEntityMd());
       
       ODKForm aggPremise = new ODKForm(AggregatedPremiseExcelView.CLASS);
+      aggPremise.buildAttributes(sharedAttrs, AggregatedPremiseExcelView.customAttributeOrder());
       aggPremise.buildAttributes(AggregatedPremiseExcelView.CLASS, AggregatedPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, aggPremise));
       
       ODKForm individPremise = new ODKForm(IndividualPremiseExcelView.CLASS);
+      individPremise.buildAttributes(sharedAttrs, IndividualPremiseExcelView.customAttributeOrder());
       individPremise.buildAttributes(IndividualPremiseExcelView.CLASS, IndividualPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, individPremise));
       
       ODKForm insecticide = new ODKForm(InsecticideInterventionExcelView.CLASS);
+      insecticide.buildAttributes(sharedAttrs, InsecticideInterventionExcelView.customAttributeOrder());
       insecticide.buildAttributes(InsecticideInterventionExcelView.CLASS, InsecticideInterventionExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, insecticide));
       
       ODKForm person = new ODKForm(PersonInterventionExcelView.CLASS);
+      person.buildAttributes(sharedAttrs, PersonInterventionExcelView.customAttributeOrder());
       person.buildAttributes(PersonInterventionExcelView.CLASS, PersonInterventionExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, person));
     }

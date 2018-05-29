@@ -86,7 +86,7 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
     select1.appendChild(geolist0Label);
     
     GeoEntity earth = Earth.getEarthInstance();
-    List<GeoEntity> countries = earth.getImmediateChildren();
+    List<? extends GeoEntity> countries = ODKFormExporter.getOrderedChildren(earth);
     for (GeoEntity country : countries)
     {
       Element item = document.createElement("item");
