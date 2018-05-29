@@ -84,12 +84,14 @@ import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.AggregatedIPT;
+import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
 import dss.vector.solutions.intervention.monitor.ControlIntervention;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNData;
+import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNInstanceView;
@@ -607,12 +609,19 @@ public class ODKForm implements Reloadable
      {
        master = new ODKForm(AggregatedIPTExcelView.CLASS, gfc);
        master.setFormTitle(MdClassDAO.getMdClassDAO(AggregatedIPT.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayPatientsMd(), AggregatedIPTView.getDisplayPatientsMd(), "int"));
+       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayVisitsMd(), AggregatedIPTView.getDisplayVisitsMd(), "int"));
+       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayDoseMd(), AggregatedIPTView.getDisplayDoseMd(), "int"));
+       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayTreatmentsMd(), AggregatedIPTView.getDisplayTreatmentsMd(), "int"));
        master.buildAttributes(AggregatedIPTExcelView.CLASS, AggregatedIPTExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(AggregatedITNExcelView.CLASS))
      {
        master = new ODKForm(AggregatedITNExcelView.CLASS, gfc);
        master.setFormTitle(MdClassDAO.getMdClassDAO(ITNData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayServicesMd(), ITNDataView.getDisplayServicesMd(), "int"));
+       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayTargetGroupsMd(), ITNDataView.getDisplayTargetGroupsMd(), "int"));
+       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayNetsMd(), ITNDataView.getDisplayNetsMd(), "int"));
        master.buildAttributes(AggregatedITNExcelView.CLASS, AggregatedITNExcelView.customAttributeOrder(), null);
      }
      else if (mobileType.equals(EfficacyAssayExcelView.CLASS))
@@ -713,6 +722,7 @@ public class ODKForm implements Reloadable
        master.buildAttributes(PupalCollectionView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
        
        ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);
+       container.addAttribute(new ODKGridAttribute(PupalContainerView.getPupaeAmountMd(), PupalContainerView.getPupaeAmountMd(), "int"));
        container.buildAttributes(PupalContainerView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
        master.join(new RepeatFormJoin(master, container));
      }
