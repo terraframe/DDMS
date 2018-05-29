@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
@@ -89,11 +90,13 @@ public class ODKGeoAttribute extends AttributeColumn implements Reloadable
     List<? extends GeoEntity> countries = ODKFormExporter.getOrderedChildren(earth);
     for (GeoEntity country : countries)
     {
+      MdClassDAOIF universal = country.getMdClass();
+      
       Element item = document.createElement("item");
       select1.appendChild(item);
       
       Element label = document.createElement("label");
-      label.setTextContent(country.getEntityLabel().getValue());
+      label.setTextContent(country.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")");
       item.appendChild(label);
       
       Element value = document.createElement("value");

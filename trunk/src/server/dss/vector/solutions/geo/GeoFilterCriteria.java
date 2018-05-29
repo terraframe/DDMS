@@ -72,6 +72,11 @@ public class GeoFilterCriteria
   
   public boolean isPartOfHierarchy(GeoEntity geo)
   {
+    if (!geo.getActivated())
+    {
+      return false;
+    }
+    
     MdBusiness universal = MdBusiness.getMdBusiness(geo.getClass().getName());
     
     GeoHierarchy uniMetadata = GeoHierarchy.getGeoHierarchyFromType(universal);

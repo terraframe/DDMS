@@ -53,11 +53,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.constants.DeployProperties;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.io.XMLException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
@@ -248,10 +250,12 @@ public class ODKFormExporter implements Reloadable
 
     public void processGeo(GeoEntity geo, LinkedList<String> parents)
     {
+      MdClassDAOIF universal = geo.getMdClass();
+      
       ArrayList<String> geoCSV = new ArrayList<String>();
 
-      geoCSV.add(geo.getEntityLabel().getValue());
-      geoCSV.add(geo.getGeoId() + "##" + geo.getMdClass().getId());
+      geoCSV.add(geo.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")");
+      geoCSV.add(geo.getGeoId() + "##" + universal.getId());
 
       geoCSV.add(ODKGeoAttribute.PREFIX + parents.size());
 
@@ -412,7 +416,10 @@ public class ODKFormExporter implements Reloadable
     {
       for (GeoEntity ge : it)
       {
-        list.add(ge);
+        if (ge.getActivated())
+        {
+          list.add(ge);
+        }
       }
       
       return list;
