@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -38,7 +37,6 @@ import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExportSheet;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelSheetMetadata;
@@ -260,9 +258,12 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     // Setup the listeners excel export listeners
     ExcelExporter exporter = new ExcelExporter();
 
-    this.setupListener(exporter, form.getViewMd());
+    if (form.isExport())
+    {
+      this.setupListener(exporter, form.getViewMd());
 
-    sheets.put(form.getViewMd().definesType(), exporter.addTemplate(form.getViewMd().definesType(), metadata));
+      sheets.put(form.getViewMd().definesType(), exporter.addTemplate(form.getViewMd().definesType(), metadata));
+    }
 
     LinkedList<ODKFormJoin> joins = form.getJoins();
 

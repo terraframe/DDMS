@@ -165,8 +165,7 @@ public class ODKDataConverter implements Reloadable
     List<ODKRow> rows = new LinkedList<ODKRow>();
     List<Node> repeats = new LinkedList<Node>();
 
-    ExcelExportSheet sheet = sheets.get(root.getType());
-    List<ExcelColumn> extraColumns = sheet.getExtraColumns();
+    List<ExcelColumn> extraColumns = this.getExtraColumns(root, form, sheets);
 
     NodeList children = node.getChildNodes();
 
@@ -240,11 +239,11 @@ public class ODKDataConverter implements Reloadable
       }
     }
 
-    if (repeats.size() == 0)
+    if (repeats.size() == 0 && form.isExport())
     {
       rows.add(root);
     }
-    else
+    else if (form.isExport())
     {
       for (Node repeat : repeats)
       {
@@ -257,6 +256,18 @@ public class ODKDataConverter implements Reloadable
     }
 
     return rows;
+  }
+
+  private List<ExcelColumn> getExtraColumns(ODKRow root, ODKForm form, Map<String, ExcelExportSheet> sheets)
+  {
+    if (form.isExport())
+    {
+      ExcelExportSheet sheet = sheets.get(root.getType());
+
+      return sheet.getExtraColumns();
+    }
+
+    return new LinkedList<>();
   }
 
   private ExcelColumn getGeoColumn(List<ExcelColumn> extraColumns, String base, String universalId)

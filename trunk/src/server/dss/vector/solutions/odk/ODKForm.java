@@ -116,7 +116,6 @@ import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.SprayTeamExcelView;
-import dss.vector.solutions.irs.SprayTeamView;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayStatusView;
 import dss.vector.solutions.irs.TeamSprayView;
@@ -195,6 +194,8 @@ public class ODKForm implements Reloadable
 
   protected String                   formTitle;
 
+  protected boolean                  export;
+
   public ODKForm(MdClassDAOIF base)
   {
     this(base, null, null);
@@ -221,7 +222,18 @@ public class ODKForm implements Reloadable
     this.gfc = gfc;
     this.joins = new LinkedList<ODKFormJoin>();
     this.attrs = new LinkedList<ODKAttribute>();
+    this.export = true;
     this.formTitle = this.getViewMd().getDisplayLabel(Session.getCurrentLocale());
+  }
+
+  public void setExport(boolean export)
+  {
+    this.export = export;
+  }
+
+  public boolean isExport()
+  {
+    return export;
   }
 
   public void setGeoFilterCriteria(GeoFilterCriteria geoFilters)
@@ -575,6 +587,7 @@ public class ODKForm implements Reloadable
     {
       master = new ODKForm(AggregatedCaseExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(AggregatedCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.setExport(false);
 
       Map<MdAttributeDAOIF, MdAttributeDAOIF> sharedAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       sharedAttrs.put(AggregatedCaseExcelView.getStartDateMd(), AggregatedCaseExcelView.getStartDateMd());
