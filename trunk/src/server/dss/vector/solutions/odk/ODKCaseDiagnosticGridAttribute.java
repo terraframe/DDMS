@@ -1,11 +1,12 @@
 package dss.vector.solutions.odk;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class ODKCaseDiagnosticGridAttribute extends ODKGridAttribute
+public class ODKCaseDiagnosticGridAttribute extends ODKGridAttribute implements Reloadable
 {
   public ODKCaseDiagnosticGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type) {
     super(sourceMdAttr, viewMdAttr, type);

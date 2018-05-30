@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.export;
 
@@ -22,7 +22,6 @@ import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
-import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -32,7 +31,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 
-public class AggregatedCaseReferralListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class AggregatedCaseReferralListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String REFERRAL   = "Referral/Stock - ";
 
@@ -44,22 +43,10 @@ public class AggregatedCaseReferralListener extends ExcelAdapter implements Exce
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term referral : TermRootCache.getRoots(AggregatedCaseView.getCaseStockReferralMd()))
-    {
-      extraColumns.add(new ExcelColumn(REFERRAL + referral.getTermId(), referral.getTermDisplayLabel().getValue()));
-    }
-
-    for (Term category : TermRootCache.getRoots(AggregatedCaseView.getCaseReferralsMd()))
-    {
-      extraColumns.add(new ExcelColumn(REASON + category.getTermId(), category.getTermDisplayLabel().getValue()));
-    }
-
-    for (Term patient : TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosticMd()))
-    {
-      String label = patient.getTermDisplayLabel().getValue();
-      extraColumns.add(new ExcelColumn(DIAGNOSTIC + patient.getTermId(), label + " - Total tests"));
-      extraColumns.add(new ExcelColumn(POSITIVE + patient.getTermId(), label + " - Total positive tests"));
-    }
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseStockReferralMd(), REFERRAL);
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseReferralsMd(), REASON);
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseDiagnosticMd(), DIAGNOSTIC, " - Total tests", "total");
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseDiagnosticMd(), POSITIVE, " - Total positive tests", "positive");
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception

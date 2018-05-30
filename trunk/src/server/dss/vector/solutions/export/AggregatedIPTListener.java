@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.export;
 
@@ -23,11 +23,9 @@ import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
-import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
 import dss.vector.solutions.intervention.monitor.IPTANCVisit;
@@ -37,7 +35,7 @@ import dss.vector.solutions.intervention.monitor.IPTTreatment;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class AggregatedIPTListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String PATIENTS  = "patient ";
 
@@ -49,29 +47,10 @@ public class AggregatedIPTListener extends ExcelAdapter implements ExcelExportLi
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayPatientsMd()))
-    {
-      String amount = MdAttribute.get(IPTPatients.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(PATIENTS + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-
-    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayVisitsMd()))
-    {
-      String amount = MdAttribute.get(IPTANCVisit.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(ANCVISITS + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-
-    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayDoseMd()))
-    {
-      String amount = MdAttribute.get(IPTDose.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(DOSES + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-
-    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayTreatmentsMd()))
-    {
-      String amount = MdAttribute.get(IPTTreatment.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(TREATMENT + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
+    this.addGridColumns(extraColumns, AggregatedIPTView.getDisplayPatientsMd(), PATIENTS, IPTPatients.getAmountMd());
+    this.addGridColumns(extraColumns, AggregatedIPTView.getDisplayVisitsMd(), ANCVISITS, IPTANCVisit.getAmountMd());
+    this.addGridColumns(extraColumns, AggregatedIPTView.getDisplayDoseMd(), DOSES, IPTDose.getAmountMd());
+    this.addGridColumns(extraColumns, AggregatedIPTView.getDisplayTreatmentsMd(), TREATMENT, IPTTreatment.getAmountMd());
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception

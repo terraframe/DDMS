@@ -23,11 +23,9 @@ import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
-import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNNet;
@@ -36,7 +34,7 @@ import dss.vector.solutions.intervention.monitor.ITNTargetGroup;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class AggregatedITNListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class AggregatedITNListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String SERVICES     = "Service ";
 
@@ -46,23 +44,9 @@ public class AggregatedITNListener extends ExcelAdapter implements ExcelExportLi
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term grid : TermRootCache.getRoots(ITNDataView.getDisplayServicesMd()))
-    {
-      String amount = MdAttribute.get(ITNService.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(SERVICES + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-
-    for (Term grid : TermRootCache.getRoots(ITNDataView.getDisplayTargetGroupsMd()))
-    {
-      String amount = MdAttribute.get(ITNTargetGroup.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(TARGETGROUPS + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-
-    for (Term grid : TermRootCache.getRoots(ITNDataView.getDisplayNetsMd()))
-    {
-      String amount = MdAttribute.get(ITNNet.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(ITNTYPE + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
+    this.addGridColumns(extraColumns, ITNDataView.getDisplayServicesMd(), SERVICES, ITNService.getAmountMd());
+    this.addGridColumns(extraColumns, ITNDataView.getDisplayTargetGroupsMd(), TARGETGROUPS, ITNTargetGroup.getAmountMd());
+    this.addGridColumns(extraColumns, ITNDataView.getDisplayNetsMd(), ITNTYPE, ITNNet.getAmountMd());    
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -138,7 +139,7 @@ public class ODK2Excel implements Reloadable
     return uuids;
   }
 
-  public void export(Collection<String> uuids, ExcelExportSheet sheet)
+  public void export(Collection<String> uuids, Map<String, ExcelExportSheet> sheets)
   {
     ODKDataConverter converter = new ODKDataConverter();
 
@@ -195,10 +196,12 @@ public class ODK2Excel implements Reloadable
                 {
                   Node child = children.item(j);
 
-                  List<ODKRow> rows = converter.convert(uuid, form, child, sheet.getExtraColumns());
+                  List<ODKRow> rows = converter.convert(uuid, form, child, sheets);
 
                   for (ODKRow row : rows)
                   {
+                    ExcelExportSheet sheet = sheets.get(row.getType());
+
                     sheet.addRow(row.getMutable(), row.getOverrides());
                   }
                 }

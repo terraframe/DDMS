@@ -39,6 +39,6 @@ public class GeoExcelColumn extends ExcelColumn implements Reloadable
       return overrides.get(attributeName);
     }
 
-    return "";
+    return null;
   }
 }

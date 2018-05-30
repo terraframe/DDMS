@@ -15,7 +15,9 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -23,6 +25,11 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +38,7 @@ import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExportSheet;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelSheetMetadata;
@@ -43,8 +51,7 @@ import com.runwaysdk.system.scheduler.JobHistory;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.export.EfficacyAssayExcelView;
-import dss.vector.solutions.export.MosquitoCollectionExcelView;
+import dss.vector.solutions.export.AggregatedCaseExcelView;
 import dss.vector.solutions.general.Disease;
 
 public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.runwaysdk.generation.loader.Reloadable
@@ -81,7 +88,6 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
     try
     {
-
       // ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
       ODK2Excel importer = new ODK2Excel(form, null);
       Collection<String> allUUIDS = importer.getUUIDs();
@@ -97,32 +103,39 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           Collection<String> uuids = entry.getValue();
           String username = entry.getKey();
 
-          ExcelExporter exporter = new ExcelExporter();
-
-          // Setup the listeners excel export listeners
-          this.setupListener(exporter, form.getViewMd());
-
-          // Add a listener for the UUID column
-          exporter.addListener(new UUIDExcelListener());
-
           ExcelSheetMetadata metadata = new ExcelSheetMetadata();
           metadata.setValues(this.getDisease().getDisplayLabel());
           metadata.setValues(username);
 
-          ExcelExportSheet sheet = exporter.addTemplate(form.getViewMd().definesType(), metadata);
+          Map<String, ExcelExportSheet> sheets = this.createSheets(form, metadata);
 
-          importer.export(uuids, sheet);
+          importer.export(uuids, sheets);
+
+          SXSSFWorkbook workbook = new SXSSFWorkbook();
+
+          for (Entry<String, ExcelExportSheet> e : sheets.entrySet())
+          {
+            ExcelExportSheet sheet = e.getValue();
+
+            this.copySheetIntoWorkbook(workbook, sheet.getSheet(), sheet.getSheetName());
+          }
+
+          // for(sheets.entrySet())
 
           try
           {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
-            exporter.write(new FileOutputStream(new File(parent, filename)));
+            workbook.write(new FileOutputStream(new File(parent, filename)));
           }
           catch (FileNotFoundException e)
           {
             logger.error("Unable to write file");
+          }
+          catch (IOException e)
+          {
+            throw new ProgrammingErrorException(e);
           }
 
           String userId = this.getUser(username);
@@ -152,7 +165,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
                 /*
                  * Copy file to the archive directory
                  */
-                File archive = new File("archive");
+                File archive = new File(ODKFacade.getArchivePath());
                 archive.mkdirs();
 
                 IOUtils.copy(new FileInputStream(file), new FileOutputStream(new File(archive, file.getName())));
@@ -186,6 +199,80 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     }
 
     return status;
+  }
+
+  @SuppressWarnings("unchecked")
+  private void copySheetIntoWorkbook(Workbook workbook, Sheet oldSheet, String name)
+  {
+    Sheet newSheet = workbook.createSheet(name);
+    Iterator<Row> rowIterator = oldSheet.rowIterator();
+    while (rowIterator.hasNext())
+    {
+      Row oldRow = rowIterator.next();
+      int rowNum = oldRow.getRowNum();
+      Row newRow = newSheet.createRow(rowNum);
+
+      Iterator<Cell> cellIterator = oldRow.cellIterator();
+      while (cellIterator.hasNext())
+      {
+        Cell oldCell = cellIterator.next();
+        int columnIndex = oldCell.getColumnIndex();
+        Cell newCell = newRow.createCell(columnIndex);
+        switch (oldCell.getCellType())
+        {
+          case Cell.CELL_TYPE_BOOLEAN:
+            newCell.setCellValue(oldCell.getBooleanCellValue());
+            break;
+          case Cell.CELL_TYPE_FORMULA:
+            newCell.setCellFormula(oldCell.getCellFormula());
+            break;
+          case Cell.CELL_TYPE_NUMERIC:
+            newCell.setCellValue(oldCell.getNumericCellValue());
+            break;
+          case Cell.CELL_TYPE_STRING:
+            newCell.setCellValue(oldCell.getRichStringCellValue());
+            break;
+          case Cell.CELL_TYPE_ERROR:
+            newCell.setCellType(Cell.CELL_TYPE_ERROR);
+            newCell.setCellValue(oldCell.getErrorCellValue());
+            break;
+        }
+
+        if (rowNum == 2)
+        {
+          newSheet.setColumnWidth(columnIndex, oldSheet.getColumnWidth(columnIndex));
+        }
+      }
+    }
+  }
+
+  private Map<String, ExcelExportSheet> createSheets(ODKForm form, ExcelSheetMetadata metadata)
+  {
+    HashMap<String, ExcelExportSheet> sheets = new HashMap<String, ExcelExportSheet>();
+
+    createSheets(form, metadata, sheets);
+
+    return sheets;
+  }
+
+  private void createSheets(ODKForm form, ExcelSheetMetadata metadata, Map<String, ExcelExportSheet> sheets)
+  {
+    // Setup the listeners excel export listeners
+    ExcelExporter exporter = new ExcelExporter();
+
+    this.setupListener(exporter, form.getViewMd());
+
+    sheets.put(form.getViewMd().definesType(), exporter.addTemplate(form.getViewMd().definesType(), metadata));
+
+    LinkedList<ODKFormJoin> joins = form.getJoins();
+
+    for (ODKFormJoin join : joins)
+    {
+      if (join.isStandalone())
+      {
+        this.createSheets(join.getChild(), metadata, sheets);
+      }
+    }
   }
 
   private Map<String, Collection<String>> group(ODKForm form, Collection<String> uuids)
@@ -366,11 +453,25 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     for (int i = 0; i < 10; i++)
     {
       MobileDataUploadJob job = new MobileDataUploadJob();
-      job.setJobId("Efficacy Assay View ODK: " + i);
-      job.getDescription().setValue("Efficacy Assay View ODK: " + i);
+      job.setJobId("Aggregated Case: " + i);
+      job.getDescription().setValue("Aggregated Case: " + i);
       job.setDisease(Disease.getCurrent());
-      job.setFormType(EfficacyAssayExcelView.CLASS);
+      job.setFormType(AggregatedCaseExcelView.CLASS);
       job.apply();
+
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("Mosquito Collection ODK: " + i);
+      // job.getDescription().setValue("Mosquito Collection ODK: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(MosquitoCollectionExcelView.CLASS);
+      // job.apply();
+
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("Efficacy Assay View ODK: " + i);
+      // job.getDescription().setValue("Efficacy Assay View ODK: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(EfficacyAssayExcelView.CLASS);
+      // job.apply();
     }
   }
 }

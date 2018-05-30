@@ -29,10 +29,12 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdStructDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.io.ExcelExportSheet;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.export.GeoExcelColumn;
+import dss.vector.solutions.export.GridExcelColumn;
 import dss.vector.solutions.ontology.Term;
 
 public class ODKDataConverter implements Reloadable
@@ -131,6 +133,11 @@ public class ODKDataConverter implements Reloadable
 
       return clone;
     }
+
+    public String getType()
+    {
+      return this.mutable.getType();
+    }
   }
 
   private DateFormat odkFormat;
@@ -143,20 +150,23 @@ public class ODKDataConverter implements Reloadable
     this.runwayFormat = new SimpleDateFormat(Constants.DATE_FORMAT);
   }
 
-  public List<ODKRow> convert(String uuid, ODKForm form, Node node, List<ExcelColumn> extraColumns)
+  public List<ODKRow> convert(String uuid, ODKForm form, Node node, Map<String, ExcelExportSheet> sheets)
   {
     MdClassDAOIF mdType = form.getViewMd();
 
     ODKRow root = new ODKRow(BusinessFacade.newMutable(mdType.definesType()));
     root.setOverride("_UUID_", uuid);
 
-    return convert(root, form, node, extraColumns);
+    return convert(root, form, node, sheets);
   }
 
-  private List<ODKRow> convert(ODKRow root, ODKForm form, Node node, List<ExcelColumn> extraColumns)
+  private List<ODKRow> convert(ODKRow root, ODKForm form, Node node, Map<String, ExcelExportSheet> sheets)
   {
     List<ODKRow> rows = new LinkedList<ODKRow>();
     List<Node> repeats = new LinkedList<Node>();
+
+    ExcelExportSheet sheet = sheets.get(root.getType());
+    List<ExcelColumn> extraColumns = sheet.getExtraColumns();
 
     NodeList children = node.getChildNodes();
 
@@ -182,6 +192,23 @@ public class ODKDataConverter implements Reloadable
 
         root.setStructValue(structName, sourceAttribute, value);
       }
+      else if (form.isGridAttribute(sourceAttribute))
+      {
+        String value = child.getTextContent();
+
+        if (value != null && value.length() > 0)
+        {
+          String[] split = sourceAttribute.replaceFirst(ODKGridAttribute.GRID_ATTR_PREFIX, "").split("\\.");
+
+          String gridAttribute = split[0];
+          String termId = split[1];
+          String subAttribute = ( split.length > 2 ) ? split[2] : null;
+
+          ExcelColumn column = getGridColumn(extraColumns, gridAttribute, termId, subAttribute);
+
+          root.setOverride(column.getAttributeName(), value);
+        }
+      }
       else if (form.isGeoAttribute(sourceAttribute))
       {
         String[] split = sourceAttribute.split(ODKGeoAttribute.PREFIX);
@@ -195,10 +222,17 @@ public class ODKDataConverter implements Reloadable
           String geoId = value.substring(0, index);
           String universalId = value.substring(index + 2);
 
-          ExcelColumn column = getColumn(extraColumns, base, universalId);
+          ExcelColumn column = getGeoColumn(extraColumns, base, universalId);
 
           root.setOverride(column.getAttributeName(), geoId);
         }
+      }
+      else if (form.isStandalone(sourceAttribute))
+      {
+        ODKForm standalone = form.getRepeatable(sourceAttribute);
+        String uuid = root.getOverrides().get("_UUID_");
+
+        rows.addAll(this.convert(uuid, standalone, child, sheets));
       }
       else if (form.isRepeatable(sourceAttribute))
       {
@@ -218,14 +252,14 @@ public class ODKDataConverter implements Reloadable
 
         ODKForm repeatable = form.getRepeatable(sourceAttribute);
 
-        rows.addAll(this.convert(root.clone(), repeatable, repeat, extraColumns));
+        rows.addAll(this.convert(root.clone(), repeatable, repeat, sheets));
       }
     }
 
     return rows;
   }
 
-  private ExcelColumn getColumn(List<ExcelColumn> extraColumns, String base, String universalId)
+  private ExcelColumn getGeoColumn(List<ExcelColumn> extraColumns, String base, String universalId)
   {
     for (ExcelColumn column : extraColumns)
     {
@@ -234,6 +268,26 @@ public class ODKDataConverter implements Reloadable
         GeoExcelColumn geoColumn = (GeoExcelColumn) column;
 
         if (geoColumn.getBaseAttribute().equals(base) && geoColumn.getUniversalId().equals(universalId))
+        {
+          return column;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  private ExcelColumn getGridColumn(List<ExcelColumn> extraColumns, String gridAttribute, String termId, String subAttribute)
+  {
+    String desanitize = termId.replaceAll("_", ":");
+
+    for (ExcelColumn column : extraColumns)
+    {
+      if (column instanceof GridExcelColumn)
+      {
+        GridExcelColumn geoColumn = (GridExcelColumn) column;
+
+        if (geoColumn.isColumn(gridAttribute, termId, subAttribute) || geoColumn.isColumn(gridAttribute, desanitize, subAttribute))
         {
           return column;
         }

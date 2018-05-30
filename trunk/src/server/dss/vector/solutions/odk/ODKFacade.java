@@ -125,4 +125,9 @@ public class ODKFacade
   {
     return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + CommonProperties.getDeployAppName() + "Mobile" + File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "jdbc.properties";
   }
+  
+  public static String getArchivePath()
+  {
+    return CommonProperties.getDeployRoot() + File.separator + "webapps" + File.separator + CommonProperties.getDeployAppName() + File.separator + "WEB-INF" + File.separator + "archive";
+  }
 }

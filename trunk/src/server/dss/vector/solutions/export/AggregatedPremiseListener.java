@@ -22,7 +22,6 @@ import org.apache.poi.ss.usermodel.Row;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
-import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -32,7 +31,7 @@ import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class AggregatedPremiseListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class AggregatedPremiseListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String METHOD = "Intervention Method Count - ";
 
@@ -40,15 +39,8 @@ public class AggregatedPremiseListener extends ExcelAdapter implements ExcelExpo
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term method : TermRootCache.getRoots(AggregatedPremiseVisitView.getInterventionMethodMd()))
-    {
-      extraColumns.add(new ExcelColumn(METHOD + method.getTermId(), method.getTermDisplayLabel().getValue()));
-    }
-
-    for (Term method : TermRootCache.getRoots(AggregatedPremiseVisitView.getNonTreatmentReasonMd()))
-    {
-      extraColumns.add(new ExcelColumn(REASON + method.getTermId(), method.getTermDisplayLabel().getValue()));
-    }
+    this.addGridColumns(extraColumns, AggregatedPremiseVisitView.getInterventionMethodMd(), METHOD);
+    this.addGridColumns(extraColumns, AggregatedPremiseVisitView.getNonTreatmentReasonMd(), REASON);
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
