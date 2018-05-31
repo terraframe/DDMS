@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.report;
 
@@ -151,12 +151,11 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
       if (!mdAttribute.isSystem())
       {
         String attributeName = mdAttribute.definesAttribute();
+        String columnName = mdAttribute.getColumnName();
+        String displayLabel = mdAttribute.getDisplayLabel(locale);
 
-        if (!attributeName.contains("__"))
+        if (isValidAttribute(attributeName, mdAttribute))
         {
-          String columnName = mdAttribute.getColumnName();
-          String displayLabel = mdAttribute.getDisplayLabel(locale);
-
           Selectable selectable = query.get(attributeName);
 
           MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
@@ -172,7 +171,8 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
             if (referenceType.equals(Term.CLASS))
             {
               /*
-               * If the selectable is referencing a Classifier then get the display label of the classifier
+               * If the selectable is referencing a Classifier then get the
+               * display label of the classifier
                */
               TermQuery classifierQuery = new TermQuery(vQuery);
 
@@ -188,7 +188,8 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
             AttributeLocal selectableLocal = (AttributeLocal) selectable;
 
             /*
-             * If the selectable is a localized attribute then get the localize label
+             * If the selectable is a localized attribute then get the localize
+             * label
              */
             Coalesce label = selectableLocal.localize(columnName, displayLabel);
             label.setUserDefinedAlias(attributeName);
@@ -218,5 +219,10 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
         }
       }
     }
+  }
+
+  private boolean isValidAttribute(String attributeName, MdAttributeDAOIF mdAttribute)
+  {
+    return ! ( attributeName.contains("__") && mdAttribute.getMdAttributeConcrete() instanceof MdAttributeReferenceDAOIF );
   }
 }
