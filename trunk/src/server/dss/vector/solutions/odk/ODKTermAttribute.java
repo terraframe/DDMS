@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -165,8 +166,20 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
   {
     return "select1";
   }
-
+  
   private static ValueQuery termQuery(MdAttributeDAOIF mdAttribute)
+  {
+    ValueQuery vq = buildTermQuery(mdAttribute);
+    
+    if (vq.getCount() == 0 && mdAttribute instanceof MdAttributeVirtualDAOIF)
+    {
+      vq = buildTermQuery(mdAttribute.getMdAttributeConcrete());
+    }
+    
+    return vq;
+  }
+
+  private static ValueQuery buildTermQuery(MdAttributeDAOIF mdAttribute)
   {
     QueryFactory factory = new QueryFactory();
 

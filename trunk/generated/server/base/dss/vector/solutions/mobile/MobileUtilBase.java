@@ -1,6 +1,6 @@
 package dss.vector.solutions.mobile;
 
-@com.runwaysdk.business.ClassSignature(hash = 2024661464)
+@com.runwaysdk.business.ClassSignature(hash = 941641534)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MobileUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.mobile.MobileUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 2024661464;
+  private static final long serialVersionUID = 941641534;
   
   public MobileUtilBase()
   {
@@ -46,6 +46,12 @@ public abstract class MobileUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static java.lang.String export(java.lang.String mobileType)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mobile.MobileUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void exportMdForm(java.lang.String mdFormId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.mobile.MobileUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

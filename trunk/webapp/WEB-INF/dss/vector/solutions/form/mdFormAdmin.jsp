@@ -257,6 +257,9 @@ YAHOO.util.Event.onDOMReady(function(){
   <form id="exportDefinition" target="exportIframe" method="POST" action="dss.vector.solutions.form.MdFormAdminController.exportDefinition.mojo">
         <input type="hidden" id="export_mdFormId" name="mdFormId" />
   </form>
+  <form id="mobileExportDefinition" target="exportIframe" method="POST" action="dss.vector.solutions.form.MdFormAdminController.mobileExport.mojo">
+        <input type="hidden" id="mobileExport_mdFormId" name="mdFormId" />
+  </form>
 </div>
 
 

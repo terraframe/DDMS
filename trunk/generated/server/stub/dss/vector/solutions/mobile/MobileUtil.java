@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ArrayUtils;
 
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdForm;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.AggregatedCaseExcelView;
 import dss.vector.solutions.export.AggregatedIPTExcelView;
 import dss.vector.solutions.export.AggregatedITNExcelView;
@@ -38,6 +41,7 @@ import dss.vector.solutions.export.ThresholdDataExcelView;
 import dss.vector.solutions.export.TimeResponseAssayExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
 import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
+import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.irs.SprayTeamExcelView;
 import dss.vector.solutions.odk.ODKForm;
 import dss.vector.solutions.odk.ODKFormExporter;
@@ -59,7 +63,9 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   private static void mainInRequest()
   {
 //    MobileUtil.export(AggregatedCaseExcelView.CLASS);
-    MobileUtil.exportAll(0,allTypes.length);
+    
+    int myIndex = ArrayUtils.indexOf(allTypes, FormSurvey.CLASS);
+    MobileUtil.exportAll(myIndex,myIndex + 1);
   }
   
   public static String convertToOdkId(String seed)
@@ -72,6 +78,13 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
     }
 
     return seed;
+  }
+  
+  public static void exportMdForm(String mdFormId)
+  {
+//    MdForm.get(mdFormId).definesType()
+    
+    export(MdForm.get(mdFormId).getFormMdClass().definesType());
   }
   
   public static String export(java.lang.String mobileType)
@@ -89,7 +102,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
       LarvacideExcelView.CLASS, OperatorSprayExcelView.CLASS, TeamSprayExcelView.CLASS, ZoneSprayExcelView.CLASS, PersonExcelView.CLASS, PopulationDataExcelView.CLASS,
       PupalCollectionExcelView.CLASS, SurveyExcelView.CLASS, ThresholdDataExcelView.CLASS, ImmatureCollectionExcelView.CLASS, SprayTeamExcelView.CLASS, DiagnosticAssayExcelView.CLASS,
       AdultDiscriminatingDoseAssayExcelView.CLASS, BiochemicalAssayExcelView.CLASS, InfectionAssayExcelView.CLASS, KnockDownAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.CLASS,
-      MolecularAssayExcelView.CLASS, PooledInfectionAssayExcelView.CLASS, TimeResponseAssayExcelView.CLASS, GeoTargetExcelView.CLASS, ResourceTargetExcelView.CLASS
+      MolecularAssayExcelView.CLASS, PooledInfectionAssayExcelView.CLASS, TimeResponseAssayExcelView.CLASS, GeoTargetExcelView.CLASS, ResourceTargetExcelView.CLASS, FormSurvey.CLASS
   };
   public static void exportAll(int startIndex, int endIndex)
   {

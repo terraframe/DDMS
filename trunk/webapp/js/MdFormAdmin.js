@@ -103,6 +103,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.setExportDefinitionListener(Mojo.Util.bind(this, this.requestExport));
       
+      this._MdFormAdminController.setMobileExportListener(Mojo.Util.bind(this, this.requestMobileExport));
+      
       var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
       this._MdFormAdminController.setUpdateMdFieldListener(updateMdFieldB);
       this._MdFormAdminController.setUpdateGeoFieldListener(updateMdFieldB);
@@ -1163,6 +1165,13 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       });
       
       return request;
+    },
+    requestMobileExport : function()
+    {
+      document.getElementById('mobileExport_mdFormId').value = this._currentMdFormId;
+      
+      var form = document.getElementById('mobileExportDefinition');
+      form.submit();
     },
     requestExport : function()
     {
