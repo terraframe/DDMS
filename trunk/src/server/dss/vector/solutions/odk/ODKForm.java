@@ -16,6 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.constants.ElementInfo;
+import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
@@ -130,7 +131,6 @@ import dss.vector.solutions.intervention.monitor.IndividualIPT;
 import dss.vector.solutions.intervention.monitor.IndividualIPTView;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.intervention.monitor.Larvacide;
-import dss.vector.solutions.intervention.monitor.LarvacideInstance;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.irs.GeoTarget;
@@ -973,7 +973,6 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
     {
-      // Form generator
       MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(MdFormUtil.getMdFormFromBusinessType(mobileType).getId());
       List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
       List<GeoHierarchy> ghl = new ArrayList<GeoHierarchy>();
@@ -1028,35 +1027,34 @@ public class ODKForm implements Reloadable
           }
         }
         
-//        for (MdFieldDAOIF mdField : mdFields)
-//        {
-//          if (mdField instanceof MdWebAttributeDAO)
-//          {
-//            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
-//            
-//            ODKAttribute odkAttr = master.getAttributeByName(dao.getFieldName());
-//            
-//            List<FieldConditionDAOIF> conditions = mdField.getConditions();
-//            
-//            ODKAttributeCondition odkCond = null;
-//            for (FieldConditionDAOIF condition : conditions)
-//            {
-//              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
-//              
-//              if (odkCond != null)
-//              {
-//                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
-//              }
-//              else
-//              {
-//                odkCond = loopCond;
-//              }
-//            }
-//            
-//            odkAttr.setCondition(odkCond);
-//          }
-//        }
-//      }
+        for (MdFieldDAOIF mdField : mdFields)
+        {
+          if (mdField instanceof MdWebAttributeDAO)
+          {
+            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
+            
+            ODKAttribute odkAttr = master.getAttributeByName(dao.getFieldName());
+            
+            List<FieldConditionDAOIF> conditions = mdField.getConditions();
+            
+            ODKAttributeCondition odkCond = null;
+            for (FieldConditionDAOIF condition : conditions)
+            {
+              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
+              
+              if (odkCond != null)
+              {
+                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
+              }
+              else
+              {
+                odkCond = loopCond;
+              }
+            }
+            
+            odkAttr.setCondition(odkCond);
+          }
+        }
     }
     else
     {

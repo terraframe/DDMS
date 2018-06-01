@@ -41,7 +41,7 @@ public class ODKAttributeConditionBasic extends ODKAttributeCondition
     if (comparitiveAttr instanceof ODKTermAttribute)
     {
       Term t = Term.get(value);
-      value = t.getTermId();
+      value = ODKTermAttribute.sanitizeTermId(t.getTermId());
     }
     
     return attrStr + " " + operation.getOdkRepresentation() + " " + value;

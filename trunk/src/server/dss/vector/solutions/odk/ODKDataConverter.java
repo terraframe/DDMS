@@ -338,7 +338,7 @@ public class ODKDataConverter implements Reloadable
 
         if (referenceMdBusiness.definesType().equals(Term.CLASS))
         {
-          return Term.getByTermId(textContent).getId();
+          return Term.getByTermId(ODKTermAttribute.reverseTermIdSanitization(textContent)).getId();
         }
         else
         {

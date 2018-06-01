@@ -26,7 +26,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
   public static final int  LIMIT = 100;
 
   private Set<String>      exported;
-
+  
   public ODKTermAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
   {
     this(sourceMdAttr, viewMdAttr, exported, 0);
@@ -37,6 +37,16 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     super(sourceMdAttr, viewMdAttr);
 
     this.exported = exported;
+  }
+  
+  public static String sanitizeTermId(String termId)
+  {
+    return termId.replaceAll(":", "__COLON__");
+  }
+  
+  public static String reverseTermIdSanitization(String sanitizedTermId)
+  {
+    return sanitizedTermId.replaceAll("__COLON__", ":");
   }
 
   @Override
@@ -74,7 +84,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
         while (it.hasNext())
         {
           ValueObject vObject = it.next();
-          String termId = vObject.getValue("termId");
+          String termId = this.sanitizeTermId(vObject.getValue("termId"));
           String label = vObject.getValue("displayLabel");
           String selectable = vObject.getValue("selectable");
           String rootId = vObject.getValue("rootId");
@@ -131,7 +141,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
         while (it.hasNext())
         {
           ValueObject vObject = it.next();
-          String termId = vObject.getValue("termId");
+          String termId = this.sanitizeTermId(vObject.getValue("termId"));
           String selectable = vObject.getValue("selectable");
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");
