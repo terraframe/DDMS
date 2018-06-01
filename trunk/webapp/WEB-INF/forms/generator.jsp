@@ -183,7 +183,11 @@ YAHOO.util.Event.onDOMReady(function(){
 	  <mdss:localize key="Excel_Export_Header" var="export_label"/>
 	  <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
 	</form>
-	
+	<form id="mobile.export.button" name="${mdClassType}.mobile" action="mobile/export" method="get">
+    <input type="hidden" value="${mdClassType}" name="type"/>
+    <mdss:localize key="Mobile_Export_Button" var="mobile_label"/>
+    <input type="submit" class="mobileButton" name="mobile.button" value="${mobile_label}"/>
+  </form>
 	<form action="dss.vector.solutions.generator.ExcelController.importType.mojo" method="post">
 	  <mdss:localize key="Excel_Import_Header" var="import_label"/>
 	  <input type="hidden" value="${mdFormType}" name="excelType"/>

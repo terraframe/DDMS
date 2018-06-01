@@ -1,5 +1,7 @@
 package dss.vector.solutions.odk;
 
+import dss.vector.solutions.ontology.Term;
+
 public class ODKAttributeConditionBasic extends ODKAttributeCondition
 {
   private ODKAttribute definingAttr;
@@ -34,6 +36,12 @@ public class ODKAttributeConditionBasic extends ODKAttributeCondition
     if (definingAttr.equals(comparitiveAttr))
     {
       attrStr = ".";
+    }
+    
+    if (comparitiveAttr instanceof ODKTermAttribute)
+    {
+      Term t = Term.get(value);
+      value = t.getTermId();
     }
     
     return attrStr + " " + operation.getOdkRepresentation() + " " + value;
