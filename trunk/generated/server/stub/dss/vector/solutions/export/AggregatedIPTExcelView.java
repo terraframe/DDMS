@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.export;
 
@@ -42,14 +42,21 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
   private static final long serialVersionUID = 1246660812283L;
 
   private List<Term>        patients;
+
   private List<Integer>     patientAmounts;
+
   private List<Term>        visits;
+
   private List<Integer>     visitAmounts;
+
   private List<Term>        doses;
+
   private List<Integer>     doseAmounts;
+
   private List<Term>        treatments;
+
   private List<Integer>     treatmentAmounts;
-  
+
   public AggregatedIPTExcelView()
   {
     super();
@@ -70,20 +77,20 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
     GeoEntity geoEntity = getGeoEntity();
 
     PeriodType periodType = ExcelEnums.getPeriodType(this.getPeriodType());
-    
+
     AggregatedIPTView ipt = AggregatedIPT.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getPeriodYear());
-    
+
     if (ipt.hasConcrete())
     {
       ipt = AggregatedIPT.lockView(ipt.getConcreteId());
     }
-    
+
     ipt.setNumberPregnant(this.getNumberPregnant());
     ipt.setNumberNatalCare(this.getNumberNatalCare());
     ipt.setNumberPregnantIron(this.getNumberPregnantIron());
     ipt.setNumberPregnantITN(this.getNumberPregnantITN());
     ipt.setTotalITN(this.getTotalITN());
-    
+
     IPTPatients[] existingPatients = ipt.getIPTPatients();
     IPTPatients[] patientArray = new IPTPatients[patients.size()];
     for (int i = 0; i < patientArray.length; i++)
@@ -91,24 +98,28 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
       // Default to a new relationship
       String termId = patients.get(i).getId();
       patientArray[i] = new IPTPatients(ipt.getConcreteId(), termId);
-      
+
       // If a relationship already exists, use it instead
       for (IPTPatients existing : existingPatients)
       {
         if (existing.getChildId().equals(termId))
         {
-          existing.lock();
+          if (!existing.isNew())
+          {
+            existing.lock();
+          }
+
           patientArray[i] = existing;
         }
       }
-      
+
       // Set the amount
       if (i < patientAmounts.size())
       {
-        patientArray[i].setAmount((patientAmounts.get(i)));
+        patientArray[i].setAmount( ( patientAmounts.get(i) ));
       }
     }
-    
+
     IPTANCVisit[] existingVisits = ipt.getIPTANCVisits();
     IPTANCVisit[] visitArray = new IPTANCVisit[visits.size()];
     for (int i = 0; i < visitArray.length; i++)
@@ -116,24 +127,28 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
       // Default to a new relationship
       String termId = visits.get(i).getId();
       visitArray[i] = new IPTANCVisit(ipt.getConcreteId(), termId);
-      
+
       // If a relationship already exists, use it instead
       for (IPTANCVisit existing : existingVisits)
       {
         if (existing.getChildId().equals(termId))
         {
-          existing.lock();
+          if (!existing.isNew())
+          {
+            existing.lock();
+          }
+          
           visitArray[i] = existing;
         }
       }
-      
+
       // Set the amount
       if (i < visitAmounts.size())
       {
-        visitArray[i].setAmount((visitAmounts.get(i)));
+        visitArray[i].setAmount( ( visitAmounts.get(i) ));
       }
     }
-    
+
     IPTDose[] existingDoses = ipt.getIPTDoses();
     IPTDose[] doseArray = new IPTDose[doses.size()];
     for (int i = 0; i < doseArray.length; i++)
@@ -141,24 +156,28 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
       // Default to a new relationship
       String termId = doses.get(i).getId();
       doseArray[i] = new IPTDose(ipt.getConcreteId(), termId);
-      
+
       // If a relationship already exists, use it instead
       for (IPTDose existing : existingDoses)
       {
         if (existing.getChildId().equals(termId))
         {
-          existing.lock();
+          if (!existing.isNew())
+          {
+            existing.lock();
+          }
+          
           doseArray[i] = existing;
         }
       }
-      
+
       // Set the amount
       if (i < doseAmounts.size())
       {
-        doseArray[i].setAmount((doseAmounts.get(i)));
+        doseArray[i].setAmount( ( doseAmounts.get(i) ));
       }
     }
-    
+
     IPTTreatment[] existingTreatments = ipt.getIPTTreatments();
     IPTTreatment[] treatmentArray = new IPTTreatment[treatments.size()];
     for (int i = 0; i < treatmentArray.length; i++)
@@ -166,27 +185,31 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
       // Default to a new relationship
       String termId = treatments.get(i).getId();
       treatmentArray[i] = new IPTTreatment(ipt.getConcreteId(), termId);
-      
+
       // If a relationship already exists, use it instead
       for (IPTTreatment existing : existingTreatments)
       {
         if (existing.getChildId().equals(termId))
         {
-          existing.lock();
+          if (!existing.isNew())
+          {
+            existing.lock();
+          }
+          
           treatmentArray[i] = existing;
         }
       }
-      
+
       // Set the amount
       if (i < treatmentAmounts.size())
       {
-        treatmentArray[i].setAmount((treatmentAmounts.get(i)));
+        treatmentArray[i].setAmount( ( treatmentAmounts.get(i) ));
       }
     }
-    
+
     ipt.applyAll(patientArray, visitArray, doseArray, treatmentArray);
   }
-  
+
   public static LinkedList<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();

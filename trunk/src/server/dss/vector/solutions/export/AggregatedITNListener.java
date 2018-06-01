@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.Row;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
+import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -62,7 +63,7 @@ public class AggregatedITNListener extends AbstractExcelAdapter implements Excel
           Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
-            Integer amount = new Double(cell.getNumericCellValue()).intValue();
+            Integer amount = ExcelUtil.getInteger(cell);
             aggregatedITN.addService(term, amount);
           }
         }
@@ -78,7 +79,7 @@ public class AggregatedITNListener extends AbstractExcelAdapter implements Excel
           Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
-            Integer amount = new Double(cell.getNumericCellValue()).intValue();
+            Integer amount = ExcelUtil.getInteger(cell);
             aggregatedITN.addTargetGroup(term, amount);
           }
         }
@@ -94,7 +95,7 @@ public class AggregatedITNListener extends AbstractExcelAdapter implements Excel
           Cell cell = row.getCell(column.getIndex());
           if (cell != null)
           {
-            Integer amount = new Double(cell.getNumericCellValue()).intValue();
+            Integer amount = ExcelUtil.getInteger(cell);
             aggregatedITN.addITNType(term, amount);
           }
         }

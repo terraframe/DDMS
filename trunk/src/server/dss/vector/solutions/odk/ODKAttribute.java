@@ -3,18 +3,18 @@
  *
  * This file is part of Runway SDK(tm).
  *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Runway SDK(tm). If not, see <http://www.gnu.org/licenses/>.
  */
 package dss.vector.solutions.odk;
 
@@ -29,6 +29,7 @@ import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -39,19 +40,19 @@ import dss.vector.solutions.ontology.Term;
 
 public class ODKAttribute implements Reloadable
 {
-  protected String        attributeName;
+  protected String attributeName;
 
-  protected String        displayLabel;
+  protected String displayLabel;
 
-  private String          description = null;
+  private String   description = null;
 
-  private int             index;
+  private int      index;
 
-  private boolean         required;
-  
-  private String          type;
+  private boolean  required;
   
   private ODKAttributeCondition condition;
+
+  private String   type;
 
   public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
   {
@@ -62,12 +63,12 @@ public class ODKAttribute implements Reloadable
     this.index = index;
     this.required = required;
   }
-  
+
   public ODKAttribute(String attributeName, String displayLabel, String description, int index, boolean required)
   {
     this("string", attributeName, displayLabel, description, index, required);
   }
-  
+
   public ODKAttribute(String attributeName, String displayLabel, int index)
   {
     this(attributeName, displayLabel, null, index, false);
@@ -82,12 +83,12 @@ public class ODKAttribute implements Reloadable
   {
     this(attributeName, displayLabel, null, 0, false);
   }
-  
+
   public String sanitizeAttributeName(String attrName)
   {
     return attrName.replaceAll(":", "_");
   }
-  
+
   public ODKAttributeCondition getCondition() {
     return condition;
   }
@@ -104,7 +105,7 @@ public class ODKAttribute implements Reloadable
     {
       if (mdAttribute instanceof MdAttributeReferenceDAOIF)
       {
-        MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttribute ).getReferenceMdBusinessDAO();
+        MdEntityDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttribute ).getReferenceMdBusinessDAO().getRootMdClassDAO();
 
         String type = referenceMdBusiness.definesType();
 
@@ -115,18 +116,18 @@ public class ODKAttribute implements Reloadable
     }
 
   }
-  
+
   public static ODKAttribute factory(MdAttributeDAOIF source, MdAttributeDAOIF viewAttr, Set<String> exportedTerms)
   {
     MdAttributeConcreteDAOIF concrete = source.getMdAttributeConcrete();
-    
+
     if (concrete instanceof MdAttributeEnumerationDAOIF)
     {
       return new ODKEnumAttribute(source, viewAttr, exportedTerms);
-    }    
+    }
     else if (concrete instanceof MdAttributeReferenceDAOIF)
     {
-      MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO();
+      MdEntityDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO().getRootMdClassDAO();
       if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
       {
         return new ODKGeoAttribute(source, viewAttr);
@@ -199,45 +200,45 @@ public class ODKAttribute implements Reloadable
   {
     this.required = required;
   }
-  
+
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
     Element text = document.createElement("text");
-    
+
     text.setAttribute("id", "/" + title + "/" + attributeName + ":label");
-    
+
     Element value = document.createElement("value");
     value.setTextContent(this.displayLabel);
     text.appendChild(value);
-    
+
     parent.appendChild(text);
   }
-  
+
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
-    
+
     // ODK breaks if you don't provide a default value for booleans.
     if (this.getODKType().equals("boolean"))
     {
       attrNode.setTextContent("false");
     }
-    
+
     parent.appendChild(attrNode);
   }
-  
+
   public void writeBind(Element parent, Document document, String title, int maxDepth)
   {
     Element bind = document.createElement("bind");
-    
+
     bind.setAttribute("nodeset", "/" + title + "/" + attributeName);
     bind.setAttribute("type", this.getODKType());
-    
+
     if (this.required)
     {
       bind.setAttribute("required", "true()");
     }
-    
+
     if (this.condition != null)
     {
       bind.setAttribute("constraint", this.condition.getBindConstraint());
@@ -245,18 +246,18 @@ public class ODKAttribute implements Reloadable
     
     parent.appendChild(bind);
   }
-  
+
   public void writeBody(Element parent, Document document, String title, int maxDepth)
   {
     Element input = document.createElement("input");
     parent.appendChild(input);
     input.setAttribute("ref", "/" + title + "/" + attributeName);
-    
+
     Element label = document.createElement("label");
     input.appendChild(label);
     label.setAttribute("ref", "jr:itext('/" + title + "/" + attributeName + ":label')");
   }
-  
+
   public String getODKType()
   {
     return type;

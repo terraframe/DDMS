@@ -80,7 +80,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");
 
-          if (!this.exported.contains(id) && ( !rootId.equals(id) || new Boolean(selectable) ))
+          if (!this.exported.contains(id) && ( !rootId.equals(id)  || selectable.equals("1") ))
           {
             Element text = document.createElement("text");
 
@@ -136,7 +136,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");
 
-          if (!items.contains(id) && ( !rootId.equals(id) || new Boolean(selectable) ))
+          if (!items.contains(id) && ( !rootId.equals(id) || selectable.equals("1") ))
           {
             Element item = document.createElement("item");
             select1.appendChild(item);

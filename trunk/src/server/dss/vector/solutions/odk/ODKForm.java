@@ -1,6 +1,5 @@
 package dss.vector.solutions.odk;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,7 +16,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.constants.ElementInfo;
-import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
@@ -128,9 +126,12 @@ import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
+import dss.vector.solutions.intervention.monitor.IndividualIPT;
 import dss.vector.solutions.intervention.monitor.IndividualIPTView;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.intervention.monitor.Larvacide;
+import dss.vector.solutions.intervention.monitor.LarvacideInstance;
+import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.irs.GeoTarget;
 import dss.vector.solutions.irs.GeoTargetView;
@@ -506,7 +507,7 @@ public class ODKForm implements Reloadable
 
     private boolean isValidReference(MdBusinessDAOIF referenceMdBusiness)
     {
-      String type = referenceMdBusiness.definesType();
+      String type = referenceMdBusiness.getRootMdClassDAO().definesType();
 
       return type.equals(Term.CLASS) || type.equals(GeoEntity.CLASS) || type.equals(InsecticideBrand.CLASS);
     }
@@ -713,22 +714,30 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(AggregatedIPTExcelView.CLASS))
     {
+      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      map.put(AggregatedIPTExcelView.getGeoEntityMd(), AggregatedIPTExcelView.getGeoEntityMd());
+
       master = new ODKForm(AggregatedIPTExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(AggregatedIPT.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayPatientsMd(), AggregatedIPTView.getDisplayPatientsMd(), "int"));
       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayVisitsMd(), AggregatedIPTView.getDisplayVisitsMd(), "int"));
       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayDoseMd(), AggregatedIPTView.getDisplayDoseMd(), "int"));
       master.addAttribute(new ODKGridAttribute(AggregatedIPTView.getDisplayTreatmentsMd(), AggregatedIPTView.getDisplayTreatmentsMd(), "int"));
-      master.buildAttributes(AggregatedIPTExcelView.CLASS, AggregatedIPTExcelView.customAttributeOrder(), null);
+      master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
+      master.buildAttributes(AggregatedIPTView.CLASS, AggregatedIPTExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(AggregatedITNExcelView.CLASS))
     {
+      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      map.put(AggregatedITNExcelView.getGeoEntityMd(), AggregatedITNExcelView.getGeoEntityMd());
+
       master = new ODKForm(AggregatedITNExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayServicesMd(), ITNDataView.getDisplayServicesMd(), "int"));
       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayTargetGroupsMd(), ITNDataView.getDisplayTargetGroupsMd(), "int"));
       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayNetsMd(), ITNDataView.getDisplayNetsMd(), "int"));
-      master.buildAttributes(AggregatedITNExcelView.CLASS, AggregatedITNExcelView.customAttributeOrder(), null);
+      master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());      
+      master.buildAttributes(ITNDataView.CLASS, AggregatedITNExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(EfficacyAssayExcelView.CLASS))
     {
@@ -756,28 +765,62 @@ public class ODKForm implements Reloadable
       master.join(new MergeFormJoin(master, individInst));
     }
     else if (mobileType.equals(IndividualIPTExcelView.CLASS))
-    {
+    {      
+      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      map.put(IndividualIPT.getFacilityMd(), IndividualIPTExcelView.getFacilityMd());
+      map.put(Person.getWorkGeoEntityMd(), IndividualIPTExcelView.getWorkGeoEntityMd());
+      map.put(Person.getResidentialGeoEntityMd(), IndividualIPTExcelView.getResidentialLocationMd());
+      map.put(PersonView.getFirstNameMd(), IndividualIPTExcelView.getPatientFirstNameMd());
+      map.put(PersonView.getLastNameMd(), IndividualIPTExcelView.getPatientLastNameMd());
+      map.put(PersonView.getDateOfBirthMd(), IndividualIPTExcelView.getPatientDOBMd());
+      map.put(PersonView.getSexMd(), IndividualIPTExcelView.getPatientSexMd());
+      map.put(PersonView.getWorkInformationMd(), IndividualIPTExcelView.getWorkInformationMd());
+
       master = new ODKForm(IndividualIPTExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(IndividualCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());      
       master.buildAttributes(IndividualIPTView.CLASS, IndividualIPTExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(ITNCommunityExcelView.CLASS))
     {
+      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      map.put(ITNCommunityExcelView.getDistributionLocationMd(), ITNCommunityExcelView.getDistributionLocationMd());
+      map.put(ITNCommunityExcelView.getHouseholdAddressMd(), ITNCommunityExcelView.getHouseholdAddressMd());
+
       master = new ODKForm(ITNCommunityExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNCommunityDistribution.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.addAttribute(new ODKGridAttribute(ITNCommunityDistributionView.getDisplayTargetGroupsMd(), ITNCommunityDistributionView.getDisplayTargetGroupsMd(), "int"));
+      master.addAttribute(new ODKGridAttribute(ITNCommunityDistributionView.getDisplayNetsMd(), ITNCommunityDistributionView.getDisplayNetsMd(), "int"));
+      
       master.buildAttributes(ITNCommunityDistributionView.CLASS, ITNCommunityExcelView.customAttributeOrder(), null);
+      master.buildAttributes(map, ITNCommunityExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(ITNDistributionExcelView.CLASS))
     {
+      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      map.put(ITNDistributionExcelView.getFacilityMd(), ITNDistributionExcelView.getFacilityMd());
+      map.put(PersonView.getFirstNameMd(), ITNDistributionExcelView.getRecipientFirstNameMd());
+      map.put(PersonView.getLastNameMd(), ITNDistributionExcelView.getRecipientLastNameMd());
+      map.put(PersonView.getDateOfBirthMd(), ITNDistributionExcelView.getRecipientDOBMd());
+      map.put(PersonView.getSexMd(), ITNDistributionExcelView.getRecipientSexMd());
+
       master = new ODKForm(ITNDistributionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNDistribution.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.addAttribute(new ODKGridAttribute(ITNDistributionView.getTargetGroupsMd(), ITNDistributionView.getTargetGroupsMd(), "int"));
+      
       master.buildAttributes(ITNDistributionView.CLASS, ITNDistributionExcelView.customAttributeOrder(), null);
+      master.buildAttributes(map, ITNDistributionExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(LarvacideExcelView.CLASS))
     {
       master = new ODKForm(LarvacideExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(Larvacide.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(Larvacide.CLASS, LarvacideExcelView.customAttributeOrder(), null);
+      
+      ODKForm subc = new ODKForm(LarvacideExcelView.CLASS);
+      subc.buildAttributes(LarvacideInstanceView.CLASS, LarvacideExcelView.customAttributeOrder(), null);
+
+      master.join(new RepeatFormJoin(master, subc));
     }
     else if (mobileType.equals(OperatorSprayExcelView.CLASS))
     {
@@ -985,34 +1028,34 @@ public class ODKForm implements Reloadable
           }
         }
         
-        for (MdFieldDAOIF mdField : mdFields)
-        {
-          if (mdField instanceof MdWebAttributeDAO)
-          {
-            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
-            
-            ODKAttribute odkAttr = master.getAttributeByName(dao.getFieldName());
-            
-            List<FieldConditionDAOIF> conditions = mdField.getConditions();
-            
-            ODKAttributeCondition odkCond = null;
-            for (FieldConditionDAOIF condition : conditions)
-            {
-              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
-              
-              if (odkCond != null)
-              {
-                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
-              }
-              else
-              {
-                odkCond = loopCond;
-              }
-            }
-            
-            odkAttr.setCondition(odkCond);
-          }
-        }
+//        for (MdFieldDAOIF mdField : mdFields)
+//        {
+//          if (mdField instanceof MdWebAttributeDAO)
+//          {
+//            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
+//            
+//            ODKAttribute odkAttr = master.getAttributeByName(dao.getFieldName());
+//            
+//            List<FieldConditionDAOIF> conditions = mdField.getConditions();
+//            
+//            ODKAttributeCondition odkCond = null;
+//            for (FieldConditionDAOIF condition : conditions)
+//            {
+//              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
+//              
+//              if (odkCond != null)
+//              {
+//                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
+//              }
+//              else
+//              {
+//                odkCond = loopCond;
+//              }
+//            }
+//            
+//            odkAttr.setCondition(odkCond);
+//          }
+//        }
 //      }
     }
     else
