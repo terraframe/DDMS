@@ -28,7 +28,6 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
@@ -36,6 +35,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.ontology.RootTerm;
 import dss.vector.solutions.ontology.Term;
 
 public class ODKAttribute implements Reloadable
@@ -136,9 +136,13 @@ public class ODKAttribute implements Reloadable
       {
         return new ODKInsecticideBrandAttribute(source, viewAttr, exportedTerms);
       }
-      else
+      else if (referenceMdBusiness.definesType().equals(Term.CLASS) || referenceMdBusiness.definesType().equals(RootTerm.CLASS))
       {
         return new ODKTermAttribute(source, viewAttr, exportedTerms);
+      }
+      else
+      {
+        return new ODKMetadataAttribute(source, viewAttr);
       }
     }
     else if (concrete instanceof MdAttributeStructDAOIF)

@@ -109,6 +109,9 @@ import dss.vector.solutions.export.ThresholdDataExcelView;
 import dss.vector.solutions.export.TimeResponseAssayExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
 import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
+import dss.vector.solutions.form.business.FormBedNet;
+import dss.vector.solutions.form.business.FormHousehold;
+import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.ThresholdData;
@@ -988,73 +991,64 @@ public class ODKForm implements Reloadable
       
       gfc = new GeoFilterCriteria(ghl);
       
-//      if (mobileType.equals(FormSurvey.CLASS))
-//      {
-//        master = new ODKForm(FormSurvey.CLASS, gfc);
-//        master.setFormTitle(MdClassDAO.getMdClassDAO(FormSurvey.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-//        master.buildAttributes(FormSurvey.CLASS, null, null);
-//        
-//        ODKForm household = new ODKForm(FormHousehold.CLASS);
-//        master.buildAttributes(FormHousehold.CLASS, null, null);
-//        master.join(new RepeatFormJoin(master, household));
-//        
-//        ODKForm net = new ODKForm(FormBedNet.CLASS);
-//        net.addAttribute(FormBedNet.getOidMd(), FormBedNet.getOidMd());
-//        net.addAttribute(FormBedNet.getHouseholdMd(), FormBedNet.getHouseholdMd());
-//        net.addAttribute(FormBedNet.getSurveyMd(), FormBedNet.getSurveyMd());
-//        master.join(new RepeatFormJoin(master, net));
-//        
-//        ODKForm person = new ODKForm(FormPerson.CLASS);
-//        net.addAttribute(FormPerson.getOidMd(), FormPerson.getOidMd());
-//        net.addAttribute(FormPerson.getHouseholdMd(), FormPerson.getHouseholdMd());
-//        net.addAttribute(FormPerson.getSurveyMd(), FormPerson.getSurveyMd());
-//        net.addAttribute(FormPerson.getNetMd(), FormPerson.getNetMd());
-//        master.join(new RepeatFormJoin(master, person));
-//      }
-//      else
-//      {
-        master = new ODKForm(mobileType, gfc);
-        
-        List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
-        
-        for (MdFieldDAOIF mdField : mdFields)
+      master = new ODKForm(mobileType, gfc);
+      
+      List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
+      
+      for (MdFieldDAOIF mdField : mdFields)
+      {
+        if (mdField instanceof MdWebAttributeDAO)
         {
-          if (mdField instanceof MdWebAttributeDAO)
-          {
-            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
-            
-            master.addAttribute(dao.getDefiningMdAttribute(), dao.getDefiningMdAttribute());
-          }
+          MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
+          
+          master.addAttribute(dao.getDefiningMdAttribute(), dao.getDefiningMdAttribute());
         }
-        
-        for (MdFieldDAOIF mdField : mdFields)
+      }
+      
+      for (MdFieldDAOIF mdField : mdFields)
+      {
+        if (mdField instanceof MdWebAttributeDAO)
         {
-          if (mdField instanceof MdWebAttributeDAO)
+          MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
+          
+          ODKAttribute odkAttr = master.getAttributeByName(dao.getDefiningMdAttribute().definesAttribute());
+          
+          List<FieldConditionDAOIF> conditions = mdField.getConditions();
+          
+          ODKAttributeCondition odkCond = null;
+          for (FieldConditionDAOIF condition : conditions)
           {
-            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
+            ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
             
-            ODKAttribute odkAttr = master.getAttributeByName(dao.getFieldName());
-            
-            List<FieldConditionDAOIF> conditions = mdField.getConditions();
-            
-            ODKAttributeCondition odkCond = null;
-            for (FieldConditionDAOIF condition : conditions)
+            if (odkCond != null)
             {
-              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
-              
-              if (odkCond != null)
-              {
-                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
-              }
-              else
-              {
-                odkCond = loopCond;
-              }
+              odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
             }
-            
-            odkAttr.setCondition(odkCond);
+            else
+            {
+              odkCond = loopCond;
+            }
           }
+          
+          odkAttr.setCondition(odkCond);
         }
+      }
+      
+      if (mobileType.equals(FormSurvey.CLASS))
+      {
+        ODKForm survey = master;
+        master = new ODKForm(mobileType, gfc);
+        master.join(new RepeatFormJoin(master, survey));
+        
+        ODKForm household = ODKForm.factory(FormHousehold.CLASS);
+        master.join(new RepeatFormJoin(master, household));
+        
+        ODKForm net = ODKForm.factory(FormBedNet.CLASS);
+        master.join(new RepeatFormJoin(master, net));
+        
+        ODKForm person = ODKForm.factory(FormPerson.CLASS);
+        master.join(new RepeatFormJoin(master, person));
+      }
     }
     else
     {

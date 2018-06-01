@@ -29,6 +29,7 @@ import com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeFloatDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
@@ -103,6 +104,10 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     else if (attr instanceof MdAttributeDateDAOIF)
     {
       return "date";
+    }
+    else if (attr instanceof MdAttributeReferenceDAOIF) // Merg form has some attr references
+    {
+      return "string";
     }
 
     return "string";

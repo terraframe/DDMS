@@ -10,6 +10,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.attributes.entity.AttributeEnumeration;
 import com.runwaysdk.dataaccess.metadata.BasicConditionDAO;
 import com.runwaysdk.dataaccess.metadata.CompositeFieldConditionDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
 
 abstract public class ODKAttributeCondition
 {
@@ -36,8 +37,7 @@ abstract public class ODKAttributeCondition
       {
         throw new ProgrammingErrorException("Operation should not be null");
       }
-      
-      ODKAttribute condOdkAttr = odkForm.getAttributeByName(basicCond.getDefiningMdFieldDAO().getFieldName());
+      ODKAttribute condOdkAttr = odkForm.getAttributeByName((((MdWebAttributeDAO)basicCond.getDefiningMdFieldDAO()).getDefiningMdAttribute().definesAttribute()));
       if (condOdkAttr == null)
       {
         throw new ProgrammingErrorException("Unable to find attribute by name [" + basicCond.getDefiningMdFieldDAO().getFieldName() + "].");
