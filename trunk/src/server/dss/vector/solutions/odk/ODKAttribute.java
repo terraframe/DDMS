@@ -50,6 +50,8 @@ public class ODKAttribute implements Reloadable
   private boolean         required;
   
   private String          type;
+  
+  private ODKAttributeCondition condition;
 
   public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
   {
@@ -84,6 +86,14 @@ public class ODKAttribute implements Reloadable
   public String sanitizeAttributeName(String attrName)
   {
     return attrName.replaceAll(":", "_");
+  }
+  
+  public ODKAttributeCondition getCondition() {
+    return condition;
+  }
+
+  public void setCondition(ODKAttributeCondition condition) {
+    this.condition = condition;
   }
   
   public static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
@@ -226,6 +236,11 @@ public class ODKAttribute implements Reloadable
     if (this.required)
     {
       bind.setAttribute("required", "true()");
+    }
+    
+    if (this.condition != null)
+    {
+      bind.setAttribute("constraint", this.condition.getBindConstraint());
     }
     
     parent.appendChild(bind);

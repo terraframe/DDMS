@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.constants.ElementInfo;
+import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
@@ -27,7 +28,6 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -121,14 +121,12 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.AggregatedIPT;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
 import dss.vector.solutions.intervention.monitor.ControlIntervention;
-import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNData;
 import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
-import dss.vector.solutions.intervention.monitor.ITNInstanceView;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualIPTView;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
@@ -162,18 +160,6 @@ import dss.vector.solutions.surveillance.CasePatientTypeView;
 public class ODKForm implements Reloadable
 {
   public static final Logger logger        = LoggerFactory.getLogger(ODKForm.class);
-
-  // public static class ViewMapper extends DefaultODKAttributeMapper implements
-  // Reloadable
-  // {
-  // public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF mdAttribute,
-  // MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
-  // {
-  // return
-  // mdAttribute.definesAttribute().equals(MosquitoCollectionView.CONCRETEID) ?
-  // null : super.getViewAttr(mdAttribute, sourceMdc, viewMdc);
-  // }
-  // }
 
   /*
    * Global Map of all the exported term ids. This is used to prevent the same
@@ -315,6 +301,19 @@ public class ODKForm implements Reloadable
     }
 
     return false;
+  }
+  
+  public ODKAttribute getAttributeByName(String attributeName)
+  {
+    for (ODKAttribute attr : this.attrs)
+    {
+      if (attr.getAttributeName().equals(attributeName))
+      {
+        return attr;
+      }
+    }
+
+    return null;
   }
 
   public ODKStructAttribute getStructAttribute(String sourceAttribute)
@@ -466,9 +465,13 @@ public class ODKForm implements Reloadable
     this.attrs.add(attr);
   }
 
-  public void addAttribute(MdAttributeDAOIF sourceAttr, MdAttributeDAOIF viewAttr)
+  public ODKAttribute addAttribute(MdAttributeDAOIF sourceAttr, MdAttributeDAOIF viewAttr)
   {
-    attrs.add(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
+    ODKAttribute attr = ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms);
+    
+    attrs.add(attr);
+    
+    return attr;
   }
 
   public static class DefaultODKAttributeMapper implements ODKAttributeMapper
@@ -608,8 +611,6 @@ public class ODKForm implements Reloadable
 
   public static ODKForm factory(java.lang.String mobileType)
   {
-    // TODO : Form generator
-
     ODKForm master = null;
     GeoFilterCriteria gfc = getGeoCriteriaFromListeners(mobileType);
 
@@ -930,7 +931,6 @@ public class ODKForm implements Reloadable
     else if (mobileType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
     {
       // Form generator
-//      MdFormDAOIF mdForm = (MdFormDAOIF) MdForm.get(MdFormDAO.getMdTypeDAO(mobileType).getId());
       MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(MdFormUtil.getMdFormFromBusinessType(mobileType).getId());
       List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
       List<GeoHierarchy> ghl = new ArrayList<GeoHierarchy>();
@@ -974,7 +974,7 @@ public class ODKForm implements Reloadable
         master = new ODKForm(mobileType, gfc);
         
         List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
-
+        
         for (MdFieldDAOIF mdField : mdFields)
         {
           if (mdField instanceof MdWebAttributeDAO)
@@ -982,6 +982,35 @@ public class ODKForm implements Reloadable
             MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
             
             master.addAttribute(dao.getDefiningMdAttribute(), dao.getDefiningMdAttribute());
+          }
+        }
+        
+        for (MdFieldDAOIF mdField : mdFields)
+        {
+          if (mdField instanceof MdWebAttributeDAO)
+          {
+            MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
+            
+            ODKAttribute odkAttr = master.getAttributeByName(dao.getFieldName());
+            
+            List<FieldConditionDAOIF> conditions = mdField.getConditions();
+            
+            ODKAttributeCondition odkCond = null;
+            for (FieldConditionDAOIF condition : conditions)
+            {
+              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
+              
+              if (odkCond != null)
+              {
+                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
+              }
+              else
+              {
+                odkCond = loopCond;
+              }
+            }
+            
+            odkAttr.setCondition(odkCond);
           }
         }
 //      }
@@ -1011,9 +1040,9 @@ public class ODKForm implements Reloadable
       // Invoke the method and get the ExcelExportListener
       method.invoke(null, listenerCollector, new String[] {});
     }
-    catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e)
+    catch (Throwable e)
     {
-      throw new ProgrammingErrorException(e);
+      return null;
     }
 
     List<ExcelExportListener> listeners = listenerCollector.getListeners();

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.ArrayUtils;
 
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdForm;
@@ -41,6 +40,7 @@ import dss.vector.solutions.export.ThresholdDataExcelView;
 import dss.vector.solutions.export.TimeResponseAssayExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
 import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
+import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.irs.SprayTeamExcelView;
 import dss.vector.solutions.odk.ODKForm;
@@ -62,10 +62,12 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   @Request
   private static void mainInRequest()
   {
-//    MobileUtil.export(AggregatedCaseExcelView.CLASS);
+    MobileUtil.exportMdForm("i0t2kre3vugi2k1a8qbdqguk7rxf5b7nzo86ttx2qfhw4ayiqelfr3igdjhd90eu");
     
-    int myIndex = ArrayUtils.indexOf(allTypes, FormSurvey.CLASS);
-    MobileUtil.exportAll(myIndex,myIndex + 1);
+//    MobileUtil.export(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE + "." + "SlimWaterSource");
+    
+//    int myIndex = ArrayUtils.indexOf(allTypes, FormSurvey.CLASS);
+//    MobileUtil.exportAll(myIndex,myIndex + 1);
   }
   
   public static String convertToOdkId(String seed)
@@ -112,7 +114,6 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
       try {
         FileUtils.deleteDirectory(devGen);
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
