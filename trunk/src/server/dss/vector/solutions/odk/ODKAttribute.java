@@ -40,19 +40,19 @@ import dss.vector.solutions.ontology.Term;
 
 public class ODKAttribute implements Reloadable
 {
-  protected String attributeName;
+  protected String              attributeName;
 
-  protected String displayLabel;
+  protected String              displayLabel;
 
-  private String   description = null;
+  private String                description = null;
 
-  private int      index;
+  private int                   index;
 
-  private boolean  required;
-  
+  private boolean               required;
+
   private ODKAttributeCondition condition;
 
-  private String   type;
+  private String                type;
 
   public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
   {
@@ -89,14 +89,16 @@ public class ODKAttribute implements Reloadable
     return attrName.replaceAll(":", "_");
   }
 
-  public ODKAttributeCondition getCondition() {
+  public ODKAttributeCondition getCondition()
+  {
     return condition;
   }
 
-  public void setCondition(ODKAttributeCondition condition) {
+  public void setCondition(ODKAttributeCondition condition)
+  {
     this.condition = condition;
   }
-  
+
   public static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
   {
 
@@ -247,7 +249,7 @@ public class ODKAttribute implements Reloadable
     {
       bind.setAttribute("constraint", this.condition.getBindConstraint());
     }
-    
+
     parent.appendChild(bind);
   }
 
@@ -265,6 +267,11 @@ public class ODKAttribute implements Reloadable
   public String getODKType()
   {
     return type;
+  }
+
+  public boolean isValid()
+  {
+    return true;
   }
 
   @Override

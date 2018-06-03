@@ -3,18 +3,18 @@
  *
  * This file is part of Runway SDK(tm).
  *
- * Runway SDK(tm) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * Runway SDK(tm) is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  *
- * Runway SDK(tm) is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Runway SDK(tm) is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with Runway SDK(tm).  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Runway SDK(tm). If not, see <http://www.gnu.org/licenses/>.
  */
 package dss.vector.solutions.odk;
 
@@ -37,7 +37,7 @@ import com.runwaysdk.session.Session;
 public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 {
   protected MdAttributeDAOIF sourceMdAttr;
-  
+
   protected MdAttributeDAOIF viewMdAttr;
 
   public ODKMetadataAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, int index)
@@ -56,7 +56,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
-    
+
     String def = sourceMdAttr.getDefaultValue();
     if (this.getODKType().equals("boolean") && def.length() == 0)
     {
@@ -64,19 +64,19 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
       def = "false";
     }
     attrNode.setTextContent(def);
-    
+
     parent.appendChild(attrNode);
   }
-  
+
   public String getODKType()
   {
     MdAttributeDAOIF attr = sourceMdAttr;
-    
+
     if (sourceMdAttr instanceof MdAttributeVirtualDAOIF)
     {
       attr = sourceMdAttr.getMdAttributeConcrete();
     }
-    
+
     if (attr instanceof MdAttributeBooleanDAOIF)
     {
       return "boolean";

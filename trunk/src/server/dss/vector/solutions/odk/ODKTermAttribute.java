@@ -23,10 +23,12 @@ import dss.vector.solutions.ontology.TermQuery;
 
 public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 {
-  public static final int  LIMIT = 100;
+  public static final int LIMIT = 100;
 
-  private Set<String>      exported;
+  private Set<String>     exported;
   
+  private Long            count;
+
   public ODKTermAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
   {
     this(sourceMdAttr, viewMdAttr, exported, 0);
@@ -37,6 +39,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     super(sourceMdAttr, viewMdAttr);
 
     this.exported = exported;
+    this.count = null;
   }
   
   public static String sanitizeTermId(String termId)
@@ -49,6 +52,18 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     return sanitizedTermId.replaceAll("__COLON__", ":");
   }
 
+  public synchronized long getCount()
+  {
+    if (this.count == null)
+    {
+      ValueQuery query = termQuery(this.sourceMdAttr);
+
+      this.count = query.getCount();
+    }
+
+    return count;
+  }
+
   @Override
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
@@ -56,17 +71,18 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 
     ValueQuery query = termQuery(this.sourceMdAttr);
 
-    long count = query.getCount();
+    long count = this.getCount();
 
-    if (count == 0)
-    {
-      TermExportProblem problem = new TermExportProblem("No terms found for attribute [" + this.sourceMdAttr.getKey() + "].");
-      problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
-      problem.apply();
-
-      problem.throwIt();
-    }
-    else if (count > LIMIT)
+    // if (count == 0)
+    // {
+    // TermExportProblem problem = new TermExportProblem("No terms found for
+    // attribute [" + this.sourceMdAttr.getKey() + "].");
+    // problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
+    // problem.apply();
+    //
+    // problem.throwIt();
+    // }
+    if (count > LIMIT)
     {
       TermExportLimitProblem problem = new TermExportLimitProblem("Max term limit reached for attribute [" + this.sourceMdAttr.getKey() + "].");
       problem.setAttributeLabel(this.viewMdAttr.getDisplayLabel(Session.getCurrentLocale()));
@@ -90,7 +106,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");
 
-          if (!this.exported.contains(id) && ( !rootId.equals(id)  || selectable.equals("1") ))
+          if (!this.exported.contains(id) && ( !rootId.equals(id) || selectable.equals("1") ))
           {
             Element text = document.createElement("text");
 
@@ -121,7 +137,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     Set<String> items = new TreeSet<String>();
 
     ValueQuery query = termQuery(this.sourceMdAttr);
-    long count = query.getCount();
+    long count = this.getCount();
 
     Element select1 = document.createElement("select1");
     parent.appendChild(select1);
@@ -176,16 +192,22 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
   {
     return "select1";
   }
-  
+
+  @Override
+  public boolean isValid()
+  {
+    return ( this.getCount() > 0 );
+  }
+
   private static ValueQuery termQuery(MdAttributeDAOIF mdAttribute)
   {
     ValueQuery vq = buildTermQuery(mdAttribute);
-    
+
     if (vq.getCount() == 0 && mdAttribute instanceof MdAttributeVirtualDAOIF)
     {
       vq = buildTermQuery(mdAttribute.getMdAttributeConcrete());
     }
-    
+
     return vq;
   }
 

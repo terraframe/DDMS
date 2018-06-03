@@ -131,6 +131,7 @@ import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
+import dss.vector.solutions.intervention.monitor.IndividualCaseView;
 import dss.vector.solutions.intervention.monitor.IndividualIPT;
 import dss.vector.solutions.intervention.monitor.IndividualIPTView;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
@@ -358,7 +359,10 @@ public class ODKForm implements Reloadable
   {
     for (ODKAttribute attr : this.attrs)
     {
-      attr.writeTranslation(parent, document, context, maxDepth);
+      if (attr.isValid())
+      {
+        attr.writeTranslation(parent, document, context, maxDepth);
+      }
     }
 
     for (ODKFormJoin join : joins)
@@ -371,7 +375,10 @@ public class ODKForm implements Reloadable
   {
     for (ODKAttribute attr : this.attrs)
     {
-      attr.writeBind(parent, document, context, maxDepth);
+      if (attr.isValid())
+      {
+        attr.writeBind(parent, document, context, maxDepth);
+      }
     }
 
     for (ODKFormJoin join : joins)
@@ -384,7 +391,10 @@ public class ODKForm implements Reloadable
   {
     for (ODKAttribute attr : this.attrs)
     {
-      attr.writeBody(parent, document, context, maxDepth);
+      if (attr.isValid())
+      {
+        attr.writeBody(parent, document, context, maxDepth);
+      }
     }
 
     for (ODKFormJoin join : joins)
@@ -397,7 +407,10 @@ public class ODKForm implements Reloadable
   {
     for (ODKAttribute attr : this.attrs)
     {
-      attr.writeInstance(parent, document, context, maxDepth);
+      if (attr.isValid())
+      {
+        attr.writeInstance(parent, document, context, maxDepth);
+      }
     }
 
     for (ODKFormJoin join : joins)
@@ -694,6 +707,7 @@ public class ODKForm implements Reloadable
     {
       master = new ODKForm(ControlInterventionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ControlIntervention.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.setExport(false);
 
       Map<MdAttributeDAOIF, MdAttributeDAOIF> sharedAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       sharedAttrs.put(ControlInterventionExcelView.getStartDateMd(), ControlInterventionExcelView.getStartDateMd());
@@ -704,22 +718,22 @@ public class ODKForm implements Reloadable
       ODKForm aggPremise = new ODKForm(AggregatedPremiseExcelView.CLASS);
       aggPremise.buildAttributes(sharedAttrs, AggregatedPremiseExcelView.customAttributeOrder());
       aggPremise.buildAttributes(AggregatedPremiseExcelView.CLASS, AggregatedPremiseExcelView.customAttributeOrder(), null);
-      master.join(new RepeatFormJoin(master, aggPremise, true, true));
+      master.join(new RepeatFormJoin(master, aggPremise, true, false));
 
       ODKForm individPremise = new ODKForm(IndividualPremiseExcelView.CLASS);
       individPremise.buildAttributes(sharedAttrs, IndividualPremiseExcelView.customAttributeOrder());
       individPremise.buildAttributes(IndividualPremiseExcelView.CLASS, IndividualPremiseExcelView.customAttributeOrder(), null);
-      master.join(new RepeatFormJoin(master, individPremise, true, true));
+      master.join(new RepeatFormJoin(master, individPremise, true, false));
 
       ODKForm insecticide = new ODKForm(InsecticideInterventionExcelView.CLASS);
       insecticide.buildAttributes(sharedAttrs, InsecticideInterventionExcelView.customAttributeOrder());
       insecticide.buildAttributes(InsecticideInterventionExcelView.CLASS, InsecticideInterventionExcelView.customAttributeOrder(), null);
-      master.join(new RepeatFormJoin(master, insecticide, true, true));
+      master.join(new RepeatFormJoin(master, insecticide, true, false));
 
       ODKForm person = new ODKForm(PersonInterventionExcelView.CLASS);
       person.buildAttributes(sharedAttrs, PersonInterventionExcelView.customAttributeOrder());
       person.buildAttributes(PersonInterventionExcelView.CLASS, PersonInterventionExcelView.customAttributeOrder(), null);
-      master.join(new RepeatFormJoin(master, person, true, true));
+      master.join(new RepeatFormJoin(master, person, true, false));
     }
     else if (mobileType.equals(MosquitoCollectionExcelView.CLASS))
     {
@@ -758,9 +772,9 @@ public class ODKForm implements Reloadable
       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayTargetGroupsMd(), ITNDataView.getDisplayTargetGroupsMd(), "int"));
       master.addAttribute(new ODKGridAttribute(ITNDataView.getDisplayNetsMd(), ITNDataView.getDisplayNetsMd(), "int"));
       master.buildAttributes(ITNDataView.CLASS, AggregatedITNExcelView.customAttributeOrder(), null);
-      
+
       master.removeAttribute(AggregatedITNExcelView.getGeoEntityMd().definesAttribute());
-      
+
       master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(EfficacyAssayExcelView.CLASS))
@@ -773,23 +787,36 @@ public class ODKForm implements Reloadable
       master = new ODKForm(EfficacyAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(EfficacyAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(EfficacyAssayView.CLASS, EfficacyAssayExcelView.customAttributeOrder(), null);
-      
+
       master.removeAttribute(EfficacyAssayExcelView.getGeoEntityMd().definesAttribute());
-      
+
       master.buildAttributes(attrMappings, EfficacyAssayExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(IndividualCaseExcelView.CLASS))
     {
+      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
+      map.put(PersonView.getIdentifierMd(), IndividualCaseExcelView.getIdentifierMd());
+      map.put(PersonView.getFirstNameMd(), IndividualCaseExcelView.getFirstNameMd());
+      map.put(PersonView.getLastNameMd(), IndividualCaseExcelView.getLastNameMd());
+      map.put(PersonView.getDateOfBirthMd(), IndividualCaseExcelView.getDateOfBirthMd());
+      map.put(PersonView.getSexMd(), IndividualCaseExcelView.getSexMd());
+      map.put(PersonView.getBirthLocationMd(), IndividualCaseExcelView.getBirthLocationMd());
+      map.put(PersonView.getIdentifierMd(), IndividualCaseExcelView.getPhysicianIdentifierMd());
+      map.put(PersonView.getFirstNameMd(), IndividualCaseExcelView.getPhysicianFirstNameMd());
+      map.put(PersonView.getLastNameMd(), IndividualCaseExcelView.getPhysicianLastNameMd());
+      map.put(PersonView.getDateOfBirthMd(), IndividualCaseExcelView.getPhysicianDateOfBirthMd());
+      map.put(PersonView.getSexMd(), IndividualCaseExcelView.getPhysicianSexMd());
+
       master = new ODKForm(IndividualCaseExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(IndividualCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(IndividualCase.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
+      master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
 
-      ODKForm individPremise = new ODKForm(IndividualCaseExcelView.CLASS);
-      individPremise.buildAttributes(IndividualCase.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
-      master.join(new MergeFormJoin(master, individPremise));
+      ODKForm instance = new ODKForm(IndividualCaseExcelView.CLASS);
+      instance.addAttribute(new ODKGridAttribute(IndividualInstance.getSymptomMd(), IndividualInstance.getSymptomMd(), "boolean"));
+      instance.buildAttributes(IndividualInstance.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
 
-      ODKForm individInst = new ODKForm(IndividualCaseExcelView.CLASS);
-      individInst.buildAttributes(IndividualInstance.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
-      master.join(new MergeFormJoin(master, individInst));
+      master.join(new RepeatFormJoin(master, instance));
     }
     else if (mobileType.equals(IndividualIPTExcelView.CLASS))
     {
@@ -806,10 +833,10 @@ public class ODKForm implements Reloadable
       master = new ODKForm(IndividualIPTExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(IndividualCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(IndividualIPTView.CLASS, IndividualIPTExcelView.customAttributeOrder(), null);
-            
+
       master.removeAttribute(IndividualIPTExcelView.getFacilityMd().definesAttribute());
       master.removeAttribute(IndividualIPTExcelView.getWorkGeoEntityMd().definesAttribute());
-      master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());      
+      master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(ITNCommunityExcelView.CLASS))
     {
@@ -822,10 +849,10 @@ public class ODKForm implements Reloadable
       master.addAttribute(new ODKGridAttribute(ITNCommunityDistributionView.getDisplayTargetGroupsMd(), ITNCommunityDistributionView.getDisplayTargetGroupsMd(), "int"));
       master.addAttribute(new ODKGridAttribute(ITNCommunityDistributionView.getDisplayNetsMd(), ITNCommunityDistributionView.getDisplayNetsMd(), "int"));
       master.buildAttributes(ITNCommunityDistributionView.CLASS, ITNCommunityExcelView.customAttributeOrder(), null);
-      
+
       master.removeAttribute(ITNCommunityExcelView.getDistributionLocationMd().definesAttribute());
       master.removeAttribute(ITNCommunityExcelView.getHouseholdAddressMd().definesAttribute());
-      
+
       master.buildAttributes(map, ITNCommunityExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(ITNDistributionExcelView.CLASS))
@@ -843,14 +870,14 @@ public class ODKForm implements Reloadable
       master.buildAttributes(ITNDistributionView.CLASS, ITNDistributionExcelView.customAttributeOrder(), null);
 
       master.removeAttribute(ITNDistributionExcelView.getFacilityMd().definesAttribute());
-      
+
       master.buildAttributes(map, ITNDistributionExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(LarvacideExcelView.CLASS))
     {
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(LarvacideExcelView.getTeamLeaderIdMd(), LarvacideExcelView.getTeamLeaderIdMd());
-      
+
       master = new ODKForm(LarvacideExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(Larvacide.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(Larvacide.CLASS, LarvacideExcelView.customAttributeOrder(), null);
@@ -871,7 +898,7 @@ public class ODKForm implements Reloadable
       map.put(OperatorSprayExcelView.getSupervisorNameMd(), OperatorSprayExcelView.getSupervisorNameMd());
       map.put(OperatorSprayExcelView.getSupervisorSurnameMd(), OperatorSprayExcelView.getSupervisorSurnameMd());
       map.put(OperatorSprayExcelView.getSupervisorCodeMd(), OperatorSprayExcelView.getSupervisorCodeMd());
-      
+
       master = new ODKForm(OperatorSprayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(OperatorSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(OperatorSprayView.CLASS, OperatorSprayExcelView.customAttributeOrder(), null);
@@ -890,12 +917,12 @@ public class ODKForm implements Reloadable
       map.put(TeamSprayExcelView.getSupervisorNameMd(), TeamSprayExcelView.getSupervisorNameMd());
       map.put(TeamSprayExcelView.getSupervisorSurnameMd(), TeamSprayExcelView.getSupervisorSurnameMd());
       map.put(TeamSprayExcelView.getSupervisorCodeMd(), TeamSprayExcelView.getSupervisorCodeMd());
-      
+
       master = new ODKForm(TeamSprayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(TeamSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(TeamSprayView.CLASS, TeamSprayExcelView.customAttributeOrder(), null);
       master.buildAttributes(map, TeamSprayExcelView.customAttributeOrder());
-      
+
       map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(TeamSprayExcelView.getOperatorIdMd(), TeamSprayExcelView.getOperatorIdMd());
 
@@ -910,13 +937,13 @@ public class ODKForm implements Reloadable
       map.put(ZoneSprayView.getBrandMd(), ZoneSprayExcelView.getInsecticideTermMd());
       map.put(ZoneSprayExcelView.getSupervisorNameMd(), ZoneSprayExcelView.getSupervisorNameMd());
       map.put(ZoneSprayExcelView.getSupervisorSurnameMd(), ZoneSprayExcelView.getSupervisorSurnameMd());
-      map.put(ZoneSprayExcelView.getSupervisorCodeMd(), ZoneSprayExcelView.getSupervisorCodeMd());      
-      
+      map.put(ZoneSprayExcelView.getSupervisorCodeMd(), ZoneSprayExcelView.getSupervisorCodeMd());
+
       master = new ODKForm(ZoneSprayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ZoneSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(ZoneSprayView.CLASS, ZoneSprayExcelView.customAttributeOrder(), null);
       master.buildAttributes(map, ZoneSprayExcelView.customAttributeOrder());
-      
+
       map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(ZoneSprayExcelView.getSprayTeamMd(), ZoneSprayExcelView.getSprayTeamMd());
       map.put(ZoneSprayExcelView.getLeaderIdMd(), ZoneSprayExcelView.getLeaderIdMd());
@@ -929,7 +956,7 @@ public class ODKForm implements Reloadable
       ODKForm individInst = new ODKForm(ZoneSprayExcelView.CLASS);
       individInst.buildAttributes(TeamSprayStatusView.CLASS, ZoneSprayExcelView.customAttributeOrder(), null);
       individInst.buildAttributes(map, ZoneSprayExcelView.customAttributeOrder());
-      
+
       master.join(new RepeatFormJoin(master, individInst));
     }
     else if (mobileType.equals(PersonExcelView.CLASS))
@@ -937,15 +964,15 @@ public class ODKForm implements Reloadable
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(PersonExcelView.getDiseaseMd(), PersonExcelView.getDiseaseMd());
       map.put(PersonView.getIsSupervisorMd(), PersonExcelView.getIsSupervisorMd());
-      map.put(PersonView.getCodeMd(), PersonExcelView.getSupervisorCodeMd());           
-      map.put(PersonView.getIsIPTRecipientMd(), PersonExcelView.getIsIPTRecipientMd());           
-      map.put(PersonView.getIsITNRecipientMd(), PersonExcelView.getIsITNRecipientMd());           
-      map.put(PersonView.getIsPatientMd(), PersonExcelView.getIsPatientMd());           
+      map.put(PersonView.getCodeMd(), PersonExcelView.getSupervisorCodeMd());
+      map.put(PersonView.getIsIPTRecipientMd(), PersonExcelView.getIsIPTRecipientMd());
+      map.put(PersonView.getIsITNRecipientMd(), PersonExcelView.getIsITNRecipientMd());
+      map.put(PersonView.getIsPatientMd(), PersonExcelView.getIsPatientMd());
 
       master = new ODKForm(PersonExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(Person.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(PersonView.CLASS, PersonExcelView.customAttributeOrder(), null);
-      master.buildAttributes(map, PersonExcelView.customAttributeOrder());      
+      master.buildAttributes(map, PersonExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(PopulationDataExcelView.CLASS))
     {
@@ -967,7 +994,9 @@ public class ODKForm implements Reloadable
     else if (mobileType.equals(SurveyExcelView.CLASS))
     {
       /*
-       * Probably needs feedback from Miguel, the CRUD screen follows the merge survey layout: survey point -> survey household -> survey person / bed net
+       * Probably needs feedback from Miguel, the CRUD screen follows the merge
+       * survey layout: survey point -> survey household -> survey person / bed
+       * net
        */
       master = new ODKForm(SurveyExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(FormSurvey.CLASS).getDisplayLabel(Session.getCurrentLocale()));
@@ -982,7 +1011,7 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(ThresholdDataExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ThresholdData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(ThresholdDataView.CLASS, ThresholdDataExcelView.customAttributeOrder(), null);      
+      master.buildAttributes(ThresholdDataView.CLASS, ThresholdDataExcelView.customAttributeOrder(), null);
       master.buildAttributes(map, ThresholdDataExcelView.customAttributeOrder());
     }
     else if (mobileType.equals(ImmatureCollectionExcelView.CLASS))
@@ -990,19 +1019,19 @@ public class ODKForm implements Reloadable
       master = new ODKForm(ImmatureCollectionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ImmatureCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(ImmatureCollectionView.CLASS, ImmatureCollectionExcelView.customAttributeOrder(), null);
-      
+
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(CollectionContainerView.getTermMd(), ImmatureCollectionExcelView.getContainerTermMd());
 
       ODKForm container = new ODKForm(ImmatureCollectionExcelView.CLASS);
       container.buildAttributes(CollectionContainerView.CLASS, ImmatureCollectionExcelView.customAttributeOrder(), null);
-      container.buildAttributes(map, ImmatureCollectionExcelView.customAttributeOrder());      
-      
+      container.buildAttributes(map, ImmatureCollectionExcelView.customAttributeOrder());
+
       master.join(new RepeatFormJoin(master, container));
     }
     /*
      * EVERYTHING BELOW STILL NEEDS TO BE AUDITED
-     */    
+     */
     else if (mobileType.equals(SprayTeamExcelView.CLASS))
     {
       master = new ODKForm(SprayTeamExcelView.CLASS, gfc);
@@ -1091,36 +1120,36 @@ public class ODKForm implements Reloadable
       }
 
       gfc = new GeoFilterCriteria(ghl);
-      
+
       master = new ODKForm(mobileType, gfc);
-      
+
       List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
-      
+
       for (MdFieldDAOIF mdField : mdFields)
       {
         if (mdField instanceof MdWebAttributeDAO)
         {
-          MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
-          
+          MdWebAttributeDAO dao = ( (MdWebAttributeDAO) mdField );
+
           master.addAttribute(dao.getDefiningMdAttribute(), dao.getDefiningMdAttribute());
         }
       }
-      
+
       for (MdFieldDAOIF mdField : mdFields)
       {
         if (mdField instanceof MdWebAttributeDAO)
         {
-          MdWebAttributeDAO dao = ((MdWebAttributeDAO) mdField);
-          
+          MdWebAttributeDAO dao = ( (MdWebAttributeDAO) mdField );
+
           ODKAttribute odkAttr = master.getAttributeByName(dao.getDefiningMdAttribute().definesAttribute());
-          
+
           List<FieldConditionDAOIF> conditions = mdField.getConditions();
-          
+
           ODKAttributeCondition odkCond = null;
           for (FieldConditionDAOIF condition : conditions)
           {
             ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
-            
+
             if (odkCond != null)
             {
               odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
@@ -1130,23 +1159,23 @@ public class ODKForm implements Reloadable
               odkCond = loopCond;
             }
           }
-          
+
           odkAttr.setCondition(odkCond);
         }
       }
-      
+
       if (mobileType.equals(FormSurvey.CLASS))
       {
         ODKForm survey = master;
         master = new ODKForm(mobileType, gfc);
         master.join(new RepeatFormJoin(master, survey));
-        
+
         ODKForm household = ODKForm.factory(FormHousehold.CLASS);
         master.join(new RepeatFormJoin(master, household));
-        
+
         ODKForm net = ODKForm.factory(FormBedNet.CLASS);
         master.join(new RepeatFormJoin(master, net));
-        
+
         ODKForm person = ODKForm.factory(FormPerson.CLASS);
         master.join(new RepeatFormJoin(master, person));
       }
