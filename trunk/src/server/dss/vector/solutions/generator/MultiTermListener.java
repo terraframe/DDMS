@@ -29,6 +29,7 @@ import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Relationship;
 import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
@@ -42,10 +43,12 @@ import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.export.AbstractExcelAdapter;
+import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class MultiTermListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class MultiTermListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private MdWebMultipleTermDAOIF    mdField;
 
@@ -71,13 +74,16 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();
     String fieldDisplayLabel = mdField.getDisplayLabel(Session.getCurrentLocale());
     Term[] roots = TermRootCache.getRoots(mdAttribute);
-
-    for (Term root : roots)
-    {
-      String rootDisplayLabel = root.getTermDisplayLabel().getValue();
-
-      extraColumns.add(new ExcelColumn(this.getAttributeName(fieldName, root), fieldDisplayLabel + " " + rootDisplayLabel));
-    }
+    
+    this.addGridColumns(extraColumns, (MdAttributeReferenceDAOIF) mdAttribute, fieldDisplayLabel);
+//
+//
+//    for (Term root : roots)
+//    {
+//      String rootDisplayLabel = root.getTermDisplayLabel().getValue();
+//
+//      extraColumns.add(new ExcelColumn(this.getAttributeName(fieldName, root), fieldDisplayLabel + " " + rootDisplayLabel));
+//    }
   }
 
   @Override

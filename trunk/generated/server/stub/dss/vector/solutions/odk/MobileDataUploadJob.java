@@ -41,6 +41,7 @@ import com.runwaysdk.dataaccess.io.ExcelExportSheet;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelSheetMetadata;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.scheduler.AllJobStatus;
@@ -49,7 +50,7 @@ import com.runwaysdk.system.scheduler.JobHistory;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.export.AggregatedCaseExcelView;
+import dss.vector.solutions.export.LarvacideExcelView;
 import dss.vector.solutions.general.Disease;
 
 public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.runwaysdk.generation.loader.Reloadable
@@ -453,12 +454,47 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   {
     for (int i = 0; i < 10; i++)
     {
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("Individual IPT: " + i);
+      // job.getDescription().setValue("Individual IPT: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(IndividualIPTExcelView.CLASS);
+      // job.apply();
+
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("ITN Distribution: " + i);
+      // job.getDescription().setValue("ITN Distribution: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(ITNDistributionExcelView.CLASS);
+      // job.apply();
+
       MobileDataUploadJob job = new MobileDataUploadJob();
-      job.setJobId("Aggregated Case: " + i);
-      job.getDescription().setValue("Aggregated Case: " + i);
+      job.setJobId("Larvacide: " + i);
+      job.getDescription().setValue("Larvacide: " + i);
       job.setDisease(Disease.getCurrent());
-      job.setFormType(AggregatedCaseExcelView.CLASS);
+      job.setFormType(LarvacideExcelView.CLASS);
       job.apply();
+
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("ITN Community: " + i);
+      // job.getDescription().setValue("ITN Community Data: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(ITNCommunityExcelView.CLASS);
+      // job.apply();
+
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("Aggregated IPT: " + i);
+      // job.getDescription().setValue("Aggregated IPT: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(AggregatedIPTExcelView.CLASS);
+      // job.apply();
+
+      // MobileDataUploadJob job = new MobileDataUploadJob();
+      // job.setJobId("Aggregated Case: " + i);
+      // job.getDescription().setValue("Aggregated Case: " + i);
+      // job.setDisease(Disease.getCurrent());
+      // job.setFormType(AggregatedCaseExcelView.CLASS);
+      // job.apply();
 
       // MobileDataUploadJob job = new MobileDataUploadJob();
       // job.setJobId("Mosquito Collection ODK: " + i);
@@ -474,5 +510,14 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
       // job.setFormType(EfficacyAssayExcelView.CLASS);
       // job.apply();
     }
+  }
+
+  public static boolean exists(String formType, Disease disease)
+  {
+    MobileDataUploadJobQuery query = new MobileDataUploadJobQuery(new QueryFactory());
+    query.WHERE(query.getFormType().EQ(formType));
+    query.AND(query.getDisease().EQ(disease));
+
+    return ( query.getCount() > 0 );
   }
 }

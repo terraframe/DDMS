@@ -26,6 +26,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -39,6 +41,8 @@ import dss.vector.solutions.odk.ODKDataConverter.ODKRow;
 
 public class ODK2Excel implements Reloadable
 {
+  private static Logger       logger      = LoggerFactory.getLogger(ODK2Excel.class);
+
   private static final String NUM_ENTRIES = "5000";
 
   private ODKForm             form;
@@ -215,6 +219,10 @@ public class ODK2Excel implements Reloadable
         }
         catch (Exception e)
         {
+          logger.error(e.getMessage());
+
+          e.printStackTrace();
+
           throw new ProgrammingErrorException(e);
         }
       }

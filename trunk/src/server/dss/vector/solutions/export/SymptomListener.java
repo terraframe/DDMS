@@ -23,7 +23,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
-import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -33,16 +32,13 @@ import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class SymptomListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class SymptomListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String SYMPTOM = "symptom ";
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term term : TermRootCache.getRoots(IndividualInstance.getSymptomMd()))
-    {
-      extraColumns.add(new ExcelColumn(SYMPTOM + term.getTermId(), term.getTermDisplayLabel().getValue()));
-    }
+    this.addGridColumns(extraColumns, IndividualInstance.getSymptomMd(), SYMPTOM);
   }
 
   public void preHeader(ExcelColumn columnInfo)

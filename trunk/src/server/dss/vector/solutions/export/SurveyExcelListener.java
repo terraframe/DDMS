@@ -23,7 +23,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
-import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -33,7 +32,7 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class SurveyExcelListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
+public class SurveyExcelListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String LOCATIONS  = "Treatment Sought At ";
 
@@ -41,15 +40,8 @@ public class SurveyExcelListener extends ExcelAdapter implements ExcelExportList
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term location : TermRootCache.getRoots(SurveyedPersonView.getDisplayLocationsMd()))
-    {
-      extraColumns.add(new ExcelColumn(LOCATIONS + location.getTermId(), location.getTermDisplayLabel().getValue()));
-    }
-
-    for (Term treatment : TermRootCache.getRoots(SurveyedPersonView.getDisplayTreatmentsMd()))
-    {
-      extraColumns.add(new ExcelColumn(TREATMENTS + treatment.getTermId(), treatment.getTermDisplayLabel().getValue()));
-    }
+    this.addGridColumns(extraColumns, SurveyedPersonView.getDisplayLocationsMd(), LOCATIONS);
+    this.addGridColumns(extraColumns, SurveyedPersonView.getDisplayTreatmentsMd(), TREATMENTS);
   }
 
   public void preHeader(ExcelColumn columnInfo)
