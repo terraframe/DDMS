@@ -1118,7 +1118,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(CollectionAssay.getGenerationMd(), CollectionAssay.getGenerationMd());
-      master.addAttribute(Insecticide.getActiveIngredientMd(), InsecticideBrand.getActiveIngredientMd());
+      master.addAttribute(Insecticide.getActiveIngredientMd(), Insecticide.getActiveIngredientMd());
       master.addAttribute(Insecticide.getUnitsMd(), Insecticide.getUnitsMd());
       master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
     }
@@ -1130,7 +1130,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(LarvaeDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(CollectionAssay.getGenerationMd(), CollectionAssay.getGenerationMd());
-      master.addAttribute(Insecticide.getActiveIngredientMd(), InsecticideBrand.getActiveIngredientMd());
+      master.addAttribute(Insecticide.getActiveIngredientMd(), Insecticide.getActiveIngredientMd());
       master.addAttribute(Insecticide.getUnitsMd(), Insecticide.getUnitsMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
     }
