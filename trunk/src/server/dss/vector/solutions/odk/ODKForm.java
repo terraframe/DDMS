@@ -63,6 +63,7 @@ import dss.vector.solutions.entomology.TimeResponseAssay;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView;
+import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
@@ -114,6 +115,7 @@ import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
+import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.general.ThresholdDataView;
@@ -126,7 +128,6 @@ import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitViewBase;
 import dss.vector.solutions.intervention.monitor.ControlIntervention;
-import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNData;
@@ -154,7 +155,6 @@ import dss.vector.solutions.irs.ResourceTarget;
 import dss.vector.solutions.irs.ResourceTargetView;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.SprayTeamExcelView;
-import dss.vector.solutions.irs.SprayTeamView;
 import dss.vector.solutions.irs.TeamSpray;
 import dss.vector.solutions.irs.TeamSprayStatusView;
 import dss.vector.solutions.irs.TeamSprayView;
@@ -462,7 +462,7 @@ public class ODKForm implements Reloadable
         continue;
       }
 
-      attrs.add(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
+      addAttribute(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
     }
 
     if (orderList != null)
@@ -477,22 +477,46 @@ public class ODKForm implements Reloadable
     {
       MdAttributeDAOIF sourceAttr = attrMap.get(viewAttr);
 
-      attrs.add(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
+      addAttribute(ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms));
     }
 
     this.attrs.sort(new AttributeComparator(orderList));
   }
 
+  /**
+   * Adds the attribute to the end of the attribute list. If an attribute already exists with the same name, it will be replaced.
+   * 
+   * @param attr
+   */
   public void addAttribute(ODKAttribute attr)
   {
-    this.attrs.add(attr);
+    int existingIndex = -1;
+    for (int i = 0; i < attrs.size(); ++i)
+    {
+      ODKAttribute existingAttr = attrs.get(i);
+      
+      if (existingAttr.getAttributeName().equals(attr.getAttributeName()))
+      {
+        existingIndex = i;
+      }
+    }
+    
+    if (existingIndex != -1)
+    {
+      this.attrs.remove(existingIndex);
+      this.attrs.add(existingIndex, attr);
+    }
+    else
+    {
+      this.attrs.add(attr);
+    }
   }
 
   public ODKAttribute addAttribute(MdAttributeDAOIF sourceAttr, MdAttributeDAOIF viewAttr)
   {
     ODKAttribute attr = ODKAttribute.factory(sourceAttr, viewAttr, exportedTerms);
 
-    attrs.add(attr);
+    addAttribute(attr);
 
     return attr;
   }
@@ -1049,79 +1073,100 @@ public class ODKForm implements Reloadable
 
       master.join(new RepeatFormJoin(master, container));
     }
-    /*
-     * EVERYTHING BELOW STILL NEEDS TO BE AUDITED
-     */
     else if (mobileType.equals(SprayTeamExcelView.CLASS))
     {
       master = new ODKForm(SprayTeamExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(SprayTeam.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(SprayTeamView.CLASS, null, null);
+      master.addAttribute(SprayTeamExcelView.getOperatorIdMd(), SprayTeamExcelView.getOperatorIdMd());
+      master.addAttribute(SprayTeamExcelView.getTeamIdMd(), SprayTeamExcelView.getTeamIdMd());
+      master.addAttribute(SprayTeamExcelView.getTeamLeaderIdMd(), SprayTeamExcelView.getTeamLeaderIdMd());
+      master.addAttribute(SprayTeamExcelView.getSprayZoneMd(), SprayTeamExcelView.getSprayZoneMd());
     }
     else if (mobileType.equals(DiagnosticAssayExcelView.CLASS))
     {
       master = new ODKForm(DiagnosticAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(DiagnosticAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.addAttribute(DiagnosticAssayExcelView.getCollectionIdMd(), DiagnosticAssayExcelView.getCollectionIdMd());
       master.buildAttributes(DiagnosticAssayView.CLASS, DiagnosticAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(AdultDiscriminatingDoseAssayExcelView.CLASS))
     {
       master = new ODKForm(AdultDiscriminatingDoseAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(AdultDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(AdultDiscriminatingDoseAssayExcelView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(AdultDiscriminatingDoseAssayView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(BiochemicalAssayExcelView.CLASS))
     {
       master = new ODKForm(BiochemicalAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(BiochemicalAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(BiochemicalAssayExcelView.CLASS, BiochemicalAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(BiochemicalAssayView.CLASS, BiochemicalAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(InfectionAssayExcelView.CLASS))
     {
       master = new ODKForm(InfectionAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(InfectionAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(InfectionAssayExcelView.CLASS, InfectionAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(InfectionAssayView.CLASS, InfectionAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(KnockDownAssayExcelView.CLASS))
     {
+      // TODO : This cannot be exported due to max limit reached on Insecticide.activeIngredient (which cannot be changed through the GUI)
+      
       master = new ODKForm(KnockDownAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
+      master.addAttribute(CollectionAssay.getGenerationMd(), CollectionAssay.getGenerationMd());
+      master.addAttribute(Insecticide.getActiveIngredientMd(), InsecticideBrand.getActiveIngredientMd());
+      master.addAttribute(Insecticide.getUnitsMd(), Insecticide.getUnitsMd());
       master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(LarvaeDiscriminatingDoseAssayExcelView.CLASS))
     {
+      // TODO : This cannot be exported due to max limit reached on Insecticide.activeIngredient (which cannot be changed through the GUI)
+      
       master = new ODKForm(LarvaeDiscriminatingDoseAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(LarvaeDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
+      master.addAttribute(CollectionAssay.getGenerationMd(), CollectionAssay.getGenerationMd());
+      master.addAttribute(Insecticide.getActiveIngredientMd(), InsecticideBrand.getActiveIngredientMd());
+      master.addAttribute(Insecticide.getUnitsMd(), Insecticide.getUnitsMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(MolecularAssayExcelView.CLASS))
     {
       master = new ODKForm(MolecularAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(MolecularAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(MolecularAssayExcelView.CLASS, MolecularAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(MolecularAssayView.CLASS, MolecularAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(PooledInfectionAssayExcelView.CLASS))
     {
       master = new ODKForm(PooledInfectionAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(PooledInfectionAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(PooledInfectionAssayExcelView.CLASS, PooledInfectionAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(PooledInfectionAssayView.CLASS, PooledInfectionAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(TimeResponseAssayExcelView.CLASS))
     {
       master = new ODKForm(TimeResponseAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(TimeResponseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(TimeResponseAssayExcelView.CLASS, TimeResponseAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(TimeResponseAssayView.CLASS, TimeResponseAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(GeoTargetExcelView.CLASS))
     {
       master = new ODKForm(GeoTargetExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(GeoTarget.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(GeoTargetExcelView.CLASS, GeoTargetExcelView.customAttributeOrder(), null);
       master.buildAttributes(GeoTargetView.CLASS, GeoTargetExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(ResourceTargetExcelView.CLASS))
     {
       master = new ODKForm(ResourceTargetExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ResourceTarget.CLASS).getDisplayLabel(Session.getCurrentLocale()));
+      master.buildAttributes(ResourceTargetExcelView.CLASS, ResourceTargetExcelView.customAttributeOrder(), null);
       master.buildAttributes(ResourceTargetView.CLASS, ResourceTargetExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
@@ -1202,7 +1247,7 @@ public class ODKForm implements Reloadable
     }
     else
     {
-      throw new UnsupportedOperationException();
+      throw new UnsupportedOperationException("Unable to construct an ODK form of type [" + mobileType + "]. The type is unsupported.");
     }
 
     return master;
