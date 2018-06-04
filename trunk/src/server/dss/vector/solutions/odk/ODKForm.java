@@ -1122,26 +1122,22 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(KnockDownAssayExcelView.CLASS))
     {
-      // TODO : This cannot be exported due to max limit reached on Insecticide.activeIngredient (which cannot be changed through the GUI)
-      
       master = new ODKForm(KnockDownAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
-      master.addAttribute(CollectionAssay.getGenerationMd(), CollectionAssay.getGenerationMd());
-      master.addAttribute(Insecticide.getActiveIngredientMd(), Insecticide.getActiveIngredientMd());
-      master.addAttribute(Insecticide.getUnitsMd(), Insecticide.getUnitsMd());
+      master.addAttribute(CollectionAssay.getGenerationMd(), KnockDownAssayExcelView.getGenerationMd());
+      master.addAttribute(Insecticide.getActiveIngredientMd(), KnockDownAssayExcelView.getInsecticideActiveIngredientMd());
+      master.addAttribute(Insecticide.getUnitsMd(), KnockDownAssayExcelView.getInsecticideUnitsMd());
       master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(LarvaeDiscriminatingDoseAssayExcelView.CLASS))
     {
-      // TODO : This cannot be exported due to max limit reached on Insecticide.activeIngredient (which cannot be changed through the GUI)
-      
       master = new ODKForm(LarvaeDiscriminatingDoseAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(LarvaeDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
-      master.addAttribute(CollectionAssay.getGenerationMd(), CollectionAssay.getGenerationMd());
-      master.addAttribute(Insecticide.getActiveIngredientMd(), Insecticide.getActiveIngredientMd());
-      master.addAttribute(Insecticide.getUnitsMd(), Insecticide.getUnitsMd());
+      master.addAttribute(CollectionAssay.getGenerationMd(), LarvaeDiscriminatingDoseAssayExcelView.getGenerationMd());
+      master.addAttribute(Insecticide.getActiveIngredientMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd());
+      master.addAttribute(Insecticide.getUnitsMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(MolecularAssayExcelView.CLASS))
