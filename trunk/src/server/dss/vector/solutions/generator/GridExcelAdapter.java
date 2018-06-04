@@ -42,6 +42,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 
+import dss.vector.solutions.export.GridExcelColumn;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
@@ -97,7 +98,7 @@ public class GridExcelAdapter extends ExcelExportSheet implements ContextBuilder
         String columnLabel = fieldLabel + " " + termDisplayLabel;
         String attributeName = this.getAttributeName(fieldName, root);
 
-        this.addExpectedColumn(new ExcelColumn(attributeName, columnLabel));
+        this.addExpectedColumn(new GridExcelColumn(attributeName, columnLabel, this.mdCompositeField.getFieldName(), root.getTermId(), fieldName));
       }
     }
   }

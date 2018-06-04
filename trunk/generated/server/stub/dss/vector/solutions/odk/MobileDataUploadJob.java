@@ -16,7 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -35,23 +37,42 @@ import org.slf4j.LoggerFactory;
 import com.google.common.io.Files;
 import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdFieldDAOIF;
+import com.runwaysdk.dataaccess.MdFormDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.MdWebFormDAOIF;
+import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExportSheet;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelSheetMetadata;
+import com.runwaysdk.dataaccess.io.FormExcelExporter;
+import com.runwaysdk.dataaccess.metadata.MdFormDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebSingleTermGridDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdWebForm;
+import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
 
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.LarvacideExcelView;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.generator.FormColumnFactory;
+import dss.vector.solutions.generator.FormImportFilter;
+import dss.vector.solutions.generator.GridExcelAdapter;
+import dss.vector.solutions.generator.MdFormUtil;
+import dss.vector.solutions.generator.MultiTermListener;
 
 public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -248,7 +269,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   private Map<String, ExcelExportSheet> createSheets(ODKForm form, ExcelSheetMetadata metadata)
   {
-    HashMap<String, ExcelExportSheet> sheets = new HashMap<String, ExcelExportSheet>();
+    HashMap<String, ExcelExportSheet> sheets = new LinkedHashMap<String, ExcelExportSheet>();
 
     createSheets(form, metadata, sheets);
 
@@ -257,14 +278,66 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   private void createSheets(ODKForm form, ExcelSheetMetadata metadata, Map<String, ExcelExportSheet> sheets)
   {
-    // Setup the listeners excel export listeners
-    ExcelExporter exporter = new ExcelExporter();
-
     if (form.isExport())
     {
-      this.setupListener(exporter, form.getViewMd());
+      MdClassDAOIF target = form.getViewMd();
 
-      sheets.put(form.getViewMd().definesType(), exporter.addTemplate(form.getViewMd().definesType(), metadata));
+      if (MdFormUtil.isFormBusinessPackage(target.definesType()))
+      {
+        MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(target.definesType());
+        MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(mdWebForm.getId());
+
+        ExcelExporter exporter = new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
+
+        List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
+
+        List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
+
+        for (DynamicGeoColumnListener listener : geoListeners)
+        {
+          listeners.add(listener);
+        }
+
+        List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
+
+        for (MultiTermListener listener : multiTermListeners)
+        {
+          listeners.add(listener);
+        }
+
+        listeners.add(new UUIDExcelListener());
+
+        sheets.put(target.definesType(), exporter.addTemplate(target.definesType(), metadata, listeners));
+      }
+      else if (MdFormUtil.isFormRelationshipPackage(target.definesType()))
+      {
+        MdRelationshipDAOIF mdRelationship = (MdRelationshipDAOIF) target;
+        MdBusinessDAOIF formMdBusiness = mdRelationship.getParentMdBusiness();
+        MdWebForm mdForm = MdFormUtil.getMdFormFromBusinessType(formMdBusiness.definesType());
+        MdWebSingleTermGrid mdWebGrid = MdFormUtil.getGridAttribute(mdForm, mdRelationship);
+
+        MdWebFormDAOIF mdWebFormDAO = MdWebFormDAO.get(mdForm.getId());
+        MdFieldDAOIF mdFieldDAO = MdWebSingleTermGridDAO.get(mdWebGrid.getId());
+
+        GridExcelAdapter sheet = new GridExcelAdapter(mdWebFormDAO, (MdWebSingleTermGridDAOIF) mdFieldDAO, mdRelationship);
+        sheet.addTemplate(mdRelationship.definesType());
+
+        ExcelExporter exporter = new ExcelExporter();
+        exporter.addSheet(sheet);
+
+        sheets.put(target.definesType(), sheet);
+      }
+      else
+      {
+        // Setup the listeners excel export listeners
+        ExcelExporter exporter = new ExcelExporter();
+
+        this.setupListener(exporter, target);
+
+        exporter.addListener(new UUIDExcelListener());
+
+        sheets.put(target.definesType(), exporter.addTemplate(form.getViewMd().definesType(), metadata));
+      }
     }
 
     LinkedList<ODKFormJoin> joins = form.getJoins();

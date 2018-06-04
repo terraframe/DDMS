@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.generator;
 
@@ -857,7 +857,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return mdField;
   }
-  
+
   public static MdWebForm[] getAllForms()
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
@@ -880,19 +880,19 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdWebForm[] getAllFormsForDisease()
   {
     QueryFactory qf = new QueryFactory();
-    
+
     MdWebFormQuery webq = new MdWebFormQuery(qf);
-    
+
     webq.WHERE(webq.getDimension().EQ(Disease.getCurrent().getDimension()).OR(webq.getDimension().EQ("")));
-    
+
     webq.ORDER_BY_ASC(webq.getDisplayLabel().localize());
-  
+
     OIterator<? extends MdWebForm> it = webq.getIterator();
-  
+
     try
     {
       List<? extends MdWebForm> forms = it.getAll();
-  
+
       return forms.toArray(new MdWebForm[forms.size()]);
     }
     finally
@@ -900,7 +900,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       it.close();
     }
   }
-  
+
   public static MdWebForm getForm(String type)
   {
     MdTypeDAOIF mdTypeDAO = MdFormDAO.getMdTypeDAO(type);
@@ -1182,6 +1182,26 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     TermViewQuery q = new TermViewQuery(f, builder);
 
     return q;
+  }
+
+  public static MdWebSingleTermGrid getGridAttribute(MdWebForm mdForm, MdRelationshipDAOIF mdRelationship)
+  {
+    MdWebField[] fields = MdFormUtil.getFields(mdForm);
+
+    for (MdWebField field : fields)
+    {
+      if (field instanceof MdWebSingleTermGrid)
+      {
+        String relationshipType = MdFormUtil.getRelationshipType(field);
+
+        if (relationshipType.equals(mdRelationship.definesType()))
+        {
+          return (MdWebSingleTermGrid) field;
+        }
+      }
+    }
+
+    return null;
   }
 
   public static MdRelationship getMdRelationship(MdWebField field)
@@ -1806,26 +1826,26 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return new ByteArrayInputStream(exporter.write());
   }
 
-//  public static InputStream excelImport(InputStream stream, String type)
-//  {
-//    // Start caching Broswer Roots for this Thread.
-//    TermRootCache.start();
-//    EpiCache.start();
-//
-//    try
-//    {
-//      ContextBuilderFacade builder = new ContextBuilderFacade();
-//
-//      ExcelImporter importer = new ExcelImporter(stream, builder);
-//
-//      return new ByteArrayInputStream(importer.read());
-//    }
-//    finally
-//    {
-//      TermRootCache.stop();
-//      EpiCache.stop();
-//    }
-//  }
+  // public static InputStream excelImport(InputStream stream, String type)
+  // {
+  // // Start caching Broswer Roots for this Thread.
+  // TermRootCache.start();
+  // EpiCache.start();
+  //
+  // try
+  // {
+  // ContextBuilderFacade builder = new ContextBuilderFacade();
+  //
+  // ExcelImporter importer = new ExcelImporter(stream, builder);
+  //
+  // return new ByteArrayInputStream(importer.read());
+  // }
+  // finally
+  // {
+  // TermRootCache.stop();
+  // EpiCache.stop();
+  // }
+  // }
 
   public static List<MultiTermListener> getMultiTermListeners(MdFormDAOIF mdForm)
   {
@@ -2683,11 +2703,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
   public static void exportDataset(String mdFormId)
   {
     Disease disease = getFormDisease(MdWebForm.get(mdFormId));
-    
+
     exportDataset(mdFormId, disease);
   }
 
@@ -2824,11 +2844,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return fieldQuery.getCount() > 0;
   }
-  
+
   public static Disease getFormDisease(MdWebForm form)
   {
     MdDimension dim = form.getDimension();
-    
+
     if (dim == null)
     {
       return null;
@@ -2838,7 +2858,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       return Disease.getByKey(dim.getName());
     }
   }
-  
+
   public static boolean hasDataset(MdWebForm form, Disease dz)
   {
     return ( MappableClass.getMappableClass(form.getFormMdClass(), dz) != null );

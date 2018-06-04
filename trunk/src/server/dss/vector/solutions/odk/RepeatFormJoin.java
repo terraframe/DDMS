@@ -14,10 +14,10 @@ public class RepeatFormJoin extends ODKFormJoin implements Reloadable
 
   public RepeatFormJoin(ODKForm parent, ODKForm child)
   {
-    this(parent, child, false, false);
+    this(parent, child, false);
   }
 
-  public RepeatFormJoin(ODKForm parent, ODKForm child, boolean standalone, boolean copy)
+  public RepeatFormJoin(ODKForm parent, ODKForm child, boolean standalone)
   {
     super(parent, child);
 

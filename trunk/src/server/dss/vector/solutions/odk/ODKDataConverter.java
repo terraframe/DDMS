@@ -152,10 +152,22 @@ public class ODKDataConverter implements Reloadable
 
   public List<ODKRow> convert(String uuid, ODKForm form, Node node, Map<String, ExcelExportSheet> sheets)
   {
+    return this.convert(uuid, form, node, sheets, new HashMap<>());
+  }
+
+  public List<ODKRow> convert(String uuid, ODKForm form, Node node, Map<String, ExcelExportSheet> sheets, Map<String, String> overrides)
+  {
     MdClassDAOIF mdType = form.getViewMd();
 
     ODKRow root = new ODKRow(BusinessFacade.newMutable(mdType.definesType()));
     root.setOverride("_UUID_", uuid);
+
+    Set<Entry<String, String>> entries = overrides.entrySet();
+
+    for (Entry<String, String> entry : entries)
+    {
+      root.setOverride(entry.getKey(), entry.getValue());
+    }
 
     return convert(root, form, node, sheets);
   }
@@ -165,7 +177,7 @@ public class ODKDataConverter implements Reloadable
     List<ODKRow> rows = new LinkedList<ODKRow>();
     List<Node> repeats = new LinkedList<Node>();
 
-    List<ExcelColumn> extraColumns = this.getExtraColumns(root, form, sheets);
+    ExcelExportSheet sheet = this.getSheet(root, form, sheets);
 
     NodeList children = node.getChildNodes();
 
@@ -210,7 +222,7 @@ public class ODKDataConverter implements Reloadable
           String termId = split[1];
           String subAttribute = ( split.length > 2 ) ? split[2] : null;
 
-          ExcelColumn column = getGridColumn(extraColumns, gridAttribute, termId, subAttribute);
+          ExcelColumn column = getGridColumn(sheet, gridAttribute, termId, subAttribute);
 
           root.setOverride(column.getAttributeName(), value);
         }
@@ -228,7 +240,7 @@ public class ODKDataConverter implements Reloadable
           String geoId = value.substring(0, index);
           String universalId = value.substring(index + 2);
 
-          ExcelColumn column = getGeoColumn(extraColumns, base, universalId);
+          ExcelColumn column = getGeoColumn(sheet.getExtraColumns(), base, universalId);
 
           root.setOverride(column.getAttributeName(), geoId);
         }
@@ -237,8 +249,22 @@ public class ODKDataConverter implements Reloadable
       {
         ODKForm standalone = form.getRepeatable(sourceAttribute);
         String uuid = root.getOverrides().get("_UUID_");
+        Map<String, String> overrides = new HashMap<String, String>();
 
-        rows.addAll(this.convert(uuid, standalone, child, sheets));
+        LinkedList<ODKAttribute> attributes = form.getAttributes();
+
+        for (ODKAttribute attribute : attributes)
+        {
+          String override = attribute.getOverride();
+
+          if (override != null)
+          {
+            String value = root.getMutable().getValue(attribute.getAttributeName());
+            overrides.put(override, value);
+          }
+        }
+
+        rows.addAll(this.convert(uuid, standalone, child, sheets, overrides));
       }
       else if (form.isRepeatable(sourceAttribute))
       {
@@ -265,16 +291,14 @@ public class ODKDataConverter implements Reloadable
     return rows;
   }
 
-  private List<ExcelColumn> getExtraColumns(ODKRow root, ODKForm form, Map<String, ExcelExportSheet> sheets)
+  private ExcelExportSheet getSheet(ODKRow root, ODKForm form, Map<String, ExcelExportSheet> sheets)
   {
     if (form.isExport())
     {
-      ExcelExportSheet sheet = sheets.get(root.getType());
-
-      return sheet.getExtraColumns();
+      return sheets.get(root.getType());
     }
 
-    return new LinkedList<>();
+    return null;
   }
 
   private ExcelColumn getGeoColumn(List<ExcelColumn> extraColumns, String base, String universalId)
@@ -295,11 +319,14 @@ public class ODKDataConverter implements Reloadable
     return null;
   }
 
-  private ExcelColumn getGridColumn(List<ExcelColumn> extraColumns, String gridAttribute, String termId, String subAttribute)
+  private ExcelColumn getGridColumn(ExcelExportSheet sheet, String gridAttribute, String termId, String subAttribute)
   {
+    List<ExcelColumn> columns = new LinkedList<>(sheet.getExpectedColumns());
+    columns.addAll(sheet.getExtraColumns());
+
     String desanitize = termId.replaceAll("_", ":");
 
-    for (ExcelColumn column : extraColumns)
+    for (ExcelColumn column : columns)
     {
       if (column instanceof GridExcelColumn)
       {

@@ -54,6 +54,8 @@ public class ODKAttribute implements Reloadable
 
   private String                type;
 
+  private String                override;
+
   public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
   {
     this.type = type;
@@ -62,6 +64,7 @@ public class ODKAttribute implements Reloadable
     this.description = description;
     this.index = index;
     this.required = required;
+    this.override = null;
   }
 
   public ODKAttribute(String attributeName, String displayLabel, String description, int index, boolean required)
@@ -289,5 +292,15 @@ public class ODKAttribute implements Reloadable
   public String toString()
   {
     return displayLabel + " (" + attributeName + ")";
+  }
+
+  public void setOverride(String columnName)
+  {
+    this.override = columnName;
+  }
+
+  public String getOverride()
+  {
+    return override;
   }
 }

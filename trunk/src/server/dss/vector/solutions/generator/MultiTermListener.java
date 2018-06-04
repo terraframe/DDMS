@@ -73,9 +73,9 @@ public class MultiTermListener extends AbstractExcelAdapter implements ExcelExpo
     String fieldName = mdField.getFieldName();
     MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();
     String fieldDisplayLabel = mdField.getDisplayLabel(Session.getCurrentLocale());
-    Term[] roots = TermRootCache.getRoots(mdAttribute);
+//    Term[] roots = TermRootCache.getRoots(mdAttribute);
     
-    this.addGridColumns(extraColumns, (MdAttributeReferenceDAOIF) mdAttribute, fieldDisplayLabel);
+    this.addGridColumns(extraColumns, (MdAttributeReferenceDAOIF) mdAttribute, fieldName, fieldDisplayLabel);
 //
 //
 //    for (Term root : roots)

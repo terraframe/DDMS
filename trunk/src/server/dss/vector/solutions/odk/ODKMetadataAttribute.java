@@ -70,11 +70,14 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   public String getODKType()
   {
-    MdAttributeDAOIF attr = sourceMdAttr;
+    return getODKType(sourceMdAttr);
+  }
 
-    if (sourceMdAttr instanceof MdAttributeVirtualDAOIF)
+  public static String getODKType(MdAttributeDAOIF attr)
+  {
+    if (attr instanceof MdAttributeVirtualDAOIF)
     {
-      attr = sourceMdAttr.getMdAttributeConcrete();
+      attr = attr.getMdAttributeConcrete();
     }
 
     if (attr instanceof MdAttributeBooleanDAOIF)
@@ -105,7 +108,8 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     {
       return "date";
     }
-    else if (attr instanceof MdAttributeReferenceDAOIF) // Merg form has some attr references
+    else if (attr instanceof MdAttributeReferenceDAOIF) // Merg form has some
+                                                        // attr references
     {
       return "string";
     }
