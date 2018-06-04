@@ -18,20 +18,6 @@
         name="dss.vector.solutions.export.CasePatientTypeExcelView"
         label="Aggregated Case Patient Type">
       </mdView>
-      <mdController name="dss.vector.solutions.form.MdFormAdminController">
-        <create>
-          <mdAction name="mobileExport" label="mobileExport" isPost="true">
-            <mdParameter name="mdFormId" label="mdFormId" order="0" type="java.lang.String"/>
-          </mdAction>
-        </create>
-      </mdController>
-      <mdUtil name="dss.vector.solutions.mobile.MobileUtil">
-        <create>
-          <mdMethod name="exportMdForm" label="exportMdForm" static="true" returnType="void" >
-            <mdParameter name="mdFormId" label="mdFormId" order="0" type="java.lang.String"/>
-          </mdMethod>
-        </create>
-      </mdUtil>
     </update>
   </doIt>
   <undoIt>

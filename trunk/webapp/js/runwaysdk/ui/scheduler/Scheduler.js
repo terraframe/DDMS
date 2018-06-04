@@ -133,8 +133,8 @@
         this._reportTable = new JobTable(this._config, "dss.vector.solutions.report.ReportJob", this);
         this._tabPanel.addPanel(this.localize("report_jobs"), this._reportTable);
         
-//        this._odkDataTable = new JobTable(this._config, "dss.vector.solutions.", this);
-//        this._tabPanel.addPanel(this.localize("odk_data_pull"), this._odkDataTable);
+        this._odkDataTable = new JobTable(this._config, "dss.vector.solutions.odk.MobileDataUploadJob", this);
+        this._tabPanel.addPanel(this.localize("odk_data_pull"), this._odkDataTable);
         
         this._historyTable = new JobHistoryTable(this._config, this);
         this._tabPanel.addPanel(this.localize("history"), this._historyTable);
@@ -163,6 +163,7 @@
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
+          this._odkDataTable.getPollingRequest().disable();
         }
         else if (panel.getPanelNumber() === 1) { // Cycle jobs
           this._allJobsTable.getPollingRequest().disable();
@@ -170,6 +171,7 @@
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
+          this._odkDataTable.getPollingRequest().disable();
         }
         else if (panel.getPanelNumber() === 2) { // Refresh View jobs
           this._allJobsTable.getPollingRequest().disable();
@@ -177,20 +179,31 @@
           this._refreshViewTable.getPollingRequest().enable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
+          this._odkDataTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 2) { // Report jobs
+        else if (panel.getPanelNumber() === 3) { // Report jobs
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().enable();
           this._historyTable.getPollingRequest().disable();
+          this._odkDataTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 4) { // History
+        else if (panel.getPanelNumber() === 4) { // Mobile data upload job
+          this._allJobsTable.getPollingRequest().disable();
+          this._cycleJobTable.getPollingRequest().disable();
+          this._refreshViewTable.getPollingRequest().disable();
+          this._reportTable.getPollingRequest().disable();
+          this._historyTable.getPollingRequest().disable();
+          this._odkDataTable.getPollingRequest().enable();
+        }
+        else if (panel.getPanelNumber() === 5) { // History
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().enable();
+          this._odkDataTable.getPollingRequest().disable();
         }
       },
       
@@ -223,7 +236,7 @@
         
         jobDTO.start(new Mojo.ClientRequest({
           onSuccess : function(jobHistoryDTO) {
-            that._scheduler._tabPanel.switchToPanel(1);
+            that._scheduler._tabPanel.switchToPanel(5);
           },
           onFailure : function(ex) {
             that.handleException(ex);

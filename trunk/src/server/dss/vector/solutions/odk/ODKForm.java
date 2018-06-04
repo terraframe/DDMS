@@ -115,6 +115,7 @@ import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.ThresholdData;
@@ -253,7 +254,7 @@ public class ODKForm implements Reloadable
     this.joins = new LinkedList<ODKFormJoin>();
     this.attrs = new LinkedList<ODKAttribute>();
     this.export = true;
-    this.formTitle = this.getViewMd().getDisplayLabel(Session.getCurrentLocale());
+    this.setFormTitle(this.getViewMd().getDisplayLabel(Session.getCurrentLocale()));
   }
 
   public void setExport(boolean export)
@@ -350,7 +351,7 @@ public class ODKForm implements Reloadable
 
   public String getFormId()
   {
-    return MobileUtil.convertToOdkId(this.getViewMd().definesType());
+    return MobileUtil.convertToOdkId(this.getViewMd().definesType() + "_" + Disease.getCurrent().getKey());
   }
 
   public String getFormTitle()
@@ -360,7 +361,7 @@ public class ODKForm implements Reloadable
 
   public void setFormTitle(String title)
   {
-    this.formTitle = title;
+    this.formTitle = title + " (" + Disease.getCurrent().getDisplayLabel() + ")";
   }
 
   public void writeTranslation(Element parent, Document document, String context, int maxDepth)
