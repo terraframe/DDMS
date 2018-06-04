@@ -84,7 +84,7 @@ public class ODKFormExporter implements Reloadable
    */
   private Element       root;
 
-  private List<ODKForm> odkForms;
+  private ODKForm masterForm;
 
   private String        formId;
 
@@ -98,8 +98,7 @@ public class ODKFormExporter implements Reloadable
 
   public ODKFormExporter(ODKForm master)
   {
-    this.odkForms = new ArrayList<ODKForm>();
-    this.odkForms.add(master);
+    this.masterForm = master;
     this.formId = master.getFormId();
     this.formTitle = master.getFormTitle();
   }
@@ -156,13 +155,16 @@ public class ODKFormExporter implements Reloadable
     document.appendChild(root);
 
     int maxDepth = 0;
-    if (providedMaxDepth != null)
+    if (this.masterForm.hasGeoAttribute())
     {
-      maxDepth = providedMaxDepth;
-    }
-    else
-    {
-      maxDepth = generateGeoEntityCSV();
+      if (providedMaxDepth != null)
+      {
+        maxDepth = providedMaxDepth;
+      }
+      else
+      {
+        maxDepth = generateGeoEntityCSV();
+      }
     }
 
     doHead(maxDepth);
@@ -178,10 +180,7 @@ public class ODKFormExporter implements Reloadable
   {
     new File(exportDir).mkdirs();
 
-    for (int i = 0; i < this.odkForms.size(); ++i)
-    {
-      this.odkForms.get(i).validate();
-    }
+    this.masterForm.validate();
   }
 
   private int generateGeoEntityCSV()
@@ -324,12 +323,7 @@ public class ODKFormExporter implements Reloadable
   @SuppressWarnings("unchecked")
   private int geoLoop(GeoLoopHandler handler)
   {
-    ArrayList<GeoFilterCriteria> filters = new ArrayList<GeoFilterCriteria>(this.odkForms.size());
-    for (int i = 0; i < this.odkForms.size(); ++i)
-    {
-      ODKForm form = odkForms.get(i);
-      filters.add(form.getGeoFilterCriteria());
-    }
+    GeoFilterCriteria gfc = masterForm.getGeoFilterCriteria();
 
     Set<String> exported = new HashSet<String>();
 
@@ -354,15 +348,7 @@ public class ODKFormExporter implements Reloadable
 
         if (!exported.contains(curGeo.getId()))
         {
-          boolean isPartOfHierarchies = true;
-          for (GeoFilterCriteria filt : filters)
-          {
-            if (!filt.isPartOfHierarchy(curGeo))
-            {
-              isPartOfHierarchies = false;
-            }
-          }
-          if (isPartOfHierarchies)
+          if (gfc.isPartOfHierarchy(curGeo))
           {
             if (current.parentIds.size() > maxDepth)
             {
@@ -497,10 +483,7 @@ public class ODKFormExporter implements Reloadable
     Element translation = document.createElement("translation");
     translation.setAttribute("lang", "English");
 
-    for (ODKForm form : this.odkForms)
-    {
-      form.writeTranslation(translation, document, this.formId, maxDepth);
-    }
+    masterForm.writeTranslation(translation, document, this.formId, maxDepth);
     itext.appendChild(translation);
 
     Element instance = document.createElement("instance");
@@ -512,15 +495,8 @@ public class ODKFormExporter implements Reloadable
 
     instance.appendChild(instRoot);
 
-    for (ODKForm form : this.odkForms)
-    {
-      form.writeInstance(instRoot, document, this.formId, maxDepth);
-    }
-
-    for (ODKForm form : this.odkForms)
-    {
-      form.writeBind(model, document, this.formId, maxDepth);
-    }
+    masterForm.writeInstance(instRoot, document, this.formId, maxDepth);
+    masterForm.writeBind(model, document, this.formId, maxDepth);
   }
 
   private void doBody(int maxDepth)
@@ -528,10 +504,7 @@ public class ODKFormExporter implements Reloadable
     Element body = document.createElement("h:body");
     root.appendChild(body);
 
-    for (ODKForm form : this.odkForms)
-    {
-      form.writeBody(body, document, this.formId, maxDepth);
-    }
+    masterForm.writeBody(body, document, this.formId, maxDepth);
   }
 
   // curl --verbose --user ddms:aggregate --header "Content-Type:
@@ -570,19 +543,15 @@ public class ODKFormExporter implements Reloadable
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
       File fFormDef = new File(exportDir + this.formId + ".xml");
       builder.addBinaryBody("form_def_file", fFormDef);
-      // builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef),
-      // ContentType.APPLICATION_XML, fFormDef.getName());
-      File refItemsets = this.getItemsetsFile();
-      File itemsets = new File(refItemsets.getParentFile(), "itemsets.csv");
-      FileUtils.copyFile(refItemsets, itemsets);
-      builder.addBinaryBody("mediaFiles", itemsets);
+      if (this.masterForm.hasGeoAttribute())
+      {
+        File refItemsets = this.getItemsetsFile();
+        File itemsets = new File(refItemsets.getParentFile(), "itemsets.csv");
+        FileUtils.copyFile(refItemsets, itemsets);
+        builder.addBinaryBody("mediaFiles", itemsets);
+      }
       HttpEntity multipart = builder.build();
-
       HTTPResponse resp = ODKConnector.postToOdk("formUpload", multipart);
-
-      System.out.println("Response code: " + resp.getStatusCode());
-      
-      System.out.println(resp.getResponse());
 
       if (resp.getResponse().length() == 0)
       {

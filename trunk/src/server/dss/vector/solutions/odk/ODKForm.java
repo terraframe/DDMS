@@ -1299,4 +1299,25 @@ public class ODKForm implements Reloadable
 
     return new GeoFilterCriteria(ghl);
   }
+
+  public boolean hasGeoAttribute() 
+  {
+    for (ODKAttribute attr : this.attrs)
+    {
+      if (attr instanceof ODKGeoAttribute)
+      {
+        return true;
+      }
+    }
+    
+    for (ODKFormJoin join: joins)
+    {
+      if (join.getChild().hasGeoAttribute())
+      {
+        return true;
+      }
+    }
+    
+    return false;
+  }
 }
