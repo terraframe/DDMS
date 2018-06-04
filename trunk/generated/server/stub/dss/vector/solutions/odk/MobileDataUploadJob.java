@@ -124,8 +124,9 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           try
           {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String label = form.getViewMd().getDisplayLabel(Session.getCurrentLocale());
 
-            String filename = form.getViewMd().getDisplayLabel(Session.getCurrentLocale()) + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
+            String filename = label + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
             workbook.write(new FileOutputStream(new File(parent, filename)));
           }
           catch (FileNotFoundException e)

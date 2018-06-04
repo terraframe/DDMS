@@ -54,7 +54,7 @@ public class GeoserverProperties implements Reloadable
     }
     catch (Exception e)
     {
-      e.printStackTrace();
+//      e.printStackTrace();
 
       this.https = false;
     }

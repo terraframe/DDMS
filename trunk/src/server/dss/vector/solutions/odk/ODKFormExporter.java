@@ -72,29 +72,29 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class ODKFormExporter implements Reloadable
 {
-  private String exportDir = DeployProperties.getDeployPath() + "/ODK/";
+  private String        exportDir        = DeployProperties.getDeployPath() + "/ODK/";
 
   /**
    * The DOM <code>document</code> that is populated with data from the core.
    */
-  private Document            document;
+  private Document      document;
 
   /**
    * The <code>root</code> element of the DOM document.
    */
-  private Element             root;
+  private Element       root;
 
-  private List<ODKForm>       odkForms;
+  private List<ODKForm> odkForms;
 
-  private String              formId;
-  
-  private String              formTitle;
+  private String        formId;
 
-  private Logger              logger     = LoggerFactory.getLogger(ODKFormExporter.class);
-  
-  private Integer             providedMaxDepth = null;
-  
-  private File                providedGeoFile = null;
+  private String        formTitle;
+
+  private Logger        logger           = LoggerFactory.getLogger(ODKFormExporter.class);
+
+  private Integer       providedMaxDepth = null;
+
+  private File          providedGeoFile  = null;
 
   public ODKFormExporter(ODKForm master)
   {
@@ -103,35 +103,37 @@ public class ODKFormExporter implements Reloadable
     this.formId = master.getFormId();
     this.formTitle = master.getFormTitle();
   }
-  
-  public String getExportDir() {
+
+  public String getExportDir()
+  {
     return exportDir;
   }
 
-  public void setExportDir(String exportDir) {
+  public void setExportDir(String exportDir)
+  {
     this.exportDir = exportDir;
   }
-  
+
   public void useMyGeo(int maxDepth, File myGeo)
   {
     providedMaxDepth = maxDepth;
     providedGeoFile = myGeo;
   }
-  
+
   public File getItemsetsFile()
   {
     if (providedGeoFile != null)
     {
       return providedGeoFile;
     }
-    
+
     return new File(exportDir + this.formId + "-itemsets.csv");
   }
 
   public String doIt()
   {
     validate();
-    
+
     try
     {
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -162,20 +164,20 @@ public class ODKFormExporter implements Reloadable
     {
       maxDepth = generateGeoEntityCSV();
     }
-    
+
     doHead(maxDepth);
 
     doBody(maxDepth);
 
-//    print();
+    // print();
 
     return submit();
   }
-  
+
   private void validate()
   {
     new File(exportDir).mkdirs();
-    
+
     for (int i = 0; i < this.odkForms.size(); ++i)
     {
       this.odkForms.get(i).validate();
@@ -185,10 +187,13 @@ public class ODKFormExporter implements Reloadable
   private int generateGeoEntityCSV()
   {
     // TODO : versioning of odk submissions
-    
-    // High level : Select lists must be defined for each level in the tree. The GeoEntities must then be exported to the CSV file at the appropriate level.
-    
-    // 1. Do a depth-first search of the Universal tree to determine the number of levels. TODO : Do we want Universal or GeoEntity?
+
+    // High level : Select lists must be defined for each level in the tree. The
+    // GeoEntities must then be exported to the CSV file at the appropriate
+    // level.
+
+    // 1. Do a depth-first search of the Universal tree to determine the number
+    // of levels. TODO : Do we want Universal or GeoEntity?
     // 2. Create select lists for each level and for each attribute
     // 3. Export the GeoEntities to a CSV file
     // 4. Geo filter criteria
@@ -217,7 +222,7 @@ public class ODKFormExporter implements Reloadable
     private CSVPrinter csvp;
 
     private FileWriter writer;
-    
+
     public GeoLoopHandler(int maxDepth)
     {
       this.maxDepth = maxDepth;
@@ -251,7 +256,7 @@ public class ODKFormExporter implements Reloadable
     public void processGeo(GeoEntity geo, LinkedList<String> parents)
     {
       MdClassDAOIF universal = geo.getMdClass();
-      
+
       ArrayList<String> geoCSV = new ArrayList<String>();
 
       geoCSV.add(geo.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")");
@@ -286,7 +291,7 @@ public class ODKFormExporter implements Reloadable
       try
       {
         logger.info("Exported geo entity csv definition to [" + ODKFormExporter.this.getItemsetsFile().getAbsolutePath() + "].");
-        
+
         if (writer != null)
         {
           writer.close();
@@ -302,12 +307,13 @@ public class ODKFormExporter implements Reloadable
       }
     }
   }
-  
+
   private class GeoStackElement implements Reloadable
   {
-    private String geoId;
+    private String             geoId;
+
     private LinkedList<String> parentIds;
-    
+
     public GeoStackElement(String geoId, LinkedList<String> parentIds)
     {
       this.geoId = geoId;
@@ -324,7 +330,7 @@ public class ODKFormExporter implements Reloadable
       ODKForm form = odkForms.get(i);
       filters.add(form.getGeoFilterCriteria());
     }
-    
+
     Set<String> exported = new HashSet<String>();
 
     LinkedList<String> emptyParents = new LinkedList<String>();
@@ -341,11 +347,11 @@ public class ODKFormExporter implements Reloadable
         allChildrenStack.add(new GeoStackElement(child.getGeoId(), emptyParents));
       }
       current = allChildrenStack.remove();
-  
+
       while (current != null)
       {
         GeoEntity curGeo = GeoEntity.getByKey(current.geoId);
-        
+
         if (!exported.contains(curGeo.getId()))
         {
           boolean isPartOfHierarchies = true;
@@ -362,27 +368,27 @@ public class ODKFormExporter implements Reloadable
             {
               maxDepth = current.parentIds.size();
             }
-            
+
             if (handler != null)
             {
               handler.processGeo(curGeo, current.parentIds);
             }
-            
+
             List<? extends GeoEntity> children = getOrderedChildren(curGeo);
-            LinkedList<String> parents = ((LinkedList<String>)current.parentIds.clone());
+            LinkedList<String> parents = ( (LinkedList<String>) current.parentIds.clone() );
             parents.add(curGeo.getGeoId() + "##" + curGeo.getMdClass().getId());
             for (int i = 0; i < children.size(); ++i)
             {
               GeoEntity child = children.get(i);
-              
+
               GeoStackElement childGeoStack = new GeoStackElement(child.getGeoId(), parents);
               allChildrenStack.add(childGeoStack);
             }
           }
-          
+
           exported.add(curGeo.getId());
         }
-  
+
         if (!allChildrenStack.isEmpty())
         {
           current = allChildrenStack.remove();
@@ -396,22 +402,22 @@ public class ODKFormExporter implements Reloadable
 
     return maxDepth;
   }
-  
+
   protected static LinkedList<? extends GeoEntity> getOrderedChildren(GeoEntity parent)
   {
     LinkedList<GeoEntity> list = new LinkedList<GeoEntity>();
-    
+
     QueryFactory qf = new QueryFactory();
     GeoEntityQuery geq = new GeoEntityQuery(qf);
     LocatedInQuery loq = new LocatedInQuery(qf);
-    
+
     loq.WHERE(loq.getParent().EQ(parent));
     geq.WHERE(geq.EQ(loq.getChild()));
-    
+
     geq.ORDER_BY(geq.getEntityLabel().localize(), SortOrder.ASC);
-    
+
     OIterator<? extends GeoEntity> it = geq.getIterator();
-    
+
     try
     {
       for (GeoEntity ge : it)
@@ -421,7 +427,7 @@ public class ODKFormExporter implements Reloadable
           list.add(ge);
         }
       }
-      
+
       return list;
     }
     finally
@@ -442,7 +448,7 @@ public class ODKFormExporter implements Reloadable
 
     root.appendChild(head);
   }
-  
+
   protected String getFormVersion()
   {
     ODKFormMappingQuery q = new ODKFormMappingQuery(new QueryFactory());
@@ -451,14 +457,14 @@ public class ODKFormExporter implements Reloadable
     try
     {
       String version = new SimpleDateFormat("yyyyMMdd").format(new Date());
-      
+
       if (it.hasNext())
       {
         ODKFormMapping mapping = it.next();
         mapping.lock();
-        mapping.setRevision(mapping.getRevision()+1);
+        mapping.setRevision(mapping.getRevision() + 1);
         mapping.apply();
-        
+
         version = version + String.format("%02d", mapping.getRevision());
       }
       else
@@ -468,10 +474,10 @@ public class ODKFormExporter implements Reloadable
         mapping.setDisease(Disease.getCurrent());
         mapping.setRevision(0);
         mapping.apply();
-        
+
         version = version + String.format("%02d", mapping.getRevision());
       }
-      
+
       return version;
     }
     finally
@@ -490,7 +496,7 @@ public class ODKFormExporter implements Reloadable
 
     Element translation = document.createElement("translation");
     translation.setAttribute("lang", "English");
-    
+
     for (ODKForm form : this.odkForms)
     {
       form.writeTranslation(translation, document, this.formId, maxDepth);
@@ -501,11 +507,11 @@ public class ODKFormExporter implements Reloadable
     model.appendChild(instance);
     Element instRoot = document.createElement(formId);
     instRoot.setAttribute("id", formId);
-    
+
     instRoot.setAttribute("orx:version", getFormVersion());
-    
+
     instance.appendChild(instRoot);
-    
+
     for (ODKForm form : this.odkForms)
     {
       form.writeInstance(instRoot, document, this.formId, maxDepth);
@@ -551,11 +557,11 @@ public class ODKFormExporter implements Reloadable
 
       // 2. Write the document to a file (for reference)
       FileOutputStream fos = new FileOutputStream(new File(exportDir + this.formId + ".xml")); // TODO
-                                                                                                // :
-                                                                                                // This
-                                                                                                // shouldn't
-                                                                                                // be
-                                                                                                // hardcoded
+                                                                                               // :
+                                                                                               // This
+                                                                                               // shouldn't
+                                                                                               // be
+                                                                                               // hardcoded
       fos.write(form.getBytes());
       fos.close();
       logger.info("Exported form definition to [" + new File(exportDir + this.formId + ".xml").getAbsolutePath() + "].");
@@ -564,20 +570,25 @@ public class ODKFormExporter implements Reloadable
       MultipartEntityBuilder builder = MultipartEntityBuilder.create();
       File fFormDef = new File(exportDir + this.formId + ".xml");
       builder.addBinaryBody("form_def_file", fFormDef);
-//      builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef), ContentType.APPLICATION_XML, fFormDef.getName());
+      // builder.addBinaryBody("form_def_file", new FileInputStream(fFormDef),
+      // ContentType.APPLICATION_XML, fFormDef.getName());
       File refItemsets = this.getItemsetsFile();
       File itemsets = new File(refItemsets.getParentFile(), "itemsets.csv");
       FileUtils.copyFile(refItemsets, itemsets);
       builder.addBinaryBody("mediaFiles", itemsets);
       HttpEntity multipart = builder.build();
-      
+
       HTTPResponse resp = ODKConnector.postToOdk("formUpload", multipart);
+
+      System.out.println("Response code: " + resp.getStatusCode());
       
+      System.out.println(resp.getResponse());
+
       if (resp.getResponse().length() == 0)
       {
         throw new RuntimeException("Expected a response from ODK.");
       }
-      
+
       return resp.getResponse();
     }
     catch (Exception e)

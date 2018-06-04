@@ -179,6 +179,13 @@ public class ODKDataConverter implements Reloadable
         MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
         String value = this.getValue(mdAttribute, child.getTextContent());
 
+        ODKAttribute attribute = form.getAttributeByName(sourceAttribute);
+
+        if (attribute instanceof ODKTermAttribute)
+        {
+          value = ODKTermAttribute.reverseTermIdSanitization(value);
+        }
+
         root.setValue(sourceAttribute, value);
       }
       else if (form.isStructAttribute(sourceAttribute))
