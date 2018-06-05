@@ -83,6 +83,8 @@ import dss.vector.solutions.export.AggregatedITNExcelView;
 import dss.vector.solutions.export.AggregatedPremiseExcelView;
 import dss.vector.solutions.export.BiochemicalAssayExcelView;
 import dss.vector.solutions.export.CaseDiagnosisTypeExcelView;
+import dss.vector.solutions.export.CaseDiseaseManifestationExcelView;
+import dss.vector.solutions.export.CasePatientTypeExcelView;
 import dss.vector.solutions.export.ControlInterventionExcelView;
 import dss.vector.solutions.export.DiagnosticAssayExcelView;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -177,6 +179,10 @@ import dss.vector.solutions.surveillance.AggregatedCaseView;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeView;
 import dss.vector.solutions.surveillance.CaseDiagnosticView;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountView;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
+import dss.vector.solutions.surveillance.CasePatientTypeAmountView;
+import dss.vector.solutions.surveillance.CasePatientTypeView;
 import dss.vector.solutions.surveillance.CaseReferralView;
 import dss.vector.solutions.surveillance.CaseStockReferralView;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodView;
@@ -733,96 +739,15 @@ public class ODKForm implements Reloadable
       caseDiag.addAttribute(new ODKCompositeGridAttribute(CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeAmountView.getAmountMd()));
       master.join(new RepeatFormJoin(master, caseDiag, true));
 
-      // Map<MdAttributeDAOIF, MdAttributeDAOIF> sharedAttrs = new
-      // HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
-      // sharedAttrs.put(AggregatedCaseExcelView.getStartDateMd(),
-      // AggregatedCaseExcelView.getStartDateMd());
-      // sharedAttrs.put(AggregatedCaseExcelView.getEndDateMd(),
-      // AggregatedCaseExcelView.getEndDateMd());
-      // sharedAttrs.put(AggregatedCaseExcelView.getDisplayLabelMd(),
-      // AggregatedCaseExcelView.getDisplayLabelMd());
-      // sharedAttrs.put(AggregatedCaseExcelView.getGeoEntityMd(),
-      // AggregatedCaseExcelView.getGeoEntityMd());
-      //
-      // ODKForm aggCaseRefer = new
-      // ODKForm(AggregatedCaseReferralsExcelView.CLASS);
-      // Map<MdAttributeDAOIF, MdAttributeDAOIF> aggCaseAttrs = new
-      // HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      // aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getCasesMd(),
-      // AggregatedCaseReferralsExcelView.getCasesMd());
-      // aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getPositiveCasesMd(),
-      // AggregatedCaseReferralsExcelView.getPositiveCasesMd());
-      // aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getNegativeCasesMd(),
-      // AggregatedCaseReferralsExcelView.getNegativeCasesMd());
-      // aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getDeathsMd(),
-      // AggregatedCaseReferralsExcelView.getDeathsMd());
-      // aggCaseRefer.buildAttributes(aggCaseAttrs,
-      // AggregatedCaseReferralsExcelView.customAttributeOrder());
-      // aggCaseRefer.addAttribute(new
-      // ODKGridAttribute(AggregatedCaseView.getCaseStockReferralMd(),
-      // AggregatedCaseView.getCaseStockReferralMd(), "int"));
-      // aggCaseRefer.addAttribute(new
-      // ODKGridAttribute(AggregatedCaseView.getCaseReferralsMd(),
-      // AggregatedCaseView.getCaseReferralsMd(), "int"));
-      // aggCaseRefer.addAttribute(new
-      // ODKCaseDiagnosticGridAttribute(AggregatedCaseView.getCaseDiagnosticMd(),
-      // AggregatedCaseView.getCaseDiagnosticMd(), "int"));
-      // master.join(new RepeatFormJoin(master, aggCaseRefer, true));
-      //
-      // ODKForm caseTreats = new
-      // ODKForm(AggregatedCaseTreatmentsExcelView.CLASS);
-      // caseTreats.buildAttributes(sharedAttrs,
-      // AggregatedCaseTreatmentsExcelView.customAttributeOrder());
-      // caseTreats.addAttribute(new
-      // ODKGridAttribute(AggregatedCaseView.getCaseTreatmentsMd(),
-      // AggregatedCaseView.getCaseTreatmentsMd(), "int"));
-      // caseTreats.addAttribute(new
-      // ODKGridAttribute(AggregatedCaseView.getCaseTreatmentMethodMd(),
-      // AggregatedCaseView.getCaseTreatmentMethodMd(), "int"));
-      // caseTreats.addAttribute(new
-      // ODKGridAttribute(AggregatedCaseView.getCaseStocksMd(),
-      // AggregatedCaseView.getCaseStocksMd(), "boolean"));
-      // master.join(new RepeatFormJoin(master, caseTreats, true));
-      //
-      // Map<MdAttributeDAOIF, MdAttributeDAOIF> caseDiagAttrs = new
-      // HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      // caseDiagAttrs.put(CaseDiagnosisTypeExcelView.getDiagnosisTypeMd(),
-      // AggregatedCaseView.getCaseDiagnosisTypeMd());
-      //
-      // ODKForm caseDiag = new ODKForm(CaseDiagnosisTypeExcelView.CLASS);
-      // caseDiag.buildAttributes(caseDiagAttrs,
-      // CaseDiagnosisTypeExcelView.customAttributeOrder());
-      // caseDiag.addAttribute(new
-      // ODKGridAttribute(CaseDiagnosisTypeView.getDiagnosisCategoryMd(),
-      // CaseDiagnosisTypeView.getDiagnosisCategoryMd(), "int"));
-      // master.join(new RepeatFormJoin(master, caseDiag, true));
-      //
-      // Map<MdAttributeDAOIF, MdAttributeDAOIF> caseDiseaseAttrs = new
-      // HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      // caseDiseaseAttrs.put(CaseDiseaseManifestationExcelView.getDiseaseManifestationMd(),
-      // AggregatedCaseView.getCaseDiseaseManifestationMd());
-      //
-      // ODKForm caseDisease = new
-      // ODKForm(CaseDiseaseManifestationExcelView.CLASS);
-      // caseDisease.buildAttributes(caseDiseaseAttrs,
-      // CaseDiseaseManifestationExcelView.customAttributeOrder());
-      // caseDisease.addAttribute(new
-      // ODKGridAttribute(CaseDiseaseManifestationView.getDiseaseCategoryMd(),
-      // CaseDiseaseManifestationView.getDiseaseCategoryMd(), "int"));
-      // master.join(new RepeatFormJoin(master, caseDisease, true));
-      //
-      // Map<MdAttributeDAOIF, MdAttributeDAOIF> casePatientAttrs = new
-      // HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      // casePatientAttrs.put(CasePatientTypeExcelView.getPatientTypeMd(),
-      // AggregatedCaseView.getCasePatientTypeMd());
-      //
-      // ODKForm casePatient = new ODKForm(CasePatientTypeExcelView.CLASS);
-      // casePatient.buildAttributes(casePatientAttrs,
-      // CasePatientTypeExcelView.customAttributeOrder());
-      // casePatient.addAttribute(new
-      // ODKGridAttribute(CasePatientTypeView.getPatientCategoryMd(),
-      // CasePatientTypeView.getPatientCategoryMd(), "int"));
-      // master.join(new RepeatFormJoin(master, casePatient, true));
+      ODKForm caseDisease = new ODKForm(CaseDiseaseManifestationExcelView.CLASS);
+      caseDisease.addAttribute(AggregatedCaseView.getCaseDiseaseManifestationMd(), CaseDiseaseManifestationExcelView.getDiseaseManifestationMd());
+      caseDisease.addAttribute(new ODKCompositeGridAttribute(CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationAmountView.getAmountMd()));
+      master.join(new RepeatFormJoin(master, caseDisease, true));
+
+      ODKForm casePatient = new ODKForm(CasePatientTypeExcelView.CLASS);
+      casePatient.addAttribute(AggregatedCaseView.getCasePatientTypeMd(), CasePatientTypeExcelView.getPatientTypeMd());      
+      casePatient.addAttribute(new ODKCompositeGridAttribute(CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeAmountView.getAmountMd()));
+      master.join(new RepeatFormJoin(master, casePatient, true));
     }
     else if (mobileType.equals(ControlInterventionExcelView.CLASS))
     {

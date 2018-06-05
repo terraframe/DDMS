@@ -29,6 +29,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountView;
 import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
 
 public class CaseDiseaseManifestationListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
@@ -37,7 +38,7 @@ public class CaseDiseaseManifestationListener extends AbstractExcelAdapter imple
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    this.addGridColumns(extraColumns, CaseDiseaseManifestationView.getDiseaseCategoryMd(), DISEASE);
+    this.addGridColumns(extraColumns, CaseDiseaseManifestationView.getDiseaseCategoryMd(), DISEASE, null, CaseDiseaseManifestationAmountView.AMOUNT);
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
