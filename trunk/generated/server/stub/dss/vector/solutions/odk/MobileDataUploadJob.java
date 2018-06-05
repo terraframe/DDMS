@@ -55,7 +55,6 @@ import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebSingleTermGridDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.Request;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
@@ -66,10 +65,15 @@ import com.runwaysdk.system.scheduler.JobHistory;
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
-import dss.vector.solutions.export.LarvacideExcelView;
+import dss.vector.solutions.form.business.FormBedNet;
+import dss.vector.solutions.form.business.FormHousehold;
+import dss.vector.solutions.form.business.FormPerson;
+import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.FormColumnFactory;
 import dss.vector.solutions.generator.FormImportFilter;
+import dss.vector.solutions.generator.FormSurveyColumnFactory;
+import dss.vector.solutions.generator.FormSurveyImportFilter;
 import dss.vector.solutions.generator.GridExcelAdapter;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.generator.MultiTermListener;
@@ -222,7 +226,6 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     return status;
   }
 
-  @SuppressWarnings("unchecked")
   private void copySheetIntoWorkbook(Workbook workbook, Sheet oldSheet, String name)
   {
     Sheet newSheet = workbook.createSheet(name);
@@ -281,14 +284,15 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     if (form.isExport())
     {
       MdClassDAOIF target = form.getViewMd();
+      String type = target.definesType();
 
-      if (MdFormUtil.isFormBusinessPackage(target.definesType()))
+      if (MdFormUtil.isFormBusinessPackage(type))
       {
-        MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(target.definesType());
+        MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(type);
         MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(mdWebForm.getId());
-        String type = mdForm.definesType();
+        String formType = mdForm.definesType();
 
-        ExcelExporter exporter = new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
+        ExcelExporter exporter = this.getFormExporter(type);
 
         List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
 
@@ -308,11 +312,11 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
         listeners.add(new UUIDExcelListener());
 
-        ExcelExportSheet sheet = exporter.addTemplate(type, metadata, listeners);
+        ExcelExportSheet sheet = exporter.addTemplate(formType, metadata, listeners);
 
-        sheets.put(target.definesType(), sheet);
+        sheets.put(type, sheet);
       }
-      else if (MdFormUtil.isFormRelationshipPackage(target.definesType()))
+      else if (MdFormUtil.isFormRelationshipPackage(type))
       {
         MdRelationshipDAOIF mdRelationship = (MdRelationshipDAOIF) target;
         MdBusinessDAOIF formMdBusiness = mdRelationship.getParentMdBusiness();
@@ -328,7 +332,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
         ExcelExporter exporter = new ExcelExporter();
         exporter.addSheet(sheet);
 
-        sheets.put(target.definesType(), sheet);
+        sheets.put(type, sheet);
       }
       else
       {
@@ -339,7 +343,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
         exporter.addListener(new UUIDExcelListener());
 
-        sheets.put(target.definesType(), exporter.addTemplate(form.getViewMd().definesType(), metadata));
+        sheets.put(type, exporter.addTemplate(form.getViewMd().definesType(), metadata));
       }
     }
 
@@ -352,6 +356,16 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
         this.createSheets(join.getChild(), metadata, sheets);
       }
     }
+  }
+
+  public ExcelExporter getFormExporter(String type)
+  {
+    if (type.equals(FormSurvey.CLASS) || type.equals(FormHousehold.CLASS) || type.equals(FormBedNet.CLASS) || type.equals(FormPerson.CLASS))
+    {
+      return new FormExcelExporter(new FormSurveyImportFilter(), new FormSurveyColumnFactory());
+    }
+
+    return new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
   }
 
   private Map<String, Collection<String>> group(ODKForm form, Collection<String> uuids)

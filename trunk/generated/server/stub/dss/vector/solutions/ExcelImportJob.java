@@ -29,19 +29,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
+import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
 
 import dss.vector.solutions.export.ExcelReadException;
+import dss.vector.solutions.form.business.FormBedNet;
+import dss.vector.solutions.form.business.FormHousehold;
+import dss.vector.solutions.form.business.FormPerson;
+import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.ContextBuilderFacade;
 import dss.vector.solutions.generator.DefaultContextBuilder;
 import dss.vector.solutions.generator.ExcelImportLegacyHistoryRecordingProgressMonitor;
+import dss.vector.solutions.generator.FormBedNetContextBuilder;
+import dss.vector.solutions.generator.FormContextBuilder;
+import dss.vector.solutions.generator.FormHouseholdContextBuilder;
+import dss.vector.solutions.generator.FormImportFilter;
+import dss.vector.solutions.generator.FormPersonContextBuilder;
+import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.Earth;
@@ -209,7 +221,25 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
   protected ContextBuilderIF constructContextBuilder()
   {
-    return new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
+//    return new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
+    MdWebFormDAOIF formSurvey = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormSurvey.FORM_TYPE);
+    MdWebFormDAOIF formHousehold = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormHousehold.FORM_TYPE);
+    MdWebFormDAOIF formBedNet = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
+    MdWebFormDAOIF formPerson = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
+
+    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(new String[] {}, this.sharedState.manager), this.sharedState.manager);
+
+    builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter(), this.sharedState.manager));
+    builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder(this.sharedState.manager));
+    builder.add(FormBedNet.CLASS, new FormBedNetContextBuilder(this.sharedState.manager));
+    builder.add(FormPerson.CLASS, new FormPersonContextBuilder(this.sharedState.manager));
+
+    MdFormUtil.addGridContexts(formSurvey, builder);
+    MdFormUtil.addGridContexts(formHousehold, builder);
+    MdFormUtil.addGridContexts(formBedNet, builder);
+    MdFormUtil.addGridContexts(formPerson, builder);
+    
+    return builder;    
   }
 
   protected void configureImporter(ExcelImporter importer, ExecutionContext context)

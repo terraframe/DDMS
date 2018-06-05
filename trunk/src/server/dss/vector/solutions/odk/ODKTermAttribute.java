@@ -157,7 +157,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
         while (it.hasNext())
         {
           ValueObject vObject = it.next();
-          String termId = this.sanitizeTermId(vObject.getValue("termId"));
+          String termId = ODKTermAttribute.sanitizeTermId(vObject.getValue("termId"));
           String selectable = vObject.getValue("selectable");
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");
@@ -232,5 +232,11 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     vQuery.ORDER_BY_ASC(tQuery.getTermId());
 
     return vQuery;
+  }
+  
+  @Override
+  public boolean isOverride()
+  {
+    return true;
   }
 }

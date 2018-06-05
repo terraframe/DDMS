@@ -25,7 +25,6 @@ import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeStructDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdStructDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -188,19 +187,29 @@ public class ODKDataConverter implements Reloadable
 
       if (root.hasAttribute(sourceAttribute))
       {
+        ODKAttribute attribute = form.getAttributeByName(sourceAttribute);
         MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
         String value = this.getValue(mdAttribute, child.getTextContent());
 
-        ODKAttribute attribute = form.getAttributeByName(sourceAttribute);
-
         if (attribute instanceof ODKTermAttribute)
         {
-          root.setOverride(sourceAttribute, ODKTermAttribute.reverseTermIdSanitization(value));
+          value = ODKTermAttribute.reverseTermIdSanitization(value);
+        }
+
+        if (attribute.isOverride())
+        {
+          root.setOverride(sourceAttribute, value);
         }
         else
         {
           root.setValue(sourceAttribute, value);
         }
+
+        if (attribute.getCopyAttribute() != null)
+        {
+          root.setOverride(attribute.getCopyAttribute(), value);
+        }
+
       }
       else if (form.isStructAttribute(sourceAttribute))
       {
@@ -251,20 +260,7 @@ public class ODKDataConverter implements Reloadable
       {
         ODKForm standalone = form.getRepeatable(sourceAttribute);
         String uuid = root.getOverrides().get("_UUID_");
-        Map<String, String> overrides = new HashMap<String, String>();
-
-        LinkedList<ODKAttribute> attributes = form.getAttributes();
-
-        for (ODKAttribute attribute : attributes)
-        {
-          String override = attribute.getOverride();
-
-          if (override != null)
-          {
-            String value = root.getMutable().getValue(attribute.getAttributeName());
-            overrides.put(override, value);
-          }
-        }
+        Map<String, String> overrides = new HashMap<String, String>(root.getOverrides());
 
         rows.addAll(this.convert(uuid, standalone, child, sheets, overrides));
       }

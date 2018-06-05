@@ -54,7 +54,17 @@ public class ODKAttribute implements Reloadable
 
   private String                type;
 
-  private String                override;
+  /**
+   * Optional name of attribute in which to copy this value into the override
+   * map
+   */
+  private String                copyAttribute;
+
+  /**
+   * Flag denoting the value should be stored in the override map instead of on
+   * the mutable
+   */
+  private boolean               isOverride;
 
   public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
   {
@@ -64,7 +74,8 @@ public class ODKAttribute implements Reloadable
     this.description = description;
     this.index = index;
     this.required = required;
-    this.override = null;
+    this.copyAttribute = null;
+    this.isOverride = false;
   }
 
   public ODKAttribute(String attributeName, String displayLabel, String description, int index, boolean required)
@@ -294,13 +305,23 @@ public class ODKAttribute implements Reloadable
     return displayLabel + " (" + attributeName + ")";
   }
 
-  public void setOverride(String columnName)
+  public void setCopyAttribute(String columnName)
   {
-    this.override = columnName;
+    this.copyAttribute = columnName;
   }
 
-  public String getOverride()
+  public String getCopyAttribute()
   {
-    return override;
+    return copyAttribute;
+  }
+
+  public boolean isOverride()
+  {
+    return this.isOverride;
+  }
+
+  public void setIsOverride(boolean isOverride)
+  {
+    this.isOverride = isOverride;
   }
 }

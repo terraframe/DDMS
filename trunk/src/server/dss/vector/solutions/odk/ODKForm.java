@@ -656,16 +656,13 @@ public class ODKForm implements Reloadable
 
   public ODKFormJoin getRepeatableJoin(String attributeName)
   {
-    if (attributeName.contains("_"))
+    for (ODKFormJoin join : joins)
     {
-      String type = attributeName.replaceAll("_", ".");
+      ODKForm form = join.getChild();
 
-      for (ODKFormJoin join : joins)
+      if (form.getFormId().equals(attributeName))
       {
-        if (join.getChild().getViewMd().definesType().equals(type))
-        {
-          return join;
-        }
+        return join;
       }
     }
 
@@ -1136,7 +1133,8 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(KnockDownAssayExcelView.CLASS))
     {
-      // TODO : This cannot be exported due to max limit reached on Insecticide.activeIngredient (which cannot be changed through the GUI)
+      // TODO : This cannot be exported due to max limit reached on
+      // Insecticide.activeIngredient (which cannot be changed through the GUI)
       master = new ODKForm(KnockDownAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
@@ -1147,7 +1145,8 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(LarvaeDiscriminatingDoseAssayExcelView.CLASS))
     {
-      // TODO : This cannot be exported due to max limit reached on Insecticide.activeIngredient (which cannot be changed through the GUI)      
+      // TODO : This cannot be exported due to max limit reached on
+      // Insecticide.activeIngredient (which cannot be changed through the GUI)
       master = new ODKForm(LarvaeDiscriminatingDoseAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(LarvaeDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
@@ -1191,114 +1190,134 @@ public class ODKForm implements Reloadable
       master.buildAttributes(ResourceTargetExcelView.CLASS, ResourceTargetExcelView.customAttributeOrder(), null);
       master.buildAttributes(ResourceTargetView.CLASS, ResourceTargetExcelView.customAttributeOrder(), null);
     }
+    else if (mobileType.equals(FormSurvey.CLASS))
+    {
+      master = createODKFromForm(FormSurvey.CLASS);
+
+      ODKForm household = createODKFromForm(FormHousehold.CLASS);
+      household.removeAttribute("survey");
+      master.join(new RepeatFormJoin(master, household, true));
+
+      ODKForm net = createODKFromForm(FormBedNet.CLASS);
+      net.removeAttribute("survey");
+      net.removeAttribute("household");
+      household.join(new RepeatFormJoin(household, net, true));
+
+      ODKForm person = createODKFromForm(FormPerson.CLASS);
+      person.removeAttribute("survey");
+      person.removeAttribute("household");
+      household.join(new RepeatFormJoin(household, person, true));
+    }
     else if (mobileType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
     {
-      MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(MdFormUtil.getMdFormFromBusinessType(mobileType).getId());
-      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
-      List<GeoHierarchy> ghl = new ArrayList<GeoHierarchy>();
-
-      for (ExcelExportListener listener : geoListeners)
-      {
-        if (listener instanceof DynamicGeoColumnListener)
-        {
-          List<GeoHierarchy> list = ( (DynamicGeoColumnListener) listener ).getHierarchyList();
-          ghl.addAll(list);
-        }
-      }
-
-      gfc = new GeoFilterCriteria(ghl);
-
-      master = new ODKForm(mobileType, gfc);
-
-      List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
-
-      for (MdFieldDAOIF mdField : mdFields)
-      {
-        if ( ( mdField instanceof MdWebMultipleTermDAOIF ))
-        {
-          MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
-
-          master.addAttribute(new ODKGridAttribute(mdAttribute, mdAttribute, "boolean"));
-        }
-        else if ( ( mdField instanceof MdWebSingleTermGridDAOIF ))
-        {
-          String typeName = DDMSFieldBuilders.getTermRelationshipTypeName(mdField);
-          MdTreeDAOIF mdTree = MdTreeDAO.getMdTreeDAO(MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + typeName);
-          MdAttributeDAOIF mdAttribute = ( (MdWebSingleTermGridDAOIF) mdField ).getDefiningMdAttribute();
-
-          MdWebPrimitive[] fields = MdFormUtil.getCompositeFields(mdField.getId());
-
-          ODKForm grid = new ODKForm(mdTree.definesType());
-          grid.addAttribute(new ODKCompositeGridAttribute(mdAttribute, mdAttribute, fields));
-
-          master.join(new RepeatFormJoin(master, grid, true));
-        }
-        else if (mdField instanceof MdWebAttributeDAO)
-        {
-          MdWebAttributeDAO dao = ( (MdWebAttributeDAO) mdField );
-
-          ODKAttribute attribute = master.addAttribute(dao.getDefiningMdAttribute(), dao.getDefiningMdAttribute());
-
-          if (attribute.getAttributeName().equals(MdFormUtil.OID))
-          {
-            attribute.setOverride(GridExcelAdapter.PARENT_COLUMN_NAME);
-          }
-        }
-      }
-
-      for (MdFieldDAOIF mdField : mdFields)
-      {
-        if (mdField instanceof MdWebAttributeDAO)
-        {
-          MdWebAttributeDAO dao = ( (MdWebAttributeDAO) mdField );
-
-          ODKAttribute odkAttr = master.getAttributeByName(dao.getDefiningMdAttribute().definesAttribute());
-
-          if (odkAttr != null)
-          {
-            List<FieldConditionDAOIF> conditions = mdField.getConditions();
-
-            ODKAttributeCondition odkCond = null;
-            for (FieldConditionDAOIF condition : conditions)
-            {
-              ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
-
-              if (odkCond != null)
-              {
-                odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
-              }
-              else
-              {
-                odkCond = loopCond;
-              }
-            }
-
-            odkAttr.setCondition(odkCond);
-          }
-        }
-      }
-
-      if (mobileType.equals(FormSurvey.CLASS))
-      {
-        ODKForm survey = master;
-        master = new ODKForm(mobileType, gfc);
-        master.join(new RepeatFormJoin(master, survey));
-
-        ODKForm household = ODKForm.factory(FormHousehold.CLASS);
-        master.join(new RepeatFormJoin(master, household));
-
-        ODKForm net = ODKForm.factory(FormBedNet.CLASS);
-        master.join(new RepeatFormJoin(master, net));
-
-        ODKForm person = ODKForm.factory(FormPerson.CLASS);
-        master.join(new RepeatFormJoin(master, person));
-      }
+      master = createODKFromForm(mobileType);
     }
     else
     {
       throw new UnsupportedOperationException("Unable to construct an ODK form of type [" + mobileType + "]. The type is unsupported.");
     }
 
+    return master;
+  }
+
+  public static ODKForm createODKFromForm(String mobileType)
+  {
+    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(MdFormUtil.getMdFormFromBusinessType(mobileType).getId());
+
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
+    List<GeoHierarchy> ghl = new ArrayList<GeoHierarchy>();
+
+    for (ExcelExportListener listener : geoListeners)
+    {
+      if (listener instanceof DynamicGeoColumnListener)
+      {
+        List<GeoHierarchy> list = ( (DynamicGeoColumnListener) listener ).getHierarchyList();
+        ghl.addAll(list);
+      }
+    }
+
+    GeoFilterCriteria gfc = new GeoFilterCriteria(ghl);
+
+    ODKForm master = new ODKForm(mobileType, gfc);
+
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getOrderedMdFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if ( ( mdField instanceof MdWebMultipleTermDAOIF ))
+      {
+        MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
+
+        master.addAttribute(new ODKGridAttribute(mdAttribute, mdAttribute, "boolean"));
+      }
+      else if ( ( mdField instanceof MdWebSingleTermGridDAOIF ))
+      {
+        String typeName = DDMSFieldBuilders.getTermRelationshipTypeName(mdField);
+        MdTreeDAOIF mdTree = MdTreeDAO.getMdTreeDAO(MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + typeName);
+        MdAttributeDAOIF mdAttribute = ( (MdWebSingleTermGridDAOIF) mdField ).getDefiningMdAttribute();
+
+        MdWebPrimitive[] fields = MdFormUtil.getCompositeFields(mdField.getId());
+
+        ODKForm grid = new ODKForm(mdTree.definesType());
+        grid.addAttribute(new ODKCompositeGridAttribute(mdAttribute, mdAttribute, fields));
+
+        master.join(new RepeatFormJoin(master, grid, true));
+      }
+      else if (mdField instanceof MdWebAttributeDAO)
+      {
+        MdWebAttributeDAO dao = ( (MdWebAttributeDAO) mdField );
+
+        ODKAttribute attribute = master.addAttribute(dao.getDefiningMdAttribute(), dao.getDefiningMdAttribute());
+
+        if (attribute.getAttributeName().equals(MdFormUtil.OID))
+        {
+          if (mobileType.equals(FormSurvey.CLASS))
+          {
+            attribute.setCopyAttribute(FormHousehold.SURVEY);
+          }
+          else if (mobileType.equals(FormHousehold.CLASS))
+          {
+            attribute.setCopyAttribute(FormPerson.HOUSEHOLD);
+          }
+          else
+          {
+            attribute.setCopyAttribute(GridExcelAdapter.PARENT_COLUMN_NAME);
+          }
+        }
+      }
+    }
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebAttributeDAO)
+      {
+        MdWebAttributeDAO dao = ( (MdWebAttributeDAO) mdField );
+
+        ODKAttribute odkAttr = master.getAttributeByName(dao.getDefiningMdAttribute().definesAttribute());
+
+        if (odkAttr != null)
+        {
+          List<FieldConditionDAOIF> conditions = mdField.getConditions();
+
+          ODKAttributeCondition odkCond = null;
+          for (FieldConditionDAOIF condition : conditions)
+          {
+            ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
+
+            if (odkCond != null)
+            {
+              odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
+            }
+            else
+            {
+              odkCond = loopCond;
+            }
+          }
+
+          odkAttr.setCondition(odkCond);
+        }
+      }
+    }
     return master;
   }
 
@@ -1339,7 +1358,7 @@ public class ODKForm implements Reloadable
     return new GeoFilterCriteria(ghl);
   }
 
-  public boolean hasGeoAttribute() 
+  public boolean hasGeoAttribute()
   {
     for (ODKAttribute attr : this.attrs)
     {
@@ -1348,15 +1367,15 @@ public class ODKForm implements Reloadable
         return true;
       }
     }
-    
-    for (ODKFormJoin join: joins)
+
+    for (ODKFormJoin join : joins)
     {
       if (join.getChild().hasGeoAttribute())
       {
         return true;
       }
     }
-    
+
     return false;
   }
 }
