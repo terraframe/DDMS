@@ -286,6 +286,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
       {
         MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(target.definesType());
         MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(mdWebForm.getId());
+        String type = mdForm.definesType();
 
         ExcelExporter exporter = new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
 
@@ -307,7 +308,9 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
         listeners.add(new UUIDExcelListener());
 
-        sheets.put(target.definesType(), exporter.addTemplate(target.definesType(), metadata, listeners));
+        ExcelExportSheet sheet = exporter.addTemplate(type, metadata, listeners);
+
+        sheets.put(target.definesType(), sheet);
       }
       else if (MdFormUtil.isFormRelationshipPackage(target.definesType()))
       {

@@ -195,10 +195,12 @@ public class ODKDataConverter implements Reloadable
 
         if (attribute instanceof ODKTermAttribute)
         {
-          value = ODKTermAttribute.reverseTermIdSanitization(value);
+          root.setOverride(sourceAttribute, ODKTermAttribute.reverseTermIdSanitization(value));
         }
-
-        root.setValue(sourceAttribute, value);
+        else
+        {
+          root.setValue(sourceAttribute, value);
+        }
       }
       else if (form.isStructAttribute(sourceAttribute))
       {
@@ -368,11 +370,13 @@ public class ODKDataConverter implements Reloadable
       else if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
       {
         MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) mdAttributeConcrete;
-        MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
+        MdClassDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO().getRootMdClassDAO();
 
         if (referenceMdBusiness.definesType().equals(Term.CLASS))
         {
-          return Term.getByTermId(ODKTermAttribute.reverseTermIdSanitization(textContent)).getId();
+          return ODKTermAttribute.reverseTermIdSanitization(textContent);
+          // return
+          // Term.getByTermId(ODKTermAttribute.reverseTermIdSanitization(textContent)).getId();
         }
         else
         {

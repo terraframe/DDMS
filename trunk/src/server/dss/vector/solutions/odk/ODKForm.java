@@ -1216,14 +1216,9 @@ public class ODKForm implements Reloadable
       {
         if ( ( mdField instanceof MdWebMultipleTermDAOIF ))
         {
-          // String typeName =
-          // DDMSFieldBuilders.getTermRelationshipTypeName(form,
-          // (MdWebAttribute) field);
-          // MdTreeDAOIF mdTree =
-          // MdTreeDAO.getMdTreeDAO(MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." +
-          // typeName);
-          //
-          // builder.addPermissions(mdTree, concrete);
+          MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
+
+          master.addAttribute(new ODKGridAttribute(mdAttribute, mdAttribute, "boolean"));
         }
         else if ( ( mdField instanceof MdWebSingleTermGridDAOIF ))
         {
