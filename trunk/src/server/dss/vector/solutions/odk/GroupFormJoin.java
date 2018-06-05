@@ -6,16 +6,16 @@ import org.w3c.dom.Element;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-public class RepeatFormJoin extends ODKFormJoin implements Reloadable
+public class GroupFormJoin extends ODKFormJoin implements Reloadable
 {
   private boolean standalone;
 
-  public RepeatFormJoin(ODKForm parent, ODKForm child)
+  public GroupFormJoin(ODKForm parent, ODKForm child)
   {
     this(parent, child, false);
   }
 
-  public RepeatFormJoin(ODKForm parent, ODKForm child, boolean standalone)
+  public GroupFormJoin(ODKForm parent, ODKForm child, boolean standalone)
   {
     super(parent, child);
 
@@ -53,11 +53,7 @@ public class RepeatFormJoin extends ODKFormJoin implements Reloadable
     group.appendChild(label);
     label.setTextContent(child.getViewMd().getDisplayLabel(Session.getCurrentLocale()));
 
-    Element repeatEl = document.createElement("repeat");
-    group.appendChild(repeatEl);
-    repeatEl.setAttribute("nodeset", "/" + context + "/" + child.getFormId());
-
-    child.writeBody(repeatEl, document, context + "/" + child.getFormId(), maxDepth);
+    child.writeBody(group, document, context + "/" + child.getFormId(), maxDepth);
   }
 
   public void writeInstance(Element parent, Document document, String context, int maxDepth)

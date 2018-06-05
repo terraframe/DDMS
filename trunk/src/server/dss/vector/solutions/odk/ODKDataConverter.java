@@ -253,13 +253,13 @@ public class ODKDataConverter implements Reloadable
       }
       else if (form.isStandalone(sourceAttribute))
       {
-        ODKForm standalone = form.getRepeatable(sourceAttribute);
+        ODKForm standalone = form.getSubForm(sourceAttribute);
         String uuid = root.getOverrides().get("_UUID_");
         Map<String, String> overrides = new HashMap<String, String>(root.getOverrides());
 
         rows.addAll(this.convert(uuid, standalone, child, sheets, overrides));
       }
-      else if (form.isRepeatable(sourceAttribute))
+      else if (form.isSubForm(sourceAttribute))
       {
         repeats.add(child);
       }
@@ -275,7 +275,7 @@ public class ODKDataConverter implements Reloadable
       {
         String sourceAttribute = repeat.getNodeName();
 
-        ODKForm repeatable = form.getRepeatable(sourceAttribute);
+        ODKForm repeatable = form.getSubForm(sourceAttribute);
 
         rows.addAll(this.convert(root.clone(), repeatable, repeat, sheets));
       }
@@ -340,8 +340,12 @@ public class ODKDataConverter implements Reloadable
     if (textContent != null && textContent.length() > 0)
     {
       MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
-
-      if (mdAttributeConcrete instanceof MdAttributeDateDAOIF)
+      
+      if(attribute instanceof ODKTermAttribute)
+      {
+        return ODKTermAttribute.reverseTermIdSanitization(textContent);        
+      }
+      else if (mdAttributeConcrete instanceof MdAttributeDateDAOIF)
       {
         try
         {

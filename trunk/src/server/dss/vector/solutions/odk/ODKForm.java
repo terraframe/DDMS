@@ -637,14 +637,14 @@ public class ODKForm implements Reloadable
     return attributeName.contains(ODKGeoAttribute.PREFIX);
   }
 
-  public boolean isRepeatable(String attributeName)
+  public boolean isSubForm(String attributeName)
   {
-    return ( this.getRepeatable(attributeName) != null );
+    return ( this.getSubForm(attributeName) != null );
   }
 
-  public ODKForm getRepeatable(String attributeName)
+  public ODKForm getSubForm(String attributeName)
   {
-    ODKFormJoin join = this.getRepeatableJoin(attributeName);
+    ODKFormJoin join = this.getJoin(attributeName);
 
     if (join != null)
     {
@@ -654,7 +654,7 @@ public class ODKForm implements Reloadable
     return null;
   }
 
-  public ODKFormJoin getRepeatableJoin(String attributeName)
+  public ODKFormJoin getJoin(String attributeName)
   {
     for (ODKFormJoin join : joins)
     {
@@ -676,7 +676,7 @@ public class ODKForm implements Reloadable
 
   public boolean isStandalone(String attributeName)
   {
-    RepeatFormJoin join = (RepeatFormJoin) this.getRepeatableJoin(attributeName);
+    ODKFormJoin join = this.getJoin(attributeName);
 
     return ( join != null && join.isStandalone() );
   }
@@ -796,7 +796,7 @@ public class ODKForm implements Reloadable
       master = new ODKForm(MosquitoCollectionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(MosquitoCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
-
+      
       ODKForm subc = new ODKForm(MosquitoCollectionExcelView.CLASS);
       subc.buildAttributes(SubCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
 
@@ -1208,7 +1208,7 @@ public class ODKForm implements Reloadable
       person.removeAttribute("household");
       ODKAttribute attribute = person.getAttributeByName(FormPerson.NET);
       attribute.setIsOverride(true);
-      
+
       household.join(new RepeatFormJoin(household, person, true));
     }
     else if (mobileType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
@@ -1264,7 +1264,7 @@ public class ODKForm implements Reloadable
         ODKForm grid = new ODKForm(mdTree.definesType());
         grid.addAttribute(new ODKCompositeGridAttribute(mdAttribute, mdAttribute, fields));
 
-        master.join(new RepeatFormJoin(master, grid, true));
+        master.join(new GroupFormJoin(master, grid, true));
       }
       else if (mdField instanceof MdWebAttributeDAO)
       {
