@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.ArrayUtils;
 
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdForm;
 
 import dss.vector.solutions.export.AggregatedCaseExcelView;
 import dss.vector.solutions.export.AggregatedIPTExcelView;
@@ -40,7 +40,10 @@ import dss.vector.solutions.export.TimeResponseAssayExcelView;
 import dss.vector.solutions.export.ZoneSprayExcelView;
 import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView;
 import dss.vector.solutions.form.business.FormSurvey;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.SprayTeamExcelView;
+import dss.vector.solutions.mobile.MobileUtil;
+import dss.vector.solutions.odk.MobileDataUploadJob;
 import dss.vector.solutions.odk.ODKForm;
 import dss.vector.solutions.odk.ODKFormExporter;
 
@@ -54,16 +57,19 @@ public class ODKTest
   @Request
   private static void mainInRequest()
   {
-//    MobileUtil.exportMdForm("itwb6b9w77gdaqt7k71popftnaihokqqzo86ttx2qfhw4ayiqelfr3igdjhd90eu");
-    
+//    export(MdForm.get("itwb6b9w77gdaqt7k71popftnaihokqqzo86ttx2qfhw4ayiqelfr3igdjhd90eu").getFormMdClass().definesType());
 //    MobileUtil.export(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE + "." + "SlimWaterSource");
     
-//    export(AdultDiscriminatingDoseAssayExcelView.CLASS);
+//    MobileUtil.export(PooledInfectionAssayExcelView.CLASS);
+    
+    exportAll(0, allTypes.length);
+    
+//    export(LarvaeDiscriminatingDoseAssayExcelView.CLASS);
     
 //    int myIndex = ArrayUtils.indexOf(allTypes, KnockDownAssayExcelView.CLASS);
 //    exportAll(myIndex,myIndex + 1);
     
-    exportAll(ArrayUtils.indexOf(allTypes, SprayTeamExcelView.CLASS), ArrayUtils.indexOf(allTypes, ResourceTargetExcelView.CLASS));
+//    exportAll(ArrayUtils.indexOf(allTypes, KnockDownAssayExcelView.CLASS), ArrayUtils.indexOf(allTypes, LarvaeDiscriminatingDoseAssayExcelView.CLASS)+1);
   }
   
   private static void export(String mobileType)
@@ -84,7 +90,7 @@ public class ODKTest
       EfficacyAssayExcelView.CLASS, IndividualCaseExcelView.CLASS, IndividualIPTExcelView.CLASS, ITNCommunityExcelView.CLASS, ITNDistributionExcelView.CLASS,
       LarvacideExcelView.CLASS, OperatorSprayExcelView.CLASS, TeamSprayExcelView.CLASS, ZoneSprayExcelView.CLASS, PersonExcelView.CLASS, PopulationDataExcelView.CLASS,
       PupalCollectionExcelView.CLASS, SurveyExcelView.CLASS, ThresholdDataExcelView.CLASS, ImmatureCollectionExcelView.CLASS, SprayTeamExcelView.CLASS, DiagnosticAssayExcelView.CLASS,
-      AdultDiscriminatingDoseAssayExcelView.CLASS, BiochemicalAssayExcelView.CLASS, InfectionAssayExcelView.CLASS,
+      AdultDiscriminatingDoseAssayExcelView.CLASS, BiochemicalAssayExcelView.CLASS, InfectionAssayExcelView.CLASS, KnockDownAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.CLASS,
       MolecularAssayExcelView.CLASS, PooledInfectionAssayExcelView.CLASS, TimeResponseAssayExcelView.CLASS, GeoTargetExcelView.CLASS, ResourceTargetExcelView.CLASS, FormSurvey.CLASS
   };
 
@@ -114,10 +120,27 @@ public class ODKTest
 
        ODKFormExporter odkExp = new ODKFormExporter(master);
 
-//        odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
+        odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
 
        String html = odkExp.doIt();
+       
+       Disease disease = Disease.getCurrent();
 
+       if (!MobileDataUploadJob.exists(type, disease))
+       {
+         for (int j = 0; j < 10; j++)
+         {
+           MobileDataUploadJob job = new MobileDataUploadJob();
+           job.setJobId(master.getFormTitle() + ": " + j);
+           job.getDescription().setValue(master.getFormTitle() + ": " + j);
+           job.setDisease(disease);
+           job.setFormType(type);
+           job.apply();
+         }
+       }
+
+//       String html = MobileUtil.export(type);
+       
        if (!html.contains("Successful form upload"))
        {
          System.out.println(type + " was not successful.");
