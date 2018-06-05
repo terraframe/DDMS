@@ -30,6 +30,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
+import dss.vector.solutions.surveillance.CaseTreatmentMethodView;
+import dss.vector.solutions.surveillance.CaseTreatmentStockView;
+import dss.vector.solutions.surveillance.CaseTreatmentView;
 
 public class AggregatedCaseTreatmentListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -41,9 +44,9 @@ public class AggregatedCaseTreatmentListener extends AbstractExcelAdapter implem
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseTreatmentsMd(), TREATMENT);
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseTreatmentMethodMd(), METHOD);
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseStocksMd(), STOCK);
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseTreatmentsMd(), TREATMENT, null, CaseTreatmentView.getAmountMd().definesAttribute());
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseTreatmentMethodMd(), METHOD, null, CaseTreatmentMethodView.getAmountMd().definesAttribute());
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseStocksMd(), STOCK, null, CaseTreatmentStockView.getOutOfStockMd().definesAttribute());
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception

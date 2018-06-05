@@ -141,7 +141,10 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           {
             ExcelExportSheet sheet = e.getValue();
 
-            this.copySheetIntoWorkbook(workbook, sheet.getSheet(), sheet.getSheetName());
+            if (form.isExport(e.getKey()))
+            {
+              this.copySheetIntoWorkbook(workbook, sheet.getSheet(), sheet.getSheetName());
+            }
           }
 
           // for(sheets.entrySet())
@@ -281,71 +284,71 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   private void createSheets(ODKForm form, ExcelSheetMetadata metadata, Map<String, ExcelExportSheet> sheets)
   {
-    if (form.isExport())
+    // if (form.isExport())
+    // {
+    MdClassDAOIF target = form.getViewMd();
+    String type = target.definesType();
+
+    if (MdFormUtil.isFormBusinessPackage(type))
     {
-      MdClassDAOIF target = form.getViewMd();
-      String type = target.definesType();
+      MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(type);
+      MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(mdWebForm.getId());
+      String formType = mdForm.definesType();
 
-      if (MdFormUtil.isFormBusinessPackage(type))
+      ExcelExporter exporter = this.getFormExporter(type);
+
+      List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
+
+      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
+
+      for (DynamicGeoColumnListener listener : geoListeners)
       {
-        MdWebForm mdWebForm = MdFormUtil.getMdFormFromBusinessType(type);
-        MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.get(mdWebForm.getId());
-        String formType = mdForm.definesType();
-
-        ExcelExporter exporter = this.getFormExporter(type);
-
-        List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
-
-        List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm, null);
-
-        for (DynamicGeoColumnListener listener : geoListeners)
-        {
-          listeners.add(listener);
-        }
-
-        List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
-
-        for (MultiTermListener listener : multiTermListeners)
-        {
-          listeners.add(listener);
-        }
-
-        listeners.add(new UUIDExcelListener());
-
-        ExcelExportSheet sheet = exporter.addTemplate(formType, metadata, listeners);
-
-        sheets.put(type, sheet);
+        listeners.add(listener);
       }
-      else if (MdFormUtil.isFormRelationshipPackage(type))
+
+      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
+
+      for (MultiTermListener listener : multiTermListeners)
       {
-        MdRelationshipDAOIF mdRelationship = (MdRelationshipDAOIF) target;
-        MdBusinessDAOIF formMdBusiness = mdRelationship.getParentMdBusiness();
-        MdWebForm mdForm = MdFormUtil.getMdFormFromBusinessType(formMdBusiness.definesType());
-        MdWebSingleTermGrid mdWebGrid = MdFormUtil.getGridAttribute(mdForm, mdRelationship);
-
-        MdWebFormDAOIF mdWebFormDAO = MdWebFormDAO.get(mdForm.getId());
-        MdFieldDAOIF mdFieldDAO = MdWebSingleTermGridDAO.get(mdWebGrid.getId());
-
-        GridExcelAdapter sheet = new GridExcelAdapter(mdWebFormDAO, (MdWebSingleTermGridDAOIF) mdFieldDAO, mdRelationship);
-        sheet.addTemplate(mdRelationship.definesType());
-
-        ExcelExporter exporter = new ExcelExporter();
-        exporter.addSheet(sheet);
-
-        sheets.put(type, sheet);
+        listeners.add(listener);
       }
-      else
-      {
-        // Setup the listeners excel export listeners
-        ExcelExporter exporter = new ExcelExporter();
 
-        this.setupListener(exporter, target);
+      listeners.add(new UUIDExcelListener());
 
-        exporter.addListener(new UUIDExcelListener());
+      ExcelExportSheet sheet = exporter.addTemplate(formType, metadata, listeners);
 
-        sheets.put(type, exporter.addTemplate(form.getViewMd().definesType(), metadata));
-      }
+      sheets.put(type, sheet);
     }
+    else if (MdFormUtil.isFormRelationshipPackage(type))
+    {
+      MdRelationshipDAOIF mdRelationship = (MdRelationshipDAOIF) target;
+      MdBusinessDAOIF formMdBusiness = mdRelationship.getParentMdBusiness();
+      MdWebForm mdForm = MdFormUtil.getMdFormFromBusinessType(formMdBusiness.definesType());
+      MdWebSingleTermGrid mdWebGrid = MdFormUtil.getGridAttribute(mdForm, mdRelationship);
+
+      MdWebFormDAOIF mdWebFormDAO = MdWebFormDAO.get(mdForm.getId());
+      MdFieldDAOIF mdFieldDAO = MdWebSingleTermGridDAO.get(mdWebGrid.getId());
+
+      GridExcelAdapter sheet = new GridExcelAdapter(mdWebFormDAO, (MdWebSingleTermGridDAOIF) mdFieldDAO, mdRelationship);
+      sheet.addTemplate(mdRelationship.definesType());
+
+      ExcelExporter exporter = new ExcelExporter();
+      exporter.addSheet(sheet);
+
+      sheets.put(type, sheet);
+    }
+    else
+    {
+      // Setup the listeners excel export listeners
+      ExcelExporter exporter = new ExcelExporter();
+
+      this.setupListener(exporter, target);
+
+      exporter.addListener(new UUIDExcelListener());
+
+      sheets.put(type, exporter.addTemplate(form.getViewMd().definesType(), metadata));
+    }
+    // }
 
     LinkedList<ODKFormJoin> joins = form.getJoins();
 

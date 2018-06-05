@@ -37,6 +37,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.RootTerm;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 
 public class ODKAttribute implements Reloadable
 {
@@ -151,6 +152,10 @@ public class ODKAttribute implements Reloadable
       else if (referenceMdBusiness.definesType().equals(InsecticideBrand.CLASS))
       {
         return new ODKInsecticideBrandAttribute(source, viewAttr, exportedTerms);
+      }
+      else if (referenceMdBusiness.definesType().equals(AggregatedAgeGroup.CLASS))
+      {
+        return new ODKAgeGroupAttribute(source, viewAttr, exportedTerms);
       }
       else if (referenceMdBusiness.definesType().equals(Term.CLASS) || referenceMdBusiness.definesType().equals(RootTerm.CLASS))
       {

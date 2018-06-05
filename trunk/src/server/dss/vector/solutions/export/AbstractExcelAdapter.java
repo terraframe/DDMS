@@ -41,9 +41,9 @@ public abstract class AbstractExcelAdapter extends ExcelAdapter implements Reloa
     for (Term term : TermRootCache.getRoots(mdAttribute))
     {
       String columnName = prefix + term.getTermId();
-      String label = term.getTermDisplayLabel().getValue();
+      String label = suffix != null ? term.getTermDisplayLabel().getValue() + " " + suffix : term.getTermDisplayLabel().getValue();
       
-      extraColumns.add(new GridExcelColumn(columnName, label + " " + suffix, mdAttribute.definesAttribute(), term.getTermId(), subAttribute));
+      extraColumns.add(new GridExcelColumn(columnName, label, mdAttribute.definesAttribute(), term.getTermId(), subAttribute));
     }
   }
 

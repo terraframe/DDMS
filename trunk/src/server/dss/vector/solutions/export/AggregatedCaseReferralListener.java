@@ -30,6 +30,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
+import dss.vector.solutions.surveillance.CaseDiagnosticView;
+import dss.vector.solutions.surveillance.CaseReferralView;
+import dss.vector.solutions.surveillance.CaseStockReferralView;
 
 public class AggregatedCaseReferralListener extends AbstractExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -43,10 +46,10 @@ public class AggregatedCaseReferralListener extends AbstractExcelAdapter impleme
 
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseStockReferralMd(), REFERRAL);
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseReferralsMd(), REASON);
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseDiagnosticMd(), DIAGNOSTIC, " - Total tests", "total");
-    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseDiagnosticMd(), POSITIVE, " - Total positive tests", "positive");
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseStockReferralMd(), REFERRAL, null, CaseStockReferralView.getAmountMd().definesAttribute());
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseReferralsMd(), REASON, null, CaseReferralView.getAmountMd().definesAttribute());
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseDiagnosticMd(), DIAGNOSTIC, " - Total tests", CaseDiagnosticView.getAmountMd().definesAttribute());
+    this.addGridColumns(extraColumns, AggregatedCaseView.getCaseDiagnosticMd(), POSITIVE, " - Total positive tests", CaseDiagnosticView.getAmountPositiveMd().definesAttribute());
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception

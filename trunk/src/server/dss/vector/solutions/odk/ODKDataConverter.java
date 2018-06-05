@@ -265,11 +265,11 @@ public class ODKDataConverter implements Reloadable
       }
     }
 
-    if (repeats.size() == 0 && form.isExport())
+    if (repeats.size() == 0)
     {
       rows.add(root);
     }
-    else if (form.isExport())
+    else
     {
       for (Node repeat : repeats)
       {
@@ -286,12 +286,7 @@ public class ODKDataConverter implements Reloadable
 
   private ExcelExportSheet getSheet(ODKRow root, ODKForm form, Map<String, ExcelExportSheet> sheets)
   {
-    if (form.isExport())
-    {
-      return sheets.get(root.getType());
-    }
-
-    return null;
+    return sheets.get(root.getType());
   }
 
   private ExcelColumn getGeoColumn(List<ExcelColumn> extraColumns, String base, String universalId)
@@ -340,10 +335,10 @@ public class ODKDataConverter implements Reloadable
     if (textContent != null && textContent.length() > 0)
     {
       MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
-      
-      if(attribute instanceof ODKTermAttribute)
+
+      if (attribute instanceof ODKTermAttribute)
       {
-        return ODKTermAttribute.reverseTermIdSanitization(textContent);        
+        return ODKTermAttribute.reverseTermIdSanitization(textContent);
       }
       else if (mdAttributeConcrete instanceof MdAttributeDateDAOIF)
       {
@@ -373,7 +368,7 @@ public class ODKDataConverter implements Reloadable
           // return
           // Term.getByTermId(ODKTermAttribute.reverseTermIdSanitization(textContent)).getId();
         }
-        else if(attribute.isOverride())
+        else if (attribute.isOverride())
         {
           return textContent;
         }

@@ -21,14 +21,14 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
   private List<ODKAttribute> gridAttrs        = new ArrayList<ODKAttribute>();
 
-  public ODKCompositeGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive[] fields)
+  public ODKCompositeGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive... fields)
   {
     super(sourceMdAttr, viewMdAttr, 0);
 
     this.constructGridAttrs(sourceMdAttr, viewMdAttr, fields);
   }
 
-  protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive[] fields)
+  protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive... fields)
   {
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
@@ -36,6 +36,28 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
       {
         MdAttributeDAOIF mdAttributeDAO = MdAttributeDAO.get(field.getDefiningMdAttributeId());
 
+        String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + "." + term.getKey() + "." + mdAttributeDAO.definesAttribute();
+        String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
+        String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
+
+        gridAttrs.add(new ODKAttribute(type, name, label, label, 0, sourceMdAttr.isRequired()));
+      }
+    }
+  }
+
+  public ODKCompositeGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF... mdAttributes)
+  {
+    super(sourceMdAttr, viewMdAttr, 0);
+
+    this.constructGridAttrs(sourceMdAttr, viewMdAttr, mdAttributes);
+  }
+
+  protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF... mdAttributes)
+  {
+    for (Term term : TermRootCache.getRoots(sourceMdAttr))
+    {
+      for (MdAttributeDAOIF mdAttributeDAO : mdAttributes)
+      {
         String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + "." + term.getKey() + "." + mdAttributeDAO.definesAttribute();
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
         String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
