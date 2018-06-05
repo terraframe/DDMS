@@ -1206,6 +1206,9 @@ public class ODKForm implements Reloadable
       ODKForm person = createODKFromForm(FormPerson.CLASS);
       person.removeAttribute("survey");
       person.removeAttribute("household");
+      ODKAttribute attribute = person.getAttributeByName(FormPerson.NET);
+      attribute.setIsOverride(true);
+      
       household.join(new RepeatFormJoin(household, person, true));
     }
     else if (mobileType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))

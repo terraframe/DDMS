@@ -189,12 +189,7 @@ public class ODKDataConverter implements Reloadable
       {
         ODKAttribute attribute = form.getAttributeByName(sourceAttribute);
         MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
-        String value = this.getValue(mdAttribute, child.getTextContent());
-
-        if (attribute instanceof ODKTermAttribute)
-        {
-          value = ODKTermAttribute.reverseTermIdSanitization(value);
-        }
+        String value = this.getValue(attribute, mdAttribute, child.getTextContent());
 
         if (attribute.isOverride())
         {
@@ -217,7 +212,7 @@ public class ODKDataConverter implements Reloadable
         String structName = struct.getAttributeName();
 
         MdAttributeDAOIF mdAttribute = root.getStructMdAttributeDAO(structName, sourceAttribute);
-        String value = this.getValue(mdAttribute, child.getTextContent());
+        String value = this.getValue(struct, mdAttribute, child.getTextContent());
 
         root.setStructValue(structName, sourceAttribute, value);
       }
@@ -340,7 +335,7 @@ public class ODKDataConverter implements Reloadable
     return null;
   }
 
-  private String getValue(MdAttributeDAOIF mdAttribute, String textContent)
+  private String getValue(ODKAttribute attribute, MdAttributeDAOIF mdAttribute, String textContent)
   {
     if (textContent != null && textContent.length() > 0)
     {
@@ -373,6 +368,10 @@ public class ODKDataConverter implements Reloadable
           return ODKTermAttribute.reverseTermIdSanitization(textContent);
           // return
           // Term.getByTermId(ODKTermAttribute.reverseTermIdSanitization(textContent)).getId();
+        }
+        else if(attribute.isOverride())
+        {
+          return textContent;
         }
         else
         {

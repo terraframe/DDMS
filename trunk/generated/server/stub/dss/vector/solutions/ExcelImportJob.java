@@ -32,7 +32,9 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
+import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.scheduler.AllJobStatus;
@@ -221,7 +223,6 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
   protected ContextBuilderIF constructContextBuilder()
   {
-//    return new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
     MdWebFormDAOIF formSurvey = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormSurvey.FORM_TYPE);
     MdWebFormDAOIF formHousehold = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormHousehold.FORM_TYPE);
     MdWebFormDAOIF formBedNet = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
@@ -238,13 +239,25 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     MdFormUtil.addGridContexts(formHousehold, builder);
     MdFormUtil.addGridContexts(formBedNet, builder);
     MdFormUtil.addGridContexts(formPerson, builder);
-    
-    return builder;    
+
+    return builder;
   }
 
   protected void configureImporter(ExcelImporter importer, ExecutionContext context)
   {
     importer.setProgressMonitor(new ExcelImportLegacyHistoryRecordingProgressMonitor((ExcelImportHistory) context.getJobHistory()));
+
+    List<ImportContext> contexts = importer.getContexts();
+
+    for (ImportContext iContext : contexts)
+    {
+      List<ImportListener> listeners = FormSurvey.getImportListeners(iContext.getMdClassType());
+
+      for (ImportListener listener : listeners)
+      {
+        iContext.addListener(listener);
+      }
+    }
   }
 
   @Override
