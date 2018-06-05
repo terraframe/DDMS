@@ -222,7 +222,7 @@ public class ODKDataConverter implements Reloadable
 
         if (value != null && value.length() > 0)
         {
-          String[] split = sourceAttribute.replaceFirst(ODKGridAttribute.GRID_ATTR_PREFIX, "").split("\\.");
+          String[] split = sourceAttribute.replaceFirst(ODKGridAttribute.GRID_ATTR_PREFIX, "").split(ODKCompositeGridAttribute.DELIMETER);
 
           String gridAttribute = split[0];
           String termId = split[1];
@@ -263,11 +263,44 @@ public class ODKDataConverter implements Reloadable
       {
         repeats.add(child);
       }
+      else if (form instanceof ODKTermForm)
+      {
+        ODKTermForm termForm = (ODKTermForm) form;
+
+        if (!termForm.isLocked())
+        {
+          try
+          {
+            termForm.lock();
+            MdAttributeDAOIF mdAttribute = termForm.getMdAttribute();
+            String termId = ODKTermAttribute.reverseTermIdSanitization(sourceAttribute);
+            root.setOverride(mdAttribute.definesAttribute(), termId);
+
+            rows.addAll(this.convert(root.clone(), form, child, sheets));
+          }
+          finally
+          {
+            termForm.unlock();
+          }
+        }
+      }
     }
 
     if (repeats.size() == 0)
     {
-      rows.add(root);
+      if (form instanceof ODKTermForm)
+      {
+        ODKTermForm termForm = (ODKTermForm) form;
+
+        if (termForm.isLocked())
+        {
+          rows.add(root);
+        }
+      }
+      else
+      {
+        rows.add(root);
+      }
     }
     else
     {

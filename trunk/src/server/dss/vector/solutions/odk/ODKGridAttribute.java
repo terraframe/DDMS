@@ -30,7 +30,7 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
   {
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
-      gridAttrs.add(new ODKAttribute(type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + "." + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), 0, sourceMdAttr.isRequired()));
+      gridAttrs.add(new ODKAttribute(type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), 0, sourceMdAttr.isRequired()));
     }
   }
   

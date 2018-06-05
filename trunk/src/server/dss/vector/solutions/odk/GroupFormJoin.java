@@ -60,10 +60,10 @@ public class GroupFormJoin extends ODKFormJoin implements Reloadable
   {
     ODKForm child = this.getChild();
 
-    Element repeatRoot = document.createElement(child.getFormId());
-    repeatRoot.setAttribute("id", child.getFormId());
-    parent.appendChild(repeatRoot);
+    Element group = document.createElement(child.getFormId());
+    group.setAttribute("id", child.getFormId());
+    parent.appendChild(group);
 
-    child.writeInstance(repeatRoot, document, child.getFormId(), maxDepth);
+    child.writeInstance(group, document, child.getFormId(), maxDepth);
   }
 }

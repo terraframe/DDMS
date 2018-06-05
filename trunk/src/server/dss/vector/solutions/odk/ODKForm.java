@@ -173,6 +173,7 @@ import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.irs.ZoneSprayView;
 import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 import dss.vector.solutions.surveillance.AggregatedCase;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
@@ -734,20 +735,17 @@ public class ODKForm implements Reloadable
       caseTreats.addAttribute(new ODKCompositeGridAttribute(AggregatedCaseView.getCaseStocksMd(), AggregatedCaseView.getCaseStocksMd(), CaseTreatmentStockView.getOutOfStockMd()));
       master.join(new GroupFormJoin(master, caseTreats, true));
 
-      ODKForm caseDiag = new ODKForm(CaseDiagnosisTypeExcelView.CLASS);
-      caseDiag.addAttribute(AggregatedCaseView.getCaseDiagnosisTypeMd(), CaseDiagnosisTypeExcelView.getDiagnosisTypeMd());
+      ODKForm caseDiag = new ODKTermForm(CaseDiagnosisTypeExcelView.CLASS, CaseDiagnosisTypeExcelView.getDiagnosisTypeMd(), TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosisTypeMd()));
       caseDiag.addAttribute(new ODKCompositeGridAttribute(CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeAmountView.getAmountMd()));
-      master.join(new RepeatFormJoin(master, caseDiag, true));
+      master.join(new GroupFormJoin(master, caseDiag, true));
 
-      ODKForm caseDisease = new ODKForm(CaseDiseaseManifestationExcelView.CLASS);
-      caseDisease.addAttribute(AggregatedCaseView.getCaseDiseaseManifestationMd(), CaseDiseaseManifestationExcelView.getDiseaseManifestationMd());
+      ODKForm caseDisease = new ODKTermForm(CaseDiseaseManifestationExcelView.CLASS, CaseDiseaseManifestationExcelView.getDiseaseManifestationMd(), TermRootCache.getRoots(AggregatedCaseView.getCaseDiseaseManifestationMd()));
       caseDisease.addAttribute(new ODKCompositeGridAttribute(CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationAmountView.getAmountMd()));
-      master.join(new RepeatFormJoin(master, caseDisease, true));
+      master.join(new GroupFormJoin(master, caseDisease, true));
 
-      ODKForm casePatient = new ODKForm(CasePatientTypeExcelView.CLASS);
-      casePatient.addAttribute(AggregatedCaseView.getCasePatientTypeMd(), CasePatientTypeExcelView.getPatientTypeMd());      
+      ODKForm casePatient = new ODKTermForm(CasePatientTypeExcelView.CLASS, CasePatientTypeExcelView.getPatientTypeMd(), TermRootCache.getRoots(AggregatedCaseView.getCasePatientTypeMd()));
       casePatient.addAttribute(new ODKCompositeGridAttribute(CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeAmountView.getAmountMd()));
-      master.join(new RepeatFormJoin(master, casePatient, true));
+      master.join(new GroupFormJoin(master, casePatient, true));
     }
     else if (mobileType.equals(ControlInterventionExcelView.CLASS))
     {
