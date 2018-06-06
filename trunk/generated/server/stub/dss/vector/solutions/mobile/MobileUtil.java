@@ -1,5 +1,8 @@
 package dss.vector.solutions.mobile;
 
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
+import com.runwaysdk.session.Session;
+
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.odk.MobileDataUploadJob;
 import dss.vector.solutions.odk.ODKForm;
@@ -35,15 +38,18 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
     String html = odkExp.doIt();
 
     Disease disease = Disease.getCurrent();
-
+    
     if (!MobileDataUploadJob.exists(mobileType, disease))
     {
+      SingleActorDAOIF user = Session.getCurrentSession().getUser();
+      
       MobileDataUploadJob job = new MobileDataUploadJob();
       job.setJobId(master.getFormTitle());
       job.getDescription().setValue(master.getFormTitle());
       job.setDisease(disease);
       job.setFormType(mobileType);
       job.setRunAsDimension(disease.getDimension());
+      job.setRunAsUserId(user.getId());
       job.apply();
     }
 

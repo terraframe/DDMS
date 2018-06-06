@@ -153,12 +153,16 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             String label = form.getViewMd().getDisplayLabel(Session.getCurrentLocale());
 
             String filename = label + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
-            workbook.write(new FileOutputStream(new File(parent, filename)));
+
+            try (FileOutputStream fos = new FileOutputStream(new File(parent, filename)))
+            {
+              workbook.write(fos);
+            }
           }
           catch (FileNotFoundException e)
           {
             logger.error("Unable to write file:" + e.getMessage());
-            
+
             throw new ProgrammingErrorException(e);
           }
           catch (IOException e)
@@ -182,21 +186,30 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
               manager.setUserId(userId);
               manager.setDimensionId(dimensionId);
 
-              AllJobStatus result = manager.importAndWait(new FileInputStream(file), new String[] {}, file.getName());
-
-              if (result != null)
+              try (FileInputStream eis = new FileInputStream(file))
               {
-                status = result;
-              }
-              else
-              {
-                /*
-                 * Copy file to the archive directory
-                 */
-                File archive = new File(ODKFacade.getArchivePath());
-                archive.mkdirs();
+                AllJobStatus result = manager.importAndWait(eis, new String[] {}, file.getName());
 
-                IOUtils.copy(new FileInputStream(file), new FileOutputStream(new File(archive, file.getName())));
+                if (result != null)
+                {
+                  status = result;
+                }
+                else
+                {
+                  /*
+                   * Copy file to the archive directory
+                   */
+                  File archive = new File(ODKFacade.getArchivePath());
+                  archive.mkdirs();
+
+                  try (FileInputStream fis = new FileInputStream(file))
+                  {
+                    try (FileOutputStream fos = new FileOutputStream(new File(archive, file.getName())))
+                    {
+                      IOUtils.copy(fis, fos);
+                    }
+                  }
+                }
               }
             }
             catch (IOException e)
@@ -205,7 +218,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             }
           }
         }
-
+        
+        this.appLock();
         this.setQueryCursor(importer.getCursor());
         this.setLastExportDate(importer.getExportDateTime());
       }
