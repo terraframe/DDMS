@@ -45,6 +45,11 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired());
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
+    
+    if (this.sourceMdAttr instanceof MdAttributeBooleanDAOIF)
+    {
+      throw new UnsupportedOperationException("Booleans are not supported as metadata attributes. Use ODKAttributeBoolean instead.");
+    }
   }
 
   @Override
@@ -53,11 +58,6 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     Element attrNode = document.createElement(attributeName);
 
     String def = sourceMdAttr.getDefaultValue();
-    if (this.getODKType().equals("boolean") && def.length() == 0)
-    {
-      // ODK breaks if you don't provide a default value for booleans.
-      def = "0";
-    }
     attrNode.setTextContent(def);
 
     parent.appendChild(attrNode);
@@ -75,11 +75,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
       attr = attr.getMdAttributeConcrete();
     }
 
-    if (attr instanceof MdAttributeBooleanDAOIF)
-    {
-      return "boolean";
-    }
-    else if (attr instanceof MdAttributeFloatDAOIF)
+    if (attr instanceof MdAttributeFloatDAOIF)
     {
       return "decimal";
     }

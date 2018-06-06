@@ -61,7 +61,6 @@ import com.runwaysdk.system.metadata.MdAttributeStructDTO;
 import com.runwaysdk.system.metadata.MdBusinessDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
-import com.runwaysdk.system.metadata.MdFormDTO;
 import com.runwaysdk.system.metadata.MdWebAttributeDTO;
 import com.runwaysdk.system.metadata.MdWebBooleanDTO;
 import com.runwaysdk.system.metadata.MdWebCharacterDTO;
@@ -87,7 +86,6 @@ import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.mobile.MobileUtilDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
@@ -150,12 +148,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
-  }
-  
-  @Override
-  public void mobileExport(String mdFormId) throws java.io.IOException, javax.servlet.ServletException
-  {
-    MobileUtilDTO.exportMdForm(getClientRequest(), mdFormId);
   }
 
   @Override

@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
@@ -30,6 +31,15 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
   {
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
+      if (type == "boolean")
+      {
+        gridAttrs.add(new ODKAttribute(this.getContainingForm(), GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), sourceMdAttr.isRequired()));
+      }
+      else
+      {
+        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), sourceMdAttr.isRequired()));
+      }
+      
       gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), sourceMdAttr.isRequired()));
     }
   }

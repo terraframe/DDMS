@@ -53,15 +53,21 @@ public class ODKAttributeConditionBasic extends ODKAttributeCondition
         throw new UnsupportedOperationException("Unsupported operation for term condition [" + operation.name() + "].");
       }
     }
-    else if (comparitiveAttr.getODKType().equals("boolean"))
+    else if (comparitiveAttr instanceof ODKAttributeBoolean)
     {
-      if (value.equals("true"))
+      String selected = "selected(" + attrPath + ", '" + value + "')";
+      
+      if (operation == ODKAttributeConditionOperation.EQUALS)
       {
-        value = "true()";
+        return selected;
+      }
+      else if (operation == ODKAttributeConditionOperation.NOT_EQUALS)
+      {
+        return "not(" + selected + ")";
       }
       else
       {
-        value = "false()";
+        throw new UnsupportedOperationException("Unsupported operation for term condition [" + operation.name() + "].");
       }
     }
     else if (comparitiveAttr.getODKType().equals("date"))

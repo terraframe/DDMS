@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -42,7 +43,14 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
         String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
 
-        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+        if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
+        {
+          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), name, label, label, sourceMdAttr.isRequired()));
+        }
+        else
+        {
+          gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+        }
       }
     }
   }
@@ -64,7 +72,14 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
         String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
 
-        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+        if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
+        {
+          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), name, label, label, sourceMdAttr.isRequired()));
+        }
+        else
+        {
+          gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+        }
       }
     }
   }

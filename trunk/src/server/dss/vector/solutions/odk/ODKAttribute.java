@@ -23,6 +23,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
@@ -172,6 +173,10 @@ public class ODKAttribute implements Reloadable
     {
       return new ODKStructAttribute(containingForm, source, viewAttr, exportedTerms);
     }
+    else if (concrete instanceof MdAttributeBooleanDAOIF)
+    {
+      return new ODKAttributeBoolean(containingForm, source, viewAttr, exportedTerms);
+    }
     else
     {
       return new ODKMetadataAttribute(containingForm, source, viewAttr);
@@ -244,12 +249,6 @@ public class ODKAttribute implements Reloadable
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
   {
     Element attrNode = document.createElement(attributeName);
-
-    // ODK breaks if you don't provide a default value for booleans.
-    if (this.getODKType().equals("boolean"))
-    {
-      attrNode.setTextContent("false");
-    }
 
     parent.appendChild(attrNode);
   }
