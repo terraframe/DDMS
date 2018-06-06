@@ -123,8 +123,10 @@ public class DataImportRunnable implements Reloadable
     this.historyId = historyId;
   }
 
-  public void run(String bindingId, String sheetName) throws FileNotFoundException, Exception, IOException, JSONException
+  public String run(String bindingId, String sheetName) throws FileNotFoundException, Exception, IOException, JSONException
   {
+    String status = "SUCCESS";
+
     ExcelImportHistory history = ExcelImportHistory.get(this.historyId);
     this.monitor = new JobHistoryProgressMonitor(history);
 
@@ -239,6 +241,8 @@ public class DataImportRunnable implements Reloadable
 
       // Use the error file in the future
       config.put("vaultId", summary.getFileId());
+
+      status = "WARNING";
     }
 
     JSONObject reconstructionJSON = new JSONObject();
@@ -255,6 +259,8 @@ public class DataImportRunnable implements Reloadable
     String vaultId = object.getString("vaultId");
     VaultFile vf = VaultFile.get(vaultId);
     vf.delete();
+
+    return status;
   }
 
   private TargetContext getTargetContext(String bindingId)
@@ -284,8 +290,7 @@ public class DataImportRunnable implements Reloadable
      * information
      */
     // monitor.setState(DataImportState.VALIDATION);
-    // ValidationResult result = this.validateData(file, sContext, tContext,
-    // current);
+    ValidationResult result = this.validateData(file, sContext, tContext, current);
 
     // if (result.getResponse() != null)
     // {
@@ -297,7 +302,7 @@ public class DataImportRunnable implements Reloadable
      * Update any scale or precision which is greater than its current
      * definition
      */
-    // this.updateScaleAndPrecision(result.getAttributes());
+    this.updateScaleAndPrecision(result.getAttributes());
 
     return null;
   }
@@ -414,10 +419,10 @@ public class DataImportRunnable implements Reloadable
 
     ImportResponseIF response = null;
 
-    if (converter.getProblems().size() > 0)
-    {
-      response = new ProblemResponse(converter.getProblems(), sContext, tContext, current);
-    }
+//    if (converter.getProblems().size() > 0)
+//    {
+//      response = new ProblemResponse(converter.getProblems(), sContext, tContext, current);
+//    }
 
     return new ValidationResult(response, converter.getAttributes());
   }

@@ -121,7 +121,7 @@ public class ImportRunnable implements Reloadable
     this.monitor = monitor;
   }
 
-  public void run()
+  public String run()
   {
     try
     {
@@ -148,7 +148,9 @@ public class ImportRunnable implements Reloadable
       Object runnable = runnableClazz.getConstructor(String.class, String.class, File.class, String.class) //
           .newInstance(this.configuration, this.filename, this.file, this.monitor.getHistory().getId());
 
-      runnableClazz.getMethod("run", String.class, String.class).invoke(runnable, id, sheetName);
+      Object status = runnableClazz.getMethod("run", String.class, String.class).invoke(runnable, id, sheetName);
+      
+      return (String) status;
     }
     catch (RunwayException | SmartException e)
     {

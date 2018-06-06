@@ -17,27 +17,16 @@
 package dss.vector.solutions;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Semaphore;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
 
-import dss.vector.solutions.kaleidoscope.data.etl.CategoryProblem;
-import dss.vector.solutions.kaleidoscope.data.etl.ImportProblemIF;
-import dss.vector.solutions.kaleidoscope.data.etl.ImportResponseIF;
 import dss.vector.solutions.kaleidoscope.data.etl.ImportRunnable;
-import dss.vector.solutions.kaleidoscope.data.etl.LocationProblem;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.JobHistoryProgressMonitor;
 
 public class DataUploaderImportJob extends DataUploaderImportJobBase implements com.runwaysdk.generation.loader.Reloadable
@@ -190,7 +179,13 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
      * This can cause a reload, everything after this line needs to be invoked
      * through reflection
      */
-    new ImportRunnable(this.sharedState.fileName, this.sharedState.configuration, this.sharedState.file, monitor).run();
+    ImportRunnable run = new ImportRunnable(this.sharedState.fileName, this.sharedState.configuration, this.sharedState.file, monitor);
+    String status = run.run();
+
+    if (status.equals("WARNING"))
+    {
+      context.setStatus(AllJobStatus.WARNING);
+    }
   }
 
 }
