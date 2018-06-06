@@ -14,14 +14,9 @@ public class ODKAgeGroupAttribute extends ODKMetadataAttribute implements Reload
 {
   private Set<String> exported;
 
-  public ODKAgeGroupAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
+  public ODKAgeGroupAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
   {
-    this(sourceMdAttr, viewMdAttr, exported, 0);
-  }
-
-  public ODKAgeGroupAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported, int index)
-  {
-    super(sourceMdAttr, viewMdAttr);
+    super(containingForm, sourceMdAttr, viewMdAttr);
 
     this.exported = exported;
   }

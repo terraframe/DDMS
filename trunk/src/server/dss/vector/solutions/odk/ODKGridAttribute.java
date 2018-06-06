@@ -19,9 +19,9 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
   
   List<ODKAttribute> gridAttrs = new ArrayList<ODKAttribute>();
   
-  public ODKGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type)
+  public ODKGridAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type)
   {
-    super(sourceMdAttr, viewMdAttr, 0);
+    super(containingForm, sourceMdAttr, viewMdAttr);
     
     constructGridAttrs(sourceMdAttr, viewMdAttr, type);
   }
@@ -30,7 +30,7 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
   {
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
-      gridAttrs.add(new ODKAttribute(type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), 0, sourceMdAttr.isRequired()));
+      gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey(), term.getTermDisplayLabel().getValue(), term.getTermDisplayLabel().getValue(), sourceMdAttr.isRequired()));
     }
   }
   

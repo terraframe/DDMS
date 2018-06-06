@@ -19,9 +19,9 @@ public class ODKGeoAttribute extends ODKMetadataAttribute implements Reloadable
 {
   public static final String PREFIX = "_GEOLIST_";
   
-  public ODKGeoAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
+  public ODKGeoAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    super(sourceMdAttr, viewMdAttr);
+    super(containingForm, sourceMdAttr, viewMdAttr);
   }
   
   @Override

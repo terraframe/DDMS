@@ -29,21 +29,50 @@ public class ODKAttributeConditionBasic extends ODKAttributeCondition
   }
   
   @Override
-  public String getBindConstraint()
+  public String getBindRelevant()
   {
-    String attrStr = comparitiveAttr.getAttributeName();
-    
-    if (definingAttr.equals(comparitiveAttr))
-    {
-      attrStr = ".";
-    }
+    String attrPath = comparitiveAttr.getInstancePath();
     
     if (comparitiveAttr instanceof ODKTermAttribute)
     {
       Term t = Term.get(value);
       value = ODKTermAttribute.sanitizeTermId(t.getTermId());
+      
+      String selected = "selected(" + attrPath + ", '" + value + "')";
+      
+      if (operation == ODKAttributeConditionOperation.EQUALS)
+      {
+        return selected;
+      }
+      else if (operation == ODKAttributeConditionOperation.NOT_EQUALS)
+      {
+        return "not(" + selected + ")";
+      }
+      else
+      {
+        throw new UnsupportedOperationException("Unsupported operation for term condition [" + operation.name() + "].");
+      }
+    }
+    else if (comparitiveAttr.getODKType().equals("boolean"))
+    {
+      if (value.equals("true"))
+      {
+        value = "true()";
+      }
+      else
+      {
+        value = "false()";
+      }
+    }
+    else if (comparitiveAttr.getODKType().equals("date"))
+    {
+      value = "date('" + value + "')";
+    }
+    else if (comparitiveAttr.getODKType().equals("string"))
+    {
+      value = "'" + value + "'";
     }
     
-    return attrStr + " " + operation.getOdkRepresentation() + " " + value;
+    return attrPath + " " + operation.getOdkRepresentation() + " " + value;
   }
 }

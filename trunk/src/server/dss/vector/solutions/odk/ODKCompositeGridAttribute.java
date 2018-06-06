@@ -23,9 +23,9 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
   private List<ODKAttribute> gridAttrs        = new ArrayList<ODKAttribute>();
 
-  public ODKCompositeGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive... fields)
+  public ODKCompositeGridAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive... fields)
   {
-    super(sourceMdAttr, viewMdAttr, 0);
+    super(containingForm, sourceMdAttr, viewMdAttr);
 
     this.constructGridAttrs(sourceMdAttr, viewMdAttr, fields);
   }
@@ -42,14 +42,14 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
         String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
 
-        gridAttrs.add(new ODKAttribute(type, name, label, label, 0, sourceMdAttr.isRequired()));
+        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
       }
     }
   }
 
-  public ODKCompositeGridAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF... mdAttributes)
+  public ODKCompositeGridAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF... mdAttributes)
   {
-    super(sourceMdAttr, viewMdAttr, 0);
+    super(containingForm, sourceMdAttr, viewMdAttr);
 
     this.constructGridAttrs(sourceMdAttr, viewMdAttr, mdAttributes);
   }
@@ -64,7 +64,7 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
         String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
 
-        gridAttrs.add(new ODKAttribute(type, name, label, label, 0, sourceMdAttr.isRequired()));
+        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
       }
     }
   }

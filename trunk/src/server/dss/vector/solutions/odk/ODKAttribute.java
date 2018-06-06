@@ -60,43 +60,40 @@ public class ODKAttribute implements Reloadable
    * map
    */
   private String                copyAttribute;
-
+  
+  private ODKForm               containingForm;
+  
   /**
    * Flag denoting the value should be stored in the override map instead of on
    * the mutable
    */
   private boolean               isOverride;
 
-  public ODKAttribute(String type, String attributeName, String displayLabel, String description, int index, boolean required)
+  public ODKAttribute(ODKForm containingForm, String type, String attributeName, String displayLabel, String description, boolean required)
   {
     this.type = type;
     this.attributeName = this.sanitizeAttributeName(attributeName);
     this.displayLabel = displayLabel;
     this.description = description;
-    this.index = index;
     this.required = required;
     this.copyAttribute = null;
     this.isOverride = false;
+    this.containingForm = containingForm;
   }
 
-  public ODKAttribute(String attributeName, String displayLabel, String description, int index, boolean required)
+  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel, String description, boolean required)
   {
-    this("string", attributeName, displayLabel, description, index, required);
+    this(containingForm, "string", attributeName, displayLabel, description, required);
   }
 
-  public ODKAttribute(String attributeName, String displayLabel, int index)
+  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel)
   {
-    this(attributeName, displayLabel, null, index, false);
+    this(containingForm, attributeName, displayLabel, null, false);
   }
 
-  public ODKAttribute(String attributeName, String displayLabel, boolean required)
+  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel, boolean required)
   {
-    this(attributeName, displayLabel, null, 0, required);
-  }
-
-  public ODKAttribute(String attributeName, String displayLabel)
-  {
-    this(attributeName, displayLabel, null, 0, false);
+    this(containingForm, attributeName, displayLabel, null, required);
   }
 
   public String sanitizeAttributeName(String attrName)
@@ -112,6 +109,11 @@ public class ODKAttribute implements Reloadable
   public void setCondition(ODKAttributeCondition condition)
   {
     this.condition = condition;
+  }
+  
+  public ODKForm getContainingForm()
+  {
+    return this.containingForm;
   }
 
   public static class Filter extends DefaultExcelAttributeFilter implements MdAttributeFilter, Reloadable
@@ -134,45 +136,45 @@ public class ODKAttribute implements Reloadable
 
   }
 
-  public static ODKAttribute factory(MdAttributeDAOIF source, MdAttributeDAOIF viewAttr, Set<String> exportedTerms)
+  public static ODKAttribute factory(ODKForm containingForm, MdAttributeDAOIF source, MdAttributeDAOIF viewAttr, Set<String> exportedTerms)
   {
     MdAttributeConcreteDAOIF concrete = source.getMdAttributeConcrete();
 
     if (concrete instanceof MdAttributeEnumerationDAOIF)
     {
-      return new ODKEnumAttribute(source, viewAttr, exportedTerms);
+      return new ODKEnumAttribute(containingForm, source, viewAttr, exportedTerms);
     }
     else if (concrete instanceof MdAttributeReferenceDAOIF)
     {
       MdEntityDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) concrete ).getReferenceMdBusinessDAO().getRootMdClassDAO();
       if (referenceMdBusiness.definesType().equals(GeoEntity.CLASS))
       {
-        return new ODKGeoAttribute(source, viewAttr);
+        return new ODKGeoAttribute(containingForm, source, viewAttr);
       }
       else if (referenceMdBusiness.definesType().equals(InsecticideBrand.CLASS))
       {
-        return new ODKInsecticideBrandAttribute(source, viewAttr, exportedTerms);
+        return new ODKInsecticideBrandAttribute(containingForm, source, viewAttr, exportedTerms);
       }
       else if (referenceMdBusiness.definesType().equals(AggregatedAgeGroup.CLASS))
       {
-        return new ODKAgeGroupAttribute(source, viewAttr, exportedTerms);
+        return new ODKAgeGroupAttribute(containingForm, source, viewAttr, exportedTerms);
       }
       else if (referenceMdBusiness.definesType().equals(Term.CLASS) || referenceMdBusiness.definesType().equals(RootTerm.CLASS))
       {
-        return new ODKTermAttribute(source, viewAttr, exportedTerms);
+        return new ODKTermAttribute(containingForm, source, viewAttr, exportedTerms);
       }
       else
       {
-        return new ODKMetadataAttribute(source, viewAttr);
+        return new ODKMetadataAttribute(containingForm, source, viewAttr);
       }
     }
     else if (concrete instanceof MdAttributeStructDAOIF)
     {
-      return new ODKStructAttribute(source, viewAttr, exportedTerms);
+      return new ODKStructAttribute(containingForm, source, viewAttr, exportedTerms);
     }
     else
     {
-      return new ODKMetadataAttribute(source, viewAttr);
+      return new ODKMetadataAttribute(containingForm, source, viewAttr);
     }
   }
 
@@ -266,7 +268,7 @@ public class ODKAttribute implements Reloadable
 
     if (this.condition != null)
     {
-      bind.setAttribute("constraint", this.condition.getBindConstraint());
+      bind.setAttribute("relevant", this.condition.getBindRelevant());
     }
 
     parent.appendChild(bind);
@@ -318,6 +320,11 @@ public class ODKAttribute implements Reloadable
   public String getCopyAttribute()
   {
     return copyAttribute;
+  }
+
+  public String getInstancePath()
+  {
+    return containingForm.getInstancePath() + "/" + this.attributeName;
   }
 
   public boolean isOverride()

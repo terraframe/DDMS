@@ -16,8 +16,8 @@ public class ODKAttributeConditionComposite extends ODKAttributeCondition
   }
 
   @Override
-  public String getBindConstraint()
+  public String getBindRelevant()
   {
-    return parent.getBindConstraint() + " " + operation.getOdkRepresentation() + " " + child.getBindConstraint();
+    return parent.getBindRelevant() + " " + operation.getOdkRepresentation() + " " + child.getBindRelevant();
   }
 }

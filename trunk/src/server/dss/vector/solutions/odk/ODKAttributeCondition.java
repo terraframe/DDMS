@@ -14,7 +14,9 @@ import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
 
 abstract public class ODKAttributeCondition
 {
-  abstract public String getBindConstraint();
+  abstract public String getBindRelevant();
+  
+//  abstract public String getConstraintMsg();
   
   public static ODKAttributeCondition factory(FieldConditionDAOIF condition, ODKAttribute odkAttr, ODKForm odkForm)
   {

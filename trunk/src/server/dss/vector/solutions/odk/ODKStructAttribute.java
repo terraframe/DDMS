@@ -37,9 +37,9 @@ public class ODKStructAttribute extends ODKMetadataAttribute implements Reloadab
 {
   List<ODKAttribute> structAttrs;
 
-  public ODKStructAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exportedTerms)
+  public ODKStructAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exportedTerms)
   {
-    super(sourceMdAttr, viewMdAttr, 0);
+    super(containingForm, sourceMdAttr, viewMdAttr);
 
     structAttrs = new ArrayList<ODKAttribute>();
 
@@ -57,7 +57,7 @@ public class ODKStructAttribute extends ODKMetadataAttribute implements Reloadab
 
     for (MdAttributeDAOIF structAttribute : structAttributes)
     {
-      structAttrs.add(ODKAttribute.factory(structAttribute, structAttribute, exportedTerms));
+      structAttrs.add(ODKAttribute.factory(this.getContainingForm(), structAttribute, structAttribute, exportedTerms));
     }
   }
 

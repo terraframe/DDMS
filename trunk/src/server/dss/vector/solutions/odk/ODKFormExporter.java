@@ -522,6 +522,8 @@ public class ODKFormExporter implements Reloadable
       Transformer serializer = tfactory.newTransformer();
       serializer.setOutputProperty(OutputKeys.INDENT, "yes");
       serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+      serializer.setOutputProperty(OutputKeys.METHOD, "xml");
+      serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       serializer.transform(new DOMSource(document), new StreamResult(baos));

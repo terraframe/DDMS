@@ -1,15 +1,17 @@
 package dss.vector.solutions.odk;
 
+import dss.vector.solutions.util.LocalizationFacade;
+
 public enum ODKAttributeConditionOperation
 {
   AND("and"),
   OR("or"),
   EQUALS("="),
   NOT_EQUALS("!="),
-  LESS_THAN("&lt;"),
-  LESS_THAN_EQUALS("&lt;="),
-  GREATER_THAN("&gt;"),
-  GREATER_THAN_EQUALS("&gt;=");
+  LESS_THAN("<"),
+  LESS_THAN_EQUALS("<="),
+  GREATER_THAN(">"),
+  GREATER_THAN_EQUALS(">=");
   
   private String odkRepresentation;
   
@@ -62,5 +64,49 @@ public enum ODKAttributeConditionOperation
     }
     
     return operation;
+  }
+
+  public String getDisplayLabel()
+  {
+    String key;
+    
+    if (this.equals(AND))
+    {
+      key = "odk_condition_operation_and";
+    }
+    else if (this.equals(OR))
+    {
+      key = "odk_condition_operation_or";
+    }
+    else if (this.equals(EQUALS))
+    {
+      key = "odk_condition_operation_eq";
+    }
+    else if (this.equals(NOT_EQUALS))
+    {
+      key = "odk_condition_operation_ne";
+    }
+    else if (this.equals(LESS_THAN))
+    {
+      key = "odk_condition_operation_lt";
+    }
+    else if (this.equals(LESS_THAN_EQUALS))
+    {
+      key = "odk_condition_operation_lte";
+    }
+    else if (this.equals(GREATER_THAN))
+    {
+      key = "odk_condition_operation_gt";
+    }
+    else if (this.equals(GREATER_THAN_EQUALS))
+    {
+      key = "odk_condition_operation_gte";
+    }
+    else
+    {
+      throw new UnsupportedOperationException();
+    }
+    
+    return LocalizationFacade.getFromBundles(key);
   }
 }

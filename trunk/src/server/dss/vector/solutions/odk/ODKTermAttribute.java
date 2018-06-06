@@ -29,14 +29,9 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
   
   private Long            count;
 
-  public ODKTermAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
+  public ODKTermAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
   {
-    this(sourceMdAttr, viewMdAttr, exported, 0);
-  }
-
-  public ODKTermAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported, int index)
-  {
-    super(sourceMdAttr, viewMdAttr);
+    super(containingForm, sourceMdAttr, viewMdAttr);
 
     this.exported = exported;
     this.count = null;

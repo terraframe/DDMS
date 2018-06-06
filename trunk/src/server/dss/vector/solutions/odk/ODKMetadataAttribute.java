@@ -40,16 +40,11 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   protected MdAttributeDAOIF viewMdAttr;
 
-  public ODKMetadataAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, int index)
+  public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    super(viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), index, viewMdAttr.isRequired());
+    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired());
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
-  }
-
-  public ODKMetadataAttribute(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
-  {
-    this(sourceMdAttr, viewMdAttr, 0);
   }
 
   @Override
@@ -61,7 +56,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     if (this.getODKType().equals("boolean") && def.length() == 0)
     {
       // ODK breaks if you don't provide a default value for booleans.
-      def = "false";
+      def = "0";
     }
     attrNode.setTextContent(def);
 

@@ -77,6 +77,8 @@ public class ODKTest
     ODKForm master = ODKForm.factory(mobileType);
 
     ODKFormExporter odkExp = new ODKFormExporter(master);
+    
+    odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
 
     String html = odkExp.doIt();
     
@@ -120,7 +122,7 @@ public class ODKTest
 
        ODKFormExporter odkExp = new ODKFormExporter(master);
 
-        odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
+       odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
 
        String html = odkExp.doIt();
        

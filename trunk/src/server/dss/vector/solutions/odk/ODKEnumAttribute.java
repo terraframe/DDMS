@@ -21,14 +21,9 @@ public class ODKEnumAttribute extends ODKMetadataAttribute implements Reloadable
 
   private Set<String>                 exported;
 
-  public ODKEnumAttribute(MdAttributeDAOIF mdAttribute, MdAttributeDAOIF viewAttr, Set<String> exported)
+  public ODKEnumAttribute(ODKForm containingForm, MdAttributeDAOIF mdAttribute, MdAttributeDAOIF viewAttr, Set<String> exported)
   {
-    this(mdAttribute, viewAttr, exported, 0);
-  }
-
-  public ODKEnumAttribute(MdAttributeDAOIF mdAttribute, MdAttributeDAOIF viewAttr, Set<String> exported, int index)
-  {
-    super(mdAttribute, viewAttr);
+    super(containingForm, mdAttribute, viewAttr);
 
     this.mdAttribute = (MdAttributeEnumerationDAOIF) mdAttribute.getMdAttributeConcrete();
     this.exported = exported;
