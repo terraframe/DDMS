@@ -43,6 +43,7 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
       job.getDescription().setValue(master.getFormTitle());
       job.setDisease(disease);
       job.setFormType(mobileType);
+      job.setRunAsDimension(disease.getDimension());
       job.apply();
     }
 
