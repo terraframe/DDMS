@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.export;
 
@@ -33,8 +33,7 @@ import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
 
-public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245998013289L;
 
@@ -57,16 +56,13 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
 
     kda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     kda.setTestDate(this.getTestDate());
-    kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
-        KnockDownAssay.getTestMethodMd()));
-    kda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
-        KnockDownAssay.getGenerationMd()));
+    kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), KnockDownAssay.getTestMethodMd()));
+    kda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), KnockDownAssay.getGenerationMd()));
     kda.setIsofemale(this.getIsofemale());
     kda.setSex(Term.validateByDisplayLabel(this.getSex(), KnockDownAssay.getSexMd()));
     kda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
-    kda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
-        KnockDownAssay.getIdentificationMethodMd()));
-    
+    kda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), KnockDownAssay.getIdentificationMethodMd()));
+
     AdultAgeRange excelAgeRange = this.getAgeRange();
     if (excelAgeRange != null)
     {
@@ -82,11 +78,9 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     // set the Insecticide if at least one value is set (three values are
     // required, but
     // we want validation to notify the user that values are missing).
-    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS)
-        || this.isModified(INSECTICIDEAMOUNT))
+    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS) || this.isModified(INSECTICIDEAMOUNT))
     {
-      kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
-          this.getInsecticideUnits(), this.getInsecticideAmount()));
+      kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
     }
 
     kda.setQuantityTested(this.getQuantityTested());

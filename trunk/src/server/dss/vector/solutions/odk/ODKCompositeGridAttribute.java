@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -38,14 +39,15 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
       for (MdWebPrimitive field : fields)
       {
         MdAttributeDAOIF mdAttributeDAO = MdAttributeDAO.get(field.getDefiningMdAttributeId());
+        MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
 
         String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + DELIMETER + term.getKey() + DELIMETER + mdAttributeDAO.definesAttribute();
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
-        String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
+        String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
 
         if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
         {
-          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeDAO, mdAttributeDAO, type, name, label, label, sourceMdAttr.isRequired()));
+          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeConcrete, mdAttributeDAO, type, name, label, label, sourceMdAttr.isRequired()));
         }
         else
         {
@@ -68,13 +70,15 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
     {
       for (MdAttributeDAOIF mdAttributeDAO : mdAttributes)
       {
+        MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
+        
         String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + DELIMETER + term.getKey() + DELIMETER + mdAttributeDAO.definesAttribute();
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
-        String type = ODKMetadataAttribute.getODKType(mdAttributeDAO);
+        String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
 
-        if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
+        if (mdAttributeConcrete instanceof MdAttributeBooleanDAOIF)
         {
-          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeDAO, mdAttributeDAO));
+          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeConcrete, mdAttributeDAO, type, name, label, label, sourceMdAttr.isRequired()));
         }
         else
         {

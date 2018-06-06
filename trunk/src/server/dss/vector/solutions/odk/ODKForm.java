@@ -62,6 +62,7 @@ import dss.vector.solutions.entomology.PooledInfectionAssay;
 import dss.vector.solutions.entomology.PooledInfectionAssayView;
 import dss.vector.solutions.entomology.PupalCollection;
 import dss.vector.solutions.entomology.PupalCollectionView;
+import dss.vector.solutions.entomology.PupalContainerAmountView;
 import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.entomology.TimeResponseAssay;
@@ -135,26 +136,40 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.AggregatedIPT;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitViewBase;
 import dss.vector.solutions.intervention.monitor.ControlIntervention;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
+import dss.vector.solutions.intervention.monitor.IPTANCVisit;
+import dss.vector.solutions.intervention.monitor.IPTDose;
+import dss.vector.solutions.intervention.monitor.IPTPatients;
+import dss.vector.solutions.intervention.monitor.IPTTreatment;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
+import dss.vector.solutions.intervention.monitor.ITNCommunityNet;
+import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup;
 import dss.vector.solutions.intervention.monitor.ITNData;
 import dss.vector.solutions.intervention.monitor.ITNDataView;
 import dss.vector.solutions.intervention.monitor.ITNDistribution;
+import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNInstanceView;
+import dss.vector.solutions.intervention.monitor.ITNNet;
+import dss.vector.solutions.intervention.monitor.ITNService;
+import dss.vector.solutions.intervention.monitor.ITNTargetGroup;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualIPT;
 import dss.vector.solutions.intervention.monitor.IndividualIPTView;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
+import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodView;
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.InsecticideInterventionView;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
+import dss.vector.solutions.intervention.monitor.PersonInterventionMethodView;
 import dss.vector.solutions.intervention.monitor.PersonInterventionView;
 import dss.vector.solutions.intervention.monitor.SurveyPointView;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
@@ -779,14 +794,14 @@ public class ODKForm implements Reloadable
       }
 
       ODKForm aggPremise = new ODKForm(AggregatedPremiseExcelView.CLASS);
-      aggPremise.addAttribute(new ODKGridAttribute(aggPremise, AggregatedPremiseVisitView.getInterventionMethodMd(), AggregatedPremiseVisitView.getInterventionMethodMd(), "int"));
-      aggPremise.addAttribute(new ODKGridAttribute(aggPremise, AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd(), AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd(), "int"));
+      aggPremise.addAttribute(new ODKGridAttribute(aggPremise, AggregatedPremiseVisitView.getInterventionMethodMd(), AggregatedPremiseVisitView.getInterventionMethodMd(), AggregatedPremiseMethodView.getAmountMd()));
+      aggPremise.addAttribute(new ODKGridAttribute(aggPremise, AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd(), AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd(), AggregatedPremiseReasonView.getAmountMd()));
       aggPremise.addAttribute(AggregatedPremiseExcelView.getPremiseGeoEntityMd(), AggregatedPremiseExcelView.getPremiseGeoEntityMd());
       aggPremise.buildAttributes(AggregatedPremiseVisitView.CLASS, AggregatedPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, aggPremise, true));
 
       ODKForm individPremise = new ODKForm(IndividualPremiseExcelView.CLASS);
-      individPremise.addAttribute(new ODKGridAttribute(individPremise, IndividualPremiseVisitView.getInterventionMethodMd(), IndividualPremiseVisitView.getInterventionMethodMd(), "boolean"));
+      individPremise.addAttribute(new ODKGridAttribute(individPremise, IndividualPremiseVisitView.getInterventionMethodMd(), IndividualPremiseVisitView.getInterventionMethodMd(), IndividualPremiseVisitMethodView.getUsedMd()));
       individPremise.addAttribute(IndividualPremiseExcelView.getPremiseGeoEntityMd(), IndividualPremiseExcelView.getPremiseGeoEntityMd());
       individPremise.buildAttributes(IndividualPremiseVisitView.CLASS, IndividualPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, individPremise, true));
@@ -798,7 +813,7 @@ public class ODKForm implements Reloadable
       master.join(new GroupFormJoin(master, insecticide, true));
 
       ODKForm person = new ODKForm(PersonInterventionExcelView.CLASS);
-      person.addAttribute(new ODKGridAttribute(person, PersonInterventionView.getInterventionMethodMd(), PersonInterventionView.getInterventionMethodMd(), "int"));
+      person.addAttribute(new ODKGridAttribute(person, PersonInterventionView.getInterventionMethodMd(), PersonInterventionView.getInterventionMethodMd(), PersonInterventionMethodView.getAmountMd()));
       person.buildAttributes(PersonInterventionView.CLASS, PersonInterventionExcelView.customAttributeOrder(), null);
       master.join(new GroupFormJoin(master, person, true));
     }
@@ -820,10 +835,10 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(AggregatedIPTExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(AggregatedIPT.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayPatientsMd(), AggregatedIPTView.getDisplayPatientsMd(), "int"));
-      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayVisitsMd(), AggregatedIPTView.getDisplayVisitsMd(), "int"));
-      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayDoseMd(), AggregatedIPTView.getDisplayDoseMd(), "int"));
-      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayTreatmentsMd(), AggregatedIPTView.getDisplayTreatmentsMd(), "int"));
+      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayPatientsMd(), AggregatedIPTView.getDisplayPatientsMd(), IPTPatients.getAmountMd()));
+      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayVisitsMd(), AggregatedIPTView.getDisplayVisitsMd(), IPTANCVisit.getAmountMd()));
+      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayDoseMd(), AggregatedIPTView.getDisplayDoseMd(), IPTDose.getAmountMd()));
+      master.addAttribute(new ODKGridAttribute(master, AggregatedIPTView.getDisplayTreatmentsMd(), AggregatedIPTView.getDisplayTreatmentsMd(), IPTTreatment.getAmountMd()));
       master.buildAttributes(AggregatedIPTView.CLASS, AggregatedIPTExcelView.customAttributeOrder(), null);
       master.removeAttribute(AggregatedIPTExcelView.getGeoEntityMd().definesAttribute());
       master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
@@ -835,9 +850,9 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(AggregatedITNExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.addAttribute(new ODKGridAttribute(master, ITNDataView.getDisplayServicesMd(), ITNDataView.getDisplayServicesMd(), "int"));
-      master.addAttribute(new ODKGridAttribute(master, ITNDataView.getDisplayTargetGroupsMd(), ITNDataView.getDisplayTargetGroupsMd(), "int"));
-      master.addAttribute(new ODKGridAttribute(master, ITNDataView.getDisplayNetsMd(), ITNDataView.getDisplayNetsMd(), "int"));
+      master.addAttribute(new ODKGridAttribute(master, ITNDataView.getDisplayServicesMd(), ITNDataView.getDisplayServicesMd(), ITNService.getAmountMd()));
+      master.addAttribute(new ODKGridAttribute(master, ITNDataView.getDisplayTargetGroupsMd(), ITNDataView.getDisplayTargetGroupsMd(), ITNTargetGroup.getAmountMd()));
+      master.addAttribute(new ODKGridAttribute(master, ITNDataView.getDisplayNetsMd(), ITNDataView.getDisplayNetsMd(), ITNNet.getAmountMd()));
       master.buildAttributes(ITNDataView.CLASS, AggregatedITNExcelView.customAttributeOrder(), null);
 
       master.removeAttribute(AggregatedITNExcelView.getGeoEntityMd().definesAttribute());
@@ -881,7 +896,7 @@ public class ODKForm implements Reloadable
       master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
 
       ODKForm instance = new ODKForm(IndividualCaseExcelView.CLASS);
-      instance.addAttribute(new ODKGridAttribute(instance, IndividualInstance.getSymptomMd(), IndividualInstance.getSymptomMd(), "boolean"));
+      instance.addAttribute(new ODKMultiTermAttribute(instance, IndividualInstance.getSymptomMd(), IndividualInstance.getSymptomMd()));
       instance.buildAttributes(IndividualInstance.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
 
       master.join(new RepeatFormJoin(master, instance));
@@ -914,8 +929,8 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(ITNCommunityExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNCommunityDistribution.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.addAttribute(new ODKGridAttribute(master, ITNCommunityDistributionView.getDisplayTargetGroupsMd(), ITNCommunityDistributionView.getDisplayTargetGroupsMd(), "int"));
-      master.addAttribute(new ODKGridAttribute(master, ITNCommunityDistributionView.getDisplayNetsMd(), ITNCommunityDistributionView.getDisplayNetsMd(), "int"));
+      master.addAttribute(new ODKGridAttribute(master, ITNCommunityDistributionView.getDisplayTargetGroupsMd(), ITNCommunityDistributionView.getDisplayTargetGroupsMd(), ITNCommunityTargetGroup.getAmountMd()));
+      master.addAttribute(new ODKGridAttribute(master, ITNCommunityDistributionView.getDisplayNetsMd(), ITNCommunityDistributionView.getDisplayNetsMd(), ITNCommunityNet.getAmountMd()));
       master.buildAttributes(ITNCommunityDistributionView.CLASS, ITNCommunityExcelView.customAttributeOrder(), null);
 
       master.removeAttribute(ITNCommunityExcelView.getDistributionLocationMd().definesAttribute());
@@ -934,7 +949,7 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(ITNDistributionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ITNDistribution.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.addAttribute(new ODKGridAttribute(master, ITNDistributionView.getTargetGroupsMd(), ITNDistributionView.getTargetGroupsMd(), "int"));
+      master.addAttribute(new ODKGridAttribute(master, ITNDistributionView.getTargetGroupsMd(), ITNDistributionView.getTargetGroupsMd(), ITNDistributionTargetGroup.getAmountMd()));
       master.buildAttributes(ITNDistributionView.CLASS, ITNDistributionExcelView.customAttributeOrder(), null);
 
       master.removeAttribute(ITNDistributionExcelView.getFacilityMd().definesAttribute());
@@ -1051,7 +1066,7 @@ public class ODKForm implements Reloadable
       master.buildAttributes(PupalCollectionView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
 
       ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);
-      container.addAttribute(new ODKGridAttribute(container, PupalContainerView.getPupaeAmountMd(), PupalContainerView.getPupaeAmountMd(), "int"));
+      container.addAttribute(new ODKGridAttribute(container, PupalContainerView.getPupaeAmountMd(), PupalContainerView.getPupaeAmountMd(), PupalContainerAmountView.getAmountMd()));
       container.buildAttributes(PupalContainerView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, container));
     }
@@ -1075,8 +1090,8 @@ public class ODKForm implements Reloadable
       master.buildAttributes(ITNInstanceView.CLASS, SurveyExcelView.customAttributeOrder(), null);
       master.buildAttributes(SurveyedPersonView.CLASS, SurveyExcelView.customAttributeOrder(), null);
       master.buildAttributes(map, SurveyExcelView.customAttributeOrder());
-      master.addAttribute(new ODKGridAttribute(master, SurveyedPersonView.getDisplayLocationsMd(), SurveyedPersonView.getDisplayLocationsMd(), "boolean"));
-      master.addAttribute(new ODKGridAttribute(master, SurveyedPersonView.getDisplayTreatmentsMd(), SurveyedPersonView.getDisplayTreatmentsMd(), "boolean"));
+      master.addAttribute(new ODKMultiTermAttribute(master, SurveyedPersonView.getDisplayLocationsMd(), SurveyedPersonView.getDisplayLocationsMd()));
+      master.addAttribute(new ODKMultiTermAttribute(master, SurveyedPersonView.getDisplayTreatmentsMd(), SurveyedPersonView.getDisplayTreatmentsMd()));
     }
     else if (mobileType.equals(ThresholdDataExcelView.CLASS))
     {
@@ -1171,7 +1186,7 @@ public class ODKForm implements Reloadable
       master = new ODKForm(LarvaeDiscriminatingDoseAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(LarvaeDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
-      master.addAttribute(CollectionAssay.getGenerationMd(), LarvaeDiscriminatingDoseAssayExcelView.getGenerationMd());
+      master.addAttribute(LarvaeDiscriminatingDoseAssay.getGenerationMd(), LarvaeDiscriminatingDoseAssayExcelView.getGenerationMd());
       master.addAttribute(Insecticide.getActiveIngredientMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd());
       master.addAttribute(Insecticide.getUnitsMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
@@ -1272,7 +1287,7 @@ public class ODKForm implements Reloadable
       {
         MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
 
-        master.addAttribute(new ODKGridAttribute(master, mdAttribute, mdAttribute, "boolean"));
+        master.addAttribute(new ODKMultiTermAttribute(master, mdAttribute, mdAttribute));
       }
       else if ( ( mdField instanceof MdWebSingleTermGridDAOIF ))
       {

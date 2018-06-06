@@ -6,46 +6,40 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.util.LocalizationFacade;
 
-public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
+public class ODKMultiTermAttribute extends ODKMetadataAttribute implements Reloadable
 {
   public static final String GRID_ATTR_PREFIX = "_GRID_";
 
   List<ODKAttribute>         gridAttrs        = new ArrayList<ODKAttribute>();
 
-  public ODKGridAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF mdAttributeDAO)
+  public ODKMultiTermAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
     super(containingForm, sourceMdAttr, viewMdAttr);
 
-    constructGridAttrs(sourceMdAttr, viewMdAttr, mdAttributeDAO);
+    constructGridAttrs(sourceMdAttr, viewMdAttr);
   }
 
-  protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF mdAttributeDAO)
+  protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
+    String positiveLabel = LocalizationFacade.getFromBundles("Choice_Yes");
+    String negativeLabel = LocalizationFacade.getFromBundles("Choice_No");
+
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
-      MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
-
       String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey();
-      String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
-      String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
+      String label = viewMdAttr.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
+      String type = "boolean";
+      boolean required = sourceMdAttr.isRequired();
 
-      if (mdAttributeConcrete instanceof MdAttributeBooleanDAOIF)
-      {
-        gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeConcrete, mdAttributeDAO, type, name, label, label, sourceMdAttr.isRequired()));
-      }
-      else
-      {
-        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
-      }
+      gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), sourceMdAttr, viewMdAttr, type, name, label, label, required, positiveLabel, negativeLabel));
     }
   }
 

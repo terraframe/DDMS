@@ -147,11 +147,9 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             }
           }
 
-          // for(sheets.entrySet())
-
           try
           {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             String label = form.getViewMd().getDisplayLabel(Session.getCurrentLocale());
 
             String filename = label + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
@@ -159,7 +157,9 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           }
           catch (FileNotFoundException e)
           {
-            logger.error("Unable to write file");
+            logger.error("Unable to write file:" + e.getMessage());
+            
+            throw new ProgrammingErrorException(e);
           }
           catch (IOException e)
           {
