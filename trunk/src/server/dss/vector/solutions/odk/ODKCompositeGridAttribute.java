@@ -45,7 +45,7 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
         if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
         {
-          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), name, label, label, sourceMdAttr.isRequired()));
+          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeDAO, mdAttributeDAO, type, name, label, label, sourceMdAttr.isRequired()));
         }
         else
         {
@@ -74,7 +74,7 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
         if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
         {
-          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), name, label, label, sourceMdAttr.isRequired()));
+          gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), (MdAttributeBooleanDAOIF) mdAttributeDAO, mdAttributeDAO));
         }
         else
         {

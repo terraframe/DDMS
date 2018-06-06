@@ -175,7 +175,7 @@ public class ODKAttribute implements Reloadable
     }
     else if (concrete instanceof MdAttributeBooleanDAOIF)
     {
-      return new ODKAttributeBoolean(containingForm, source, viewAttr, exportedTerms);
+      return new ODKAttributeBoolean(containingForm, (MdAttributeBooleanDAOIF) concrete, viewAttr);
     }
     else
     {

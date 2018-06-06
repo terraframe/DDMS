@@ -486,8 +486,6 @@ public class ODKFormExporter implements Reloadable
     masterForm.writeTranslation(translation, document, this.formId, maxDepth);
     itext.appendChild(translation);
     
-//    ODKAttributeBoolean.writeBooleanOptionsTranslation(translation, document, this.formId, maxDepth);
-
     Element instance = document.createElement("instance");
     model.appendChild(instance);
     Element instRoot = document.createElement(formId);
@@ -498,8 +496,6 @@ public class ODKFormExporter implements Reloadable
     instance.appendChild(instRoot);
 
     masterForm.writeInstance(instRoot, document, this.formId, maxDepth);
-    
-    ODKAttributeBoolean.writeBooleanOptionsInstance(model, document, this.formId, maxDepth);
     
     masterForm.writeBind(model, document, this.formId, maxDepth);
   }

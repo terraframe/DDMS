@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdForm;
 
@@ -42,8 +44,8 @@ import dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssay
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.SprayTeamExcelView;
-import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.odk.MobileDataUploadJob;
+import dss.vector.solutions.odk.MobileDataUploadJobQuery;
 import dss.vector.solutions.odk.ODKForm;
 import dss.vector.solutions.odk.ODKFormExporter;
 
@@ -57,12 +59,14 @@ public class ODKTest
   @Request
   private static void mainInRequest()
   {
-//    export(MdForm.get("itwb6b9w77gdaqt7k71popftnaihokqqzo86ttx2qfhw4ayiqelfr3igdjhd90eu").getFormMdClass().definesType());
+//    deleteAllJobs();
+    
+    export(MdForm.get("itwb6b9w77gdaqt7k71popftnaihokqqzo86ttx2qfhw4ayiqelfr3igdjhd90eu").getFormMdClass().definesType());
 //    MobileUtil.export(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE + "." + "SlimWaterSource");
     
 //    MobileUtil.export(PooledInfectionAssayExcelView.CLASS);
     
-    exportAll(0, allTypes.length);
+//    exportAll(0, allTypes.length);
     
 //    export(LarvaeDiscriminatingDoseAssayExcelView.CLASS);
     
@@ -70,6 +74,25 @@ public class ODKTest
 //    exportAll(myIndex,myIndex + 1);
     
 //    exportAll(ArrayUtils.indexOf(allTypes, KnockDownAssayExcelView.CLASS), ArrayUtils.indexOf(allTypes, LarvaeDiscriminatingDoseAssayExcelView.CLASS)+1);
+  }
+  
+  private static void deleteAllJobs()
+  {
+    MobileDataUploadJobQuery q = new MobileDataUploadJobQuery(new QueryFactory());
+    
+    OIterator<? extends MobileDataUploadJob> it = q.getIterator();
+    
+    try
+    {
+      while (it.hasNext())
+      {
+        it.next().delete();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
   }
   
   private static void export(String mobileType)
@@ -81,6 +104,18 @@ public class ODKTest
     odkExp.useMyGeo(5, new File("/home/rick/Documents/tomcat/ddms/webapps/DDMS/ODK/dss_vector_solutions_export_AggregatedCaseExcelView-itemsets.csv"));
 
     String html = odkExp.doIt();
+    
+    Disease disease = Disease.getCurrent();
+
+    if (!MobileDataUploadJob.exists(mobileType, disease))
+    {
+      MobileDataUploadJob job = new MobileDataUploadJob();
+      job.setJobId(master.getFormTitle());
+      job.getDescription().setValue(master.getFormTitle());
+      job.setDisease(disease);
+      job.setFormType(mobileType);
+      job.apply();
+    }
     
     System.out.println(html);
   }
@@ -130,15 +165,12 @@ public class ODKTest
 
        if (!MobileDataUploadJob.exists(type, disease))
        {
-         for (int j = 0; j < 10; j++)
-         {
-           MobileDataUploadJob job = new MobileDataUploadJob();
-           job.setJobId(master.getFormTitle() + ": " + j);
-           job.getDescription().setValue(master.getFormTitle() + ": " + j);
-           job.setDisease(disease);
-           job.setFormType(type);
-           job.apply();
-         }
+         MobileDataUploadJob job = new MobileDataUploadJob();
+         job.setJobId(master.getFormTitle());
+         job.getDescription().setValue(master.getFormTitle());
+         job.setDisease(disease);
+         job.setFormType(type);
+         job.apply();
        }
 
 //       String html = MobileUtil.export(type);

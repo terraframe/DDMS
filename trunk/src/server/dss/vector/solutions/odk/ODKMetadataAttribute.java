@@ -45,11 +45,23 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired());
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
-    
-    if (this.sourceMdAttr instanceof MdAttributeBooleanDAOIF)
-    {
-      throw new UnsupportedOperationException("Booleans are not supported as metadata attributes. Use ODKAttributeBoolean instead.");
-    }
+  }
+  
+  public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type, String attributeName, String displayLabel, String description, boolean required)
+  {
+    super(containingForm, attributeName, displayLabel, description, required);
+    this.sourceMdAttr = sourceMdAttr;
+    this.viewMdAttr = viewMdAttr;
+  }
+  
+  public MdAttributeDAOIF getSourceMdAttribute()
+  {
+    return this.sourceMdAttr;
+  }
+  
+  public MdAttributeDAOIF getViewMdAttribute()
+  {
+    return this.viewMdAttr;
   }
 
   @Override
