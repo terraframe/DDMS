@@ -68,11 +68,13 @@ import dss.vector.solutions.entomology.TimeResponseAssay;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval;
 import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
 import dss.vector.solutions.entomology.assay.KnockDownAssayView;
+import dss.vector.solutions.entomology.assay.KnockDownInterval;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView;
 import dss.vector.solutions.export.AggregatedCaseExcelView;
@@ -1125,6 +1127,13 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(AdultDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(AdultDiscriminatingDoseAssayExcelView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(AdultDiscriminatingDoseAssayView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
+      master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INTERVALTIME);
+      master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.AMOUNT);
+
+      ODKForm interval = new ODKForm(AdultDiscriminatingDoseAssayExcelView.CLASS);
+      interval.buildAttributes(AdultDiscriminatingDoseInterval.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
+      
+      master.join(new RepeatFormJoin(master, interval));      
     }
     else if (mobileType.equals(BiochemicalAssayExcelView.CLASS))
     {
@@ -1145,10 +1154,17 @@ public class ODKForm implements Reloadable
       master = new ODKForm(KnockDownAssayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
-      master.addAttribute(CollectionAssay.getGenerationMd(), KnockDownAssayExcelView.getGenerationMd());
+      master.addAttribute(KnockDownAssay.getGenerationMd(), KnockDownAssayExcelView.getGenerationMd());
       master.addAttribute(Insecticide.getActiveIngredientMd(), KnockDownAssayExcelView.getInsecticideActiveIngredientMd());
       master.addAttribute(Insecticide.getUnitsMd(), KnockDownAssayExcelView.getInsecticideUnitsMd());
-      master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
+      master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);      
+      master.removeAttribute(KnockDownAssayExcelView.INTERVALTIME);
+      master.removeAttribute(KnockDownAssayExcelView.AMOUNT);
+      
+      ODKForm interval = new ODKForm(KnockDownAssayExcelView.CLASS);
+      interval.buildAttributes(KnockDownInterval.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
+
+      master.join(new RepeatFormJoin(master, interval));      
     }
     else if (mobileType.equals(LarvaeDiscriminatingDoseAssayExcelView.CLASS))
     {
