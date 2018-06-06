@@ -136,6 +136,7 @@ import dss.vector.solutions.intervention.monitor.AggregatedIPTView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitViewBase;
 import dss.vector.solutions.intervention.monitor.ControlIntervention;
+import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.HouseholdView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistribution;
 import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
@@ -766,45 +767,38 @@ public class ODKForm implements Reloadable
       master = new ODKForm(ControlInterventionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ControlIntervention.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.setExport(false);
+      master.buildAttributes(ControlInterventionView.CLASS, ControlInterventionExcelView.customAttributeOrder(), null);
 
-      Map<MdAttributeDAOIF, MdAttributeDAOIF> sharedAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
-      sharedAttrs.put(ControlInterventionExcelView.getStartDateMd(), ControlInterventionExcelView.getStartDateMd());
-      sharedAttrs.put(ControlInterventionExcelView.getEndDateMd(), ControlInterventionExcelView.getEndDateMd());
-      sharedAttrs.put(ControlInterventionExcelView.getCommentsMd(), ControlInterventionExcelView.getCommentsMd());
-      sharedAttrs.put(ControlInterventionExcelView.getGeoEntityMd(), ControlInterventionExcelView.getGeoEntityMd());
+      LinkedList<ODKAttribute> attributes = master.getAttributes();
 
-      Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      map.put(AggregatedPremiseExcelView.getPremiseGeoEntityMd(), AggregatedPremiseExcelView.getPremiseGeoEntityMd());
+      for (ODKAttribute attribute : attributes)
+      {
+        attribute.setIsOverride(true);
+      }
 
       ODKForm aggPremise = new ODKForm(AggregatedPremiseExcelView.CLASS);
       aggPremise.addAttribute(new ODKGridAttribute(aggPremise, AggregatedPremiseVisitView.getInterventionMethodMd(), AggregatedPremiseVisitView.getInterventionMethodMd(), "int"));
       aggPremise.addAttribute(new ODKGridAttribute(aggPremise, AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd(), AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd(), "int"));
-      aggPremise.buildAttributes(map, AggregatedPremiseExcelView.customAttributeOrder());
+      aggPremise.addAttribute(AggregatedPremiseExcelView.getPremiseGeoEntityMd(), AggregatedPremiseExcelView.getPremiseGeoEntityMd());
       aggPremise.buildAttributes(AggregatedPremiseVisitView.CLASS, AggregatedPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, aggPremise, true));
 
-      map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      map.put(IndividualPremiseExcelView.getPremiseGeoEntityMd(), IndividualPremiseExcelView.getPremiseGeoEntityMd());
-
       ODKForm individPremise = new ODKForm(IndividualPremiseExcelView.CLASS);
       individPremise.addAttribute(new ODKGridAttribute(individPremise, IndividualPremiseVisitView.getInterventionMethodMd(), IndividualPremiseVisitView.getInterventionMethodMd(), "boolean"));
-      individPremise.buildAttributes(map, IndividualPremiseExcelView.customAttributeOrder());
+      individPremise.addAttribute(IndividualPremiseExcelView.getPremiseGeoEntityMd(), IndividualPremiseExcelView.getPremiseGeoEntityMd());
       individPremise.buildAttributes(IndividualPremiseVisitView.CLASS, IndividualPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, individPremise, true));
-
-      map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>(sharedAttrs);
-      map.put(InsecticideInterventionExcelView.getInterventionMethodMd(), InsecticideInterventionView.getInterventionMethodMd());
-
-      ODKForm insecticide = new ODKForm(InsecticideInterventionExcelView.CLASS);
-      insecticide.buildAttributes(map, InsecticideInterventionExcelView.customAttributeOrder());
-      insecticide.buildAttributes(InsecticideInterventionView.CLASS, InsecticideInterventionExcelView.customAttributeOrder(), null);
-      master.join(new RepeatFormJoin(master, insecticide, true));
+      
+      ODKForm insecticide = new ODKTermForm(InsecticideInterventionExcelView.CLASS, InsecticideInterventionExcelView.getInterventionMethodMd(), TermRootCache.getRoots(ControlInterventionView.getInsecticideInterventionMd()));
+      insecticide.addAttribute(InsecticideInterventionView.getInsecticideMd(), InsecticideInterventionExcelView.getInsecticideMd());
+      insecticide.addAttribute(InsecticideInterventionView.getQuantityMd(), InsecticideInterventionExcelView.getQuantityMd());
+      insecticide.addAttribute(InsecticideInterventionView.getUnitMd(), InsecticideInterventionExcelView.getUnitMd());
+      master.join(new GroupFormJoin(master, insecticide, true));
 
       ODKForm person = new ODKForm(PersonInterventionExcelView.CLASS);
       person.addAttribute(new ODKGridAttribute(person, PersonInterventionView.getInterventionMethodMd(), PersonInterventionView.getInterventionMethodMd(), "int"));
-      person.buildAttributes(sharedAttrs, PersonInterventionExcelView.customAttributeOrder());
       person.buildAttributes(PersonInterventionView.CLASS, PersonInterventionExcelView.customAttributeOrder(), null);
-      master.join(new RepeatFormJoin(master, person, true));
+      master.join(new GroupFormJoin(master, person, true));
     }
     else if (mobileType.equals(MosquitoCollectionExcelView.CLASS))
     {

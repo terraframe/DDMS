@@ -191,7 +191,7 @@ public class ODKDataConverter implements Reloadable
         MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
         String value = this.getValue(attribute, mdAttribute, child.getTextContent());
 
-        if (attribute.isOverride())
+        if (attribute != null && attribute.isOverride())
         {
           root.setOverride(sourceAttribute, value);
         }
@@ -369,7 +369,7 @@ public class ODKDataConverter implements Reloadable
     {
       MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
 
-      if (attribute instanceof ODKTermAttribute)
+      if (attribute != null && attribute instanceof ODKTermAttribute)
       {
         return ODKTermAttribute.reverseTermIdSanitization(textContent);
       }
@@ -398,10 +398,8 @@ public class ODKDataConverter implements Reloadable
         if (referenceMdBusiness.definesType().equals(Term.CLASS))
         {
           return ODKTermAttribute.reverseTermIdSanitization(textContent);
-          // return
-          // Term.getByTermId(ODKTermAttribute.reverseTermIdSanitization(textContent)).getId();
         }
-        else if (attribute.isOverride())
+        else if (attribute != null && attribute.isOverride())
         {
           return textContent;
         }
