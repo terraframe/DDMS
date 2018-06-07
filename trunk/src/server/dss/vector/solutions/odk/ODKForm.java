@@ -576,6 +576,8 @@ public class ODKForm implements Reloadable
   {
     ODKAttribute attr = ODKAttribute.factory(this, sourceAttr, viewAttr, exportedTerms);
 
+    ODKAttributeConstraint.addConstraintsToAttribute(sourceAttr, attr);
+    
     addAttribute(attr);
 
     return attr;
@@ -1338,22 +1340,12 @@ public class ODKForm implements Reloadable
         {
           List<FieldConditionDAOIF> conditions = mdField.getConditions();
 
-          ODKAttributeCondition odkCond = null;
           for (FieldConditionDAOIF condition : conditions)
           {
-            ODKAttributeCondition loopCond = ODKAttributeCondition.factory(condition, odkAttr, master);
+            ODKAttributeRelevancy loopCond = ODKAttributeRelevancy.factory(condition, odkAttr, master);
 
-            if (odkCond != null)
-            {
-              odkCond = new ODKAttributeConditionComposite(odkCond, ODKAttributeConditionOperation.AND, loopCond);
-            }
-            else
-            {
-              odkCond = loopCond;
-            }
+            odkAttr.addRelevancy(loopCond);
           }
-
-          odkAttr.setCondition(odkCond);
         }
       }
     }

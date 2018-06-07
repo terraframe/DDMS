@@ -51,7 +51,11 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         }
         else
         {
-          gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired());
+          
+          ODKAttributeConstraint.addConstraintsToAttribute(mdAttributeDAO, odk);
+          
+          gridAttrs.add(odk);
         }
       }
     }
@@ -82,7 +86,11 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         }
         else
         {
-          gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired());
+          
+          ODKAttributeConstraint.addConstraintsToAttribute(mdAttributeDAO, odk);
+          
+          gridAttrs.add(odk);
         }
       }
     }

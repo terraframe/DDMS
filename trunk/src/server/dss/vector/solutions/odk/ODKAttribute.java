@@ -52,7 +52,9 @@ public class ODKAttribute implements Reloadable
 
   private boolean               required;
 
-  private ODKAttributeCondition condition;
+  private ODKAttributeRelevancy relevancy;
+  
+  private ODKAttributeConstraint constraint;
 
   private String                type;
 
@@ -102,14 +104,38 @@ public class ODKAttribute implements Reloadable
     return attrName.replaceAll(":", "_");
   }
 
-  public ODKAttributeCondition getCondition()
+  public ODKAttributeRelevancy getRelevancy()
   {
-    return condition;
+    return relevancy;
   }
 
-  public void setCondition(ODKAttributeCondition condition)
+  public void addRelevancy(ODKAttributeRelevancy condition)
   {
-    this.condition = condition;
+    if (this.relevancy != null)
+    {
+      this.relevancy = new ODKAttributeRelevancyComposite(relevancy, ODKAttributeConditionOperation.AND, condition);
+    }
+    else
+    {
+      this.relevancy = condition;
+    }
+  }
+  
+  public ODKAttributeRelevancy getConstraint()
+  {
+    return relevancy;
+  }
+
+  public void addConstraint(ODKAttributeConstraint condition)
+  {
+    if (this.constraint != null)
+    {
+      this.constraint = new ODKAttributeConstraintComposite(constraint, ODKAttributeConditionOperation.AND, condition);
+    }
+    else
+    {
+      this.constraint = condition;
+    }
   }
   
   public ODKForm getContainingForm()
@@ -265,9 +291,14 @@ public class ODKAttribute implements Reloadable
       bind.setAttribute("required", "true()");
     }
 
-    if (this.condition != null)
+    if (this.relevancy != null)
     {
-      bind.setAttribute("relevant", this.condition.getBindRelevant());
+      bind.setAttribute("relevant", this.relevancy.getBindRelevant());
+    }
+    if (this.constraint != null)
+    {
+      bind.setAttribute("constraint", this.constraint.getBindConstraint());
+      bind.setAttribute("jr:constraintMsg", this.constraint.getConstraintMsg());
     }
 
     parent.appendChild(bind);

@@ -1,8 +1,8 @@
 package dss.vector.solutions.odk;
 
-import dss.vector.solutions.util.LocalizationFacade;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public enum ODKAttributeConditionOperation
+public enum ODKAttributeConditionOperation implements Reloadable
 {
   AND("and"),
   OR("or"),
@@ -68,45 +68,46 @@ public enum ODKAttributeConditionOperation
 
   public String getDisplayLabel()
   {
-    String key;
+    //TODO Localization messages must be pulled directly from ServerExceptionMessageLocalizer, and they must be specific to each 
+    //  constraint violation. You can't just change the word "and" to another language and expect it to translate properly
+    //  because the entire sentence structure may be different.
+    
     
     if (this.equals(AND))
     {
-      key = "odk_condition_operation_and";
+      return "and";
     }
     else if (this.equals(OR))
     {
-      key = "odk_condition_operation_or";
+      return "or";
     }
     else if (this.equals(EQUALS))
     {
-      key = "odk_condition_operation_eq";
+      return "equal to";
     }
     else if (this.equals(NOT_EQUALS))
     {
-      key = "odk_condition_operation_ne";
+      return "not equal to";
     }
     else if (this.equals(LESS_THAN))
     {
-      key = "odk_condition_operation_lt";
+      return "less than";
     }
     else if (this.equals(LESS_THAN_EQUALS))
     {
-      key = "odk_condition_operation_lte";
+      return "less than or equal to";
     }
     else if (this.equals(GREATER_THAN))
     {
-      key = "odk_condition_operation_gt";
+      return "greater than or equal to";
     }
     else if (this.equals(GREATER_THAN_EQUALS))
     {
-      key = "odk_condition_operation_gte";
+      return "greater than or equal to";
     }
     else
     {
       throw new UnsupportedOperationException();
     }
-    
-    return LocalizationFacade.getFromBundles(key);
   }
 }

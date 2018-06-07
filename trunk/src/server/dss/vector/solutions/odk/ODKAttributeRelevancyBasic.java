@@ -1,8 +1,11 @@
 package dss.vector.solutions.odk;
 
-import dss.vector.solutions.ontology.Term;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class ODKAttributeConditionBasic extends ODKAttributeCondition
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.util.LocalizationFacade;
+
+public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements Reloadable
 {
   private ODKAttribute definingAttr;
   
@@ -20,7 +23,7 @@ public class ODKAttributeConditionBasic extends ODKAttributeCondition
    * @param value
    * @param odkForm
    */
-  public ODKAttributeConditionBasic(ODKAttribute definingAttr, ODKAttribute comparitiveAttr, ODKAttributeConditionOperation operation, String value)
+  public ODKAttributeRelevancyBasic(ODKAttribute definingAttr, ODKAttribute comparitiveAttr, ODKAttributeConditionOperation operation, String value)
   {
     this.definingAttr = definingAttr;
     this.comparitiveAttr = comparitiveAttr;

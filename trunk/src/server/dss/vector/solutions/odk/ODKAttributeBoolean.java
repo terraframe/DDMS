@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
 /**
@@ -15,7 +16,7 @@ import com.runwaysdk.session.Session;
  * 
  * @author rrowlands
  */
-public class ODKAttributeBoolean extends ODKMetadataAttribute
+public class ODKAttributeBoolean extends ODKMetadataAttribute implements Reloadable
 {
   private String positiveLabel;
 

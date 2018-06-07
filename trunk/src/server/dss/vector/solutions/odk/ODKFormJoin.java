@@ -3,7 +3,9 @@ package dss.vector.solutions.odk;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-abstract public class ODKFormJoin
+import com.runwaysdk.generation.loader.Reloadable;
+
+abstract public class ODKFormJoin implements Reloadable
 {
   private ODKForm parent;
 

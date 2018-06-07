@@ -59,9 +59,9 @@ public class ODKTest
   @Request
   private static void mainInRequest()
   {
-//    deleteAllJobs();
+    deleteAllJobs();
     
-    export(MdForm.get("itwb6b9w77gdaqt7k71popftnaihokqqzo86ttx2qfhw4ayiqelfr3igdjhd90eu").getFormMdClass().definesType());
+//    export(MdForm.get("itwb6b9w77gdaqt7k71popftnaihokqqzo86ttx2qfhw4ayiqelfr3igdjhd90eu").getFormMdClass().definesType());
 //    MobileUtil.export(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE + "." + "SlimWaterSource");
     
 //    MobileUtil.export(PooledInfectionAssayExcelView.CLASS);

@@ -21,10 +21,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geoserver.GeoserverProperties;
 
-public class ODKFacade
+public class ODKFacade implements Reloadable
 {
   public static final String USERNAME = "ddms";
 

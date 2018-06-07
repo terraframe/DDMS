@@ -11,14 +11,19 @@ import com.runwaysdk.dataaccess.attributes.entity.AttributeEnumeration;
 import com.runwaysdk.dataaccess.metadata.BasicConditionDAO;
 import com.runwaysdk.dataaccess.metadata.CompositeFieldConditionDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 
-abstract public class ODKAttributeCondition
+/**
+ * An attribute relevancy controls visibility of the attribute. If the condition is false, the attribute will
+ * not be shown to the user.
+ * 
+ * @author rrowlands
+ */
+abstract public class ODKAttributeRelevancy implements Reloadable
 {
   abstract public String getBindRelevant();
   
-//  abstract public String getConstraintMsg();
-  
-  public static ODKAttributeCondition factory(FieldConditionDAOIF condition, ODKAttribute odkAttr, ODKForm odkForm)
+  public static ODKAttributeRelevancy factory(FieldConditionDAOIF condition, ODKAttribute odkAttr, ODKForm odkForm)
   {
     if (condition instanceof BasicConditionDAO)
     {
@@ -47,7 +52,7 @@ abstract public class ODKAttributeCondition
       
       String value = basicCond.getAttribute(BasicConditionInfo.VALUE).getValue();
       
-      return new ODKAttributeConditionBasic(odkAttr, condOdkAttr, operation, value);
+      return new ODKAttributeRelevancyBasic(odkAttr, condOdkAttr, operation, value);
     }
     else if (condition instanceof CompositeFieldConditionDAO)
     {
@@ -56,10 +61,10 @@ abstract public class ODKAttributeCondition
       FieldConditionDAOIF firstCond = composite.getFirstCondition();
       FieldConditionDAOIF secondCond = composite.getSecondCondition();
       
-      ODKAttributeCondition parent = ODKAttributeCondition.factory(firstCond, odkAttr, odkForm);
-      ODKAttributeCondition child = ODKAttributeCondition.factory(secondCond, odkAttr, odkForm);
+      ODKAttributeRelevancy parent = ODKAttributeRelevancy.factory(firstCond, odkAttr, odkForm);
+      ODKAttributeRelevancy child = ODKAttributeRelevancy.factory(secondCond, odkAttr, odkForm);
       
-      return new ODKAttributeConditionComposite(parent, ODKAttributeConditionOperation.AND, child);
+      return new ODKAttributeRelevancyComposite(parent, ODKAttributeConditionOperation.AND, child);
     }
     else
     {
