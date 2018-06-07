@@ -210,6 +210,7 @@ import dss.vector.solutions.surveillance.CaseStockReferralView;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodView;
 import dss.vector.solutions.surveillance.CaseTreatmentStockView;
 import dss.vector.solutions.surveillance.CaseTreatmentView;
+import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKForm implements Reloadable
 {
@@ -265,7 +266,7 @@ public class ODKForm implements Reloadable
   protected String                   formTitle;
 
   protected boolean                  export;
-  
+
   private ODKForm                    parentForm;
 
   public ODKForm(MdClassDAOIF base)
@@ -468,12 +469,12 @@ public class ODKForm implements Reloadable
       join.writeInstance(parent, document, context, maxDepth);
     }
   }
-  
+
   public ODKForm getParent()
   {
     return this.parentForm;
   }
-  
+
   public void setParent(ODKForm parent)
   {
     this.parentForm = parent;
@@ -482,7 +483,7 @@ public class ODKForm implements Reloadable
   public void join(ODKFormJoin join)
   {
     this.joins.add(join);
-    
+
     join.getChild().setParent(this);
   }
 
@@ -580,7 +581,7 @@ public class ODKForm implements Reloadable
     ODKAttribute attr = ODKAttribute.factory(this, sourceAttr, viewAttr, exportedTerms);
 
     ODKAttributeConstraint.addConstraintsToAttribute(sourceAttr, attr);
-    
+
     addAttribute(attr);
 
     return attr;
@@ -799,17 +800,26 @@ public class ODKForm implements Reloadable
       caseTreats.addAttribute(new ODKCompositeGridAttribute(caseTreats, AggregatedCaseView.getCaseStocksMd(), AggregatedCaseView.getCaseStocksMd(), CaseTreatmentStockView.getOutOfStockMd()));
       master.join(new GroupFormJoin(master, caseTreats, true));
 
-      ODKForm caseDiag = new ODKTermForm(CaseDiagnosisTypeExcelView.CLASS, CaseDiagnosisTypeExcelView.getDiagnosisTypeMd(), TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosisTypeMd()));
-      caseDiag.addAttribute(new ODKCompositeGridAttribute(caseDiag, CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeAmountView.getAmountMd()));
-      master.join(new GroupFormJoin(master, caseDiag, true));
+      if (ReadableAttributeView.isVisible(AggregatedCaseView.getCaseDiagnosisTypeMd()))
+      {
+        ODKForm caseDiag = new ODKTermForm(CaseDiagnosisTypeExcelView.CLASS, CaseDiagnosisTypeExcelView.getDiagnosisTypeMd(), TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosisTypeMd()));
+        caseDiag.addAttribute(new ODKCompositeGridAttribute(caseDiag, CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeView.getDiagnosisCategoryMd(), CaseDiagnosisTypeAmountView.getAmountMd()));
+        master.join(new GroupFormJoin(master, caseDiag, true));
+      }
 
-      ODKForm caseDisease = new ODKTermForm(CaseDiseaseManifestationExcelView.CLASS, CaseDiseaseManifestationExcelView.getDiseaseManifestationMd(), TermRootCache.getRoots(AggregatedCaseView.getCaseDiseaseManifestationMd()));
-      caseDisease.addAttribute(new ODKCompositeGridAttribute(caseDisease, CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationAmountView.getAmountMd()));
-      master.join(new GroupFormJoin(master, caseDisease, true));
+      if (ReadableAttributeView.isVisible(AggregatedCaseView.getCaseDiseaseManifestationMd()))
+      {
+        ODKForm caseDisease = new ODKTermForm(CaseDiseaseManifestationExcelView.CLASS, CaseDiseaseManifestationExcelView.getDiseaseManifestationMd(), TermRootCache.getRoots(AggregatedCaseView.getCaseDiseaseManifestationMd()));
+        caseDisease.addAttribute(new ODKCompositeGridAttribute(caseDisease, CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationView.getDiseaseCategoryMd(), CaseDiseaseManifestationAmountView.getAmountMd()));
+        master.join(new GroupFormJoin(master, caseDisease, true));
+      }
 
-      ODKForm casePatient = new ODKTermForm(CasePatientTypeExcelView.CLASS, CasePatientTypeExcelView.getPatientTypeMd(), TermRootCache.getRoots(AggregatedCaseView.getCasePatientTypeMd()));
-      casePatient.addAttribute(new ODKCompositeGridAttribute(casePatient, CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeAmountView.getAmountMd()));
-      master.join(new GroupFormJoin(master, casePatient, true));
+      if (ReadableAttributeView.isVisible(AggregatedCaseView.getCasePatientTypeMd()))
+      {
+        ODKForm casePatient = new ODKTermForm(CasePatientTypeExcelView.CLASS, CasePatientTypeExcelView.getPatientTypeMd(), TermRootCache.getRoots(AggregatedCaseView.getCasePatientTypeMd()));
+        casePatient.addAttribute(new ODKCompositeGridAttribute(casePatient, CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeView.getPatientCategoryMd(), CasePatientTypeAmountView.getAmountMd()));
+        master.join(new GroupFormJoin(master, casePatient, true));
+      }
     }
     else if (mobileType.equals(ControlInterventionExcelView.CLASS))
     {
@@ -837,12 +847,15 @@ public class ODKForm implements Reloadable
       individPremise.addAttribute(IndividualPremiseExcelView.getPremiseGeoEntityMd(), IndividualPremiseExcelView.getPremiseGeoEntityMd());
       individPremise.buildAttributes(IndividualPremiseVisitView.CLASS, IndividualPremiseExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, individPremise, true));
-      
-      ODKForm insecticide = new ODKTermForm(InsecticideInterventionExcelView.CLASS, InsecticideInterventionExcelView.getInterventionMethodMd(), TermRootCache.getRoots(ControlInterventionView.getInsecticideInterventionMd()));
-      insecticide.addAttribute(InsecticideInterventionView.getInsecticideMd(), InsecticideInterventionExcelView.getInsecticideMd());
-      insecticide.addAttribute(InsecticideInterventionView.getQuantityMd(), InsecticideInterventionExcelView.getQuantityMd());
-      insecticide.addAttribute(InsecticideInterventionView.getUnitMd(), InsecticideInterventionExcelView.getUnitMd());
-      master.join(new GroupFormJoin(master, insecticide, true));
+
+      if (ReadableAttributeView.isVisible(ControlInterventionView.getInsecticideInterventionMd()))
+      {
+        ODKForm insecticide = new ODKTermForm(InsecticideInterventionExcelView.CLASS, InsecticideInterventionExcelView.getInterventionMethodMd(), TermRootCache.getRoots(ControlInterventionView.getInsecticideInterventionMd()));
+        insecticide.addAttribute(InsecticideInterventionView.getInsecticideMd(), InsecticideInterventionExcelView.getInsecticideMd());
+        insecticide.addAttribute(InsecticideInterventionView.getQuantityMd(), InsecticideInterventionExcelView.getQuantityMd());
+        insecticide.addAttribute(InsecticideInterventionView.getUnitMd(), InsecticideInterventionExcelView.getUnitMd());
+        master.join(new GroupFormJoin(master, insecticide, true));
+      }
 
       ODKForm person = new ODKForm(PersonInterventionExcelView.CLASS);
       person.addAttribute(new ODKGridAttribute(person, PersonInterventionView.getInterventionMethodMd(), PersonInterventionView.getInterventionMethodMd(), PersonInterventionMethodView.getAmountMd()));
@@ -1188,8 +1201,8 @@ public class ODKForm implements Reloadable
 
       ODKForm interval = new ODKForm(AdultDiscriminatingDoseAssayExcelView.CLASS);
       interval.buildAttributes(AdultDiscriminatingDoseInterval.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
-      
-      master.join(new RepeatFormJoin(master, interval));      
+
+      master.join(new RepeatFormJoin(master, interval));
     }
     else if (mobileType.equals(BiochemicalAssayExcelView.CLASS))
     {
@@ -1213,14 +1226,14 @@ public class ODKForm implements Reloadable
       master.addAttribute(KnockDownAssay.getGenerationMd(), KnockDownAssayExcelView.getGenerationMd());
       master.addAttribute(Insecticide.getActiveIngredientMd(), KnockDownAssayExcelView.getInsecticideActiveIngredientMd());
       master.addAttribute(Insecticide.getUnitsMd(), KnockDownAssayExcelView.getInsecticideUnitsMd());
-      master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);      
+      master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
       master.removeAttribute(KnockDownAssayExcelView.INTERVALTIME);
       master.removeAttribute(KnockDownAssayExcelView.AMOUNT);
-      
+
       ODKForm interval = new ODKForm(KnockDownAssayExcelView.CLASS);
       interval.buildAttributes(KnockDownInterval.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
 
-      master.join(new RepeatFormJoin(master, interval));      
+      master.join(new RepeatFormJoin(master, interval));
     }
     else if (mobileType.equals(LarvaeDiscriminatingDoseAssayExcelView.CLASS))
     {
@@ -1455,7 +1468,7 @@ public class ODKForm implements Reloadable
     {
       return this.parentForm.getInstancePath() + "/" + this.getFormId();
     }
-    
+
     return "/" + this.getFormId();
   }
 

@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.util;
 
@@ -193,18 +193,19 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
 
       Boolean permission = view.getReadPermission();
-      if (MDSSRoleInfo.GUI_VISIBILITY.equals(actorName) && view.getNotBlank() != null  && view.getNotBlank()) {
-    	  // GUI Visibility cannot hide notBlank fields!
-    	  permission = new Boolean(true);
+      if (MDSSRoleInfo.GUI_VISIBILITY.equals(actorName) && view.getNotBlank() != null && view.getNotBlank())
+      {
+        // GUI Visibility cannot hide notBlank fields!
+        permission = new Boolean(true);
       }
       Boolean existing = !existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
 
       if (permission != null && permission != existing)
       {
         newPermissions.add(new PermissionChange(!permission, _mdAttributeDimension.getId()));
-        
-        if(mdAttributeDAO instanceof MdAttributeVirtualDAOIF)
-        {          
+
+        if (mdAttributeDAO instanceof MdAttributeVirtualDAOIF)
+        {
           MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
           MdAttributeDimensionDAOIF mdAttributeConcreteDimension = mdAttributeConcrete.getMdAttributeDimension(_mdDimension);
 
@@ -313,5 +314,17 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   public String toString()
   {
     return "Attribute=" + this.getAttributeName() + " Readable=" + this.getReadPermission();
+  }
+
+  public static boolean isVisible(MdAttributeDAOIF mdAttributeDAO)
+  {
+    ActorDAO actor = (ActorDAO) getActor(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
+    PermissionMap existingPermissions = actor.getOperations();
+
+    MdDimensionDAOIF _mdDimension = Session.getCurrentDimension();
+    MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
+
+    boolean deny = existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
+    return !(deny);
   }
 }

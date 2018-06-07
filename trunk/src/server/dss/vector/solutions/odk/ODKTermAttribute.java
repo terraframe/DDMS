@@ -26,7 +26,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
   public static final int LIMIT = 100;
 
   private Set<String>     exported;
-  
+
   private Long            count;
 
   public ODKTermAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
@@ -36,12 +36,12 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     this.exported = exported;
     this.count = null;
   }
-  
+
   public static String sanitizeTermId(String termId)
   {
     return termId.replaceAll(":", "__COLON__");
   }
-  
+
   public static String reverseTermIdSanitization(String sanitizedTermId)
   {
     return sanitizedTermId.replaceAll("__COLON__", ":");
@@ -191,7 +191,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
   @Override
   public boolean isValid()
   {
-    return ( this.getCount() > 0 );
+    return this.isVisible() && ( this.getCount() > 0 );
   }
 
   private static ValueQuery termQuery(MdAttributeDAOIF mdAttribute)
@@ -228,7 +228,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 
     return vQuery;
   }
-  
+
   @Override
   public boolean isOverride()
   {

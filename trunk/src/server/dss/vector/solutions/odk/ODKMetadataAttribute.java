@@ -21,7 +21,6 @@ package dss.vector.solutions.odk;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF;
@@ -34,6 +33,8 @@ import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.util.ReadableAttributeView;
+
 public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 {
   protected MdAttributeDAOIF sourceMdAttr;
@@ -42,14 +43,14 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired());
+    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired(), ReadableAttributeView.isVisible(sourceMdAttr));
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
   }
   
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type, String attributeName, String displayLabel, String description, boolean required)
   {
-    super(containingForm, attributeName, displayLabel, description, required);
+    super(containingForm, attributeName, displayLabel, description, required, ReadableAttributeView.isVisible(sourceMdAttr));
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
   }

@@ -42,37 +42,39 @@ import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 
 public class ODKAttribute implements Reloadable
 {
-  protected String              attributeName;
+  protected String               attributeName;
 
-  protected String              displayLabel;
+  protected String               displayLabel;
 
-  private String                description = null;
+  private String                 description = null;
 
-  private int                   index;
+  private int                    index;
 
-  private boolean               required;
+  private boolean                required;
 
-  private ODKAttributeRelevancy relevancy;
-  
+  private ODKAttributeRelevancy  relevancy;
+
   private ODKAttributeConstraint constraint;
 
-  private String                type;
+  private String                 type;
 
   /**
    * Optional name of attribute in which to copy this value into the override
    * map
    */
-  private String                copyAttribute;
-  
-  private ODKForm               containingForm;
-  
+  private String                 copyAttribute;
+
+  private ODKForm                containingForm;
+
   /**
    * Flag denoting the value should be stored in the override map instead of on
    * the mutable
    */
-  private boolean               isOverride;
+  private boolean                isOverride;
 
-  public ODKAttribute(ODKForm containingForm, String type, String attributeName, String displayLabel, String description, boolean required)
+  private boolean                visible;
+
+  public ODKAttribute(ODKForm containingForm, String type, String attributeName, String displayLabel, String description, boolean required, boolean visible)
   {
     this.type = type;
     this.attributeName = this.sanitizeAttributeName(attributeName);
@@ -82,21 +84,12 @@ public class ODKAttribute implements Reloadable
     this.copyAttribute = null;
     this.isOverride = false;
     this.containingForm = containingForm;
+    this.visible = visible;
   }
 
-  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel, String description, boolean required)
+  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel, String description, boolean required, boolean visible)
   {
-    this(containingForm, "string", attributeName, displayLabel, description, required);
-  }
-
-  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel)
-  {
-    this(containingForm, attributeName, displayLabel, null, false);
-  }
-
-  public ODKAttribute(ODKForm containingForm, String attributeName, String displayLabel, boolean required)
-  {
-    this(containingForm, attributeName, displayLabel, null, required);
+    this(containingForm, "string", attributeName, displayLabel, description, required, visible);
   }
 
   public String sanitizeAttributeName(String attrName)
@@ -120,7 +113,7 @@ public class ODKAttribute implements Reloadable
       this.relevancy = condition;
     }
   }
-  
+
   public ODKAttributeRelevancy getConstraint()
   {
     return relevancy;
@@ -137,7 +130,7 @@ public class ODKAttribute implements Reloadable
       this.constraint = condition;
     }
   }
-  
+
   public ODKForm getContainingForm()
   {
     return this.containingForm;
@@ -259,6 +252,11 @@ public class ODKAttribute implements Reloadable
     this.required = required;
   }
 
+  public boolean isVisible()
+  {
+    return visible;
+  }
+
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
     Element text = document.createElement("text");
@@ -322,7 +320,7 @@ public class ODKAttribute implements Reloadable
 
   public boolean isValid()
   {
-    return true;
+    return this.visible;
   }
 
   @Override

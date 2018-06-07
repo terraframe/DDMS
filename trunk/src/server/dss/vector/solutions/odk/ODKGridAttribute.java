@@ -14,6 +14,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
 {
@@ -30,6 +31,8 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
 
   protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF mdAttributeDAO)
   {
+    boolean isVisible = ReadableAttributeView.isVisible(sourceMdAttr);
+
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
       MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
@@ -44,7 +47,7 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
       }
       else
       {
-        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired()));
+        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired(), isVisible));
       }
     }
   }

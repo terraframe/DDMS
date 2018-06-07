@@ -16,6 +16,7 @@ import com.runwaysdk.system.metadata.MdWebPrimitive;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements Reloadable
 {
@@ -34,6 +35,8 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
   protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdWebPrimitive... fields)
   {
+    boolean isVisible = ReadableAttributeView.isVisible(sourceMdAttr);
+
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
       for (MdWebPrimitive field : fields)
@@ -51,10 +54,10 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         }
         else
         {
-          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired());
-          
+          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired(), isVisible);
+
           ODKAttributeConstraint.addConstraintsToAttribute(mdAttributeDAO, odk);
-          
+
           gridAttrs.add(odk);
         }
       }
@@ -70,12 +73,14 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
   protected void constructGridAttrs(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, MdAttributeDAOIF... mdAttributes)
   {
+    boolean isVisible = ReadableAttributeView.isVisible(sourceMdAttr);
+
     for (Term term : TermRootCache.getRoots(sourceMdAttr))
     {
       for (MdAttributeDAOIF mdAttributeDAO : mdAttributes)
       {
         MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
-        
+
         String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + DELIMETER + term.getKey() + DELIMETER + mdAttributeDAO.definesAttribute();
         String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
         String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
@@ -86,10 +91,10 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         }
         else
         {
-          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired());
-          
+          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired(), isVisible);
+
           ODKAttributeConstraint.addConstraintsToAttribute(mdAttributeDAO, odk);
-          
+
           gridAttrs.add(odk);
         }
       }
