@@ -318,13 +318,18 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
   public static boolean isVisible(MdAttributeDAOIF mdAttributeDAO)
   {
-    ActorDAO actor = (ActorDAO) getActor(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
-    PermissionMap existingPermissions = actor.getOperations();
+    if (Session.getCurrentSession() != null)
+    {
+      ActorDAO actor = (ActorDAO) getActor(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
+      PermissionMap existingPermissions = actor.getOperations();
 
-    MdDimensionDAOIF _mdDimension = Session.getCurrentDimension();
-    MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
+      MdDimensionDAOIF _mdDimension = Session.getCurrentDimension();
+      MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
 
-    boolean deny = existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
-    return !(deny);
+      boolean deny = existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
+      return ! ( deny );
+    }
+    
+    return true;
   }
 }
