@@ -31,6 +31,7 @@ import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdTreeDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -45,6 +46,7 @@ import com.runwaysdk.system.metadata.MdWebPrimitive;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
+import dss.vector.solutions.ValueGreaterLimitProblem;
 import dss.vector.solutions.entomology.BiochemicalAssay;
 import dss.vector.solutions.entomology.BiochemicalAssayView;
 import dss.vector.solutions.entomology.CollectionContainerView;
@@ -54,6 +56,7 @@ import dss.vector.solutions.entomology.ImmatureCollection;
 import dss.vector.solutions.entomology.ImmatureCollectionView;
 import dss.vector.solutions.entomology.InfectionAssay;
 import dss.vector.solutions.entomology.InfectionAssayView;
+import dss.vector.solutions.entomology.LifeStage;
 import dss.vector.solutions.entomology.MolecularAssay;
 import dss.vector.solutions.entomology.MolecularAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
@@ -64,13 +67,13 @@ import dss.vector.solutions.entomology.PupalCollection;
 import dss.vector.solutions.entomology.PupalCollectionView;
 import dss.vector.solutions.entomology.PupalContainerAmountView;
 import dss.vector.solutions.entomology.PupalContainerView;
+import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.entomology.TimeResponseAssay;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval;
-import dss.vector.solutions.entomology.assay.CollectionAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
@@ -730,6 +733,33 @@ public class ODKForm implements Reloadable
   {
     return joins;
   }
+  
+  public void addBasicConstraint(MdAttributeDAOIF attr1, ODKAttributeConditionOperation operation, MdAttributeDAOIF attr2, String msg)
+  {
+    ODKAttribute odkAttr1 = this.getAttributeByName(attr1.definesAttribute());
+    if (odkAttr1 == null) { throw new ProgrammingErrorException("Unable to find attribute [" + attr1.getKey() + "]."); }
+    
+    ODKAttribute odkAttr2 = this.getAttributeByName(attr2.definesAttribute());
+    if (odkAttr2 == null) { throw new ProgrammingErrorException("Unable to find attribute [" + attr2.getKey() + "]."); }
+    
+    odkAttr1.addConstraint(new ODKAttributeConstraintBasic(odkAttr1, operation, new ODKConditionComparative(odkAttr2), msg));
+  }
+  
+  public void addBasicRelevancy(ODKAttribute definingAttr, ODKAttribute comparativeAttr, ODKAttributeConditionOperation operation, ODKConditionComparative comparative)
+  {
+    definingAttr.addRelevancy(new ODKAttributeRelevancyBasic(definingAttr, comparativeAttr, operation, comparative));
+  }
+  
+  public void addBasicRelevancy(MdAttributeDAOIF definingAttr, MdAttributeDAOIF comparativeAttr, ODKAttributeConditionOperation operation, ODKConditionComparative comparative)
+  {
+    ODKAttribute odkDefiningAttr = this.getAttributeByName(definingAttr.definesAttribute());
+    if (odkDefiningAttr == null) { throw new ProgrammingErrorException("Unable to find attribute [" + definingAttr.getKey() + "]."); }
+    
+    ODKAttribute odkComparativeAttr = this.getAttributeByName(comparativeAttr.definesAttribute());
+    if (odkComparativeAttr == null) { throw new ProgrammingErrorException("Unable to find attribute [" + comparativeAttr.getKey() + "]."); }
+    
+    odkDefiningAttr.addRelevancy(new ODKAttributeRelevancyBasic(odkDefiningAttr, odkComparativeAttr, operation, comparative));
+  }
 
   public static ODKForm factory(java.lang.String mobileType)
   {
@@ -824,10 +854,19 @@ public class ODKForm implements Reloadable
       master = new ODKForm(MosquitoCollectionExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(MosquitoCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
-
+      
       ODKForm subc = new ODKForm(MosquitoCollectionExcelView.CLASS);
       subc.buildAttributes(SubCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
-
+      
+      ValueGreaterLimitProblem problem = new ValueGreaterLimitProblem();
+      problem.setValueAttributeLabel(SubCollection.getParousMd().getDisplayLabel(Session.getCurrentLocale()));
+      problem.setLimitAttributeLabel(SubCollection.getDisectedMd().getDisplayLabel(Session.getCurrentLocale()));
+      subc.addBasicConstraint(SubCollection.getParousMd(), ODKAttributeConditionOperation.LESS_THAN, SubCollection.getDisectedMd(), problem.getLocalizedMessage());
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.MALE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, new ODKConditionComparative(LifeStage.ADULT));
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.PUPAE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, new ODKConditionComparative(LifeStage.IMMATURE));
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.UNKNOWNS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.NOT_EQUALS, new ODKConditionComparative(LifeStage.EGG));
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.EGGS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, new ODKConditionComparative(LifeStage.EGG));
+      
       master.join(new RepeatFormJoin(master, subc));
     }
     else if (mobileType.equals(AggregatedIPTExcelView.CLASS))

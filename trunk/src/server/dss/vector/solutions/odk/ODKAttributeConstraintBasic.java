@@ -10,7 +10,7 @@ public class ODKAttributeConstraintBasic extends ODKAttributeConstraint implemen
   
   private ODKAttributeConditionOperation operation;
   
-  private String value;
+  private ODKConditionComparative comparative;
   
   /**
    * 
@@ -20,25 +20,18 @@ public class ODKAttributeConstraintBasic extends ODKAttributeConstraint implemen
    * @param value
    * @param odkForm
    */
-  public ODKAttributeConstraintBasic(ODKAttribute definingAttr, ODKAttributeConditionOperation operation, String value, String localizedMsg)
+  public ODKAttributeConstraintBasic(ODKAttribute definingAttr, ODKAttributeConditionOperation operation, ODKConditionComparative comparative, String localizedMsg)
   {
     super(localizedMsg);
     
     this.definingAttr = definingAttr;
     this.operation = operation;
-    this.value = value;
+    this.comparative = comparative;
   }
   
   @Override
   public String getBindConstraint()
   {
-    if (definingAttr instanceof ODKTermAttribute)
-    {
-      Term t = Term.get(value);
-      value = ODKTermAttribute.sanitizeTermId(t.getTermId());
-    }
-    // TODO other attr types
-    
-    return ". " + operation.getOdkRepresentation() + " " + value;
+    return ". " + operation.getOdkRepresentation() + " " + this.comparative.toString();
   }
 }

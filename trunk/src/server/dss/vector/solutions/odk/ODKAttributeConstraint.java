@@ -54,7 +54,7 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         localized = localized.replace("{1}", value);
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, value, localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, new ODKConditionComparative(value), localized));
       }
       if (mdNumAttr.getEndRange() != null)
       {
@@ -64,28 +64,28 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         localized = localized.replace("{1}", value);
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, value, localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, new ODKConditionComparative(value), localized));
       }
       if (mdNumAttr.isPositiveRejected() != null && Boolean.parseBoolean(mdNumAttr.isPositiveRejected()))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_number_negative");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN_EQUALS, "0", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN_EQUALS, new ODKConditionComparative("0"), localized));
       }
       if (mdNumAttr.isNegativeRejected() != null && Boolean.parseBoolean(mdNumAttr.isNegativeRejected()))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_number_positive");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN_EQUALS, "0", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN_EQUALS, new ODKConditionComparative("0"), localized));
       }
       if (mdNumAttr.isZeroRejected() != null && Boolean.parseBoolean(mdNumAttr.isZeroRejected()))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_number_zero");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.NOT_EQUALS, "0", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.NOT_EQUALS, new ODKConditionComparative("0"), localized));
       }
     }
     else if (mdAttr instanceof MdAttributeCharacterDAOIF)
@@ -118,7 +118,7 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         localized = localized.replace("{1}", start);
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, start, localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, new ODKConditionComparative("date('" + start + "')"), localized));
       }
       if (end != null && end.length() > 0)
       {
@@ -126,35 +126,35 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         localized = localized.replace("{1}", end);
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, end, localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, new ODKConditionComparative("date('" + end + "')"), localized));
       }
       if (beforeIncl != null && beforeIncl.length() > 0 && Boolean.parseBoolean(beforeIncl))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_date_beforeTodayInclusive");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN_EQUALS, ODKConditionComparative.today(), localized));
       }
       if (beforeExcl != null && beforeExcl.length() > 0 && Boolean.parseBoolean(beforeExcl))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_date_beforeTodayExclusive");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, "today()", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, ODKConditionComparative.today(), localized));
       }
       if (afterExcl != null && afterExcl.length() > 0 && Boolean.parseBoolean(afterExcl))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_date_afterTodayExclusive");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, "today()", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, ODKConditionComparative.today(), localized));
       }
       if (afterIncl != null && afterIncl.length() > 0 && Boolean.parseBoolean(afterIncl))
       {
         String localized = LocalizationFacade.getFromBundles("odk_constraint_date_afterTodayInclusive");
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN_EQUALS, "today()", localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN_EQUALS, ODKConditionComparative.today(), localized));
       }
     }
   }

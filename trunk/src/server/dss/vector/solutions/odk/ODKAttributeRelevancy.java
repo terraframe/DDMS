@@ -2,6 +2,7 @@ package dss.vector.solutions.odk;
 
 import java.util.Set;
 
+import com.runwaysdk.business.ontology.Term;
 import com.runwaysdk.constants.BasicConditionInfo;
 import com.runwaysdk.dataaccess.EnumerationItemDAO;
 import com.runwaysdk.dataaccess.EnumerationItemDAOIF;
@@ -52,7 +53,17 @@ abstract public class ODKAttributeRelevancy implements Reloadable
       
       String value = basicCond.getAttribute(BasicConditionInfo.VALUE).getValue();
       
-      return new ODKAttributeRelevancyBasic(odkAttr, condOdkAttr, operation, value);
+      ODKConditionComparative comparative;
+      if (odkAttr instanceof ODKTermAttribute)
+      {
+        comparative = new ODKConditionComparative(Term.get(value));
+      }
+      else
+      {
+        comparative = new ODKConditionComparative(value);
+      }
+      
+      return new ODKAttributeRelevancyBasic(odkAttr, condOdkAttr, operation, comparative);
     }
     else if (condition instanceof CompositeFieldConditionDAO)
     {

@@ -13,7 +13,7 @@ public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements
   
   private ODKAttributeConditionOperation operation;
   
-  private String value;
+  private ODKConditionComparative comparative;
   
   /**
    * 
@@ -23,12 +23,12 @@ public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements
    * @param value
    * @param odkForm
    */
-  public ODKAttributeRelevancyBasic(ODKAttribute definingAttr, ODKAttribute comparitiveAttr, ODKAttributeConditionOperation operation, String value)
+  public ODKAttributeRelevancyBasic(ODKAttribute definingAttr, ODKAttribute comparitiveAttr, ODKAttributeConditionOperation operation, ODKConditionComparative comparative)
   {
     this.definingAttr = definingAttr;
     this.comparitiveAttr = comparitiveAttr;
     this.operation = operation;
-    this.value = value;
+    this.comparative = comparative;
   }
   
   @Override
@@ -36,12 +36,9 @@ public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements
   {
     String attrPath = comparitiveAttr.getInstancePath();
     
-    if (comparitiveAttr instanceof ODKTermAttribute)
+    if (comparitiveAttr.getODKType().equals("select1"))
     {
-      Term t = Term.get(value);
-      value = ODKTermAttribute.sanitizeTermId(t.getTermId());
-      
-      String selected = "selected(" + attrPath + ", '" + value + "')";
+      String selected = "selected(" + attrPath + ", '" + comparative.toString() + "')";
       
       if (operation == ODKAttributeConditionOperation.EQUALS)
       {
@@ -58,7 +55,7 @@ public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements
     }
     else if (comparitiveAttr instanceof ODKAttributeBoolean)
     {
-      String selected = "selected(" + attrPath + ", '" + value + "')";
+      String selected = "selected(" + attrPath + ", '" + comparative.toString() + "')";
       
       if (operation == ODKAttributeConditionOperation.EQUALS)
       {
@@ -73,15 +70,7 @@ public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements
         throw new UnsupportedOperationException("Unsupported operation for term condition [" + operation.name() + "].");
       }
     }
-    else if (comparitiveAttr.getODKType().equals("date"))
-    {
-      value = "date('" + value + "')";
-    }
-    else if (comparitiveAttr.getODKType().equals("string"))
-    {
-      value = "'" + value + "'";
-    }
     
-    return attrPath + " " + operation.getOdkRepresentation() + " " + value;
+    return attrPath + " " + operation.getOdkRepresentation() + " " + comparative.toString();
   }
 }
