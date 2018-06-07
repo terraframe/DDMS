@@ -1,21 +1,22 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.general;
 
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -83,7 +84,44 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     return Disease.getByKey(DENGUE);
   }
 
+  /**
+   * @return The disease of the current session. If the current session does not
+   *         have a dimension then it defaults to the users active disease in
+   *         the database.
+   */
   public static Disease getCurrent()
+  {
+    Disease disease = null;
+
+    SessionIF session = Session.getCurrentSession();
+
+    if (session != null && session.getUser() != null)
+    {
+      MdDimensionDAOIF dimension = session.getDimension();
+
+      if (dimension != null)
+      {
+        return Disease.getByKey(dimension.getName());
+      }
+      else
+      {
+        String id = Session.getCurrentSession().getUser().getId();
+        MDSSUser user = MDSSUser.get(id);
+
+        String name = user.getDiseaseName();
+        disease = Disease.getByKey(name);
+      }
+    }
+    else
+    {
+      disease = Disease.getMalaria();
+      // disease = Disease.getByKey("VL");
+    }
+
+    return disease;
+  }
+
+  public static Disease getUserDisease()
   {
     Disease disease = null;
 
@@ -100,7 +138,7 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     else
     {
       disease = Disease.getMalaria();
-//      disease = Disease.getByKey("VL");
+      // disease = Disease.getByKey("VL");
     }
 
     return disease;
@@ -153,19 +191,19 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     // ipQ.AND(ipQ.getInactive().EQ(inactive));
     //
     // return termQueryRef.inactiveProperties(ipQ);
-    
+
     TermQuery t = new TermQuery(vQuery);
     InactivePropertyQuery ip = new InactivePropertyQuery(vQuery);
-    
+
     Disease disease = getCurrent();
     vQuery.WHERE(ip.getDisease().EQ(disease));
     vQuery.WHERE(ip.getInactive().EQ(inactive));
-    
+
     vQuery.AND(t.inactiveProperties(ip));
-    
+
     return termQueryRef.EQ(t);
   }
-  
+
   public static Disease[] getAllDiseases()
   {
     DiseaseQuery query = Disease.getAllInstances(null, true, 0, 0);
@@ -214,7 +252,7 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
 
   public static void setCurrentDimension()
   {
-    Disease current = Disease.getCurrent();
+    Disease current = Disease.getUserDisease();
     MdDimension dimension = current.getDimension();
 
     // FIRST SET THE CURRENT DIMENSION IN THE SESSION
