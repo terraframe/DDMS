@@ -112,8 +112,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
     try
     {
-      // ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
-      ODK2Excel importer = new ODK2Excel(form, null);
+//      ODK2Excel importer = new ODK2Excel(form, null);
+      ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
       Collection<String> allUUIDS = importer.getUUIDs();
 
       if (allUUIDS.size() > 0)
