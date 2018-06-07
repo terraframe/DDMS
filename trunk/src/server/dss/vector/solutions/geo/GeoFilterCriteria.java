@@ -2,6 +2,7 @@ package dss.vector.solutions.geo;
 
 import java.util.List;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -12,7 +13,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
  * 
  * @author rrowlands
  */
-public class GeoFilterCriteria
+public class GeoFilterCriteria implements Reloadable
 {
   /**
    * Flag denoting if the search restrict by political hierarchies
