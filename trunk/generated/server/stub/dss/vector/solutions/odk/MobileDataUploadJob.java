@@ -222,6 +222,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
         this.appLock();
         this.setQueryCursor(importer.getCursor());
         this.setLastExportDate(importer.getExportDateTime());
+        this.apply();
       }
       else
       {
