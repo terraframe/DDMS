@@ -637,7 +637,7 @@ public class ODKForm implements Reloadable
     }
   }
 
-  public static class MapODKAttributeMapper extends DefaultODKAttributeMapper
+  public static class MapODKAttributeMapper extends DefaultODKAttributeMapper implements Reloadable
   {
     private Map<String, String> map;
 
@@ -660,7 +660,7 @@ public class ODKForm implements Reloadable
     }
   }
 
-  public static interface ODKAttributeMapper
+  public static interface ODKAttributeMapper extends Reloadable
   {
     /**
      * Maps the provided source mdAttribute to a MdAttribute on the model.
