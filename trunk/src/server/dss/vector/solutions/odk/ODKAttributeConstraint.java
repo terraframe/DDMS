@@ -36,6 +36,7 @@ abstract public class ODKAttributeConstraint implements Reloadable
   
   public static void addConstraintsToAttribute(MdAttributeDAOIF mdAttr, ODKAttribute odkAttr)
   {
+
     if (mdAttr instanceof MdAttributeVirtualDAOIF)
     {
       mdAttr = ((MdAttributeVirtualDAOIF) mdAttr).getMdAttributeConcrete();
@@ -106,6 +107,10 @@ abstract public class ODKAttributeConstraint implements Reloadable
       
       String start = mdDate.getValue(MdAttributeDateInfo.START_DATE);
       String end = mdDate.getValue(MdAttributeDateInfo.END_DATE);
+      String beforeIncl = mdDate.getValue(MdAttributeDateInfo.BEFORE_TODAY_INCLUSIVE);
+      String beforeExcl = mdDate.getValue(MdAttributeDateInfo.BEFORE_TODAY_EXCLUSIVE);
+      String afterExcl = mdDate.getValue(MdAttributeDateInfo.AFTER_TODAY_EXCLUSIVE);
+      String afterIncl = mdDate.getValue(MdAttributeDateInfo.AFTER_TODAY_INCLUSIVE);
       
       if (start != null && start.length() > 0)
       {
@@ -122,6 +127,34 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{1}", end);
         
         odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, end, localized));
+      }
+      if (beforeIncl != null && beforeIncl.length() > 0 && Boolean.parseBoolean(beforeIncl))
+      {
+        String localized = LocalizationFacade.getFromBundles("odk_constraint_date_beforeTodayInclusive");
+        localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
+        
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", localized));
+      }
+      if (beforeExcl != null && beforeExcl.length() > 0 && Boolean.parseBoolean(beforeExcl))
+      {
+        String localized = LocalizationFacade.getFromBundles("odk_constraint_date_beforeTodayExclusive");
+        localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
+        
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, "today()", localized));
+      }
+      if (afterExcl != null && afterExcl.length() > 0 && Boolean.parseBoolean(afterExcl))
+      {
+        String localized = LocalizationFacade.getFromBundles("odk_constraint_date_afterTodayExclusive");
+        localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
+        
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, "today()", localized));
+      }
+      if (afterIncl != null && afterIncl.length() > 0 && Boolean.parseBoolean(afterIncl))
+      {
+        String localized = LocalizationFacade.getFromBundles("odk_constraint_date_afterTodayInclusive");
+        localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
+        
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN_EQUALS, "today()", localized));
       }
     }
   }
