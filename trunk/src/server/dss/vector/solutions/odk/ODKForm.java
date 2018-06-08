@@ -1132,6 +1132,7 @@ public class ODKForm implements Reloadable
       master = new ODKForm(PopulationDataExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(PopulationData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(PopulationDataView.CLASS, PopulationDataExcelView.customAttributeOrder(), null);
+      master.addAttribute(PopulationData.getGeoEntityMd(), PopulationDataExcelView.getGeoEntityMd());      
     }
     else if (mobileType.equals(PupalCollectionExcelView.CLASS))
     {
