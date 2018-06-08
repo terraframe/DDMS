@@ -130,6 +130,7 @@ import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.general.PopulationDataView;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.general.ThresholdDataView;
 import dss.vector.solutions.generator.GridExcelAdapter;
@@ -1111,7 +1112,7 @@ public class ODKForm implements Reloadable
     {
       master = new ODKForm(PopulationDataExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(PopulationData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(PopulationData.CLASS, PopulationDataExcelView.customAttributeOrder(), null);
+      master.buildAttributes(PopulationDataView.CLASS, PopulationDataExcelView.customAttributeOrder(), null);
     }
     else if (mobileType.equals(PupalCollectionExcelView.CLASS))
     {

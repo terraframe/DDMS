@@ -64,6 +64,11 @@
             </td>
             <td>
               <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired || actor != 'mdss.GUIVisibility'}" value="${view.attributeRequired || view.notBlank}" />
+            </td>            
+            <td>
+              <c:if test="${view.basic}">
+                <mdss:checkBoolean param="barcode" value="${view.barcode}" />
+              </c:if>
             </td>
             <td>
               <c:if test="${view.fieldId != '' && actor == 'mdss.GUIVisibility'}">
@@ -112,7 +117,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
 	
      for (var i=0, len=inputs.length; i<len; i++){
        var el = inputs[i];
-	     if (el.type=='checkbox' && !el.disabled) {
+	     if (el.type=='checkbox' && !el.disabled && el.name.indexOf('notBlank') !== -1) {
 	     	YAHOO.util.Event.on(el, 'click', this.checkboxHandler, this, this);
 	   	}
 	 }

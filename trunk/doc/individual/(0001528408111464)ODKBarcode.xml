@@ -1,0 +1,33 @@
+<version
+  xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.util.AttributeMetadata">
+        <attributes>
+          <boolean name="barcode" label="Barcode" defaultValue="false" required="true"/>
+          <reference name="referencedMdAttribute" label="Referenced MdAttribute" type="com.runwaysdk.system.metadata.MdAttribute"  />          
+        </attributes>
+      </mdBusiness>        
+    </create>
+    
+    <update>
+      <mdView
+         name="dss.vector.solutions.util.ReadableAttributeView">
+        <create>
+          <attributes>
+            <virtual name="barcode" concrete="barcode" type="dss.vector.solutions.util.AttributeMetadata" />
+            <boolean name="basic" label="Is Basic"/>            
+          </attributes>
+        </create>
+      </mdView>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.util.ReadableAttributeView.barcode" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.util.AttributeMetadata" type="com.runwaysdk.system.metadata.MdBusiness"/>
+    </delete>
+  </undoIt>
+</version>

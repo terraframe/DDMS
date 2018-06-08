@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 1768334931)
+@com.runwaysdk.business.ClassSignature(hash = -1138851047)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,12 +14,14 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
   public static java.lang.String ATTRIBUTEDESCRIPTION = "attributeDescription";
   public static java.lang.String ATTRIBUTENAME = "attributeName";
   public static java.lang.String ATTRIBUTEREQUIRED = "attributeRequired";
+  public static java.lang.String BARCODE = "barcode";
+  public static java.lang.String BASIC = "basic";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String FIELDID = "fieldId";
   public static java.lang.String ID = "id";
   public static java.lang.String NOTBLANK = "notBlank";
   public static java.lang.String READPERMISSION = "readPermission";
-  private static final long serialVersionUID = 1768334931;
+  private static final long serialVersionUID = -1138851047;
   
   public ReadableAttributeViewBase()
   {
@@ -123,6 +109,62 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     else
     {
       setValue(ATTRIBUTEREQUIRED, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getBarcode()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(BARCODE));
+  }
+  
+  public void validateBarcode()
+  {
+    this.validateAttribute(BARCODE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getBarcodeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(BARCODE);
+  }
+  
+  public void setBarcode(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(BARCODE, "");
+    }
+    else
+    {
+      setValue(BARCODE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getBasic()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(BASIC));
+  }
+  
+  public void validateBasic()
+  {
+    this.validateAttribute(BASIC);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getBasicMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(BASIC);
+  }
+  
+  public void setBasic(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(BASIC, "");
+    }
+    else
+    {
+      setValue(BASIC, java.lang.Boolean.toString(value));
     }
   }
   

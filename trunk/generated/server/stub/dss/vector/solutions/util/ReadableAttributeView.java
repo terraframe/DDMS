@@ -145,6 +145,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     view.setAttributeDescription(desc);
     view.setReadPermission(readable);
     view.setNotBlank(mdAttributeDimension.isRequired());
+    view.setBarcode(AttributeMetadata.isBarcode(mdAttribute));
+    view.setBasic(AttributeMetadata.isBasic(mdAttribute));
 
     if (field != null)
     {
@@ -215,9 +217,29 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       }
 
       ReadableAttributeView.setDimensionAttributes(view.getNotBlank(), mdAttributeDAO, _mdDimension);
+
+      /*
+       * Update the barcode status
+       */
+      AttributeMetadata metadata = AttributeMetadata.getMetadata(mdAttributeDAO);
+
+      if (view.getBarcode() && metadata == null)
+      {
+        metadata = new AttributeMetadata();
+        metadata.setReferencedMdAttributeId(mdAttributeDAO.getId());
+        metadata.setBarcode(view.getBarcode());
+        metadata.apply();
+      }
+      else if (metadata != null)
+      {
+        metadata.appLock();
+        metadata.setBarcode(view.getBarcode());
+        metadata.apply();
+      }
     }
 
     ReadableAttributeView.assignPermissions(actor, newPermissions);
+
   }
 
   private static void assignPermissions(ActorDAO actor, List<PermissionChange> permissions)
@@ -329,7 +351,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       boolean deny = existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
       return ! ( deny );
     }
-    
+
     return true;
   }
 }

@@ -33,6 +33,7 @@ import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.util.AttributeMetadata;
 import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
@@ -41,25 +42,37 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   protected MdAttributeDAOIF viewMdAttr;
 
+  protected boolean          barcode;
+
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
     super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired(), ReadableAttributeView.isVisible(sourceMdAttr));
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
+    this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
   }
-  
+
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type, String attributeName, String displayLabel, String description, boolean required)
   {
     super(containingForm, attributeName, displayLabel, description, required, ReadableAttributeView.isVisible(sourceMdAttr));
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
+    this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
+  }
+
+  public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type, String attributeName, String displayLabel, String description, boolean required, boolean visible)
+  {
+    super(containingForm, attributeName, displayLabel, description, required, visible);
+    this.sourceMdAttr = sourceMdAttr;
+    this.viewMdAttr = viewMdAttr;
+    this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
   }
   
   public MdAttributeDAOIF getSourceMdAttribute()
   {
     return this.sourceMdAttr;
   }
-  
+
   public MdAttributeDAOIF getViewMdAttribute()
   {
     return this.viewMdAttr;
@@ -78,7 +91,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   public String getODKType()
   {
-    return getODKType(sourceMdAttr);
+    return this.barcode ? "barcode" : ODKMetadataAttribute.getODKType(sourceMdAttr);
   }
 
   public static String getODKType(MdAttributeDAOIF attr)

@@ -1,26 +1,10 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 2003183571)
+@com.runwaysdk.business.ClassSignature(hash = 409617561)
 public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.ReadableAttributeView";
-  private static final long serialVersionUID = 2003183571;
+  private static final long serialVersionUID = 409617561;
   
   protected ReadableAttributeViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -35,6 +19,8 @@ public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.busines
   public static java.lang.String ATTRIBUTEDESCRIPTION = "attributeDescription";
   public static java.lang.String ATTRIBUTENAME = "attributeName";
   public static java.lang.String ATTRIBUTEREQUIRED = "attributeRequired";
+  public static java.lang.String BARCODE = "barcode";
+  public static java.lang.String BASIC = "basic";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String FIELDID = "fieldId";
   public static java.lang.String ID = "id";
@@ -149,6 +135,80 @@ public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.busines
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getAttributeRequiredMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ATTRIBUTEREQUIRED).getAttributeMdDTO();
+  }
+  
+  public Boolean getBarcode()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(BARCODE));
+  }
+  
+  public void setBarcode(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(BARCODE, "");
+    }
+    else
+    {
+      setValue(BARCODE, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isBarcodeWritable()
+  {
+    return isWritable(BARCODE);
+  }
+  
+  public boolean isBarcodeReadable()
+  {
+    return isReadable(BARCODE);
+  }
+  
+  public boolean isBarcodeModified()
+  {
+    return isModified(BARCODE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getBarcodeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(BARCODE).getAttributeMdDTO();
+  }
+  
+  public Boolean getBasic()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(BASIC));
+  }
+  
+  public void setBasic(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(BASIC, "");
+    }
+    else
+    {
+      setValue(BASIC, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isBasicWritable()
+  {
+    return isWritable(BASIC);
+  }
+  
+  public boolean isBasicReadable()
+  {
+    return isReadable(BASIC);
+  }
+  
+  public boolean isBasicModified()
+  {
+    return isModified(BASIC);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getBasicMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(BASIC).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()

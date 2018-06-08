@@ -54,7 +54,7 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         }
         else
         {
-          ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired(), isVisible);
+          ODKAttribute odk = new ODKMetadataAttribute(this.getContainingForm(), mdAttributeDAO, mdAttributeDAO, type, name, label, label, sourceMdAttr.isRequired(), isVisible);
 
           ODKAttributeConstraint.addConstraintsToAttribute(mdAttributeDAO, odk);
 

@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 2085361866)
+@com.runwaysdk.business.ClassSignature(hash = -102274032)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -92,6 +76,42 @@ public  abstract  class ReadableAttributeViewQueryBase extends com.runwaysdk.que
   public com.runwaysdk.query.SelectableBoolean getAttributeRequired(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.ATTRIBUTEREQUIRED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBarcode()
+  {
+    return getBarcode(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBarcode(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.BARCODE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBarcode(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.BARCODE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBasic()
+  {
+    return getBasic(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBasic(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.BASIC, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getBasic(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.BASIC, alias, displayLabel);
 
   }
  
