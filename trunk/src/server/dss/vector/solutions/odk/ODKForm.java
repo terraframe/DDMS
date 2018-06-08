@@ -43,13 +43,16 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
+import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.ValueGreaterLimitProblem;
 import dss.vector.solutions.entomology.BiochemicalAssay;
 import dss.vector.solutions.entomology.BiochemicalAssayView;
 import dss.vector.solutions.entomology.CollectionContainerView;
+import dss.vector.solutions.entomology.ContainerShape;
 import dss.vector.solutions.entomology.DiagnosticAssay;
 import dss.vector.solutions.entomology.DiagnosticAssayView;
 import dss.vector.solutions.entomology.ImmatureCollection;
@@ -65,6 +68,7 @@ import dss.vector.solutions.entomology.PooledInfectionAssay;
 import dss.vector.solutions.entomology.PooledInfectionAssayView;
 import dss.vector.solutions.entomology.PupalCollection;
 import dss.vector.solutions.entomology.PupalCollectionView;
+import dss.vector.solutions.entomology.PupalContainer;
 import dss.vector.solutions.entomology.PupalContainerAmountView;
 import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.entomology.SubCollection;
@@ -555,6 +559,11 @@ public class ODKForm implements Reloadable
    */
   public void addAttribute(ODKAttribute attr)
   {
+    if (attr instanceof ODKMetadataAttribute)
+    {
+      ODKAttributeConstraint.addConstraintsToAttribute(((ODKMetadataAttribute) attr).getSourceMdAttribute(), attr);
+    }
+    
     int existingIndex = -1;
     for (int i = 0; i < attrs.size(); ++i)
     {
@@ -580,8 +589,6 @@ public class ODKForm implements Reloadable
   public ODKAttribute addAttribute(MdAttributeDAOIF sourceAttr, MdAttributeDAOIF viewAttr)
   {
     ODKAttribute attr = ODKAttribute.factory(this, sourceAttr, viewAttr, exportedTerms);
-
-    ODKAttributeConstraint.addConstraintsToAttribute(sourceAttr, attr);
 
     addAttribute(attr);
 
@@ -736,23 +743,23 @@ public class ODKForm implements Reloadable
     return joins;
   }
   
-  public void addBasicConstraint(MdAttributeDAOIF attr1, ODKAttributeConditionOperation operation, MdAttributeDAOIF attr2, String msg)
+  public void addBasicConstraint(ODKAttribute attr1, ODKAttributeConditionOperation operation, Object comparative, String msg)
   {
-    ODKAttribute odkAttr1 = this.getAttributeByName(attr1.definesAttribute());
-    if (odkAttr1 == null) { throw new ProgrammingErrorException("Unable to find attribute [" + attr1.getKey() + "]."); }
+    if (comparative instanceof MdAttributeDAOIF)
+    {
+      comparative = this.getAttributeByName(((MdAttributeDAOIF) comparative).definesAttribute());
+      if (comparative == null) { throw new ProgrammingErrorException("Unable to find attribute."); }
+    }
     
-    ODKAttribute odkAttr2 = this.getAttributeByName(attr2.definesAttribute());
-    if (odkAttr2 == null) { throw new ProgrammingErrorException("Unable to find attribute [" + attr2.getKey() + "]."); }
-    
-    odkAttr1.addConstraint(new ODKAttributeConstraintBasic(odkAttr1, operation, new ODKConditionComparative(odkAttr2), msg));
+    attr1.addConstraint(new ODKAttributeConstraintBasic(attr1, operation, new ODKConditionComparative(comparative), msg));
   }
   
-  public void addBasicRelevancy(ODKAttribute definingAttr, ODKAttribute comparativeAttr, ODKAttributeConditionOperation operation, ODKConditionComparative comparative)
+  public void addBasicRelevancy(ODKAttribute definingAttr, ODKAttribute comparativeAttr, ODKAttributeConditionOperation operation, Object comparative)
   {
-    definingAttr.addRelevancy(new ODKAttributeRelevancyBasic(definingAttr, comparativeAttr, operation, comparative));
+    definingAttr.addRelevancy(new ODKAttributeRelevancyBasic(definingAttr, comparativeAttr, operation, new ODKConditionComparative(comparative)));
   }
   
-  public void addBasicRelevancy(MdAttributeDAOIF definingAttr, MdAttributeDAOIF comparativeAttr, ODKAttributeConditionOperation operation, ODKConditionComparative comparative)
+  public void addBasicRelevancy(MdAttributeDAOIF definingAttr, MdAttributeDAOIF comparativeAttr, ODKAttributeConditionOperation operation, Object comparative)
   {
     ODKAttribute odkDefiningAttr = this.getAttributeByName(definingAttr.definesAttribute());
     if (odkDefiningAttr == null) { throw new ProgrammingErrorException("Unable to find attribute [" + definingAttr.getKey() + "]."); }
@@ -760,7 +767,7 @@ public class ODKForm implements Reloadable
     ODKAttribute odkComparativeAttr = this.getAttributeByName(comparativeAttr.definesAttribute());
     if (odkComparativeAttr == null) { throw new ProgrammingErrorException("Unable to find attribute [" + comparativeAttr.getKey() + "]."); }
     
-    odkDefiningAttr.addRelevancy(new ODKAttributeRelevancyBasic(odkDefiningAttr, odkComparativeAttr, operation, comparative));
+    odkDefiningAttr.addRelevancy(new ODKAttributeRelevancyBasic(odkDefiningAttr, odkComparativeAttr, operation, new ODKConditionComparative(comparative)));
   }
 
   public static ODKForm factory(java.lang.String mobileType)
@@ -775,14 +782,26 @@ public class ODKForm implements Reloadable
       master.setExport(false);
       master.addAttribute(AggregatedCaseView.getAgeGroupMd(), AggregatedCaseExcelView.getDisplayLabelMd());
       master.buildAttributes(AggregatedCaseView.CLASS, AggregatedCaseExcelView.customAttributeOrder(), null);
-
+      
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(null);
+      p.setCurrentDate(null);
+      p.setNotification(new AggregatedCase(), AggregatedCase.STARTDATE);
+      master.addBasicConstraint(master.getAttributeByName(AggregatedCase.STARTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
+      
+      CurrentDateProblem p2 = new CurrentDateProblem();
+      p2.setGivenDate(null);
+      p2.setCurrentDate(null);
+      p2.setNotification(new AggregatedCase(), AggregatedCase.ENDDATE);
+      master.addBasicConstraint(master.getAttributeByName(AggregatedCase.ENDDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
+      
       LinkedList<ODKAttribute> attributes = master.getAttributes();
-
+      
       for (ODKAttribute attribute : attributes)
       {
         attribute.setIsOverride(true);
       }
-
+      
       ODKForm aggCaseRefer = new ODKForm(AggregatedCaseReferralsExcelView.CLASS);
       Map<MdAttributeDAOIF, MdAttributeDAOIF> aggCaseAttrs = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       aggCaseAttrs.put(AggregatedCaseReferralsExcelView.getCasesMd(), AggregatedCaseReferralsExcelView.getCasesMd());
@@ -875,11 +894,11 @@ public class ODKForm implements Reloadable
       ValueGreaterLimitProblem problem = new ValueGreaterLimitProblem();
       problem.setValueAttributeLabel(SubCollection.getParousMd().getDisplayLabel(Session.getCurrentLocale()));
       problem.setLimitAttributeLabel(SubCollection.getDisectedMd().getDisplayLabel(Session.getCurrentLocale()));
-      subc.addBasicConstraint(SubCollection.getParousMd(), ODKAttributeConditionOperation.LESS_THAN, SubCollection.getDisectedMd(), problem.getLocalizedMessage());
-      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.MALE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, new ODKConditionComparative(LifeStage.ADULT));
-      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.PUPAE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, new ODKConditionComparative(LifeStage.IMMATURE));
-      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.UNKNOWNS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.NOT_EQUALS, new ODKConditionComparative(LifeStage.EGG));
-      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.EGGS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, new ODKConditionComparative(LifeStage.EGG));
+      subc.addBasicConstraint(subc.getAttributeByName(SubCollection.PAROUS), ODKAttributeConditionOperation.LESS_THAN, SubCollection.getDisectedMd(), problem.getLocalizedMessage());
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.MALE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.PUPAE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.IMMATURE);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.UNKNOWNS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.NOT_EQUALS, LifeStage.EGG);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.EGGS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.EGG);
       
       master.join(new RepeatFormJoin(master, subc));
     }
@@ -1123,6 +1142,23 @@ public class ODKForm implements Reloadable
       ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);
       container.addAttribute(new ODKGridAttribute(container, PupalContainerView.getPupaeAmountMd(), PupalContainerView.getPupaeAmountMd(), PupalContainerAmountView.getAmountMd()));
       container.buildAttributes(PupalContainerView.CLASS, PupalCollectionExcelView.customAttributeOrder(), null);
+      
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.HEIGHT), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.NOT_EQUALS, null);
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.WIDTH), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.EQUALS, ContainerShape.RECTANGLE);
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.CONTAINERLENGTH), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.EQUALS, ContainerShape.RECTANGLE);
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.OPENINGWIDTH), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.EQUALS, ContainerShape.RECTANGLE);
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.OPENINGLENGTH), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.EQUALS, ContainerShape.RECTANGLE);
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.DIAMETER), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.EQUALS, ContainerShape.CIRCLE);
+      container.addBasicRelevancy(container.getAttributeByName(PupalContainerView.OPENINGDIAMETER), container.getAttributeByName(PupalContainerView.SHAPE), ODKAttributeConditionOperation.EQUALS, ContainerShape.CIRCLE);
+      
+      RangeValueProblem p = new RangeValueProblem();
+      p.setNotification(new PupalContainer(), PupalContainer.DRAWDOWNPERCENT);
+      p.setAttributeDisplayLabel(PupalContainer.getDrawdownPercentMd().getDisplayLabel(Session.getCurrentLocale()));
+      p.setLowerLimit(0);
+      p.setUpperLimit(100);
+      container.addBasicConstraint(container.getAttributeByName(PupalContainer.DRAWDOWNPERCENT), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p.getLocalizedMessage());
+      container.addBasicConstraint(container.getAttributeByName(PupalContainer.DRAWDOWNPERCENT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 100, p.getLocalizedMessage());
+      
       master.join(new RepeatFormJoin(master, container));
     }
     else if (mobileType.equals(SurveyExcelView.CLASS))

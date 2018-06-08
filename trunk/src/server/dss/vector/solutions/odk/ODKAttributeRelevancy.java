@@ -2,7 +2,6 @@ package dss.vector.solutions.odk;
 
 import java.util.Set;
 
-import com.runwaysdk.business.ontology.Term;
 import com.runwaysdk.constants.BasicConditionInfo;
 import com.runwaysdk.dataaccess.EnumerationItemDAO;
 import com.runwaysdk.dataaccess.EnumerationItemDAOIF;
@@ -13,6 +12,8 @@ import com.runwaysdk.dataaccess.metadata.BasicConditionDAO;
 import com.runwaysdk.dataaccess.metadata.CompositeFieldConditionDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+
+import dss.vector.solutions.ontology.Term;
 
 /**
  * An attribute relevancy controls visibility of the attribute. If the condition is false, the attribute will
@@ -54,7 +55,7 @@ abstract public class ODKAttributeRelevancy implements Reloadable
       String value = basicCond.getAttribute(BasicConditionInfo.VALUE).getValue();
       
       ODKConditionComparative comparative;
-      if (odkAttr instanceof ODKTermAttribute)
+      if (condOdkAttr instanceof ODKTermAttribute)
       {
         comparative = new ODKConditionComparative(Term.get(value));
       }

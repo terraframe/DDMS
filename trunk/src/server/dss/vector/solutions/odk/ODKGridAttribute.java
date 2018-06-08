@@ -47,7 +47,11 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
       }
       else
       {
-        gridAttrs.add(new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired(), isVisible));
+        ODKAttribute odk = new ODKAttribute(this.getContainingForm(), type, name, label, label, sourceMdAttr.isRequired(), isVisible);
+        
+        ODKAttributeConstraint.addConstraintsToAttribute(sourceMdAttr, odk);
+        
+        gridAttrs.add(odk);
       }
     }
   }

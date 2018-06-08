@@ -38,6 +38,21 @@ public class ODKAttributeRelevancyBasic extends ODKAttributeRelevancy implements
     
     if (comparitiveAttr.getODKType().equals("select1"))
     {
+      if (comparative.isNull())
+      {
+        if (operation == ODKAttributeConditionOperation.EQUALS)
+        {
+          return  "count-selected(" + attrPath + ") = 0";
+        }
+        else if (operation == ODKAttributeConditionOperation.NOT_EQUALS)
+        {
+          return  "count-selected(" + attrPath + ") > 0";
+        }
+        else
+        {
+          throw new UnsupportedOperationException();
+        }
+      }
       String selected = "selected(" + attrPath + ", '" + comparative.toString() + "')";
       
       if (operation == ODKAttributeConditionOperation.EQUALS)

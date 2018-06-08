@@ -14,11 +14,28 @@ public class ODKConditionComparative
     this.comparative = comparative;
   }
   
+  public boolean isNull()
+  {
+    return this.comparative == null;
+  }
+  
   public String toString()
   {
     if (comparative instanceof String)
     {
       return (String) comparative;
+    }
+    else if (comparative instanceof Integer)
+    {
+      return String.valueOf(comparative);
+    }
+    else if (comparative instanceof Float)
+    {
+      return String.valueOf(comparative);
+    }
+    else if (comparative instanceof Boolean)
+    {
+      return String.valueOf(comparative);
     }
     else if (comparative instanceof MdAttributeDAOIF)
     {
