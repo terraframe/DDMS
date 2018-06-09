@@ -30,4 +30,30 @@ public class RelativeValueProblem extends RelativeValueProblemBase implements co
     super(developerMessage);
   }
   
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getRelation() == null || this.getRelation().equals(""))
+    {
+      message = message.replace(" [{relation}]", "");
+      message = message.replace("{relation}", "");
+    }
+    else
+    {
+      message = replace(message, "{relation}", this.getRelation());
+    }
+    
+    if (this.getRelativeAttributeLabel() == null || this.getRelativeAttributeLabel().equals(""))
+    {
+      message = message.replace(" [{relativeAttributeLabel}]", "");
+      message = message.replace("{relativeAttributeLabel}", "");
+    }
+    else
+    {
+      message = replace(message, "{relativeAttributeLabel}", this.getRelativeAttributeLabel());
+    }
+    
+    return message;
+  }
 }

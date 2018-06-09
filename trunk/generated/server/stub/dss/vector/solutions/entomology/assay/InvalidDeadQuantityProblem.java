@@ -31,4 +31,32 @@ public class InvalidDeadQuantityProblem extends InvalidDeadQuantityProblemBase i
     super(developerMessage);
   }
   
+  @Override
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getQuantityDead() == null || this.getQuantityDead().equals(""))
+    {
+      message = message.replace("[{quantityDead}]", "");
+      message = message.replace("{quantityDead}", "");
+    }
+    else
+    {
+      message = replace(message, "{quantityDead}", this.getQuantityDead());
+    }
+    
+    if (this.getQuantityTested() == null || this.getQuantityTested().equals(""))
+    {
+      message = message.replace("[{quantityTested}]", "");
+      message = message.replace("{quantityTested}", "");
+    }
+    else
+    {
+      message = replace(message, "{quantityTested}", this.getQuantityTested());
+    }
+    
+    return message;
+  }
+  
 }

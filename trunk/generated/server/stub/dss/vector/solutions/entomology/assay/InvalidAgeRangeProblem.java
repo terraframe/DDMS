@@ -31,4 +31,31 @@ public class InvalidAgeRangeProblem extends InvalidAgeRangeProblemBase implement
     super(developerMessage);
   }
   
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getEndPoint() == null || this.getEndPoint().equals(""))
+    {
+      message = message.replace("[{endPoint}]", "");
+      message = message.replace("{endPoint}", "");
+    }
+    else
+    {
+      message = replace(message, "{endPoint}", this.getEndPoint());
+    }
+    
+    if (this.getStartPoint() == null || this.getStartPoint().equals(""))
+    {
+      message = message.replace("[{startPoint}]", "");
+      message = message.replace("{startPoint}", "");
+    }
+    else
+    {
+      message = replace(message, "{startPoint}", this.getStartPoint());
+    }
+    
+    return message;
+  }
+  
 }

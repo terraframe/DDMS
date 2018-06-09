@@ -30,4 +30,32 @@ public class CurrentDateProblem extends CurrentDateProblemBase implements com.ru
     super(developerMessage);
   }
   
+  @Override
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getCurrentDate() == null || this.getCurrentDate().equals(""))
+    {
+      message = message.replace(" [{currentDate}]", "");
+      message = message.replace("{currentDate}", "");
+    }
+    else
+    {
+      message = replace(message, "{currentDate}", this.getCurrentDate());
+    }
+    
+    if (this.getCurrentDate() == null || this.getGivenDate().equals(""))
+    {
+      message = message.replace(" [{givenDate}]", "");
+      message = message.replace("{givenDate}", "");
+    }
+    else
+    {
+      message = replace(message, "{givenDate}", this.getGivenDate());
+    }
+    
+    return message;
+  }
+  
 }

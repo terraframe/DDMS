@@ -31,4 +31,21 @@ public class InvalidAgeProblem extends InvalidAgeProblemBase implements com.runw
     super(developerMessage);
   }
   
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getAge() == null || this.getAge().equals(""))
+    {
+      message = message.replace("[{age}]", "");
+      message = message.replace("{age}", "");
+    }
+    else
+    {
+      message = replace(message, "{age}", this.getAge());
+    }
+    
+    return message;
+  }
+  
 }

@@ -32,6 +32,12 @@ public class ODKAttributeConstraintBasic extends ODKAttributeConstraint implemen
   @Override
   public String getBindConstraint()
   {
+    if (this.comparative.asObject() instanceof ODKAttribute) // && (definingAttr.getODKType().equals("date") || definingAttr.getODKType().equals("decimal") || definingAttr.getODKType().equals("int")))
+    {
+      // If the ODK attribute is null, then we don't enforce the constraint
+      return "((string-length(string(" + this.comparative.toString() + ")) = 0) or (. " + operation.getOdkRepresentation() + " " + this.comparative.toString() + "))";
+    }
+    
     return ". " + operation.getOdkRepresentation() + " " + this.comparative.toString();
   }
 }

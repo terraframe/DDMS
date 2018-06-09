@@ -31,4 +31,21 @@ public class InvalidFedQuantityProblem extends InvalidFedQuantityProblemBase imp
     super(developerMessage);
   }
   
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getFed() == null || this.getFed().equals(""))
+    {
+      message = message.replace("[{fed}]", "");
+      message = message.replace("{fed}", "");
+    }
+    else
+    {
+      message = replace(message, "{fed}", this.getFed());
+    }
+    
+    return message;
+  }
+  
 }

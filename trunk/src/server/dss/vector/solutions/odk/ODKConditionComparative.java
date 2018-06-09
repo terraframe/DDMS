@@ -14,6 +14,11 @@ public class ODKConditionComparative
     this.comparative = comparative;
   }
   
+  public Object asObject()
+  {
+    return this.comparative;
+  }
+  
   public boolean isNull()
   {
     return this.comparative == null;
@@ -43,7 +48,7 @@ public class ODKConditionComparative
     }
     else if (comparative instanceof ODKAttribute)
     {
-      return ((ODKAttribute)comparative).getAttributeName();
+      return ((ODKAttribute)comparative).getInstancePath();
     }
     else if (comparative instanceof Term)
     {

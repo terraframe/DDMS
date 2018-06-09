@@ -3,6 +3,7 @@ package dss.vector.solutions.odk;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -48,11 +49,13 @@ import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.RangeValueProblem;
+import dss.vector.solutions.RelativeValueProblem;
 import dss.vector.solutions.ValueGreaterLimitProblem;
 import dss.vector.solutions.entomology.BiochemicalAssay;
 import dss.vector.solutions.entomology.BiochemicalAssayView;
 import dss.vector.solutions.entomology.CollectionContainerView;
 import dss.vector.solutions.entomology.ContainerShape;
+import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.DiagnosticAssay;
 import dss.vector.solutions.entomology.DiagnosticAssayView;
 import dss.vector.solutions.entomology.ImmatureCollection;
@@ -75,11 +78,17 @@ import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.entomology.TimeResponseAssay;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
+import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval;
 import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.entomology.assay.EfficacyAssayView;
+import dss.vector.solutions.entomology.assay.InvalidAgeProblem;
+import dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem;
+import dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblem;
+import dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem;
+import dss.vector.solutions.entomology.assay.InvalidGravidQuantityProblem;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
 import dss.vector.solutions.entomology.assay.KnockDownAssayView;
 import dss.vector.solutions.entomology.assay.KnockDownInterval;
@@ -177,6 +186,7 @@ import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.InsecticideInterventionView;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
+import dss.vector.solutions.intervention.monitor.NumberSoldProblem;
 import dss.vector.solutions.intervention.monitor.PersonInterventionMethodView;
 import dss.vector.solutions.intervention.monitor.PersonInterventionView;
 import dss.vector.solutions.intervention.monitor.SurveyPointView;
@@ -185,6 +195,7 @@ import dss.vector.solutions.irs.GeoTarget;
 import dss.vector.solutions.irs.GeoTargetView;
 import dss.vector.solutions.irs.HouseholdSprayStatusView;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.InvalidInsecticideBrandUseProblem;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
@@ -215,6 +226,7 @@ import dss.vector.solutions.surveillance.CaseStockReferralView;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodView;
 import dss.vector.solutions.surveillance.CaseTreatmentStockView;
 import dss.vector.solutions.surveillance.CaseTreatmentView;
+import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKForm implements Reloadable
@@ -872,6 +884,18 @@ public class ODKForm implements Reloadable
       master.setExport(false);
       master.buildAttributes(ControlInterventionView.CLASS, ControlInterventionExcelView.customAttributeOrder(), null);
 
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(null);
+      p.setCurrentDate(null);
+      p.setNotification(new ControlIntervention(), ControlIntervention.STARTDATE);
+      master.addBasicConstraint(master.getAttributeByName(ControlIntervention.STARTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
+      
+      CurrentDateProblem p2 = new CurrentDateProblem();
+      p2.setGivenDate(null);
+      p2.setCurrentDate(null);
+      p2.setNotification(new ControlIntervention(), ControlIntervention.ENDDATE);
+      master.addBasicConstraint(master.getAttributeByName(ControlIntervention.ENDDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
+      
       LinkedList<ODKAttribute> attributes = master.getAttributes();
 
       for (ODKAttribute attribute : attributes)
@@ -923,7 +947,7 @@ public class ODKForm implements Reloadable
       ValueGreaterLimitProblem problem = new ValueGreaterLimitProblem();
       problem.setValueAttributeLabel(SubCollection.getParousMd().getDisplayLabel(Session.getCurrentLocale()));
       problem.setLimitAttributeLabel(SubCollection.getDisectedMd().getDisplayLabel(Session.getCurrentLocale()));
-      subc.addBasicConstraint(subc.getAttributeByName(SubCollection.PAROUS), ODKAttributeConditionOperation.LESS_THAN, SubCollection.getDisectedMd(), problem.getLocalizedMessage());
+      subc.addBasicConstraint(subc.getAttributeByName(SubCollection.PAROUS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, subc.getAttributeByName(SubCollection.DISECTED), problem.getLocalizedMessage());
       subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.MALE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
       subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.PUPAE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.IMMATURE);
       subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.UNKNOWNS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.NOT_EQUALS, LifeStage.EGG);
@@ -961,6 +985,11 @@ public class ODKForm implements Reloadable
       master.removeAttribute(AggregatedITNExcelView.getGeoEntityMd().definesAttribute());
 
       master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
+      
+      NumberSoldProblem problem = new NumberSoldProblem();
+      problem.setNotification(new ITNData(), AggregatedITNExcelView.NUMBERSOLD);
+      master.addBasicConstraint(master.getAttributeByName(AggregatedITNExcelView.NUMBERSOLD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(AggregatedITNExcelView.NUMBERDISTRIBUTED), problem.getLocalizedMessage());
+      master.addBasicRelevancy(master.getAttributeByName(AggregatedITNExcelView.CURRENCYRECEIVED), master.getAttributeByName(AggregatedITNExcelView.NUMBERSOLD), ODKAttributeConditionOperation.NOT_EQUALS, 0);
     }
     else if (mobileType.equals(EfficacyAssayExcelView.CLASS))
     {
@@ -976,6 +1005,45 @@ public class ODKForm implements Reloadable
       master.removeAttribute(EfficacyAssayExcelView.getGeoEntityMd().definesAttribute());
 
       master.buildAttributes(attrMappings, EfficacyAssayExcelView.customAttributeOrder());
+      
+      ODKStructAttribute structAttr = (ODKStructAttribute) master.getAttributeByName(EfficacyAssayExcelView.AGERANGE);
+      
+      InvalidAgeProblem p = new InvalidAgeProblem();
+      p.setAge(null);
+      p.setNotification(new AdultAgeRange(), AdultAgeRange.STARTPOINT);
+      master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, p.getLocalizedMessage());
+      master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, "");
+      
+      InvalidAgeProblem p2 = new InvalidAgeProblem();
+      p2.setAge(null);
+      p2.setNotification(new AdultAgeRange(), AdultAgeRange.ENDPOINT);
+      master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.ENDPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, p2.getLocalizedMessage());
+      master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.ENDPOINT), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, "");
+      
+      InvalidAgeRangeProblem p3 = new InvalidAgeRangeProblem();
+      p3.setStartPoint(null);
+      p3.setEndPoint(null);
+      p3.setNotification(new AdultAgeRange(), AdultAgeRange.STARTPOINT);
+      master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, structAttr.getAttribute(AdultAgeRange.ENDPOINT), p3.getLocalizedMessage());
+      
+      ControlMortalityException cme = new ControlMortalityException();
+      master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.CONTROLTESTMORTALITY), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, cme.getLocalizedMessage());
+      
+      InvalidDeadQuantityProblem idq = new InvalidDeadQuantityProblem();
+      idq.setQuantityDead(null);
+      idq.setQuantityTested(null);
+      idq.setNotification(new EfficacyAssay(), EfficacyAssayExcelView.QUANTITYDEAD);
+      master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.QUANTITYDEAD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(EfficacyAssayExcelView.QUANTITYTESTED), idq.getLocalizedMessage());
+      
+      InvalidFedQuantityProblem qfp = new InvalidFedQuantityProblem();
+      qfp.setFed(null);
+      qfp.setNotification(new EfficacyAssay(), EfficacyAssayExcelView.FED);
+      master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.QUANTITYTESTED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(EfficacyAssayExcelView.FED), qfp.getLocalizedMessage());
+      
+      InvalidGravidQuantityProblem igq = new InvalidGravidQuantityProblem();
+      igq.setGravid(null);
+      igq.setNotification(new EfficacyAssay(), EfficacyAssayExcelView.GRAVID);
+      master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.GRAVID), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(EfficacyAssayExcelView.QUANTITYTESTED), igq.getLocalizedMessage());
     }
     else if (mobileType.equals(IndividualCaseExcelView.CLASS))
     {
@@ -1003,6 +1071,72 @@ public class ODKForm implements Reloadable
       instance.buildAttributes(IndividualInstance.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
 
       master.join(new RepeatFormJoin(master, instance));
+          
+      
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(null);
+      p.setCurrentDate(null);
+      p.setNotification(new IndividualCase(), IndividualCase.SYMPTOMONSET);
+      master.addBasicConstraint(master.getAttributeByName(IndividualCase.SYMPTOMONSET), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
+      
+      RelativeValueProblem p2 = new RelativeValueProblem();
+      p2.setNotification(new IndividualCase(), IndividualCase.SYMPTOMONSET);
+      p2.setAttributeDisplayLabel(IndividualCase.getSymptomOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
+      p2.setRelation(MDSSProperties.getString("Compare_AE"));
+      p2.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.SYMPTOMONSET), p2.getLocalizedMessage());
+      
+      CurrentDateProblem p3 = new CurrentDateProblem();
+      p3.setGivenDate(null);
+      p3.setCurrentDate(null);
+      p3.setNotification(new IndividualCase(), IndividualCase.DIAGNOSISDATE);
+      master.addBasicConstraint(master.getAttributeByName(IndividualCase.DIAGNOSISDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p3.getLocalizedMessage());
+      
+      RelativeValueProblem p4 = new RelativeValueProblem();
+      p4.setNotification(new IndividualCase(), IndividualCase.DIAGNOSISDATE);
+      p4.setAttributeDisplayLabel(IndividualCase.getDiagnosisDateMd().getDisplayLabel(Session.getCurrentLocale()));
+      p4.setRelation(MDSSProperties.getString("Compare_AE"));
+      p4.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.DIAGNOSISDATE), p4.getLocalizedMessage());
+      
+      CurrentDateProblem p5 = new CurrentDateProblem();
+      p5.setGivenDate(null);
+      p5.setCurrentDate(null);
+      p5.setNotification(new IndividualCase(), IndividualCase.CASEREPORTDATE);
+      master.addBasicConstraint(master.getAttributeByName(IndividualCase.CASEREPORTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p5.getLocalizedMessage());
+      
+      RelativeValueProblem p6 = new RelativeValueProblem();
+      p6.setNotification(new IndividualCase(), IndividualCase.CASEREPORTDATE);
+      p6.setAttributeDisplayLabel(IndividualCase.getCaseReportDateMd().getDisplayLabel(Session.getCurrentLocale()));
+      p6.setRelation(MDSSProperties.getString("Compare_AE"));
+      p6.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.CASEREPORTDATE), p6.getLocalizedMessage());
+      
+      CurrentDateProblem p7 = new CurrentDateProblem();
+      p7.setGivenDate(null);
+      p7.setCurrentDate(null);
+      p7.setNotification(new IndividualCase(), IndividualCase.HEMORRHAGICONSET);
+      master.addBasicConstraint(master.getAttributeByName(IndividualCase.HEMORRHAGICONSET), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p7.getLocalizedMessage());
+      
+      RelativeValueProblem p8 = new RelativeValueProblem();
+      p8.setNotification(new IndividualCase(), IndividualCase.HEMORRHAGICONSET);
+      p8.setAttributeDisplayLabel(IndividualCase.getHemorrhagicOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
+      p8.setRelation(MDSSProperties.getString("Compare_AE"));
+      p8.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.HEMORRHAGICONSET), p8.getLocalizedMessage());
+      
+      CurrentDateProblem p9 = new CurrentDateProblem();
+      p9.setGivenDate(null);
+      p9.setCurrentDate(null);
+      p9.setNotification(new IndividualCase(), IndividualCase.PLASMALEAKAGEONSET);
+      master.addBasicConstraint(master.getAttributeByName(IndividualCase.PLASMALEAKAGEONSET), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p9.getLocalizedMessage());
+      
+      RelativeValueProblem p10 = new RelativeValueProblem();
+      p10.setNotification(new IndividualCase(), IndividualCase.PLASMALEAKAGEONSET);
+      p10.setAttributeDisplayLabel(IndividualCase.getPlasmaLeakageOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
+      p10.setRelation(MDSSProperties.getString("Compare_AE"));
+      p10.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.PLASMALEAKAGEONSET), p10.getLocalizedMessage());
     }
     else if (mobileType.equals(IndividualIPTExcelView.CLASS))
     {

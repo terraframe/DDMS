@@ -31,4 +31,21 @@ public class InvalidGravidQuantityProblem extends InvalidGravidQuantityProblemBa
     super(developerMessage);
   }
   
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    
+    if (this.getGravid() == null || this.getGravid().equals(""))
+    {
+      message = message.replace("[{gravid}]", "");
+      message = message.replace("{gravid}", "");
+    }
+    else
+    {
+      message = replace(message, "{gravid}", this.getGravid());
+    }
+    
+    return message;
+  }
+  
 }
