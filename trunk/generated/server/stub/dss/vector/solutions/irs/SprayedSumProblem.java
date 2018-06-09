@@ -30,4 +30,33 @@ public class SprayedSumProblem extends SprayedSumProblemBase implements com.runw
     super(developerMessage);
   }
   
+  public java.lang.String localize(java.util.Locale locale)
+  {
+    java.lang.String message = super.localize(locale);
+    message = replace(message, "{objectLabel}", this.getObjectLabel());
+    
+    if (this.getObjects() == null)
+    {
+      message = message.replace("[{objects}]", "");
+      message = message.replace("{objects}", "");
+    }
+    else
+    {
+      message = replace(message, "{objects}", this.getObjects());
+    }
+    
+    message = replace(message, "{sprayedObjectLabel}", this.getSprayedObjectLabel());
+    
+    if (this.getSprayedObjects() == null)
+    {
+      message = message.replace("[{sprayedObjects}]", "");
+      message = message.replace("{sprayedObjects}", "");
+    }
+    else
+    {
+      message = replace(message, "{sprayedObjects}", this.getSprayedObjects());
+    }
+    
+    return message;
+  }
 }
