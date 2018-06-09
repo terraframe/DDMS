@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -13,7 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -24,6 +27,18 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -31,8 +46,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.tools.ant.filters.StringInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.google.common.io.Files;
 import com.runwaysdk.RunwayExceptionIF;
@@ -54,6 +73,7 @@ import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebSingleTermGridDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdWebForm;
@@ -112,7 +132,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
     try
     {
-//      ODK2Excel importer = new ODK2Excel(form, null);
+      // ODK2Excel importer = new ODK2Excel(form, null);
       ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
       Collection<String> allUUIDS = importer.getUUIDs();
 
@@ -218,9 +238,9 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             }
           }
         }
-        
+
         this.appLock();
-        this.setQueryCursor(importer.getCursor());
+        this.setQueryCursor(this.prepareCursor(importer.getCursor()));
         this.setLastExportDate(importer.getExportDateTime());
         this.apply();
       }
@@ -242,6 +262,71 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     }
 
     return status;
+  }
+
+  private String prepareCursor(String cursor)
+  {
+    try
+    {
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+      Calendar calendar = Calendar.getInstance();
+
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder docBuilder = factory.newDocumentBuilder();
+      Document document = docBuilder.parse(new StringInputStream(cursor));
+
+      XPathFactory xPathfactory = XPathFactory.newInstance();
+      XPath xpath = xPathfactory.newXPath();
+      XPathExpression expr = xpath.compile("//uriLastReturnedValue");
+
+      NodeList nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+
+      for (int i = 0; i < nodeList.getLength(); i++)
+      {
+        Node node = nodeList.item(i);
+        node.getParentNode().removeChild(node);
+      }
+
+      expr = xpath.compile("//attributeValue");
+
+      nodeList = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+
+      for (int i = 0; i < nodeList.getLength(); i++)
+      {
+        Node node = nodeList.item(i);
+        String content = node.getTextContent();
+
+        Date date = format.parse(content);
+        calendar.clear();
+        calendar.setTime(date);
+        calendar.add(Calendar.MILLISECOND, 1);
+        date = calendar.getTime();
+
+        String value = format.format(date) + "+0000";
+        node.setTextContent(value);
+      }
+
+      // 2018-06-08T19:24:02.949
+      //
+
+      TransformerFactory tFactory = TransformerFactory.newInstance();
+      Transformer transformer = tFactory.newTransformer();
+      // transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      // transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount",
+      // "2");
+
+      StringWriter sw = new StringWriter();
+      DOMSource source = new DOMSource(document);
+      transformer.transform(source, new StreamResult(sw));
+
+      return sw.toString();
+    }
+    catch (Exception e)
+    {
+      logger.error(e.getMessage());
+
+      return cursor;
+    }
   }
 
   private void copySheetIntoWorkbook(Workbook workbook, Sheet oldSheet, String name)
@@ -560,5 +645,28 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     query.AND(query.getDisease().EQ(disease));
 
     return ( query.getCount() > 0 );
+  }
+
+  public static MobileDataUploadJob getJob(String formType, Disease disease)
+  {
+    MobileDataUploadJobQuery query = new MobileDataUploadJobQuery(new QueryFactory());
+    query.WHERE(query.getFormType().EQ(formType));
+    query.AND(query.getDisease().EQ(disease));
+
+    OIterator<? extends MobileDataUploadJob> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
   }
 }
