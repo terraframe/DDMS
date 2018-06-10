@@ -200,7 +200,7 @@ public class ODKDataConverter implements Reloadable
           root.setValue(sourceAttribute, value);
         }
 
-        if (attribute.getCopyAttribute() != null)
+        if (attribute != null && attribute.getCopyAttribute() != null)
         {
           root.setOverride(attribute.getCopyAttribute(), value);
         }
