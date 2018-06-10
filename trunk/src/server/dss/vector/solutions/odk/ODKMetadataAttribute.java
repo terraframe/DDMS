@@ -46,7 +46,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), viewMdAttr.isRequired(), ReadableAttributeView.isVisible(sourceMdAttr));
+    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), sourceMdAttr.isRequired() || viewMdAttr.isRequired(), ReadableAttributeView.isVisible(sourceMdAttr));
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
     this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);

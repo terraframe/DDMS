@@ -966,7 +966,20 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(MosquitoCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(MosquitoCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
 
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(null);
+      p.setCurrentDate(null);
+      p.setNotification(new MosquitoCollection(), MosquitoCollectionExcelView.COLLECTIONDATE);
+      master.addBasicConstraint(master.getAttributeByName(MosquitoCollectionExcelView.COLLECTIONDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
+      
+      CurrentDateProblem p2 = new CurrentDateProblem();
+      p2.setGivenDate(null);
+      p2.setCurrentDate(null);
+      p2.setNotification(new MosquitoCollection(), MosquitoCollectionExcelView.DATELASTSPRAYED);
+      master.addBasicConstraint(master.getAttributeByName(MosquitoCollectionExcelView.DATELASTSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
+      
       ODKForm subc = new ODKForm(MosquitoCollectionExcelView.CLASS);
+      subc.addAttribute(SubCollection.getFemalesUnknownMd(), SubCollection.getFemalesUnknownMd());
       subc.buildAttributes(SubCollectionView.CLASS, MosquitoCollectionExcelView.customAttributeOrder(), null);
 
       ValueGreaterLimitProblem problem = new ValueGreaterLimitProblem();
@@ -977,6 +990,11 @@ public class ODKForm implements Reloadable
       subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.PUPAE), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.IMMATURE);
       subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.UNKNOWNS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.NOT_EQUALS, LifeStage.EGG);
       subc.addBasicRelevancy(subc.getAttributeByName(SubCollection.EGGS), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.EGG);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollectionView.FEMALESFED), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollectionView.FEMALESGRAVID), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollectionView.FEMALESHALFGRAVID), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollectionView.FEMALESUNFED), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
+      subc.addBasicRelevancy(subc.getAttributeByName(SubCollectionView.FEMALESUNKNOWN), master.getAttributeByName(MosquitoCollection.LIFESTAGE), ODKAttributeConditionOperation.EQUALS, LifeStage.ADULT);
 
       master.join(new RepeatFormJoin(master, subc));
     }
