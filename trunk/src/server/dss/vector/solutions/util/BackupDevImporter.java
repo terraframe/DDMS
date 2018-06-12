@@ -121,6 +121,8 @@ public class BackupDevImporter
   
   private File fDestSrcRoot;
   
+  private File fDestJspSrcRoot;
+  
   private File fBackup;
   
   /**
@@ -537,7 +539,7 @@ public class BackupDevImporter
     
     // Copy source of universals
     String geoGen = "/dss/vector/solutions/geo/generated";
-    File geoGenDest = new File(fDestSrcRoot, geoGen);
+    File geoGenDest = new File(fDestSrcRoot + File.separator + "java", geoGen);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/stub" + geoGen), geoGenDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/base" + geoGen), geoGenDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/base" + geoGen), geoGenDest, filenameFilter);
@@ -545,7 +547,7 @@ public class BackupDevImporter
     
     // and generated forms
     String formGen = "/dss/vector/solutions/form/business";
-    File formGenDest = new File(fDestSrcRoot, formGen);
+    File formGenDest = new File(fDestSrcRoot + File.separator + "java", formGen);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/stub" + formGen), formGenDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/base" + formGen), formGenDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/base" + formGen), formGenDest, filenameFilter);
@@ -553,13 +555,35 @@ public class BackupDevImporter
     
     // and generated form's relationships
     String formGenRel = "/dss/vector/solutions/form/tree";
-    File formGenRelDest = new File(fDestSrcRoot, formGenRel);
+    File formGenRelDest = new File(fDestSrcRoot + File.separator + "java", formGenRel);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/stub" + formGenRel), formGenRelDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/server/base" + formGenRel), formGenRelDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/base" + formGenRel), formGenRelDest, filenameFilter);
     copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/source/client/stub" + formGenRel), formGenRelDest, filenameFilter);
     
     deleteDuplicateWebappSource();
+    
+    // JSP source
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/" + geoGen), new File(fDestSrcRoot + File.separator + "jsp", geoGen), filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/" + formGen), new File(fDestSrcRoot + File.separator + "jsp", formGen), filenameFilter);
+    copyFolderIfExist(new File(fBackupWebapp, "WEB-INF/" + formGenRel), new File(fDestSrcRoot + File.separator + "jsp", formGenRel), filenameFilter);
+    
+    // Delete duplicate JSP source
+    String sDevSrcBackup = fDestSrcRoot.getAbsolutePath() + File.separator + "jsp";
+    for (String sDup : duplicateSource)
+    {
+      String sName = sDup.replace(".", File.separator);
+      File fDel = new File(sDevSrcBackup + File.separator + sName);
+      
+      try
+      {
+        FileIO.deleteFolderContent(fDel, null);
+      }
+      catch (IOException e)
+      {
+        this.logger.warn("This error happened while deleting the duplicate jsp content", e);
+      }
+    }
     
     modifyProperties();
   }
@@ -622,7 +646,7 @@ public class BackupDevImporter
    */
   private void deleteDuplicateWebappSource()
   {
-    String sDevSrcBackup = fDestSrcRoot.getAbsolutePath();
+    String sDevSrcBackup = fDestSrcRoot.getAbsolutePath() + File.separator + "java";
     
     for (String sDup : duplicateSource)
     {

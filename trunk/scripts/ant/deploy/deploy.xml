@@ -21,7 +21,7 @@
 		<pathelement location="${client.bin}" />
 		<pathelement location="${server.bin}" />
 		<pathelement location="${common.bin}" />
-		<pathelement location="${local.src}/backup" />
+		<pathelement location="${local.src}/backup/java" />
 	</path>
 	
 	<property name="myclasspath" refid="framework.classpath"/>
@@ -600,6 +600,11 @@
 				<include name="dist/**" />
 			</fileset>
 		</copy>
+		<copy toDir="${deploy.path}/WEB-INF" overwrite="true">
+      <fileset dir="${local.src}/backup/jsp">
+        <include name="**/*.jsp" />
+      </fileset>
+    </copy>
 	</target>
 
 	<!-- deploy application specific files -->

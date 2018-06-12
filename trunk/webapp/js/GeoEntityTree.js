@@ -862,10 +862,13 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
 
       if (parent == null || parentGeoEntityView == null)
       {
-        geoEntity.remove(request);
+    	dss.vector.solutions.geo.generated.GeoEntity.remove(request, geoEntity.getId());
+//        geoEntity.remove(request);
       } else
       {
-        geoEntity.confirmDeleteEntity(request, parentGeoEntityView.getGeoEntityId());
+    	// Its better to invoke the method on the static class and then pass in our id because it doesn't serialize the entire GeoEntity object with all its geometries and everything
+    	dss.vector.solutions.geo.generated.GeoEntity.confirmDeleteEntity(request, geoEntity.getId(), parentGeoEntityView.getGeoEntityId());
+//        geoEntity.confirmDeleteEntity(request, parentGeoEntityView.getGeoEntityId());
       }
     },
 
