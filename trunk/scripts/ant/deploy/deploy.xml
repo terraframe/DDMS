@@ -600,7 +600,7 @@
 				<include name="dist/**" />
 			</fileset>
 		</copy>
-		<copy toDir="${deploy.path}/WEB-INF" overwrite="true">
+		<copy toDir="${deploy.path}/WEB-INF" overwrite="true" failonerror="false">
       <fileset dir="${local.src}/backup/jsp">
         <include name="**/*.jsp" />
       </fileset>
