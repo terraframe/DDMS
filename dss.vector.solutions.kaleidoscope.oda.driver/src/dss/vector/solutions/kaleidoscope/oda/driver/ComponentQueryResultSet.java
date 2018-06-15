@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -67,6 +68,8 @@ public class ComponentQueryResultSet implements IResultSet
   private int                                rowNumber;
 
   private List<String>                       attributeNames;
+  
+  private Boolean                            wasNull;
 
   public ComponentQueryResultSet(RemoteQueryIF query)
   {
@@ -77,6 +80,7 @@ public class ComponentQueryResultSet implements IResultSet
 
     this.current = null;
     this.rowNumber = -1;
+    this.wasNull = false;
   }
 
   private String getAttributeName(int index)
@@ -105,18 +109,31 @@ public class ComponentQueryResultSet implements IResultSet
   @Override
   public BigDecimal getBigDecimal(String columnName) throws OdaException
   {
-    return new BigDecimal(this.current.getValue(columnName));
+    String val = this.current.getValue(columnName);
+    
+    if (val == null)
+    {
+      wasNull = true;
+      return null;
+    }
+    else
+    {
+      wasNull = false;
+      return new BigDecimal(val);
+    }
   }
 
   @Override
   public IBlob getBlob(int index) throws OdaException
   {
+    wasNull = true;
     return null;
   }
 
   @Override
   public IBlob getBlob(String columnName) throws OdaException
   {
+    wasNull = true;
     return null;
   }
 
@@ -129,18 +146,31 @@ public class ComponentQueryResultSet implements IResultSet
   @Override
   public boolean getBoolean(String columnName) throws OdaException
   {
-    return new Boolean(this.current.getValue(columnName));
+    String val = this.current.getValue(columnName);
+    
+    if (val == null)
+    {
+      wasNull = true;
+      return false;
+    }
+    else
+    {
+      wasNull = false;
+      return new Boolean(val);
+    }
   }
 
   @Override
   public IClob getClob(int index) throws OdaException
   {
+    wasNull = true;
     return null;
   }
 
   @Override
   public IClob getClob(String columnName) throws OdaException
   {
+    wasNull = true;
     return null;
   }
 
@@ -157,9 +187,11 @@ public class ComponentQueryResultSet implements IResultSet
 
     if (value != null)
     {
+      wasNull = false;
       return new Date(value.getTime());
     }
 
+    wasNull = true;
     return null;
   }
 
@@ -174,7 +206,16 @@ public class ComponentQueryResultSet implements IResultSet
   {
     Double value = MdAttributeDoubleUtil.getTypeSafeValue(this.current.getValue(columnName));
 
-    return ( value != null ? value.doubleValue() : 0D );
+    if (value == null)
+    {
+      wasNull = true;
+      return 0d;
+    }
+    else
+    {
+      wasNull = false;
+      return value.doubleValue();
+    }
   }
 
   @Override
@@ -188,7 +229,16 @@ public class ComponentQueryResultSet implements IResultSet
   {
     Integer value = MdAttributeIntegerUtil.getTypeSafeValue(this.current.getValue(columnName));
 
-    return ( value != null ? value.intValue() : 0 );
+    if (value == null)
+    {
+      wasNull = true;
+      return Types.NULL;
+    }
+    else
+    {
+      wasNull = false;
+      return value.intValue();
+    }
   }
 
   @Override
@@ -206,7 +256,18 @@ public class ComponentQueryResultSet implements IResultSet
   @Override
   public Object getObject(String columnName) throws OdaException
   {
-    return this.current.getValue(columnName);
+    String value = this.current.getValue(columnName);
+    
+    if (value == null)
+    {
+      wasNull = true;
+      return null;
+    }
+    else
+    {
+      wasNull = false;
+      return value;
+    }
   }
 
   @Override
@@ -224,7 +285,18 @@ public class ComponentQueryResultSet implements IResultSet
   @Override
   public String getString(String columnName) throws OdaException
   {
-    return this.current.getValue(columnName);
+    String value = this.current.getValue(columnName);
+    
+    if (value == null)
+    {
+      wasNull = true;
+      return null;
+    }
+    else
+    {
+      wasNull = false;
+      return value;
+    }
   }
 
   @Override
@@ -240,9 +312,11 @@ public class ComponentQueryResultSet implements IResultSet
 
     if (value != null)
     {
+      wasNull = false;
       return new Time(value.getTime());
     }
 
+    wasNull = true;
     return null;
   }
 
@@ -259,15 +333,19 @@ public class ComponentQueryResultSet implements IResultSet
 
     if (value != null)
     {
+      wasNull = false;
       return new Timestamp(value.getTime());
     }
 
+    wasNull = true;
     return null;
   }
 
   @Override
   public boolean next() throws OdaException
   {
+    wasNull = false;
+    
     if (this.iterator.hasNext())
     {
       this.current = this.iterator.next();
@@ -288,7 +366,7 @@ public class ComponentQueryResultSet implements IResultSet
   @Override
   public boolean wasNull() throws OdaException
   {
-    return ( this.current == null );
+    return wasNull;
   }
 
 }
