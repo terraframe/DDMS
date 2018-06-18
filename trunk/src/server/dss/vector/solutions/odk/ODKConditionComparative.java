@@ -2,10 +2,11 @@ package dss.vector.solutions.odk;
 
 import com.runwaysdk.business.BusinessEnumeration;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
 
-public class ODKConditionComparative
+public class ODKConditionComparative implements Reloadable
 {
   private Object comparative;
   
