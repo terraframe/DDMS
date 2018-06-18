@@ -3,7 +3,9 @@ package dss.vector.solutions.etl;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class EndpointUrl
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class EndpointUrl implements Reloadable
 {
   String protocol;
   

@@ -21,9 +21,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 
-public class SecureHttpConnector
+public class SecureHttpConnector implements Reloadable
 {
   CloseableHttpClient client;
   
