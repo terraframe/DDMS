@@ -93,6 +93,7 @@ public class Converter implements ConverterIF, Reloadable
 
       BusinessDAO business = this.context.getOrCreateMutable(source.getType(), oid);
       boolean hasValues = false;
+      boolean valid = true;
 
       for (TargetFieldIF field : fields)
       {
@@ -120,6 +121,8 @@ public class Converter implements ConverterIF, Reloadable
         else
         {
           this.problems.add((ImportProblemIF) fValue);
+
+          valid = false;
         }
       }
 
@@ -142,7 +145,10 @@ public class Converter implements ConverterIF, Reloadable
 
         strategy.handle(business);
 
-        this.monitor.entityImported(business.getId());
+        if (valid)
+        {
+          this.monitor.entityImported(business.getId());
+        }
       }
     }
     catch (ExclusionException e)
