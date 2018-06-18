@@ -179,7 +179,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
     RoleDAO role = this.getRole().getBusinessDAO();
 
-    boolean before = this.hasODKRole();
+    int before = this.getODKRole();
 
     for (PermissionView view : permissions)
     {
@@ -205,7 +205,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
       }
     }
 
-    boolean after = this.hasODKRole();
+    int after = this.getODKRole();
 
     if (before != after)
     {
@@ -213,7 +213,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
     }
   }
 
-  public boolean hasODKRole()
+  public int getODKRole()
   {
     // If the person is an ODK user update the password
     SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);
@@ -226,11 +226,11 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
     RoleDAO role = this.getRole().getBusinessDAO();
     Set<RoleDAOIF> roles = role.getSuperRoles();
 
-    boolean isRead = roles.contains(read);
-    boolean isWrite = roles.contains(write);
-    boolean isAdmin = roles.contains(admin);
+    int isRead = roles.contains(read) ? 100 : 0;
+    int isWrite = roles.contains(write) ? 10 : 0;
+    int isAdmin = roles.contains(admin) ? 1 : 0;
 
-    return ( isRead || isWrite || isAdmin );
+    return ( isRead + isWrite + isAdmin );
   }
 
   @Override
