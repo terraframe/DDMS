@@ -30,6 +30,7 @@ import com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeLongDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
@@ -46,7 +47,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
-    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), sourceMdAttr.isRequired() || viewMdAttr.isRequired(), ReadableAttributeView.isVisible(sourceMdAttr));
+    super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), calculateRequired(sourceMdAttr, viewMdAttr), ReadableAttributeView.isVisible(sourceMdAttr));
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
     this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
@@ -66,6 +67,19 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
     this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
+  }
+  
+  public static boolean calculateRequired(MdAttributeDAOIF sourceMdAttr2, MdAttributeDAOIF viewMdAttr2)
+  {
+    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+    
+    boolean required = sourceMdAttr2.isRequired() || viewMdAttr2.isRequired();
+    
+    required = required || sourceMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
+    
+    required = required || viewMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
+    
+    return required;
   }
   
   public MdAttributeDAOIF getSourceMdAttribute()

@@ -37,7 +37,7 @@ public class ODKMultiTermAttribute extends ODKMetadataAttribute implements Reloa
       String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey();
       String label = viewMdAttr.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
       String type = "boolean";
-      boolean required = sourceMdAttr.isRequired();
+      boolean required = ODKMetadataAttribute.calculateRequired(sourceMdAttr, viewMdAttr);
 
       gridAttrs.add(new ODKAttributeBoolean(this.getContainingForm(), sourceMdAttr, viewMdAttr, type, name, label, label, required, positiveLabel, negativeLabel));
     }
