@@ -259,6 +259,43 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     
     return ids;
   }
+  
+  public static java.lang.String updateFromTreeWithOptional(String id, java.lang.Boolean activated, java.lang.String name, java.lang.String geometry, java.lang.String geoId, java.lang.String term)
+  {
+    GeoEntity geo = GeoEntity.get(id);
+    geo.appLock();
+    
+    geo.setActivated(activated);
+    geo.getEntityLabel().setValue(name);
+    geo.setGeoId(geoId);
+    
+    if (geometry != null)
+    {
+      geo.setGeoData(geometry);
+    }
+    
+    if (term != null)
+    {
+      geo.setTermId(term);
+    }
+    
+    String[] subIds = geo.updateFromTree();
+    JSONArray jArr = new JSONArray();
+    for (String subId : subIds)
+    {
+      jArr.put(subId);
+    }
+    
+    JSONObject json = new JSONObject();
+    try {
+      json.put("ids", jArr);
+      json.put("geoEntityId", geo.getId());
+    } catch (JSONException e) {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    return json.toString();
+  }
 
   /**
    * Updates this GeoEntity and its children if its activated attribute has been modified.

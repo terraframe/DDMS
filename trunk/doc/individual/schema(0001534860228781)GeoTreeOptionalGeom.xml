@@ -1,0 +1,24 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod name="updateFromTreeWithOptional" label="updateFromTreeWithOptional" static="true" returnType="java.lang.String">
+            <mdParameter name="id" label="name" order="0" type="java.lang.String"/>
+            <mdParameter name="activated" label="activated" order="1" type="java.lang.Boolean"/>
+            <mdParameter name="name" label="name" order="2" type="java.lang.String"/>
+            <mdParameter name="geometry" label="geometry" order="3" type="java.lang.String"/>
+            <mdParameter name="geoId" label="geoId" order="4" type="java.lang.String"/>
+            <mdParameter name="term" label="term" order="5" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.geo.generated.GeoEntity.updateFromTreeWithOptional" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

@@ -177,7 +177,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       geoEntity.getEntityLabel().setLocalizedValue(entityLabel);
       geoEntity.setGeoId(geoId);
       geoEntity.setActivated(activated);
-      geoEntity.setGeoData(geoData);
+      
+      if (!(geoEntity.getGeoData() === geoData))
+      {
+        geoEntity.setGeoData(geoData);
+      }
 
       if (term != null)
       {
@@ -299,15 +303,25 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     {
       this._setGeoEntityAttributes(params, geoEntity);
 
+      var myGeo = geoEntity;
       var that = this;
       var request = new MDSS.Request({
-        onSuccess : function(ids, geoEntity)
+        onSuccess : function(strJson)
         {
-          that._performUpdate2(ids, geoEntity);
+          var json = Mojo.Util.toObject(strJson);
+          myGeo.id = json.geoEntityId;
+          
+          that._performUpdate2(json.ids, myGeo);
         }
       });
-
-      geoEntity.updateFromTree(request);
+      
+      var geoData = null;
+      if (geoEntity.isGeoDataModified())
+      {
+        geoData = geoEntity.getGeoData();
+      }
+      
+      dss.vector.solutions.geo.generated.GeoEntity.updateFromTreeWithOptional(request, geoEntity.getId(), geoEntity.getActivated(), geoEntity.getEntityLabel().getLocalizedValue(), geoData, geoEntity.getGeoId(), geoEntity.getValue("term"));
     },
 
     /**

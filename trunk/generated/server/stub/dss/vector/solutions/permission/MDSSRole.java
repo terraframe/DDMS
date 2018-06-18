@@ -83,7 +83,7 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
   @Transaction
   public void delete()
   {
-    boolean hasODK = this.hasODKRole();
+    int odkRoles = this.getODKRoles();
 
     InstallProperties.validateMasterOperation();
 
@@ -91,7 +91,7 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
 
     this.getRole().delete();
 
-    if (hasODK)
+    if (odkRoles != 0)
     {
       ODKPermissionExporter.export();
     }
@@ -121,7 +121,7 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
     return view;
   }
 
-  public boolean hasODKRole()
+  public int getODKRoles()
   {
     // If the person is an ODK user update the password
     SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);
@@ -134,11 +134,11 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
     RoleDAOIF role = RoleDAO.get(this.getId());
     Set<RoleDAOIF> roles = role.getSuperRoles();
 
-    boolean isRead = roles.contains(read);
-    boolean isWrite = roles.contains(write);
-    boolean isAdmin = roles.contains(admin);
+    int isRead = roles.contains(read) ? 100 : 0;
+    int isWrite = roles.contains(write) ? 10 : 0;
+    int isAdmin = roles.contains(admin) ? 1 : 0;
 
-    return ( isRead || isWrite || isAdmin );
+    return ( isRead + isWrite + isAdmin );
   }
 
   public static Roles[] getRoles()

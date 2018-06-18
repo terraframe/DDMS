@@ -179,7 +179,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
     RoleDAO role = this.getRole().getBusinessDAO();
 
-    int before = this.getODKRole();
+    int before = this.getODKRoles();
 
     for (PermissionView view : permissions)
     {
@@ -205,7 +205,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
       }
     }
 
-    int after = this.getODKRole();
+    int after = this.getODKRoles();
 
     if (before != after)
     {
@@ -213,7 +213,7 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
     }
   }
 
-  public int getODKRole()
+  public int getODKRoles()
   {
     // If the person is an ODK user update the password
     SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);

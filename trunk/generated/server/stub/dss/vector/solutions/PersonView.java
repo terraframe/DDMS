@@ -183,7 +183,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       settings.setDisease(this.getDisease());
       settings.apply();
 
-      if (user.hasODKRole() && this.getPassword().length() > 0)
+      if (user.getODKRoles() != 0 && this.getPassword().length() > 0)
       {
         ODKPasswordExporter.export(user, this.getPassword());
       }

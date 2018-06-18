@@ -85,13 +85,13 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
   @Override
   public void delete()
   {
-    boolean isODK = this.hasODKRole();
+    int odkRoles = this.getODKRoles();
 
     UserSettings.deleteIfExists(this);
 
     super.delete();
 
-    if (isODK)
+    if (odkRoles != 0)
     {
       ODKPermissionExporter.export();
     }
@@ -117,7 +117,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     // You need to do an explict CRUD check on the Assignments
     // class to ensure that the user has permission to
     // assign permissions
-    boolean before = this.hasODKRole();
+    int before = this.getODKRoles();
 
     SessionIF session = Session.getCurrentSession();
 
@@ -156,7 +156,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
       role.assignMember(userDAO);
     }
 
-    boolean after = this.hasODKRole();
+    int after = this.getODKRoles();
 
     if (before != after)
     {
@@ -200,7 +200,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     return Disease.MALARIA;
   }
 
-  public boolean hasODKRole()
+  public int getODKRoles()
   {
     // If the person is an ODK user update the password
     SystemURL captureURL = SystemURL.getByName(SystemURL.ODK_DATA_CAPTURE);
@@ -213,11 +213,11 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     UserDAOIF userDAO = UserDAO.get(this.getId());
     Set<RoleDAOIF> roles = userDAO.authorizedRoles();
 
-    boolean isRead = roles.contains(read);
-    boolean isWrite = roles.contains(write);
-    boolean isAdmin = roles.contains(admin);
+    int isRead = roles.contains(read) ? 100 : 0;
+    int isWrite = roles.contains(write) ? 10 : 0;
+    int isAdmin = roles.contains(admin) ? 1 : 0;
 
-    return ( isRead || isWrite || isAdmin );
+    return ( isRead + isWrite + isAdmin );
   }
 
   @Request
