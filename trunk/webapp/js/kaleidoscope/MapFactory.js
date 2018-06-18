@@ -1197,7 +1197,7 @@
           	  }
               
               if(bBox !== undefined) {
-                map.getView().fit(bBox, map.getSize());            	  
+                map.getView().fit(bBox, map.getSize(), {constrainResolution:false});            	  
               }
             };
           };
