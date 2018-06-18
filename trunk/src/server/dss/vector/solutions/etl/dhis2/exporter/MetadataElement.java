@@ -19,13 +19,15 @@ package dss.vector.solutions.etl.dhis2.exporter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 /**
  * Represents a piece of DHIS2 metadata. Ideally should be the base class of all operations dealing with DHIS2 metadata.
  * 
  * @author rrowlands
  *
  */
-public class MetadataElement
+public class MetadataElement implements Reloadable
 {
   private static final String append = " ";
   
