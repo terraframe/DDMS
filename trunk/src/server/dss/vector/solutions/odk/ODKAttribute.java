@@ -244,6 +244,11 @@ public class ODKAttribute implements Reloadable
 
   public boolean isRequired()
   {
+    if (this.getContainingForm().getParent() != null)
+    {
+      return false;
+    }
+    
     return required;
   }
 
@@ -284,7 +289,7 @@ public class ODKAttribute implements Reloadable
     bind.setAttribute("nodeset", "/" + title + "/" + attributeName);
     bind.setAttribute("type", this.getODKType());
 
-    if (this.required)
+    if (isRequired())
     {
       bind.setAttribute("required", "true()");
     }

@@ -71,13 +71,15 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   
   public static boolean calculateRequired(MdAttributeDAOIF sourceMdAttr2, MdAttributeDAOIF viewMdAttr2)
   {
-    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
-    
     boolean required = sourceMdAttr2.isRequired() || viewMdAttr2.isRequired();
     
-    required = required || sourceMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
-    
-    required = required || viewMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
+    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+    if (mdDimension != null)
+    {
+      required = required || sourceMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
+      
+      required = required || viewMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
+    }
     
     return required;
   }
