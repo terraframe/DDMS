@@ -24,6 +24,7 @@ import org.w3c.dom.Element;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDecimalDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDoubleDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeFloatDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF;
@@ -68,7 +69,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     this.viewMdAttr = viewMdAttr;
     this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
   }
-  
+
   public static boolean calculateRequired(MdAttributeDAOIF sourceMdAttr2, MdAttributeDAOIF viewMdAttr2)
   {
     boolean required = sourceMdAttr2.isRequired() || viewMdAttr2.isRequired();
@@ -100,6 +101,20 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     Element attrNode = document.createElement(attributeName);
 
     String def = sourceMdAttr.getDefaultValue();
+
+    if (def == null || def.length() == 0)
+    {
+      def = sourceMdAttr.getMdAttributeConcrete().getDefaultValue();
+    }
+
+    if (def == null || def.length() == 0)
+    {
+      MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+      MdAttributeDimensionDAOIF mdAttributeDimension = this.sourceMdAttr.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
+
+      def = mdAttributeDimension.getDefaultValue();
+    }
+
     attrNode.setTextContent(def);
 
     parent.appendChild(attrNode);

@@ -7,7 +7,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -19,6 +21,7 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRootQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
 
 public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
@@ -39,12 +42,12 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 
   public static String sanitizeTermId(String termId)
   {
-    return termId.replaceAll(":", "__COLON__");
+    return termId.replaceAll(":", "__COLON__").replaceAll(" ", "__SPACE__");
   }
 
   public static String reverseTermIdSanitization(String sanitizedTermId)
   {
-    return sanitizedTermId.replaceAll("__COLON__", ":");
+    return sanitizedTermId.replaceAll("__COLON__", ":").replaceAll("__SPACE__", " ");
   }
 
   public synchronized long getCount()
@@ -124,6 +127,26 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
       }
 
     }
+  }
+
+  @Override
+  public void writeInstance(Element parent, Document document, String title, int maxDepth)
+  {
+    Element attrNode = document.createElement(attributeName);
+
+    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
+    MdAttributeDimensionDAOIF mdAttributeDimension = this.sourceMdAttr.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
+
+    String id = mdAttributeDimension.getDefaultValue();
+
+    if (id != null && id.length() > 0)
+    {
+      Term term = Term.get(id);
+
+      attrNode.setTextContent(ODKTermAttribute.sanitizeTermId(term.getTermId()));
+    }
+
+    parent.appendChild(attrNode);
   }
 
   @Override
