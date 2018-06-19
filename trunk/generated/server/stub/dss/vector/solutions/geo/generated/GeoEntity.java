@@ -276,7 +276,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     
     if (term != null)
     {
-      geo.setTermId(term);
+      geo.setValue(GeoEntity.TERM, term);
     }
     
     String[] subIds = geo.updateFromTree();
