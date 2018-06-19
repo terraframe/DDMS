@@ -51,7 +51,7 @@ public class GroupFormJoin extends ODKFormJoin implements Reloadable
 
     Element label = document.createElement("label");
     group.appendChild(label);
-    label.setTextContent(child.getViewMd().getDisplayLabel(Session.getCurrentLocale()));
+    label.setTextContent(child.getFormTitle());
 
     child.writeBody(group, document, context + "/" + child.getFormId(), maxDepth);
   }

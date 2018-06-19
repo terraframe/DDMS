@@ -244,11 +244,6 @@ public class ODKAttribute implements Reloadable
 
   public boolean isRequired()
   {
-    if (this.getContainingForm().getParent() != null)
-    {
-      return false;
-    }
-    
     return required;
   }
 

@@ -51,7 +51,7 @@ public class RepeatFormJoin extends ODKFormJoin implements Reloadable
 
     Element label = document.createElement("label");
     group.appendChild(label);
-    label.setTextContent(child.getViewMd().getDisplayLabel(Session.getCurrentLocale()));
+    label.setTextContent(child.getFormTitle());
 
     Element repeatEl = document.createElement("repeat");
     group.appendChild(repeatEl);
@@ -66,6 +66,7 @@ public class RepeatFormJoin extends ODKFormJoin implements Reloadable
 
     Element repeatRoot = document.createElement(child.getFormId());
     repeatRoot.setAttribute("id", child.getFormId());
+    repeatRoot.setAttribute("jr:template", "");
     parent.appendChild(repeatRoot);
 
     child.writeInstance(repeatRoot, document, child.getFormId(), maxDepth);
