@@ -653,7 +653,7 @@ public class ODKForm implements Reloadable
     }
   }
 
-  public static class DefaultODKAttributeMapper implements ODKAttributeMapper
+  public static class DefaultODKAttributeMapper implements ODKAttributeMapper, Reloadable
   {
     public MdAttributeDAOIF getViewAttr(MdAttributeDAOIF sourceAttr, MdClassDAOIF sourceMdc, MdClassDAOIF viewMdc)
     {
