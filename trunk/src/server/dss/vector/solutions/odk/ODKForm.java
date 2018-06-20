@@ -374,6 +374,11 @@ public class ODKForm implements Reloadable
       join.getChild().validate();
     }
   }
+  
+  public boolean isMultiTermAttribute(String attributeName)
+  {
+    return ( this.getAttributeByName(attributeName) instanceof ODKMultiTermAttribute );
+  }
 
   public boolean isStructAttribute(String sourceAttribute)
   {
@@ -784,7 +789,7 @@ public class ODKForm implements Reloadable
   {
     return joins;
   }
-  
+
   public void addBasicConstraint(ODKAttribute definingAttr, ODKAttribute comparativeAttr, ODKAttributeConditionOperation operation, Object comparative, String msg)
   {
     if (comparative instanceof MdAttributeDAOIF)
@@ -933,13 +938,13 @@ public class ODKForm implements Reloadable
       p.setCurrentDate(null);
       p.setNotification(new ControlIntervention(), ControlIntervention.STARTDATE);
       master.addBasicConstraint(master.getAttributeByName(ControlIntervention.STARTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
-      
+
       CurrentDateProblem p2 = new CurrentDateProblem();
       p2.setGivenDate(null);
       p2.setCurrentDate(null);
       p2.setNotification(new ControlIntervention(), ControlIntervention.ENDDATE);
       master.addBasicConstraint(master.getAttributeByName(ControlIntervention.ENDDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
-      
+
       LinkedList<ODKAttribute> attributes = master.getAttributes();
 
       for (ODKAttribute attribute : attributes)
@@ -993,13 +998,13 @@ public class ODKForm implements Reloadable
       p.setCurrentDate(null);
       p.setNotification(new MosquitoCollection(), MosquitoCollectionExcelView.COLLECTIONDATE);
       master.addBasicConstraint(master.getAttributeByName(MosquitoCollectionExcelView.COLLECTIONDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
-      
+
       CurrentDateProblem p2 = new CurrentDateProblem();
       p2.setGivenDate(null);
       p2.setCurrentDate(null);
       p2.setNotification(new MosquitoCollection(), MosquitoCollectionExcelView.DATELASTSPRAYED);
       master.addBasicConstraint(master.getAttributeByName(MosquitoCollectionExcelView.DATELASTSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
-      
+
       ODKForm subc = new ODKForm(MosquitoCollectionExcelView.CLASS);
       subc.setFormTitle(MdClassDAO.getMdClassDAO(SubCollection.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       subc.addAttribute(SubCollection.getFemalesUnknownMd(), SubCollection.getFemalesUnknownMd());
@@ -1051,7 +1056,7 @@ public class ODKForm implements Reloadable
       master.removeAttribute(AggregatedITNExcelView.getGeoEntityMd().definesAttribute());
 
       master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
-      
+
       NumberSoldProblem problem = new NumberSoldProblem();
       problem.setNotification(new ITNData(), AggregatedITNExcelView.NUMBERSOLD);
       master.addBasicConstraint(master.getAttributeByName(AggregatedITNExcelView.NUMBERSOLD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(AggregatedITNExcelView.NUMBERDISTRIBUTED), problem.getLocalizedMessage());
@@ -1071,41 +1076,41 @@ public class ODKForm implements Reloadable
       master.removeAttribute(EfficacyAssayExcelView.getGeoEntityMd().definesAttribute());
 
       master.buildAttributes(attrMappings, EfficacyAssayExcelView.customAttributeOrder());
-      
+
       ODKStructAttribute structAttr = (ODKStructAttribute) master.getAttributeByName(EfficacyAssayExcelView.AGERANGE);
-      
+
       InvalidAgeProblem p = new InvalidAgeProblem();
       p.setAge(null);
       p.setNotification(new AdultAgeRange(), AdultAgeRange.STARTPOINT);
       master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, p.getLocalizedMessage());
       master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, "");
-      
+
       InvalidAgeProblem p2 = new InvalidAgeProblem();
       p2.setAge(null);
       p2.setNotification(new AdultAgeRange(), AdultAgeRange.ENDPOINT);
       master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.ENDPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, p2.getLocalizedMessage());
       master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.ENDPOINT), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, "");
-      
+
       InvalidAgeRangeProblem p3 = new InvalidAgeRangeProblem();
       p3.setStartPoint(null);
       p3.setEndPoint(null);
       p3.setNotification(new AdultAgeRange(), AdultAgeRange.STARTPOINT);
       master.addBasicConstraint(structAttr.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, structAttr.getAttribute(AdultAgeRange.ENDPOINT), p3.getLocalizedMessage());
-      
+
       ControlMortalityException cme = new ControlMortalityException();
       master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.CONTROLTESTMORTALITY), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, cme.getLocalizedMessage());
-      
+
       InvalidDeadQuantityProblem idq = new InvalidDeadQuantityProblem();
       idq.setQuantityDead(null);
       idq.setQuantityTested(null);
       idq.setNotification(new EfficacyAssay(), EfficacyAssayExcelView.QUANTITYDEAD);
       master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.QUANTITYDEAD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(EfficacyAssayExcelView.QUANTITYTESTED), idq.getLocalizedMessage());
-      
+
       InvalidFedQuantityProblem qfp = new InvalidFedQuantityProblem();
       qfp.setFed(null);
       qfp.setNotification(new EfficacyAssay(), EfficacyAssayExcelView.FED);
       master.addBasicConstraint(master.getAttributeByName(EfficacyAssayExcelView.QUANTITYTESTED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(EfficacyAssayExcelView.FED), qfp.getLocalizedMessage());
-      
+
       InvalidGravidQuantityProblem igq = new InvalidGravidQuantityProblem();
       igq.setGravid(null);
       igq.setNotification(new EfficacyAssay(), EfficacyAssayExcelView.GRAVID);
@@ -1134,70 +1139,69 @@ public class ODKForm implements Reloadable
 
       ODKForm instance = new ODKForm(IndividualCaseExcelView.CLASS);
       instance.setFormTitle(MdClassDAO.getMdClassDAO(IndividualCase.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      instance.addAttribute(new ODKMultiTermAttribute(instance, IndividualInstance.getSymptomMd(), IndividualInstance.getSymptomMd()));
+      instance.addAttribute(new ODKMultiTermAttribute(instance, IndividualInstance.getSymptomMd(), IndividualInstance.getSymptomMd(), master.exportedTerms));
       instance.buildAttributes(IndividualInstance.CLASS, IndividualCaseExcelView.customAttributeOrder(), null);
 
       master.join(new RepeatFormJoin(master, instance));
-      
-      
+
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(null);
       p.setCurrentDate(null);
       p.setNotification(new IndividualCase(), IndividualCase.SYMPTOMONSET);
       master.addBasicConstraint(master.getAttributeByName(IndividualCase.SYMPTOMONSET), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
-      
+
       RelativeValueProblem p2 = new RelativeValueProblem();
       p2.setNotification(new IndividualCase(), IndividualCase.SYMPTOMONSET);
       p2.setAttributeDisplayLabel(IndividualCase.getSymptomOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
       p2.setRelation(MDSSProperties.getString("Compare_AE"));
       p2.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
       master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.SYMPTOMONSET), p2.getLocalizedMessage());
-      
+
       CurrentDateProblem p3 = new CurrentDateProblem();
       p3.setGivenDate(null);
       p3.setCurrentDate(null);
       p3.setNotification(new IndividualCase(), IndividualCase.DIAGNOSISDATE);
       master.addBasicConstraint(master.getAttributeByName(IndividualCase.DIAGNOSISDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p3.getLocalizedMessage());
-      
+
       RelativeValueProblem p4 = new RelativeValueProblem();
       p4.setNotification(new IndividualCase(), IndividualCase.DIAGNOSISDATE);
       p4.setAttributeDisplayLabel(IndividualCase.getDiagnosisDateMd().getDisplayLabel(Session.getCurrentLocale()));
       p4.setRelation(MDSSProperties.getString("Compare_AE"));
       p4.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
       master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.DIAGNOSISDATE), p4.getLocalizedMessage());
-      
+
       CurrentDateProblem p5 = new CurrentDateProblem();
       p5.setGivenDate(null);
       p5.setCurrentDate(null);
       p5.setNotification(new IndividualCase(), IndividualCase.CASEREPORTDATE);
       master.addBasicConstraint(master.getAttributeByName(IndividualCase.CASEREPORTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p5.getLocalizedMessage());
-      
+
       RelativeValueProblem p6 = new RelativeValueProblem();
       p6.setNotification(new IndividualCase(), IndividualCase.CASEREPORTDATE);
       p6.setAttributeDisplayLabel(IndividualCase.getCaseReportDateMd().getDisplayLabel(Session.getCurrentLocale()));
       p6.setRelation(MDSSProperties.getString("Compare_AE"));
       p6.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
       master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.CASEREPORTDATE), p6.getLocalizedMessage());
-      
+
       CurrentDateProblem p7 = new CurrentDateProblem();
       p7.setGivenDate(null);
       p7.setCurrentDate(null);
       p7.setNotification(new IndividualCase(), IndividualCase.HEMORRHAGICONSET);
       master.addBasicConstraint(master.getAttributeByName(IndividualCase.HEMORRHAGICONSET), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p7.getLocalizedMessage());
-      
+
       RelativeValueProblem p8 = new RelativeValueProblem();
       p8.setNotification(new IndividualCase(), IndividualCase.HEMORRHAGICONSET);
       p8.setAttributeDisplayLabel(IndividualCase.getHemorrhagicOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
       p8.setRelation(MDSSProperties.getString("Compare_AE"));
       p8.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
       master.addBasicConstraint(master.getAttributeByName(IndividualCaseExcelView.DATEOFBIRTH), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(IndividualCaseExcelView.HEMORRHAGICONSET), p8.getLocalizedMessage());
-      
+
       CurrentDateProblem p9 = new CurrentDateProblem();
       p9.setGivenDate(null);
       p9.setCurrentDate(null);
       p9.setNotification(new IndividualCase(), IndividualCase.PLASMALEAKAGEONSET);
       master.addBasicConstraint(master.getAttributeByName(IndividualCase.PLASMALEAKAGEONSET), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p9.getLocalizedMessage());
-      
+
       RelativeValueProblem p10 = new RelativeValueProblem();
       p10.setNotification(new IndividualCase(), IndividualCase.PLASMALEAKAGEONSET);
       p10.setAttributeDisplayLabel(IndividualCase.getPlasmaLeakageOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1224,9 +1228,9 @@ public class ODKForm implements Reloadable
       master.removeAttribute(IndividualIPTExcelView.getFacilityMd().definesAttribute());
       master.removeAttribute(IndividualIPTExcelView.getWorkGeoEntityMd().definesAttribute());
       master.buildAttributes(map, AggregatedIPTExcelView.customAttributeOrder());
-      
+
       master.addBasicRelevancy(master.getAttributeByName(IndividualIPTExcelView.NUMBEROFRECEIVEDITNS), master.getAttributeByName(IndividualIPTExcelView.RECEIVEDITN), ODKAttributeConditionOperation.EQUALS, true);
-      
+
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(null);
       p.setCurrentDate(null);
@@ -1249,27 +1253,31 @@ public class ODKForm implements Reloadable
       master.removeAttribute(ITNCommunityExcelView.getHouseholdAddressMd().definesAttribute());
 
       master.buildAttributes(map, ITNCommunityExcelView.customAttributeOrder());
-      
+
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(null);
       p.setCurrentDate(null);
       p.setNotification(new ITNCommunityDistribution(), ITNCommunityExcelView.STARTDATE);
       master.addBasicConstraint(master.getAttributeByName(ITNCommunityExcelView.STARTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
-      
+
       CurrentDateProblem p2 = new CurrentDateProblem();
       p2.setGivenDate(null);
       p2.setCurrentDate(null);
       p2.setNotification(new ITNCommunityDistribution(), ITNCommunityExcelView.ENDDATE);
       master.addBasicConstraint(master.getAttributeByName(ITNCommunityExcelView.ENDDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
-      
+
       // TODO : Geo relevancies
-//      master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.HOUSEHOLDADDRESS), master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE), ODKAttributeConditionOperation.EQUALS, true);
-//      master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.DISTRIBUTIONLOCATION), master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE), ODKAttributeConditionOperation.EQUALS, true);
-      
+      // master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.HOUSEHOLDADDRESS),
+      // master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE),
+      // ODKAttributeConditionOperation.EQUALS, true);
+      // master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.DISTRIBUTIONLOCATION),
+      // master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE),
+      // ODKAttributeConditionOperation.EQUALS, true);
+
       master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.HOUSEHOLDNAME), master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE), ODKAttributeConditionOperation.EQUALS, true);
       master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.HOUSEHOLDSURNAME), master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE), ODKAttributeConditionOperation.EQUALS, true);
       master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.RESIDENTS), master.getAttributeByName(ITNCommunityDistributionView.ENTRYTYPE), ODKAttributeConditionOperation.EQUALS, true);
-      
+
       master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.CURRENCYRECEIVED), master.getAttributeByName(ITNCommunityDistributionView.SOLD), ODKAttributeConditionOperation.EQUALS, true);
       master.addBasicRelevancy(master.getAttributeByName(ITNCommunityDistributionView.NUMBERRETRIEVED), master.getAttributeByName(ITNCommunityDistributionView.RETRIEVED), ODKAttributeConditionOperation.EQUALS, true);
     }
@@ -1290,7 +1298,7 @@ public class ODKForm implements Reloadable
       master.removeAttribute(ITNDistributionExcelView.getFacilityMd().definesAttribute());
 
       master.buildAttributes(map, ITNDistributionExcelView.customAttributeOrder());
-      
+
       master.addBasicRelevancy(master.getAttributeByName(ITNDistributionExcelView.CURRENCYRECEIVED), master.getAttributeByName(ITNDistributionExcelView.NUMBERSOLD), ODKAttributeConditionOperation.GREATER_THAN, 0);
     }
     else if (mobileType.equals(LarvacideExcelView.CLASS))
@@ -1329,9 +1337,9 @@ public class ODKForm implements Reloadable
       individInst.setFormTitle(MdClassDAO.getMdClassDAO(HouseholdSprayStatus.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       individInst.buildAttributes(HouseholdSprayStatusView.CLASS, OperatorSprayExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, individInst));
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.BEDNETS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       HouseholdValueProblem p = new HouseholdValueProblem();
       p.setHouseholdId(null);
       p.setStructureId(null);
@@ -1339,7 +1347,7 @@ public class ODKForm implements Reloadable
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.HOUSEHOLDS), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p.getLocalizedMessage());
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.HOUSEHOLDS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 1, "");
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.HOUSEHOLDS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       StructureValueProblem p2 = new StructureValueProblem();
       p2.setHouseholdId(null);
       p2.setStructureId(null);
@@ -1347,14 +1355,14 @@ public class ODKForm implements Reloadable
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.STRUCTURES), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p2.getLocalizedMessage());
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.STRUCTURES), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 1, "");
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.STRUCTURES), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       SprayedHouseholdValueProblem p3 = new SprayedHouseholdValueProblem();
       p3.setHouseholdId(null);
       p3.setStructureId(null);
       p3.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.SPRAYEDHOUSEHOLDS);
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.SPRAYEDHOUSEHOLDS), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p3.getLocalizedMessage());
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.SPRAYEDHOUSEHOLDS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 1, "");
-      
+
       SprayedSumProblem p4 = new SprayedSumProblem();
       p4.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.SPRAYEDSTRUCTURES);
       p4.setObjectLabel(HouseholdSprayStatus.getStructuresMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1362,7 +1370,7 @@ public class ODKForm implements Reloadable
       p4.setObjects(null);
       p4.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.SPRAYEDSTRUCTURES), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(HouseholdSprayStatusView.STRUCTURES), p4.getLocalizedMessage());
-      
+
       PrevSprayedHouseholdValueProblem p5 = new PrevSprayedHouseholdValueProblem();
       p5.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS);
       p5.setHouseholdId(null);
@@ -1370,7 +1378,7 @@ public class ODKForm implements Reloadable
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.PREVSPRAYEDHOUSEHOLDS), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p5.getLocalizedMessage());
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.PREVSPRAYEDHOUSEHOLDS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 1, "");
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.PREVSPRAYEDHOUSEHOLDS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       PrevSprayedStructureValueProblem p6 = new PrevSprayedStructureValueProblem();
       p6.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES);
       p6.setHouseholdId(null);
@@ -1378,11 +1386,11 @@ public class ODKForm implements Reloadable
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.PREVSPRAYEDSTRUCTURES), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p6.getLocalizedMessage());
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.PREVSPRAYEDSTRUCTURES), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 1, "");
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.PREVSPRAYEDSTRUCTURES), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.ROOMS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.VERANDAS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.CATTLESHEDS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       SprayedSumProblem p7 = new SprayedSumProblem();
       p7.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.SPRAYEDROOMS);
       p7.setObjectLabel(HouseholdSprayStatus.getRoomsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1390,7 +1398,7 @@ public class ODKForm implements Reloadable
       p7.setObjects(null);
       p7.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.SPRAYEDROOMS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(HouseholdSprayStatusView.ROOMS), p7.getLocalizedMessage());
-      
+
       SprayedSumProblem p8 = new SprayedSumProblem();
       p8.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.VERANDASSPRAYED);
       p8.setObjectLabel(HouseholdSprayStatus.getVerandasMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1398,7 +1406,7 @@ public class ODKForm implements Reloadable
       p8.setObjects(null);
       p8.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.VERANDASSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(HouseholdSprayStatusView.VERANDAS), p8.getLocalizedMessage());
-      
+
       SprayedSumProblem p9 = new SprayedSumProblem();
       p9.setNotification(new HouseholdSprayStatus(), HouseholdSprayStatus.CATTLESHEDSSPRAYED);
       p9.setObjectLabel(HouseholdSprayStatus.getCattleShedsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1406,7 +1414,7 @@ public class ODKForm implements Reloadable
       p9.setObjects(null);
       p9.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(HouseholdSprayStatusView.CATTLESHEDSSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(HouseholdSprayStatusView.CATTLESHEDS), p9.getLocalizedMessage());
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.OTHER), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.VERANDASOTHER), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.CATTLESHEDSOTHER), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1444,12 +1452,12 @@ public class ODKForm implements Reloadable
       individInst.buildAttributes(OperatorSprayStatusView.CLASS, TeamSprayExcelView.customAttributeOrder(), null);
       individInst.buildAttributes(map, TeamSprayExcelView.customAttributeOrder());
       master.join(new RepeatFormJoin(master, individInst));
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.HOUSEHOLDS), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.PREVSPRAYEDSTRUCTURES), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.STRUCTURES), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.PREVSPRAYEDHOUSEHOLDS), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       SprayedSumProblem p1 = new SprayedSumProblem();
       p1.setNotification(new OperatorSprayStatus(), OperatorSprayStatus.SPRAYEDHOUSEHOLDS);
       p1.setObjectLabel(OperatorSprayStatus.getHouseholdsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1457,7 +1465,7 @@ public class ODKForm implements Reloadable
       p1.setObjects(null);
       p1.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(TeamSprayExcelView.SPRAYEDHOUSEHOLDS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(TeamSprayExcelView.HOUSEHOLDS), p1.getLocalizedMessage());
-      
+
       SprayedSumProblem p2 = new SprayedSumProblem();
       p2.setNotification(new OperatorSprayStatus(), OperatorSprayStatus.SPRAYEDSTRUCTURES);
       p2.setObjectLabel(OperatorSprayStatus.getStructuresMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1465,11 +1473,11 @@ public class ODKForm implements Reloadable
       p2.setObjects(null);
       p2.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(TeamSprayExcelView.SPRAYEDSTRUCTURES), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(TeamSprayExcelView.STRUCTURES), p2.getLocalizedMessage());
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.ROOMS), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.VERANDAS), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.CATTLESHEDS), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       SprayedSumProblem p3 = new SprayedSumProblem();
       p3.setNotification(new OperatorSprayStatus(), OperatorSprayStatus.VERANDASSPRAYED);
       p3.setObjectLabel(OperatorSprayStatus.getVerandasMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1477,7 +1485,7 @@ public class ODKForm implements Reloadable
       p3.setObjects(null);
       p3.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(TeamSprayExcelView.VERANDASSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(TeamSprayExcelView.VERANDAS), p3.getLocalizedMessage());
-      
+
       SprayedSumProblem p4 = new SprayedSumProblem();
       p4.setNotification(new OperatorSprayStatus(), OperatorSprayStatus.CATTLESHEDSSPRAYED);
       p4.setObjectLabel(OperatorSprayStatus.getCattleShedsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1485,7 +1493,7 @@ public class ODKForm implements Reloadable
       p4.setObjects(null);
       p4.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(TeamSprayExcelView.CATTLESHEDSSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(TeamSprayExcelView.CATTLESHEDS), p4.getLocalizedMessage());
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.OTHER), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.VERANDASOTHER), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.CATTLESHEDSOTHER), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1529,7 +1537,7 @@ public class ODKForm implements Reloadable
       individInst.buildAttributes(map, ZoneSprayExcelView.customAttributeOrder());
 
       master.join(new RepeatFormJoin(master, individInst));
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.HOUSEHOLDS), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.PREVSPRAYEDSTRUCTURES), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.STRUCTURES), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1537,7 +1545,7 @@ public class ODKForm implements Reloadable
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.ROOMS), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.VERANDAS), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.CATTLESHEDS), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       SprayedSumProblem p1 = new SprayedSumProblem();
       p1.setNotification(new TeamSprayStatus(), TeamSprayStatus.SPRAYEDROOMS);
       p1.setObjectLabel(TeamSprayStatus.getRoomsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1545,7 +1553,7 @@ public class ODKForm implements Reloadable
       p1.setObjects(null);
       p1.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(ZoneSprayExcelView.SPRAYEDROOMS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(ZoneSprayExcelView.ROOMS), p1.getLocalizedMessage());
-      
+
       SprayedSumProblem p2 = new SprayedSumProblem();
       p2.setNotification(new TeamSprayStatus(), TeamSprayStatus.VERANDASSPRAYED);
       p2.setObjectLabel(TeamSprayStatus.getVerandasMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1553,7 +1561,7 @@ public class ODKForm implements Reloadable
       p2.setObjects(null);
       p2.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(ZoneSprayExcelView.VERANDASSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(ZoneSprayExcelView.VERANDAS), p2.getLocalizedMessage());
-      
+
       SprayedSumProblem p3 = new SprayedSumProblem();
       p3.setNotification(new TeamSprayStatus(), TeamSprayStatus.CATTLESHEDSSPRAYED);
       p3.setObjectLabel(TeamSprayStatus.getCattleShedsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1561,7 +1569,7 @@ public class ODKForm implements Reloadable
       p3.setObjects(null);
       p3.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(ZoneSprayExcelView.CATTLESHEDSSPRAYED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(ZoneSprayExcelView.CATTLESHEDS), p3.getLocalizedMessage());
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.OTHER), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.VERANDASOTHER), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.CATTLESHEDSOTHER), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1572,7 +1580,7 @@ public class ODKForm implements Reloadable
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.VERANDASLOCKED), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.CATTLESHEDSLOCKED), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.WRONGSURFACE), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
-      
+
       SprayedSumProblem p4 = new SprayedSumProblem();
       p4.setNotification(new TeamSprayStatus(), TeamSprayStatus.SPRAYEDHOUSEHOLDS);
       p4.setObjectLabel(TeamSprayStatus.getHouseholdsMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1580,7 +1588,7 @@ public class ODKForm implements Reloadable
       p4.setObjects(null);
       p4.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(ZoneSprayExcelView.SPRAYEDHOUSEHOLDS), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(ZoneSprayExcelView.HOUSEHOLDS), p4.getLocalizedMessage());
-      
+
       SprayedSumProblem p5 = new SprayedSumProblem();
       p5.setNotification(new TeamSprayStatus(), TeamSprayStatus.SPRAYEDSTRUCTURES);
       p5.setObjectLabel(TeamSprayStatus.getStructuresMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -1588,7 +1596,7 @@ public class ODKForm implements Reloadable
       p5.setObjects(null);
       p5.setSprayedObjects(null);
       individInst.addBasicConstraint(individInst.getAttributeByName(ZoneSprayExcelView.SPRAYEDSTRUCTURES), ODKAttributeConditionOperation.LESS_THAN_EQUALS, individInst.getAttributeByName(ZoneSprayExcelView.STRUCTURES), p5.getLocalizedMessage());
-      
+
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.ROOMSWITHBEDNETS), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.NUMBEROFPEOPLE), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
       individInst.addBasicRelevancy(individInst.getAttributeByName(ZoneSprayExcelView.PEOPLE), master.getAttributeByName(ZoneSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1603,7 +1611,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(Person.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(PersonView.CLASS, PersonExcelView.customAttributeOrder(), null);
       master.buildAttributes(map, PersonExcelView.customAttributeOrder());
-      
+
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(null);
       p.setCurrentDate(null);
@@ -1616,11 +1624,11 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(PopulationData.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(PopulationDataView.CLASS, PopulationDataExcelView.customAttributeOrder(), null);
       master.addAttribute(PopulationData.getGeoEntityMd(), PopulationDataExcelView.getGeoEntityMd());
-      
+
       PopulationProblem p = new PopulationProblem();
       p.setNotification(new PopulationData(), PopulationDataExcelView.POPULATION);
       master.addBasicConstraint(master.getAttributeByName(PopulationDataExcelView.POPULATION), ODKAttributeConditionOperation.GREATER_THAN_EQUALS, 0, p.getLocalizedMessage());
-      
+
       Calendar calendar = Calendar.getInstance();
       int max = calendar.get(Calendar.YEAR);
       int min = calendar.getActualMinimum(Calendar.YEAR);
@@ -1644,13 +1652,13 @@ public class ODKForm implements Reloadable
       p.setCurrentDate(null);
       p.setNotification(new PupalCollection(), PupalCollectionExcelView.STARTDATE);
       master.addBasicConstraint(master.getAttributeByName(PupalCollectionExcelView.STARTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
-      
+
       CurrentDateProblem p2 = new CurrentDateProblem();
       p2.setGivenDate(null);
       p2.setCurrentDate(null);
       p2.setNotification(new PupalCollection(), PupalCollectionExcelView.ENDDATE);
       master.addBasicConstraint(master.getAttributeByName(PupalCollectionExcelView.ENDDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
-      
+
       ODKForm container = new ODKForm(PupalCollectionExcelView.CLASS);
       container.setFormTitle(MdClassDAO.getMdClassDAO(PupalContainer.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       container.addAttribute(new ODKGridAttribute(container, PupalContainerView.getPupaeAmountMd(), PupalContainerView.getPupaeAmountMd(), PupalContainerAmountView.getAmountMd()));
@@ -1694,8 +1702,8 @@ public class ODKForm implements Reloadable
       master.buildAttributes(ITNInstanceView.CLASS, SurveyExcelView.customAttributeOrder(), null);
       master.buildAttributes(SurveyedPersonView.CLASS, SurveyExcelView.customAttributeOrder(), null);
       master.buildAttributes(map, SurveyExcelView.customAttributeOrder());
-      master.addAttribute(new ODKMultiTermAttribute(master, SurveyedPersonView.getDisplayLocationsMd(), SurveyedPersonView.getDisplayLocationsMd()));
-      master.addAttribute(new ODKMultiTermAttribute(master, SurveyedPersonView.getDisplayTreatmentsMd(), SurveyedPersonView.getDisplayTreatmentsMd()));
+      master.addAttribute(new ODKMultiTermAttribute(master, SurveyedPersonView.getDisplayLocationsMd(), SurveyedPersonView.getDisplayLocationsMd(), master.exportedTerms));
+      master.addAttribute(new ODKMultiTermAttribute(master, SurveyedPersonView.getDisplayTreatmentsMd(), SurveyedPersonView.getDisplayTreatmentsMd(), master.exportedTerms));
     }
     else if (mobileType.equals(ThresholdDataExcelView.CLASS))
     {
@@ -1720,13 +1728,13 @@ public class ODKForm implements Reloadable
       p.setCurrentDate(null);
       p.setNotification(new ImmatureCollection(), ImmatureCollectionExcelView.STARTDATE);
       master.addBasicConstraint(master.getAttributeByName(ImmatureCollectionExcelView.STARTDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p.getLocalizedMessage());
-      
+
       CurrentDateProblem p2 = new CurrentDateProblem();
       p2.setGivenDate(null);
       p2.setCurrentDate(null);
       p2.setNotification(new ImmatureCollection(), ImmatureCollectionExcelView.ENDDATE);
       master.addBasicConstraint(master.getAttributeByName(ImmatureCollectionExcelView.ENDDATE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, "today()", p2.getLocalizedMessage());
-      
+
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(ImmatureCollectionExcelView.getContainerTermMd(), ImmatureCollectionView.getContainerGridMd());
 
@@ -1767,7 +1775,7 @@ public class ODKForm implements Reloadable
       interval.buildAttributes(AdultDiscriminatingDoseInterval.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
 
       master.join(new RepeatFormJoin(master, interval));
-      
+
       InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem();
       p.setQuantityDead(null);
       p.setQuantityTested(null);
@@ -1780,7 +1788,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(BiochemicalAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(BiochemicalAssayExcelView.CLASS, BiochemicalAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(BiochemicalAssayView.CLASS, BiochemicalAssayExcelView.customAttributeOrder(), null);
-      
+
       String msg = getLTEMsg(BiochemicalAssay.getNumberElevatedMd(), BiochemicalAssay.getNumberTestedMd());
       master.addBasicConstraint(master.getAttributeByName(BiochemicalAssay.NUMBERELEVATED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(BiochemicalAssay.NUMBERTESTED), msg);
     }
@@ -1790,7 +1798,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(InfectionAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(InfectionAssayExcelView.CLASS, InfectionAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(InfectionAssayView.CLASS, InfectionAssayExcelView.customAttributeOrder(), null);
-      
+
       String msg = getLTEMsg(InfectionAssayExcelView.getNumberPositiveMd(), InfectionAssayExcelView.getNumberTestedMd());
       master.addBasicConstraint(master.getAttributeByName(InfectionAssayExcelView.NUMBERPOSITIVE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(InfectionAssayExcelView.NUMBERTESTED), msg);
     }
@@ -1821,10 +1829,10 @@ public class ODKForm implements Reloadable
       master.addAttribute(Insecticide.getActiveIngredientMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd());
       master.addAttribute(Insecticide.getUnitsMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
-      
+
       ControlMortalityException cme = new ControlMortalityException();
       master.addBasicConstraint(master.getAttributeByName(LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, cme.getLocalizedMessage());
-      
+
       InvalidDeadQuantityProblem idq = new InvalidDeadQuantityProblem();
       idq.setQuantityDead(null);
       idq.setQuantityTested(null);
@@ -1844,7 +1852,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(PooledInfectionAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(PooledInfectionAssayExcelView.CLASS, PooledInfectionAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(PooledInfectionAssayView.CLASS, PooledInfectionAssayExcelView.customAttributeOrder(), null);
-      
+
       String msg = getLTEMsg(PooledInfectionAssayExcelView.getNumberPositiveMd(), PooledInfectionAssayExcelView.getPoolsTestedMd());
       master.addBasicConstraint(master.getAttributeByName(PooledInfectionAssayExcelView.NUMBERPOSITIVE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(PooledInfectionAssayExcelView.POOLSTESTED), msg);
     }
@@ -1901,7 +1909,7 @@ public class ODKForm implements Reloadable
 
     return master;
   }
-  
+
   private static String getLTEMsg(MdAttributeDAOIF lessAttr, MdAttributeDAOIF highAttr)
   {
     String msg = LocalizationFacade.getFromBundles("odk_constraint_number_less_than_or_equal");
@@ -1938,7 +1946,7 @@ public class ODKForm implements Reloadable
       {
         MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
 
-        master.addAttribute(new ODKMultiTermAttribute(master, mdAttribute, mdAttribute));
+        master.addAttribute(new ODKMultiTermAttribute(master, mdAttribute, mdAttribute, master.exportedTerms));
       }
       else if ( ( mdField instanceof MdWebSingleTermGridDAOIF ))
       {

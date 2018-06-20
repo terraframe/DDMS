@@ -18,6 +18,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.MutableWithStructs;
 import com.runwaysdk.constants.Constants;
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDateDAOIF;
@@ -205,6 +206,20 @@ public class ODKDataConverter implements Reloadable
           root.setOverride(attribute.getCopyAttribute(), value);
         }
 
+      }
+      else if (form.isMultiTermAttribute(sourceAttribute))
+      {
+        ODKMultiTermAttribute attribute = (ODKMultiTermAttribute) form.getAttributeByName(sourceAttribute);
+        String[] termIds = child.getTextContent().split(" ");
+
+        for (String sanitizedTermId : termIds)
+        {
+          String termId = ODKTermAttribute.reverseTermIdSanitization(sanitizedTermId);
+          
+          ExcelColumn column = getGridColumn(sheet, attribute.getAttributeName(), termId, null);
+
+          root.setOverride(column.getAttributeName(), MdAttributeBooleanInfo.TRUE);
+        }
       }
       else if (form.isStructAttribute(sourceAttribute))
       {
