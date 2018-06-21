@@ -1767,6 +1767,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(AdultDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(AdultDiscriminatingDoseAssayExcelView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(AdultDiscriminatingDoseAssayView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
+      master.addAttribute(AdultDiscriminatingDoseAssay.getGenerationMd(), AdultDiscriminatingDoseAssayExcelView.getGenerationMd());      
       master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INTERVALTIME);
       master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.AMOUNT);
 
