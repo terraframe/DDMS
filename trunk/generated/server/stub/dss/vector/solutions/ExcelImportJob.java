@@ -306,7 +306,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       importer = new ExcelImporter(vf.getFileStream(), builder);
 
       this.configureImporter(importer, context);
-
+      
       try
       {
         errorBytes = importer.read();
@@ -337,6 +337,11 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
         }
 
         throw e;
+      }
+      
+      if(importer.getContexts().size() == 0)
+      {
+        throw new ExcelReadException("No sheets were imported");
       }
     }
     finally
