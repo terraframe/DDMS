@@ -344,22 +344,22 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 8856
+    StrCpy $PatchVersion 9062
     StrCpy $RootsVersion 8669
-    StrCpy $MenuVersion 8776
-    StrCpy $LocalizationVersion 8826
-    StrCpy $PermissionsVersion 8812
-	StrCpy $RunwayVersion 8815
+    StrCpy $MenuVersion 8946
+    StrCpy $LocalizationVersion 9043
+    StrCpy $PermissionsVersion 9038
+	StrCpy $RunwayVersion 8961
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 8856
+	StrCpy $ManagerVersion 9062
 	StrCpy $BirtVersion 7851
-	StrCpy $EclipseVersion 8824  
-	StrCpy $WebappsVersion 8827
+	StrCpy $EclipseVersion 9049  
+	StrCpy $WebappsVersion 8900
 	StrCpy $JavaVersion 8754
-	StrCpy $TomcatVersion 8843
+	StrCpy $TomcatVersion 8900
   
   # These ones are not
-  StrCpy $ODKDatabaseVersion 1
+  StrCpy $ODKDatabaseVersion 2
   StrCpy $BasemapDatabaseVersion 1
   
 	
@@ -678,6 +678,18 @@ Section -Main SEC0000
   SetOutPath "C:\libs\share\osm2pgsql"
   File /r "..\installer-stage\osm2pgsql\*"
   
+  SetOutPath "C:\libs\share\osmconvert"
+    
+  ${If} ${RunningX64}
+        LogEx::Write "Installing 64 bit oscconvert library."
+
+    File /r "..\installer-stage\osmconvert\64bit\*"
+  ${Else}
+        LogEx::Write "Installing 32 bit oscconvert library."
+
+    File /r "..\installer-stage\osmconvert\32bit\*"
+  ${EndIf}
+  
   WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
   
     
@@ -685,16 +697,15 @@ Section -Main SEC0000
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" ODKDatabaseVersion
   IfErrors ODKDatabaseVersionErrors
-  ${If} $ODKDatabaseVersion > $0
+  ${If} $0 < 1
     ODKDatabaseVersionErrors:
   
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create database odk;"`
     Call execDos
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
-    Call execDos
-  
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
-    Call execDos
+    # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
+    # Call execDos  
+    # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
+    # Call execDos
     
     
     WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
