@@ -17,14 +17,12 @@
 package dss.vector.solutions.kaleidoscope;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.poi.POIXMLDocument;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.poifs.filesystem.FileMagic;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +56,6 @@ import dss.vector.solutions.kaleidoscope.data.etl.excel.FieldInfoContentsHandler
 import dss.vector.solutions.kaleidoscope.data.etl.excel.InvalidExcelFileException;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermSynonym;
-import dss.vector.solutions.util.Facade;
 
 public class DataUploader extends DataUploaderBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -154,11 +151,9 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
   {
 
     // Save the file to the file system
-    try
+    try (BufferedInputStream bis = new BufferedInputStream(fileStream))
     {
-      BufferedInputStream bis = new BufferedInputStream(fileStream);
-
-      if (POIXMLDocument.hasOOXMLHeader(bis))
+      if (FileMagic.valueOf(bis) == FileMagic.OOXML)
       {
         VaultFile vf = VaultFile.createAndApply(fileName, bis);
 
@@ -271,12 +266,12 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
       job.apply();
       String responseJSON = job.doImport();
 
-//      JSONObject responseJ = new JSONObject(responseJSON);
-//
-//      if (!responseJ.has("problems"))
-//      {
-//        vf.delete();
-//      }
+      // JSONObject responseJ = new JSONObject(responseJSON);
+      //
+      // if (!responseJ.has("problems"))
+      // {
+      // vf.delete();
+      // }
 
       return responseJSON;
     }

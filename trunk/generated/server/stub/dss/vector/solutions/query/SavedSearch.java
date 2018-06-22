@@ -67,6 +67,7 @@ import com.runwaysdk.dataaccess.transaction.TransactionCache;
 import com.runwaysdk.dataaccess.transaction.TransactionCacheIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
+import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
@@ -753,6 +754,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         newColumn = VALID_PREFIX + newColumn;
       }
+      
+      if(s instanceof COUNT)
+      {
+        newColumn = "count_";
+      }
 
       if (columnNameMap.containsKey(newColumn))
       {
@@ -765,6 +771,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         columnNameMap.put(newColumn, new Integer(1));
       }
+      
+      
 
       c.setColumnAlias(newColumn);
 
