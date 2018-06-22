@@ -350,7 +350,7 @@ public class TermSearcher implements Reloadable
     try
     {
       Row typeRow = rowIterator.next();
-      Cell typeCell = typeRow.getCell(0, Row.RETURN_BLANK_AS_NULL);
+      Cell typeCell = typeRow.getCell(0, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
 
       if (typeCell != null)
       {
