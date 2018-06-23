@@ -34,6 +34,7 @@ import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.RootTerm;

@@ -35,6 +35,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.export.GeoExcelColumn;
 import dss.vector.solutions.export.GridExcelColumn;
+import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
 
 public class ODKDataConverter implements Reloadable
@@ -265,6 +266,21 @@ public class ODKDataConverter implements Reloadable
 
           root.setOverride(column.getAttributeName(), geoId);
         }
+      }
+      else if (form.getAttributeByName(sourceAttribute) instanceof ODKAttributeInsecticide)
+      {
+        ODKAttributeInsecticide odkAttr = (ODKAttributeInsecticide) form.getAttributeByName(sourceAttribute);
+        
+        Insecticide insecticide = Insecticide.getByKey(child.getTextContent());
+        
+        String unitsAName = odkAttr.getUnitsMdAttr().definesAttribute();
+        root.setValue(unitsAName, insecticide.getUnits().getTermDisplayLabel().getValue());
+        
+        String amountAName = odkAttr.getAmountMdAttr().definesAttribute();
+        root.setValue(amountAName, String.valueOf(insecticide.getAmount()));
+        
+        String insectAName = odkAttr.getInsecticideMdAttr().definesAttribute();
+        root.setValue(insectAName, insecticide.getActiveIngredient().getTermDisplayLabel().getValue());
       }
       else if (form.isStandalone(sourceAttribute))
       {

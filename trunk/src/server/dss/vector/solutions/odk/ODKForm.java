@@ -582,7 +582,7 @@ public class ODKForm implements Reloadable
 
     if (orderList != null)
     {
-      this.attrs.sort(new AttributeComparator(orderList));
+      this.sortAttributes(orderList);
     }
   }
 
@@ -974,7 +974,7 @@ public class ODKForm implements Reloadable
         if (roots.length > 0)
         {
           ODKForm insecticide = new ODKTermForm(InsecticideInterventionExcelView.CLASS, InsecticideInterventionExcelView.getInterventionMethodMd(), roots);
-          insecticide.addAttribute(InsecticideInterventionView.getInsecticideMd(), InsecticideInterventionExcelView.getInsecticideMd());
+          insecticide.addAttribute(InsecticideInterventionView.getInsecticideMd(), InsecticideInterventionExcelView.getInsecticideMd()); // TODO : Probably wrong
           insecticide.addAttribute(InsecticideInterventionView.getQuantityMd(), InsecticideInterventionExcelView.getQuantityMd());
           insecticide.addAttribute(InsecticideInterventionView.getUnitMd(), InsecticideInterventionExcelView.getUnitMd());
           master.join(new GroupFormJoin(master, insecticide, true));
@@ -1770,11 +1770,18 @@ public class ODKForm implements Reloadable
       master.addAttribute(AdultDiscriminatingDoseAssay.getGenerationMd(), AdultDiscriminatingDoseAssayExcelView.getGenerationMd());      
       master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INTERVALTIME);
       master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.AMOUNT);
+      
+      master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT);
+      master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT);
+      master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS);
+      master.addAttribute(new ODKAttributeInsecticide(master, AdultDiscriminatingDoseAssayView.getInsecticideMd(), AdultDiscriminatingDoseAssayView.getInsecticideMd(), master.exportedTerms, 
+          AdultDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd(), AdultDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd(), AdultDiscriminatingDoseAssayExcelView.getInsecticideAmountMd()));
+      master.addAttribute(AdultDiscriminatingDoseAssay.getGenerationMd(), AdultDiscriminatingDoseAssay.getGenerationMd());
+      master.sortAttributes(AdultDiscriminatingDoseAssayExcelView.customAttributeOrder());
 
       ODKForm interval = new ODKForm(AdultDiscriminatingDoseAssayExcelView.CLASS);
       interval.setFormTitle(MdClassDAO.getMdClassDAO(AdultDiscriminatingDoseInterval.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       interval.buildAttributes(AdultDiscriminatingDoseInterval.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
-
       master.join(new RepeatFormJoin(master, interval));
 
       InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem();
@@ -1809,11 +1816,16 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(KnockDownAssay.getGenerationMd(), KnockDownAssayExcelView.getGenerationMd());
-      master.addAttribute(Insecticide.getActiveIngredientMd(), KnockDownAssayExcelView.getInsecticideActiveIngredientMd());
-      master.addAttribute(Insecticide.getUnitsMd(), KnockDownAssayExcelView.getInsecticideUnitsMd());
       master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
       master.removeAttribute(KnockDownAssayExcelView.INTERVALTIME);
       master.removeAttribute(KnockDownAssayExcelView.AMOUNT);
+      
+      master.removeAttribute(KnockDownAssayExcelView.INSECTICIDEACTIVEINGREDIENT);
+      master.removeAttribute(KnockDownAssayExcelView.INSECTICIDEAMOUNT);
+      master.removeAttribute(KnockDownAssayExcelView.INSECTICIDEUNITS);
+      master.addAttribute(new ODKAttributeInsecticide(master, KnockDownAssayView.getInsecticideMd(), KnockDownAssayView.getInsecticideMd(), master.exportedTerms, 
+          KnockDownAssayExcelView.getInsecticideActiveIngredientMd(), KnockDownAssayExcelView.getInsecticideUnitsMd(), KnockDownAssayExcelView.getInsecticideAmountMd()));
+      master.sortAttributes(KnockDownAssayExcelView.customAttributeOrder());
 
       ODKForm interval = new ODKForm(KnockDownAssayExcelView.CLASS);
       interval.setFormTitle(MdClassDAO.getMdClassDAO(KnockDownInterval.CLASS).getDisplayLabel(Session.getCurrentLocale()));
@@ -1827,10 +1839,15 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(LarvaeDiscriminatingDoseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(LarvaeDiscriminatingDoseAssay.getGenerationMd(), LarvaeDiscriminatingDoseAssayExcelView.getGenerationMd());
-      master.addAttribute(Insecticide.getActiveIngredientMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd());
-      master.addAttribute(Insecticide.getUnitsMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
 
+      master.removeAttribute(LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT);
+      master.removeAttribute(LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT);
+      master.removeAttribute(LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS);
+      master.addAttribute(new ODKAttributeInsecticide(master, LarvaeDiscriminatingDoseAssayView.getInsecticideMd(), LarvaeDiscriminatingDoseAssayView.getInsecticideMd(), master.exportedTerms, 
+          LarvaeDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd(), LarvaeDiscriminatingDoseAssayExcelView.getInsecticideAmountMd()));
+      master.sortAttributes(LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder());
+      
       ControlMortalityException cme = new ControlMortalityException();
       master.addBasicConstraint(master.getAttributeByName(LarvaeDiscriminatingDoseAssayExcelView.CONTROLTESTMORTALITY), ODKAttributeConditionOperation.LESS_THAN_EQUALS, 20, cme.getLocalizedMessage());
 
@@ -1909,6 +1926,11 @@ public class ODKForm implements Reloadable
     }
 
     return master;
+  }
+
+  private void sortAttributes(List<String> customAttributeOrder)
+  {
+    this.attrs.sort(new AttributeComparator(customAttributeOrder));
   }
 
   private static String getLTEMsg(MdAttributeDAOIF lessAttr, MdAttributeDAOIF highAttr)

@@ -1,5 +1,6 @@
 package dss.vector.solutions.odk;
 
+import java.util.List;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -8,31 +9,55 @@ import org.w3c.dom.Element;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.general.Insecticide;
 
-public class ODKInsecticideBrandAttribute extends ODKMetadataAttribute implements Reloadable
+public class ODKAttributeInsecticide extends ODKMetadataAttribute implements Reloadable
 {
   private Set<String> exported;
   
-  public ODKInsecticideBrandAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported)
+  private MdAttributeDAOIF insecticideMdAttr;
+  
+  private MdAttributeDAOIF unitsMdAttr;
+  
+  private MdAttributeDAOIF amountMdAttr;
+
+  public ODKAttributeInsecticide(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, Set<String> exported, MdAttributeDAOIF insecticideMdAttr, MdAttributeDAOIF unitsMdAttr, MdAttributeDAOIF amountMdAttr)
   {
     super(containingForm, sourceMdAttr, viewMdAttr);
 
     this.exported = exported;
+    this.insecticideMdAttr = insecticideMdAttr;
+    this.unitsMdAttr = unitsMdAttr;
+    this.amountMdAttr = amountMdAttr;
   }
   
+  public MdAttributeDAOIF getInsecticideMdAttr()
+  {
+    return insecticideMdAttr;
+  }
+
+  public MdAttributeDAOIF getUnitsMdAttr()
+  {
+    return unitsMdAttr;
+  }
+
+  public MdAttributeDAOIF getAmountMdAttr()
+  {
+    return amountMdAttr;
+  }
+
   @Override
   public void writeTranslation(Element parent, Document document, String title, int maxDepth)
   {
     super.writeTranslation(parent, document, title, maxDepth);
 
-    InsecticideBrand[] brands = InsecticideBrand.getAllActive();
+    List<? extends Insecticide> insecticides = Insecticide.getAllInstances("keyName", true, 0, 0).getIterator().getAll();
 
-    for (InsecticideBrand brand : brands)
+    for (Insecticide insecticide : insecticides)
     {
-      String termId = brand.getKeyName();
-      String label = brand.getProductName().getTermDisplayLabel().getValue();
-      String id = brand.getId();
+      String termId = insecticide.getKeyName();
+      String label = insecticide.getActiveIngredient().getTermDisplayLabel().getValue() + " - " + insecticide.getAmount() + " " + insecticide.getUnits().getTermDisplayLabel().getValue();
+      String id = insecticide.getId();
 
       if (!this.exported.contains(id))
       {
@@ -63,12 +88,12 @@ public class ODKInsecticideBrandAttribute extends ODKMetadataAttribute implement
     select1.appendChild(label);
     label.setAttribute("ref", "jr:itext('/" + title + "/" + attributeName + ":label')");
 
-    InsecticideBrand[] brands = InsecticideBrand.getAllActive();
+    List<? extends Insecticide> insecticides = Insecticide.getAllInstances("keyName", true, 0, 0).getIterator().getAll();
 
-    for (InsecticideBrand brand : brands)
+    for (Insecticide insecticide : insecticides)
     {
-      String termId = brand.getKeyName();
-      String value = brand.getProductName().getTermDisplayLabel().getValue();
+      String termId = insecticide.getKeyName();
+      String value = insecticide.getKey();
 
       Element item = document.createElement("item");
       select1.appendChild(item);
