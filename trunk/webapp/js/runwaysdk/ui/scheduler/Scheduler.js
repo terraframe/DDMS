@@ -21,6 +21,7 @@
   var Util = Mojo.Util;
   var Widget = com.runwaysdk.ui.factory.runway.Widget;
   var InstanceQueryDataSource = com.runwaysdk.ui.datatable.datasource.InstanceQueryDataSource;
+  var ExecutableJobQueryDataSource = com.runwaysdk.ui.datatable.datasource.ExecutableJobQueryDataSource;
   
   // In miliseconds
   var JOBS_POLLING_INTERVAL = 600;
@@ -121,7 +122,7 @@
         this._config.language = this._config.language || {};
         Util.merge(com.runwaysdk.Localize.getLanguage(schedulerName), this._config.language);
         
-        this._allJobsTable = new JobTable(Mojo.Util.deepMerge({dataFilter: Mojo.Util.bind(this, this.allJobsDataFilter)}, this._config), "com.runwaysdk.system.scheduler.ExecutableJob", this);
+        this._allJobsTable = new JobTable(Mojo.Util.deepMerge({isAllJobs: true}, this._config), "com.runwaysdk.system.scheduler.ExecutableJob", this);
         this._tabPanel.addPanel(this.localize("all_jobs"), this._allJobsTable);
         
         this._cycleJobTable = new JobTable(this._config, "dss.vector.solutions.query.CycleJob", this);
@@ -140,18 +141,6 @@
         this._tabPanel.addPanel(this.localize("history"), this._historyTable);
         
         this._tabPanel.addSwitchPanelEventListener(Mojo.Util.bind(this, this.onSwitchPanel));
-      },
-      
-      allJobsDataFilter : function(jobDTO)
-      {
-        if (jobDTO.getType() === "dss.vector.solutions.ExcelImportJob" ||
-            jobDTO.getType() === "dss.vector.solutions.FormSurveyImportJob" ||
-            jobDTO.getType() === "dss.vector.solutions.DataUploaderImportJob")
-        {
-          return false;
-        }
-        
-        return true;
       },
       
       onSwitchPanel : function(switchPanelEvent) {
@@ -413,12 +402,18 @@
           ]
         };
         
-        if (this._config.dataFilter != null)
+        var ds = null;
+        if (this._config.isAllJobs != null)
         {
-          dsConfig.dataFilter = this._config.dataFilter;
+          var jobsFilter = ["dss.vector.solutions.ExcelImportJob", "dss.vector.solutions.FormSurveyImportJob", "dss.vector.solutions.DataUploaderImportJob"];
+          dsConfig = Mojo.Util.deepMerge({jobsFilter: jobsFilter}, dsConfig)
+          
+          ds = new ExecutableJobQueryDataSource(dsConfig);
         }
-        
-        var ds = new InstanceQueryDataSource(dsConfig);
+        else
+        {
+          ds = new InstanceQueryDataSource(dsConfig);
+        }
         
         // Create the DataTable impl
         this._config.el = this;

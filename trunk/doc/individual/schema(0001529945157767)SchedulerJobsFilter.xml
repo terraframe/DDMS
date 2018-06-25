@@ -1,0 +1,24 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    </create>
+    <update>
+      <mdUtil name="dss.vector.solutions.report.SchedulerUtil">
+        <create>
+         <mdMethod name="instanceQuery" label="instanceQuery" returnType="com.runwaysdk.system.scheduler.ExecutableJobQuery" static="true">
+           <mdParameter name="filterTypes" label="filterTypes" order="0" type="java.lang.String[]" />
+           <mdParameter name="sortAttr" label="sortAttr" order="1" type="java.lang.String" />
+           <mdParameter name="isDescending" label="isDescending" order="2" type="java.lang.Boolean" />
+           <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer" />
+           <mdParameter name="pageNum" label="pageNum" order="4" type="java.lang.Integer" />
+         </mdMethod>
+        </create>
+      </mdUtil>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.report.SchedulerUtil.instanceQuery" type="com.runwaysdk.system.metadata.MdMethod"/>
+    </delete>
+  </undoIt>
+</version>

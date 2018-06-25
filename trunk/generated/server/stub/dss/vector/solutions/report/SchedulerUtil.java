@@ -16,11 +16,19 @@
  ******************************************************************************/
 package dss.vector.solutions.report;
 
+import com.runwaysdk.business.rbac.Operation;
+import com.runwaysdk.business.rbac.SingleActorDAOIF;
+import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.LeftJoinEq;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.ReadTypePermissionException;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutableJobQuery;
 
@@ -33,6 +41,50 @@ public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.ge
   public SchedulerUtil()
   {
     super();
+  }
+  
+  /**
+   * MdMethod
+   * 
+   * @param value
+   * @return
+   */
+  public static com.runwaysdk.system.scheduler.ExecutableJobQuery instanceQuery(java.lang.String[] filterTypes, String sortAttr, Boolean isDescending, Integer pageSize, Integer pageNumber)
+  {
+    String sessionId = Session.getCurrentSession().getId();
+    
+    boolean access = SessionFacade.checkTypeAccess(sessionId, Operation.READ, ExecutableJob.CLASS);
+    
+    if (!access)
+    {
+      SingleActorDAOIF userIF = Session.getCurrentSession().getUser();
+
+      MdTypeDAOIF mdTypeIF = MdTypeDAO.getMdTypeDAO(ExecutableJob.CLASS);
+
+      String errorMsg = "User [" + userIF.getSingleActorName() + "] does not have the read permission for type [" + ExecutableJob.CLASS + "]";
+      throw new ReadTypePermissionException(errorMsg, mdTypeIF, userIF);
+    }
+    
+    QueryFactory qf = new QueryFactory();
+    ExecutableJobQuery query = new ExecutableJobQuery(qf);
+    
+    if (isDescending)
+    {
+      query.ORDER_BY(query.get(sortAttr), SortOrder.DESC);
+    }
+    else
+    {
+      query.ORDER_BY(query.get(sortAttr), SortOrder.ASC);
+    }
+    
+    query.restrictRows(pageSize, pageNumber);
+    
+    for (String type : filterTypes)
+    {
+      query.WHERE(query.getType().NE(type));
+    }
+    
+    return query;
   }
   
   /**
