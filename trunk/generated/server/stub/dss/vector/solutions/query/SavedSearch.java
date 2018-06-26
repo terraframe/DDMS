@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.query;
 
@@ -47,6 +47,7 @@ import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdTableDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.attributes.entity.Attribute;
@@ -61,6 +62,7 @@ import com.runwaysdk.dataaccess.io.dataDefinition.ExportMetadata;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXExporter;
 import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdTableDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.dataaccess.transaction.TransactionCache;
@@ -108,7 +110,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   private static final long    serialVersionUID         = 1241158161320L;
 
   /**
-   * The prefix for the database view names that represent saved searches (queries).
+   * The prefix for the database view names that represent saved searches
+   * (queries).
    */
   public static final String   VIEW_PREFIX              = "q_";
 
@@ -119,7 +122,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   private static Log           log                      = LogFactory.getLog(SavedSearch.class);
 
   /**
-   * Regex to detect an invalid postgres identifier, which cannot start with a digit.
+   * Regex to detect an invalid postgres identifier, which cannot start with a
+   * digit.
    */
   private static final Pattern INVALID_PREFIX           = Pattern.compile("^\\d.*$");
 
@@ -195,7 +199,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Apply method that also checks if this SavedSearch object is mappable or not.
+   * Apply method that also checks if this SavedSearch object is mappable or
+   * not.
    */
   @SuppressWarnings("unchecked")
   @Transaction
@@ -281,6 +286,20 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     String prefixedViewName = MATERIALIZED_VIEW_PREFIX + viewNameNoPrefix;
 
     return this.createMaterializedView(query, viewNameNoPrefix, prefixedViewName);
+  }
+
+  @Transaction
+  public void forceOverwriteMaterializedView()
+  {
+    // We must recreate the saved table
+    ValueQuery outer = this.getValueQuery();
+
+    new MdTableBuilder().overwrite(this.getMaterializedTable(), outer, false, true);
+    
+    String viewNameNoPrefix = this.generateViewName("");
+    String prefixedViewName = MATERIALIZED_VIEW_PREFIX + viewNameNoPrefix;
+    
+    this.createMaterializedView(outer, viewNameNoPrefix, prefixedViewName);
   }
 
   private String defineMaterializedView(List<String> attributesToDelete) throws JSONException
@@ -447,6 +466,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         newColumn = VALID_PREFIX + newColumn;
       }
 
+      if (s instanceof COUNT)
+      {
+        newColumn = VALID_PREFIX + "count";
+
+        data.put(COUNT.class.getName(), true);
+      }
+
       if (columnNameMap.containsKey(newColumn))
       {
         Integer count = columnNameMap.get(newColumn) + 1;
@@ -482,7 +508,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Checks that a search name is unique for a user on a given SavedSearch subclass.
+   * Checks that a search name is unique for a user on a given SavedSearch
+   * subclass.
    * 
    * @param searchName
    * @param user
@@ -518,7 +545,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Generates the database view name for this SavedSearch, which follows a simple naming convention:
+   * Generates the database view name for this SavedSearch, which follows a
+   * simple naming convention:
    * 
    * VIEW_PREFIX + query name [sanitized] + _ + disease
    * 
@@ -526,7 +554,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * 
    * Q_my_query_malaria
    * 
-   * There is no need to persist this as an attribute because it can be predictably generated as the query name is immutable.
+   * There is no need to persist this as an attribute because it can be
+   * predictably generated as the query name is immutable.
    * 
    * @param prefix
    *          TODO
@@ -614,7 +643,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates database views for queries. This is called on server initialization by ServerContext.
+   * Creates database views for queries. This is called on server initialization
+   * by ServerContext.
    */
   public static void createDatabaseViews()
   {
@@ -691,8 +721,9 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates the database view for this query or updates (replaces) it if one already exists. If the query is invalid because it has no columns then
-   * the database view is deleted, if one exists.
+   * Creates the database view for this query or updates (replaces) it if one
+   * already exists. If the query is invalid because it has no columns then the
+   * database view is deleted, if one exists.
    */
   @AbortIfProblem
   private void createOrReplaceDatabaseView(String functionName)
@@ -707,12 +738,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     createDatabaseView(true, functionName);
   }
-  
-  // wrap the query with outer SELECT that uses user-friendly column names based on the display labels.
+
+  // wrap the query with outer SELECT that uses user-friendly column names based
+  // on the display labels.
   public static ValueQuery wrapQuery(ValueQuery valueQuery)
   {
     Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
-    
+
     ValueQuery outer = new ValueQuery(new QueryFactory());
     outer.setDependentPreSqlStatements(valueQuery.getDependentPreSqlStatements());
     outer.FROM("(" + valueQuery.getSQLWithoutDependentPreSql() + ")", "original_query");
@@ -754,8 +786,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         newColumn = VALID_PREFIX + newColumn;
       }
-      
-      if(s instanceof COUNT)
+
+      if (s instanceof COUNT)
       {
         newColumn = "count_";
       }
@@ -771,17 +803,15 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       {
         columnNameMap.put(newColumn, new Integer(1));
       }
-      
-      
 
       c.setColumnAlias(newColumn);
 
       outer.SELECT(c);
     }
-    
+
     return outer;
   }
-  
+
   private void createDatabaseView(boolean replaceExisting, String functionName)
   {
     if (this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
@@ -932,7 +962,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Creates and applies this SavedSearch object with the given information in the SavedSearchView.
+   * Creates and applies this SavedSearch object with the given information in
+   * the SavedSearchView.
    * 
    * @param view
    * @param savedQuery
@@ -1124,8 +1155,9 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Checks if the given view exists in the database. For some reason Database.tableExists(table) was not working consistently, so this is a different
-   * check that does a direct query.
+   * Checks if the given view exists in the database. For some reason
+   * Database.tableExists(table) was not working consistently, so this is a
+   * different check that does a direct query.
    * 
    * @param viewName
    * @return
@@ -1245,7 +1277,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   /**
-   * Returns any available thematic variables (Selectables) available on this query this SavedSearch encapsulates.
+   * Returns any available thematic variables (Selectables) available on this
+   * query this SavedSearch encapsulates.
    */
   @Override
   public ThematicVariable[] getThematicVariables()
@@ -1424,6 +1457,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     attribute.setValueNoValidation("");
 
     ExportMetadata metadata = new ExportMetadata();
+
+    if (this.getMaterializedTableId() != null && this.getMaterializedTableId().length() > 0)
+    {
+      MdTableDAOIF mdTable = MdTableDAO.get(this.getMaterializedTableId());
+
+      metadata.addCreateOrUpdate(mdTable);
+    }
+
     metadata.addCreateOrUpdate(entityDAO);
 
     StringMarkupWriter writer = new StringMarkupWriter();
@@ -1437,6 +1478,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   }
 
   @Authenticate
+  @Transaction
   public static void importQuery(InputStream queryFile)
   {
     try
@@ -1459,8 +1501,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         search.appLock();
         search.apply();
 
-        // We must replace the database view because the search could have been updated
+        // We must replace the database view because the search could have
+        // been updated
         search.createOrReplaceDatabaseView(null);
+
+        if (search.getMaterializedTableId() != null && search.getMaterializedTableId().length() > 0)
+        {
+          search.forceOverwriteMaterializedView();
+        }
       }
     }
     catch (XMLParseException e)
@@ -1499,8 +1547,10 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         StringBuffer sqlStmt = new StringBuffer();
         sqlStmt.append("UPDATE " + mdSavedSearch.getTableName());
 
-        // IMPORTANT: Multi-term grid query builds use a hash of the first 16 characters of a term
-        // ids. Thus in-order to preserve those ids we need to relpace the first 16 characters as
+        // IMPORTANT: Multi-term grid query builds use a hash of the first 16
+        // characters of a term
+        // ids. Thus in-order to preserve those ids we need to relpace the first
+        // 16 characters as
         // well.
         if (entity instanceof Term)
         {

@@ -1,18 +1,18 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.query;
 
@@ -75,7 +75,9 @@ import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeTimeDAO;
 import com.runwaysdk.dataaccess.metadata.MdTableDAO;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -213,18 +215,20 @@ public class MdTableBuilder implements Reloadable
 
     return mdTable;
   }
-  
+
   private String getDisplayLabel(MdAttributeDAOIF mdAttr)
   {
-//    if (mdAttr instanceof MdAttributeConcrete_Q)
-//    {
-//      return ((MdAttributeConcrete_Q) mdAttr).getMdAttributeDisplayLabel(Locale.ROOT);
-//    }
-    
+    // if (mdAttr instanceof MdAttributeConcrete_Q)
+    // {
+    // return ((MdAttributeConcrete_Q)
+    // mdAttr).getMdAttributeDisplayLabel(Locale.ROOT);
+    // }
+
     return mdAttr.getDisplayLabel(Locale.ROOT);
   }
 
   @SuppressWarnings("unchecked")
+  @AbortIfProblem
   private ClassDefinition defineMdAttributes(MdTableDAO mdTableDAO, Disease disease, GeoHierarchy lowest, List<Selectable> selectables)
   {
     ClassDefinition definition = new ClassDefinition(lowest);
@@ -236,6 +240,13 @@ public class MdTableBuilder implements Reloadable
 
       String attributeName = mdAttributeIF.definesAttribute();
       attributeName = attributeName.substring(Math.max(0, attributeName.length() - 64));
+
+      boolean isCount = data.containsKey(COUNT.class.getName());
+
+      if (isCount)
+      {
+        attributeName = "queryCount";
+      }
 
       if (mdAttributeIF instanceof MdAttributeReferenceDAOIF)
       {
@@ -380,7 +391,8 @@ public class MdTableBuilder implements Reloadable
         else
         {
           /*
-           * SIZE is spoofed because the MdAttributeCharacterDAOIF is an instanceof MdAttributeCharacter_Q which doesn't support SIZE
+           * SIZE is spoofed because the MdAttributeCharacterDAOIF is an
+           * instanceof MdAttributeCharacter_Q which doesn't support SIZE
            */
           if (!attributeName.contains("__"))
           {
@@ -480,7 +492,7 @@ public class MdTableBuilder implements Reloadable
       {
         Boolean isAggregateFunction = data.containsKey(SelectableAggregate.class.getName()) ? (Boolean) data.get(SelectableAggregate.class.getName()) : false;
 
-        if (!isAggregateFunction)
+        if (!isAggregateFunction || isCount)
         {
           MdAttributeIntegerDAO mdAttribute = MdAttributeIntegerDAO.newInstance();
           mdAttribute.setValue(MdAttributeIntegerInfo.NAME, attributeName);
@@ -509,7 +521,7 @@ public class MdTableBuilder implements Reloadable
       {
         Boolean isAggregateFunction = data.containsKey(SelectableAggregate.class.getName()) ? (Boolean) data.get(SelectableAggregate.class.getName()) : false;
 
-        if (!isAggregateFunction)
+        if (!isAggregateFunction || isCount)
         {
           MdAttributeLongDAO mdAttribute = MdAttributeLongDAO.newInstance();
           mdAttribute.setValue(MdAttributeLongInfo.NAME, attributeName);
@@ -543,9 +555,14 @@ public class MdTableBuilder implements Reloadable
     return definition;
   }
 
-  public void overwrite(MdTable mdTable, ValueQuery query) throws JSONException
+  public void overwrite(MdTable mdTable, ValueQuery query)
   {
-    this.delete(mdTable, false);
+    this.overwrite(mdTable, query, false, false);
+  }
+
+  public void overwrite(MdTable mdTable, ValueQuery query, boolean includeTable, boolean ignoreTable)
+  {
+    this.delete(mdTable, includeTable, ignoreTable);
 
     MdTableDAO mdTableDAO = MdTableDAO.get(mdTable.getId()).getBusinessDAO();
 
@@ -554,17 +571,22 @@ public class MdTableBuilder implements Reloadable
 
   public void delete(MdTable mdTable)
   {
-    this.delete(mdTable, true);
+    this.delete(mdTable, true, false);
   }
 
-  private void delete(MdTable mdTable, boolean includeTable)
+  private void delete(MdTable mdTable, boolean includeTable, boolean ignoreTable)
   {
     this.deleteMaterializedTable(mdTable);
 
     /*
      * Delete the materialized table metadata
      */
-    RefreshViewJob.getJob(mdTable).delete();
+    RefreshViewJob job = RefreshViewJob.getJob(mdTable);
+
+    if (job != null)
+    {
+      job.delete();
+    }
 
     /*
      * Delete the dataset build upon the MdTable
@@ -589,7 +611,7 @@ public class MdTableBuilder implements Reloadable
        */
       mClass.delete(includeTable);
     }
-    else
+    else if (!ignoreTable)
     {
       mdTable.delete();
     }
