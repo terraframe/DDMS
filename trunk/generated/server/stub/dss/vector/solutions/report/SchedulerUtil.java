@@ -31,7 +31,9 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutableJobQuery;
+import com.runwaysdk.system.scheduler.JobHistoryViewQuery;
 
+import dss.vector.solutions.ExcelImportJob;
 import dss.vector.solutions.query.QueryBuilder;
 
 public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.generation.loader.Reloadable
@@ -41,6 +43,23 @@ public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.ge
   public SchedulerUtil()
   {
     super();
+  }
+  
+  /**
+   * MdMethod
+   * 
+   * @param value
+   * @return
+   */
+  public static com.runwaysdk.system.scheduler.JobHistoryViewQuery getJobHistories(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    QueryFactory f = new QueryFactory();
+    
+    String[] typeExcludes = new String[]{ExcelImportJob.CLASS};
+    
+    JobHistoryViewQuery query = new JobHistoryViewQuery(f, sortAttribute, isAscending, pageSize, pageNumber, typeExcludes);
+    
+    return query;
   }
   
   /**

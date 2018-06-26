@@ -552,7 +552,7 @@
         
         var ds = new com.runwaysdk.ui.datatable.datasource.MdMethodDataSource({
           method : function(clientRequest) {
-            com.runwaysdk.system.scheduler.JobHistoryView.getJobHistories(clientRequest, this.getSortAttr(), this.isAscending(), this.getPageSize(), this.getPageNumber());
+            dss.vector.solutions.report.SchedulerUtil.getJobHistories(clientRequest, this.getSortAttr(), this.isAscending(), this.getPageSize(), this.getPageNumber());
           },
           columns : [
                      { queryAttr: "startTime", customFormatter: dateFormatter },

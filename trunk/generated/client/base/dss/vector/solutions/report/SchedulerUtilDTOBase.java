@@ -1,10 +1,10 @@
 package dss.vector.solutions.report;
 
-@com.runwaysdk.business.ClassSignature(hash = -1387001737)
+@com.runwaysdk.business.ClassSignature(hash = -1305503527)
 public abstract class SchedulerUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.report.SchedulerUtil";
-  private static final long serialVersionUID = -1387001737;
+  private static final long serialVersionUID = -1305503527;
   
   protected SchedulerUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,6 +17,14 @@ public abstract class SchedulerUtilDTOBase extends com.runwaysdk.business.UtilDT
   }
   
   public static java.lang.String ID = "id";
+  public static final com.runwaysdk.system.scheduler.JobHistoryViewQueryDTO getJobHistories(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.report.SchedulerUtilDTO.CLASS, "getJobHistories", _declaredTypes);
+    return (com.runwaysdk.system.scheduler.JobHistoryViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.system.scheduler.ExecutableJobQueryDTO instanceQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] filterTypes, java.lang.String sortAttr, java.lang.Boolean isDescending, java.lang.Integer pageSize, java.lang.Integer pageNum)
   {
     String[] _declaredTypes = new String[]{"[Ljava.lang.String;", "java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};

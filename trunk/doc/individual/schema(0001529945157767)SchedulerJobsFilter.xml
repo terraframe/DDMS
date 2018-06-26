@@ -12,6 +12,12 @@
            <mdParameter name="pageSize" label="pageSize" order="3" type="java.lang.Integer" />
            <mdParameter name="pageNum" label="pageNum" order="4" type="java.lang.Integer" />
          </mdMethod>
+         <mdMethod name="getJobHistories" label="getJobHistories" returnType="com.runwaysdk.system.scheduler.JobHistoryViewQuery" static="true">
+           <mdParameter name="sortAttribute" label="sortAttribute" order="0" type="java.lang.String" />
+           <mdParameter name="isAscending" label="isAscending" order="1" type="java.lang.Boolean" />
+           <mdParameter name="pageSize" label="pageSize" order="2" type="java.lang.Integer" />
+           <mdParameter name="pageNumber" label="pageNumber" order="3" type="java.lang.Integer" />
+         </mdMethod>
         </create>
       </mdUtil>
     </update>
