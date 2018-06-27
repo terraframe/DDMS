@@ -142,7 +142,6 @@ import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.PopulationDataView;
 import dss.vector.solutions.general.PopulationProblem;

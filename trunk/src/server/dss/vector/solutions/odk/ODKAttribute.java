@@ -34,7 +34,6 @@ import com.runwaysdk.dataaccess.io.excel.DefaultExcelAttributeFilter;
 import com.runwaysdk.dataaccess.io.excel.MdAttributeFilter;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.RootTerm;
@@ -74,6 +73,8 @@ public class ODKAttribute implements Reloadable
   private boolean                isOverride;
 
   private boolean                visible;
+
+  private String                 prefix;
 
   public ODKAttribute(ODKForm containingForm, String type, String attributeName, String displayLabel, String description, boolean required, boolean visible)
   {
@@ -265,7 +266,16 @@ public class ODKAttribute implements Reloadable
     text.setAttribute("id", "/" + title + "/" + attributeName + ":label");
 
     Element value = document.createElement("value");
-    value.setTextContent(this.displayLabel);
+
+    if (this.prefix != null)
+    {
+      value.setTextContent(this.prefix + " - " + this.displayLabel);
+    }
+    else
+    {
+      value.setTextContent(this.displayLabel);
+    }
+
     text.appendChild(value);
 
     parent.appendChild(text);
@@ -364,5 +374,15 @@ public class ODKAttribute implements Reloadable
   public void setIsOverride(boolean isOverride)
   {
     this.isOverride = isOverride;
+  }
+
+  public void setPrefix(String prefix)
+  {
+    this.prefix = prefix;
+  }
+  
+  public String getPrefix()
+  {
+    return prefix;
   }
 }

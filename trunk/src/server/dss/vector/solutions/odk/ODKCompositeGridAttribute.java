@@ -117,7 +117,16 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
 
     for (ODKAttribute structAttr : gridAttrs)
     {
-      structAttr.writeTranslation(parent, document, title, maxDepth);
+      try
+      {
+        structAttr.setPrefix(this.getPrefix());
+        
+        structAttr.writeTranslation(parent, document, title, maxDepth);
+      }
+      finally
+      {
+        structAttr.setPrefix(null);
+      }
     }
   }
 
@@ -133,16 +142,16 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
   @Override
   public void writeBody(Element parent, Document document, String title, int maxDepth)
   {
-    Element group = document.createElement("group");
-    parent.appendChild(group);
-
-    Element label = document.createElement("label");
-    group.appendChild(label);
-    label.setTextContent(this.sourceMdAttr.getDisplayLabel(Session.getCurrentLocale()));
+//    Element group = document.createElement("group");
+//    parent.appendChild(group);
+//
+//    Element label = document.createElement("label");
+//    group.appendChild(label);
+//    label.setTextContent(this.sourceMdAttr.getDisplayLabel(Session.getCurrentLocale()));
 
     for (ODKAttribute structAttr : gridAttrs)
     {
-      structAttr.writeBody(group, document, title, maxDepth);
+      structAttr.writeBody(parent, document, title, maxDepth);
     }
   }
 

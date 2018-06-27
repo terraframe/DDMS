@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.ontology.Term;
 
@@ -23,6 +24,8 @@ public class ODKTermForm extends ODKForm implements Reloadable
     this.mdAttribute = mdAttribute;
     this.terms = terms;
     this.locked = false;
+
+    this.setFormTitle(this.mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
   }
 
   @Override
@@ -74,7 +77,29 @@ public class ODKTermForm extends ODKForm implements Reloadable
   {
     for (Term term : this.terms)
     {
-      super.writeTranslation(parent, document, context + "/" + ODKTermAttribute.sanitizeTermId(term.getTermId()), maxDepth);
+      String termLabel = term.getTermDisplayLabel().getValue();
+      String subContext = context + "/" + ODKTermAttribute.sanitizeTermId(term.getTermId());
+
+      for (ODKAttribute attr : this.attrs)
+      {
+        if (attr.isValid())
+        {
+          try
+          {
+            attr.setPrefix(termLabel);
+            attr.writeTranslation(parent, document, subContext, maxDepth);
+          }
+          finally
+          {
+            attr.setPrefix(null);
+          }
+        }
+      }
+
+      for (ODKFormJoin join : joins)
+      {
+        join.writeTranslation(parent, document, subContext, maxDepth);
+      }
     }
   }
 
