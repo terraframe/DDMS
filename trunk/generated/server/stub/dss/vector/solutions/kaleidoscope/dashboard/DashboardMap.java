@@ -805,13 +805,13 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
    * @activeBaseMap = JSON constructed as {"LAYER_SOURCE_TYPE":"VALUE"}
    */
   @Override
-  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap)
+  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, String dashboardStateJson)
   {
     // Ordering the layers from the default map
-    return generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap, this.getOrderedLayers());
+    return generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap, this.getOrderedLayers(), dashboardStateJson);
   }
 
-  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, DashboardLayer[] orderedLayers)
+  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, DashboardLayer[] orderedLayers, String dashboardStateJson)
   {
     try
     {
@@ -901,26 +901,34 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
           // {
           // e.printStackTrace();
           // }
-
+          
           BufferedImage baseMapImage = this.getBaseMapCanvas(layerWidth, layerHeight, bound.left(), bound.bottom(), bound.right(), bound.top(), baseType);
-
+          
           if (baseMapImage != null)
           {
             mapBaseGraphic.drawImage(baseMapImage, bound.getX(), bound.getY(), null);
           }
         }
-
+        
         Dashboard dashboard = this.getDashboard();
-        DashboardState state = DashboardState.getDashboardState(dashboard, MDSSUser.getCurrentUser());
-
+        DashboardState state;
+        if (dashboardStateJson != null)
+        {
+          state = dashboard.saveAndGetState(dashboardStateJson, false);
+        }
+        else
+        {
+          state = dashboard.getOrCreateDashboardState(MDSSUser.getCurrentUser());
+        }
+        
         // Add layers to the base canvas
         BufferedImage layerCanvas = getLayersExportCanvas(orderedLayers, bound);
         mapBaseGraphic.drawImage(layerCanvas, bound.getX(), bound.getY(), null);
-
+        
         // Add legends to the base canvas
         BufferedImage legendCanvas = getLegendExportCanvas(width, height, state);
         mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
-
+        
         // Add the north arrow to the base canvas
         if (state != null && state.getEnableArrow() != null && state.getEnableArrow())
         {

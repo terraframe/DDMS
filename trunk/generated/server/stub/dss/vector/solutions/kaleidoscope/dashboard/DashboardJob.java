@@ -531,7 +531,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
           size.put("layerWidth", layerWidth);
           size.put("layerHeight", layerHeight);
 
-          InputStream istream = map.generateMapImageExport("png", bounds.toString(), size.toString(), baseMap.toString(), layers);
+          InputStream istream = map.generateMapImageExport("png", bounds.toString(), size.toString(), baseMap.toString(), layers, null);
 
           /*
            * 2c) Store the new generated dashboards

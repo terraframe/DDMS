@@ -978,7 +978,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     return state;
   }
 
-  private DashboardState getOrCreateDashboardState(SingleActor user)
+  public DashboardState getOrCreateDashboardState(SingleActor user)
   {
     DashboardState state = DashboardState.getDashboardState(this, user);
 
@@ -1175,6 +1175,13 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
   @Override
   public String saveState(String json, Boolean global)
   {
+    DashboardState state = saveAndGetState(json, global);
+    
+    return "";
+  }
+  
+  public DashboardState saveAndGetState(String json, Boolean global)
+  {
     try
     {
       JSONObject object = new JSONObject(json);
@@ -1270,7 +1277,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
 
       this.executeThumbnailThread(user);
 
-      return "";
+      return state;
     }
     catch (JSONException e)
     {

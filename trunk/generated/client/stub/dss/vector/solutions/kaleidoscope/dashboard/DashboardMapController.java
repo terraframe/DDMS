@@ -217,7 +217,7 @@ public class DashboardMapController extends DashboardMapControllerBase implement
   }
 
   @Override
-  public void exportMap(String mapId, String outFileName, String outFileFormat, String mapBounds, String mapSize, String activeBaseMap) throws IOException, ServletException
+  public void exportMap(String mapId, String outFileName, String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, String dashboardStateJson) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientRequest();
     DashboardMapDTO map = DashboardMapDTO.get(request, mapId);
@@ -226,16 +226,16 @@ public class DashboardMapController extends DashboardMapControllerBase implement
     {
       outFileName = "default";
     }
-
+    
     try
     {
-      InputStream mapImageInStream = map.generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap);
+      InputStream mapImageInStream = map.generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap, dashboardStateJson);
       FileDownloadUtil.writeFile(resp, outFileName, outFileFormat, mapImageInStream, "application/" + outFileFormat);
     }
     catch (Exception e)
     {
       ErrorUtility.prepareThrowable(e, req, resp, false);
-      this.failExportMap(mapId, outFileName, outFileFormat, mapBounds, mapSize, activeBaseMap);
+      this.failExportMap(mapId, outFileName, outFileFormat, mapBounds, mapSize, activeBaseMap, dashboardStateJson);
     }
   }
 

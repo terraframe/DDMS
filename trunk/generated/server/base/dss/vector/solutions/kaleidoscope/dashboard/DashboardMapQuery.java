@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 1337010203)
+@com.runwaysdk.business.ClassSignature(hash = -1723756990)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN

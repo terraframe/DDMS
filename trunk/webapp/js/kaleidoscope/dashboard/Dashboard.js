@@ -583,13 +583,16 @@
         MDSS.ErrorModal(message);            
       }
       
+      var state = JSON.stringify(controller.getCompressedState());
+      
       var params = {
         'mapId' : mapId,
         'outFileName' : outFileName,
         'outFileFormat' : outFileFormat,
         'mapBounds' : mapBoundsStr,
         'mapSize' : mapSizeStr,
-        'activeBaseMap' : activeBaseMapStr
+        'activeBaseMap' : activeBaseMapStr,
+        'dashboardStateJson' : state
       };
       
       var url = 'dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.exportMap.mojo?' + $.param(params);

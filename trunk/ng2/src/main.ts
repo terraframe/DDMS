@@ -7,7 +7,7 @@ import { AppUploadManagerModule } from './app/upload-manager/app-upload-manager.
 
 declare var appname: string;
 
-if (process.env.ENV === 'production') {
+if (process.env["ENV"] === 'production') {
   enableProdMode();
 }
 

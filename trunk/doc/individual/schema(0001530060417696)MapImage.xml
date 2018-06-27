@@ -1,0 +1,26 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.kaleidoscope.dashboard.DashboardMap">
+        <mdMethod name="generateMapImageExport">
+          <create>
+            <mdParameter name="dashboardState" label="dashboardState" type="java.lang.String" order="4"/>
+          </create>
+        </mdMethod>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController">
+        <mdAction name="exportMap">
+          <create>
+            <mdParameter name="dashboardStateJson" label="dashboardStateJson" order="6" type="java.lang.String"/>
+          </create>
+        </mdAction>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.kaleidoscope.dashboard.DashboardMap.generateMapImageExport.dashboardState" type="com.runwaysdk.system.metadata.MdParameter"/>
+    </delete>
+  </undoIt>
+</version>

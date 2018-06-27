@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -1811739548)
+@com.runwaysdk.business.ClassSignature(hash = 29985945)
 public abstract class DashboardMapDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardMap";
-  private static final long serialVersionUID = -1811739548;
+  private static final long serialVersionUID = 29985945;
   
   protected DashboardMapDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -527,18 +527,18 @@ public abstract class DashboardMapDTOBase extends com.runwaysdk.business.Busines
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public final java.io.InputStream generateMapImageExport(java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap)
+  public final java.io.InputStream generateMapImageExport(java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap, java.lang.String dashboardState)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{outFileFormat, mapBounds, mapSize, activeBaseMap};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{outFileFormat, mapBounds, mapSize, activeBaseMap, dashboardState};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO.CLASS, "generateMapImageExport", _declaredTypes);
     return (java.io.InputStream) getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final java.io.InputStream generateMapImageExport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap)
+  public static final java.io.InputStream generateMapImageExport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap, java.lang.String dashboardState)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{id, outFileFormat, mapBounds, mapSize, activeBaseMap};
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, outFileFormat, mapBounds, mapSize, activeBaseMap, dashboardState};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.kaleidoscope.dashboard.DashboardMapDTO.CLASS, "generateMapImageExport", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 914789661)
+@com.runwaysdk.business.ClassSignature(hash = -1673130762)
 public class DashboardMapControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController";
@@ -149,15 +149,15 @@ public class DashboardMapControllerBase implements com.runwaysdk.generation.load
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.failExportLayerData");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:outFileName, java.lang.String:outFileFormat, java.lang.String:mapBounds, java.lang.String:mapSize, java.lang.String:activeBaseMap", post=false)
-  public void exportMap(java.lang.String mapId, java.lang.String outFileName, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:outFileName, java.lang.String:outFileFormat, java.lang.String:mapBounds, java.lang.String:mapSize, java.lang.String:activeBaseMap, java.lang.String:dashboardStateJson", post=false)
+  public void exportMap(java.lang.String mapId, java.lang.String outFileName, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap, java.lang.String dashboardStateJson) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.exportMap");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:outFileName, java.lang.String:outFileFormat, java.lang.String:mapBounds, java.lang.String:mapSize, java.lang.String:activeBaseMap", post=false)
-  public void failExportMap(java.lang.String mapId, java.lang.String outFileName, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:mapId, java.lang.String:outFileName, java.lang.String:outFileFormat, java.lang.String:mapBounds, java.lang.String:mapSize, java.lang.String:activeBaseMap, java.lang.String:dashboardStateJson", post=false)
+  public void failExportMap(java.lang.String mapId, java.lang.String outFileName, java.lang.String outFileFormat, java.lang.String mapBounds, java.lang.String mapSize, java.lang.String activeBaseMap, java.lang.String dashboardStateJson) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.kaleidoscope.dashboard.DashboardMapController.failExportMap");
