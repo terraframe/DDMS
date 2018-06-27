@@ -221,7 +221,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     GeneratedDashboardQuery gmQuery = new GeneratedDashboardQuery(factory);
     DashboardQuery smQuery = new DashboardQuery(factory);
 
-    SelectableChar mapName = smQuery.getName();
+    SelectableChar mapName = smQuery.getDisplayLabel().localize();
     mapName.setUserDefinedAlias("map_name");
     mapName.setColumnAlias("map_name");
 
