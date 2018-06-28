@@ -12,6 +12,7 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.util.ReadableAttributeView;
@@ -38,7 +39,7 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
       MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
 
       String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + ODKCompositeGridAttribute.DELIMETER + term.getKey();
-      String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
+      String label = MobileUtil.sanitizeLabel(mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue());
       String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
 
       if (mdAttributeConcrete instanceof MdAttributeBooleanDAOIF)
@@ -93,7 +94,7 @@ public class ODKGridAttribute extends ODKMetadataAttribute implements Reloadable
 
     Element label = document.createElement("label");
     group.appendChild(label);
-    label.setTextContent(this.sourceMdAttr.getDisplayLabel(Session.getCurrentLocale()));
+    label.setTextContent(MobileUtil.sanitizeLabel(this.sourceMdAttr.getDisplayLabel(Session.getCurrentLocale())));
 
     for (ODKAttribute structAttr : gridAttrs)
     {

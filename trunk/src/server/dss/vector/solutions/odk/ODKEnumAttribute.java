@@ -15,6 +15,8 @@ import com.runwaysdk.dataaccess.attributes.entity.AttributeLocal;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.mobile.MobileUtil;
+
 public class ODKEnumAttribute extends ODKMetadataAttribute implements Reloadable
 {
   private MdAttributeEnumerationDAOIF mdAttribute;
@@ -41,7 +43,7 @@ public class ODKEnumAttribute extends ODKMetadataAttribute implements Reloadable
       EnumerationItemDAOIF i = (EnumerationItemDAOIF) item;
 
       String termId = i.getName();
-      String label = ( (AttributeLocal) i.getAttributeIF("displayLabel") ).getValue(Session.getCurrentLocale());
+      String label = MobileUtil.sanitizeLabel(( (AttributeLocal) i.getAttributeIF("displayLabel") ).getValue(Session.getCurrentLocale()));
       String id = i.getId();
 
       if (!this.exported.contains(id))

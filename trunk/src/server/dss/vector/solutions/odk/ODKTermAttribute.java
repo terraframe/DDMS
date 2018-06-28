@@ -18,6 +18,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRootQuery;
@@ -99,7 +100,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
         {
           ValueObject vObject = it.next();
           String termId = ODKTermAttribute.sanitizeTermId(vObject.getValue("termId"));
-          String label = vObject.getValue("displayLabel");
+          String label = MobileUtil.sanitizeLabel(vObject.getValue("displayLabel"));
           String selectable = vObject.getValue("selectable");
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");
@@ -135,15 +136,19 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     Element attrNode = document.createElement(attributeName);
 
     MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
-    MdAttributeDimensionDAOIF mdAttributeDimension = this.sourceMdAttr.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
-
-    String id = mdAttributeDimension.getDefaultValue();
-
-    if (id != null && id.length() > 0)
+    
+    if (mdDimension != null)
     {
-      Term term = Term.get(id);
-
-      attrNode.setTextContent(ODKTermAttribute.sanitizeTermId(term.getTermId()));
+      MdAttributeDimensionDAOIF mdAttributeDimension = this.sourceMdAttr.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
+  
+      String id = mdAttributeDimension.getDefaultValue();
+  
+      if (id != null && id.length() > 0)
+      {
+        Term term = Term.get(id);
+  
+        attrNode.setTextContent(ODKTermAttribute.sanitizeTermId(term.getTermId()));
+      }
     }
 
     parent.appendChild(attrNode);

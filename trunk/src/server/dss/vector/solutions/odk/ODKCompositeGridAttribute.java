@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 
+import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.util.ReadableAttributeView;
@@ -45,7 +46,7 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
 
         String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + DELIMETER + term.getKey() + DELIMETER + mdAttributeDAO.definesAttribute();
-        String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
+        String label = MobileUtil.sanitizeLabel(mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue());
         String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
 
         if (mdAttributeDAO instanceof MdAttributeBooleanDAOIF)
@@ -82,7 +83,7 @@ public class ODKCompositeGridAttribute extends ODKMetadataAttribute implements R
         MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
 
         String name = GRID_ATTR_PREFIX + sourceMdAttr.definesAttribute() + DELIMETER + term.getKey() + DELIMETER + mdAttributeDAO.definesAttribute();
-        String label = mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue();
+        String label = MobileUtil.sanitizeLabel(mdAttributeDAO.getDisplayLabel(Session.getCurrentLocale()) + " " + term.getTermDisplayLabel().getValue());
         String type = ODKMetadataAttribute.getODKType(mdAttributeConcrete);
 
         if (mdAttributeConcrete instanceof MdAttributeBooleanDAOIF)

@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.mobile.MobileUtil;
 
 public class ODKInsecticideBrandAttribute extends ODKMetadataAttribute implements Reloadable
 {
@@ -31,7 +32,7 @@ public class ODKInsecticideBrandAttribute extends ODKMetadataAttribute implement
     for (InsecticideBrand brand : brands)
     {
       String termId = brand.getKeyName();
-      String label = brand.getProductName().getTermDisplayLabel().getValue();
+      String label = MobileUtil.sanitizeLabel(brand.getProductName().getTermDisplayLabel().getValue());
       String id = brand.getId();
 
       if (!this.exported.contains(id))

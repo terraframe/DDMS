@@ -16,6 +16,21 @@ public class MobileUtil extends MobileUtilBase implements com.runwaysdk.generati
   {
     super();
   }
+  
+  public static String sanitizeLabel(String label)
+  {
+    label = label.replaceAll("#", "");
+    
+//    label = label.replaceAll("\\\\", "\\\\\\\\");
+    
+//    label = label.replaceAll("#", "\\\\#");
+    
+//    label = label.replaceAll("\\*", "\\\\*");
+//    
+//    label = label.replaceAll("_", "\\\\_");
+    
+    return label;
+  }
 
   public static String convertToOdkId(String seed)
   {

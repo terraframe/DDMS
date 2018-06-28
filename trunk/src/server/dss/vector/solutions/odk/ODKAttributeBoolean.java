@@ -8,6 +8,8 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.mobile.MobileUtil;
+
 /**
  * At the time of writing this, Booleans were claimed to be supported in ODK,
  * however we found that when the form was submitted to aggregate, the value was
@@ -76,7 +78,7 @@ public class ODKAttributeBoolean extends ODKMetadataAttribute implements Reloada
     optTrueValue.setTextContent("true");
     Element optTrueLabel = document.createElement("label");
     optTrue.appendChild(optTrueLabel);
-    optTrueLabel.setTextContent(this.positiveLabel);
+    optTrueLabel.setTextContent(MobileUtil.sanitizeLabel(this.positiveLabel));
 
     Element optFalse = document.createElement("item");
     select1.appendChild(optFalse);
@@ -85,7 +87,7 @@ public class ODKAttributeBoolean extends ODKMetadataAttribute implements Reloada
     optFalseValue.setTextContent("false");
     Element optFalseLabel = document.createElement("label");
     optFalse.appendChild(optFalseLabel);
-    optFalseLabel.setTextContent(this.negativeLabel);
+    optFalseLabel.setTextContent(MobileUtil.sanitizeLabel(this.negativeLabel));
   }
 
   @Override

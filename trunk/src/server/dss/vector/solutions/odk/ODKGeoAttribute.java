@@ -14,6 +14,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.mobile.MobileUtil;
 
 public class ODKGeoAttribute extends ODKMetadataAttribute implements Reloadable
 {
@@ -44,7 +45,7 @@ public class ODKGeoAttribute extends ODKMetadataAttribute implements Reloadable
       text.setAttribute("id", "/" + title + "/" + viewMdAttr.definesAttribute() + PREFIX + i + ":label");
       
       Element value = document.createElement("value");
-      value.setTextContent(viewMdAttr.getDisplayLabel(Session.getCurrentLocale()) + " Level " + (i+1));
+      value.setTextContent(MobileUtil.sanitizeLabel(viewMdAttr.getDisplayLabel(Session.getCurrentLocale()) + " Level " + (i+1)));
       text.appendChild(value);
       
       parent.appendChild(text);
@@ -101,7 +102,7 @@ public class ODKGeoAttribute extends ODKMetadataAttribute implements Reloadable
       select1.appendChild(item);
       
       Element label = document.createElement("label");
-      label.setTextContent(country.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")");
+      label.setTextContent(MobileUtil.sanitizeLabel(country.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")"));
       item.appendChild(label);
       
       Element value = document.createElement("value");

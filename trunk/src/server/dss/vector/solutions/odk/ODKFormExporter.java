@@ -69,6 +69,7 @@ import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
+import dss.vector.solutions.mobile.MobileUtil;
 
 public class ODKFormExporter implements Reloadable
 {
@@ -258,7 +259,7 @@ public class ODKFormExporter implements Reloadable
 
       ArrayList<String> geoCSV = new ArrayList<String>();
 
-      geoCSV.add(geo.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")");
+      geoCSV.add(MobileUtil.sanitizeLabel(geo.getEntityLabel().getValue() + " (" + universal.getDisplayLabel(Session.getCurrentLocale()) + ")"));
       geoCSV.add(geo.getGeoId() + "##" + universal.getId());
 
       geoCSV.add(ODKGeoAttribute.PREFIX + parents.size());

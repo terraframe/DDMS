@@ -10,6 +10,7 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.general.Insecticide;
+import dss.vector.solutions.mobile.MobileUtil;
 
 public class ODKAttributeInsecticide extends ODKMetadataAttribute implements Reloadable
 {
@@ -56,7 +57,7 @@ public class ODKAttributeInsecticide extends ODKMetadataAttribute implements Rel
     for (Insecticide insecticide : insecticides)
     {
       String termId = insecticide.getKeyName();
-      String label = insecticide.getActiveIngredient().getTermDisplayLabel().getValue() + " - " + insecticide.getAmount() + " " + insecticide.getUnits().getTermDisplayLabel().getValue();
+      String label = MobileUtil.sanitizeLabel(insecticide.getActiveIngredient().getTermDisplayLabel().getValue() + " - " + insecticide.getAmount() + " " + insecticide.getUnits().getTermDisplayLabel().getValue());
       String id = insecticide.getId();
 
       if (!this.exported.contains(id))

@@ -33,6 +33,8 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.mobile.MobileUtil;
+
 public class ODKStructAttribute extends ODKMetadataAttribute implements Reloadable
 {
   List<ODKAttribute> structAttrs;
@@ -98,7 +100,7 @@ public class ODKStructAttribute extends ODKMetadataAttribute implements Reloadab
 
     Element label = document.createElement("label");
     group.appendChild(label);
-    label.setTextContent(this.sourceMdAttr.getDisplayLabel(Session.getCurrentLocale()));
+    label.setTextContent(MobileUtil.sanitizeLabel(this.sourceMdAttr.getDisplayLabel(Session.getCurrentLocale())));
 
     for (ODKAttribute structAttr : structAttrs)
     {

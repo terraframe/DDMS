@@ -36,6 +36,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.RootTerm;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedAgeGroup;
@@ -269,11 +270,11 @@ public class ODKAttribute implements Reloadable
 
     if (this.prefix != null)
     {
-      value.setTextContent(this.prefix + " - " + this.displayLabel);
+      value.setTextContent(MobileUtil.sanitizeLabel(this.prefix + " - " + this.displayLabel));
     }
     else
     {
-      value.setTextContent(this.displayLabel);
+      value.setTextContent(MobileUtil.sanitizeLabel(this.displayLabel));
     }
 
     text.appendChild(value);

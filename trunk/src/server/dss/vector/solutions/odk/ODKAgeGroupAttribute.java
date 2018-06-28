@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 
 public class ODKAgeGroupAttribute extends ODKMetadataAttribute implements Reloadable
@@ -31,7 +32,7 @@ public class ODKAgeGroupAttribute extends ODKMetadataAttribute implements Reload
     for (AggregatedAgeGroup ageGroup : ageGroups)
     {
       String termId = ageGroup.getKeyName();
-      String label = ageGroup.getDisplayLabel();
+      String label = MobileUtil.sanitizeLabel(ageGroup.getDisplayLabel());
       String id = ageGroup.getId();
 
       if (!this.exported.contains(id))

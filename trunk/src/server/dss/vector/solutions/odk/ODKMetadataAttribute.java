@@ -107,7 +107,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
       def = sourceMdAttr.getMdAttributeConcrete().getDefaultValue();
     }
 
-    if (def == null || def.length() == 0)
+    if ((def == null || def.length() == 0) && Session.getCurrentDimension() != null)
     {
       MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
       MdAttributeDimensionDAOIF mdAttributeDimension = this.sourceMdAttr.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);

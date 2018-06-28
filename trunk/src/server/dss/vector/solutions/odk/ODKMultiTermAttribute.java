@@ -16,6 +16,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.mobile.MobileUtil;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.ontology.BrowserFieldQuery;
 import dss.vector.solutions.ontology.BrowserRootQuery;
@@ -86,7 +87,7 @@ public class ODKMultiTermAttribute extends ODKMetadataAttribute implements Reloa
         {
           ValueObject vObject = it.next();
           String termId = ODKTermAttribute.sanitizeTermId(vObject.getValue("termId"));
-          String label = vObject.getValue("displayLabel");
+          String label = MobileUtil.sanitizeLabel(vObject.getValue("displayLabel"));
           String selectable = vObject.getValue("selectable");
           String rootId = vObject.getValue("rootId");
           String id = vObject.getValue("id");

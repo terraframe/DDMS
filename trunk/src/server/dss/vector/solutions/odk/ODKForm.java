@@ -449,7 +449,7 @@ public class ODKForm implements Reloadable
     }
     else
     {
-      return this.formTitle + " (" + Disease.getCurrent().getDisplayLabel() + ")";
+      return MobileUtil.sanitizeLabel(this.formTitle + " (" + Disease.getCurrent().getDisplayLabel() + ")");
     }
   }
 
@@ -2071,6 +2071,7 @@ public class ODKForm implements Reloadable
     }
     catch (Throwable e)
     {
+      logger.info("Encountered this error while attempting to scrape listeners", e);
       return null;
     }
 
