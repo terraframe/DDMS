@@ -1319,6 +1319,9 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(OperatorSprayExcelView.CLASS))
     {
+      List<String> order = OperatorSprayExcelView.customAttributeOrder();
+      order.add(0, OperatorSprayExcelView.GEOENTITY);
+      
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(OperatorSprayExcelView.getInsecticideTermMd(), OperatorSprayView.getBrandMd());
       map.put(OperatorSprayExcelView.getSprayTeamMd(), OperatorSprayExcelView.getSprayTeamMd());
@@ -1330,12 +1333,12 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(OperatorSprayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(OperatorSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(OperatorSprayView.CLASS, OperatorSprayExcelView.customAttributeOrder(), null);
-      master.buildAttributes(map, OperatorSprayExcelView.customAttributeOrder());
+      master.buildAttributes(OperatorSprayView.CLASS, order, null);
+      master.buildAttributes(map, order);
 
       ODKForm individInst = new ODKForm(OperatorSprayExcelView.CLASS);
       individInst.setFormTitle(MdClassDAO.getMdClassDAO(HouseholdSprayStatus.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      individInst.buildAttributes(HouseholdSprayStatusView.CLASS, OperatorSprayExcelView.customAttributeOrder(), null);
+      individInst.buildAttributes(HouseholdSprayStatusView.CLASS, order, null);
       master.join(new RepeatFormJoin(master, individInst));
 
       individInst.addBasicRelevancy(individInst.getAttributeByName(HouseholdSprayStatusView.BEDNETS), master.getAttributeByName(OperatorSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1431,6 +1434,9 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(TeamSprayExcelView.CLASS))
     {
+      List<String> order = TeamSprayExcelView.customAttributeOrder();
+      order.add(0, TeamSprayExcelView.GEOENTITY);
+      
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(TeamSprayExcelView.getInsecticideTermMd(), TeamSprayView.getBrandMd());
       map.put(TeamSprayExcelView.getSprayTeamMd(), TeamSprayExcelView.getSprayTeamMd());
@@ -1441,16 +1447,16 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(TeamSprayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(TeamSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(TeamSprayView.CLASS, TeamSprayExcelView.customAttributeOrder(), null);
-      master.buildAttributes(map, TeamSprayExcelView.customAttributeOrder());
+      master.buildAttributes(TeamSprayView.CLASS, order, null);
+      master.buildAttributes(map, order);
 
       map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(TeamSprayExcelView.getOperatorIdMd(), TeamSprayExcelView.getOperatorIdMd());
 
       ODKForm individInst = new ODKForm(TeamSprayExcelView.CLASS);
       individInst.setFormTitle(MdClassDAO.getMdClassDAO(OperatorSprayStatus.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      individInst.buildAttributes(OperatorSprayStatusView.CLASS, TeamSprayExcelView.customAttributeOrder(), null);
-      individInst.buildAttributes(map, TeamSprayExcelView.customAttributeOrder());
+      individInst.buildAttributes(OperatorSprayStatusView.CLASS, order, null);
+      individInst.buildAttributes(map, order);
       master.join(new RepeatFormJoin(master, individInst));
 
       individInst.addBasicRelevancy(individInst.getAttributeByName(OperatorSprayStatusView.HOUSEHOLDS), master.getAttributeByName(TeamSprayExcelView.SPRAYMETHOD), ODKAttributeConditionOperation.NOT_EQUALS, SprayMethod.MOP_UP);
@@ -1511,6 +1517,9 @@ public class ODKForm implements Reloadable
     }
     else if (mobileType.equals(ZoneSprayExcelView.CLASS))
     {
+      List<String> order = ZoneSprayExcelView.customAttributeOrder();
+      order.add(0, ZoneSprayExcelView.GEOENTITY);
+
       Map<MdAttributeDAOIF, MdAttributeDAOIF> map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(ZoneSprayExcelView.getInsecticideTermMd(), ZoneSprayView.getBrandMd());
       map.put(ZoneSprayExcelView.getSupervisorNameMd(), ZoneSprayExcelView.getSupervisorNameMd());
@@ -1519,8 +1528,8 @@ public class ODKForm implements Reloadable
 
       master = new ODKForm(ZoneSprayExcelView.CLASS, gfc);
       master.setFormTitle(MdClassDAO.getMdClassDAO(ZoneSpray.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      master.buildAttributes(ZoneSprayView.CLASS, ZoneSprayExcelView.customAttributeOrder(), null);
-      master.buildAttributes(map, ZoneSprayExcelView.customAttributeOrder());
+      master.buildAttributes(ZoneSprayView.CLASS, order, null);
+      master.buildAttributes(map, order);
 
       map = new HashMap<MdAttributeDAOIF, MdAttributeDAOIF>();
       map.put(ZoneSprayExcelView.getSprayTeamMd(), ZoneSprayExcelView.getSprayTeamMd());
@@ -1533,8 +1542,8 @@ public class ODKForm implements Reloadable
 
       ODKForm individInst = new ODKForm(ZoneSprayExcelView.CLASS);
       individInst.setFormTitle(MdClassDAO.getMdClassDAO(TeamSprayStatus.CLASS).getDisplayLabel(Session.getCurrentLocale()));
-      individInst.buildAttributes(TeamSprayStatusView.CLASS, ZoneSprayExcelView.customAttributeOrder(), null);
-      individInst.buildAttributes(map, ZoneSprayExcelView.customAttributeOrder());
+      individInst.buildAttributes(TeamSprayStatusView.CLASS, order, null);
+      individInst.buildAttributes(map, order);
 
       master.join(new RepeatFormJoin(master, individInst));
 
