@@ -73,18 +73,18 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   public static boolean calculateRequired(MdAttributeDAOIF sourceMdAttr2, MdAttributeDAOIF viewMdAttr2)
   {
     boolean required = sourceMdAttr2.isRequired() || viewMdAttr2.isRequired();
-    
+
     MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
     if (mdDimension != null)
     {
       required = required || sourceMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
-      
+
       required = required || viewMdAttr2.getMdAttributeConcrete().getMdAttributeDimension(mdDimension).isRequired();
     }
-    
+
     return required;
   }
-  
+
   public MdAttributeDAOIF getSourceMdAttribute()
   {
     return this.sourceMdAttr;
@@ -118,6 +118,16 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     attrNode.setTextContent(def);
 
     parent.appendChild(attrNode);
+  }
+
+  public void setBarcode(boolean barcode)
+  {
+    this.barcode = barcode;
+  }
+
+  public boolean isBarcode()
+  {
+    return barcode;
   }
 
   public String getODKType()

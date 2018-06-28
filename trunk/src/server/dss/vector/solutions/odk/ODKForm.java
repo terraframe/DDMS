@@ -240,6 +240,7 @@ import dss.vector.solutions.surveillance.CaseStockReferralView;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodView;
 import dss.vector.solutions.surveillance.CaseTreatmentStockView;
 import dss.vector.solutions.surveillance.CaseTreatmentView;
+import dss.vector.solutions.util.AttributeMetadata;
 import dss.vector.solutions.util.LocalizationFacade;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.ReadableAttributeView;
@@ -1767,6 +1768,8 @@ public class ODKForm implements Reloadable
       master.buildAttributes(AdultDiscriminatingDoseAssayExcelView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(AdultDiscriminatingDoseAssayView.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(AdultDiscriminatingDoseAssay.getGenerationMd(), AdultDiscriminatingDoseAssayExcelView.getGenerationMd());      
+      ((ODKMetadataAttribute)master.getAttributeByName(MosquitoCollectionExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(AdultDiscriminatingDoseAssay.getCollectionMd()));
+      
       master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.INTERVALTIME);
       master.removeAttribute(AdultDiscriminatingDoseAssayExcelView.AMOUNT);
       
@@ -1795,6 +1798,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(BiochemicalAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(BiochemicalAssayExcelView.CLASS, BiochemicalAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(BiochemicalAssayView.CLASS, BiochemicalAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(BiochemicalAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(BiochemicalAssayView.getCollectionMd()));
 
       String msg = getLTEMsg(BiochemicalAssay.getNumberElevatedMd(), BiochemicalAssay.getNumberTestedMd());
       master.addBasicConstraint(master.getAttributeByName(BiochemicalAssay.NUMBERELEVATED), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(BiochemicalAssay.NUMBERTESTED), msg);
@@ -1805,6 +1809,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(InfectionAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(InfectionAssayExcelView.CLASS, InfectionAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(InfectionAssayView.CLASS, InfectionAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(InfectionAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(InfectionAssayView.getCollectionMd()));
 
       String msg = getLTEMsg(InfectionAssayExcelView.getNumberPositiveMd(), InfectionAssayExcelView.getNumberTestedMd());
       master.addBasicConstraint(master.getAttributeByName(InfectionAssayExcelView.NUMBERPOSITIVE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(InfectionAssayExcelView.NUMBERTESTED), msg);
@@ -1816,6 +1821,8 @@ public class ODKForm implements Reloadable
       master.buildAttributes(KnockDownAssayExcelView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(KnockDownAssay.getGenerationMd(), KnockDownAssayExcelView.getGenerationMd());
       master.buildAttributes(KnockDownAssayView.CLASS, KnockDownAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(KnockDownAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(KnockDownAssay.getCollectionMd()));
+      
       master.removeAttribute(KnockDownAssayExcelView.INTERVALTIME);
       master.removeAttribute(KnockDownAssayExcelView.AMOUNT);
       
@@ -1839,6 +1846,7 @@ public class ODKForm implements Reloadable
       master.buildAttributes(LarvaeDiscriminatingDoseAssayExcelView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.addAttribute(LarvaeDiscriminatingDoseAssay.getGenerationMd(), LarvaeDiscriminatingDoseAssayExcelView.getGenerationMd());
       master.buildAttributes(LarvaeDiscriminatingDoseAssayView.CLASS, LarvaeDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(LarvaeDiscriminatingDoseAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(LarvaeDiscriminatingDoseAssay.getCollectionMd()));
 
       master.removeAttribute(LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEACTIVEINGREDIENT);
       master.removeAttribute(LarvaeDiscriminatingDoseAssayExcelView.INSECTICIDEAMOUNT);
@@ -1862,6 +1870,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(MolecularAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(MolecularAssayExcelView.CLASS, MolecularAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(MolecularAssayView.CLASS, MolecularAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(MolecularAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(MolecularAssayView.getCollectionMd()));      
     }
     else if (mobileType.equals(PooledInfectionAssayExcelView.CLASS))
     {
@@ -1869,6 +1878,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(PooledInfectionAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(PooledInfectionAssayExcelView.CLASS, PooledInfectionAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(PooledInfectionAssayView.CLASS, PooledInfectionAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(PooledInfectionAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(PooledInfectionAssayView.getCollectionMd()));      
 
       String msg = getLTEMsg(PooledInfectionAssayExcelView.getNumberPositiveMd(), PooledInfectionAssayExcelView.getPoolsTestedMd());
       master.addBasicConstraint(master.getAttributeByName(PooledInfectionAssayExcelView.NUMBERPOSITIVE), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(PooledInfectionAssayExcelView.POOLSTESTED), msg);
@@ -1879,6 +1889,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(TimeResponseAssay.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(TimeResponseAssayExcelView.CLASS, TimeResponseAssayExcelView.customAttributeOrder(), null);
       master.buildAttributes(TimeResponseAssayView.CLASS, TimeResponseAssayExcelView.customAttributeOrder(), null);
+      ((ODKMetadataAttribute)master.getAttributeByName(TimeResponseAssayExcelView.COLLECTIONID)).setBarcode(AttributeMetadata.isValidBarcode(TimeResponseAssayView.getCollectionMd()));            
     }
     else if (mobileType.equals(GeoTargetExcelView.CLASS))
     {
@@ -1886,6 +1897,7 @@ public class ODKForm implements Reloadable
       master.setFormTitle(MdClassDAO.getMdClassDAO(GeoTarget.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       master.buildAttributes(GeoTargetExcelView.CLASS, GeoTargetExcelView.customAttributeOrder(), null);
       master.buildAttributes(GeoTargetView.CLASS, GeoTargetExcelView.customAttributeOrder(), null);
+      
     }
     else if (mobileType.equals(ResourceTargetExcelView.CLASS))
     {
