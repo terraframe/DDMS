@@ -274,10 +274,13 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(USED);
     list.add(NOZZLESUSED);
     list.add(PUMPSUSED);
+    list.add(SURFACETYPE);
+    
     list.add(HOUSEHOLDID);
     list.add(STRUCTUREID);
     list.add(HOUSEHOLDS);
     list.add(STRUCTURES);
+    list.add(STRUCTURETYPE);
     list.add(SPRAYEDHOUSEHOLDS);
     list.add(SPRAYEDSTRUCTURES);
     list.add(STRUCTURESNOTSPRAYEDSICK);
@@ -286,40 +289,43 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(STRUCTURESNOTSPRAYEDREFUSED);
     list.add(STRUCTURESNOTSPRAYEDNOONEHOME);
     list.add(STRUCTURESNOTSPRAYEDOTHER);
+    list.add(REASONNOTSPRAYED);    
     list.add(PREVSPRAYEDHOUSEHOLDS);
     list.add(PREVSPRAYEDSTRUCTURES);
-    list.add(ROOMS);
-    list.add(VERANDAS);
-    list.add(CATTLESHEDS);
-    list.add(SPRAYEDROOMS);
-    list.add(VERANDASSPRAYED);
-    list.add(CATTLESHEDSSPRAYED);
-    list.add(NUMBEROFPEOPLE);
-    list.add(PEOPLE);
-    list.add(BEDNETS);
-    list.add(ROOMSWITHBEDNETS);
-    list.add(LOCKED);
-    list.add(VERANDASLOCKED);
-    list.add(CATTLESHEDSLOCKED);
-    list.add(REFUSED);
-    list.add(VERANDASREFUSED);
-    list.add(CATTLESHEDSREFUSED);
-    list.add(OTHER);
-    list.add(VERANDASOTHER);
-    list.add(CATTLESHEDSOTHER);
-    list.add(WRONGSURFACE);
-    list.add(REASONNOTSPRAYED);
-    list.add(SURFACETYPE);
     
+    list.add(ROOMS);
+    list.add(SPRAYEDROOMS);
+    list.add(LOCKED);
+    list.add(REFUSED);
+    list.add(WRONGSURFACE);
+    list.add(NUMBERROOMSNOTSPRAYEDSICK);
+    list.add(OTHER);
+    
+    list.add(VERANDAS);
+    list.add(VERANDASSPRAYED);
+    list.add(VERANDASLOCKED);
+    list.add(VERANDASREFUSED);
+    list.add(VERANDASOTHER);
+    
+    list.add(CATTLESHEDS);
+    list.add(CATTLESHEDSSPRAYED);
+    list.add(CATTLESHEDSOTHER);
+    list.add(CATTLESHEDSLOCKED);
+    list.add(CATTLESHEDSREFUSED);
+    
+    list.add(PEOPLE);
+    list.add(NUMBEROFPEOPLE);
     list.add(NUMBERMALESPROTECTED);
     list.add(NUMBERFEMALESPROTECTED);
     list.add(NUMBERPREGNANTWOMENPROTECTED);
     list.add(NUMBERCHILDRENUNDERFIVEPROTECTED);
-    list.add(NUMBERROOMSNOTSPRAYEDSICK);
+    
+    list.add(BEDNETS);
+    list.add(ROOMSWITHBEDNETS);
     list.add(NUMBERITNSINUSE);
     list.add(NUMBERPEOPLESLEEPINGUNDERITNS);
     list.add(NUMBERPREGNANTWOMENSLEEPINGUNDERITNS);
-    list.add(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);
+    list.add(NUMBERCHILDRENUNDERFIVESLEEPINGUNDERITNS);    
     
     return list;
   }
