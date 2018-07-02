@@ -28,10 +28,11 @@ export class UploadManagerService extends BasicService {
  
         return response.json() as ExcelImportHistory[];
       })
-      .catch(
+      .catch(e => {
     	    	this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo", "get", {});
 
-    	    	this.handleError.bind(this));
+    	    	this.handleError.bind(this)
+      });
   }
   
   pollAllHistory(): Observable<ExcelImportHistory[]> {
@@ -47,9 +48,10 @@ export class UploadManagerService extends BasicService {
     return this.ehttp
     .get(acp + '/dss.vector.solutions.generator.ExcelController.clearHistory.mojo')
     .toPromise()
-    .catch(
+    .catch(e => {
     	  	this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.generator.ExcelController.clearHistory.mojo", "get", {});
 
-    	  	this.handleError.bind(this));
+    	  	this.handleError.bind(this)
+    });
   }
 }

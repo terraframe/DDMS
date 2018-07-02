@@ -27,11 +27,11 @@ export class DatasetService extends BasicService {
 
         return response.json() as DatasetCollection;
       })
-      .catch(
+      .catch(e => {
     		  this.handleError.bind(this)
     	      this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.getAll.mojo", "get", {});
 
-      );
+      });
   }
   
   edit(id : string): Promise<Dataset> {
@@ -49,10 +49,10 @@ export class DatasetService extends BasicService {
 
         return response.json() as Dataset;
       })
-      .catch(
+      .catch(e => {
     	   this.handleError.bind(this)
     	   this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.edit.mojo", "post", {id:id});
-      );      
+      });      
   }
   
   unlock(dataset: Dataset): Promise<Response> {
@@ -65,10 +65,10 @@ export class DatasetService extends BasicService {
     return this.ehttp
       .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.cancel.mojo', JSON.stringify({id:dataset.id}), {headers: headers})
       .toPromise()
-      .catch(
+      .catch(e => {
     	  this.handleError.bind(this)
     	  this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.cancel.mojo", "post", {id:dataset.id});
-      );
+      });
   }
   
   apply(dataset: Dataset): Promise<Dataset> {
@@ -85,10 +85,10 @@ export class DatasetService extends BasicService {
 
       return response.json() as Dataset;
     })          
-    .catch(
+    .catch(e => {
     		this.handleError.bind(this)
     	    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.applyDatasetUpdate.mojo", "post", {datasetJSON:dataset});
-    );
+    });
   }
   
   addIndicator(datasetId:string, indicator:IndicatorField): Promise<DatasetAttribute> {
@@ -107,10 +107,10 @@ export class DatasetService extends BasicService {
 
        return response.json() as DatasetAttribute;
       })          
-     .catch(
+     .catch(e => {
     		 this.handleError.bind(this)
     	     this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.addIndicator.mojo", "post", {datasetId:datasetId, indicator:indicator});
-     );
+     });
   }
   
   remove(dataset: Dataset): Promise<DatasetCollection> {
@@ -127,10 +127,10 @@ export class DatasetService extends BasicService {
 
         return response.json() as DatasetCollection;
       })
-      .catch(
+      .catch(e => {
     		  this.handleError.bind(this)
     	      this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.remove.mojo", "post", {id:dataset.id});
-      );
+      });
   }
   
   removeAttribute(attribute:DatasetAttribute): Promise<Response> {
@@ -143,10 +143,10 @@ export class DatasetService extends BasicService {
     return this.ehttp
       .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.removeAttribute.mojo', JSON.stringify({id:attribute.id}), {headers: headers})
       .toPromise()
-      .catch(
+      .catch(e => {
     		  this.handleError.bind(this)
     		  this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.removeAttribute.mojo", "post", {id:attribute.id});
-      );
+      });
   }
   
   unlockAttribute(id:string): Promise<Response> {
@@ -159,10 +159,10 @@ export class DatasetService extends BasicService {
     return this.ehttp
      .post(acp + '/dss.vector.solutions.kaleidoscope.DataSetController.unlockAttribute.mojo', JSON.stringify({id:id}), {headers: headers})
      .toPromise()
-     .catch(
+     .catch(e => {
     		 this.handleError.bind(this)
     		 this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.unlockAttribute.mojo", "post", {id:id});
-     );
+     });
   }
   
   editAttribute(attribute:DatasetAttribute): Promise<IndicatorField> {
@@ -179,10 +179,10 @@ export class DatasetService extends BasicService {
 
         return response.json() as IndicatorField;
       })          
-     .catch(
+     .catch(e => {
     		 this.handleError.bind(this)
     	    this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.kaleidoscope.DataSetController.editAttribute.mojo", "post", {});
-     );
+     });
   }
   
   validateDatasetName(name: string, id: string): Promise<Response> {
