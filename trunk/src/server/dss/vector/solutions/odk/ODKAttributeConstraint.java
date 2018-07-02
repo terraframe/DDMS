@@ -54,7 +54,7 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         localized = localized.replace("{1}", value);
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN, new ODKConditionComparative(value), localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.GREATER_THAN_EQUALS, new ODKConditionComparative(value), localized));
       }
       if (mdNumAttr.getEndRange() != null)
       {
@@ -64,7 +64,7 @@ abstract public class ODKAttributeConstraint implements Reloadable
         localized = localized.replace("{0}", mdAttr.getDisplayLabel(Session.getCurrentLocale()));
         localized = localized.replace("{1}", value);
         
-        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN, new ODKConditionComparative(value), localized));
+        odkAttr.addConstraint(new ODKAttributeConstraintBasic(odkAttr, ODKAttributeConditionOperation.LESS_THAN_EQUALS, new ODKConditionComparative(value), localized));
       }
       if (mdNumAttr.isPositiveRejected() != null && Boolean.parseBoolean(mdNumAttr.isPositiveRejected()))
       {
