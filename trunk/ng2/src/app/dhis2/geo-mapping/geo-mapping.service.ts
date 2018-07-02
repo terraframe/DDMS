@@ -31,10 +31,10 @@ export class GeoMappingService extends BasicService {
 
         return response.json() as {roots:GeoMapping[],mappings:UniversalMapping[],levels:OrgLevel[]};
       })
-      .catch(
+      .catch(e => {
     		  this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/roots", "post", {});
     		  this.handleError.bind(this)
-      );      
+      });      
   }    
   
   getChildren(parentId:string): Promise<GeoMapping[]> {
@@ -51,10 +51,10 @@ export class GeoMappingService extends BasicService {
 
       return response.json() as {id:string, label:string}[];
     })
-    .catch(
+    .catch(e => {
     		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/children", "post", {parentId:parentId});
     		this.handleError.bind(this)
-    		);      
+    });      
   }    
   
   search(text:String, geoId:String): Promise<{data:string, text:string}[]> {
@@ -71,10 +71,10 @@ export class GeoMappingService extends BasicService {
 
       return response.json() as {data:string, text:string}[];
     })    
-    .catch(
+    .catch(e => {
     		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/search", "post", {text:text, geoId:geoId});
     		this.handleError.bind(this)
-    		);      
+    });      
   }    
   
   apply(mapping:GeoMapping): Promise<GeoMapping> {
@@ -91,10 +91,11 @@ export class GeoMappingService extends BasicService {
 
       return response.json() as GeoMapping;
     })    
-    .catch(
+    .catch(e => {
     		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/apply-geo-mapping", "post", {mapping:mapping});
 
-    		this.handleError.bind(this));      
+    		this.handleError.bind(this)
+    });      
   }    
   
   applyLevelMapping(mapping:UniversalMapping): Promise<UniversalMapping> {
@@ -111,10 +112,10 @@ export class GeoMappingService extends BasicService {
 
       return response.json() as UniversalMapping;
     })    
-    .catch(
+    .catch(e => {
     		this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dhis2/apply-level-mapping", "post", {mapping:mapping});
 
     		this.handleError.bind(this)
-    		);      
+    });      
   }    
 }
