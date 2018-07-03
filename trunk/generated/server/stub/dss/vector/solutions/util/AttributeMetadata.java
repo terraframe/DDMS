@@ -4,8 +4,12 @@ import com.runwaysdk.dataaccess.MdAttributeCharDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeNumberDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+
+import dss.vector.solutions.entomology.MosquitoCollection;
 
 public class AttributeMetadata extends AttributeMetadataBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -63,6 +67,13 @@ public class AttributeMetadata extends AttributeMetadataBase implements com.runw
   public static Boolean isBasic(MdAttributeDAOIF mdAttribute)
   {
     MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
+
+    if (mdAttributeConcrete instanceof MdAttributeReferenceDAOIF)
+    {
+      MdBusinessDAOIF referenceMdBusiness = ( (MdAttributeReferenceDAOIF) mdAttributeConcrete ).getReferenceMdBusinessDAO();
+
+      return ( referenceMdBusiness.definesType().equals(MosquitoCollection.CLASS) );
+    }
 
     return ( ( mdAttributeConcrete instanceof MdAttributeNumberDAOIF ) || ( mdAttributeConcrete instanceof MdAttributeCharDAOIF ) );
   }
