@@ -21,11 +21,11 @@
   ===============
   Copy and paste these depends into the target below to modify what you're building
    
-  <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 15 minutes)
+  <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 40 minutes)
   <target name="build" depends="clean, compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
   <target name="build" depends="clean, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
-  <target name="build" depends="clean, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>
+  <target name="build" depends="clean, compile, deploy, build-managers, build_installer_exe"/>
   
   <property name="project.root" location="C:/svn/ddms" />
   <property name="trunk.root" location="${project.root}/trunk" />  
@@ -89,13 +89,12 @@
 	    <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
 	
-      <target name="delete_localization_files"/>
 	    <target name="import_localization_disease_defaults"/>
 	    <target name="deploy" />
       <target name="deploy_all_files"/>
-	</ant>
+	  </ant>
 	
-	<antcall target="set_vital_properties" />
+	  <antcall target="set_vital_properties" />
   </target>
   
   <!-- Depends on source being compiled -->
@@ -150,6 +149,7 @@
       <property name="geodata.db" value="${geodata.db}" />
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
+      <target name="delete_localization_files"/>
       <target name="rebuild_db" />
       <target name="rebuild_model" />
       <target name="import_most_recent" />

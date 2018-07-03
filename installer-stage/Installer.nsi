@@ -344,14 +344,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 9062
+    StrCpy $PatchVersion 9092
     StrCpy $RootsVersion 8669
     StrCpy $MenuVersion 8946
-    StrCpy $LocalizationVersion 9043
+    StrCpy $LocalizationVersion 9087
     StrCpy $PermissionsVersion 9038
 	StrCpy $RunwayVersion 8961
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 9062
+	StrCpy $ManagerVersion 9092
 	StrCpy $BirtVersion 7851
 	StrCpy $EclipseVersion 9049  
 	StrCpy $WebappsVersion 8900
