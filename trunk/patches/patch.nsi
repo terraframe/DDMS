@@ -75,7 +75,7 @@ VIAddVersionKey LegalCopyright ""
 
 Function checkIfMaster
     ClearErrors
-    FileOpen $0 $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\install.properties r
+    FileOpen $0 $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\install.properties r
     
     propFileReadLoop:
     # Read a line from the file into $1
@@ -177,11 +177,11 @@ Section -Main SEC0000
     # Set some constants
     StrCpy $PatchDir "$INSTDIR\patch"
     StrCpy $AgentDir "$PatchDir\output"
-    StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\java.exe"
+    StrCpy $Java "$INSTDIR\Java\jdk1.8.0_66\bin\java.exe"
     StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
 ;    StrCpy $Java "C:\Program Files (x86)\Java\jdk1.6.0_20\bin\java.exe"
 ;    StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y"
-    StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+    StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
     
     # Remove any old log files that may be laying around
     Delete $AgentDir\*.out
@@ -193,16 +193,16 @@ Section -Main SEC0000
     File 7za.exe
     
     # Special check to make sure ajde goes away.
-    Delete $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\ajde.jar
+    Delete $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\ajde.jar
 	
 	# Remove GIS directory artifacts if present
-	RMDir /r $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\dss\vector\solutions\gis
+	RMDir /r $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\dss\vector\solutions\gis
     
     # Copy web files
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating web files"
-    SetOutPath $INSTDIR\tomcat6\webapps\$AppName
+    SetOutPath $INSTDIR\tomcat\webapps\$AppName
     File /r /x webapp\WEB-INF\originalVersion.jsp webapp\*
-    File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\profiles\version.xsd
+    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\profiles\version.xsd
     
     # Import Most Recent
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing updated schema definitions"
@@ -220,8 +220,8 @@ Section -Main SEC0000
     # Delete $PatchDir\schema
     
     # Switch to the develop environment
-    Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties
-    Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
     
     # Terms
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing Ontology"
@@ -301,23 +301,23 @@ Section -Main SEC0000
     ${EndIf}
     
     # Switch back to the deploy environment
-    Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
-    Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties
+    Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties
 	
 	# Update the .css file with the correct pathing
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -itrue -p`
+    ExecWait `$INSTDIR\Java\jdk1.8.0_66\bin\java.exe -cp "C:\MDSS\tomcat\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -itrue -p`
     
     # Copy the profile to the backup manager
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-    CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    CopyFiles /FILESONLY $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     # Write updated versions into registry 
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
     
     # We need to clear the old cache
-    Delete $INSTDIR\tomcat6\$AppName.index
-    Delete $INSTDIR\tomcat6\$AppName.data
+    Delete $INSTDIR\tomcat\$AppName.index
+    Delete $INSTDIR\tomcat\$AppName.data
     
     #Overwriting manage and runway is a mistake, since they may be up to date already.
 ;    WriteRegStr HKLM "${REGKEY}\Components" Manager 1
