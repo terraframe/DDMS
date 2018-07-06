@@ -557,6 +557,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     return applyCount;
   }
 
+  @Request
   public static boolean containsValues()
   {
     QueryFactory f2 = new QueryFactory();

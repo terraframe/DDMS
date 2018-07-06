@@ -64,6 +64,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     GeoEntityAllPathBuilder.main(new String[] {});
   }
 
+  @Request
   public static boolean containsValues()
   {
     QueryFactory f = new QueryFactory();
