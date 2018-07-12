@@ -176,6 +176,7 @@ table.com-runwaysdk-ui-scheduler-JobTable tr {
      "history" : MDSS.localize("History"),
      "all_jobs" : MDSS.localize("all_jobs"),
      "cycle_jobs" : MDSS.localize("cycle_jobs"),
+     "dashboard_jobs" : MDSS.localize("dashboard_jobs"),
      "refresh_view_jobs" : MDSS.localize("refresh_view_jobs"),
      "report_jobs" : MDSS.localize("report_jobs"),
      "odk_data_pull" : MDSS.localize("odk_data_pull"),
