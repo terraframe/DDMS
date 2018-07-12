@@ -128,6 +128,9 @@
         this._cycleJobTable = new JobTable(this._config, "dss.vector.solutions.query.CycleJob", this);
         this._tabPanel.addPanel(this.localize("cycle_jobs"), this._cycleJobTable);
         
+        this._dashboardJobTable = new JobTable(this._config, "dss.vector.solutions.kaleidoscope.dashboard.DashboardJob", this);
+        this._tabPanel.addPanel(this.localize("dashboard_jobs"), this._dashboardJobTable);
+        
         this._refreshViewTable = new JobTable(this._config, "dss.vector.solutions.query.RefreshViewJob", this);
         this._tabPanel.addPanel(this.localize("refresh_view_jobs"), this._refreshViewTable);
         
@@ -146,53 +149,73 @@
       onSwitchPanel : function(switchPanelEvent) {
         var panel = switchPanelEvent.getPanel();
         
-        if (panel.getPanelNumber() === 0) { // All Jobs
+        this.configureListeners(panel.getPanelNumber());
+      },
+      
+      configureListeners : function(panelNumber)
+      {
+        if (panelNumber === 0) { // All Jobs
           this._allJobsTable.getPollingRequest().enable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
           this._odkDataTable.getPollingRequest().disable();
+          this._dashboardJobTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 1) { // Cycle jobs
+        else if (panelNumber === 1) { // Cycle jobs
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().enable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
           this._odkDataTable.getPollingRequest().disable();
+          this._dashboardJobTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 2) { // Refresh View jobs
+        else if (panelNumber === 2) { // Dashboard jobs
+          this._allJobsTable.getPollingRequest().disable();
+          this._cycleJobTable.getPollingRequest().disable();
+          this._refreshViewTable.getPollingRequest().disable();
+          this._reportTable.getPollingRequest().disable();
+          this._historyTable.getPollingRequest().disable();
+          this._odkDataTable.getPollingRequest().disable();
+          this._dashboardJobTable.getPollingRequest().enable();
+        }
+        else if (panelNumber === 3) { // Refresh View jobs
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().enable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
           this._odkDataTable.getPollingRequest().disable();
+          this._dashboardJobTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 3) { // Report jobs
+        else if (panelNumber === 4) { // Report jobs
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().enable();
           this._historyTable.getPollingRequest().disable();
           this._odkDataTable.getPollingRequest().disable();
+          this._dashboardJobTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 4) { // Mobile data upload job
+        else if (panelNumber === 5) { // Mobile data upload job
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().disable();
           this._odkDataTable.getPollingRequest().enable();
+          this._dashboardJobTable.getPollingRequest().disable();
         }
-        else if (panel.getPanelNumber() === 5) { // History
+        else if (panelNumber === 6) { // History
           this._allJobsTable.getPollingRequest().disable();
           this._cycleJobTable.getPollingRequest().disable();
           this._refreshViewTable.getPollingRequest().disable();
           this._reportTable.getPollingRequest().disable();
           this._historyTable.getPollingRequest().enable();
           this._odkDataTable.getPollingRequest().disable();
+          this._dashboardJobTable.getPollingRequest().disable();
         }
       },
       
@@ -466,7 +489,14 @@
           pollingInterval : JOBS_POLLING_INTERVAL
         });
         
-        this._pollingRequest.enable();
+        if (this._config.isAllJobs != null)
+        {
+          this._pollingRequest.enable();
+        }
+        else
+        {
+          this._pollingRequest.disable();
+        }
       },
       
       getPollingRequest : function() {
