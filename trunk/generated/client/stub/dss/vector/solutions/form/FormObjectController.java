@@ -458,7 +458,13 @@ public class FormObjectController extends FormObjectControllerBase implements co
         WebMultipleTerm wmt = (WebMultipleTerm) field;
 
         // create the relationships between the parent/child objects.
-        JSONArray arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
+        JSONArray arr;
+        try {
+          arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
+        }
+        catch (JSONException e) {
+          arr = new JSONArray();
+        }
 
         JSONObject entry = new JSONObject();
         entry.put("mdField", field.getFieldMd().getId());
@@ -477,7 +483,13 @@ public class FormObjectController extends FormObjectControllerBase implements co
         JSONObject entry = new JSONObject();
         entry.put("mdField", field.getFieldMd().getId());
 
-        JSONArray arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
+        JSONArray arr;
+        try {
+          arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
+        }
+        catch (JSONException e) {
+          arr = new JSONArray();
+        }
         entry.put("rows", arr);
 
         singleTermGridJSON.put(entry);
