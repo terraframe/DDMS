@@ -20,10 +20,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
-import dss.vector.solutions.geoserver.LocalBasemapBuilder;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class OfflineBasemapController extends OfflineBasemapControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -37,42 +42,97 @@ public class OfflineBasemapController extends OfflineBasemapControllerBase imple
   
   @Override
   public void viewAll() throws IOException, ServletException {
-    HashMap<String, Boolean> flatFilesOnDisk = LocalBasemapBuilder.getBasemapFilesUploadStatus();
-    
-    req.setAttribute("availableFiles", flatFilesOnDisk);
-    req.setAttribute("uploadStatus", false);
-    
-    render("viewAllComponent.jsp");
+    try {
+      Map<String, Boolean> flatFilesOnDisk = jsonToMap(new JSONObject(OfflineBasemapManagementDTO.getFlatFilesOnDisk(this.getClientRequest())));
+      
+      req.setAttribute("availableFiles", flatFilesOnDisk);
+      req.setAttribute("uploadStatus", false);
+      
+      render("viewAllComponent.jsp");
+    } catch (JSONException e) {
+      throw new RuntimeException(e);
+    }
   }
   
   @Override
   public void submit() throws IOException, ServletException {
-	ArrayList<String> config = new ArrayList<String>();
-	Enumeration<String> inputFields = this.getRequest().getParameterNames();
-	while(inputFields.hasMoreElements())
-	{
-		String inputField = inputFields.nextElement();
-		String checkedFile = this.getRequest().getParameter(inputField);
-		config.add(checkedFile);
-	}
+  	ArrayList<String> config = new ArrayList<String>();
+  	Enumeration<String> inputFields = this.getRequest().getParameterNames();
+  	while(inputFields.hasMoreElements())
+  	{
+  		String inputField = inputFields.nextElement();
+  		String checkedFile = this.getRequest().getParameter(inputField);
+  		config.add(checkedFile);
+  	}
 	
+  	if(config != null)
+  	{
+        OfflineBasemapManagementDTO.importBasemapFiles(this.getClientRequest(), config.toArray(new String[config.size()]));
+  	}
 	
-	if(config != null)
-	{
-      OfflineBasemapManagementDTO.importBasemapFiles(this.getClientRequest(), config.toArray(new String[config.size()]));
-	}
-	
-	HashMap<String, Boolean> flatFilesOnDisk = LocalBasemapBuilder.getBasemapFilesUploadStatus();
-	
-    req.setAttribute("availableFiles", flatFilesOnDisk);
-    req.setAttribute("uploadStatus", true);
-	
-	render("viewAllComponent.jsp");
+  	try
+  	{
+  	  Map<String, Boolean> flatFilesOnDisk = jsonToMap(new JSONObject(OfflineBasemapManagementDTO.getFlatFilesOnDisk(this.getClientRequest())));
+  	
+      req.setAttribute("availableFiles", flatFilesOnDisk);
+      req.setAttribute("uploadStatus", true);
+  	
+  	  render("viewAllComponent.jsp");
+  	}
+  	catch (JSONException e)
+  	{
+  	  throw new RuntimeException(e);
+  	}
   }
 
   
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
+  }
+  
+  public static Map<String, Boolean> jsonToMap(JSONObject json) {
+    Map<String, Boolean> retMap = new HashMap<String, Boolean>();
+
+    if(json != JSONObject.NULL) {
+        retMap = toMap(json);
+    }
+    return retMap;
+  }
+
+  public static Map<String, Boolean> toMap(JSONObject object) {
+    try
+    {
+      Map<String, Boolean> map = new HashMap<String, Boolean>();
+  
+      Iterator<String> keysItr = object.keys();
+      while(keysItr.hasNext()) {
+          String key = keysItr.next();
+          Boolean value = object.getBoolean(key);
+  
+          map.put(key, value);
+      }
+      return map;
+    }
+    catch (JSONException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  public static List<Object> toList(JSONArray array) throws JSONException {
+      List<Object> list = new ArrayList<Object>();
+      for(int i = 0; i < array.length(); i++) {
+          Object value = array.get(i);
+          if(value instanceof JSONArray) {
+              value = toList((JSONArray) value);
+          }
+  
+          else if(value instanceof JSONObject) {
+              value = toMap((JSONObject) value);
+          }
+          list.add(value);
+      }
+      return list;
   }
 }

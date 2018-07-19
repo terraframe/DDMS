@@ -16,6 +16,10 @@
  ******************************************************************************/
 package dss.vector.solutions.basemap;
 
+import java.util.HashMap;
+
+import org.json.JSONObject;
+
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geoserver.LocalBasemapBuilder;
@@ -27,6 +31,15 @@ public class OfflineBasemapManagement extends OfflineBasemapManagementBase imple
   public OfflineBasemapManagement()
   {
     super();
+  }
+  
+  public static java.lang.String getFlatFilesOnDisk()
+  {
+    HashMap<String, Boolean> flatFilesOnDisk = LocalBasemapBuilder.getBasemapFilesUploadStatus();
+    
+    JSONObject json = new JSONObject(flatFilesOnDisk);
+    
+    return json.toString();
   }
   
   @Override

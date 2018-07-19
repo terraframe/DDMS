@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.basemap;
 
-@com.runwaysdk.business.ClassSignature(hash = -247561993)
+@com.runwaysdk.business.ClassSignature(hash = -646045657)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -43,7 +27,7 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UPLOADSUCCESSFUL = "uploadSuccessful";
-  private static final long serialVersionUID = -247561993;
+  private static final long serialVersionUID = -646045657;
   
   public OfflineBasemapManagementBase()
   {
@@ -131,6 +115,18 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
     else
     {
       setValue(ENTITYDOMAIN, value.getId());
+    }
+  }
+  
+  public void setEntityDomainId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ENTITYDOMAIN, "");
+    }
+    else
+    {
+      setValue(ENTITYDOMAIN, id);
     }
   }
   
@@ -346,6 +342,18 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
     }
   }
   
+  public void setOwnerId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(OWNER, "");
+    }
+    else
+    {
+      setValue(OWNER, id);
+    }
+  }
+  
   public Boolean getQuedForUpload()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(QUEDFORUPLOAD));
@@ -470,6 +478,12 @@ public abstract class OfflineBasemapManagementBase extends com.runwaysdk.busines
   public static OfflineBasemapManagement getByKey(String key)
   {
     return (OfflineBasemapManagement) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.String getFlatFilesOnDisk()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.basemap.OfflineBasemapManagement.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static java.lang.Boolean importBasemapFiles(java.lang.String[] files)
