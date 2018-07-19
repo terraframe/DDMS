@@ -168,8 +168,8 @@ public class LocalBasemapBuilder implements Reloadable
 
   public static File[] getBasemapFiles()
   {
-	ArrayList<File> filteredFiles = new ArrayList<File>();
-	File[] filteredFilesArr = null;
+  	ArrayList<File> filteredFiles = new ArrayList<File>();
+  	File[] filteredFilesArr = new File[]{};
 
     File folder = new File(GeoserverProperties.getBasemapDirectory());
     
