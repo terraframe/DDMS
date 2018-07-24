@@ -190,37 +190,36 @@ public class ODKDataConverter implements Reloadable
       if (root.hasAttribute(sourceAttribute))
       {
         ODKAttribute attribute = form.getAttributeByName(sourceAttribute);
-        MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
-        String value = this.getValue(attribute, mdAttribute, child.getTextContent());
 
-        if (attribute != null && attribute.isOverride())
+        if (attribute instanceof ODKMultiTermAttribute)
         {
-          root.setOverride(sourceAttribute, value);
+          this.handleMultiTermAttribute(root, sheet, child, (ODKMultiTermAttribute) attribute);
         }
         else
         {
-          root.setValue(sourceAttribute, value);
-        }
+          MdAttributeDAOIF mdAttribute = root.getMdAttributeDAO(sourceAttribute);
+          String value = this.getValue(attribute, mdAttribute, child.getTextContent());
 
-        if (attribute != null && attribute.getCopyAttribute() != null)
-        {
-          root.setOverride(attribute.getCopyAttribute(), value);
-        }
+          if (attribute != null && attribute.isOverride())
+          {
+            root.setOverride(sourceAttribute, value);
+          }
+          else
+          {
+            root.setValue(sourceAttribute, value);
+          }
 
+          if (attribute != null && attribute.getCopyAttribute() != null)
+          {
+            root.setOverride(attribute.getCopyAttribute(), value);
+          }
+        }
       }
       else if (form.isMultiTermAttribute(sourceAttribute))
       {
         ODKMultiTermAttribute attribute = (ODKMultiTermAttribute) form.getAttributeByName(sourceAttribute);
-        String[] termIds = child.getTextContent().split(" ");
 
-        for (String sanitizedTermId : termIds)
-        {
-          String termId = ODKTermAttribute.reverseTermIdSanitization(sanitizedTermId);
-          
-          ExcelColumn column = getGridColumn(sheet, attribute.getAttributeName(), termId, null);
-
-          root.setOverride(column.getAttributeName(), MdAttributeBooleanInfo.TRUE);
-        }
+        this.handleMultiTermAttribute(root, sheet, child, attribute);
       }
       else if (form.isStructAttribute(sourceAttribute))
       {
@@ -270,15 +269,15 @@ public class ODKDataConverter implements Reloadable
       else if (form.getAttributeByName(sourceAttribute) instanceof ODKAttributeInsecticide)
       {
         ODKAttributeInsecticide odkAttr = (ODKAttributeInsecticide) form.getAttributeByName(sourceAttribute);
-        
+
         Insecticide insecticide = Insecticide.getByKey(child.getTextContent());
-        
+
         String unitsAName = odkAttr.getUnitsMdAttr().definesAttribute();
         root.setValue(unitsAName, insecticide.getUnits().getTermDisplayLabel().getValue());
-        
+
         String amountAName = odkAttr.getAmountMdAttr().definesAttribute();
         root.setValue(amountAName, String.valueOf(insecticide.getAmount()));
-        
+
         String insectAName = odkAttr.getInsecticideMdAttr().definesAttribute();
         root.setValue(insectAName, insecticide.getActiveIngredient().getTermDisplayLabel().getValue());
       }
@@ -346,6 +345,20 @@ public class ODKDataConverter implements Reloadable
     }
 
     return rows;
+  }
+
+  public void handleMultiTermAttribute(ODKRow root, ExcelExportSheet sheet, Node child, ODKMultiTermAttribute attribute)
+  {
+    String[] termIds = child.getTextContent().split(" ");
+
+    for (String sanitizedTermId : termIds)
+    {
+      String termId = ODKTermAttribute.reverseTermIdSanitization(sanitizedTermId);
+
+      ExcelColumn column = getGridColumn(sheet, attribute.getAttributeName(), termId, null);
+
+      root.setOverride(column.getAttributeName(), MdAttributeBooleanInfo.TRUE);
+    }
   }
 
   private ExcelExportSheet getSheet(ODKRow root, ODKForm form, Map<String, ExcelExportSheet> sheets)
