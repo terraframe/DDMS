@@ -313,8 +313,8 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(CATTLESHEDSLOCKED);
     list.add(CATTLESHEDSREFUSED);
     
-    list.add(PEOPLE);
     list.add(NUMBEROFPEOPLE);
+    list.add(PEOPLE);
     list.add(NUMBERMALESPROTECTED);
     list.add(NUMBERFEMALESPROTECTED);
     list.add(NUMBERPREGNANTWOMENPROTECTED);
