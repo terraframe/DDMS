@@ -655,22 +655,25 @@ public class MdTableBuilder implements Reloadable
         {
           BrowserField field = BrowserField.getBrowserField(mdAttributeReference);
 
-          OIterator<? extends BrowserRoot> it = field.getAllroot();
-          try
+          if (field != null)
           {
-            List<? extends BrowserRoot> roots = it.getAll();
-
-            for (BrowserRoot root : roots)
+            OIterator<? extends BrowserRoot> it = field.getAllroot();
+            try
             {
-              root.delete();
-            }
-          }
-          finally
-          {
-            it.close();
-          }
+              List<? extends BrowserRoot> roots = it.getAll();
 
-          field.delete();
+              for (BrowserRoot root : roots)
+              {
+                root.delete();
+              }
+            }
+            finally
+            {
+              it.close();
+            }
+
+            field.delete();
+          }
         }
       }
     }
