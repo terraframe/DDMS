@@ -132,8 +132,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
     try
     {
-      // ODK2Excel importer = new ODK2Excel(form, null);
-      ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
+       ODK2Excel importer = new ODK2Excel(form, null);
+//      ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
       Collection<String> allUUIDS = importer.getUUIDs();
 
       if (allUUIDS.size() > 0)
@@ -214,8 +214,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
                 {
                   status = result;
                 }
-                else
-                {
+//                else
+//                {
                   /*
                    * Copy file to the archive directory
                    */
@@ -229,7 +229,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
                       IOUtils.copy(fis, fos);
                     }
                   }
-                }
+//                }
               }
             }
             catch (IOException e)
