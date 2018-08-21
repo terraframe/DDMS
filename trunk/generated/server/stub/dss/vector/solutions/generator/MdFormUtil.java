@@ -51,6 +51,7 @@ import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdWebFormInfo;
+import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
@@ -86,6 +87,7 @@ import com.runwaysdk.dataaccess.io.dataDefinition.SAXImporter;
 import com.runwaysdk.dataaccess.io.excel.ImportApplyListener;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeReferenceDAO;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -1265,6 +1267,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       throw new ReservedWordException("", "humanbloodindex");
     }
+
+    MdBusinessDAO mdClassDAO = (MdBusinessDAO) BusinessFacade.getEntityDAO(mdClass);
+    mdClassDAO.setGenerateMdController(false);
     mdClass.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
     mdClass.setTypeName(typeName);
     mdClass.apply();
@@ -1519,6 +1524,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdBusiness.setIsAbstract(false);
       mdBusiness.setExtendable(true);
       mdBusiness.setPublish(true);
+      
+      MdBusinessDAO mdClassDAO = (MdBusinessDAO) BusinessFacade.getEntityDAO(mdBusiness);
+      mdClassDAO.setGenerateMdController(false);
+      
       mdBusiness.apply();
 
       // Create the disease attribute
