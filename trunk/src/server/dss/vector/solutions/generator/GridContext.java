@@ -44,6 +44,7 @@ import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
+import com.runwaysdk.dataaccess.io.ExcelImportProgressMonitorIF;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.AttributeColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
@@ -141,7 +142,8 @@ public class GridContext extends ImportContext implements Reloadable
     return this.map.get(term);
   }
 
-  public void readRow(Row row)
+  @Override
+  public void readRow(Row row, ExcelImportProgressMonitorIF monitor)
   {
     MdRelationshipDAOIF mdRelationship = this.getMdClass();
 
@@ -235,6 +237,11 @@ public class GridContext extends ImportContext implements Reloadable
         for (Relationship relationship : relationships)
         {
           relationship.apply();
+        }
+        
+        if (monitor != null)
+        {
+          monitor.entityImported(instance, null);
         }
       }
     }
