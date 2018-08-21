@@ -1135,7 +1135,7 @@ span.currentPage a:active {
   background-repeat: no-repeat;
   list-style-type: none;    
   padding: 0px 0px 0px 20px;
-  height: 25px;
+  padding-bottom: 5px;
   color: #777;
 }
 
