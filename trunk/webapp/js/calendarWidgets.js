@@ -255,6 +255,10 @@ MDSS.Calendar = {
         Dom.setStyle(cal.containerId, 'display', 'block');
         xy[1] = xy[1] + 20;
         Dom.setXY(cal.containerId, xy);
+        
+        if(config && config["zIndex"]) {
+          Dom.setStyle(cal.containerId, 'z-index', config["zIndex"]);
+        }        
     }
     
     var hideCal = function(ev, cal) {
