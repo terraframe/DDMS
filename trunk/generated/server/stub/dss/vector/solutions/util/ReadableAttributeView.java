@@ -342,14 +342,18 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   {
     if (Session.getCurrentSession() != null)
     {
+      MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
       ActorDAO actor = (ActorDAO) getActor(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
       PermissionMap existingPermissions = actor.getOperations();
 
       MdDimensionDAOIF _mdDimension = Session.getCurrentDimension();
       MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
+      MdAttributeDimensionDAOIF _mdAttributeConcreteDimension = mdAttributeConcrete.getMdAttributeDimension(_mdDimension);
 
       boolean deny = existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
-      return ! ( deny );
+      boolean denyConcreate = existingPermissions.containsPermission(_mdAttributeConcreteDimension.getPermissionKey(), Operation.DENY_READ);
+
+      return ! ( deny || denyConcreate );
     }
 
     return true;
