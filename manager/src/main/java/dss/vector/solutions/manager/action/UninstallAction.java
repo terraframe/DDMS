@@ -1,25 +1,29 @@
 /*******************************************************************************
  * Copyright (C) 2018 IVCC
  * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package dss.vector.solutions.manager.action;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,6 +31,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -43,6 +48,9 @@ import org.eclipse.swt.widgets.Shell;
 
 import dss.vector.solutions.manager.IApplicationUninstallManager;
 import dss.vector.solutions.manager.Localizer;
+import dss.vector.solutions.manager.LogLevel;
+import dss.vector.solutions.manager.LogOutputStream;
+import dss.vector.solutions.manager.Logger;
 import dss.vector.solutions.manager.ManagerContextBean;
 import dss.vector.solutions.manager.properties.DatabaseProperties;
 import dss.vector.solutions.manager.properties.ManagerProperties;
@@ -90,44 +98,42 @@ public class UninstallAction extends Action
                 try
                 {
                   /*
-                   *  1) Drop the database
+                   * 1) Drop the database
                    */
                   dropDatabase();
-                  
-                  /*
-                   *  2) Delete the webapp from the tomcat directory
-                   */
-                  FileUtils.deleteDirectory(new File(context.getApplicationPath()));
-                  
-                  
-                  /*
-                   *  2.1) Delete the odk webapp from the tomcat directory
-                   */
-                  FileUtils.deleteDirectory(new File(context.getODKApplicationPath()));
-                  
 
                   /*
-                   *  3) Delete the profiles from the backup directory
+                   * 2) Delete the webapp from the tomcat directory
+                   */
+                  FileUtils.deleteDirectory(new File(context.getApplicationPath()));
+
+                  /*
+                   * 2.1) Delete the odk webapp from the tomcat directory
+                   */
+                  FileUtils.deleteDirectory(new File(context.getODKApplicationPath()));
+
+                  /*
+                   * 3) Delete the profiles from the backup directory
                    */
                   FileUtils.deleteDirectory(new File(context.getBackupProfilesPath()));
 
                   /*
-                   *  4) Update the windows registry
+                   * 4) Update the windows registry
                    */
                   updateWindowsRegistry();
 
                   /*
-                   *  5) Update the applications text file
+                   * 5) Update the applications text file
                    */
                   updateApplicationProperties(context.getApplication());
 
                   /*
-                   *  6) Delete the index files
+                   * 6) Delete the index files
                    */
                   removeIndexFiles();
 
                   /*
-                   *  7) Delete the menu shortcuts
+                   * 7) Delete the menu shortcuts
                    */
                   File shortcut = new File(ManagerProperties.getShortcutDirectory() + "Open " + context.getApplication() + ".lnk");
 
@@ -144,6 +150,8 @@ public class UninstallAction extends Action
           }
           catch (InterruptedException e)
           {
+            Logger.error("Unabled to uninstall", e);
+
             String message = Localizer.getMessage("UNABLE_TO_DELETE");
             String details = Localizer.getMessage("CANCELLED");
 
@@ -151,19 +159,23 @@ public class UninstallAction extends Action
           }
           catch (InvocationTargetException e)
           {
+            Logger.error("Unabled to uninstall", e);
+
             String message = Localizer.getMessage("UNABLE_TO_DELETE");
 
             this.handleError(message, e.getCause().getLocalizedMessage());
           }
           catch (Exception e)
           {
+            Logger.error("Unabled to uninstall", e);
+
             String message = Localizer.getMessage("UNABLE_TO_DELETE");
 
             this.handleError(message, e.getLocalizedMessage());
           }
 
           /*
-           *  7) Notify all listeners the app has been uninstalled
+           * 7) Notify all listeners the app has been uninstalled
            */
           manager.onUninstall(context.getApplication());
         }
@@ -174,7 +186,7 @@ public class UninstallAction extends Action
       }
       else
       {
-        String message = Localizer.getMessage("UNABLE_TO_DELETE");
+        String message = Localizer.getMessage("UNABLE_TO_DELETE_LAST");
         String details = Localizer.getMessage("UNABLE_TO_DELETE_MESSAGE");
 
         this.handleError(message, details);
@@ -188,7 +200,7 @@ public class UninstallAction extends Action
 
     String port = props.getPort();
 
-    String command = ManagerProperties.getDropCommand() +  " -p " + port + " -U postgres " + props.getDatabaseName();
+    String command = ManagerProperties.getDropCommand() + " -p " + port + " -U postgres " + props.getDatabaseName();
 
     int results = this.execWait(command);
 
@@ -196,26 +208,26 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_DATABASE", props.getDatabaseName()));
     }
-    
+
     /*
      * Drop ODK Schema
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\" odk" ;
-    
+    command = ManagerProperties.getPsqlCommand() + " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\" odk";
+
     results = this.execWait(command);
 
     if (results != 0)
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_SCHEMA", props.getDatabaseName()));
     }
-    
+
     /*
      * Revoke ODK user permissions
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"REVOKE ALL ON DATABASE odk FROM " + props.getDatabaseName() + "_mobile;\" odk" ;
-    
+    command = ManagerProperties.getPsqlCommand() + " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"REVOKE ALL ON DATABASE odk FROM " + props.getDatabaseName() + "_mobile;\" odk";
+
     results = this.execWait(command);
-    
+
     if (results != 0)
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_REVOKE_PERMISSIONS", props.getDatabaseName()));
@@ -224,8 +236,8 @@ public class UninstallAction extends Action
     /*
      * Drop ODK user
      */
-    command = ManagerProperties.getPsqlCommand() +  " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP USER IF EXISTS " + props.getDatabaseName() + "_mobile;\" odk" ;
-    
+    command = ManagerProperties.getPsqlCommand() + " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP USER IF EXISTS " + props.getDatabaseName() + "_mobile;\" odk";
+
     results = this.execWait(command);
 
     if (results != 0)
@@ -250,8 +262,8 @@ public class UninstallAction extends Action
       File file = new File(tomcat, filename);
 
       /*
-       * It is possible the cache files will not exist if
-       * the system was shut down incorrectly.
+       * It is possible the cache files will not exist if the system was shut
+       * down incorrectly.
        */
       if (file.exists())
       {
@@ -303,7 +315,13 @@ public class UninstallAction extends Action
     {
       Process exec = Runtime.getRuntime().exec(command);
 
+      Thread err = consume(exec.getErrorStream(), new LogOutputStream(LogLevel.ERROR));
+      Thread std = consume(exec.getInputStream(), new LogOutputStream(LogLevel.INFO));
+
       int results = exec.waitFor();
+
+      err.join();
+      std.join();
 
       return results;
     }
@@ -313,6 +331,27 @@ public class UninstallAction extends Action
     }
 
     return 1;
+  }
+
+  private Thread consume(final InputStream stream, final OutputStream out)
+  {
+    Thread result = new Thread()
+    {
+      public void run()
+      {
+        PrintWriter pw = new PrintWriter(out, true);
+        try (Scanner sc = new Scanner(stream))
+        {
+          while (sc.hasNext())
+          {
+            pw.println(sc.nextLine());
+          }
+        }
+      }
+    };
+    result.setDaemon(true);
+    result.start();
+    return result;
   }
 
   private void updateApplicationProperties(String exclude) throws IOException, URISyntaxException
