@@ -110,6 +110,11 @@ public class ManagerContextBean
     return ManagerContextBean.getApplicationLibPath(this.application);
   }
 
+  public String getTomcatLoggingProperties()
+  {
+    return ManagerProperties.getTomcatLogging();
+  }
+  
   public String getLog4jProperties()
   {
     return this.getApplicationClassesPath() + "log4j.properties";

@@ -158,6 +158,11 @@ public class ManagerProperties
   {
     return instance().getString("keystore.alias");
   }
+  
+  public static String getTomcatLogging()
+  {
+    return instance().getString("webapp.root") + "conf" + File.separator + "logging.properties";
+  }
 
   public static String getServerXml()
   {
