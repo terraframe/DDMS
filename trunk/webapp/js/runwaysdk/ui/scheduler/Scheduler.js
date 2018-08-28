@@ -146,6 +146,13 @@
         this._tabPanel.addSwitchPanelEventListener(Mojo.Util.bind(this, this.onSwitchPanel));
       },
       
+      setPage : function(pageName) {
+        if (pageName != null && pageName == "history")
+        {
+          this._tabPanel.switchToPanel(6);
+        }
+      },
+      
       onSwitchPanel : function(switchPanelEvent) {
         var panel = switchPanelEvent.getPanel();
         
@@ -428,7 +435,7 @@
         var ds = null;
         if (this._config.isAllJobs != null)
         {
-          var jobsFilter = ["dss.vector.solutions.ExcelImportJob", "dss.vector.solutions.FormSurveyImportJob", "dss.vector.solutions.DataUploaderImportJob"];
+          var jobsFilter = ["dss.vector.solutions.basemap.OfflineBasemapJob", "dss.vector.solutions.ExcelImportJob", "dss.vector.solutions.FormSurveyImportJob", "dss.vector.solutions.DataUploaderImportJob"];
           dsConfig = Mojo.Util.deepMerge({jobsFilter: jobsFilter}, dsConfig)
           
           ds = new ExecutableJobQueryDataSource(dsConfig);

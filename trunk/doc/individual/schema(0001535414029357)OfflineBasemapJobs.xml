@@ -1,0 +1,18 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.basemap.OfflineBasemapJob" label="Offline Basemap Job" extends="com.runwaysdk.system.scheduler.ExecutableJob">
+        <mdMethod name="isBasemapJobRunning" static="true" label="isBasemapJobRunning" returnType="java.lang.Boolean"></mdMethod>
+      </mdBusiness>
+      <object key="DEFAULT_OFFLINE_BASEMAP_JOB"  type="dss.vector.solutions.basemap.OfflineBasemapJob">
+        <attribute name="jobId" value="Rebuilding Offline Basemaps"/>
+      </object>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.basemap.OfflineBasemapJob" type="com.runwaysdk.system.metadata.MdBusiness"/>
+    </delete>
+  </undoIt>
+</version>

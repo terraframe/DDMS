@@ -21,6 +21,8 @@ import java.util.HashMap;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geoserver.LocalBasemapBuilder;
 
@@ -44,17 +46,17 @@ public class OfflineBasemapManagement extends OfflineBasemapManagementBase imple
   
   @Override
   public void setFileName(String value) {
-	super.setFileName(value);
+    super.setFileName(value);
   }
   
   @Override
   public void setFilePath(String value) {
-	super.setFilePath(value);
+    super.setFilePath(value);
   }
   
   @Override
   public void setQuedForUpload(Boolean value) {
-	super.setQuedForUpload(value);
+    super.setQuedForUpload(value);
   }
   
   @Override
@@ -65,8 +67,24 @@ public class OfflineBasemapManagement extends OfflineBasemapManagementBase imple
   @Transaction
   public static java.lang.Boolean importBasemapFiles(java.lang.String[] files)
   {
-	boolean allSuccessful = LocalBasemapBuilder.importBasemapFiles(files);
+    OfflineBasemapJob.files = files;
     
-	return allSuccessful;
+    OfflineBasemapJobQuery query = new OfflineBasemapJobQuery(new QueryFactory());
+    OIterator<? extends OfflineBasemapJob> it = query.getIterator();
+    try
+    {
+      while (it.hasNext())
+      {
+        OfflineBasemapJob job = it.next();
+        
+        job.start();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+    
+	  return null;
   }
 }

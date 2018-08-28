@@ -43,6 +43,9 @@ public class OfflineBasemapController extends OfflineBasemapControllerBase imple
   @Override
   public void viewAll() throws IOException, ServletException {
     try {
+      Boolean isRunning = OfflineBasemapJobDTO.isBasemapJobRunning(getClientRequest());
+      req.setAttribute("isRunning", isRunning);
+      
       Map<String, Boolean> flatFilesOnDisk = jsonToMap(new JSONObject(OfflineBasemapManagementDTO.getFlatFilesOnDisk(this.getClientRequest())));
       
       req.setAttribute("availableFiles", flatFilesOnDisk);
@@ -67,24 +70,42 @@ public class OfflineBasemapController extends OfflineBasemapControllerBase imple
 	
   	if(config != null)
   	{
-        OfflineBasemapManagementDTO.importBasemapFiles(this.getClientRequest(), config.toArray(new String[config.size()]));
+      OfflineBasemapManagementDTO.importBasemapFiles(this.getClientRequest(), config.toArray(new String[config.size()]));
   	}
 	
-  	try
-  	{
-  	  Map<String, Boolean> flatFilesOnDisk = jsonToMap(new JSONObject(OfflineBasemapManagementDTO.getFlatFilesOnDisk(this.getClientRequest())));
+//  	try
+//  	{
+//  	  Map<String, Boolean> flatFilesOnDisk = jsonToMap(new JSONObject(OfflineBasemapManagementDTO.getFlatFilesOnDisk(this.getClientRequest())));
   	
-      req.setAttribute("availableFiles", flatFilesOnDisk);
-      req.setAttribute("uploadStatus", true);
+//      req.setAttribute("availableFiles", flatFilesOnDisk);
+//      req.setAttribute("uploadStatus", true);
   	
-  	  render("viewAllComponent.jsp");
-  	}
-  	catch (JSONException e)
-  	{
-  	  throw new RuntimeException(e);
-  	}
+//  	  render("viewAllComponent.jsp");
+  	  
+  	  req.setAttribute("SchedulerPage", "history");
+  	  this.renderExternal("viewAllComponent.jsp", "/WEB-INF/dss/vector/solutions/report/ReportJob/");
+//  	}
+//  	catch (JSONException e)
+//  	{
+//  	  throw new RuntimeException(e);
+//  	}
   }
 
+  protected void renderExternal(String jsp, String dir) throws java.io.IOException, javax.servlet.ServletException
+  {
+    if(!resp.isCommitted())
+    {
+      if(this.isAsynchronous())
+      {
+        req.getRequestDispatcher(dir+jsp).forward(req, resp);
+      }
+      else
+      {
+        req.setAttribute(com.runwaysdk.controller.JSPFetcher.INNER_JSP, dir+jsp);
+        req.getRequestDispatcher(layout).forward(req, resp);
+      }
+    }
+  }
   
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {

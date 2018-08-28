@@ -67,7 +67,10 @@ onsubmit="return checkForm(this);">
 	  
 	  </div>
 	  <div>
-	    <button id="basemapRebuildBtn" type="submit" form="basemapForm" value="Submit" style="padding:4px;"><mdss:localize key="offline_basemap_button" /></button>
+	    <button id="basemapRebuildBtn" <c:if test="${isRunning}">disabled</c:if> type="submit" form="basemapForm" value="Submit" style="padding:4px;"><mdss:localize key="offline_basemap_button" /></button>
+      <c:if test="${isRunning}">
+        <h3 style="color:red;margin:10px 0px 10px 0;"><mdss:localize key="offline_basemap_isRunningTrue" /></label>
+      </c:if>
 	  </div>
   </fieldset>
 </form>
