@@ -18,15 +18,26 @@ import dss.vector.solutions.util.LocalizationFacade;
  * 
  * @author rrowlands
  */
-abstract public class ODKAttributeConstraint implements Reloadable
+public class ODKAttributeConstraint implements Reloadable
 {
-  abstract public String getBindConstraint();
-  
   private String constraintMsg;
+  
+  private String bindConstraint;
   
   public ODKAttributeConstraint(String constraintMsg)
   {
     this.constraintMsg = constraintMsg;
+  }
+  
+  public ODKAttributeConstraint(String constraintMsg, String bindConstraint)
+  {
+    this.constraintMsg = constraintMsg;
+    this.bindConstraint = bindConstraint;
+  }
+  
+  public String getBindConstraint()
+  {
+    return this.bindConstraint;
   }
   
   public String getConstraintMsg()

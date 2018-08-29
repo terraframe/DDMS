@@ -1789,17 +1789,32 @@ public class ODKForm implements Reloadable
           AdultDiscriminatingDoseAssayExcelView.getInsecticideActiveIngredientMd(), AdultDiscriminatingDoseAssayExcelView.getInsecticideUnitsMd(), AdultDiscriminatingDoseAssayExcelView.getInsecticideAmountMd()));
       master.addAttribute(AdultDiscriminatingDoseAssay.getGenerationMd(), AdultDiscriminatingDoseAssay.getGenerationMd());
       master.sortAttributes(AdultDiscriminatingDoseAssayExcelView.customAttributeOrder());
-
+      
       ODKForm interval = new ODKForm(AdultDiscriminatingDoseAssayExcelView.CLASS);
       interval.setFormTitle(MdClassDAO.getMdClassDAO(AdultDiscriminatingDoseInterval.CLASS).getDisplayLabel(Session.getCurrentLocale()));
       interval.buildAttributes(AdultDiscriminatingDoseInterval.CLASS, AdultDiscriminatingDoseAssayExcelView.customAttributeOrder(), null);
       master.join(new RepeatFormJoin(master, interval));
-
+      
       InvalidDeadQuantityProblem p = new InvalidDeadQuantityProblem();
       p.setQuantityDead(null);
       p.setQuantityTested(null);
       p.setNotification(new AdultDiscriminatingDoseAssay(), AdultDiscriminatingDoseAssay.QUANTITYDEAD);
       master.addBasicConstraint(master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.QUANTITYDEAD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.QUANTITYTESTED), p.getLocalizedMessage());
+      
+      InvalidAgeRangeProblem p2 = new InvalidAgeRangeProblem();
+      p2.setStartPoint(null);
+      p2.setEndPoint(null);
+      p2.setNotification(new AdultAgeRange(), AdultAgeRange.STARTPOINT);
+      ODKStructAttribute ageRange = ((ODKStructAttribute)master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.AGERANGE));
+      master.addBasicConstraint(ageRange.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, ageRange.getAttribute(AdultAgeRange.ENDPOINT), p2.getLocalizedMessage());
+      
+      String lteMsg = getLTEMsg(AdultDiscriminatingDoseAssayExcelView.getControlTestNumberDeadMd(), AdultAgeRange.getEndPointMd());
+      master.addBasicConstraint(master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, ageRange.getAttribute(AdultAgeRange.ENDPOINT), lteMsg);
+      
+      ODKAttribute numDead = master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD);
+      ODKAttribute numTested = master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBEREXPOSED);
+      String controlMortMsg = new ControlMortalityException().localize(Session.getCurrentLocale());
+      numDead.addConstraint(new ODKAttributeConstraint(controlMortMsg, "(. div " + numTested.getInstancePath() + ") " + ODKAttributeConditionOperation.LESS_THAN.getOdkRepresentation() + " 0.2"));
     }
     else if (mobileType.equals(BiochemicalAssayExcelView.CLASS))
     {
