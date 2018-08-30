@@ -119,18 +119,51 @@ public class ServerContextBean
     new PropertyWriter(context.getLog4jProperties()).write(LOG_PROPERTY, logLevel.name() + suffix);
     new PropertyWriter(context.getLog4jProperties()).write(CHAINSAW_LOG_PROPERTY, logLevel.name());
     
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("1catalina.org.apache.juli.AsyncFileHandler.level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("2localhost.org.apache.juli.AsyncFileHandler.level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("3manager.org.apache.juli.AsyncFileHandler.level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("4host-manager.org.apache.juli.AsyncFileHandler.level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("java.util.logging.ConsoleHandler.level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("org.apache.catalina.core.ContainerBase.[Catalina].[localhost].level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/manager].level", logLevel.name());
-    new PropertyWriter(context.getTomcatLoggingProperties()).write("org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/host-manager].level", logLevel.name());
+    String javaLogLevel = convertToJavaLogLevel(logLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("1catalina.org.apache.juli.AsyncFileHandler.level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("2localhost.org.apache.juli.AsyncFileHandler.level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("3manager.org.apache.juli.AsyncFileHandler.level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("4host-manager.org.apache.juli.AsyncFileHandler.level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("java.util.logging.ConsoleHandler.level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("org.apache.catalina.core.ContainerBase.[Catalina].[localhost].level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/manager].level", javaLogLevel);
+    new PropertyWriter(context.getTomcatLoggingProperties()).write("org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/host-manager].level", javaLogLevel);
     
     new PropertyWriter(context.getCommonProperties()).write(SESSION_TIME_PROPERTY, new Integer(timeout).toString());
     new PropertyWriter(context.getAnalyticsProperties()).write(ANALYTICS_PROPERTY, this.analyticsCode);
     new PropertyWriter(context.getAnalyticsProperties()).write(MANAGER_PROPERTY, this.managerCode);
+  }
+
+  private String convertToJavaLogLevel(LogLevel level)
+  {
+    // https://tomcat.apache.org/tomcat-8.0-doc/logging.html#Using_java.util.logging_(default)
+    
+    if (level == LogLevel.TRACE)
+    {
+      return "FINER";
+    }
+    else if (level == LogLevel.DEBUG)
+    {
+      return "FINE";
+    }
+    else if (level == LogLevel.INFO)
+    {
+      return "INFO";
+    }
+    else if (level == LogLevel.WARN)
+    {
+      return "WARNING";
+    }
+    else if (level == LogLevel.ERROR)
+    {
+      return "SEVERE";
+    }
+    else if (level == LogLevel.FATAL)
+    {
+      return "SEVERE";
+    }
+    
+    return "FINE";
   }
 
   private static String getAnalyticsCode(ManagerContextBean context)
