@@ -201,7 +201,7 @@ public class ServerContext
      */
     try
     {
-      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.EnvLoggingServer");
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.envlogger.EnvLoggingServer");
       savedSearch.getMethod("start").invoke(null);
     }
     catch (RuntimeException e)
@@ -221,7 +221,7 @@ public class ServerContext
      */
     try
     {
-      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.EnvLoggingServer");
+      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.envlogger.EnvLoggingServer");
       savedSearch.getMethod("stop").invoke(null);
     }
     catch (RuntimeException e)
