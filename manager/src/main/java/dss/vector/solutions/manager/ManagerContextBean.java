@@ -117,7 +117,7 @@ public class ManagerContextBean
   
   public String getLog4jProperties()
   {
-    return this.getApplicationClassesPath() + "ddmslog4j.properties";
+    return this.getApplicationClassesPath() + "log4j.properties";
   }
 
   public String getCommonProperties()
