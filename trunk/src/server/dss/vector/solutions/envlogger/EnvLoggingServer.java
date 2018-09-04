@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +32,10 @@ public class EnvLoggingServer implements Runnable, Reloadable
   private static Boolean isRun = true;
   
   private static long loggingInterval;
+  
+  public static void main(String[] args) throws Exception {
+    start();
+  }
   
   public static void start() throws Exception
   {
@@ -120,23 +124,29 @@ public class EnvLoggingServer implements Runnable, Reloadable
   
   private void printConnections(JSONObject json) throws JSONException
   {
-    JSONObject idleCons = new JSONObject();
+    JSONArray connections = new JSONArray();
     
-    ResultSet resultSet = Database.query("select * from pg_stat_activity where state='idle in transaction';");
+    ResultSet resultSet = Database.query("select * from pg_stat_activity;");
     
     try
     {
       while (resultSet.next())
       {
-        JSONObject idleCon = new JSONObject();        
+        JSONObject conn = new JSONObject();        
         
         String pid = resultSet.getString("pid");
         String query = resultSet.getString("query");
+        String datname = resultSet.getString("datname");
+        String usename = resultSet.getString("usename");
+        String state = resultSet.getString("state");
         
-        idleCon.put("pid", pid);
-        idleCon.put("query", query);
+        conn.put("pid", pid);
+        conn.put("query", query);
+        conn.put("datname", datname);
+        conn.put("usename", usename);
+        conn.put("state", state);
         
-        idleCons.put("connection", idleCon);
+        connections.put(conn);
       }
     }
     catch (SQLException sqlEx1)
@@ -157,6 +167,6 @@ public class EnvLoggingServer implements Runnable, Reloadable
       }
     }
     
-    json.put("idleConnections", idleCons);
+    json.put("connections", connections);
   }
 }
