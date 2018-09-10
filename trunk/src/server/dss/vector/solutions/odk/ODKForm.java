@@ -1814,7 +1814,7 @@ public class ODKForm implements Reloadable
       ODKAttribute numDead = master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD);
       ODKAttribute numTested = master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBEREXPOSED);
       String controlMortMsg = new ControlMortalityException().localize(Session.getCurrentLocale());
-      numDead.addConstraint(new ODKAttributeConstraint(controlMortMsg, "(. div " + numTested.getInstancePath() + ") " + ODKAttributeConditionOperation.LESS_THAN.getOdkRepresentation() + " 0.2"));
+      numDead.addConstraint(new ODKAttributeConstraint(controlMortMsg, "(. div " + numTested.getInstancePath() + ") " + ODKAttributeConditionOperation.LESS_THAN_EQUALS.getOdkRepresentation() + " 0.2"));
     }
     else if (mobileType.equals(BiochemicalAssayExcelView.CLASS))
     {
