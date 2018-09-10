@@ -1808,8 +1808,8 @@ public class ODKForm implements Reloadable
       ODKStructAttribute ageRange = ((ODKStructAttribute)master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.AGERANGE));
       master.addBasicConstraint(ageRange.getAttribute(AdultAgeRange.STARTPOINT), ODKAttributeConditionOperation.LESS_THAN_EQUALS, ageRange.getAttribute(AdultAgeRange.ENDPOINT), p2.getLocalizedMessage());
       
-      String lteMsg = getLTEMsg(AdultDiscriminatingDoseAssayExcelView.getControlTestNumberDeadMd(), AdultAgeRange.getEndPointMd());
-      master.addBasicConstraint(master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, ageRange.getAttribute(AdultAgeRange.ENDPOINT), lteMsg);
+//      String lteMsg = getLTEMsg(AdultDiscriminatingDoseAssayExcelView.getControlTestNumberDeadMd(), AdultAgeRange.getEndPointMd());
+//      master.addBasicConstraint(master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD), ODKAttributeConditionOperation.LESS_THAN_EQUALS, ageRange.getAttribute(AdultAgeRange.ENDPOINT), lteMsg);
       
       ODKAttribute numDead = master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBERDEAD);
       ODKAttribute numTested = master.getAttributeByName(AdultDiscriminatingDoseAssayExcelView.CONTROLTESTNUMBEREXPOSED);
