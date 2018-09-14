@@ -81,7 +81,12 @@
       setTotalResults : function(total) {
         this.$setTotalResults(total);
         this._impl.setTotalResults(total);
-      }
+      },
+      
+      setAscending : function(ascending){
+    	this.$setAscending(ascending);
+    	this._impl.setAscending(ascending);
+      },
       
     }
   });

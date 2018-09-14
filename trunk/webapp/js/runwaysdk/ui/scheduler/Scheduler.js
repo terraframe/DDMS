@@ -445,6 +445,8 @@
           ds = new InstanceQueryDataSource(dsConfig);
         }
         
+        ds.setAscending(true);
+        
         // Create the DataTable impl
         this._config.el = this;
         this._config.dataSource = ds;

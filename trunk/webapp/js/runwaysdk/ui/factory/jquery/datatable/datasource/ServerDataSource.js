@@ -49,7 +49,7 @@
           "sAjaxSource": "",
           "fnServerData": Util.bind(this, this.__fnServerData),
           aoColumns: this.getColumns(),
-          "order": [[ this.getSortColumn(), this.isAscending() ? "asc" : "desc" ]]
+          "aaSorting": [[ this.getSortColumn(), this.isAscending() ? "asc" : "desc" ]]
         };
       },
       
