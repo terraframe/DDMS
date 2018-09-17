@@ -214,7 +214,7 @@ public class UninstallAction extends Action
     /*
      * Drop ODK Schema
      */
-    command = ManagerProperties.getPsqlCommand() + " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + ";\" odk";
+    command = ManagerProperties.getPsqlCommand() + " -p " + port + " -h " + props.getServerName() + " -U postgres -c \"DROP SCHEMA IF EXISTS " + props.getDatabaseName() + " CASCADE;\" odk";
 
     results = this.execWait(command);
 
