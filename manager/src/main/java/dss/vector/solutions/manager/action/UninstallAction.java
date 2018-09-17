@@ -196,6 +196,8 @@ public class UninstallAction extends Action
 
   public void dropDatabase() throws IOException, SQLException
   {
+    Logger.info("Start of dropping database");
+    
     DatabaseProperties props = new DatabaseProperties(context.getDatabaseProperties());
 
     String port = props.getPort();
@@ -244,6 +246,8 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_USER", props.getDatabaseName()));
     }
+    
+    Logger.info("End of dropping database");
   }
 
   private void removeIndexFiles()
