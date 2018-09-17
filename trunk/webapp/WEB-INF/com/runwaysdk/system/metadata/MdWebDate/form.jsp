@@ -60,8 +60,8 @@
   var sd = document.getElementById('${item.id}_startDate');
   var ed = document.getElementById('${item.id}_endDate');
 
-  MDSS.Calendar.addCalendarListeners(sd, {zIndex:100006});
-  MDSS.Calendar.addCalendarListeners(ed, {zIndex:100006});
+  MDSS.Calendar.addCalendarListeners(sd, {zIndex:110000});
+  MDSS.Calendar.addCalendarListeners(ed, {zIndex:110000});
   
   sd.value = MDSS.Calendar.getLocalizedString(sd.value);
   ed.value = MDSS.Calendar.getLocalizedString(ed.value);
