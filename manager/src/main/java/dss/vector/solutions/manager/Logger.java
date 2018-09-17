@@ -26,7 +26,7 @@ public class Logger
   // Static initialization happens on load in the vm
   static
   {
-    logger = LoggerFactory.getLogger("developer");
+    logger = LoggerFactory.getLogger(Logger.class);
   }
 
   public static void debug(String message, Throwable t)
