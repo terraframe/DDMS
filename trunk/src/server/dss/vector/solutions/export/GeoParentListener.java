@@ -26,18 +26,24 @@ import com.runwaysdk.dataaccess.io.excel.ImportAdapter;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ExcelImportManager;
+
 public class GeoParentListener extends ImportAdapter implements ImportListener, Reloadable
 {
   private String parentGeoEntityId;
+  
+  private ExcelImportManager importer;
 
-  public GeoParentListener(String parentId)
+  public GeoParentListener(String parentId, ExcelImportManager importer)
   {
     this.parentGeoEntityId = parentId;
+    this.importer = importer;
   }
 
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, Row row) throws Exception
   {
     GeoEntityExcelView view = (GeoEntityExcelView) instance;
     view.setParentGeoEntityId(this.parentGeoEntityId);
+    view.setImporter(importer);
   }
 }

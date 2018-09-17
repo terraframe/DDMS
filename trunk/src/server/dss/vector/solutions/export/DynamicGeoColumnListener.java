@@ -100,7 +100,6 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
     String endPointEntityName = "";
     String endPointEntityType = "";
 
-    List<GeoEntity> entityList = new LinkedList<GeoEntity>();
     Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
     for (GeoHierarchy hierarchy : hierarchyList)
     {
@@ -130,6 +129,29 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
         }
       }
     }
+    
+    GeoEntity geoEntity = matchGeoEntity(parentGeoEntityMap, endPointEntityName, endPointEntityType, importer);
+
+    // Now use reflection to set the value
+    Class<?> excelClass = LoaderDecorator.load(excelType);
+    MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF) instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
+    Class<?> parameterClass = LoaderDecorator.load(mdAttributeDAO.getReferenceMdBusinessDAO().definesType());
+    String accessorName = CommonGenerationUtil.upperFirstCharacter(mdAttributeDAO.definesAttribute());
+    excelClass.getMethod("set" + accessorName, parameterClass).invoke(instance, geoEntity);
+  }
+  
+  /**
+   * Generic matching logic for converting a universal name and a geo entity name to a reference. May return null.
+   * 
+   * @param parentGeoEntityMap Key is the geo type, value is the geo name.
+   * 
+   * @return
+   */
+  public static GeoEntity matchGeoEntity(Map<String, String> parentGeoEntityMap, String endPointEntityName, String endPointEntityType, ExcelImportManager importer)
+  {
+    List<GeoEntity> entityList = new LinkedList<GeoEntity>();
+    GeoEntity geoEntity = null;
+    
     entityList = GeoEntitySearcher.search(false, parentGeoEntityMap, endPointEntityType, endPointEntityName);
 
     // The user may not specify a Geo Entity. If that is the case then the
@@ -173,20 +195,12 @@ public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExpor
       throw e;
     }
 
-    // Now use reflection to set the value
-    GeoEntity geoEntity = null;
-
     if (entityList.size() == 1)
     {
       geoEntity = entityList.get(0);
     }
-
-    Class<?> excelClass = LoaderDecorator.load(excelType);
-
-    MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF) instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
-    Class<?> parameterClass = LoaderDecorator.load(mdAttributeDAO.getReferenceMdBusinessDAO().definesType());
-    String accessorName = CommonGenerationUtil.upperFirstCharacter(mdAttributeDAO.definesAttribute());
-    excelClass.getMethod("set" + accessorName, parameterClass).invoke(instance, geoEntity);
+    
+    return geoEntity;
   }
 
   private String getExcelAttribute(MdBusiness geoEntityClass)

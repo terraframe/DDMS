@@ -175,12 +175,12 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
         }
         else
         {
-          return handleLegacyImport(fileName, vf.getFileStream());
+          return handleLegacyImport(fileName, vf.getFileStream(), new String[] {});
         }
       }
       else
       {
-        return handleLegacyImport(fileName, bis);
+        return handleLegacyImport(fileName, bis, new String[] {});
       }
     }
     catch (InvalidFormatException e)
@@ -200,10 +200,10 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
     }
   }
 
-  private static String handleLegacyImport(String fileName, InputStream bis) throws JSONException
+  private static String handleLegacyImport(String fileName, InputStream bis, String[] params) throws JSONException
   {
     ExcelImportManager manager = ExcelImportManager.getNewInstance();
-    manager.importWhatYouCan(bis, new String[] {}, fileName);
+    manager.importWhatYouCan(bis, params, fileName);
 
     JSONObject object = new JSONObject();
     object.put("type", "LEGACY");
@@ -259,12 +259,33 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
 
       String vaultId = object.getString("vaultId");
       VaultFile vf = VaultFile.get(vaultId);
+      
+      FieldInfoContentsHandler handler = new FieldInfoContentsHandler(vf.getFileName());
+      ExcelDataFormatter formatter = new ExcelDataFormatter();
 
-      DataUploaderImportJob job = new DataUploaderImportJob(configuration, vf.getFile(), object.getString("filename"));
-      job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
-      job.setRunAsDimensionId(Session.getCurrentDimension().getId());
-      job.apply();
-      String responseJSON = job.doImport();
+      ExcelSheetReader reader = new ExcelSheetReader(handler, formatter);
+      reader.process(vf.getFileStream());
+
+      String responseJSON;
+      if (handler.getType().equals("ETL"))
+      {
+        DataUploaderImportJob job = new DataUploaderImportJob(configuration, vf.getFile(), object.getString("filename"));
+        job.setRunAsUserId(Session.getCurrentSession().getUser().getId());
+        job.setRunAsDimensionId(Session.getCurrentDimension().getId());
+        job.apply();
+        responseJSON = job.doImport();
+      }
+      else
+      {
+        JSONArray jParams = object.getJSONArray("params");
+        String[] params = new String[jParams.length()];
+        for (int i = 0; i < jParams.length(); ++i)
+        {
+          params[i] = jParams.getString(i);
+        }
+        
+        responseJSON = handleLegacyImport(vf.getFileName(), vf.getFileStream(), params);
+      }
 
       // JSONObject responseJ = new JSONObject(responseJSON);
       //
@@ -275,7 +296,7 @@ public class DataUploader extends DataUploaderBase implements com.runwaysdk.gene
 
       return responseJSON;
     }
-    catch (JSONException e)
+    catch (Exception e)
     {
       throw new ProgrammingErrorException(e);
     }

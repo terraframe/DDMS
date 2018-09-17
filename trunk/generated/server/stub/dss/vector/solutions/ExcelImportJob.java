@@ -228,7 +228,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     MdWebFormDAOIF formBedNet = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
     MdWebFormDAOIF formPerson = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
 
-    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(new String[] {}, this.sharedState.manager), this.sharedState.manager);
+    ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(this.sharedState.params, this.sharedState.manager), this.sharedState.manager);
 
     builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter(), this.sharedState.manager));
     builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder(this.sharedState.manager));
@@ -433,6 +433,13 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       config.put("filename", vf.getFileName() + "." + vf.getFileExtension());
       config.put("vaultId", vf.getId());
       config.put("locationExclusions", new JSONArray());
+      
+      JSONArray jParams = new JSONArray();
+      for (int i = 0; i < this.sharedState.params.length; ++i)
+      {
+        jParams.put(this.sharedState.params[i]);
+      }
+      config.put("params", jParams);
 
       config.put("sheets", new JSONArray());
 

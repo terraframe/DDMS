@@ -16,8 +16,10 @@
  ******************************************************************************/
 package dss.vector.solutions.export;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -25,8 +27,6 @@ import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
@@ -34,16 +34,13 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
-import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoTypeMismatchException;
 import dss.vector.solutions.geo.LocatedIn;
-import dss.vector.solutions.geo.UnknownGeoParentException;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
@@ -59,6 +56,8 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
   public static final String NOT_EXPORTED     = "###";
 
   private String             parentGeoEntityId;
+
+  private ExcelImportManager importer;
 
   public GeoEntityExcelView()
   {
@@ -223,7 +222,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
 
   public static void setupImportListener(ImportContext context, String[] params, ExcelImportManager importer)
   {
-    context.addListener(new GeoParentListener(params[0]));
+    context.addListener(new GeoParentListener(params[0], importer));
   }
 
   public static List<String> customAttributeOrder()
@@ -249,60 +248,23 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     {
       return parentGeoEntityId;
     }
-
-    GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
-    Condition condition = OR.get(query.getEntityLabel().localize().EQ(pName), query.getGeoId().EQ(pName));
-
-    if (pType != null && pType.length() > 0)
+    
+    if (!pType.contains("."))
     {
-      String geoType = buildQualifiedType(pType);
-
-      condition = AND.get(condition, query.getType().EQ(geoType));
+      pType = "dss.vector.solutions.geo.generated." + pType;
     }
-
-    query.WHERE(condition);
-
-    OIterator<? extends GeoEntity> iterator = query.getIterator();
-
-    try
+    
+    Map<String, String> parentGeoEntityMap = new HashMap<String, String>();
+    parentGeoEntityMap.put(pType, pName);
+    GeoEntity geoMatch = DynamicGeoColumnListener.matchGeoEntity(parentGeoEntityMap, pName, pType, importer);
+    
+    if (geoMatch == null)
     {
-      if (!iterator.hasNext())
-      {
-        if (pType != null && pType.length() > 0)
-        {
-          UnknownGeoParentException exception = new UnknownGeoParentException();
-          exception.setGeoId(pName);
-          exception.setGeoType(pType);
-          exception.apply();
-
-          throw exception;
-        }
-        else
-        {
-          UnknownGeoEntityException exception = new UnknownGeoEntityException();
-          exception.setEntityName(pName);
-          exception.apply();
-
-          throw exception;
-        }
-      }
-
-      GeoEntity parent = iterator.next();
-
-      if (iterator.hasNext())
-      {
-        String msg = "Geo Entity name [" + pName + "] is ambiguous (It has more than one possible solution)";
-        AmbigiousGeoEntityException ex = new AmbigiousGeoEntityException(msg);
-        ex.setEntityName(pName);
-
-        throw ex;
-      }
-
-      return parent.getId();
+      return parentGeoEntityId;
     }
-    finally
+    else
     {
-      iterator.close();
+      return geoMatch.getId();
     }
   }
 
@@ -364,5 +326,10 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     {
       iterator.close();
     }
+  }
+
+  public void setImporter(ExcelImportManager importer)
+  {
+    this.importer = importer;
   }
 }

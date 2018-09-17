@@ -134,10 +134,12 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
 
     _uploadImportOnSubmit : function(e)
     {
-      var input = document.getElementById('parentGeoEntityId');
-      input.value = this._selectedNode.data.geoEntityView.getGeoEntityId();
-      
-      this._uploadClearStatus();
+    	window.location = "dss.vector.solutions.generator.ExcelController.viewManager.mojo";
+    	
+//      var input = document.getElementById('parentGeoEntityId');
+//      input.value = this._selectedNode.data.geoEntityView.getGeoEntityId();
+//      
+//      this._uploadClearStatus();
       
       return true;
     },

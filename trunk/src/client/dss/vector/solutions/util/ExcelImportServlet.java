@@ -126,6 +126,8 @@ public class ExcelImportServlet extends HttpServlet
       // class
       isGeoImport = excelType.equals("dss.vector.solutions.export.GeoEntityExcelView");
 
+      String[] params;
+      
       if (isGeoImport)
       {
         if (size == 0)
@@ -136,45 +138,47 @@ public class ExcelImportServlet extends HttpServlet
 
           return; // error case
         }
-        String[] params = new String[1];
+        params = new String[1];
         params[0] = fields.get("parentGeoEntityId");
-        errorStream = importExcelFile(clientRequest, bytes, excelType, params);
+//        errorStream = importExcelFile(clientRequest, bytes, excelType, params);
 
-        if (errorStream.available() > 0)
-        {
-          ExcelUtil.respondError(new BufferedInputStream(errorStream), fileName, res, null, false);
-          return;
-        }
+//        if (errorStream.available() > 0)
+//        {
+//          ExcelUtil.respondError(new BufferedInputStream(errorStream), fileName, res, null, false);
+//          return;
+//        }
       }
       else
       {
-        Class<?> managerClass = LoaderDecorator.load("dss.vector.solutions.ExcelImportManagerDTO");
-        Method newInstMethod = managerClass.getMethod("getNewInstance", ClientRequestIF.class);
-        Object managerInst = (Object) newInstMethod.invoke(null, clientRequest);
-        Method getIdMethod = managerClass.getMethod("getId");
-        String managerId = (String) getIdMethod.invoke(managerInst);
+        params = new String[0];
+      }
+      
+      Class<?> managerClass = LoaderDecorator.load("dss.vector.solutions.ExcelImportManagerDTO");
+      Method newInstMethod = managerClass.getMethod("getNewInstance", ClientRequestIF.class);
+      Object managerInst = (Object) newInstMethod.invoke(null, clientRequest);
+      Method getIdMethod = managerClass.getMethod("getId");
+      String managerId = (String) getIdMethod.invoke(managerInst);
 
-        Method importWhatYouCanMethod = managerClass.getMethod("importWhatYouCan", ClientRequestIF.class, String.class, InputStream.class, String[].class, String.class);
-        errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, managerId, new ByteArrayInputStream(bytes), new String[0], fileName);
+      Method importWhatYouCanMethod = managerClass.getMethod("importWhatYouCan", ClientRequestIF.class, String.class, InputStream.class, String[].class, String.class);
+      errorStream = (InputStream) importWhatYouCanMethod.invoke(null, clientRequest, managerId, new ByteArrayInputStream(bytes), params, fileName);
 
-        Method getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
-        Method getUnknownTermsMethod = managerClass.getMethod("getUnknownTerms", ClientRequestIF.class, String.class);
+      Method getUnmatchedGeoViewsMethod = managerClass.getMethod("getUnmatchedGeoViews", ClientRequestIF.class, String.class);
+      Method getUnknownTermsMethod = managerClass.getMethod("getUnknownTerms", ClientRequestIF.class, String.class);
 
-        // Data structure that contains synonym matching information for geo
-        // entities that could not be identified.
-        ViewDTO[] unknownEntities = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
+      // Data structure that contains synonym matching information for geo
+      // entities that could not be identified.
+      ViewDTO[] unknownEntities = (ViewDTO[]) getUnmatchedGeoViewsMethod.invoke(null, clientRequest, managerId);
 
-        // Data structure that contains synonym matching information for terms
-        // that could not be identified.
-        ViewDTO[] unknownTerms = (ViewDTO[]) getUnknownTermsMethod.invoke(null, clientRequest, managerId);
+      // Data structure that contains synonym matching information for terms
+      // that could not be identified.
+      ViewDTO[] unknownTerms = (ViewDTO[]) getUnknownTermsMethod.invoke(null, clientRequest, managerId);
 
-        if (errorStream != null && errorStream.available() > 0)
-        {
-          Boolean hasSynonyms = ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 );
+      if (errorStream != null && errorStream.available() > 0)
+      {
+        Boolean hasSynonyms = ( unknownEntities != null && unknownEntities.length > 0 ) || ( unknownTerms != null && unknownTerms.length > 0 );
 
-          ExcelUtil.respondError(new BufferedInputStream(errorStream), fileName, res, managerId, hasSynonyms);
-          return;
-        }
+        ExcelUtil.respondError(new BufferedInputStream(errorStream), fileName, res, managerId, hasSynonyms);
+        return;
       }
     }
     catch (InvocationTargetException e)
