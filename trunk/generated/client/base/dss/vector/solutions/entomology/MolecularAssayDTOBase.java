@@ -1,26 +1,10 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1453922618)
+@com.runwaysdk.business.ClassSignature(hash = 1439920492)
 public abstract class MolecularAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MolecularAssay";
-  private static final long serialVersionUID = -1453922618;
+  private static final long serialVersionUID = 1439920492;
   
   protected MolecularAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -59,7 +43,10 @@ public abstract class MolecularAssayDTOBase extends com.runwaysdk.business.Busin
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MOSQUITOID = "mosquitoId";
   public static java.lang.String NUMBERRR = "numberRR";
+  public static java.lang.String NUMBERRRP = "numberRRp";
   public static java.lang.String NUMBERRS = "numberRS";
+  public static java.lang.String NUMBERRPRP = "numberRpRp";
+  public static java.lang.String NUMBERSRP = "numberSRp";
   public static java.lang.String NUMBERSS = "numberSS";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
@@ -561,7 +548,7 @@ public abstract class MolecularAssayDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.SingleActorDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -569,7 +556,7 @@ public abstract class MolecularAssayDTOBase extends com.runwaysdk.business.Busin
     }
     else
     {
-      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -672,6 +659,43 @@ public abstract class MolecularAssayDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRR).getAttributeMdDTO();
   }
   
+  public Integer getNumberRRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRRP));
+  }
+  
+  public void setNumberRRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERRRP, "");
+    }
+    else
+    {
+      setValue(NUMBERRRP, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberRRpWritable()
+  {
+    return isWritable(NUMBERRRP);
+  }
+  
+  public boolean isNumberRRpReadable()
+  {
+    return isReadable(NUMBERRRP);
+  }
+  
+  public boolean isNumberRRpModified()
+  {
+    return isModified(NUMBERRRP);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRRpMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRRP).getAttributeMdDTO();
+  }
+  
   public Integer getNumberRS()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRS));
@@ -707,6 +731,80 @@ public abstract class MolecularAssayDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRSMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRS).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberRpRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRPRP));
+  }
+  
+  public void setNumberRpRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERRPRP, "");
+    }
+    else
+    {
+      setValue(NUMBERRPRP, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberRpRpWritable()
+  {
+    return isWritable(NUMBERRPRP);
+  }
+  
+  public boolean isNumberRpRpReadable()
+  {
+    return isReadable(NUMBERRPRP);
+  }
+  
+  public boolean isNumberRpRpModified()
+  {
+    return isModified(NUMBERRPRP);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberRpRpMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERRPRP).getAttributeMdDTO();
+  }
+  
+  public Integer getNumberSRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSRP));
+  }
+  
+  public void setNumberSRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERSRP, "");
+    }
+    else
+    {
+      setValue(NUMBERSRP, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isNumberSRpWritable()
+  {
+    return isWritable(NUMBERSRP);
+  }
+  
+  public boolean isNumberSRpReadable()
+  {
+    return isReadable(NUMBERSRP);
+  }
+  
+  public boolean isNumberSRpModified()
+  {
+    return isModified(NUMBERSRP);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNumberSRpMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NUMBERSRP).getAttributeMdDTO();
   }
   
   public Integer getNumberSS()

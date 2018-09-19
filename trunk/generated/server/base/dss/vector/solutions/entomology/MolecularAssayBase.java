@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -48159418)
+@com.runwaysdk.business.ClassSignature(hash = 259719916)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -43,7 +27,10 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MOSQUITOID = "mosquitoId";
   public static java.lang.String NUMBERRR = "numberRR";
+  public static java.lang.String NUMBERRRP = "numberRRp";
   public static java.lang.String NUMBERRS = "numberRS";
+  public static java.lang.String NUMBERRPRP = "numberRpRp";
+  public static java.lang.String NUMBERSRP = "numberSRp";
   public static java.lang.String NUMBERSS = "numberSS";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
@@ -53,7 +40,7 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
   public static java.lang.String TARGET = "target";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
-  private static final long serialVersionUID = -48159418;
+  private static final long serialVersionUID = 259719916;
   
   public MolecularAssayBase()
   {
@@ -100,6 +87,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setAssayMethodId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ASSAYMETHOD, "");
+    }
+    else
+    {
+      setValue(ASSAYMETHOD, id);
+    }
+  }
+  
   public dss.vector.solutions.entomology.MosquitoCollection getCollection()
   {
     if (getValue(COLLECTION).trim().equals(""))
@@ -137,6 +136,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     else
     {
       setValue(COLLECTION, value.getId());
+    }
+  }
+  
+  public void setCollectionId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(COLLECTION, "");
+    }
+    else
+    {
+      setValue(COLLECTION, id);
     }
   }
   
@@ -224,6 +235,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setDiseaseId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, id);
+    }
+  }
+  
   public com.runwaysdk.system.metadata.MdDomain getEntityDomain()
   {
     if (getValue(ENTITYDOMAIN).trim().equals(""))
@@ -264,6 +287,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setEntityDomainId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ENTITYDOMAIN, "");
+    }
+    else
+    {
+      setValue(ENTITYDOMAIN, id);
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getGeneration()
   {
     if (getValue(GENERATION).trim().equals(""))
@@ -301,6 +336,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     else
     {
       setValue(GENERATION, value.getId());
+    }
+  }
+  
+  public void setGenerationId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(GENERATION, "");
+    }
+    else
+    {
+      setValue(GENERATION, id);
     }
   }
   
@@ -357,6 +404,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     else
     {
       setValue(IDENTMETHOD, value.getId());
+    }
+  }
+  
+  public void setIdentMethodId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(IDENTMETHOD, "");
+    }
+    else
+    {
+      setValue(IDENTMETHOD, id);
     }
   }
   
@@ -460,7 +519,7 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.SingleActor getLockedBy()
+  public com.runwaysdk.system.Users getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -468,7 +527,7 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
     else
     {
-      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
   }
   
@@ -544,6 +603,34 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
   }
   
+  public Integer getNumberRRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRRP));
+  }
+  
+  public void validateNumberRRp()
+  {
+    this.validateAttribute(NUMBERRRP);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberRRpMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssay.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBERRRP);
+  }
+  
+  public void setNumberRRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERRRP, "");
+    }
+    else
+    {
+      setValue(NUMBERRRP, java.lang.Integer.toString(value));
+    }
+  }
+  
   public Integer getNumberRS()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRS));
@@ -569,6 +656,62 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     else
     {
       setValue(NUMBERRS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberRpRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRPRP));
+  }
+  
+  public void validateNumberRpRp()
+  {
+    this.validateAttribute(NUMBERRPRP);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberRpRpMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssay.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBERRPRP);
+  }
+  
+  public void setNumberRpRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERRPRP, "");
+    }
+    else
+    {
+      setValue(NUMBERRPRP, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberSRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSRP));
+  }
+  
+  public void validateNumberSRp()
+  {
+    this.validateAttribute(NUMBERSRP);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF getNumberSRpMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MolecularAssay.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeIntegerDAOIF)mdClassIF.definesAttribute(NUMBERSRP);
+  }
+  
+  public void setNumberSRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERSRP, "");
+    }
+    else
+    {
+      setValue(NUMBERSRP, java.lang.Integer.toString(value));
     }
   }
   
@@ -640,6 +783,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setOwnerId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(OWNER, "");
+    }
+    else
+    {
+      setValue(OWNER, id);
+    }
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -693,6 +848,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     else
     {
       setValue(SEX, value.getId());
+    }
+  }
+  
+  public void setSexId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(SEX, "");
+    }
+    else
+    {
+      setValue(SEX, id);
     }
   }
   
@@ -752,6 +919,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     }
   }
   
+  public void setSpeciesId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(SPECIES, "");
+    }
+    else
+    {
+      setValue(SPECIES, id);
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getTarget()
   {
     if (getValue(TARGET).trim().equals(""))
@@ -789,6 +968,18 @@ public abstract class MolecularAssayBase extends com.runwaysdk.business.Business
     else
     {
       setValue(TARGET, value.getId());
+    }
+  }
+  
+  public void setTargetId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(TARGET, "");
+    }
+    else
+    {
+      setValue(TARGET, id);
     }
   }
   

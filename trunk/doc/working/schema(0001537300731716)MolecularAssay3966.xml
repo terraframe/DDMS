@@ -1,0 +1,52 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.entomology.MolecularAssay">
+        <create>
+	        <attributes>
+	          <integer name="numberRRp" label="# RR'" rejectNegative="true" defaultValue="0" required="true" />
+	          <integer name="numberRpRp" label="# R'R'" rejectNegative="true" defaultValue="0" required="true" />
+	          <integer name="numberSRp" label="# SR'" rejectNegative="true" defaultValue="0" required="true" />
+	        </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.entomology.MolecularAssayView">
+        <create>
+	        <attributes>
+	          <virtual concrete="numberRRp" type="dss.vector.solutions.entomology.MolecularAssay" />
+	          <virtual concrete="numberRpRp" type="dss.vector.solutions.entomology.MolecularAssay" />
+	          <virtual concrete="numberSRp" type="dss.vector.solutions.entomology.MolecularAssay" />
+	        </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.MolecularAssayExcelView">
+        <create>
+	        <attributes>
+	          <virtual concrete="numberRRp" type="dss.vector.solutions.entomology.MolecularAssay" />
+	          <virtual concrete="numberRpRp" type="dss.vector.solutions.entomology.MolecularAssay" />
+	          <virtual concrete="numberSRp" type="dss.vector.solutions.entomology.MolecularAssay" />
+	        </attributes>
+        </create>
+      </mdView>
+      <mdProblem
+        name="dss.vector.solutions.MolecularSumProblem"
+        message="The sum of RR, RS, SS, RR', R'R', and SR' must be GT 0">
+      </mdProblem>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.entomology.MolecularAssay.numberRRp" type="com.runwaysdk.system.metadata.MdAttributeInteger"/>
+      <object key="dss.vector.solutions.entomology.MolecularAssay.numberRpRp" type="com.runwaysdk.system.metadata.MdAttributeInteger"/>
+      <object key="dss.vector.solutions.entomology.MolecularAssay.numberSRp" type="com.runwaysdk.system.metadata.MdAttributeInteger"/>
+      
+      <object key="dss.vector.solutions.entomology.MolecularAssayView.numberRRp" type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object key="dss.vector.solutions.entomology.MolecularAssayView.numberRpRp" type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object key="dss.vector.solutions.entomology.MolecularAssayView.numberSRp" type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      
+      <object key="dss.vector.solutions.export.MolecularAssayExcelView.numberRRp" type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object key="dss.vector.solutions.export.MolecularAssayExcelView.numberRpRp" type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+      <object key="dss.vector.solutions.export.MolecularAssayExcelView.numberSRp" type="com.runwaysdk.system.metadata.MdAttributeVirtual"/>
+    </delete>
+  </undoIt>
+</version>

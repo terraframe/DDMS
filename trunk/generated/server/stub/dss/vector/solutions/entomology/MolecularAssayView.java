@@ -43,6 +43,9 @@ public class MolecularAssayView extends MolecularAssayViewBase implements
     this.setNumberRR(concrete.getNumberRR());
     this.setNumberRS(concrete.getNumberRS());
     this.setNumberSS(concrete.getNumberSS());
+    this.setNumberRRp(concrete.getNumberRRp());
+    this.setNumberRpRp(concrete.getNumberRpRp());
+    this.setNumberSRp(concrete.getNumberSRp());
     this.setGeneration(concrete.getGeneration());
     this.setSex(concrete.getSex());
     this.setSpecies(concrete.getSpecies());
@@ -88,6 +91,21 @@ public class MolecularAssayView extends MolecularAssayViewBase implements
     {
       concrete.setNumberSS(this.getNumberSS());
     }
+    
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERRRP))
+    {
+      concrete.setNumberRRp(this.getNumberRRp());
+    }
+    
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERRPRP))
+    {
+      concrete.setNumberRpRp(this.getNumberRpRp());
+    }
+    
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERSRP))
+    {
+      concrete.setNumberSRp(this.getNumberSRp());
+    }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GENERATION))
     {
@@ -130,6 +148,9 @@ public class MolecularAssayView extends MolecularAssayViewBase implements
     new AttributeNotificationMap(concrete, MolecularAssay.NUMBERRR, this, MolecularAssayView.NUMBERRR);
     new AttributeNotificationMap(concrete, MolecularAssay.NUMBERRS, this, MolecularAssayView.NUMBERRS);
     new AttributeNotificationMap(concrete, MolecularAssay.NUMBERSS, this, MolecularAssayView.NUMBERSS);
+    new AttributeNotificationMap(concrete, MolecularAssay.NUMBERRRP, this, MolecularAssayView.NUMBERRRP);
+    new AttributeNotificationMap(concrete, MolecularAssay.NUMBERRPRP, this, MolecularAssayView.NUMBERRPRP);
+    new AttributeNotificationMap(concrete, MolecularAssay.NUMBERSRP, this, MolecularAssayView.NUMBERSRP);
     new AttributeNotificationMap(concrete, MolecularAssay.GENERATION, this,
         MolecularAssayView.GENERATION);
     new AttributeNotificationMap(concrete, MolecularAssay.SEX, this, MolecularAssayView.SEX);

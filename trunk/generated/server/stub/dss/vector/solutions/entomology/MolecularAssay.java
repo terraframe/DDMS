@@ -93,6 +93,9 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
     sum += ( this.getNumberRR() != null ? this.getNumberRR() : 0 );
     sum += ( this.getNumberRS() != null ? this.getNumberRS() : 0 );
     sum += ( this.getNumberSS() != null ? this.getNumberSS() : 0 );
+    sum += ( this.getNumberRRp() != null ? this.getNumberRRp() : 0 );
+    sum += ( this.getNumberRpRp() != null ? this.getNumberRpRp() : 0 );
+    sum += ( this.getNumberSRp() != null ? this.getNumberSRp() : 0 );
 
     return sum;
   }
@@ -103,7 +106,7 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
 
     if (!(sum > 0))
     {
-      String msg = "The sum of RR, RS and SS must be GT 0";
+      String msg = "The sum of RR, RS, SS, RR', R'R', and SR' must be GT 0";
       MolecularSumProblem p = new MolecularSumProblem(msg);
       p.apply();
 

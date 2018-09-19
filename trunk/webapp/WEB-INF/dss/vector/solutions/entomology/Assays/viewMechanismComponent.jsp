@@ -19,6 +19,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -28,6 +29,8 @@
 <%@page import="dss.vector.solutions.entomology.BiochemicalAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.MolecularAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.AssayController"%>
+
+<jwr:style src="/bundles/fontawesome.css" useRandomParam="false" />
 
 <c:set var="page_title" value="Enter_Mechanism_Assays"  scope="request"/>
 
@@ -68,7 +71,7 @@
   </div>
 </dd>
 <dt>
-  <LABEL><mdss:localize key="Molecular_Assay"/></LABEL>
+  <LABEL><mdss:localize key="Molecular_Assay"/></LABEL> <i class="fa fa-question-circle help-info-ico" title="<mdss:localize key="molecularAssay.tooltip"/>" aria-hidden="true"></i>
 </dt>
 <dd>
   <div id="MolecularAssay">

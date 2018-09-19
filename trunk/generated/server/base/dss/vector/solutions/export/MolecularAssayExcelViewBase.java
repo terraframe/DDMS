@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -2084313547)
+@com.runwaysdk.business.ClassSignature(hash = 338641046)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -35,13 +19,16 @@ public abstract class MolecularAssayExcelViewBase extends com.runwaysdk.business
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String MOSQUITOID = "mosquitoId";
   public static java.lang.String NUMBERRR = "numberRR";
+  public static java.lang.String NUMBERRRP = "numberRRp";
   public static java.lang.String NUMBERRS = "numberRS";
+  public static java.lang.String NUMBERRPRP = "numberRpRp";
+  public static java.lang.String NUMBERSRP = "numberSRp";
   public static java.lang.String NUMBERSS = "numberSS";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TARGET = "target";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
-  private static final long serialVersionUID = -2084313547;
+  private static final long serialVersionUID = 338641046;
   
   public MolecularAssayExcelViewBase()
   {
@@ -260,6 +247,34 @@ public abstract class MolecularAssayExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public Integer getNumberRRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRRP));
+  }
+  
+  public void validateNumberRRp()
+  {
+    this.validateAttribute(NUMBERRRP);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberRRpMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MolecularAssayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERRRP);
+  }
+  
+  public void setNumberRRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERRRP, "");
+    }
+    else
+    {
+      setValue(NUMBERRRP, java.lang.Integer.toString(value));
+    }
+  }
+  
   public Integer getNumberRS()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRS));
@@ -285,6 +300,62 @@ public abstract class MolecularAssayExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(NUMBERRS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberRpRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERRPRP));
+  }
+  
+  public void validateNumberRpRp()
+  {
+    this.validateAttribute(NUMBERRPRP);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberRpRpMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MolecularAssayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERRPRP);
+  }
+  
+  public void setNumberRpRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERRPRP, "");
+    }
+    else
+    {
+      setValue(NUMBERRPRP, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberSRp()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERSRP));
+  }
+  
+  public void validateNumberSRp()
+  {
+    this.validateAttribute(NUMBERSRP);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF getNumberSRpMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MolecularAssayExcelView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF)mdClassIF.definesAttribute(NUMBERSRP);
+  }
+  
+  public void setNumberSRp(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERSRP, "");
+    }
+    else
+    {
+      setValue(NUMBERSRP, java.lang.Integer.toString(value));
     }
   }
   

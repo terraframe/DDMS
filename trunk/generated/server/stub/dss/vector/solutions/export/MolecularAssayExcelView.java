@@ -56,6 +56,9 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
     assay.setNumberRR(this.getNumberRR());
     assay.setNumberRS(this.getNumberRS());
     assay.setNumberSS(this.getNumberSS());
+    assay.setNumberRRp(this.getNumberRRp());
+    assay.setNumberRpRp(this.getNumberRpRp());
+    assay.setNumberSRp(this.getNumberSRp());
 
     assay.apply();
   }
@@ -76,6 +79,9 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
     list.add(NUMBERRR);
     list.add(NUMBERRS);
     list.add(NUMBERSS);
+    list.add(NUMBERRRP);
+    list.add(NUMBERRPRP);
+    list.add(NUMBERSRP);
     return list;
   }
 }

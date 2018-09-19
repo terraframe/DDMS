@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1207734845)
+@com.runwaysdk.business.ClassSignature(hash = -1554763563)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -323,27 +307,27 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MolecularAssay.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY);
 
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY);
 
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getMosquitoId()
@@ -380,6 +364,23 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRR, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberRRp()
+  {
+    return getNumberRRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRRP, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getNumberRS()
   {
     return getNumberRS(null);
@@ -395,6 +396,40 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
   public com.runwaysdk.query.SelectableInteger getNumberRS(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp()
+  {
+    return getNumberRpRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRPRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRPRP, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberSRp()
+  {
+    return getNumberSRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERSRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.MolecularAssay.NUMBERSRP, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getNumberSS()
@@ -612,7 +647,7 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     }
     else if (name.equals(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.MolecularAssay.OWNER)) 
     {
@@ -708,18 +743,27 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getMosquitoId();
     public com.runwaysdk.query.SelectableChar getMosquitoId(String alias);
     public com.runwaysdk.query.SelectableChar getMosquitoId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberRR();
     public com.runwaysdk.query.SelectableInteger getNumberRR(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberRR(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberRRp();
+    public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberRS();
     public com.runwaysdk.query.SelectableInteger getNumberRS(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberRS(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberRpRp();
+    public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberSRp();
+    public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberSS();
     public com.runwaysdk.query.SelectableInteger getNumberSS(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberSS(String alias, String displayLabel);
@@ -1003,21 +1047,21 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getMosquitoId()
@@ -1054,6 +1098,23 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRR, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberRRp()
+  {
+    return getNumberRRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRRP, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getNumberRS()
   {
     return getNumberRS(null);
@@ -1069,6 +1130,40 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
   public com.runwaysdk.query.SelectableInteger getNumberRS(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp()
+  {
+    return getNumberRpRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRPRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRPRP, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberSRp()
+  {
+    return getNumberSRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERSRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERSRP, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getNumberSS()
@@ -1262,7 +1357,7 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     }
     else if (name.equals(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.MolecularAssay.OWNER)) 
     {
@@ -1335,18 +1430,27 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getMosquitoId();
     public com.runwaysdk.query.SelectableChar getMosquitoId(String alias);
     public com.runwaysdk.query.SelectableChar getMosquitoId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberRR();
     public com.runwaysdk.query.SelectableInteger getNumberRR(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberRR(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberRRp();
+    public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberRS();
     public com.runwaysdk.query.SelectableInteger getNumberRS(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberRS(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberRpRp();
+    public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNumberSRp();
+    public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias);
+    public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getNumberSS();
     public com.runwaysdk.query.SelectableInteger getNumberSS(String alias);
     public com.runwaysdk.query.SelectableInteger getNumberSS(String alias, String displayLabel);
@@ -1679,21 +1783,21 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getMosquitoId()
@@ -1730,6 +1834,23 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRR, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getNumberRRp()
+  {
+    return getNumberRRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRRP, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getNumberRS()
   {
     return getNumberRS(null);
@@ -1745,6 +1866,40 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
   public com.runwaysdk.query.SelectableInteger getNumberRS(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp()
+  {
+    return getNumberRpRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRPRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERRPRP, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getNumberSRp()
+  {
+    return getNumberSRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERSRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.MolecularAssay.NUMBERSRP, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getNumberSS()
@@ -1938,7 +2093,7 @@ public  class MolecularAssayQuery extends com.runwaysdk.query.GeneratedBusinessQ
     }
     else if (name.equals(dss.vector.solutions.entomology.MolecularAssay.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.MolecularAssay.OWNER)) 
     {

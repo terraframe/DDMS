@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -2132245098)
+@com.runwaysdk.business.ClassSignature(hash = 683060373)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -207,6 +191,24 @@ public  abstract  class MolecularAssayViewQueryBase extends com.runwaysdk.query.
 
   }
  
+  public com.runwaysdk.query.SelectableInteger getNumberRRp()
+  {
+    return getNumberRRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERRRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERRRP, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableInteger getNumberRS()
   {
     return getNumberRS(null);
@@ -222,6 +224,42 @@ public  abstract  class MolecularAssayViewQueryBase extends com.runwaysdk.query.
   public com.runwaysdk.query.SelectableInteger getNumberRS(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERRS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp()
+  {
+    return getNumberRpRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERRPRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberRpRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERRPRP, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp()
+  {
+    return getNumberSRp(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERSRP, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberSRp(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.MolecularAssayView.NUMBERSRP, alias, displayLabel);
 
   }
  
