@@ -63,7 +63,11 @@
               </mjl:messages>
             </td>
             <td>
-              <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired || actor != 'mdss.GUIVisibility'}" value="${view.attributeRequired || view.notBlank}" />
+              <c:choose>
+                <c:when test="${view.formLevel != true}">
+                  <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired || actor != 'mdss.GUIVisibility'}" value="${view.attributeRequired || view.notBlank}" />
+                </c:when>
+              </c:choose>
             </td>            
             <td>
               <c:if test="${view.basic}">

@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -102274032)
+@com.runwaysdk.business.ClassSignature(hash = -813080505)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -148,6 +148,24 @@ public  abstract  class ReadableAttributeViewQueryBase extends com.runwaysdk.que
   public com.runwaysdk.query.SelectableChar getFieldId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.FIELDID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getFormLevel()
+  {
+    return getFormLevel(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getFormLevel(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.FORMLEVEL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getFormLevel(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.util.ReadableAttributeView.FORMLEVEL, alias, displayLabel);
 
   }
  

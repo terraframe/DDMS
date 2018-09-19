@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1138851047)
+@com.runwaysdk.business.ClassSignature(hash = -611406576)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,10 +18,11 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
   public static java.lang.String BASIC = "basic";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String FIELDID = "fieldId";
+  public static java.lang.String FORMLEVEL = "formLevel";
   public static java.lang.String ID = "id";
   public static java.lang.String NOTBLANK = "notBlank";
   public static java.lang.String READPERMISSION = "readPermission";
-  private static final long serialVersionUID = -1138851047;
+  private static final long serialVersionUID = -611406576;
   
   public ReadableAttributeViewBase()
   {
@@ -221,6 +222,34 @@ public abstract class ReadableAttributeViewBase extends com.runwaysdk.business.V
     else
     {
       setValue(FIELDID, value);
+    }
+  }
+  
+  public Boolean getFormLevel()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(FORMLEVEL));
+  }
+  
+  public void validateFormLevel()
+  {
+    this.validateAttribute(FORMLEVEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF getFormLevelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.util.ReadableAttributeView.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF)mdClassIF.definesAttribute(FORMLEVEL);
+  }
+  
+  public void setFormLevel(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(FORMLEVEL, "");
+    }
+    else
+    {
+      setValue(FORMLEVEL, java.lang.Boolean.toString(value));
     }
   }
   

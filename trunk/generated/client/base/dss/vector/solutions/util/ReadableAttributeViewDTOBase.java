@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 409617561)
+@com.runwaysdk.business.ClassSignature(hash = 1312689808)
 public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.ReadableAttributeView";
-  private static final long serialVersionUID = 409617561;
+  private static final long serialVersionUID = 1312689808;
   
   protected ReadableAttributeViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,6 +23,7 @@ public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.busines
   public static java.lang.String BASIC = "basic";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String FIELDID = "fieldId";
+  public static java.lang.String FORMLEVEL = "formLevel";
   public static java.lang.String ID = "id";
   public static java.lang.String NOTBLANK = "notBlank";
   public static java.lang.String READPERMISSION = "readPermission";
@@ -283,6 +284,43 @@ public abstract class ReadableAttributeViewDTOBase extends com.runwaysdk.busines
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFieldIdMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIELDID).getAttributeMdDTO();
+  }
+  
+  public Boolean getFormLevel()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(FORMLEVEL));
+  }
+  
+  public void setFormLevel(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(FORMLEVEL, "");
+    }
+    else
+    {
+      setValue(FORMLEVEL, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isFormLevelWritable()
+  {
+    return isWritable(FORMLEVEL);
+  }
+  
+  public boolean isFormLevelReadable()
+  {
+    return isReadable(FORMLEVEL);
+  }
+  
+  public boolean isFormLevelModified()
+  {
+    return isModified(FORMLEVEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getFormLevelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(FORMLEVEL).getAttributeMdDTO();
   }
   
   public Boolean getNotBlank()

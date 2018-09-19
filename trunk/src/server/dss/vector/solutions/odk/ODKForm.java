@@ -42,6 +42,7 @@ import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 
 import dss.vector.solutions.CurrentDateProblem;
@@ -243,6 +244,7 @@ import dss.vector.solutions.surveillance.CaseTreatmentView;
 import dss.vector.solutions.util.AttributeMetadata;
 import dss.vector.solutions.util.LocalizationFacade;
 import dss.vector.solutions.util.MDSSProperties;
+import dss.vector.solutions.util.ODKFormMetadata;
 import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKForm implements Reloadable
@@ -301,6 +303,12 @@ public class ODKForm implements Reloadable
   protected boolean                  export;
 
   private ODKForm                    parentForm;
+  
+  protected Boolean                  popFormInstName;
+  
+  protected String                   popFormInstNameAttr = null;
+  
+  protected Boolean                  calculatedPopFormInstName = false;
 
   public ODKForm(MdClassDAOIF base)
   {
@@ -331,7 +339,84 @@ public class ODKForm implements Reloadable
     this.export = true;
     this.setFormTitle(this.getViewMd().getDisplayLabel(Session.getCurrentLocale()));
   }
-
+  
+  protected Boolean getPopFormInstName()
+  {
+    if (this.getParent() != null)
+    {
+      return false;
+    }
+    
+    if (!calculatedPopFormInstName)
+    {
+      calculatePopFormInstance();
+      calculatedPopFormInstName = true;
+    }
+    
+    return popFormInstName == null ? false : popFormInstName;
+  }
+  
+  protected void calculatePopFormInstance()
+  {
+    ODKFormMetadata odkMeta = ODKFormMetadata.getMetadata(this.getViewMd());
+    
+    if (odkMeta != null)
+    {
+      MdClass mdc = odkMeta.getReferencedMdClass();
+      
+      LinkedList<ODKAttribute> attrs = this.getAttributes();
+      for (ODKAttribute attr : attrs)
+      {
+        popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) MdClassDAO.get(mdc.getId()), attr);
+        
+        if (popFormInstNameAttr != null)
+        {
+          break;
+        }
+        else
+        {
+          popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) this.viewMd, attr);
+        }
+        
+        if (popFormInstNameAttr != null)
+        {
+          break;
+        }
+      }
+      
+//      popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) MdClassDAO.get(mdc.getId()));
+//      
+//      if (popFormInstNameAttr == null)
+//      {
+//        popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) this.viewMd);
+//      }
+      
+      this.popFormInstName = (popFormInstNameAttr != null);
+    }
+  }
+  
+  protected String idMatchOnAttrs(MdClassDAO mdc, ODKAttribute odkAttr)
+  {
+    List<? extends MdAttributeDAOIF> attrs = mdc.definesAttributes();
+    for (MdAttributeDAOIF attr : attrs)
+    {
+      if (attr.definesAttribute().equals(odkAttr.getAttributeName()))
+      {
+        String attrLabel = attr.getDisplayLabel(Session.getCurrentLocale());
+        
+        Boolean isMatch = attrLabel.toLowerCase().equals("form id");
+        isMatch = isMatch || attrLabel.equals("ID");
+        
+        if (isMatch)
+        {
+          return attr.definesAttribute();
+        }
+      }
+    }
+    
+    return null;
+  }
+  
   public void setExport(boolean export)
   {
     this.export = export;
@@ -355,11 +440,6 @@ public class ODKForm implements Reloadable
   public MdClassDAOIF getViewMd()
   {
     return viewMd;
-  }
-
-  public void setBase(MdClassDAOIF base)
-  {
-    this.viewMd = base;
   }
 
   public void validate()
@@ -483,10 +563,31 @@ public class ODKForm implements Reloadable
         attr.writeBind(parent, document, context, maxDepth);
       }
     }
+    
+    writeBindMetadata(parent, document, context);
 
     for (ODKFormJoin join : joins)
     {
       join.writeBind(parent, document, context, maxDepth);
+    }
+  }
+  
+  public void writeBindMetadata(Element parent, Document document, String context)
+  {
+    if (this.getPopFormInstName())
+    {
+      Element bind = document.createElement("bind");
+      bind.setAttribute("calculate", "concat(/" + context + "/" + popFormInstNameAttr + " ,' ','" + this.getFormTitle() + "')");
+      bind.setAttribute("nodeset", "/" + context + "/meta/instanceName");
+      bind.setAttribute("type", "string");
+      parent.appendChild(bind);
+      
+      Element bind2 = document.createElement("bind");
+      bind2.setAttribute("calculate", "concat('uuid:', uuid())");
+      bind2.setAttribute("nodeset", "/" + context + "/meta/instanceID");
+      bind2.setAttribute("type", "string");
+      bind2.setAttribute("readonly", "true()");
+      parent.appendChild(bind2);
     }
   }
 
@@ -515,10 +616,27 @@ public class ODKForm implements Reloadable
         attr.writeInstance(parent, document, context, maxDepth);
       }
     }
-
+    
+    writeInstanceMetadata(parent, document, context);
+    
     for (ODKFormJoin join : joins)
     {
       join.writeInstance(parent, document, context, maxDepth);
+    }
+  }
+  
+  public void writeInstanceMetadata(Element parent, Document document, String context)
+  {
+    if (this.getPopFormInstName())
+    {
+      Element meta = document.createElement("meta");
+      parent.appendChild(meta);
+      
+      Element instanceID = document.createElement("instanceID");
+      meta.appendChild(instanceID);
+      
+      Element instanceName = document.createElement("instanceName");
+      meta.appendChild(instanceName);
     }
   }
 
@@ -546,7 +664,7 @@ public class ODKForm implements Reloadable
 
   public void buildAttributes(String sourceType, List<String> orderList, ODKAttributeMapper mapper)
   {
-    this.buildAttributes(sourceType, this.viewMd.definesType(), orderList, mapper);
+    this.buildAttributes(sourceType, this.getViewMd().definesType(), orderList, mapper);
   }
 
   /**
@@ -733,7 +851,7 @@ public class ODKForm implements Reloadable
 
   public boolean hasViewAttribute(String attributeName)
   {
-    return ( this.viewMd.definesAttribute(attributeName) != null );
+    return ( this.getViewMd().definesAttribute(attributeName) != null );
   }
 
   public boolean isGeoAttribute(String attributeName)
@@ -2138,7 +2256,7 @@ public class ODKForm implements Reloadable
 
   public boolean isExport(String type)
   {
-    if (type.equals(this.viewMd.definesType()))
+    if (type.equals(this.getViewMd().definesType()))
     {
       return this.isExport();
     }

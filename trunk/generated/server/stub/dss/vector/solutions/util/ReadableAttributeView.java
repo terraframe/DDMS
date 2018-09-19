@@ -30,6 +30,7 @@ import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.MdAttributeInfo;
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
@@ -72,6 +73,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
     List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
 
+    addODKFormMetadata(list, mdClassDAO);
+    
     for (MdAttributeDAOIF mdAttribute : mdClassDAO.getAllDefinedMdAttributes())
     {
       boolean readable = PermissionFacade.checkAttributeReadAccess(sessionId, mdClass, mdAttribute);
@@ -99,6 +102,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
     List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
 
+    addODKFormMetadata(list, mdClass);
+    
     for (MdAttributeDAOIF mdAttribute : mdClass.getAllDefinedMdAttributes())
     {
       // Don't show 'em system attributes, Owner, or Domain
@@ -119,6 +124,27 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     Collections.sort(list, new Sorter());
 
     return list.toArray(new ReadableAttributeView[list.size()]);
+  }
+  
+  private static void addODKFormMetadata(List<ReadableAttributeView> list, MdClassDAOIF mdClass)
+  {
+    ODKFormMetadata odkFormM = ODKFormMetadata.getMetadata(mdClass);
+    Boolean popFormInstName = odkFormM == null ? false : odkFormM.getPopFormInstName();
+    
+    MdAttributeBooleanDAOIF popFormInst = ODKFormMetadata.getPopFormInstNameMd();
+    
+    ReadableAttributeView view = new ReadableAttributeView();
+    view.setAttributeName(popFormInst.definesAttribute());
+    view.setDisplayLabel(popFormInst.getDisplayLabel(Session.getCurrentLocale()));
+    view.setAttributeRequired(false);
+    view.setAttributeDescription(popFormInst.getDescription(Session.getCurrentLocale()));
+    view.setReadPermission(popFormInstName);
+    view.setNotBlank(false);
+    view.setBarcode(false);
+    view.setBasic(false);
+    view.setFormLevel(true);
+    
+    list.add(view);
   }
 
   /**
@@ -172,6 +198,28 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
     for (ReadableAttributeView view : attributeViews)
     {
+      if (view.getAttributeName().equals(ODKFormMetadata.POPFORMINSTNAME))
+      {
+        Boolean pop = view.getReadPermission();
+        
+        ODKFormMetadata odkFormM = ODKFormMetadata.getMetadata(mdClass);
+        if (odkFormM != null)
+        {
+          odkFormM.appLock();
+          odkFormM.setPopFormInstName(pop);
+          odkFormM.apply();
+        }
+        else
+        {
+          odkFormM = new ODKFormMetadata();
+          odkFormM.setPopFormInstName(pop);
+          odkFormM.setReferencedMdClassId(mdClass.getId());
+          odkFormM.apply();
+        }
+        
+        continue;
+      }
+      
       MdAttributeDAOIF mdAttributeDAO = attributeMap.get(view.getAttributeName().toLowerCase());
 
       if (ignore(mdAttributeDAO))

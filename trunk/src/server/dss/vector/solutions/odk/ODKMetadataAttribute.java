@@ -36,6 +36,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.util.AttributeMetadata;
+import dss.vector.solutions.util.ODKFormMetadata;
 import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
@@ -45,7 +46,7 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   protected MdAttributeDAOIF viewMdAttr;
 
   protected boolean          barcode;
-
+  
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
     super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), calculateRequired(sourceMdAttr, viewMdAttr), ReadableAttributeView.isVisible(sourceMdAttr));
