@@ -83,7 +83,7 @@ onsubmit="return checkForm(this);">
 
   function checkForm(form)
   {
-    $("body").append('<div style="width:300px;position:absolute;margin:0 auto;top:50%;bottom:0;left:0;right:0;height:50px;background:rgba(169, 169, 169, .80);"><img src="imgs/rel_interstitial_loading.gif" style="margin:0 auto;display:block;transform:translateY(15px);" /><div>')
+    //$("body").append('<div style="width:300px;position:absolute;margin:0 auto;top:50%;bottom:0;left:0;right:0;height:50px;background:rgba(169, 169, 169, .80);"><img src="imgs/rel_interstitial_loading.gif" style="margin:0 auto;display:block;transform:translateY(15px);" /><div>')
     
     form.basemapRebuildBtn.disabled = true;
     return true;
