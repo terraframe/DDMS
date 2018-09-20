@@ -74,31 +74,57 @@ public class MolecularAssaySubSelectQB extends AbstractQB implements Reloadable
       String numberrrCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRR);
       String numberrsCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRS);
       String numberssCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSS);
+      String numbersrpCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSRP);
+      String numberrrpCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRRP);
+      String numberrprpCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRPRP);
       
       if(xml.indexOf(">percentRR<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRR");
-        s.setSQL("100.0 * SUM("+numberrrCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("100.0 * SUM("+numberrrCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
       }
       if(xml.indexOf(">percentRS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRS");
-        s.setSQL("100.0 * SUM("+numberrsCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("100.0 * SUM("+numberrsCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
       }
       if(xml.indexOf(">percentSS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentSS");
-        s.setSQL("100.0 * SUM("+numberssCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("100.0 * SUM("+numberssCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
       }
+      if(xml.indexOf(">percentSRp<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentSRp");
+        s.setSQL("100.0 * SUM("+numbersrpCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
+      }
+      if(xml.indexOf(">percentRRp<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRRp");
+        s.setSQL("100.0 * SUM("+numberrrpCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
+      }
+      if(xml.indexOf(">percentRpRp<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("percentRpRp");
+        s.setSQL("100.0 * SUM("+numberrprpCol+") / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
+      }
+      // Frequency of R(AG) = ('SUM(RR) + 0.5 * SUM(RS) + 0.5 * SUM(R'R)) / (SUM(RR) + SUM(RS) + SUM(SS) + SUM(R'S) + SUM(R'R) + SUM(R'R'))
       if(xml.indexOf(">frequencyR<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyR");
-        s.setSQL("(SUM("+numberrrCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("(SUM("+numberrrCol+" +(0.5*"+numberrsCol+") + (0.5*"+numberrrpCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
       }
+      // Frequency of S(AG) = ('SUM(SS) + 0.5 * SUM(RS) + 0.5 * SUM(R'S)) / (SUM(RR) + SUM(RS) + SUM(SS) + SUM(R'S) + SUM(R'R) + SUM(R'R'))
       if(xml.indexOf(">frequencyS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyS");
-        s.setSQL("(SUM("+numberssCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("(SUM("+numberssCol+" + (0.5*"+numberrsCol+") + (0.5*"+numbersrpCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
+      }
+      // Frequency of R'(AG) = ('SUM(R'R') + 0.5 * SUM(R'S) + 0.5 * SUM(R'R)) / (SUM(RR) + SUM(RS) + SUM(SS) + SUM(R'S) + SUM(R'R) + SUM(R'R'))
+      if(xml.indexOf(">frequencyRp<") > 0)
+      {
+        SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyRp");
+        s.setSQL("(SUM("+numberrprpCol+" + (0.5*"+numbersrpCol+") + (0.5*"+numberrrpCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+"+"+numbersrpCol+"+"+numberrrpCol+"+"+numberrprpCol+")");
       }
     }
     

@@ -80,8 +80,8 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
     list.add(NUMBERRS);
     list.add(NUMBERSS);
     list.add(NUMBERRRP);
-    list.add(NUMBERRPRP);
     list.add(NUMBERSRP);
+    list.add(NUMBERRPRP);
     return list;
   }
 }

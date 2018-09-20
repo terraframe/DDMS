@@ -403,7 +403,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getMolecularKeys()
   {
-    String[] keys = new String[] { MolecularAssayViewDTO.CONCRETEID, MolecularAssayViewDTO.COLLECTION, MolecularAssayViewDTO.UNIQUEASSAYID, MolecularAssayViewDTO.MOSQUITOID, MolecularAssayViewDTO.SPECIES, MolecularAssayViewDTO.IDENTMETHOD, MolecularAssayViewDTO.SEX, MolecularAssayViewDTO.GENERATION, MolecularAssayViewDTO.ISOFEMALE, MolecularAssayViewDTO.ASSAYMETHOD, MolecularAssayViewDTO.TARGET, MolecularAssayViewDTO.NUMBERRR, MolecularAssayViewDTO.NUMBERRS, MolecularAssayViewDTO.NUMBERSS, MolecularAssayViewDTO.NUMBERRRP, MolecularAssayViewDTO.NUMBERRPRP, MolecularAssayViewDTO.NUMBERSRP };
+    String[] keys = new String[] { MolecularAssayViewDTO.CONCRETEID, MolecularAssayViewDTO.COLLECTION, MolecularAssayViewDTO.UNIQUEASSAYID, MolecularAssayViewDTO.MOSQUITOID, MolecularAssayViewDTO.SPECIES, MolecularAssayViewDTO.IDENTMETHOD, MolecularAssayViewDTO.SEX, MolecularAssayViewDTO.GENERATION, MolecularAssayViewDTO.ISOFEMALE, MolecularAssayViewDTO.ASSAYMETHOD, MolecularAssayViewDTO.TARGET, MolecularAssayViewDTO.NUMBERRR, MolecularAssayViewDTO.NUMBERRS, MolecularAssayViewDTO.NUMBERSS, MolecularAssayViewDTO.NUMBERRRP, MolecularAssayViewDTO.NUMBERSRP, MolecularAssayViewDTO.NUMBERRPRP };
 
     this.upperFirstCharacter(keys);
 

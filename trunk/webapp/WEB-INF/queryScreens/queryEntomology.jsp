@@ -192,7 +192,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var molecularMaps = {<%=(String) request.getAttribute("molecularMaps")%>};
     var molecularAssay = new dss.vector.solutions.entomology.MolecularAssay;
 
-    var molecularAttribs = ["uniqueAssayId", "mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS"];
+    var molecularAttribs = ["uniqueAssayId", "mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS","numberRRp","numberSRp","numberRpRp"];
     <%
       Halp.setReadableAttributes(request, "molecularAttribs", MolecularAssayViewDTO.CLASS, requestIF);
     %>
@@ -227,19 +227,41 @@ YAHOO.util.Event.onDOMReady(function(){
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         
+                                                         key:"percentRRp",
+                                                         type:"sqlfloat",
+                                                         attributeName:"percentRRp",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         key:"percentSRp",
+                                                         type:"sqlfloat",
+                                                         attributeName:"percentSRp",
+                                                         isAggregate:true
+                                                       },
+                                                       {
+                                                         key:"percentRpRp",
+                                                         type:"sqlfloat",
+                                                         attributeName:"percentRpRp",
+                                                         isAggregate:true
+                                                       },
+                                                       {
                                                          key:"frequencyR",
                                                          type:"sqlfloat",
                                                          attributeName:"frequencyR",
                                                          isAggregate:true
                                                        },
                                                        {
-                                                         
                                                          key:"frequencyS",
                                                          type:"sqlfloat",
                                                          attributeName:"frequencyS",
                                                          isAggregate:true
                                                        },
+                                                       {
+                                                         key:"frequencyRp",
+                                                         type:"sqlfloat",
+                                                         attributeName:"frequencyRp",
+                                                         isAggregate:true
+                                                       }
                                                       
                                                     ]);
 
