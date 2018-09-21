@@ -141,6 +141,8 @@ public class UninstallAction extends Action
                 }
                 catch (Exception e)
                 {
+                  Logger.error("Uninstall exception", e);
+
                   throw new InvocationTargetException(e);
                 }
 
@@ -197,7 +199,7 @@ public class UninstallAction extends Action
   public void dropDatabase() throws IOException, SQLException
   {
     Logger.info("Start of dropping database");
-    
+
     DatabaseProperties props = new DatabaseProperties(context.getDatabaseProperties());
 
     String port = props.getPort();
@@ -246,7 +248,7 @@ public class UninstallAction extends Action
     {
       throw new RuntimeException(Localizer.getMessage("UNABLE_TO_DROP_ODK_USER", props.getDatabaseName()));
     }
-    
+
     Logger.info("End of dropping database");
   }
 
@@ -315,6 +317,8 @@ public class UninstallAction extends Action
 
   private int execWait(String command) throws IOException
   {
+    Logger.info("Executing command [" + command + "]");
+
     try
     {
       Process exec = Runtime.getRuntime().exec(command);
