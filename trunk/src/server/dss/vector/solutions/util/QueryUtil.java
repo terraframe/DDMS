@@ -355,7 +355,7 @@ public class QueryUtil implements Reloadable
     mosquitoColumnTypeMap.put("activeingredient_ref", "character");
     mosquitoColumnTypeMap.put("usedetail_ref", "character");
     mosquitoColumnTypeMap.put("species_total_ag", "integer");
-    mosquitoColumnTypeMap.put("collection_method", "character varying");
+    mosquitoColumnTypeMap.put("identification_method", "character varying");
     mosquitoColumnTypeMap.put("number_of_collections_ag", "integer");
     mosquitoColumnTypeMap.put("number_of_sub_collections_ag", "integer");
     mosquitoColumnTypeMap.put("abundance_x_1_ag", "numeric");
@@ -374,8 +374,8 @@ public class QueryUtil implements Reloadable
     mosquitoColumnTypeMap.put("last_updated_by", "character varying");
     mosquitoColumnTypeMap.put("imported", "integer");
     mosquitoColumnTypeMap.put("collectionmethod_ref", "character");
-    mosquitoColumnTypeMap.put("start_date", "unknown");
-    mosquitoColumnTypeMap.put("end_date", "unknown");
+    mosquitoColumnTypeMap.put("start_date", "text");
+    mosquitoColumnTypeMap.put("end_date", "text");
   }
   
   public static String createDatabaseFunction(String viewNameNoPrefix, ValueQuery vq)
@@ -391,17 +391,19 @@ public class QueryUtil implements Reloadable
 
     fnSql += TAB + "RETURNS TABLE (" + NEWLINE;
 
-    // Our function has to provide all the columns and all the datatypes of the table its returning. Here's how we're going to do that:
-    // Create a temp table of the query and ask postgres what the column types are. So much easier than hard-coding every single column for all QB's.
-
-    // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
-    // String wrapperSql = wrapper.getSQL();
-    // if (wrapperSql.endsWith("LIMIT .*"))
+    // Our function has to provide all the columns and all the datatypes of the table its returning. We're achieving this by hardcoding all the columns.
+    // #3967 - Zambia startup after patch
     
     List<String> selDefs = new ArrayList<String>();
     for (Selectable sel : vq.getSelectableRefs())
     {
       String alias = sel.getColumnAlias();
+      
+      // These date columns sometimes come out to be unknown and sometime its text. We're going to force it to text.
+      if (alias.equals("start_date") || alias.equals("end_date"))
+      {
+        ((SelectableSQLCharacter)sel).setSQL("CAST(" + sel.getSQL() + " AS TEXT)");
+      }
       
       String dbType = "character varying";
       if (mosquitoColumnTypeMap.containsKey(alias))
