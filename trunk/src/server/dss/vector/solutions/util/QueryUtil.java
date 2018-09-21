@@ -292,6 +292,92 @@ public class QueryUtil implements Reloadable
 
   }
   
+  private static HashMap<String,String> mosquitoColumnTypeMap = new HashMap<String,String>();
+  static
+  {
+    mosquitoColumnTypeMap.put("collection_id", "character varying");
+    mosquitoColumnTypeMap.put("epi_week", "integer");
+    mosquitoColumnTypeMap.put("epi_year", "integer");
+    mosquitoColumnTypeMap.put("month", "text");
+    mosquitoColumnTypeMap.put("quarter", "text");
+    mosquitoColumnTypeMap.put("quarter", "text");
+    mosquitoColumnTypeMap.put("calendar_year", "text");
+    mosquitoColumnTypeMap.put("transmission_season", "character varying");
+    mosquitoColumnTypeMap.put("_count", "bigint");
+    mosquitoColumnTypeMap.put("count_", "bigint");
+    mosquitoColumnTypeMap.put("count", "bigint");
+    mosquitoColumnTypeMap.put("ratio", "numeric");
+    mosquitoColumnTypeMap.put("collection_method", "character varying");
+    mosquitoColumnTypeMap.put("geo_entity", "character varying");
+    mosquitoColumnTypeMap.put("collection_date", "date");
+    mosquitoColumnTypeMap.put("life_stage", "character varying");
+    mosquitoColumnTypeMap.put("available_for_abundance_calculations", "integer");
+    mosquitoColumnTypeMap.put("collection_round", "character varying");
+    mosquitoColumnTypeMap.put("collection_type", "character varying");
+    mosquitoColumnTypeMap.put("date_last_sprayed", "date");
+    mosquitoColumnTypeMap.put("wall_type", "character varying");
+    mosquitoColumnTypeMap.put("number_of_human_occupants", "integer");
+    mosquitoColumnTypeMap.put("number_of_animal_occupants", "integer");
+    mosquitoColumnTypeMap.put("number_of_llins", "integer");
+    mosquitoColumnTypeMap.put("collectionmethod_ref", "character");
+    mosquitoColumnTypeMap.put("collectionround_ref", "character");
+    mosquitoColumnTypeMap.put("collectiontype_ref", "character");
+    mosquitoColumnTypeMap.put("walltype_ref", "character");
+    mosquitoColumnTypeMap.put("sub_collection_id", "character varying");
+    mosquitoColumnTypeMap.put("species", "character varying");
+    mosquitoColumnTypeMap.put("number_eggs", "integer");
+    mosquitoColumnTypeMap.put("number_larvae", "integer");
+    mosquitoColumnTypeMap.put("number_pupae", "integer");
+    mosquitoColumnTypeMap.put("fem_unfed", "integer");
+    mosquitoColumnTypeMap.put("fem_fed", "integer");
+    mosquitoColumnTypeMap.put("fem_half_gravid", "integer");
+    mosquitoColumnTypeMap.put("fem_gravid", "integer");
+    mosquitoColumnTypeMap.put("fem_unknown", "integer");
+    mosquitoColumnTypeMap.put("number_females", "integer");
+    mosquitoColumnTypeMap.put("number_males", "integer");
+    mosquitoColumnTypeMap.put("number_unknown", "integer");
+    mosquitoColumnTypeMap.put("total", "integer");
+    mosquitoColumnTypeMap.put("disected", "integer");
+    mosquitoColumnTypeMap.put("parous", "integer");
+    mosquitoColumnTypeMap.put("parous_ag", "double precision");
+    mosquitoColumnTypeMap.put("identmethod_ref", "character");
+    mosquitoColumnTypeMap.put("taxon_ref", "character");
+    mosquitoColumnTypeMap.put("product_name", "character varying");
+    mosquitoColumnTypeMap.put("active_ingredient", "character varying");
+    mosquitoColumnTypeMap.put("concentration_quantifier", "numeric");
+    mosquitoColumnTypeMap.put("concentration_qualifier", "character varying");
+    mosquitoColumnTypeMap.put("use", "character varying");
+    mosquitoColumnTypeMap.put("use_detail", "character varying");
+    mosquitoColumnTypeMap.put("units_per_application", "integer");
+    mosquitoColumnTypeMap.put("unit_quantifier", "numeric");
+    mosquitoColumnTypeMap.put("unit_qualifier", "character varying");
+    mosquitoColumnTypeMap.put("productname_ref", "character");
+    mosquitoColumnTypeMap.put("activeingredient_ref", "character");
+    mosquitoColumnTypeMap.put("usedetail_ref", "character");
+    mosquitoColumnTypeMap.put("species_total_ag", "integer");
+    mosquitoColumnTypeMap.put("collection_method", "character varying");
+    mosquitoColumnTypeMap.put("number_of_collections_ag", "integer");
+    mosquitoColumnTypeMap.put("number_of_sub_collections_ag", "integer");
+    mosquitoColumnTypeMap.put("abundance_x_1_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_x_10_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_x_100_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_x_1000_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_sub_collection_x_1_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_sub_collection_x_10_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_sub_collection_x_100_ag", "numeric");
+    mosquitoColumnTypeMap.put("abundance_sub_collection_x_1000_ag", "numeric");
+    mosquitoColumnTypeMap.put("taxon_ref", "character");
+    mosquitoColumnTypeMap.put("collectionmethod_ref", "character");
+    mosquitoColumnTypeMap.put("create_date", "timestamp");
+    mosquitoColumnTypeMap.put("last_update_date", "timestamp");
+    mosquitoColumnTypeMap.put("created_by", "character varying");
+    mosquitoColumnTypeMap.put("last_updated_by", "character varying");
+    mosquitoColumnTypeMap.put("imported", "integer");
+    mosquitoColumnTypeMap.put("collectionmethod_ref", "character");
+    mosquitoColumnTypeMap.put("start_date", "unknown");
+    mosquitoColumnTypeMap.put("end_date", "unknown");
+  }
+  
   public static String createDatabaseFunction(String viewNameNoPrefix, ValueQuery vq)
   {
     Database.executeStatement("DROP FUNCTION IF EXISTS " + SavedSearch.FUNCTION_PREFIX + viewNameNoPrefix + "() CASCADE;");
@@ -311,52 +397,44 @@ public class QueryUtil implements Reloadable
     // TODO : If the query includes a limit then it might conflict with the LIMIT 0 we add down below
     // String wrapperSql = wrapper.getSQL();
     // if (wrapperSql.endsWith("LIMIT .*"))
-
-    String colQ = "";
-    colQ += vq.getDependentPreSqlStatements() + "\n";
-    colQ += "DROP TABLE IF EXISTS t_" + viewNameNoPrefix + " CASCADE;\n";
-    colQ += "CREATE TEMPORARY TABLE t_" + viewNameNoPrefix + " ON COMMIT DROP AS (" + vq.getSQLWithoutDependentPreSql() + " LIMIT 0);\n";
-    colQ += "SELECT attname, format_type(atttypid, atttypmod) AS type ";
-    colQ += "FROM   pg_attribute ";
-    colQ += "WHERE  attrelid = 't_" + viewNameNoPrefix + "'::regclass ";
-    colQ += "AND    attnum > 0 ";
-    colQ += "AND    NOT attisdropped ";
-    colQ += "ORDER  BY attnum;";
-
-    ResultSet resultSet2 = Database.query(colQ);
-
+    
     List<String> selDefs = new ArrayList<String>();
-    try
+    for (Selectable sel : vq.getSelectableRefs())
     {
-      while (resultSet2.next())
+      String alias = sel.getColumnAlias();
+      
+      String dbType = "character varying";
+      if (mosquitoColumnTypeMap.containsKey(alias))
       {
-        String alias = resultSet2.getString("attname");
-        String dbType = resultSet2.getString("type");
-
-        selDefs.add(TAB + alias + " " + dbType);
+        dbType = mosquitoColumnTypeMap.get(alias);
       }
-    }
-    catch (SQLException sqlEx1)
-    {
-      Database.throwDatabaseException(sqlEx1);
-    }
-    finally
-    {
-      try
+      else
       {
-        java.sql.Statement statement = resultSet2.getStatement();
-        resultSet2.close();
-        statement.close();
+        if (alias.startsWith("min_") || alias.startsWith("max_"))
+        {
+          dbType = "integer";
+        }
+        else if (alias.startsWith("avg_"))
+        {
+          dbType = "numeric";
+        }
+        else if (alias.startsWith("sum_"))
+        {
+          dbType = "bigint";
+        }
+        else
+        {
+          throw new RuntimeException("Unknown column alias [" + alias + "].");
+        }
       }
-      catch (SQLException sqlEx2)
-      {
-        Database.throwDatabaseException(sqlEx2);
-      }
+      
+      selDefs.add(TAB + alias + " " + dbType);
     }
+    
     fnSql += StringUtils.join(selDefs, "," + NEWLINE);
-
+    
     fnSql += TAB + ")" + NEWLINE;
-
+    
     fnSql += "AS $body$" + NEWLINE;
 
     fnSql += "#variable_conflict use_column" + NEWLINE;
