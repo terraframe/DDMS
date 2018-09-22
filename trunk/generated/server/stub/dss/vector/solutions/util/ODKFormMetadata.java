@@ -2,18 +2,16 @@ package dss.vector.solutions.util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.system.metadata.MdBusinessQuery;
-import com.runwaysdk.system.metadata.MdViewQuery;
+import com.runwaysdk.system.metadata.MdClass;
 
+import dss.vector.solutions.entomology.SearchMosquitoCollectionView;
+import dss.vector.solutions.export.AggregatedCaseExcelView;
+import dss.vector.solutions.export.MosquitoCollectionExcelView;
 import dss.vector.solutions.odk.ODKForm;
-import dss.vector.solutions.ontology.AllPaths;
+import dss.vector.solutions.surveillance.AggregatedCaseSearchView;
 
 public class ODKFormMetadata extends ODKFormMetadataBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -68,8 +66,16 @@ public class ODKFormMetadata extends ODKFormMetadataBase implements com.runwaysd
 //      it.close();
 //    }
     
-    
     String mdcId = mdClass.getId();
+    
+    if (mdClass.getKey().equals(MosquitoCollectionExcelView.CLASS))
+    {
+      mdcId = MdClass.getMdClass(SearchMosquitoCollectionView.CLASS).getId();
+    }
+    else if (mdClass.getKey().equals(AggregatedCaseExcelView.CLASS))
+    {
+      mdcId = MdClass.getMdClass(AggregatedCaseSearchView.CLASS).getId();
+    }
     
     ResultSet resultSet = Database.query("select odkf.id odkId\n" + 
         "from \n" + 
