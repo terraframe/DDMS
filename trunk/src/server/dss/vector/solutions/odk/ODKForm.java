@@ -405,7 +405,7 @@ public class ODKForm implements Reloadable
         String attrLabel = attr.getDisplayLabel(Session.getCurrentLocale());
         
         Boolean isMatch = attrLabel.toLowerCase().equals("form id");
-        isMatch = isMatch || attrLabel.equals("ID");
+        isMatch = isMatch || attrLabel.contains("ID");
         
         if (isMatch)
         {
