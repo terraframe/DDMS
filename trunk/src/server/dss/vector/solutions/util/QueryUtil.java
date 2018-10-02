@@ -424,6 +424,14 @@ public class QueryUtil implements Reloadable
         {
           dbType = "bigint";
         }
+        else if (alias.endsWith("_geography"))
+        {
+          dbType = "character varying";
+        }
+        else if (alias.endsWith("_id"))
+        {
+          dbType = "character";
+        }
         else
         {
           throw new RuntimeException("Unknown column alias [" + alias + "].");
