@@ -167,6 +167,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             }
           }
 
+          File file = null;
           try
           {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -174,7 +175,8 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
             String filename = label + "-" + username + "-" + format.format(importer.getExportDateTime()) + ".xlsx";
 
-            try (FileOutputStream fos = new FileOutputStream(new File(parent, filename)))
+            file = new File(parent, filename);
+            try (FileOutputStream fos = new FileOutputStream(file))
             {
               workbook.write(fos);
             }
@@ -196,10 +198,10 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           /*
            * 
            */
-          File[] files = parent.listFiles();
+//          File[] files = parent.listFiles();
 
-          for (File file : files)
-          {
+//          for (File file : files)
+//          {
             try
             {
               ExcelImportManager manager = ExcelImportManager.getNewInstance();
@@ -236,7 +238,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             {
               throw new ProgrammingErrorException(e);
             }
-          }
+//          }
         }
 
         this.appLock();
