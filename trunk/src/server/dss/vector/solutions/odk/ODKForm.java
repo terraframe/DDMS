@@ -29,6 +29,7 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
+import com.runwaysdk.dataaccess.MdGraphDAOIF;
 import com.runwaysdk.dataaccess.MdTreeDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
@@ -37,6 +38,7 @@ import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
+import com.runwaysdk.dataaccess.metadata.MdGraphDAO;
 import com.runwaysdk.dataaccess.metadata.MdTreeDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -2127,12 +2129,12 @@ public class ODKForm implements Reloadable
       else if ( ( mdField instanceof MdWebSingleTermGridDAOIF ))
       {
         String typeName = DDMSFieldBuilders.getTermRelationshipTypeName(mdField);
-        MdTreeDAOIF mdTree = MdTreeDAO.getMdTreeDAO(MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + typeName);
+        MdGraphDAOIF mdGraph = MdGraphDAO.getMdGraphDAO(MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + typeName);
         MdAttributeDAOIF mdAttribute = ( (MdWebSingleTermGridDAOIF) mdField ).getDefiningMdAttribute();
 
         MdWebPrimitive[] fields = MdFormUtil.getCompositeFields(mdField.getId());
 
-        ODKForm grid = new ODKForm(mdTree.definesType());
+        ODKForm grid = new ODKForm(mdGraph.definesType());
         grid.addAttribute(new ODKCompositeGridAttribute(grid, mdAttribute, mdAttribute, fields));
 
         master.join(new GroupFormJoin(master, grid, true));

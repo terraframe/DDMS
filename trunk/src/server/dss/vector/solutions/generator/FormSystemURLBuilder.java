@@ -55,6 +55,7 @@ import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.WebGridField;
+import com.runwaysdk.system.metadata.WebGroupField;
 
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
@@ -65,6 +66,7 @@ import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
+import dss.vector.solutions.permission.PermissionAction;
 import dss.vector.solutions.permission.ReadAction;
 import dss.vector.solutions.permission.WriteAction;
 import dss.vector.solutions.permissions.RoleProperty;
@@ -225,6 +227,7 @@ public class FormSystemURLBuilder implements Reloadable
       // Create the Write role for the CRUD screen
       WriteAction crudWriteAction = new WriteAction(crudURL, disease);
       crudWriteAction.assign(mdBusiness);
+      addDefaultMdWebPermissions(crudWriteAction);
 
       for (MdRelationshipDAOIF mdRelationship : mdRelationships)
       {
@@ -234,6 +237,7 @@ public class FormSystemURLBuilder implements Reloadable
       // Create the Read Role for the CRUD screen
       ReadAction crudReadAction = new ReadAction(crudURL, disease);
       crudReadAction.assign(mdBusiness);
+      addDefaultMdWebPermissions(crudReadAction);
 
       for (MdRelationshipDAOIF mdRelationship : mdRelationships)
       {
@@ -242,44 +246,52 @@ public class FormSystemURLBuilder implements Reloadable
 
       // Create the Write role for the query screen
       WriteAction queryWriteAction = new WriteAction(queryURL, disease);
+      addDefaultMdWebPermissions(queryWriteAction);
       queryWriteAction.assign(MdClassDAO.getMdClassDAO(SavedSearch.CLASS));
       queryWriteAction.assign(MdClassDAO.getMdClassDAO(PersistsSearch.CLASS));
       queryWriteAction.assign(MdClassDAO.getMdClassDAO(VaultFile.CLASS));
 
       // Create the Read Role for the query screen
       ReadAction queryReadAction = new ReadAction(queryURL, disease);
+      addDefaultMdWebPermissions(queryReadAction);
       queryReadAction.assign(MdClassDAO.getMdClassDAO(VaultFile.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(DefaultSavedSearch.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(SavedSearch.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(PersistsSearch.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(SavedSearchView.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(ReadableAttributeView.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdForm.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdField.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebField.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebBreak.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebCharacter.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebComment.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebDate.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebDouble.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebFloat.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebGeo.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebHeader.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebInteger.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebMultipleTerm.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebPrimitive.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebBoolean.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebLong.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebSingleTerm.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebSingleTermGrid.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(WebGridField.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(FormField.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(ExtraFieldUniversal.CLASS));
+      
       queryReadAction.assign(MdMethodDAO.getMdMethod(QueryBuilder.CLASS + ".getQueryResults"));
       queryReadAction.assign(MdMethodDAO.getMdMethod(QueryBuilder.CLASS + ".getTextAttributeSugestions"));
     }
+  }
+  
+  private void addDefaultMdWebPermissions(PermissionAction action)
+  {
+    action.assign(MdClassDAO.getMdClassDAO(MdForm.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebBreak.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebCharacter.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebComment.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebDate.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebDouble.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebFloat.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebGeo.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebHeader.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebInteger.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebMultipleTerm.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebPrimitive.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebBoolean.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebLong.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebSingleTerm.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdWebSingleTermGrid.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MdField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(WebGridField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(WebGroupField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(FormField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(ExtraFieldUniversal.CLASS));
   }
 
   public SystemURL getCrudURL()
