@@ -59,7 +59,7 @@ public class ApplicationPatcher
     
     for (DDMSPatchIF patch : patches)
     {
-      logger.info("Running 'doIt' of patch [" + patch.getClass().getName() + "].");
+      logger.error("Running 'doIt' of patch [" + patch.getClass().getName() + "].");
       
       patch.doIt();
     }
@@ -71,7 +71,7 @@ public class ApplicationPatcher
     
     for (DDMSPatchIF patch : patches)
     {
-      logger.info("Running 'undoIt' of patch [" + patch.getClass().getName() + "].");
+      logger.error("Running 'undoIt' of patch [" + patch.getClass().getName() + "].");
       
       patch.undoIt();
     }

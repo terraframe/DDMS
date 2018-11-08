@@ -56,7 +56,12 @@ import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.WebGridField;
 import com.runwaysdk.system.metadata.WebGroupField;
+import com.runwaysdk.system.scheduler.JobHistory;
+import com.runwaysdk.system.scheduler.JobHistoryRecord;
 
+import dss.vector.solutions.DefaultGeoEntity;
+import dss.vector.solutions.ExcelImportHistory;
+import dss.vector.solutions.ExcelImportJob;
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
@@ -66,6 +71,9 @@ import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.odk.MobileDataUploadJob;
+import dss.vector.solutions.odk.ODKFormMapping;
 import dss.vector.solutions.permission.PermissionAction;
 import dss.vector.solutions.permission.ReadAction;
 import dss.vector.solutions.permission.WriteAction;
@@ -268,6 +276,16 @@ public class FormSystemURLBuilder implements Reloadable
   
   private void addDefaultMdWebPermissions(PermissionAction action)
   {
+    action.assign(MdClassDAO.getMdClassDAO(VaultFile.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(ExcelImportJob.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(ExcelImportHistory.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(JobHistory.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(JobHistoryRecord.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(MobileDataUploadJob.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(ODKFormMapping.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(GeoEntity.CLASS));
+    action.assign(MdClassDAO.getMdClassDAO(DefaultGeoEntity.CLASS));
+    
     action.assign(MdClassDAO.getMdClassDAO(MdForm.CLASS));
     action.assign(MdClassDAO.getMdClassDAO(MdField.CLASS));
     action.assign(MdClassDAO.getMdClassDAO(MdWebField.CLASS));
