@@ -21,7 +21,10 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.jawr.web.resource.bundle.IOUtils;
+
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
@@ -33,7 +36,7 @@ import com.runwaysdk.system.scheduler.ExecutableJobQuery;
 import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
-import net.jawr.web.resource.bundle.IOUtils;
+import dss.vector.solutions.report.SchedulerUtil;
 
 public class ExcelImportHistory extends ExcelImportHistoryBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -62,7 +65,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
   /**
    * @MdMethod
    * 
-   * Used to clear all NON RUNNING job history.
+   * Used to clear all NON RUNNING job history. Invoked by the upload manager to clear its history.
    */
   @Transaction
   public static void deleteAllHistory()
@@ -80,6 +83,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     vq.AND(historyQ.job(jobQ));
     
     Set<String> jobs = new HashSet<String>();
+    Set<String> historyIds = new HashSet<String>();
     
     OIterator<? extends ValueObject> vqIt = vq.getIterator();
     
@@ -89,6 +93,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
       {
         ValueObject obj = vqIt.next();
         ExcelImportHistory.get(obj.getValue("historyId")).delete();
+        historyIds.add(obj.getValue("historyId"));
         
         jobs.add(obj.getValue("jobId"));
       }
@@ -96,6 +101,14 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     finally
     {
       vqIt.close();
+    }
+    
+    if (historyIds.size() > 0)
+    {
+      String formattedIds = SchedulerUtil.getFormattedIds(historyIds);
+      Database.parseAndExecute("delete from job_history jh where jh.id in (" + formattedIds + ")");
+      Database.parseAndExecute("delete from job_history_record jhr where jhr.child_id in (" + formattedIds + ")");
+      Database.parseAndExecute("delete from excel_import_history eih where eih.id in (" + formattedIds + ")");
     }
     
     for (String jobId : jobs)

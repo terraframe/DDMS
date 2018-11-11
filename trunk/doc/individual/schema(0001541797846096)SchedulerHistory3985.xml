@@ -1,0 +1,17 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <doIt>
+   <create></create>
+   <update>
+     <mdUtil name="dss.vector.solutions.report.SchedulerUtil">
+       <create>
+         <mdMethod name="clearHistory" static="true" label="clearHistory" returnType="void">
+
+         </mdMethod>
+       </create>
+     </mdUtil>
+   </update>
+ </doIt>
+ <undoIt>
+   <delete></delete>
+ </undoIt>
+</version>

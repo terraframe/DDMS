@@ -255,7 +255,7 @@
         
         jobDTO.start(new Mojo.ClientRequest({
           onSuccess : function(jobHistoryDTO) {
-            that._scheduler._tabPanel.switchToPanel(5);
+            that._scheduler._tabPanel.switchToPanel(6);
           },
           onFailure : function(ex) {
             that.handleException(ex);
@@ -543,7 +543,7 @@
         that._hasClearHistoryRequestReturned = false;
         that._clearHistoryBusy.addClassName("scheduler_small_busy_spinner");
         
-        com.runwaysdk.system.scheduler.JobHistory.clearHistory(new Mojo.ClientRequest({
+        dss.vector.solutions.report.SchedulerUtil.clearHistory(new Mojo.ClientRequest({
           onSuccess : function() {
             that._hasClearHistoryRequestReturned = true;
           },

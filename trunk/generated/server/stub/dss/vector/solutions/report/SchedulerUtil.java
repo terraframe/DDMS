@@ -16,12 +16,24 @@
  ******************************************************************************/
 package dss.vector.solutions.report;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.LeftJoinEq;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
@@ -29,11 +41,16 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.ReadTypePermissionException;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
+import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutableJobQuery;
+import com.runwaysdk.system.scheduler.JobHistoryQuery;
+import com.runwaysdk.system.scheduler.JobHistoryRecordQuery;
 import com.runwaysdk.system.scheduler.JobHistoryViewQuery;
 
+import dss.vector.solutions.ExcelImportHistoryQuery;
 import dss.vector.solutions.ExcelImportJob;
+import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.QueryBuilder;
 
 public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.generation.loader.Reloadable
@@ -43,6 +60,104 @@ public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.ge
   public SchedulerUtil()
   {
     super();
+  }
+  
+  /**
+   * MdMethod
+   * Invoked by the DDMS report scheduler to clear its history.
+   *
+   * @param value
+   * @return
+   */
+  public static void clearHistory()
+  {
+    Set<String> ids = new HashSet<String>();
+   
+    ResultSet resultSet2 = Database.query("select jh.id as id from\n" + 
+        "  job_history_record jhr\n" + 
+        "  inner join job_history jh on jh.id = jhr.child_id\n" + 
+        "  inner join abstract_job job on job.id = jhr.parent_id\n" + 
+        "  inner join alljobstatus ajs on jh.status = ajs.set_id\n" + 
+        "where\n" + 
+        "  job.type != '" + ExcelImportJob.CLASS + "'\n" + 
+        "  AND ajs.item_id != '" + AllJobStatus.RUNNING.getId() + "'");
+
+    try
+    {
+      while (resultSet2.next())
+      {
+        String id = resultSet2.getString("id");
+
+        ids.add(id);
+      }
+    }
+    catch (SQLException sqlEx1)
+    {
+      Database.throwDatabaseException(sqlEx1);
+    }
+    finally
+    {
+      try
+      {
+        java.sql.Statement statement = resultSet2.getStatement();
+        resultSet2.close();
+        statement.close();
+      }
+      catch (SQLException sqlEx2)
+      {
+        Database.throwDatabaseException(sqlEx2);
+      }
+    }
+    
+    // TODO : Runway's querybuilder not working
+//    QueryFactory qf = new QueryFactory();
+//    
+//    ExecutableJobQuery ejq = new ExecutableJobQuery(qf);
+//    JobHistoryQuery jhq = new ExcelImportHistoryQuery(qf);
+//    ValueQuery vq = new ValueQuery(qf);
+//    
+//    vq.SELECT(jhq.getId("id"));
+//    
+//    vq.WHERE(ejq.getType().NE(ExcelImportJob.CLASS));
+//    vq.WHERE(jhq.getStatus().notContainsAll(AllJobStatus.RUNNING));
+//    vq.AND(jhq.job(ejq));
+//    
+//    OIterator<? extends ValueObject> it = vq.getIterator();
+//    
+//    try
+//    {
+//      for (ValueObject vo : it)
+//      {
+//        String id = vo.getValue("id");
+//        ids.add(id);
+//      }
+//    }
+//    finally
+//    {
+//      it.close();
+//    }
+    
+    if (ids.size() > 0)
+    {
+      String formattedIds = getFormattedIds(ids);
+      
+      Database.parseAndExecute("delete from job_history jh where jh.id in (" + formattedIds + ")");
+      Database.parseAndExecute("delete from job_history_record jhr where jhr.child_id in (" + formattedIds + ")");
+    }
+  }
+  
+  public static String getFormattedIds(Collection<String> ids)
+  {
+    ArrayList<String> quotedIds = new ArrayList<String>();
+    for (String id : ids)
+    {
+      String quotedId = "'" + id + "'";
+      
+      quotedIds.add(quotedId);
+    }
+    String formattedIds = StringUtils.join(quotedIds, ",");
+    
+    return formattedIds;
   }
   
   /**
