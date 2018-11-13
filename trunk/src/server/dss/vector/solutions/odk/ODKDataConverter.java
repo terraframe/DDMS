@@ -181,7 +181,7 @@ public class ODKDataConverter implements Reloadable
     ExcelExportSheet sheet = this.getSheet(root, form, sheets);
 
     NodeList children = node.getChildNodes();
-
+    
     for (int i = 0; i < children.getLength(); i++)
     {
       Node child = children.item(i);
@@ -212,6 +212,35 @@ public class ODKDataConverter implements Reloadable
           if (attribute != null && attribute.getCopyAttribute() != null)
           {
             root.setOverride(attribute.getCopyAttribute(), value);
+          }
+        }
+      }
+      else if (sourceAttribute.endsWith(ODKMetadataAttribute.BARCODE_ATTR2_POSTFIX))
+      {
+        // Barcodes include 2 attributes : First, the actual barcode attribute (which is always optional).
+        // Second, a string, mock attribute which allows them to type in a value if the barcode is empty.
+        // If the second attribute contains a value, then we set the value of the first attribute.
+        
+        String sFirstAttr = sourceAttribute.substring(0, sourceAttribute.length() - ODKMetadataAttribute.BARCODE_ATTR2_POSTFIX.length());
+        
+        ODKAttribute firstAttr = form.getAttributeByName(sFirstAttr);
+        
+        String value = child.getTextContent();
+        
+        if (value != null && !value.equals(""))
+        {
+          if (firstAttr != null && firstAttr.isOverride())
+          {
+            root.setOverride(sFirstAttr, value);
+          }
+          else
+          {
+            root.setValue(sFirstAttr, value);
+          }
+  
+          if (firstAttr != null && firstAttr.getCopyAttribute() != null)
+          {
+            root.setOverride(firstAttr.getCopyAttribute(), value);
           }
         }
       }

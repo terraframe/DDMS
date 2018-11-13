@@ -36,7 +36,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.util.AttributeMetadata;
-import dss.vector.solutions.util.ODKFormMetadata;
 import dss.vector.solutions.util.ReadableAttributeView;
 
 public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
@@ -47,28 +46,43 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
 
   protected boolean          barcode;
   
+  public static final String BARCODE_ATTR2_POSTFIX = "_BAP";
+  
+  protected ODKAttribute barcodeAttr2;
+  
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
   {
     super(containingForm, viewMdAttr.definesAttribute(), viewMdAttr.getDisplayLabel(Session.getCurrentLocale()), viewMdAttr.getDescription(Session.getCurrentLocale()), calculateRequired(sourceMdAttr, viewMdAttr), ReadableAttributeView.isVisible(sourceMdAttr));
-    this.sourceMdAttr = sourceMdAttr;
-    this.viewMdAttr = viewMdAttr;
-    this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
+    initialize(sourceMdAttr, viewMdAttr);
   }
 
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type, String attributeName, String displayLabel, String description, boolean required)
   {
     super(containingForm, attributeName, displayLabel, description, required, ReadableAttributeView.isVisible(sourceMdAttr));
-    this.sourceMdAttr = sourceMdAttr;
-    this.viewMdAttr = viewMdAttr;
-    this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
+    initialize(sourceMdAttr, viewMdAttr);
   }
 
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr, String type, String attributeName, String displayLabel, String description, boolean required, boolean visible)
   {
     super(containingForm, attributeName, displayLabel, description, required, visible);
+    initialize(sourceMdAttr, viewMdAttr);
+  }
+
+  private void initialize(MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
+  {
     this.sourceMdAttr = sourceMdAttr;
     this.viewMdAttr = viewMdAttr;
     this.barcode = AttributeMetadata.isValidBarcode(sourceMdAttr);
+    
+    if (this.barcode)
+    {
+      barcodeAttr2 = new ODKAttribute(this.getContainingForm(), "string", this.getAttributeName() + BARCODE_ATTR2_POSTFIX, this.getDisplayLabel(), this.getDescription(), this.required, this.isVisible());
+      barcodeAttr2.addRelevancy(new ODKAttributeRelevancy("string-length(" + this.getInstancePath() + ")=0"));
+    }
+    else
+    {
+      barcodeAttr2 = null;
+    }
   }
 
   public static boolean calculateRequired(MdAttributeDAOIF sourceMdAttr2, MdAttributeDAOIF viewMdAttr2)
@@ -95,6 +109,36 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   {
     return this.viewMdAttr;
   }
+  
+  public boolean isRequired()
+  {
+    if (this.isBarcode())
+    {
+      return false;
+    }
+    
+    return required;
+  }
+  
+  public void writeBind(Element parent, Document document, String title, int maxDepth)
+  {
+    super.writeBind(parent, document, title, maxDepth);
+    
+    if (barcodeAttr2 != null)
+    {
+      barcodeAttr2.writeBind(parent, document, title, maxDepth);
+    }
+  }
+  
+  public void writeBody(Element parent, Document document, String title, int maxDepth)
+  {
+    super.writeBody(parent, document, title, maxDepth);
+    
+    if (barcodeAttr2 != null)
+    {
+      barcodeAttr2.writeBody(parent, document, title, maxDepth);
+    }
+  }
 
   @Override
   public void writeInstance(Element parent, Document document, String title, int maxDepth)
@@ -119,6 +163,21 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
     attrNode.setTextContent(def);
 
     parent.appendChild(attrNode);
+    
+    if (barcodeAttr2 != null)
+    {
+      barcodeAttr2.writeInstance(parent, document, title, maxDepth);
+    }
+  }
+  
+  public void writeTranslation(Element parent, Document document, String title, int maxDepth)
+  {
+    super.writeTranslation(parent, document, title, maxDepth);
+    
+    if (barcodeAttr2 != null)
+    {
+      barcodeAttr2.writeTranslation(parent, document, title, maxDepth);
+    }
   }
 
   public void setBarcode(boolean barcode)

@@ -51,7 +51,7 @@ public class ODKAttribute implements Reloadable
 
   private int                    index;
 
-  private boolean                required;
+  protected boolean                required;
 
   private ODKAttributeRelevancy  relevancy;
 

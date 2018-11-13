@@ -21,9 +21,24 @@ import dss.vector.solutions.ontology.Term;
  * 
  * @author rrowlands
  */
-abstract public class ODKAttributeRelevancy implements Reloadable
+public class ODKAttributeRelevancy implements Reloadable
 {
-  abstract public String getBindRelevant();
+  private String relevant = null;
+  
+  public ODKAttributeRelevancy()
+  {
+    
+  }
+  
+  public ODKAttributeRelevancy(String relevant)
+  {
+    this.relevant = relevant;
+  }
+  
+  public String getBindRelevant()
+  {
+    return this.relevant;
+  }
   
   public static ODKAttributeRelevancy factory(FieldConditionDAOIF condition, ODKAttribute odkAttr, ODKForm odkForm)
   {

@@ -55,12 +55,6 @@ public class ODKAttributeBoolean extends ODKMetadataAttribute implements Reloada
   }
 
   @Override
-  public void writeBind(Element parent, Document document, String title, int maxDepth)
-  {
-    super.writeBind(parent, document, title, maxDepth);
-  }
-
-  @Override
   public void writeBody(Element parent, Document document, String title, int maxDepth)
   {
     Element select1 = document.createElement("select1");
