@@ -381,7 +381,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
     {
       String viewName = layer.getViewName();
 
-      List<? extends DashboardStyle> styles = layer.getStyles();
+      List<? extends DashboardStyle> styles = layer.getStylesIncludingSessionStyles();
       for (int i = 0; i < styles.size(); ++i)
       {
         DashboardStyle style = styles.get(i);

@@ -1,0 +1,16 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.general.SystemURL">
+        <create>
+          <mdMethod name="hasWritePermissions" label="hasWritePermissions" returnType="java.lang.Boolean" static="true">
+            <mdParameter name="url" label="url" order="0" type="java.lang.String"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

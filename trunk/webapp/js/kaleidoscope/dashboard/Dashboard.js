@@ -32,6 +32,7 @@
       location : {label:'',value:''},
       editDashboard : false,
       editData : false,
+      
       types : [],
       mapId : '',
       label : '',
@@ -48,7 +49,8 @@
     controller.renderBase = true;
     
     /* Initialization Function */
-    $scope.init = function(appname, workspace, editDashboard, editData) {
+    $scope.init = function(appname, workspace, editData, editDashboard) {
+      controller.model.editDashboard = editDashboard;
       
       dashboardService.setEdit(editDashboard);
       dashboardService.setEditData(editData);
@@ -514,7 +516,10 @@
         }
   
         /* Persist the changes to the active base map */
-        dashboardService.setDashboardBaseLayer(controller.dashboardId, JSON.stringify(baseMap));
+        if (controller.model.editDashboard)
+        {
+          dashboardService.setDashboardBaseLayer(controller.dashboardId, JSON.stringify(baseMap));
+        }
       }
     }
 

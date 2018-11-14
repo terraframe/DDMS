@@ -56,7 +56,7 @@ public class GeoserverBatch implements Reloadable
       layersToDrop.add(viewName);
     }
 
-    List<? extends DashboardStyle> styles = layer.getStyles();
+    List<? extends DashboardStyle> styles = layer.getStylesIncludingSessionStyles();
 
     for (int i = 0; i < styles.size(); ++i)
     {

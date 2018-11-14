@@ -27,7 +27,7 @@
   </h4>
     
   <!-- slide block -->
-  <div id="{{'collapse00' + identifier}}" class="panel-collapse collapse">
+  <div ng-if="ctrl.canEdit()" id="{{'collapse00' + identifier}}" class="panel-collapse collapse">
     <div class="panel-body">
       <div class="filter-block">
         <div class="row-holder">
@@ -38,6 +38,7 @@
           <number-type whole="true" attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeInteger"></number-type>
           <number-type whole="true" attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeLong"></number-type>
           <number-type whole="false" attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeDecimal"></number-type>
+          <number-type whole="false" attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeFloat"></number-type>
           <number-type whole="false" attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeDouble"></number-type>
           <date-type attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeDate"></date-type>
           <character-type attribute="attribute" ng-switch-when="com.runwaysdk.system.metadata.MdAttributeText"></character-type>

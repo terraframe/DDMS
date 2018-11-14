@@ -100,6 +100,51 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
   {
     return RoleDAO.get(role.getId()).getBusinessDAO();
   }
+  
+  public static Boolean hasWritePermissions(String url)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    SystemURLQuery urlQuery = new SystemURLQuery(factory);
+    urlQuery.WHERE(urlQuery.getUrl().EQ(url));
+
+    MenuItemQuery menuQuery = new MenuItemQuery(factory);
+    menuQuery.WHERE(menuQuery.getDisease().EQ(Disease.getCurrent()));
+    menuQuery.AND(menuQuery.getUrl().EQ(urlQuery));
+
+    OIterator<? extends MenuItem> iterator = menuQuery.getIterator();
+
+    while (iterator.hasNext())
+    {
+      Map<String, String> roles = Session.getCurrentSession().getUserRoles();
+
+      // Get the read role of the current diesease
+      MenuItem menuItem = iterator.next();
+
+      if (menuItem.getTerm() != null)
+      {
+        SystemURL systemUrl = menuItem.getUrl();
+
+        RoleDAO writeRole = systemUrl.getWriteRoleDAO();
+
+        if (writeRole == null)
+        {
+          return false;
+        }
+        else
+        {
+          if (roles.containsKey(RoleDAOIF.ADMIN_ROLE))
+          {
+            return true;
+          }
+        }
+
+        return roles.containsKey(writeRole.getRoleName());
+      }
+    }
+
+    return false;
+  }
 
   public static Boolean hasReadPermissions(String url)
   {

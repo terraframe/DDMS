@@ -55,7 +55,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.conversion.ConversionException;
 
 import dss.vector.solutions.geoserver.GeoserverFacade;
+import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardThematicStyle;
+import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
 import dss.vector.solutions.kaleidoscope.wrapper.AttributeType;
@@ -1771,7 +1773,8 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
   public List<String> getSLD()
   {
     List<String> slds = new LinkedList<String>();
-    for (Layer layer : this.map.getLayers())
+    
+    for (Layer layer : ((DashboardMap)this.map).getOrderedLayersIncludingSessionLayers())
     {
       slds.add(this.getSLD(layer));
     }
@@ -1808,7 +1811,7 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
 
     this.root = this.node("StyledLayerDescriptor").attr("xmlns", "http://www.opengis.net/sld").attr("xmlns:xlink", "http://www.w3.org/1999/xlink").attr("xmlns:sld", "http://www.opengis.net/sld").attr("xmlns:ogc", "http://www.opengis.net/ogc").attr("xmlns:gml", "http://www.opengis.net/gml").attr("version", "1.0.0").build(this.doc);
 
-    for (Layer layer : map.getLayers())
+    for (Layer layer : ((DashboardMap)map).getOrderedLayersIncludingSessionLayers())
     {
       layer.accepts(this);
     }
@@ -1834,9 +1837,12 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
     layerToNodeMap.put(layer.getId(), layerNode);
     this.layers.put(layerNode, new LinkedList<DocumentFragment>());
 
-    for (Style style : layer.getStyles())
+    if (layer instanceof DashboardLayer)
     {
-      style.accepts(this);
+      for (Style style : ((DashboardLayer)layer).getStylesIncludingSessionStyles())
+      {
+        style.accepts(this);
+      }
     }
   }
 
@@ -1861,9 +1867,12 @@ public class SLDMapVisitor implements MapVisitor, com.runwaysdk.generation.loade
     layerToNodeMap.put(layer.getId(), layerNode);
     this.layers.put(layerNode, new LinkedList<DocumentFragment>());
 
-    for (Style style : layer.getStyles())
+    if (layer instanceof DashboardLayer)
     {
-      style.accepts(this);
+      for (Style style : ((DashboardLayer)layer).getStylesIncludingSessionStyles())
+      {
+        style.accepts(this);
+      }
     }
   }
 

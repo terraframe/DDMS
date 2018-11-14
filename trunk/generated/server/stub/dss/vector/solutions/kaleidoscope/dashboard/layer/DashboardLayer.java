@@ -17,7 +17,9 @@
 package dss.vector.solutions.kaleidoscope.dashboard.layer;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,11 +38,15 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.gis.constants.GeoserverProperties;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
 
 import dss.vector.solutions.SessionParameterFacade;
+import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geoserver.GeoserverBatch;
 import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.geoserver.SessionPredicate;
+import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardJob;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
@@ -62,6 +68,10 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
   public boolean                   viewHasData      = true;
 
   private List<DashboardCondition> conditions       = null;
+  
+  private static HashMap<String, DashboardLayer> sessionLayers = new HashMap<String, DashboardLayer>();
+  
+  private static HashMap<String, DashboardLayer> sessionStyles = new HashMap<String, DashboardLayer>();
 
   public abstract ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns);
 
@@ -158,7 +168,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
       JSONObject json = this.toJSON();
 
       JSONArray jsonArray = new JSONArray();
-      List<? extends DashboardStyle> styles = this.getStyles();
+      List<? extends DashboardStyle> styles = this.getStylesIncludingSessionStyles();
       for (int i = 0; i < styles.size(); ++i)
       {
         DashboardStyle stile = styles.get(i);
@@ -178,6 +188,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
   @AbortIfProblem
   public void applyAll(DashboardStyle style, String mapId, DashboardCondition[] conditions)
   {
+    boolean hasWrite = SystemURL.hasWritePermissions("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo");
     boolean isNew = this.isNew();
 
     // We have to generate a new viewName for us on every apply because
@@ -195,23 +206,32 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
       this.conditions = Arrays.asList(conditions);
     }
 
-    style.apply();
+    if (hasWrite)
+    {
+      style.apply();
+      this.apply();
+      
+      // Create hasLayer and hasStyle relationships
+      if (isNew)
+      {
+        DashboardMap map = DashboardMap.get(mapId);
 
-    this.apply();
+        HasLayer hasLayer = map.addHasLayer(this);
+        hasLayer.setLayerIndex(map.getMaxIndex() + 1);
+        hasLayer.apply();
 
-    // Create hasLayer and hasStyle relationships
-    if (isNew)
+        HasStyle hasStyle = this.addHasStyle(style);
+        hasStyle.apply();
+
+        map.reorderLayers();
+      }
+    }
+    else
     {
       DashboardMap map = DashboardMap.get(mapId);
-
-      HasLayer hasLayer = map.addHasLayer(this);
-      hasLayer.setLayerIndex(map.getMaxIndex() + 1);
-      hasLayer.apply();
-
-      HasStyle hasStyle = this.addHasStyle(style);
-      hasStyle.apply();
-
-      map.reorderLayers();
+      
+      SessionDashboard.getInstance(map).addLayer(this);
+      SessionDashboard.getInstance(map).addStyle(this, style);
     }
 
     this.validate();
@@ -405,6 +425,22 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
     super.delete();
   }
 
+  public List<DashboardStyle> getStylesIncludingSessionStyles()
+  {
+    List<DashboardStyle> styles = new ArrayList<DashboardStyle>();
+    for (DashboardStyle style : this.getStyles())
+    {
+      styles.add(style);
+    }
+    Iterable<DashboardStyle> sessionStyles = SessionDashboard.getExtraStyles(this);
+    for (DashboardStyle sessionStyle : sessionStyles)
+    {
+      styles.add(sessionStyle);
+    }
+    
+    return styles;
+  }
+  
   @Override
   public List<? extends DashboardStyle> getStyles()
   {

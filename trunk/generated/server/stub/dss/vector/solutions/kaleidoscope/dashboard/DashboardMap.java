@@ -103,6 +103,7 @@ import dss.vector.solutions.geoserver.GeoserverProperties;
 import dss.vector.solutions.kaleidoscope.DropViewTask;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.MappableClassQuery;
+import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.TaskExecutor;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.LocationCondition;
@@ -220,7 +221,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
     GeoserverBatch batch = new GeoserverBatch();
 
-    List<? extends DashboardLayer> layers = this.getLayers();
+    List<? extends DashboardLayer> layers = this.getOrderedLayersIncludingSessionLayers();
 
     for (DashboardLayer layer : layers)
     {
@@ -276,7 +277,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     layer.setViewName(viewName);
 
     // Update the corresponding style name to link with the view name
-    DashboardStyle style = layer.getStyles().get(0);
+    DashboardStyle style = layer.getStylesIncludingSessionStyles().get(0);
     style.setName(layer.getViewName());
   }
 
@@ -323,11 +324,26 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   }
 
   /**
+   * Returns the layers that have been persisted to the database, including any layers that may be persisted to the session
+   * (if the user is read-only).
+   * 
+   * @return
+   */
+  public List<DashboardLayer> getOrderedLayersIncludingSessionLayers()
+  {
+    List<DashboardLayer> layers = this.getOrderedLayers();
+    
+    layers.addAll(SessionDashboard.getInstance(this).getExtraLayers());
+    
+    return this.orderLayers(layers);
+  }
+  
+  /**
    * Returns the layers this map defines in the proper order.
    * 
    * @return
    */
-  public DashboardLayer[] getOrderedLayers()
+  public List<DashboardLayer> getOrderedLayers()
   {
     QueryFactory f = new QueryFactory();
 
@@ -345,7 +361,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         layers.add(iter.next().getChild());
       }
 
-      return layers.toArray(new DashboardLayer[layers.size()]);
+      return layers;
     }
     finally
     {
@@ -364,7 +380,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
     JSONArray array = new JSONArray();
 
-    List<? extends DashboardLayer> layers = this.getAllHasLayer().getAll();
+    List<? extends DashboardLayer> layers = this.getOrderedLayersIncludingSessionLayers();
 
     for (DashboardLayer layer : layers)
     {
@@ -383,7 +399,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
    * Republishes all layers to GeoServer.
    * 
    */
-  public void publishAllLayers(DashboardLayer[] orderedLayers)
+  public void publishAllLayers(List<DashboardLayer> orderedLayers)
   {
     GeoserverBatch batch = new GeoserverBatch();
 
@@ -407,7 +423,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   {
     try
     {
-      DashboardLayer[] orderedLayers = this.getOrderedLayers();
+      List<DashboardLayer> orderedLayers = this.getOrderedLayersIncludingSessionLayers();
 
       JSONObject mapJSON = new JSONObject();
       JSONArray layers = new JSONArray();
@@ -416,21 +432,13 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
       ArrayList<DashboardThematicLayer> orderedTLayers = new ArrayList<DashboardThematicLayer>();
 
-      for (int i = 0; i < orderedLayers.length; i++)
+      for (int i = 0; i < orderedLayers.size(); i++)
       {
-        if (orderedLayers[i] instanceof DashboardThematicLayer)
+        if (orderedLayers.get(i) instanceof DashboardThematicLayer)
         {
-          DashboardThematicLayer tLayer = (DashboardThematicLayer) orderedLayers[i];
+          DashboardThematicLayer tLayer = (DashboardThematicLayer) orderedLayers.get(i);
           orderedTLayers.add(tLayer);
         }
-      }
-
-      // Convert from ListArray to Array for Thematic Layers
-      DashboardThematicLayer[] orderedTLayersArr = new DashboardThematicLayer[orderedTLayers.size()];
-
-      for (int i = 0; i < orderedTLayers.size(); i++)
-      {
-        orderedTLayersArr[i] = orderedTLayers.get(i);
       }
 
       if (config == null || !config.equals("republish=false"))
@@ -438,9 +446,9 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         publishAllLayers(orderedLayers);
       }
 
-      for (int i = 0; i < orderedTLayersArr.length; i++)
+      for (int i = 0; i < orderedTLayers.size(); i++)
       {
-        JSONObject object = orderedTLayersArr[i].toJSON();
+        JSONObject object = orderedTLayers.get(i).toJSON();
         object.put("index", i);
 
         layers.put(object);
@@ -456,7 +464,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
       JSONArray refLayerOptions = this.getReferenceLayersJSON();
       mapJSON.put("refLayers", refLayerOptions);
 
-      JSONArray mapBBox = getMapLayersBBox(orderedTLayersArr);
+      JSONArray mapBBox = getMapLayersBBox(orderedTLayers);
 
       mapJSON.put("bbox", mapBBox);
 
@@ -474,12 +482,12 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     }
   }
 
-  public JSONArray getExpandedMapLayersBBox(DashboardLayer[] layers, double expandVal)
+  public JSONArray getExpandedMapLayersBBox(List<DashboardLayer> layers, double expandVal)
   {
     JSONArray bboxArr = new JSONArray();
     Dashboard dashboard = this.getDashboard();
 
-    if (layers.length > 0)
+    if (layers.size() > 0)
     {
       List<String> views = new LinkedList<String>();
 
@@ -548,21 +556,24 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     return bboxArr;
   }
 
-  public JSONArray getMapLayersBBox(DashboardLayer[] layers)
+  public JSONArray getMapLayersBBox(List<DashboardThematicLayer> layers)
   {
     Dashboard dashboard = this.getDashboard();
 
     if (dashboard != null)
     {
       List<GeoEntity> countries = dashboard.getCountries();
-      List<? extends DashboardLayer> dashboardLayers = this.getLayers();
+      List<? extends DashboardLayer> dashboardLayers = this.getOrderedLayersIncludingSessionLayers();
 
       if (dashboardLayers.size() > 0)
       {
-        DashboardLayer[] dashboardLayersArr = new DashboardLayer[dashboardLayers.size()];
-        dashboardLayersArr = dashboardLayers.toArray(dashboardLayersArr);
-
-        return getExpandedMapLayersBBox(dashboardLayersArr, .001);
+        List<DashboardLayer> dLayersArr = new ArrayList<DashboardLayer>();
+        for (DashboardLayer dLayer : dashboardLayers)
+        {
+          dLayersArr.add(dLayer);
+        }
+        
+        return getExpandedMapLayersBBox(dLayersArr, .001);
       }
       else if (countries.size() > 0)
       {
@@ -808,10 +819,10 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, String dashboardStateJson)
   {
     // Ordering the layers from the default map
-    return generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap, this.getOrderedLayers(), dashboardStateJson);
+    return generateMapImageExport(outFileFormat, mapBounds, mapSize, activeBaseMap, this.getOrderedLayersIncludingSessionLayers(), dashboardStateJson);
   }
 
-  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, DashboardLayer[] orderedLayers, String dashboardStateJson)
+  public InputStream generateMapImageExport(String outFileFormat, String mapBounds, String mapSize, String activeBaseMap, List<DashboardLayer> orderedLayers, String dashboardStateJson)
   {
     try
     {
@@ -926,7 +937,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
         mapBaseGraphic.drawImage(layerCanvas, bound.getX(), bound.getY(), null);
         
         // Add legends to the base canvas
-        BufferedImage legendCanvas = getLegendExportCanvas(width, height, state);
+        BufferedImage legendCanvas = getLegendExportCanvas(orderedLayers, width, height, state);
         mapBaseGraphic.drawImage(legendCanvas, 0, 0, null);
         
         // Add the north arrow to the base canvas
@@ -1142,7 +1153,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
    * @orderedLayers
    * @param bound
    */
-  public BufferedImage getLayersExportCanvas(DashboardLayer[] orderedLayers, MapBound bound)
+  public BufferedImage getLayersExportCanvas(List<DashboardLayer> orderedLayers, MapBound bound)
   {
     String processingFormat = "png"; // needed to allow transparency on each overlay before combining to a single
                                      // map/format
@@ -1237,7 +1248,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
   private float getLayerOpacity(DashboardLayer layer)
   {
-    List<? extends DashboardStyle> styles = layer.getStyles();
+    List<? extends DashboardStyle> styles = layer.getStylesIncludingSessionStyles();
 
     if (styles.size() > 0)
     {
@@ -1265,7 +1276,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
    * @param state
    *          TODO
    */
-  private BufferedImage getLegendExportCanvas(int mapWidth, int mapHeight, DashboardState state)
+  private BufferedImage getLegendExportCanvas(List<DashboardLayer> layers, int mapWidth, int mapHeight, DashboardState state)
   {
     int padding = 2;
     BufferedImage base = null;
@@ -1277,8 +1288,6 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     int widestLegend = 0;
     int legendXPosition = 0;
     int legendYPosition = 0;
-
-    List<? extends DashboardLayer> layers = this.getAllHasLayer().getAll();
 
     try
     {
@@ -1407,7 +1416,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     requestURL.append("&");
     requestURL.append("&TRANSPARENT=true&LEGEND_OPTIONS=fontName:Arial;fontAntiAliasing:true;fontColor:0xececec;fontSize:11;fontStyle:bold;");
 
-    DashboardStyle style = layer.getStyles().get(0);
+    DashboardStyle style = layer.getStylesIncludingSessionStyles().get(0);
     boolean contSize = true;
     if (style instanceof DashboardThematicStyle)
     {
@@ -1673,11 +1682,9 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     return outStream.toByteArray();
   }
 
-  public Map<String, Integer> calculateLayerIndices()
+  private Map<String, Integer> calculateLayerIndices(Iterable<DashboardLayer> layers)
   {
     Map<String, Integer> uIndexes = this.getDashboard().getUniversalIndices();
-
-    DashboardLayer[] layers = this.getOrderedLayers();
 
     int index = Collections.max(uIndexes.values()) + 1;
 
@@ -1734,6 +1741,38 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     }
   }
 
+  public List<DashboardLayer> orderLayers(List<DashboardLayer> layers)
+  {
+    Map<String, Integer> indices = this.calculateLayerIndices(layers);
+    
+    int maxIndex = Collections.max(indices.values()) + 1;
+    
+    ArrayList<DashboardLayer> ordered = new ArrayList<DashboardLayer>();
+    for (int i = 0; i < maxIndex; ++i)
+    {
+      if (indices.values().contains(i))
+      {
+        for (String layerId : indices.keySet())
+        {
+          Integer index = indices.get(layerId);
+          
+          if (index == i)
+          {
+            for (DashboardLayer layer : layers)
+            {
+              if (layer.getId().equals(layerId))
+              {
+                ordered.add(layer);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    return ordered;
+  }
+  
   public void reorderLayers()
   {
     /*
@@ -1741,7 +1780,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
      * depending on their order referenced universal in the universal tree. The thematic layers will be on top based up their relative indexing
      * between other thematic layers. If this layer is a new thematic layer then it will be on top.
      */
-    Map<String, Integer> indices = this.calculateLayerIndices();
+    Map<String, Integer> indices = this.calculateLayerIndices(this.getOrderedLayers());
     List<? extends HasLayer> relationships = this.getAllHasLayerRel().getAll();
 
     for (HasLayer relationship : relationships)
@@ -1775,7 +1814,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
     {
       JSONArray response = new JSONArray();
 
-      List<? extends DashboardLayer> layers = this.getAllHasLayer().getAll();
+      List<? extends DashboardLayer> layers = this.getOrderedLayersIncludingSessionLayers();
 
       LinkedList<Drilldown> drilldowns = Drilldown.deserialize(state);
 

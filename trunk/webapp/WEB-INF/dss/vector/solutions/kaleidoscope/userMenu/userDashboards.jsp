@@ -165,7 +165,7 @@
               <div class="caption">
                 <h3>{{ctrl.dashboards[ctrl.ids[$index + 1]].label}}</h3>
                 <p>{{ctrl.dashboards[ctrl.ids[$index + 1]].description}}</p>
-          <div ng-if="ctrl.editDashboard" class="dashboard-card-ico-button-container">     
+          <div ng-if="ctrl.editDashboard && ${hasWritePermission}" class="dashboard-card-ico-button-container">     
             <div class="dashboard-thumbnail-ico-group">
             <a href="#" class="fa fa-cog ico-dashboard-options dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.editDashboardTooltip"/>" ng-click="ctrl.edit(ctrl.dashboards[ctrl.ids[$index + 1]].dashboardId)" ></a> 
 <!-- 
@@ -191,7 +191,7 @@
               <div class="caption">
                 <h3>{{ctrl.dashboards[ctrl.ids[$index + 2]].label}}</h3>
                 <p>{{ctrl.dashboards[ctrl.ids[$index + 2]].description}}</p>
-          <div ng-if="ctrl.editDashboard" class="dashboard-card-ico-button-container">     
+          <div ng-if="ctrl.editDashboard && ${hasWritePermission}" class="dashboard-card-ico-button-container">     
             <div class="dashboard-thumbnail-ico-group">
             <a href="#" class="fa fa-cog ico-dashboard-options dashboard-thumnail-ico-ctrl" title="<mdss:localize key="userDashboards.editDashboardTooltip"/>" ng-click="ctrl.edit(ctrl.dashboards[ctrl.ids[$index + 2]].dashboardId)" ></a> 
 <!-- 
@@ -208,7 +208,7 @@
 <!-- CREATE NEW DASHBOARD LINK IN EXISTING ROW -->
         <div ng-if="ctrl.dashboards[ctrl.ids[$index]].isLastDashboard || 
         ctrl.dashboards[ctrl.ids[$index + 1]].isLastDashboard && 
-        ctrl.editDashboard" 
+        ctrl.editDashboard && ${hasWritePermission}" 
         class="col-sm-6 col-md-4" ng-click="ctrl.newDashboard()">
          <a href="#" class="new-dashboard-btn" >
             <div class="thumbnail text-center">
@@ -227,7 +227,7 @@
     </div>
         
         <!-- CREATE NEW LINK IN NEW ROW -->
-        <div ng-if="!ctrl.isInExistingRow && ctrl.editDashboard" class="row">
+        <div ng-if="!ctrl.isInExistingRow && ctrl.editDashboard && ${hasWritePermission}" class="row">
         <div class="col-sm-6 col-md-4" ng-click="ctrl.newDashboard()">
           <a href="#" class="new-dashboard-btn" >
             <div class="thumbnail text-center">

@@ -130,7 +130,7 @@
     </script>  
   </head>
 
-  <body ng-controller="DashboardController as dashboard" ng-init="init('${geoserver}', '${workspace}', ${editDashboard}, ${editData})" style="text-align: left;" class="yui-skin-sam">
+  <body ng-controller="DashboardController as dashboard" ng-init="init('${geoserver}', '${workspace}', ${editData}, ${hasWritePermission})" style="text-align: left;" class="yui-skin-sam">
       <!-- Google Tag Manager (noscript) -->
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%=AnalyticsProperties.getGoogleTagManagerTrackingId()%>"
        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

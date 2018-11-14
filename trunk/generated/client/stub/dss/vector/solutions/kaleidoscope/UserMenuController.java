@@ -27,6 +27,7 @@ import javax.servlet.ServletOutputStream;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.general.SystemURLDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardDTO;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardQueryDTO;
 
@@ -55,6 +56,7 @@ public class UserMenuController extends UserMenuControllerBase implements com.ru
     JavascriptUtil.loadUserBundle(this.getClientRequest(), this.req);
 
     this.req.setAttribute("dashboards", dashboards);
+    this.req.setAttribute("hasWritePermission", SystemURLDTO.hasWritePermissions(clientRequest, "dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo"));
 
     render(DASHBOARDS);
   }

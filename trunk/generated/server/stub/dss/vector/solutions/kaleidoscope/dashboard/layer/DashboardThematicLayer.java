@@ -568,7 +568,7 @@ public class DashboardThematicLayer extends DashboardThematicLayerBase implement
       json.put("aggregationStrategy", aggStratJSON);
 
       JSONArray jsonStyles = new JSONArray();
-      List<? extends DashboardStyle> styles = this.getStyles();
+      List<? extends DashboardStyle> styles = this.getStylesIncludingSessionStyles();
       for (int i = 0; i < styles.size(); ++i)
       {
         DashboardStyle style = styles.get(i);

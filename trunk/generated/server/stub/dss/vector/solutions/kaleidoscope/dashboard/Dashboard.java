@@ -34,6 +34,8 @@ import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,6 +77,7 @@ import com.runwaysdk.system.metadata.MdClass;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -100,7 +103,6 @@ import dss.vector.solutions.ontology.BrowserRootQuery;
 import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.QueryUtil;
-import net.coobird.thumbnailator.Thumbnails;
 
 public class Dashboard extends DashboardBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -493,7 +495,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     DashboardMap map = clone.getMap();
 
     // Clone the layer definitions
-    DashboardLayer[] layers = this.getMap().getOrderedLayers();
+    List<DashboardLayer> layers = this.getMap().getOrderedLayers();
 
     for (DashboardLayer layer : layers)
     {
@@ -1084,7 +1086,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("label", this.getDisplayLabel().getValue());
     object.put("description", this.getDescription().getValue());
     object.put("hasReport", this.hasReport());
-    object.put("editDashboard", true);
+    object.put("editDashboard", SystemURL.hasWritePermissions("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo"));
     // object.put("editDashboard", GeoprismUser.hasAccess(AccessConstants.EDIT_DASHBOARD));
     object.put("savedWidth", state.getSavedWidth());
     object.put("savedHeight", state.getSavedHeight());
@@ -1273,9 +1275,12 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
         state.setMapExtent(object.getString("mapExtent"));
       }
       
-      state.apply();
-
-      this.executeThumbnailThread(user);
+      if (SystemURL.hasWritePermissions("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo"))
+      {
+        state.apply();
+  
+        this.executeThumbnailThread(user);
+      }
 
       return state;
     }
@@ -1653,7 +1658,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     DashboardMap dashMap = this.getMap();
 
     // Ordering the layers from the default map
-    DashboardLayer[] orderedLayers = dashMap.getOrderedLayers();
+    List<DashboardLayer> orderedLayers = dashMap.getOrderedLayers();
     JSONArray mapBoundsArr = dashMap.getExpandedMapLayersBBox(orderedLayers, .2);
 
     if (mapBoundsArr != null)

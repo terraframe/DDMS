@@ -63,6 +63,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardThematicLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
+import dss.vector.solutions.query.BasicLayerIF;
 import dss.vector.solutions.query.FilterInfo;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.MapConfiguration;
@@ -390,11 +391,11 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     }
   }
 
-  private DashboardLayer[] setupLayers(Dashboard dashboard, DashboardMap map)
+  private List<DashboardLayer> setupLayers(Dashboard dashboard, DashboardMap map)
   {
     List<DashboardCondition> conditions = dashboard.getConditions();
 
-    DashboardLayer[] layers = map.getOrderedLayers();
+    List<DashboardLayer> layers = map.getOrderedLayers();
 
     for (DashboardLayer layer : layers)
     {
@@ -443,7 +444,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
     /*
      * 2 ) Generate and store new database views
      */
-    DashboardLayer[] layers = this.setupLayers(dashboard, map);
+    List<DashboardLayer> layers = this.setupLayers(dashboard, map);
 
     try
     {
@@ -496,7 +497,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
           MapConfiguration configuration = new MapConfiguration(new HashMap<>(), disease);
 
-          JSONArray array = MapUtil.getThematicBBox(Arrays.asList(layers), configuration, .5F);
+          JSONArray array = MapUtil.getThematicBBox(new LinkedList<BasicLayerIF>(layers), configuration, .5F);
 
           double left = array.getDouble(0);
           double bottom = array.getDouble(1);
@@ -687,7 +688,7 @@ public class DashboardJob extends DashboardJobBase implements Reloadable
 
       JSONArray jLayers = new JSONArray();
 
-      DashboardLayer[] layers = dashboard.getMap().getOrderedLayers();
+      List<DashboardLayer> layers = dashboard.getMap().getOrderedLayers();
 
       for (DashboardLayer layer : layers)
       {

@@ -37,6 +37,7 @@ package dss.vector.solutions.kaleidoscope.dashboard;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -62,6 +63,7 @@ import com.runwaysdk.system.metadata.MdAttributeText;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
 
 import dss.vector.solutions.SessionParameterFacade;
+import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayer;
 import dss.vector.solutions.kaleidoscope.sld.SLDMapVisitor;
 import dss.vector.solutions.kaleidoscope.wrapper.MapVisitor;
@@ -115,7 +117,16 @@ public class DashboardStyle extends DashboardStyleBase implements com.runwaysdk.
 
   public DashboardLayer getContainingLayer()
   {
-    return this.getAllContainingLayer().getAll().get(0);
+    List<? extends DashboardLayer> layers = this.getAllContainingLayer().getAll();
+    
+    if (layers.size() > 0)
+    {
+      return layers.get(0);
+    }
+    else
+    {
+      return SessionDashboard.getContainingLayer(this);
+    }
   }
 
   public static String[] getSortedFonts()

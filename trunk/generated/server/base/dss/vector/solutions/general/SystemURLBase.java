@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 266126360)
+@com.runwaysdk.business.ClassSignature(hash = 1337940942)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -44,7 +28,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
   public static java.lang.String URLNAME = "urlName";
-  private static final long serialVersionUID = 266126360;
+  private static final long serialVersionUID = 1337940942;
   
   public SystemURLBase()
   {
@@ -152,6 +136,18 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public void setEntityDomainId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ENTITYDOMAIN, "");
+    }
+    else
+    {
+      setValue(ENTITYDOMAIN, id);
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -240,7 +236,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.SingleActor getLockedBy()
+  public com.runwaysdk.system.Users getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -248,7 +244,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
     else
     {
-      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
   }
   
@@ -305,6 +301,18 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public void setOwnerId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(OWNER, "");
+    }
+    else
+    {
+      setValue(OWNER, id);
     }
   }
   
@@ -484,6 +492,12 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   }
   
   public static java.lang.Boolean hasReadPermissions(java.lang.String url)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.SystemURL.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.Boolean hasWritePermissions(java.lang.String url)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.SystemURL.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

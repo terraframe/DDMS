@@ -56,7 +56,7 @@
             <a ng-click="ctrl.centerMap()" class="fa fa-arrows-alt map-tool-icon" title="<mdss:localize key='dashboardViewer.zoomMapToExtentTooltip'/>" ></a>
             <a ng-click="ctrl.toggleScale()" class="fa fa-balance-scale map-tool-icon" title="<mdss:localize key='dashboardViewer.toggleScaleTooltip'/>" ></a>
             <a ng-click="ctrl.toggleArrow()" class="fa fa-arrow-up map-tool-icon" title="<mdss:localize key='dashboardViewer.toggleArrowTooltip'/>" ></a>
-            <a ng-click="ctrl.generateImages()" class="fa fa-newspaper-o map-tool-icon" title="<mdss:localize key='dashboardViewer.generateImageTooltip'/>" ></a>
+            <a ng-if="ctrl.canEdit()" ng-click="ctrl.generateImages()" class="fa fa-newspaper-o map-tool-icon" title="<mdss:localize key='dashboardViewer.generateImageTooltip'/>" ></a>
           </div>              
         </div>
       </div>

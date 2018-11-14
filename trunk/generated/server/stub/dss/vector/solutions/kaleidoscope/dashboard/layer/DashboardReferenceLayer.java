@@ -16,6 +16,7 @@
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.dashboard.layer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -41,6 +42,7 @@ import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geoserver.GeoserverFacade;
+import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.Dashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
@@ -105,65 +107,64 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
     QueryFactory factory = new QueryFactory();
     ValueQuery query = new ValueQuery(factory);
 
-    OIterator<? extends DashboardStyle> iter = this.getAllHasStyle();
-    try
-    {
-      while (iter.hasNext())
+//    List<DashboardStyle> styles = new ArrayList<DashboardStyle>();
+//    for (DashboardStyle style : this.getAllHasStyle().getAll())
+//    {
+//      styles.add(style);
+//    }
+//    Iterable<DashboardStyle> sessionStyles = SessionDashboard.getExtraStyles(this);
+//    for (DashboardStyle sessionStyle : sessionStyles)
+//    {
+//      styles.add(sessionStyle);
+//    }
+    
+//    for (DashboardStyle style : styles)
+//    {
+      GeoHierarchy universal = this.getUniversal(drilldowns);
+      MdBusinessDAOIF mdBusiness = MdBusinessDAO.get(universal.getGeoEntityClassId());
+      
+      // geoentity label
+      GeoEntityQuery geQ1 = (GeoEntityQuery) QueryUtil.getQuery(mdBusiness, query);
+                
+      if (drilldowns.size() > 0)
       {
-        DashboardStyle style = iter.next();
-        if (style instanceof DashboardStyle)
-        {
-          GeoHierarchy universal = this.getUniversal(drilldowns);
-          MdBusinessDAOIF mdBusiness = MdBusinessDAO.get(universal.getGeoEntityClassId());
-          
-          // geoentity label
-          GeoEntityQuery geQ1 = (GeoEntityQuery) QueryUtil.getQuery(mdBusiness, query);
-                    
-          if (drilldowns.size() > 0)
-          {
-            Drilldown last = drilldowns.getLast();
+        Drilldown last = drilldowns.getLast();
 
-            GeoEntity entity = GeoEntity.getByKey(last.getGeoId());
-            
-            AllPathsQuery aptQuery = new AllPathsQuery(query);
-            aptQuery.WHERE(aptQuery.getParentGeoEntity().EQ(entity));
+        GeoEntity entity = GeoEntity.getByKey(last.getGeoId());
+        
+        AllPathsQuery aptQuery = new AllPathsQuery(query);
+        aptQuery.WHERE(aptQuery.getParentGeoEntity().EQ(entity));
 
-            query.AND(geQ1.EQ(aptQuery.getChildGeoEntity()));            
-          }
-          
-          SelectableSingle label = geQ1.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
-          label.setColumnAlias(ThematicQueryBuilder.LABEL_ALIAS);
-          label.setUserDefinedAlias(ThematicQueryBuilder.LABEL_ALIAS);
-
-          // geo id (for uniqueness)
-          Selectable geoId1 = geQ1.getGeoId(GeoEntity.GEOID);
-          geoId1.setColumnAlias(ThematicQueryBuilder.LOCATION_ALIAS);
-          geoId1.setUserDefinedAlias(ThematicQueryBuilder.LOCATION_ALIAS);
-          
-
-          query.SELECT(label);
-          query.SELECT(geoId1);
-
-          Selectable geom;
-          if (this.getFeatureType().equals(FeatureType.POINT))
-          {
-            geom = geQ1.get(GeoEntity.GEOPOINT);
-          }
-          else
-          {
-            geom = geQ1.get(GeoEntity.GEOMULTIPOLYGON);
-          }
-
-          geom.setColumnAlias(GeoserverFacade.GEOM_COLUMN);
-          geom.setUserDefinedAlias(GeoserverFacade.GEOM_COLUMN);
-          query.SELECT(geom);          
-        }
+        query.AND(geQ1.EQ(aptQuery.getChildGeoEntity()));            
       }
-    }
-    finally
-    {
-      iter.close();
-    }
+      
+      SelectableSingle label = geQ1.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
+      label.setColumnAlias(ThematicQueryBuilder.LABEL_ALIAS);
+      label.setUserDefinedAlias(ThematicQueryBuilder.LABEL_ALIAS);
+
+      // geo id (for uniqueness)
+      Selectable geoId1 = geQ1.getGeoId(GeoEntity.GEOID);
+      geoId1.setColumnAlias(ThematicQueryBuilder.LOCATION_ALIAS);
+      geoId1.setUserDefinedAlias(ThematicQueryBuilder.LOCATION_ALIAS);
+      
+
+      query.SELECT(label);
+      query.SELECT(geoId1);
+
+      Selectable geom;
+      if (this.getFeatureType().equals(FeatureType.POINT))
+      {
+        geom = geQ1.get(GeoEntity.GEOPOINT);
+      }
+      else
+      {
+        geom = geQ1.get(GeoEntity.GEOMULTIPOLYGON);
+      }
+
+      geom.setColumnAlias(GeoserverFacade.GEOM_COLUMN);
+      geom.setUserDefinedAlias(GeoserverFacade.GEOM_COLUMN);
+      query.SELECT(geom);          
+//    }
 
     if (log.isDebugEnabled())
     {
@@ -339,7 +340,7 @@ public class DashboardReferenceLayer extends DashboardReferenceLayerBase impleme
       json.put("index", indices.get(this.getUniversalId()));
 
       JSONArray jsonStyles = new JSONArray();
-      List<? extends DashboardStyle> styles = this.getStyles();
+      List<? extends DashboardStyle> styles = this.getStylesIncludingSessionStyles();
       for (int i = 0; i < styles.size(); ++i)
       {
         DashboardStyle style = styles.get(i);

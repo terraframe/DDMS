@@ -94,6 +94,10 @@
       $scope.$emit('toggleArrow', {});                
     }
     
+    controller.canEdit = function(){
+    	return dashboardService.canEdit();
+    }
+    
     controller.generateImages = function(){
         
       var onSuccess = function(retval) {

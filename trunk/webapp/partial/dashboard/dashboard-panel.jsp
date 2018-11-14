@@ -36,7 +36,7 @@
 		    	<i ng-click="dashboard.openDashboard()" class="fa fa-external-link ico-dashboard-tab" title="<mdss:localize key='dashboardViewer.newDashboardTabTooltip'/>" ></i> 
 		    </li>
 		    <li class="sidebar-nav-bar-btn">
-		   		<i ng-if="dashboard.canEdit()" ng-click="dashboard.editOptions()" id="dashboard-options-btn" class="fa fa-cog ico-dashboard-options" title="<mdss:localize key='dashboardViewer.dashboardOptionsTooltip'/>" ></i>
+		   		<i ng-if="dashboard.canEdit()" ng-click="dashboard.canEdit()" id="dashboard-options-btn" class="fa fa-cog ico-dashboard-options" title="<mdss:localize key='dashboardViewer.dashboardOptionsTooltip'/>" ></i>
 		 	</li>
    			<li class="dropdown navigation-dropdown">      
    				<a href="#" class="fa fa-bars opener-drop dropdown-toggle dropdown-toggle-compact pull-right" ></a>
@@ -60,7 +60,7 @@
                                                 
     <div id="filter-buttons-container">
       <a id="refreshFilterIco" href="#" ng-click="form.$invalid || dashboard.refresh('refreshFilterIco', false)" ng-disabled="form.$invalid" ng-class="{'fa-spin' : dashboard.icoSpin == 'refreshFilterIco' }" class="fa fa-refresh filters-button apply-filters-button" title="<mdss:localize key="dashboardViewer.applyFiltersTooltip"/>" data-placement="left""></a>
-      <a href="#" ng-click="form.$invalid || dashboard.save(false, 'saveToMapIco')" ng-disabled="form.$invalid" class="fa fa-floppy-o filters-button save-filters-button" title="<mdss:localize key="dashboardViewer.saveFiltersTooltip"/>" data-placement="left"">
+      <a ng-if="dashboard.canEdit()" href="#" ng-click="form.$invalid || dashboard.save(false, 'saveToMapIco')" ng-disabled="form.$invalid" class="fa fa-floppy-o filters-button save-filters-button" title="<mdss:localize key="dashboardViewer.saveFiltersTooltip"/>" data-placement="left"">
       	<i ng-show="dashboard.icoSpin == 'saveToMapIco'" class="fa fa-refresh fa-spin" style="position: absolute; right: 0px; bottom: 10px; font-size: 23px; color:#bababa; border-radius: 25px; background-color: rgba(66,66,66,0.9);"></i>
       </a>
       <a ng-if="dashboard.canEdit()" href="#" ng-click="form.$invalid || dashboard.save(true, 'saveToDashboardIco')"  ng-disabled="form.$invalid" class="fa fa-globe filters-button save-global-filters-button" title="<mdss:localize key="dashboardViewer.saveGlobalFiltersTooltip"/>">

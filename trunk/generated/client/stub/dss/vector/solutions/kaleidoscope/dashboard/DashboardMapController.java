@@ -28,6 +28,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.controller.ErrorUtility;
 
+import dss.vector.solutions.general.SystemURLDTO;
 import dss.vector.solutions.geoserver.GeoserverProperties;
 import dss.vector.solutions.kaleidoscope.JavascriptUtil;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayerDTO;
@@ -199,11 +200,17 @@ public class DashboardMapController extends DashboardMapControllerBase implement
 
       return;
     }
+    
+//    String name = dss.vector.solutions.general.SystemURL.getByURL("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo").getKey().replace(" ", "");
+//    String _roleName = MDSSRoleInfo.MDSS_PREFIX + "." + disease.getKey() + "." + name + "." + this.getActionName();
+//    
+//    Boolean readOnly = 
 
     req.setAttribute("geoserver", GeoserverProperties.getAppName());
     req.setAttribute("workspace", CommonProperties.getDeployAppName());
-    req.setAttribute("editDashboard", true);
+    req.setAttribute("editDashboard", SystemURLDTO.hasWritePermissions(clientRequest, "dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo"));
     req.setAttribute("editData", false);
+    req.setAttribute("hasWritePermission", SystemURLDTO.hasWritePermissions(clientRequest, "dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo"));
 
     JavascriptUtil.loadDynamicMapBundle(this.getClientRequest(), req);
 
@@ -235,7 +242,7 @@ public class DashboardMapController extends DashboardMapControllerBase implement
     catch (Exception e)
     {
       ErrorUtility.prepareThrowable(e, req, resp, false);
-      this.failExportMap(mapId, outFileName, outFileFormat, mapBounds, mapSize, activeBaseMap, dashboardStateJson);
+//      this.failExportMap(mapId, outFileName, outFileFormat, mapBounds, mapSize, activeBaseMap, dashboardStateJson);
     }
   }
 

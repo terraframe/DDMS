@@ -252,7 +252,7 @@
       controller : AccordionAttributeController,
       controllerAs : 'ctrl',
       link: function (scope, element, attrs, ctrl) {
-      
+        console.log(scope.attribute);
         // Don't collapse the element if there are filtering values            
         $timeout(function(){        
           if(!dashboardService.isEmptyFilter(scope.attribute.filter)) {

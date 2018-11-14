@@ -444,6 +444,7 @@ public class PermissionImporter implements Reloadable
     String urlKey = ExcelUtil.getString(row.getCell(0));
     String actionKey = ExcelUtil.getString(row.getCell(1));
     PermissionFactory factory = new PermissionFactory(actionKey);
+    PermissionFactory writeFactory = new PermissionFactory("WRITE");
 
     if (urlKey.equalsIgnoreCase("COMMON"))
     {
@@ -456,8 +457,9 @@ public class PermissionImporter implements Reloadable
         for (Disease disease : diseases)
         {
           PermissionAction action = factory.getAction(url, disease);
+          PermissionAction writeAction = writeFactory.getAction(url, disease);
 
-          this.importPermissions(row, action);
+          this.importPermissions(row, action, writeAction);
         }
       }
     }
@@ -468,8 +470,9 @@ public class PermissionImporter implements Reloadable
       for (Disease disease : diseases)
       {
         PermissionAction action = factory.getAction(role, disease);
+        PermissionAction writeAction = writeFactory.getAction(role, disease);
 
-        this.importPermissions(row, action);
+        this.importPermissions(row, action, writeAction);
       }
     }
     else
@@ -478,12 +481,12 @@ public class PermissionImporter implements Reloadable
 
       if (url != null)
       {
-
         for (Disease disease : diseases)
         {
           PermissionAction action = factory.getAction(url, disease);
+          PermissionAction writeAction = writeFactory.getAction(action.role, disease);
 
-          this.importPermissions(row, action);
+          this.importPermissions(row, action, writeAction);
         }
       }
     }
@@ -504,7 +507,7 @@ public class PermissionImporter implements Reloadable
     return this.systemURLs.get(urlKey);
   }
 
-  private void importPermissions(Row row, PermissionAction action)
+  private void importPermissions(Row row, PermissionAction action, PermissionAction writeAction)
   {
     int i = 3;
 
@@ -519,12 +522,22 @@ public class PermissionImporter implements Reloadable
       {
         continue;
       }
-
-      MetadataDAOIF metadata = getMetadata(key);
+      
+      MetadataDAOIF metadata;
+      PermissionAction resolvedAction = action;
+      if (key.startsWith("WRITE:"))
+      {
+        metadata = getMetadata(key.replaceFirst("WRITE:", ""));
+        resolvedAction = writeAction;
+      }
+      else
+      {
+        metadata = getMetadata(key);
+      }
 
       if (metadata != null)
       {
-        action.assign(metadata);
+        resolvedAction.assign(metadata);
       }
     }
   }
