@@ -18,10 +18,12 @@ package dss.vector.solutions.ontology;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Savepoint;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1332,7 +1334,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       return null;
     }
-
+    
     String termId = null;
 
     MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(Term.CLASS);
@@ -1348,9 +1350,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
     sql.append(" LEFT JOIN term_term_display_label AS tdl ON t.term_display_label = tdl.id");
     sql.append(" where bf.md_attribute = '" + mdAttribute.getId() + "'");
     sql.append(" AND (");
-    sql.append("  UPPER(t.name) = UPPER('" + displayLabel + "')");
-    sql.append("  OR UPPER(" + GeoMap.localize(mdStruct, "tdl") + ") = UPPER('" + displayLabel + "')");
-    sql.append("  OR t.term_id = '" + displayLabel + "'");
+    sql.append("  UPPER(t.name) = UPPER(?)");
+    sql.append("  OR UPPER(" + GeoMap.localize(mdStruct, "tdl") + ") = UPPER(?)");
+    sql.append("  OR t.term_id = ?");
     sql.append(" )");
     sql.append(" UNION");
     sql.append(" SELECT DISTINCT t.id AS id");
@@ -1361,12 +1363,26 @@ public class Term extends TermBase implements Reloadable, OptionIF
     sql.append(" JOIN has_synonym0 AS hs ON hs.parent_id = t.id");
     sql.append(" JOIN term_synonym AS ts ON hs.child_id = ts.id");
     sql.append(" WHERE bf.md_attribute = '" + mdAttribute.getId() + "'");
-    sql.append(" AND ts.term_name = '" + displayLabel + "'");
+    sql.append(" AND ts.term_name = ?");
+    
+    
+    Connection conx = Database.getConnection();
 
     try
     {
-      ResultSet results = Database.query(sql.toString());
-
+      // We're using prepared statements with variable binding here to prevent against sql injection and
+      // to also make sure special characters (such as a single quote) are handled correctly.
+      // (as of 3984)
+      
+      PreparedStatement statement = conx.prepareStatement(sql.toString());
+      
+      statement.setString(1, displayLabel);
+      statement.setString(2, displayLabel);
+      statement.setString(3, displayLabel);
+      statement.setString(4, displayLabel);
+      
+      ResultSet results = statement.executeQuery();
+      
       try
       {
         if (results.next())
@@ -1379,9 +1395,20 @@ public class Term extends TermBase implements Reloadable, OptionIF
         results.close();
       }
     }
-    catch (SQLException e)
+    catch (SQLException ex)
     {
-      throw new ProgrammingErrorException(e);
+      Database.throwDatabaseException(ex);
+    }
+    finally
+    {
+      try
+      {
+        Database.closeConnection(conx);
+      }
+      catch (SQLException e)
+      {
+        Database.throwDatabaseException(e);
+      }
     }
 
     if (termId != null)
