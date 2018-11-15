@@ -12,7 +12,7 @@ public class Patcher3883 implements DDMSPatchIF
   @Override
   public Integer getPatchVersion()
   {
-    return 9158;
+    return 8936;
   }
 
   @Override
