@@ -30,6 +30,9 @@
 <c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
 <c:set var="page_title_suffix" value=" - ${component}" scope="request" />
 
+<mdss:localize var="PFI_YES" key="PopFormInst_Yes" />
+<mdss:localize var="PFI_NO" key="PopFormInst_No" />
+
 <mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST" onsubmit="return checkHiddenMandatoryFields(this);" >
   <mjl:input type="hidden" param="universal" value="${universal}" />
   <mjl:input type="hidden" param="actor" value="${actor}" />
@@ -48,10 +51,13 @@
             </td>
             <td>
               <c:choose >
+                <c:when test="${actor == 'mdss.GUIVisibility' && (view.attributeName == 'popFormInstName')}">
+                  <mjl:boolean param="readPermission" trueLabel="${PFI_YES}" falseLabel="${PFI_NO}" value="${view.readPermission}" />
+                </c:when>
                 <c:when test="${actor == 'mdss.GUIVisibility' && (view.attributeRequired || view.notBlank)}">
                   <mjl:boolean param="readPermission" value="${view.readPermission}" disabled="disabled" />
                 </c:when>
-                 <c:when test="${view.attributeRequired == true}">
+                <c:when test="${view.attributeRequired == true}">
                   <mjl:boolean classes="requiredAttributes" param="readPermission" value="${view.readPermission}" />
                 </c:when>
                 <c:otherwise>
