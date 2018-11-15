@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Request;
 
 /**
@@ -23,7 +24,7 @@ import com.runwaysdk.session.Request;
  * 
  * @author rrowlands
  */
-public class ApplicationPatcher
+public class ApplicationPatcher implements Reloadable
 {
   private static Logger logger = LoggerFactory.getLogger(ApplicationPatcher.class);
   
@@ -59,7 +60,7 @@ public class ApplicationPatcher
     
     for (DDMSPatchIF patch : patches)
     {
-      logger.error("Running 'doIt' of patch [" + patch.getClass().getName() + "].");
+      logger.info("Running 'doIt' of patch [" + patch.getClass().getName() + "].");
       
       patch.doIt();
     }
@@ -71,7 +72,7 @@ public class ApplicationPatcher
     
     for (DDMSPatchIF patch : patches)
     {
-      logger.error("Running 'undoIt' of patch [" + patch.getClass().getName() + "].");
+      logger.info("Running 'undoIt' of patch [" + patch.getClass().getName() + "].");
       
       patch.undoIt();
     }

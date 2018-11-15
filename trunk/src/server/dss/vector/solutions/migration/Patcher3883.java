@@ -1,5 +1,6 @@
 package dss.vector.solutions.migration;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
@@ -7,7 +8,7 @@ import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
 import dss.vector.solutions.general.SystemURLQuery;
 
-public class Patcher3883 implements DDMSPatchIF
+public class Patcher3883 implements DDMSPatchIF, Reloadable
 {
   @Override
   public Integer getPatchVersion()

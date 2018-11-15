@@ -1,5 +1,6 @@
 package dss.vector.solutions.migration;
 
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
@@ -9,7 +10,7 @@ import com.runwaysdk.system.metadata.MdWebFormQuery;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.generator.FormSystemURLBuilder;
 
-public class Patcher3974 implements DDMSPatchIF
+public class Patcher3974 implements DDMSPatchIF, Reloadable
 {
   public static void main(String[] args) {
     mainInRequest();

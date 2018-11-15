@@ -48,6 +48,9 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   
   public static final String BARCODE_ATTR2_POSTFIX = "_BAP";
   
+  // Barcodes include 2 attributes : First, the actual barcode attribute (which is always optional).
+  // Second, a string, mock attribute which allows them to type in a value if the barcode is empty.
+  // If the second attribute contains a value, then we set the value of the first attribute.
   protected ODKAttribute barcodeAttr2;
   
   public ODKMetadataAttribute(ODKForm containingForm, MdAttributeDAOIF sourceMdAttr, MdAttributeDAOIF viewMdAttr)
