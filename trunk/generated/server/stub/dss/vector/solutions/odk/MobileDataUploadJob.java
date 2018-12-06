@@ -29,7 +29,6 @@ import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -45,7 +44,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tools.ant.filters.StringInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,7 +154,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
           importer.export(uuids, sheets);
 
-          SXSSFWorkbook workbook = new SXSSFWorkbook();
+          XSSFWorkbook workbook = new XSSFWorkbook();
 
           for (Entry<String, ExcelExportSheet> e : sheets.entrySet())
           {
@@ -434,7 +433,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
       GridExcelAdapter sheet = new GridExcelAdapter(mdWebFormDAO, (MdWebSingleTermGridDAOIF) mdFieldDAO, mdRelationship);
       sheet.addTemplate(mdRelationship.definesType());
 
-      ExcelExporter exporter = new ExcelExporter();
+      ExcelExporter exporter = new ExcelExporter(new XSSFWorkbook());
       exporter.addSheet(sheet);
 
       sheets.put(type, sheet);
@@ -442,7 +441,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     else
     {
       // Setup the listeners excel export listeners
-      ExcelExporter exporter = new ExcelExporter();
+      ExcelExporter exporter = new ExcelExporter(new XSSFWorkbook());
 
       this.setupListener(exporter, target);
 
@@ -467,10 +466,10 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
   {
     if (type.equals(FormSurvey.CLASS) || type.equals(FormHousehold.CLASS) || type.equals(FormBedNet.CLASS) || type.equals(FormPerson.CLASS))
     {
-      return new FormExcelExporter(new FormSurveyImportFilter(), new FormSurveyColumnFactory());
+      return new FormExcelExporter(new FormSurveyImportFilter(), new FormSurveyColumnFactory(), new XSSFWorkbook());
     }
 
-    return new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
+    return new FormExcelExporter(new FormImportFilter(), new FormColumnFactory(), new XSSFWorkbook());
   }
 
   private Map<String, Collection<String>> group(ODKForm form, Collection<String> uuids)
