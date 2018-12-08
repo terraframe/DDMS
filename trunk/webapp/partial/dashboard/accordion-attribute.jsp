@@ -27,7 +27,7 @@
   </h4>
     
   <!-- slide block -->
-  <div ng-if="ctrl.canEdit()" id="{{'collapse00' + identifier}}" class="panel-collapse collapse">
+  <div id="{{'collapse00' + identifier}}" class="panel-collapse collapse">
     <div class="panel-body">
       <div class="filter-block">
         <div class="row-holder">
