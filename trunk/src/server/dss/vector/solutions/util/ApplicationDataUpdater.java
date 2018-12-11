@@ -924,7 +924,7 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     this.updateAssayIds(dryRun);
 
     // For ticket #2922
-    this.updateAdultDiscriminatingDoseAssays(dryRun);
+//    this.updateAdultDiscriminatingDoseAssays(dryRun);
 
     // Update the case period
     this.updateCasePeriod(dryRun);
@@ -1168,45 +1168,45 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     }
   }
 
-  private void updateAdultDiscriminatingDoseAssays(boolean dryRun)
-  {
-    logIt("Updating AdultDiscriminatingDoseAssays.");
-
-    /*
-     * Default hard-coded control number. It is 10000 because we most derive the control test number from the existing control test mortality and the
-     * control number. Existing control test mortality values have relevant decimal values up to the hunderth decimal spot.
-     */
-    int controlNumber = 10000;
-
-    AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
-    query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
-    query.AND(query.getControlTestMortality().NE((Float) null));
-    query.AND(query.getControlTestNumberExposed().EQ((Integer) null));
-    query.AND(query.getControlTestNumberDead().EQ((Integer) null));
-
-    OIterator<? extends AdultDiscriminatingDoseAssay> iterator = query.getIterator();
-
-    try
-    {
-      while (iterator.hasNext())
-      {
-        AdultDiscriminatingDoseAssay assay = iterator.next();
-
-        onRecordUpdate(dryRun, assay.getId(), "0");
-        if (!dryRun)
-        {
-          assay.appLock();
-          assay.setControlTestNumberExposed(controlNumber);
-          assay.setControlTestNumberDead((int) ( controlNumber * assay.getControlTestMortality() / 100 ));
-          assay.apply();
-        }
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
+//  private void updateAdultDiscriminatingDoseAssays(boolean dryRun)
+//  {
+//    logIt("Updating AdultDiscriminatingDoseAssays.");
+//
+//    /*
+//     * Default hard-coded control number. It is 10000 because we most derive the control test number from the existing control test mortality and the
+//     * control number. Existing control test mortality values have relevant decimal values up to the hunderth decimal spot.
+//     */
+//    int controlNumber = 10000;
+//
+//    AdultDiscriminatingDoseAssayQuery query = new AdultDiscriminatingDoseAssayQuery(new QueryFactory());
+//    query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
+//    query.AND(query.getControlTestMortality().NE((Float) null));
+//    query.AND(query.getControlTestNumberExposed().EQ((Integer) null));
+//    query.AND(query.getControlTestNumberDead().EQ((Integer) null));
+//
+//    OIterator<? extends AdultDiscriminatingDoseAssay> iterator = query.getIterator();
+//
+//    try
+//    {
+//      while (iterator.hasNext())
+//      {
+//        AdultDiscriminatingDoseAssay assay = iterator.next();
+//
+//        onRecordUpdate(dryRun, assay.getId(), "0");
+//        if (!dryRun)
+//        {
+//          assay.appLock();
+//          assay.setControlTestNumberExposed(controlNumber);
+//          assay.setControlTestNumberDead((int) ( controlNumber * assay.getControlTestMortality() / 100 ));
+//          assay.apply();
+//        }
+//      }
+//    }
+//    finally
+//    {
+//      iterator.close();
+//    }
+//  }
 
   private void updateAssayIds(boolean dryRun)
   {
