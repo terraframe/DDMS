@@ -59,14 +59,14 @@ import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
-import com.runwaysdk.session.Session;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.etl.dhis2.response.HTTPResponse;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoFilterCriteria;
 import dss.vector.solutions.geo.LocatedInQuery;
-import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.mobile.MobileUtil;
@@ -329,7 +329,7 @@ public class ODKFormExporter implements Reloadable
     Set<String> exported = new HashSet<String>();
 
     LinkedList<String> emptyParents = new LinkedList<String>();
-    GeoEntity earth = Earth.getEarthInstance();
+    GeoEntity earth = DefaultGeoEntity.getDefaultGeoEntity().getGeoEntity();
     GeoStackElement current = new GeoStackElement(earth.getGeoId(), emptyParents);
     Queue<GeoStackElement> allChildrenStack = new ArrayDeque<GeoStackElement>();
     int maxDepth = 0;

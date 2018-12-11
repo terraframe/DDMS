@@ -12,7 +12,7 @@ import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
 
-import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.mobile.MobileUtil;
 
@@ -92,7 +92,7 @@ public class ODKGeoAttribute extends ODKMetadataAttribute implements Reloadable
     geolist0Label.setAttribute("ref", "jr:itext('/" + title + "/" + viewMdAttr.definesAttribute() + PREFIX + "0:label')");
     select1.appendChild(geolist0Label);
     
-    GeoEntity earth = Earth.getEarthInstance();
+    GeoEntity earth = DefaultGeoEntity.getDefaultGeoEntity().getGeoEntity();
     List<? extends GeoEntity> countries = ODKFormExporter.getOrderedChildren(earth);
     for (GeoEntity country : countries)
     {
