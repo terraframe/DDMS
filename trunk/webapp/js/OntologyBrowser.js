@@ -930,22 +930,24 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     },
     
     _searchFunction : function(request, value) {
-      if(this._roots.length > 0) {
-//         Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
-        
-        var rootz = [];
-        for (var i = 0; i < this._roots.length; ++i)
-        {
-          rootz.push(this._roots[i][0]);
-        }
-        
-        Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, rootz);
-      }
-      else {
-        var parameters = this._getParameters();
-      
-        Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
-      }
+    	Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, null);
+    	
+//      if(this._roots.length > 0) {
+////         Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
+//        
+//        var rootz = [];
+//        for (var i = 0; i < this._roots.length; ++i)
+//        {
+//          rootz.push(this._roots[i][0]);
+//        }
+//        
+//        Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, rootz);
+//      }
+//      else {
+//        var parameters = this._getParameters();
+//      
+//        Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
+//      }
     },
     
     setOntologyTree : function(ontologyTree) {
