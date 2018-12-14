@@ -16,9 +16,12 @@
  ******************************************************************************/
 package com.runwaysdk.tomcat;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.ServerSocket;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -26,9 +29,13 @@ import java.rmi.registry.Registry;
 import java.rmi.server.RMIClientSocketFactory;
 import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.rmi.ssl.SslRMIServerSocketFactory;
@@ -38,6 +45,9 @@ import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteLifecycleListenerServerIF
 {
@@ -255,28 +265,32 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
       {
         log.info("Using trust/keystore(" + System.getProperty("javax.net.ssl.trustStore") + ", " + System.getProperty("javax.net.ssl.keyStore"));
 
-        csf = new SslRMIClientSocketFactory()
-        {
-          /**
-           * 
-           */
-          private static final long serialVersionUID = -7791454104764208653L;
-
-          @Override
-          public Socket createSocket(String host, int port) throws IOException
-          {
-            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
-          }
-        };
-
-        ssf = new SslRMIServerSocketFactory(ciphers, protocols, clientAuth)
-        {
-          @Override
-          public ServerSocket createServerSocket(int port) throws IOException
-          {
-            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
-          }
-        };
+        // I don't know why this code is here but it doesn't work
+//        csf = new SslRMIClientSocketFactory()
+//        {
+//          /**
+//           * 
+//           */
+//          private static final long serialVersionUID = -7791454104764208653L;
+//
+//          @Override
+//          public Socket createSocket(String host, int port) throws IOException
+//          {
+//            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
+//          }
+//        };
+//
+//        ssf = new SslRMIServerSocketFactory(ciphers, protocols, clientAuth)
+//        {
+//          @Override
+//          public ServerSocket createServerSocket(int port) throws IOException
+//          {
+//            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
+//          }
+//        };
+        
+        csf = new SslRMIClientSocketFactory();
+        ssf = new SslRMIServerSocketFactory(this.ciphers, this.protocols, this.clientAuth);
       }
 
       // Force the use of local ports if required
@@ -307,7 +321,7 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
     try
     {
       Registry registry = LocateRegistry.createRegistry(theRmiRegistryPort, csf, ssf);
-      registry.rebind(NAME, UnicastRemoteObject.exportObject(this, 0, csf, ssf));
+      registry.rebind(NAME, UnicastRemoteObject.exportObject(this, getRmiCommunicationPortPlatform(), csf, ssf));
 
       return registry;
     }
@@ -359,6 +373,153 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
   public String getCurrentState() throws RemoteException
   {
     return this.currentState;
+  }
+  
+  public String getEnvInfo() throws RemoteException
+  {
+    JSONObject json = new JSONObject();
+    
+    printMemory(json);
+    
+    printDisk(json);
+    
+    printTime(json);
+    
+    printThreads(json);
+    
+//    printSessions(json);
+    
+    return json.toString();
+  }
+  
+  private void printThreads(JSONObject json) throws JSONException
+  {
+    try
+    {
+      JSONArray threadsJ = new JSONArray();
+      
+      Map<Thread, StackTraceElement[]> stacks = Thread.getAllStackTraces();
+      Set<Thread> threads = stacks.keySet();
+      for (Thread t : threads)
+      {
+        JSONObject threadJ = new JSONObject();
+        
+        threadJ.put("name", t.getName());
+        threadJ.put("state", t.getState().toString());
+        
+        threadsJ.put(threadJ);
+      }
+      
+      json.put("threads", threadsJ);
+    }
+    catch (Throwable t)
+    {
+      json.put("threads", t.getMessage());
+    }
+  }
+  
+  private void printTime(JSONObject json) throws JSONException
+  {
+    try
+    {
+      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");  
+      LocalDateTime now = LocalDateTime.now();  
+      String time = dtf.format(now);
+      
+      json.put("time", time);
+    }
+    catch (Throwable t)
+    {
+      json.put("time", t.getMessage());
+    }
+  }
+  
+//  private void printSessions(JSONObject json) throws JSONException
+//  {
+//    try
+//    {
+//      JSONObject sesJ = new JSONObject();
+//      
+//      JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi");
+//      try(JMXConnector jmxc = JMXConnectorFactory.connect(url)) {
+//        MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
+//        ObjectName mbeanName = new ObjectName("Catalina:type=Manager,context=/,host=localhost");
+//        Object value = mbsc.getAttribute(mbeanName, "activeSessions");
+//      }
+//      
+//      json.put("session", sesJ);
+//    }
+//    catch (Throwable t)
+//    {
+//      json.put("session", t.getMessage());
+//    }
+//  }
+  
+  private void printDisk(JSONObject json) throws JSONException
+  {
+    try
+    {
+      JSONObject diskJ = new JSONObject();
+      
+      File root = new File("/");
+      
+      long total = root.getTotalSpace();
+      long free = root.getFreeSpace();
+      long usable = root.getUsableSpace();
+      
+      diskJ.put("total", total);
+      diskJ.put("free", free);
+      diskJ.put("usable", usable);
+      
+      json.put("disk", diskJ);
+    }
+    catch (Throwable t)
+    {
+      json.put("disk", t.getMessage());
+    }
+  }
+  
+  private void printMemory(JSONObject json) throws JSONException
+  {
+    try
+    {
+      JSONObject memJ = new JSONObject();
+      
+      long total = Runtime.getRuntime().totalMemory();
+      long free = Runtime.getRuntime().freeMemory();
+      
+      memJ.put("total", total);
+      memJ.put("free", free);
+      
+      json.put("memory", memJ);
+    }
+    catch (Throwable t)
+    {
+      json.put("memory", t.getMessage());
+    }
+  }
+  
+  public String getStackDump() throws RemoteException
+  {
+    final StringBuilder dump = new StringBuilder();
+    final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+    final ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(threadMXBean.getAllThreadIds(), 100);
+    for (ThreadInfo threadInfo : threadInfos) {
+        dump.append('"');
+        dump.append(threadInfo.getThreadName());
+        dump.append("\" ");
+        final Thread.State state = threadInfo.getThreadState();
+        dump.append("\n   java.lang.Thread.State: ");
+        dump.append(state);
+        final StackTraceElement[] stackTraceElements = threadInfo.getStackTrace();
+        for (final StackTraceElement stackTraceElement : stackTraceElements) {
+            dump.append("\n        at ");
+            dump.append(stackTraceElement);
+        }
+        dump.append("\n\n");
+    }
+    
+    return dump.toString();
   }
 
   public synchronized void fireLifecycleEvent(LifecycleEvent evt)

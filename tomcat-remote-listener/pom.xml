@@ -18,7 +18,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dss.vector.solutions</groupId>
   <artifactId>tomcat-remote-listener</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
   <name>Sample</name>
   <description>Sample</description>
   <packaging>jar</packaging>
@@ -28,7 +28,7 @@
   		<artifactId>junit</artifactId>
   		<version>4.8.2</version>
   		<type>jar</type>
-  		<scope>compile</scope>
+  		<scope>test</scope>
   	</dependency>
   	<dependency>
   		<groupId>org.apache.tomcat</groupId>
@@ -37,8 +37,14 @@
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
+  	<dependency>
+		  <groupId>org.json</groupId>
+		  <artifactId>json</artifactId>
+		  <version>20180813</version>
+		</dependency>
   </dependencies>
   <build>
+    <finalName>tomcat-remote-listener</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -46,6 +52,22 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <configuration>
+          <!-- put your configurations here -->
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>  

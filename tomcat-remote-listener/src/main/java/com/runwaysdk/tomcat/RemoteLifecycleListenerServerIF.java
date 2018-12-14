@@ -26,4 +26,8 @@ public interface RemoteLifecycleListenerServerIF extends Remote
   public void removeListener(RemoteLifecycleListenerIF listener) throws RemoteException;
 
   public String getCurrentState() throws RemoteException;
+  
+  public String getStackDump() throws RemoteException;
+  
+  public String getEnvInfo() throws RemoteException;
 }
