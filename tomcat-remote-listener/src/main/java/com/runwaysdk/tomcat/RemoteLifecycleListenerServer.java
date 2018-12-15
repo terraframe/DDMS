@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -265,32 +266,40 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
       {
         log.info("Using trust/keystore(" + System.getProperty("javax.net.ssl.trustStore") + ", " + System.getProperty("javax.net.ssl.keyStore"));
 
-        // I don't know why this code is here but it doesn't work
-//        csf = new SslRMIClientSocketFactory()
-//        {
-//          /**
-//           * 
-//           */
-//          private static final long serialVersionUID = -7791454104764208653L;
-//
-//          @Override
-//          public Socket createSocket(String host, int port) throws IOException
-//          {
-//            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
-//          }
-//        };
-//
-//        ssf = new SslRMIServerSocketFactory(ciphers, protocols, clientAuth)
-//        {
-//          @Override
-//          public ServerSocket createServerSocket(int port) throws IOException
-//          {
-//            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
-//          }
-//        };
+        /**
+         * TODO : The code when used in the manager and in tomcat are not the same. A cheap hack that we're doing right now
+         *        is to compile the same jar with different source depending on which context its used in. In the future this can be done better.
+         *        What's checked in now must be the manager source because the build system automatically updates that jar (but not the tomcat jar)
+         *        There is more of this "code swapping" going on in createServer
+         */
         
-        csf = new SslRMIClientSocketFactory();
-        ssf = new SslRMIServerSocketFactory(this.ciphers, this.protocols, this.clientAuth);
+        // Manager code
+        csf = new SslRMIClientSocketFactory()
+        {
+          /**
+           * 
+           */
+          private static final long serialVersionUID = -7791454104764208653L;
+
+          @Override
+          public Socket createSocket(String host, int port) throws IOException
+          {
+            return super.createSocket(host, RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
+          }
+        };
+
+        ssf = new SslRMIServerSocketFactory(ciphers, protocols, clientAuth)
+        {
+          @Override
+          public ServerSocket createServerSocket(int port) throws IOException
+          {
+            return super.createServerSocket(RemoteLifecycleListenerServer.this.getRmiCommunicationPortPlatform());
+          }
+        };
+        
+        // Tomcat code
+//        csf = new SslRMIClientSocketFactory();
+//        ssf = new SslRMIServerSocketFactory(this.ciphers, this.protocols, this.clientAuth);
       }
 
       // Force the use of local ports if required
@@ -321,8 +330,13 @@ public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteL
     try
     {
       Registry registry = LocateRegistry.createRegistry(theRmiRegistryPort, csf, ssf);
-      registry.rebind(NAME, UnicastRemoteObject.exportObject(this, getRmiCommunicationPortPlatform(), csf, ssf));
+      
+      // Manager code
+      registry.rebind(NAME, UnicastRemoteObject.exportObject(this, 0, csf, ssf));
 
+      // Tomcat code
+//      registry.rebind(NAME, UnicastRemoteObject.exportObject(this, this.getRmiCommunicationPortPlatform(), csf, ssf));
+      
       return registry;
     }
     catch (RemoteException e)

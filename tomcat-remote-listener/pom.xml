@@ -35,7 +35,7 @@
   		<artifactId>tomcat-catalina</artifactId>
   		<version>8.0.29</version>
   		<type>jar</type>
-  		<scope>compile</scope>
+  		<scope>provided</scope>
   	</dependency>
   	<dependency>
 		  <groupId>org.json</groupId>
