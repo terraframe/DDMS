@@ -218,6 +218,70 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
       throw new RuntimeException(Localizer.getMessage("SERVER_NOT_STARTED"));
     }
   }
+  
+  public String getEnvInfo()
+  {
+    if (this.server == null)
+    {
+      try
+      {
+        this.registerServer();
+      }
+      catch (Exception e)
+      {
+        // The server is not up yet so it is impossbile to connect to the RMI
+        // service.
+      }
+    }
+
+    if (this.server != null)
+    {
+      try
+      {
+        return this.server.getEnvInfo();
+      }
+      catch (RemoteException e)
+      {
+        // The server is no longer up or is not reachable
+
+        this.server = null;
+      }
+    }
+
+    return null;
+  }
+  
+  public String getStackDump()
+  {
+    if (this.server == null)
+    {
+      try
+      {
+        this.registerServer();
+      }
+      catch (Exception e)
+      {
+        // The server is not up yet so it is impossbile to connect to the RMI
+        // service.
+      }
+    }
+
+    if (this.server != null)
+    {
+      try
+      {
+        return this.server.getStackDump();
+      }
+      catch (RemoteException e)
+      {
+        // The server is no longer up or is not reachable
+
+        this.server = null;
+      }
+    }
+
+    return null;
+  }
 
   public ServerStatus getServerStatus()
   {
