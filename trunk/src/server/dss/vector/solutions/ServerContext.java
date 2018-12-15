@@ -76,8 +76,6 @@ public class ServerContext
     
     this.shutdownGeoserver();
     
-    this.stopLoggingServer();
-    
     Database.close();
   }
 
@@ -120,8 +118,6 @@ public class ServerContext
     
     // Setup ODK
     this.initializeODK();
-    
-    this.startLoggingServer();
   }
 
   private void deleteGeoserverLayers()
@@ -183,46 +179,6 @@ public class ServerContext
     {
       Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.geoserver.GeoserverInitializer");
       savedSearch.getMethod("setup").invoke(null);
-    }
-    catch (RuntimeException e)
-    {
-      throw e;
-    }
-    catch (Exception e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-  }
-  
-  private void startLoggingServer()
-  {
-    /*
-     * Must use reflection in order to break the reloadable infectionious.
-     */
-    try
-    {
-      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.envlogger.EnvLoggingServer");
-      savedSearch.getMethod("start").invoke(null);
-    }
-    catch (RuntimeException e)
-    {
-      throw e;
-    }
-    catch (Exception e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-  }
-  
-  private void stopLoggingServer()
-  {
-    /*
-     * Must use reflection in order to break the reloadable infectionious.
-     */
-    try
-    {
-      Class<?> savedSearch = LoaderDecorator.load("dss.vector.solutions.envlogger.EnvLoggingServer");
-      savedSearch.getMethod("stop").invoke(null);
     }
     catch (RuntimeException e)
     {
