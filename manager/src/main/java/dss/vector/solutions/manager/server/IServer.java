@@ -26,6 +26,10 @@ public interface IServer
   
   public ServerStatus getServerStatus();
   
+  public String getStackDump();
+  
+  public String getEnvInfo();
+  
   public void close();
   
   public void addListener(IServerListener listener);
