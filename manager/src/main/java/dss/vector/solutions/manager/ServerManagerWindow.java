@@ -65,7 +65,9 @@ import dss.vector.solutions.manager.action.BackupRestoreAction;
 import dss.vector.solutions.manager.action.ChangeSettingAction;
 import dss.vector.solutions.manager.action.ExitAction;
 import dss.vector.solutions.manager.action.GeoAction;
+import dss.vector.solutions.manager.action.LogDebugAction;
 import dss.vector.solutions.manager.action.UninstallAction;
+import dss.vector.solutions.manager.server.EnvLoggingServer;
 import dss.vector.solutions.manager.server.IServer;
 import dss.vector.solutions.manager.server.IServerListener;
 import dss.vector.solutions.manager.server.Server;
@@ -105,6 +107,10 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   private boolean                            hide;
 
   private ToggleMenuManager                  configuration;
+  
+  private ToggleMenuManager                  debug;
+  
+  private EnvLoggingServer                   envLoggingServer;
 
   public ServerManagerWindow()
   {
@@ -228,6 +234,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
       public void handleEvent(Event arg0)
       {
         start();
+        envLoggingServer.start();
       }
     });
 
@@ -240,6 +247,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
       public void handleEvent(Event arg0)
       {
         server.stopServer();
+        envLoggingServer.stop();
       }
     });
 
@@ -339,9 +347,13 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     });
 //    this.configuration.add(new KeystoreAction());
 
+    this.debug = new ToggleMenuManager(Localizer.getMessage("DEBUG"));
+    this.debug.add(new LogDebugAction(server));
+    
     MenuManager menuManager = new MenuManager();
     menuManager.add(fileMenu);
     menuManager.add(this.configuration);
+    menuManager.add(this.debug);
     return menuManager;
   }
 
