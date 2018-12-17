@@ -253,7 +253,7 @@ public class MdssLocalizationImporter implements Reloadable
 
     try
     {
-      FileIO.encodedWrite(childFile, data, "UTF-16");
+      FileIO.encodedWrite(childFile, data, "UTF-16"); // Java 8 internally stores strings as UTF-16
     }
     catch (IOException e)
     {
@@ -390,7 +390,7 @@ public class MdssLocalizationImporter implements Reloadable
 
       try
       {
-        FileIO.encodedWrite(file, data.toString(), "UTF-16");
+        FileIO.encodedWrite(file, data.toString(), "UTF-16"); // Java 8 internally stores strings as UTF-16
       }
       catch (IOException e)
       {
