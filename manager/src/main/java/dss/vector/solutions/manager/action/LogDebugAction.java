@@ -63,6 +63,7 @@ public class LogDebugAction extends Action
         addPostgresLogs();
         addThreadDump();
         addConnectionQuery();
+        addEnvInfo();
       }
       finally
       {
@@ -75,6 +76,28 @@ public class LogDebugAction extends Action
     catch (IOException e)
     {
       Logger.error("Error happened while trying to create zip [" + zip.getAbsolutePath() + "].", e);
+    }
+  }
+  
+  private void addEnvInfo()
+  {
+    try
+    {
+      if (this.server != null)
+      {
+        String envInfo = this.server.getEnvInfo();
+        
+        if (envInfo != null)
+        {
+          byte[] envInfoBytes = envInfo.getBytes();
+          
+          addBytes("server-env-info.json", envInfoBytes);
+        }
+      }
+    }
+    catch (Throwable e)
+    {
+      handleException("server-env-info.json", "Error happened while trying to write the server's env info to zip.", e);
     }
   }
   
