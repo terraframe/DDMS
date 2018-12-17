@@ -73,9 +73,9 @@ public class LogDebugAction extends Action
         }
       }
     }
-    catch (IOException e)
+    catch (Throwable t)
     {
-      Logger.error("Error happened while trying to create zip [" + zip.getAbsolutePath() + "].", e);
+      Logger.error("Error happened while trying to create zip [" + zip.getAbsolutePath() + "].", t);
     }
   }
   
