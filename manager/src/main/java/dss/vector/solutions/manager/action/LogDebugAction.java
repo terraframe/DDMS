@@ -112,35 +112,63 @@ public class LogDebugAction extends Action
           "-U", "postgres", "-d", "postgres",
           "-c", "select * from pg_stat_activity"
       };
-      Process proc = rt.exec(commands);
+      String resp = executeProcess(rt, commands);
       
-      BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-      
-      BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-      
-      StringBuilder sb = new StringBuilder();
-      
-      // read the output from the command
-      sb.append("Standard Out:\n");
-      String s = null;
-      while ((s = stdInput.readLine()) != null)
-      {
-        sb.append(s + "\n");
-      }
-      
-      // read any errors from the attempted command
-      sb.append("Standard Error:\n");
-      while ((s = stdError.readLine()) != null)
-      {
-        sb.append(s + "\n");
-      }
-      
-      addBytes("db-connections.txt", sb.toString().getBytes());
+      addBytes("db-connections.txt", resp.getBytes());
     }
     catch(Throwable t)
     {
       handleException("db-connections.txt", "Error happened while trying to write the connection query to zip.", t);
     }
+  }
+
+  private String executeProcess(Runtime rt, String[] commands)
+  {
+    StringBuilder sb = new StringBuilder();
+    
+    Thread t = new Thread() {
+      public void run() {
+        try
+        {
+          Process proc = rt.exec(commands);
+          
+          BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+          
+          BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+          
+          // read the output from the command
+          sb.append("Standard Out:\n");
+          String s = null;
+          while ((s = stdInput.readLine()) != null)
+          {
+            sb.append(s + "\n");
+          }
+          
+          // read any errors from the attempted command
+          sb.append("Standard Error:\n");
+          while ((s = stdError.readLine()) != null)
+          {
+            sb.append(s + "\n");
+          }
+        }
+        catch (Throwable t)
+        {
+          Logger.error("Error occured while querying for db connections", t);
+        }
+      }
+    };
+    t.start();
+    
+    try
+    {
+      t.join(10000);
+    }
+    catch (InterruptedException e)
+    {
+      Logger.error("Interrupted when waiting for db connection query", e);
+    }
+    
+    return sb.toString();
   }
   
   private void addThreadDump()
