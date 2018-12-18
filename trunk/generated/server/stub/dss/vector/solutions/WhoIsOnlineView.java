@@ -17,11 +17,11 @@
 package dss.vector.solutions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.session.SessionIF;
-import com.runwaysdk.session.SessionIterator;
 
 public class WhoIsOnlineView extends WhoIsOnlineViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -38,27 +38,20 @@ public class WhoIsOnlineView extends WhoIsOnlineViewBase implements com.runwaysd
     
     String pubId = UserDAO.getPublicUser().getId();
     
-    SessionIterator it = SessionFacade.getIterator();
-    try
+    Iterator<SessionIF> it = SessionFacade.getAllSessions().values().iterator();
+    while (it.hasNext())
     {
-      while (it.hasNext())
+      SessionIF session = it.next();
+      
+      UserDAO user = (UserDAO) session.getUser().getBusinessDAO();
+      
+      if (!pubId.equals(user.getId()))
       {
-        SessionIF session = it.next();
-        
-        UserDAO user = (UserDAO) session.getUser().getBusinessDAO();
-        
-        if (!pubId.equals(user.getId()))
-        {
-          WhoIsOnlineView view = new WhoIsOnlineView();
-          view.setUsername(user.getUsername());
-          view.setLocale(session.getLocale().getDisplayName());
-          views.add(view);
-        }
+        WhoIsOnlineView view = new WhoIsOnlineView();
+        view.setUsername(user.getUsername());
+        view.setLocale(session.getLocale().getDisplayName());
+        views.add(view);
       }
-    }
-    finally
-    {
-      it.close();
     }
     
     return views.toArray(new WhoIsOnlineView[views.size()]);
