@@ -45,7 +45,7 @@
 	<property name="gis.src" value="${gis.root}/src" />
 	<property name="gis.profiles" value="${gis.root}/profiles" />
 	
-	<property name="memory_use" value="5000m" />
+	<property name="memory_use" value="4096m" />
 	<property name="perm_size" value="256m" />
 	<property name="max_perm_size" value="512m" />
 
