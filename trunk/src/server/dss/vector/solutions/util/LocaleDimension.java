@@ -18,6 +18,7 @@ package dss.vector.solutions.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -121,7 +122,7 @@ public class LocaleDimension implements Reloadable
     List<String> lines;
     try
     {
-      lines = FileIO.readLines(file);
+      lines = FileIO.readLines(file, Charset.forName("UTF-8"));
     }
     catch (IOException e)
     {

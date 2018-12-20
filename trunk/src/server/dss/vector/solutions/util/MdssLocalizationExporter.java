@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -485,7 +486,7 @@ public class MdssLocalizationExporter implements Reloadable
      */
     try
     {
-      List<String> lines = FileIO.readLines(base);
+      List<String> lines = FileIO.readLines(base, Charset.forName("UTF-8"));
 
       int r = 1;
 
@@ -534,7 +535,7 @@ public class MdssLocalizationExporter implements Reloadable
 
       try
       {
-        Map<String, String> properties = MdssLocalizationExporter.getProperties(FileIO.readLines(localFile));
+        Map<String, String> properties = MdssLocalizationExporter.getProperties(FileIO.readLines(localFile, Charset.forName("UTF-8")));
 
         Iterator<Row> rowIterator = sheet.rowIterator();
 

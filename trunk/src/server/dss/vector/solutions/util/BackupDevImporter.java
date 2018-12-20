@@ -605,40 +605,40 @@ public class BackupDevImporter
 //    propagateProperty("domain", "terraframe.properties");
   }
   
-  private void propagateProperty(String key, String bundle)
-  {
-    // The path to the webapps directory inside of the unzipped backup.
-    File fBackupClasses = new File(this.fRestoreUnzip, Backup.WEBAPP_DIR_NAME + "/WEB-INF/classes");
-    File fDevBundle = new File(fBackupClasses, bundle);
-    
-    // Read the property from the existing file
-    Properties prop = new Properties();
-    String newValue = null;
-    
-    
-    // Write that property into the dev file
-    try
-    {
-      String data = new String();
-      for (String line : FileIO.readLines(fDevBundle))
-      {
-        if (!line.startsWith(key + '='))
-        {
-          data += line;
-        }
-        else
-        {
-          data += key + '=' + newValue;
-        }
-        data += "\n";
-      }
-      FileIO.write(fDevBundle, data);
-    }
-    catch (IOException e)
-    {
-      throw new RuntimeException(e);
-    }
-  }
+//  private void propagateProperty(String key, String bundle)
+//  {
+//    // The path to the webapps directory inside of the unzipped backup.
+//    File fBackupClasses = new File(this.fRestoreUnzip, Backup.WEBAPP_DIR_NAME + "/WEB-INF/classes");
+//    File fDevBundle = new File(fBackupClasses, bundle);
+//    
+//    // Read the property from the existing file
+//    Properties prop = new Properties();
+//    String newValue = null;
+//    
+//    
+//    // Write that property into the dev file
+//    try
+//    {
+//      String data = new String();
+//      for (String line : FileIO.readLines(fDevBundle))
+//      {
+//        if (!line.startsWith(key + '='))
+//        {
+//          data += line;
+//        }
+//        else
+//        {
+//          data += key + '=' + newValue;
+//        }
+//        data += "\n";
+//      }
+//      FileIO.write(fDevBundle, data);
+//    }
+//    catch (IOException e)
+//    {
+//      throw new RuntimeException(e);
+//    }
+//  }
   
   /**
    * When we copy the generated source over, because we're copying the entire package, its going to copy some source that we already have predefined in fresh installs.

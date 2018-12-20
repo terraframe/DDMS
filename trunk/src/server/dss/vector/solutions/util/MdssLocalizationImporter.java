@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -208,12 +209,12 @@ public class MdssLocalizationImporter implements Reloadable
     File childFile = new File(dir, child.getPropertyFileName("MDSS"));
     List<String> parentLines;
     List<String> childLines;
-
+    
     try
     {
       if (parentFile.exists())
       {
-        parentLines = FileIO.readLines(parentFile);
+        parentLines = FileIO.readLines(parentFile, Charset.forName("UTF-8"));
       }
       else
       {
@@ -229,7 +230,7 @@ public class MdssLocalizationImporter implements Reloadable
     {
       if (childFile.exists())
       {
-        childLines = FileIO.readLines(childFile);
+        childLines = FileIO.readLines(childFile, Charset.forName("UTF-8"));
       }
       else
       {
@@ -253,7 +254,7 @@ public class MdssLocalizationImporter implements Reloadable
 
     try
     {
-      FileIO.encodedWrite(childFile, data, "UTF-16"); // Java 8 internally stores strings as UTF-16
+      FileIO.encodedWrite(childFile, data, "UTF-8");
     }
     catch (IOException e)
     {
@@ -390,7 +391,7 @@ public class MdssLocalizationImporter implements Reloadable
 
       try
       {
-        FileIO.encodedWrite(file, data.toString(), "UTF-16"); // Java 8 internally stores strings as UTF-16
+        FileIO.encodedWrite(file, data.toString(), "UTF-8");
       }
       catch (IOException e)
       {
