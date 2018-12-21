@@ -1,7 +1,6 @@
 package dss.vector.solutions.manager.server;
 
 import org.apache.log4j.Logger;
-import dss.vector.org.json.JSONException;
 
 public class EnvLoggingServer implements Runnable
 {
