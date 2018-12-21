@@ -1,7 +1,7 @@
 package dss.vector.solutions.manager.server;
 
 import org.apache.log4j.Logger;
-import org.json.JSONException;
+import dss.vector.org.json.JSONException;
 
 public class EnvLoggingServer implements Runnable
 {
@@ -45,24 +45,17 @@ public class EnvLoggingServer implements Runnable
   @Override
   public void run()
   {
-    try
+    while (isRun)
     {
-      while (isRun)
-      {
-        logger.error(this.server.getEnvInfo());
+      logger.error(this.server.getEnvInfo());
 
-        try
-        {
-          Thread.sleep(loggingInterval);
-        }
-        catch (InterruptedException e)
-        {
-        }
+      try
+      {
+        Thread.sleep(loggingInterval);
       }
-    }
-    catch (JSONException e1)
-    {
-      e1.printStackTrace();
+      catch (InterruptedException e)
+      {
+      }
     }
   }
 }
