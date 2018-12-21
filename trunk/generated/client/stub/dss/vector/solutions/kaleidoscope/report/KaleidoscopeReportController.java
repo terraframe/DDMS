@@ -350,7 +350,7 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
           JSONObject object = jsonArray.getJSONObject(i);
 
           String name = object.getString("name");
-          String value = object.getString("value");
+          String value = String.valueOf(object.get("value"));
 
           parameters.add(this.createReportParameter(name, value));
 
