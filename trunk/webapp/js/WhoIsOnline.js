@@ -22,7 +22,7 @@
   var JSONDataSource = com.runwaysdk.ui.datatable.datasource.JSONDataSource;
   
   // In miliseconds
-  var POLLING_INTERVAL = 3500;
+  var POLLING_INTERVAL = 6000;
 
   var widgetName = 'dss.vector.solutions.WhoIsOnline';
   

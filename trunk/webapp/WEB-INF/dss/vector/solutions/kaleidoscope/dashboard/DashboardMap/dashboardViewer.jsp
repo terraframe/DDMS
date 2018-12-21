@@ -25,6 +25,8 @@
 <%@ page import="dss.vector.solutions.util.Halp"%>
 <%@ page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <%@ page import="dss.vector.solutions.util.OrientationTypeDTO"%>
+<%@ page import="dss.vector.solutions.util.SessionInfoUtilDTO"%>
+<%@ page import="dss.vector.solutions.util.SessionInfoController"%>
 <%@ page import="com.runwaysdk.web.WebClientSession"%>
 <%@ page import="com.runwaysdk.ClientSession"%>
 <%@ page import="java.util.ArrayList"%>
@@ -94,6 +96,10 @@
       <script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
     </c:if>
     
+    <!-- SessionInfoPoller (Ticket 3997) -->
+    <%=Halp.loadTypes(new String[]{SessionInfoUtilDTO.CLASS,SessionInfoController.CLASS})%>
+    <jwr:script src="/bundles/jqueryBundle.js" useRandomParam="false"/>
+    <jwr:script src="/bundles/sessioninfo.js" useRandomParam="false"/>
 
     <title><mdss:localize key="dashboardViewer.title"/></title>
     

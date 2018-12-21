@@ -158,6 +158,11 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   @Authenticate
   public static OrientationType getSessionLocaleOrientation()
   {
+    return getSessionLocaleOrientationNoAuthenticate();
+  }
+  
+  public static OrientationType getSessionLocaleOrientationNoAuthenticate()
+  {
     boolean isLTR = ComponentOrientation.getOrientation(Session.getCurrentLocale()).isLeftToRight();
     if (isLTR)
       return OrientationType.LTR;

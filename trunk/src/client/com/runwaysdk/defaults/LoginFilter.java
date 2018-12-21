@@ -22,6 +22,7 @@ import java.util.Date;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -29,12 +30,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.InvalidSessionExceptionDTO;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.util.ErrorUtility;
 
 public class LoginFilter implements Filter, Reloadable
 {
@@ -84,14 +89,61 @@ public class LoginFilter implements Filter, Reloadable
     }
     else if (clientSession != null)
     {
-      // Create a request object for this request
-      ClientRequestIF clientRequest = clientSession.getRequest();
-
-      if (clientRequest.isLoggedIn())
+      try
       {
-        req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
-        chain.doFilter(req, res);
-        return;
+        // Create a request object for this request
+        ClientRequestIF clientRequest = clientSession.getRequest();
+  
+        if (clientRequest.isLoggedIn())
+        {
+          req.setAttribute(ClientConstants.CLIENTREQUEST, clientRequest);
+          chain.doFilter(req, res);
+          return;
+        }
+      }
+      catch (Throwable t)
+      {
+        while (t.getCause() != null && !t.getCause().equals(t))
+        {
+          t = t.getCause();
+        }
+
+        if (t instanceof InvalidSessionExceptionDTO)
+        {
+          session.removeAttribute(ClientConstants.CLIENTSESSION);
+          
+//          httpRes.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//          httpRes.addHeader("WWW-Authenticate", "FormBased");
+
+          // If we're asynchronous, we want to return a serialized exception
+          if (StringUtils.endsWith(httpReq.getRequestURL().toString(), ".mojax"))
+          {
+            ErrorUtility.prepareAjaxThrowable(t, httpRes);
+          }
+          else
+          {
+            filterConfig.getServletContext().getRequestDispatcher("/login.jsp").forward(httpReq, httpRes);
+            
+//            RequestDispatcher dispatcher = httpReq.getRequestDispatcher("/login.jsp");
+//            dispatcher.forward(httpReq, httpRes);
+
+            // // Not an asynchronous request, redirect to the login page.
+            // response.sendRedirect(request.getContextPath() + "/login");
+          }
+          
+          return;
+        }
+        else
+        {
+          if (t instanceof RuntimeException)
+          {
+            throw (RuntimeException) t;
+          }
+          else
+          {
+            throw new RuntimeException(t);
+          }
+        }
       }
     }
 

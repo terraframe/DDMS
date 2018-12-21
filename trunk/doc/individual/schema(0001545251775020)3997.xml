@@ -1,0 +1,21 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdUtil name="dss.vector.solutions.util.SessionInfoUtil" label="SessionInfoUtil">
+        <!-- <mdMethod name="getSessionTimeLeft" label="getSessionTimeLeft" returnType="java.lang.String" static="true"></mdMethod> -->
+        <mdMethod name="refreshSession" label="refreshSession" returnType="java.lang.String" static="true"></mdMethod>
+      </mdUtil>
+      <mdController name="dss.vector.solutions.util.SessionInfoController">
+        <mdAction name="getSessionTimeLeft"></mdAction>
+        <mdAction name="refreshSession"></mdAction>
+      </mdController>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.util.SessionInfoUtil" type="com.runwaysdk.system.metadata.MdUtil"/>
+      <object key="dss.vector.solutions.util.SessionInfoController" type="com.runwaysdk.system.metadata.MdController"/>
+    </delete>
+  </undoIt>
+</version>

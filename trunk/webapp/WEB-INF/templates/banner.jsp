@@ -26,6 +26,9 @@
 <%@ page import="dss.vector.solutions.util.Halp"%>
 <%@ page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <%@ page import="dss.vector.solutions.util.OrientationTypeDTO"%>
+<%@ page import="dss.vector.solutions.util.SessionInfoUtilDTO"%>
+<%@ page import="dss.vector.solutions.util.SessionInfoController"%>
+<%@ page import="dss.vector.solutions.util.OrientationType"%>
 <%@ page import="com.runwaysdk.web.WebClientSession"%>
 <%@ page import="com.runwaysdk.ClientSession"%>
 <%@ page import="java.util.ArrayList"%>
@@ -90,14 +93,14 @@ if (clientSession==null)
   clientSession = ClientSession.createAnonymousSession(array);
   clientRequest = clientSession.getRequest();
 }
-OrientationTypeDTO orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(clientRequest);
+OrientationType orientation = SessionInfoController.getSessionLocaleOrientation();
 
 
-if (orientation.equals(OrientationTypeDTO.LTR)) { 
+if (orientation.equals(OrientationType.LTR)) { 
 %>
 <jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
 <%
-} else if (orientation.equals(OrientationTypeDTO.RTL)) {
+} else if (orientation.equals(OrientationType.RTL)) {
 %>
 <jwr:style src="/bundles/mdssScreen-rtl.css" media="all" useRandomParam="false"/>
 <%
@@ -106,6 +109,7 @@ if (orientation.equals(OrientationTypeDTO.LTR)) {
 <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
+
 <c:if test="${generateJavaScriptClasses}">
   <script type="text/javascript" src="js/Localized.js.jsp"></script>
 </c:if>
@@ -124,6 +128,15 @@ if (orientation.equals(OrientationTypeDTO.LTR)) {
     <title><mdss:localize key="${page_title}"/></title>
   </c:otherwise>
 </c:choose>
+
+  <c:choose>
+    <c:when test='${session_info_polling != null }'>
+      <!-- SessionInfoPoller (Ticket 3997) -->
+      <%=Halp.loadTypes(new String[]{SessionInfoUtilDTO.CLASS,SessionInfoController.CLASS})%>
+      <jwr:script src="/bundles/jqueryBundle.js" useRandomParam="false"/>
+      <jwr:script src="/bundles/sessioninfo.js" useRandomParam="false"/>
+    </c:when>
+  </c:choose>
 </head>
 <body class="yui-skin-sam">
 
