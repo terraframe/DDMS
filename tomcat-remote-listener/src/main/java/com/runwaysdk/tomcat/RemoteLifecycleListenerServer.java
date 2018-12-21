@@ -46,9 +46,9 @@ import org.apache.catalina.LifecycleEvent;
 import org.apache.catalina.LifecycleListener;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import dss.vector.org.json.JSONArray;
+import dss.vector.org.json.JSONException;
+import dss.vector.org.json.JSONObject;
 
 public class RemoteLifecycleListenerServer implements LifecycleListener, RemoteLifecycleListenerServerIF
 {
