@@ -105,7 +105,6 @@
             	{
 	              that._warningDialog.hide();
 	              that._expiredDialog.show();
-	              that._pollingRequest.disable();
             	}
 	            else
 	            {
