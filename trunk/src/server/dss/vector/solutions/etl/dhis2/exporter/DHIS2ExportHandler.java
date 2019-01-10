@@ -1272,7 +1272,7 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
-      GeoEntity zambia = GeoEntity.getByKey("IND");
+      GeoEntity zambia = GeoEntity.getByKey("ZA");
       OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia.getId());
       if (zambiaOrgUnit == null)
       {
