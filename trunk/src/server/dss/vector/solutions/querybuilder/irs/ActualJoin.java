@@ -33,7 +33,19 @@ public class ActualJoin extends TargetJoin implements Reloadable
   {
     String sql = IRSQB.View.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS + dateGroupJoin(TargetJoin.ACTUAL_ALIAS, Alias.SPRAY_DATE.getAlias());
     
-    sql += this.GROUP_BY();         
+    // As far as I can tell, there is no reason why we're grouping here. The query already does a group/sum at the end (if necessary).
+    // This logic only serves to force an aggregation (or aggregate twice) when none is necessary.
+    // #4010 - IRS QB and SP3 CRUD are wonky
+//    sql += this.GROUP_BY();        
+    
+    return sql;
+  }
+  
+  @Override
+  public String postProcess(Alias alias, String sql)
+  {
+    // Override introduced in:
+    // #4010 - IRS QB and SP3 CRUD are wonky
     
     return sql;
   }
