@@ -16,7 +16,6 @@
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.dashboard.layer;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -30,7 +29,6 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
-import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSingle;
@@ -42,7 +40,6 @@ import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geoserver.GeoserverFacade;
-import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.Dashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;

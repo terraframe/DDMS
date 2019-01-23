@@ -63,8 +63,8 @@ import com.runwaysdk.system.metadata.MdAttributeText;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
 
 import dss.vector.solutions.SessionParameterFacade;
-import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.DashboardLayer;
+import dss.vector.solutions.kaleidoscope.dashboard.session.SessionDashboardHelper;
 import dss.vector.solutions.kaleidoscope.sld.SLDMapVisitor;
 import dss.vector.solutions.kaleidoscope.wrapper.MapVisitor;
 import dss.vector.solutions.kaleidoscope.wrapper.Style;
@@ -125,7 +125,7 @@ public class DashboardStyle extends DashboardStyleBase implements com.runwaysdk.
     }
     else
     {
-      return SessionDashboard.getContainingLayer(this);
+      return SessionDashboardHelper.getContainingLayer(this);
     }
   }
 

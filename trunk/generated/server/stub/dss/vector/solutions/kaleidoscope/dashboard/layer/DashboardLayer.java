@@ -46,13 +46,13 @@ import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geoserver.GeoserverBatch;
 import dss.vector.solutions.geoserver.GeoserverFacade;
 import dss.vector.solutions.geoserver.SessionPredicate;
-import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardJob;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardMap;
 import dss.vector.solutions.kaleidoscope.dashboard.DashboardStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.Drilldown;
 import dss.vector.solutions.kaleidoscope.dashboard.HasStyle;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
+import dss.vector.solutions.kaleidoscope.dashboard.session.SessionDashboardHelper;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureStrategy;
 import dss.vector.solutions.kaleidoscope.wrapper.FeatureType;
 import dss.vector.solutions.kaleidoscope.wrapper.Layer;
@@ -68,10 +68,6 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
   public boolean                   viewHasData      = true;
 
   private List<DashboardCondition> conditions       = null;
-  
-  private static HashMap<String, DashboardLayer> sessionLayers = new HashMap<String, DashboardLayer>();
-  
-  private static HashMap<String, DashboardLayer> sessionStyles = new HashMap<String, DashboardLayer>();
 
   public abstract ValueQuery getViewQuery(LinkedList<Drilldown> drilldowns);
 
@@ -230,8 +226,8 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
     {
       DashboardMap map = DashboardMap.get(mapId);
       
-      SessionDashboard.getInstance(map).addLayer(this);
-      SessionDashboard.getInstance(map).addStyle(this, style);
+      SessionDashboardHelper.addLayer(map, this);
+      SessionDashboardHelper.addStyle(map, this, style);
     }
 
     this.validate();
@@ -432,7 +428,7 @@ public abstract class DashboardLayer extends DashboardLayerBase implements Reloa
     {
       styles.add(style);
     }
-    Iterable<DashboardStyle> sessionStyles = SessionDashboard.getExtraStyles(this);
+    Iterable<DashboardStyle> sessionStyles = SessionDashboardHelper.getExtraStyles(this);
     for (DashboardStyle sessionStyle : sessionStyles)
     {
       styles.add(sessionStyle);

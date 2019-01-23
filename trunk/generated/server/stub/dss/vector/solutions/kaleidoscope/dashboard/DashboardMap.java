@@ -103,7 +103,6 @@ import dss.vector.solutions.geoserver.GeoserverProperties;
 import dss.vector.solutions.kaleidoscope.DropViewTask;
 import dss.vector.solutions.kaleidoscope.MappableClass;
 import dss.vector.solutions.kaleidoscope.MappableClassQuery;
-import dss.vector.solutions.kaleidoscope.SessionDashboard;
 import dss.vector.solutions.kaleidoscope.TaskExecutor;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.DashboardCondition;
 import dss.vector.solutions.kaleidoscope.dashboard.condition.LocationCondition;
@@ -114,6 +113,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.layer.HasLayer;
 import dss.vector.solutions.kaleidoscope.dashboard.layer.HasLayerQuery;
 import dss.vector.solutions.kaleidoscope.dashboard.query.MdAttributeViewPredicate;
 import dss.vector.solutions.kaleidoscope.dashboard.query.ThematicQueryBuilder;
+import dss.vector.solutions.kaleidoscope.dashboard.session.SessionDashboardHelper;
 import dss.vector.solutions.kaleidoscope.data.etl.excel.ValueQueryExcelExporter;
 import dss.vector.solutions.kaleidoscope.wrapper.MapVisitor;
 import dss.vector.solutions.query.CanvasInformation;
@@ -333,7 +333,7 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
   {
     List<DashboardLayer> layers = this.getOrderedLayers();
     
-    layers.addAll(SessionDashboard.getInstance(this).getExtraLayers());
+    layers.addAll(SessionDashboardHelper.getExtraLayers(this));
     
     return this.orderLayers(layers);
   }
