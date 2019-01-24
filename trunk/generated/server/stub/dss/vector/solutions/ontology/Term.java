@@ -1723,12 +1723,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
    * MdMethod
    * 
    * This method is deprecated and obsolete. Use Term.termQuery instead, because
-   * it does the exact same thing only better. I don't know why this method ever
-   * existed to begin with, other than sloppy coding. I would delete it but
+   * it does the exact same thing only better. I would delete it but
    * there's also associated metadata.
-   * 
-   * @blame Naifeh
-   * @deprecated rrowlands
    */
   @Deprecated
   public static ValueQuery searchByRoots(String value, String[][] roots)

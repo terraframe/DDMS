@@ -528,7 +528,14 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     
     _searchFunction : function(request, value)
     {
-      Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, this._currentParents);
+	  if (this._currentParents != null && this._currentParents.length > 0)
+      {
+	    Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, this._currentParents);
+      }
+	  else
+      {
+	    Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, null);
+      }
     },
     
     _attachSearch : function()
@@ -878,6 +885,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       this._button = document.getElementById(inputId + 'Btn');
       this._TermSelectedEvent = dss.vector.solutions.ontology.TermSelectedEvent;
       this._roots = [];
+      this._currentParents = [];
        
       // Setup the ontology browser
       if (config.defaultRoot)
@@ -923,31 +931,50 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
     },    
     addRoot : function (root) {
       this._roots.push(root);
+      this._currentParents.push(root[0]);
     },
     
     _getParameters : function() {
       return [this._attributeClass, this._attributeName];
     },
     
+    _setContent : function(views)
+    {
+      // new content is being added so clear prior parent term ids.
+      this._currentParents = [];
+    
+      var nodes = Mojo.Iter.map(views, function(view){
+         
+         this._currentParents.push(view.getTermId());
+         return this._createTermEntry(view); 
+      }, this);
+          
+      var content = document.getElementById(this._contentId);
+      content.innerHTML = nodes.join('');
+    },
+    
+    _getRootContent : function()
+    {
+	    var request = new MDSS.Request({
+	      that : this, 
+	      onSuccess : function(roots)
+	      {
+	        this.that._setContent(roots);
+	      }
+	    });
+	 
+	    Mojo.$.dss.vector.solutions.ontology.BrowserRoot.getAttributeRoots(request, this._attributeClass, this._attributeName);
+    },
+    
     _searchFunction : function(request, value) {
-    	Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, null);
-    	
-//      if(this._roots.length > 0) {
-////         Mojo.$.dss.vector.solutions.ontology.Term.searchByRoots(request, value, this._roots);    
-//        
-//        var rootz = [];
-//        for (var i = 0; i < this._roots.length; ++i)
-//        {
-//          rootz.push(this._roots[i][0]);
-//        }
-//        
-//        Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, rootz);
-//      }
-//      else {
-//        var parameters = this._getParameters();
-//      
-//        Mojo.$.dss.vector.solutions.ontology.Term.termQueryWithRoots(request, value, parameters);    
-//      }
+    	if (this._currentParents != null && this._currentParents.length > 0)
+        {
+    	  Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, this._currentParents);
+        }
+    	else
+        {
+    	  Mojo.$.dss.vector.solutions.ontology.Term.termQuery(request, value, null);
+        }
     },
     
     setOntologyTree : function(ontologyTree) {

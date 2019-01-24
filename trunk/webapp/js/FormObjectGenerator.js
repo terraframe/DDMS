@@ -1291,6 +1291,7 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
         });
         
         browser.addTermSelectedListener(this);
+        browser._getRootContent();
       }
     }
   }
