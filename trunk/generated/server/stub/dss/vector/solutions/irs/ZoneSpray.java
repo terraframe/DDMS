@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.ontology.Term;
 
 public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -51,7 +52,15 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
       String dateFormat = format.format(this.getSprayDate());
       String methodName = this.getSprayMethodForIndex();
 
-      return this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName;
+      String key = this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName;
+      
+      Term surfaceType = this.getSurfaceType();
+      if (surfaceType != null)
+      {
+        key = key + "." + surfaceType.getKey();
+      }
+      
+      return key;
     }
 
     return this.getId();

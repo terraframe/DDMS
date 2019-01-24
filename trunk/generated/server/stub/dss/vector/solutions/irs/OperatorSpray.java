@@ -26,6 +26,7 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -55,8 +56,16 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       String dateFormat = format.format(this.getSprayDate());
       String methodName = this.getSprayMethodForIndex();
+      
+      String key = this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName + "." + this.getSprayOperator().getKey();
+      
+      Term surfaceType = this.getSurfaceType();
+      if (surfaceType != null)
+      {
+        key = key + "." + surfaceType.getKey();
+      }
 
-      return this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName + "." + this.getSprayOperator().getKey();
+      return key;
     }
 
     return this.getId();

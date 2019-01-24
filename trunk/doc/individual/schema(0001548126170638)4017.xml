@@ -1,0 +1,54 @@
+<version xsi:noNamespaceSchemaLocation="/home/rich/dev/workspace/runwaysdk-root/runwaysdk-server/src/main/resources/com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    </create>
+    <update>
+      <!--
+      <mdView name="dss.vector.solutions.irs.OperatorSprayView">
+        <mdMethod name="searchBySprayData">
+          <create>
+            <mdParameter name="surfaceTypeId" label="Surface Type Id" order="5" type="java.lang.String" />
+          </create>
+        </mdMethod>
+      </mdView>
+      <mdView name="dss.vector.solutions.irs.TeamSprayView">
+        <mdMethod name="searchBySprayData">
+          <create>
+            <mdParameter name="surfaceTypeId" label="Surface Type Id" order="5" type="java.lang.String" />
+          </create>
+        </mdMethod>
+      </mdView>
+      <mdView name="dss.vector.solutions.irs.ZoneSprayView">
+        <mdMethod name="searchBySprayData">
+          <create>
+            <mdParameter name="surfaceTypeId" label="Surface Type Id" order="4" type="java.lang.String" />
+          </create>
+        </mdMethod>
+      </mdView>
+      <mdController name="dss.vector.solutions.irs.OperatorSprayController">
+        <create>
+          <mdAction name="surfaceTypeId" label="Surface Type Id" order="6" type="java.lang.String" />
+        </create>
+      </mdController>
+      <mdController name="dss.vector.solutions.irs.TeamSprayController">
+        <create>
+          <mdAction name="surfaceTypeId" label="Surface Type Id" order="5" type="java.lang.String" />
+        </create>
+      </mdController>
+      <mdController name="dss.vector.solutions.irs.ZoneSprayController">
+	      <create>
+	        <mdAction name="surfaceTypeId" label="Surface Type Id" order="4" type="java.lang.String" />
+	      </create>
+      </mdController>
+      -->
+    </update>
+    <delete>
+      <object key="dss.vector.solutions.irs.OperatorSpray.Index.geo_entity_for_index.spray_date_for_index.spray_method_for_index.brand_for_index.spray_operator" type="com.runwaysdk.system.metadata.MdIndex"/>
+      <object key="dss.vector.solutions.irs.TeamSpray.Index.geo_entity_for_index.spray_date_for_index.spray_method_for_index.brand_for_index.spray_team" type="com.runwaysdk.system.metadata.MdIndex"/>
+      <object key="dss.vector.solutions.irs.ZoneSpray.Index.geo_entity_for_index.spray_date_for_index.spray_method_for_index.brand_for_index" type="com.runwaysdk.system.metadata.MdIndex"/>
+    </delete>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

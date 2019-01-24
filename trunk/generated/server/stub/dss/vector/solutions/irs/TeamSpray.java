@@ -26,6 +26,7 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -59,7 +60,15 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
       String dateFormat = format.format(this.getSprayDate());
       String methodName = this.getSprayMethodForIndex();
 
-      return this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName + "." + this.getSprayTeam().getKey();
+      String key = this.getBrand().getKey() + "." + this.getGeoEntity().getGeoId() + "." + dateFormat + "." + methodName + "." + this.getSprayTeam().getKey();
+      
+      Term surfaceType = this.getSurfaceType();
+      if (surfaceType != null)
+      {
+        key = key + "." + surfaceType.getKey();
+      }
+      
+      return key;
     }
 
     return this.getId();
