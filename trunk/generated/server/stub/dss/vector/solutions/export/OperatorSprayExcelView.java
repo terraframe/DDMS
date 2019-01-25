@@ -89,8 +89,10 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
 
       throw exception;
     }
+    
+    Term surfaceType = Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd());
 
-    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
+    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId, surfaceType);
 
     // Only create values if one already exists do not update
     String leaderID = this.getLeaderId();
@@ -117,7 +119,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     osv.setNozzlesUsed(this.getNozzlesUsed());
     osv.setPumpsUsed(this.getPumpsUsed());
     osv.setUsed(this.getUsed());
-    osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
+    osv.setSurfaceType(surfaceType);
     osv.setSprayOperator(operator);
     osv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname(), true));
     

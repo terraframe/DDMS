@@ -26,6 +26,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -193,6 +194,11 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
 
   public static ZoneSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand)
   {
+    return ZoneSprayView.searchBySprayData(geoId, sprayDate, sprayMethod, brand, null);
+  }
+  
+  public static ZoneSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, Term surfaceType)
+  {
     ZoneSprayQuery query = new ZoneSprayQuery(new QueryFactory());
 
     query.WHERE(query.getBrand().EQ(brand));
@@ -200,6 +206,11 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
     query.AND(query.getSprayDate().EQ(sprayDate));
     query.AND(query.getSprayMethod().containsAny(sprayMethod));
 
+    if (surfaceType != null)
+    {
+      query.AND(query.getSurfaceType().EQ(surfaceType));
+    }
+    
     OIterator<? extends ZoneSpray> it = query.getIterator();
 
     try

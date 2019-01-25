@@ -37,6 +37,7 @@ import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSprayStatus;
 import dss.vector.solutions.irs.TeamSprayStatusQuery;
 import dss.vector.solutions.irs.TeamSprayStatusView;
+import dss.vector.solutions.irs.TeamSprayView;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.irs.ZoneSprayView;
 import dss.vector.solutions.ontology.Term;
@@ -64,10 +65,12 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       RequiredGeoIdProblem p = new RequiredGeoIdProblem();
       p.throwIt();
     }
+    
+    Term surfaceType = Term.validateByDisplayLabel(this.getSurfaceType(), ZoneSprayView.getSurfaceTypeMd());
 
-    ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()));
+    ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), surfaceType);
 
-    zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
+    zsv.setSurfaceType(surfaceType);
     zsv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname(), true));
 
     zsv.apply();

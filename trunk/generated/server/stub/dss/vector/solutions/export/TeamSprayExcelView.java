@@ -77,10 +77,12 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements com.ru
       e.setTeamId(teamId);
       throw e;
     }
+    
+    Term surfaceType = Term.validateByDisplayLabel(this.getSurfaceType(), TeamSprayView.getSurfaceTypeMd());
 
-    TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), team.getId());
+    TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), team.getId(), surfaceType);
     tsv.setTarget(this.getTarget());
-    tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
+    tsv.setSurfaceType(surfaceType);
     tsv.setSupervisor(Supervisor.getByCodeAndName(this.getSupervisorCode(), this.getSupervisorName(), this.getSupervisorSurname(), true));
 
     String leaderID = this.getLeaderId();

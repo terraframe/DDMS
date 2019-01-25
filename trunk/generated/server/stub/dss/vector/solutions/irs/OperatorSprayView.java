@@ -28,6 +28,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public class OperatorSprayView extends OperatorSprayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -203,8 +204,13 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
       it.close();
     }
   }
-
+  
   public static OperatorSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String operatorId)
+  {
+    return OperatorSprayView.searchBySprayData(geoId, sprayDate, sprayMethod, brand, operatorId, null);
+  }
+
+  public static OperatorSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String operatorId, Term surfaceType)
   {
     OperatorSprayQuery query = new OperatorSprayQuery(new QueryFactory());
 
@@ -213,7 +219,12 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     condition = AND.get(condition, query.getSprayDate().EQ(sprayDate));
     condition = AND.get(condition, query.getSprayMethod().containsAny(sprayMethod));
     condition = AND.get(condition, query.getSprayOperator().EQ(operatorId));
-
+    
+    if (surfaceType != null)
+    {
+      condition = AND.get(condition, query.getSurfaceType().EQ(surfaceType));
+    }
+    
     query.WHERE(condition);
 
     OIterator<? extends OperatorSpray> it = query.getIterator();

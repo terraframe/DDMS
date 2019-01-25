@@ -26,6 +26,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 
 public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -199,6 +200,11 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
 
   public static TeamSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String teamId)
   {
+    return TeamSprayView.searchBySprayData(geoId, sprayDate, sprayMethod, brand, teamId, null);
+  }
+  
+  public static TeamSprayView searchBySprayData(String geoId, Date sprayDate, SprayMethod sprayMethod, InsecticideBrand brand, String teamId, Term surfaceType)
+  {
     TeamSprayQuery query = new TeamSprayQuery(new QueryFactory());
 
     query.WHERE(query.getBrand().EQ(brand));
@@ -206,6 +212,11 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     query.AND(query.getSprayDate().EQ(sprayDate));
     query.AND(query.getSprayMethod().containsAny(sprayMethod));
     query.AND(query.getSprayTeam().getId().EQ(teamId));
+    
+    if (surfaceType != null)
+    {
+      query.AND(query.getSurfaceType().EQ(surfaceType));
+    }
 
     OIterator<? extends TeamSpray> it = query.getIterator();
 
