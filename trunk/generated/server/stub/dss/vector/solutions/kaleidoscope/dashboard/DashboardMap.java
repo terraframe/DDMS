@@ -1743,6 +1743,11 @@ public class DashboardMap extends DashboardMapBase implements Reloadable, dss.ve
 
   public List<DashboardLayer> orderLayers(List<DashboardLayer> layers)
   {
+    if (layers == null || layers.size() == 0)
+    {
+      return layers;
+    }
+    
     Map<String, Integer> indices = this.calculateLayerIndices(layers);
     
     int maxIndex = Collections.max(indices.values()) + 1;
