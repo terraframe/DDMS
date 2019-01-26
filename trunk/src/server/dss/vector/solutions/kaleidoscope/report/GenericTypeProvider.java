@@ -38,6 +38,7 @@ import com.runwaysdk.gis.dataaccess.MdAttributeGeometryDAOIF;
 import com.runwaysdk.query.AttributeLocal;
 import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.GeneratedComponentQuery;
+import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableReference;
 import com.runwaysdk.query.ValueQuery;
@@ -156,7 +157,17 @@ public class GenericTypeProvider extends AbstractProvider implements Reloadable,
 
         if (isValidAttribute(attributeName, mdAttribute))
         {
-          Selectable selectable = query.get(attributeName);
+          Selectable selectable;
+          
+          try
+          {
+            selectable = query.get(attributeName);
+          }
+          catch (QueryException e)
+          {
+            // The attribute is not supported (MdAttributeIndicator)
+            continue;
+          }
 
           MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
 
