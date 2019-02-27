@@ -26,10 +26,9 @@
 var RUNWAY_UI = Mojo.Meta.alias(Mojo.UI_PACKAGE + "*");
 Mojo.RW_PACKAGE = Mojo.FACTORY_PACKAGE+'runway.';
 
-//var RW_UI = com.runwaysdk.ui.factory.runway;
-//RUNWAY_UI.DOMFacade.execOnPageLoad(function() {
-//  RW_UI = Mojo.Meta.alias(Mojo.RW_PACKAGE + "*");
-//});
+if (Mojo.Meta.findClass(Mojo.RW_PACKAGE + "Factory") != null) {
+	return;
+}
 
 var Factory = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Factory', {
   

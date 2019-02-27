@@ -25,6 +25,10 @@
   var RUNWAY_UI = Mojo.Meta.alias(Mojo.UI_PACKAGE + "*");
   Mojo.JQUERY_PACKAGE = Mojo.FACTORY_PACKAGE+'jquery.';
   
+  if (Mojo.Meta.findClass(Mojo.JQUERY_PACKAGE + "Factory") != null) {
+    return;
+  }
+  
   var Factory = Mojo.Meta.newClass(Mojo.JQUERY_PACKAGE+'Factory', {
     
     IsSingleton : true,

@@ -26,6 +26,10 @@
   var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE + "*");
   var RW = Mojo.Meta.alias(Mojo.RW_PACKAGE + "*");
   
+  if (Mojo.Meta.findClass(Mojo.RW_PACKAGE + "Widget") != null) {
+    return;
+  }
+  
   var Widget = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Widget', {
   
     IsAbstract : true,

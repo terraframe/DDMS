@@ -18,6 +18,10 @@
   var pack = "com.runwaysdk.ui.";
   var pollingRequestName = pack+'PollingRequest';
   
+  if (Mojo.Meta.findClass(pollingRequestName) != null) {
+    return;
+  }
+  
   var MINIMUM_POLLING_INTERVAL = 100; // 1/10th of a second
   
   com.runwaysdk.Localize.defineLanguage(pollingRequestName, {

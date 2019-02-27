@@ -26,6 +26,10 @@
 var RW = Mojo.Meta.alias(Mojo.RW_PACKAGE + "*");
 var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE + "*");
 
+if (Mojo.Meta.findClass(Mojo.RW_PACKAGE + "Overlay") != null) {
+  return;
+}
+
 var Overlay = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Overlay', {
   
   Extends : RW.Widget,

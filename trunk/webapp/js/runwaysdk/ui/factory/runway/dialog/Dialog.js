@@ -25,6 +25,10 @@
 var RW = Mojo.Meta.alias(Mojo.RW_PACKAGE + "*");
 var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE + "*");
 
+if (Mojo.Meta.findClass(Mojo.RW_PACKAGE + "dialog.Dialog") != null) {
+  return;
+}
+
 var Dialog = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'dialog.Dialog', {
   
   Extends : RW.Overlay,
