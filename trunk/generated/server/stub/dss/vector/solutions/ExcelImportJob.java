@@ -24,10 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -77,6 +80,8 @@ import dss.vector.solutions.ontology.UnknownTerm;
  */
 public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
+  private Logger logger = LoggerFactory.getLogger(ExcelImportJob.class);
+  
   private static final long               serialVersionUID = -1649401623;
 
   private static Map<String, SharedState> sharedStates     = new HashMap<String, SharedState>();
@@ -115,6 +120,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
   private void loadSharedState()
   {
+    if (this.sharedState != null) { return; }
+    
     if (sharedStates.containsKey(this.getId()))
     {
       this.sharedState = sharedStates.get(this.getId());
@@ -137,7 +144,9 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
     protected Throwable          sharedEx;
 
-    protected Semaphore          semaphore;
+    protected Semaphore          threadWorkLock;
+    
+    protected Semaphore          threadInitLock;
 
     protected String             fileName;
 
@@ -147,6 +156,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
   @Override
   protected JobHistory createNewHistory()
   {
+    loadSharedState();
+    
     ExcelImportHistory history = new ExcelImportHistory();
     history.setStartTime(new Date());
     history.addStatus(AllJobStatus.RUNNING);
@@ -165,18 +176,36 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
   public AllJobStatus importAndWait()
   {
-    this.sharedState.semaphore = new Semaphore(0);
+    this.sharedState.threadWorkLock = new Semaphore(0);
+    this.sharedState.threadInitLock = new Semaphore(0);
+    
 
     this.saveSharedState();
 
     this.start();
 
-    /*
-     * Wait until the semaphore is done
-     */
     try
     {
-      this.sharedState.semaphore.acquire();
+      // If our sister thread hasn't initialized within a short period of time, error out quickly.
+      if (!this.sharedState.threadInitLock.tryAcquire(5, TimeUnit.MINUTES))
+      {
+        logger.error("Timeout waiting for initialization of Quartz worker thread on scheduled job [" + this.toString() + "].");
+        return AllJobStatus.FAILURE;
+      }
+    }
+    catch (InterruptedException e1)
+    {
+      // Do nothing
+    }
+    
+    try
+    {
+      // Our sister thread has initialized. Let's wait a long time for her to do the work (but not forever).
+      if (!this.sharedState.threadWorkLock.tryAcquire(24, TimeUnit.HOURS))
+      {
+        logger.error("Timeout waiting for job completion of Quartz worker thread on scheduled job [" + this.toString() + "].");
+        return AllJobStatus.FAILURE;
+      }
     }
     catch (InterruptedException e1)
     {
@@ -266,6 +295,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     try
     {
       loadSharedState();
+      
+      this.sharedState.threadInitLock.release();
 
       executeInner(context);
 
@@ -279,10 +310,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
     finally
     {
-      if (this.sharedState.semaphore != null)
-      {
-        this.sharedState.semaphore.release();
-      }
+      this.sharedState.threadWorkLock.release();
 
       sharedStates.remove(this.getId());
     }

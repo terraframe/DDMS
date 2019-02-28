@@ -18,17 +18,19 @@ package dss.vector.solutions.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.Savepoint;
 import java.util.List;
-import java.util.Properties;
 import java.util.TreeSet;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,6 +100,18 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 9) Compile and deploy the new source we just loaded from the backup to your tomcat server
  * 
  * 
+ * How to create a new db profile:
+ * 1. Do a find/replace on MDSS/profile for : databaseName=mdssdeploy   ->  databaseName=profileName
+ * 2. Run the BackupDevImporter
+ * 3. Copy src/backup to MDSS/db-profile/profileName
+ * 4. Run a deploy
+ * 
+ * How to switch to this new db profile:
+ * 1. Do a find/replace on MDSS/profile for : databaseName=mdssdeploy   ->  databaseName=profileName
+ * 2. Copy from MDSS/db-profile/profileName to src/backup
+ * 3. Run a deploy
+ * 
+ * 
  * Troubleshooting Problems:
  * Q: The import happened but gave no real error!?:
  * A: The importer can be picky about certain filenames. If your filename contains a bunch of strange characters like ()!@#$%
@@ -140,10 +154,9 @@ public class BackupDevImporter
   
   private String databaseName;
   
-  public BackupDevImporter(File fBackup)
+  public BackupDevImporter()
   {
     logger = LoggerFactory.getLogger(BackupDevImporter.class);
-    this.fBackup = fBackup;
   }
   
   /**
@@ -160,15 +173,44 @@ public class BackupDevImporter
   {
     try
     {
-      File fBackup = new File(args[0]);
-      
-      BackupDevImporter importer = new BackupDevImporter(fBackup);
+      BackupDevImporter importer = new BackupDevImporter();
+      importer.processArgs(args);
       importer.start();
     }
     finally
     {
       CacheShutdown.shutdown();
     }
+  }
+  
+  private void processArgs(String[] args)
+  {
+    this.fBackup = new File(args[0]);
+    
+    // Profile change:
+    // databaseName in default/server/database.properties
+    // databaseName in develop/server/database.properties
+    // TODO : Even this isn't enough
+    
+    // TODO : We can't implement a profile change here because the DatabaseProperties has already been loaded.
+//    if (args[1] != null && args[1].length() > 0)
+//    {
+//      String dbProfile = args[1];
+//      
+//      String localRoot = "/home/rich/dev/workspace/MDSS/"; // TODO : Don't hardcode this somehow
+//      
+//      try
+//      {
+//        String commonDbProps = localRoot + "profiles/default/server/database.properties";
+//        String content = IOUtils.toString(new FileInputStream(commonDbProps), "UTF-8");
+//        content = content.replaceAll("databaseName=.*", "databaseName=" + dbProfile);
+//        IOUtils.write(content, new FileOutputStream(commonDbProps), "UTF-8");
+//      }
+//      catch (Throwable t)
+//      {
+//        throw new RuntimeException(t);
+//      }
+//    }
   }
   
   @Request
