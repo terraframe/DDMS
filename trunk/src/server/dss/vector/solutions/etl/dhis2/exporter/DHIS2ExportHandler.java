@@ -1035,10 +1035,6 @@ public class DHIS2ExportHandler implements Reloadable
         it.close();
       }
       
-      
-      
-      
-      
       String dhis2Id = DHIS2Util.queryAndMapIds(mdClass.getId(), idCache);
       
       JSONArray dataSets = new JSONArray();
@@ -1272,13 +1268,6 @@ public class DHIS2ExportHandler implements Reloadable
   {
     try
     {
-      GeoEntity zambia = GeoEntity.getByKey("ZA");
-      OrgUnit zambiaOrgUnit = DHIS2Util.getOrgUnitFromGeoEntity(zambia.getId());
-      if (zambiaOrgUnit == null)
-      {
-        throw new RuntimeException("Zambia is not mapped.");
-      }
-      
       JSONArray dataValues = new JSONArray();
       
       QueryFactory qf = new QueryFactory();
@@ -1330,6 +1319,11 @@ public class DHIS2ExportHandler implements Reloadable
           geoType = geoType.replace('.', '_');
           geoType = geoType.substring(geoType.length() - 20, geoType.length()); // TODO : I think this depends on database column name length so we're just kinda doing our best here. If database column name length is less than 20 this will break.
         }
+      }
+      if (geoType == null)
+      {
+        logger.error("Unable to find a 'geoType' for DHIS2 export [" + this.exportable.getDhis2Name() + "]. This should never happen. Does your query have a GeoEntity selected?");
+        log.append("ERROR : Unable to find a 'geoType'! This should never happen. Does your query have a GeoEntity selected?");
       }
       
       JSONArray dataElementMetadatas = metadata.getJSONArray("dataElements");
@@ -1433,10 +1427,6 @@ public class DHIS2ExportHandler implements Reloadable
                 log.append(msg + "\n");
               }
             }
-          }
-          else
-          {
-            dataValue.put("orgUnit", zambiaOrgUnit.getDhis2Id());
           }
           
           if (categoryAttrs.size() > 0)
