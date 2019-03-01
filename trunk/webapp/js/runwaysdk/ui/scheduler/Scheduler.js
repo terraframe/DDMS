@@ -23,8 +23,8 @@
   var ExecutableJobQueryDataSource = com.runwaysdk.ui.datatable.datasource.ExecutableJobQueryDataSource;
   
   // In miliseconds
-  var JOBS_POLLING_INTERVAL = 600;
-  var HISTORY_POLLING_INTERVAL = 6000;
+  var JOBS_POLLING_INTERVAL = 2000;
+  var HISTORY_POLLING_INTERVAL = 4000;
 
   var schedulerName = 'com.runwaysdk.ui.scheduler.Scheduler';
   var jobTableName = 'com.runwaysdk.ui.scheduler.JobTable';

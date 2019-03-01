@@ -39,6 +39,8 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
@@ -186,6 +188,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
     try
     {
+      SessionFacade.renewSession(Session.getCurrentSession().getId());
+      
       // If our sister thread hasn't initialized within a short period of time, error out quickly.
       if (!this.sharedState.threadInitLock.tryAcquire(5, TimeUnit.MINUTES))
       {
@@ -195,13 +199,28 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
     catch (InterruptedException e1)
     {
-      // Do nothing
+      return AllJobStatus.FAILURE;
     }
     
     try
     {
       // Our sister thread has initialized. Let's wait a long time for her to do the work (but not forever).
-      if (!this.sharedState.threadWorkLock.tryAcquire(24, TimeUnit.HOURS))
+      int minutes = 0;
+      boolean didAcquire = false;
+      
+      while (!didAcquire && minutes < 1440)
+      {
+        SessionFacade.renewSession(Session.getCurrentSession().getId());
+        
+        if (this.sharedState.threadWorkLock.tryAcquire(5, TimeUnit.MINUTES))
+        {
+          didAcquire = true;
+        }
+        
+        minutes = minutes + 5;
+      }
+      
+      if (!didAcquire)
       {
         logger.error("Timeout waiting for job completion of Quartz worker thread on scheduled job [" + this.toString() + "].");
         return AllJobStatus.FAILURE;
@@ -209,7 +228,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
     catch (InterruptedException e1)
     {
-      // Do nothing
+      return AllJobStatus.FAILURE;
     }
 
     return this.sharedState.status;

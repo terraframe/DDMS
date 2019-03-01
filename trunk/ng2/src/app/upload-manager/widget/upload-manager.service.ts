@@ -41,7 +41,7 @@ export class UploadManagerService extends BasicService {
       .map(res => res.json() as ExcelImportHistory[])
   }
   
-  clearHistory(): Promise<Response> {
+  clearHistory(): Promise<void | Response> {
 	
   	this.analyticsService.pushAalyticsTrackingTagEvent("SEND", "/dss.vector.solutions.generator.ExcelController.clearHistory.mojo", "get", {});
 
