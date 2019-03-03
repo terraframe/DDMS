@@ -18,10 +18,9 @@ package dss.vector.solutions;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import net.jawr.web.resource.bundle.IOUtils;
 
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
@@ -37,6 +36,7 @@ import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.report.SchedulerUtil;
+import net.jawr.web.resource.bundle.IOUtils;
 
 public class ExcelImportHistory extends ExcelImportHistoryBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -51,7 +51,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
   public void downloadErrorSpreadsheet(OutputStream outputStream)
   {
     VaultFileDAOIF file = VaultFileDAO.get(this.getErrorFileId());
-
+    
     try
     {
       IOUtils.copy(file.getFileStream(), outputStream);
@@ -67,8 +67,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
    * 
    * Used to clear all NON RUNNING job history. Invoked by the upload manager to clear its history.
    */
-  @Transaction
-  public static void deleteAllHistory()
+  public static synchronized void deleteAllHistory()
   {
     QueryFactory qf = new QueryFactory();
     
@@ -78,12 +77,18 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     
     vq.SELECT(jobQ.getId("jobId"));
     vq.SELECT(historyQ.getId("historyId"));
+    vq.SELECT(historyQ.get(ExcelImportHistory.HISTORYCOMMENT));
+    vq.SELECT(historyQ.get(ExcelImportHistory.HISTORYINFORMATION));
+    vq.SELECT(historyQ.get(ExcelImportHistory.STATUS));
     
     vq.WHERE(historyQ.getStatus().notContainsAll(AllJobStatus.RUNNING));
     vq.AND(historyQ.job(jobQ));
     
     Set<String> jobs = new HashSet<String>();
     Set<String> historyIds = new HashSet<String>();
+    Set<String> statusIds = new HashSet<String>();
+    Set<String> historyCommentIds = new HashSet<String>();
+    Set<String> historyInfoIds = new HashSet<String>();
     
     OIterator<? extends ValueObject> vqIt = vq.getIterator();
     
@@ -92,10 +97,14 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
       while (vqIt.hasNext())
       {
         ValueObject obj = vqIt.next();
-        ExcelImportHistory.get(obj.getValue("historyId")).delete();
+        ExcelImportHistory.get(obj.getValue("historyId"));
         historyIds.add(obj.getValue("historyId"));
         
         jobs.add(obj.getValue("jobId"));
+        
+        statusIds.add(obj.getValue(ExcelImportHistory.STATUS));
+        historyCommentIds.add(obj.getValue(ExcelImportHistory.HISTORYCOMMENT));
+        historyInfoIds.add(obj.getValue(ExcelImportHistory.HISTORYINFORMATION));
       }
     }
     finally
@@ -103,14 +112,37 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
       vqIt.close();
     }
     
+    deleteAllHistoryInTrans(historyIds, statusIds, historyCommentIds, historyInfoIds);
+    deleteAllJobsInTrans(jobs);
+  }
+  @Transaction
+  private static void deleteAllHistoryInTrans(Set<String> historyIds, Set<String> statusIds,
+      Set<String> historyCommentIds, Set<String> historyInfoIds)
+  {
     if (historyIds.size() > 0)
     {
+      ArrayList<String> statements = new ArrayList<String>();
+      
       String formattedIds = SchedulerUtil.getFormattedIds(historyIds);
-      Database.parseAndExecute("delete from job_history jh where jh.id in (" + formattedIds + ")");
-      Database.parseAndExecute("delete from job_history_record jhr where jhr.child_id in (" + formattedIds + ")");
-      Database.parseAndExecute("delete from excel_import_history eih where eih.id in (" + formattedIds + ")");
+      statements.add("delete from job_history jh where jh.id in (" + formattedIds + ")");
+      statements.add("delete from job_history_record jhr where jhr.child_id in (" + formattedIds + ")");
+      statements.add("delete from excel_import_history eih where eih.id in (" + formattedIds + ")");
+      
+      String formattedHistoryCommentIds = SchedulerUtil.getFormattedIds(historyCommentIds);
+      statements.add("delete from job_history_history_comment jhc where jhc.id in (" + formattedHistoryCommentIds + ")");
+      
+      String formattedInfoIds = SchedulerUtil.getFormattedIds(historyInfoIds);
+      statements.add("delete from job_history_history_informatio jhi where jhi.id in (" + formattedInfoIds + ")");
+      
+      String formattedStatusIds = SchedulerUtil.getFormattedIds(statusIds);
+      statements.add("delete from alljobstatus stat where stat.set_id in (" + formattedStatusIds + ")");
+      
+      Database.executeBatch(statements);
     }
-    
+  }
+  @Transaction
+  private static void deleteAllJobsInTrans(Set<String> jobs)
+  {
     for (String jobId : jobs)
     {
       ExecutableJob.get(jobId).delete();

@@ -28,12 +28,11 @@ import org.apache.commons.lang.StringUtils;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.SingleActorDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
-import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.LeftJoinEq;
-import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
@@ -44,13 +43,9 @@ import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutableJobQuery;
-import com.runwaysdk.system.scheduler.JobHistoryQuery;
-import com.runwaysdk.system.scheduler.JobHistoryRecordQuery;
 import com.runwaysdk.system.scheduler.JobHistoryViewQuery;
 
-import dss.vector.solutions.ExcelImportHistoryQuery;
 import dss.vector.solutions.ExcelImportJob;
-import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.QueryBuilder;
 
 public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.generation.loader.Reloadable
@@ -69,11 +64,14 @@ public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.ge
    * @param value
    * @return
    */
-  public static void clearHistory()
+  public static synchronized void clearHistory()
   {
     Set<String> ids = new HashSet<String>();
+    Set<String> statusIds = new HashSet<String>();
+    Set<String> historyCommentIds = new HashSet<String>();
+    Set<String> historyInfoIds = new HashSet<String>();
    
-    ResultSet resultSet2 = Database.query("select jh.id as id from\n" + 
+    ResultSet resultSet2 = Database.query("select jh.id as id, jh.history_comment as history_comment, jh.history_information as history_information, jh.status as status from\n" + 
         "  job_history_record jhr\n" + 
         "  inner join job_history jh on jh.id = jhr.child_id\n" + 
         "  inner join abstract_job job on job.id = jhr.parent_id\n" + 
@@ -89,6 +87,10 @@ public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.ge
         String id = resultSet2.getString("id");
 
         ids.add(id);
+        
+        statusIds.add(resultSet2.getString("status"));
+        historyCommentIds.add(resultSet2.getString("history_comment"));
+        historyInfoIds.add(resultSet2.getString("history_information"));
       }
     }
     catch (SQLException sqlEx1)
@@ -137,12 +139,31 @@ public class SchedulerUtil extends SchedulerUtilBase implements com.runwaysdk.ge
 //      it.close();
 //    }
     
+    deleteHistoryInTrans(ids, statusIds, historyCommentIds, historyInfoIds);
+  }
+  @Transaction
+  private static void deleteHistoryInTrans(Set<String> ids, Set<String> statusIds,
+      Set<String> historyCommentIds, Set<String> historyInfoIds)
+  {
     if (ids.size() > 0)
     {
+      ArrayList<String> statements = new ArrayList<String>();
+      
       String formattedIds = getFormattedIds(ids);
       
-      Database.parseAndExecute("delete from job_history jh where jh.id in (" + formattedIds + ")");
-      Database.parseAndExecute("delete from job_history_record jhr where jhr.child_id in (" + formattedIds + ")");
+      statements.add("delete from job_history jh where jh.id in (" + formattedIds + ")");
+      statements.add("delete from job_history_record jhr where jhr.child_id in (" + formattedIds + ")");
+      
+      String formattedHistoryCommentIds = SchedulerUtil.getFormattedIds(historyCommentIds);
+      statements.add("delete from job_history_history_comment jhc where jhc.id in (" + formattedHistoryCommentIds + ")");
+      
+      String formattedInfoIds = SchedulerUtil.getFormattedIds(historyInfoIds);
+      statements.add("delete from job_history_history_informatio jhi where jhi.id in (" + formattedInfoIds + ")");
+      
+      String formattedStatusIds = SchedulerUtil.getFormattedIds(statusIds);
+      statements.add("delete from alljobstatus stat where stat.set_id in (" + formattedStatusIds + ")");
+      
+      Database.executeBatch(statements);
     }
   }
   
