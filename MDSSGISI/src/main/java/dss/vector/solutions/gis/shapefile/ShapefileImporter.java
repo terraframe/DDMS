@@ -144,13 +144,19 @@ public class ShapefileImporter extends TaskObservable implements Reloadable
 
     this.url = url;
     this.helper = new GeometryHelper();
-    this.earth = Earth.getEarthInstance();
     this.entityIdMap = new HashMap<String, String>();
+    initialize();
   }
 
   public ShapefileImporter(File file) throws MalformedURLException
   {
     this(file.toURI().toURL());
+  }
+  
+  @Request
+  private void initialize()
+  {
+    this.earth = Earth.getEarthInstance();
   }
 
   public String getType()
