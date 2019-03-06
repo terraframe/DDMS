@@ -102,9 +102,10 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 
  * How to create a new db profile:
  * 1. Do a find/replace on MDSS/profile for : databaseName=mdssdeploy   ->  databaseName=profileName
- * 2. Run the BackupDevImporter
- * 3. Copy src/backup to MDSS/db-profile/profileName
- * 4. Run a deploy
+ * 2. Create the new postgres database
+ * 3. Run the BackupDevImporter
+ * 4. Copy src/backup to MDSS/db-profile/profileName
+ * 5. Run a deploy
  * 
  * How to switch to this new db profile:
  * 1. Do a find/replace on MDSS/profile for : databaseName=mdssdeploy   ->  databaseName=profileName

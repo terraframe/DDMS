@@ -36,7 +36,7 @@ var Overlay = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Overlay', {
   
   Instance : {
     
-    initialize: function(el, isModal)
+    initialize: function(el, isModal, opacity)
     {
       this.$initialize(el);
       
@@ -44,6 +44,12 @@ var Overlay = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Overlay', {
       {
         this._Dimmer = this.getFactory().newElement("div");
         this._Dimmer.addClassNames(["com-runwaysdk-ui-factory-runway-Widget","overlay-dimmer"]);
+        
+        if (opacity != null)
+        {
+          this._Dimmer.setStyle("opacity", opacity);
+        }
+        
         UI.DOMFacade.getBody().appendChild(this._Dimmer);
       }
       this._isModal = isModal;

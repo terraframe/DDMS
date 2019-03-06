@@ -36,6 +36,17 @@
             this.destroy();
           }
         });
+        if (!Mojo.Util.isFunction(config.open) && config.closable === false)
+        {
+          if (config.blackout)
+          {
+            config.open = function() { $(".ui-dialog-titlebar-close").hide(); $(".ui-widget-overlay").css("opacity", "1.0").css("background-color", "black").css("background-image", "none") };
+          }
+          else
+          {
+            config.open = function() { $(".ui-dialog-titlebar-close").hide(); };
+          }
+        }
         this._config = config;
         
         this.$initialize(config.el);

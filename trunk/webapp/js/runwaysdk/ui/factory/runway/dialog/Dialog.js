@@ -43,12 +43,13 @@ var Dialog = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'dialog.Dialog', {
     
     initialize : function(title, config)
     {
+      var dialog = this;
       config = config || {};
       
       config.visible = config.visible || false;
       this.setVisible(config.visible);
       
-      this.$initialize(null, config.modal);
+      this.$initialize(null, config.modal, config.blackout === true ? 1 : null);
       
       // Outermost Div
       this._outerDiv = this.getEl();
@@ -61,10 +62,12 @@ var Dialog = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'dialog.Dialog', {
       this.appendChild(this._divTitle);
       
       // Close Button (X)
-      var dialog = this;
-      this._bClose = this.getFactory().newButton("X", function() {dialog.close()});
-      this._bClose.addClassName("closeButton");
-      this._divTitle.appendChild(this._bClose);
+      if (config.closable !== false)
+      {
+        this._bClose = this.getFactory().newButton("X", function() {dialog.close()});
+        this._bClose.addClassName("closeButton");
+        this._divTitle.appendChild(this._bClose);
+      }
       
       // Content
       this._divContent = this.getFactory().newElement("div");

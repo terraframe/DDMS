@@ -56,10 +56,10 @@
         this._warningDialog.appendContent(this.localize("warningDialogBody"));
         this._warningDialog.addButton(this.localize("warningDialogOk"), Mojo.Util.bind(this, this.refreshSession));
         
-        this._expiredDialog = this.getFactory().newDialog(this.localize("expiredDialogTitle"), {modal: true});
+        this._expiredDialog = this.getFactory().newDialog(this.localize("expiredDialogTitle"), {modal: true, closable: false, blackout:true});
         this._expiredDialog.appendContent(this.localize("expiredDialogBody"));
         this._expiredDialog.addButton(this.localize("expiredDialogLogIn"), function(){ window.location.href = com.runwaysdk.__applicationContextPath + "/"; });
-        this._expiredDialog.addButton(this.localize("expiredDialogDismiss"), function(){that._expiredDialog.close();});
+//        this._expiredDialog.addButton(this.localize("expiredDialogDismiss"), function(){that._expiredDialog.close();});
         
         this._hasDisplayedWarning = false;
       },

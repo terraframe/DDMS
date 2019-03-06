@@ -215,6 +215,11 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
       config.visible = config.visible || true;
       config.constraintoviewport = config.constraintoviewport || true;
       
+      if (config.closable != null)
+      {
+        config.close = config.closable;
+      }
+      
       // YUI2 doesn't know how to properly set a height, so lets do it for them
       if (config.height != null) {
         var height = config.height;
@@ -230,6 +235,8 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
       }
       
       this._buttons = new STRUCT.LinkedHashMap();
+      
+      this._config = config;
     },
     _generateDialogId : function() {
       return this.getId()+'_YUI2_Dialog';
@@ -348,7 +355,18 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
       // render logic.
       parent = RUNWAY_UI.Util.toRawElement(parent || RUNWAY_UI.DOMFacade.getBody());
       this.getImpl().render(parent);
-      this._setRendered(true);      
+      this._setRendered(true);
+      
+      if (this._config.blackout)
+      {
+        var elements = YAHOO.util.Dom.getElementsByClassName('mask');
+        
+        for (var i = 0; i < elements.length; ++i)
+        {
+          var element = elements[i];
+          YAHOO.util.Dom.setStyle(element, "opacity", 1.0);
+        }
+      }
     },
     render : function(parent) {
       if (this._buttons.values().length > 0) {
