@@ -350,6 +350,8 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
 		},
     _render : function(parent){
     
+      var existingMasks = YAHOO.util.Dom.getElementsByClassName('mask');
+      
       // delegate to YUI's render and mark the Dialog as rendered
       // to avoid the parent class performing redundant or erroneous 
       // render logic.
@@ -364,7 +366,23 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
         for (var i = 0; i < elements.length; ++i)
         {
           var element = elements[i];
-          YAHOO.util.Dom.setStyle(element, "opacity", 1.0);
+          
+          var didFind = false;
+    	  for (var j = 0; j < existingMasks.length; ++j)
+          {
+    		var existingMask = existingMasks[j];
+    		  
+    	    if (existingMask.id === element.id)
+    	    {
+    	      didFind = true;
+    	      break;
+    	    }
+          }
+    	  
+    	  if (!didFind)
+          {
+            YAHOO.util.Dom.setStyle(element, "opacity", 1.0);
+          }
         }
       }
     },
