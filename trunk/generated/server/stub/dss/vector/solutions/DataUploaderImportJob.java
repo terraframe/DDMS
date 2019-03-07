@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
+
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
@@ -94,6 +96,8 @@ public class DataUploaderImportJob extends DataUploaderImportJobBase implements 
   @Override
   protected JobHistory createNewHistory()
   {
+    loadSharedState();
+    
     ExcelImportHistory history = new ExcelImportHistory();
     history.setStartTime(new Date());
     history.addStatus(AllJobStatus.RUNNING);
