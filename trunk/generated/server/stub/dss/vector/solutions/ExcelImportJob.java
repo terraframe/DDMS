@@ -315,7 +315,10 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     {
       loadSharedState();
       
-      this.sharedState.threadInitLock.release();
+      if (this.sharedState.threadInitLock != null) // The locks will be null unless invoked from 'importAndWait'
+      {
+        this.sharedState.threadInitLock.release();
+      }
 
       executeInner(context);
 
@@ -329,7 +332,10 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
     finally
     {
-      this.sharedState.threadWorkLock.release();
+      if (this.sharedState.threadWorkLock != null) // The locks will be null unless invoked from 'importAndWait'
+      {
+        this.sharedState.threadWorkLock.release();
+      }
 
       sharedStates.remove(this.getId());
     }
