@@ -99,6 +99,7 @@
     var browser = new MDSS.GenericOntologyBrowser('${type}', {
       attributeName : '${name}'
     });
+    browser._getRootContent();
 	})();
 	</script>
 </c:if>

@@ -943,14 +943,15 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       // new content is being added so clear prior parent term ids.
       this._currentParents = [];
     
+      // See #4019 for usecase that this code is used in.
       var nodes = Mojo.Iter.map(views, function(view){
          
          this._currentParents.push(view.getTermId());
-         return this._createTermEntry(view); 
+//         return this._createTermEntry(view); 
       }, this);
           
-      var content = document.getElementById(this._contentId);
-      content.innerHTML = nodes.join('');
+//      var content = document.getElementById(this._contentId);
+//      content.innerHTML = nodes.join('');
     },
     
     _getRootContent : function()
