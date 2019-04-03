@@ -29,11 +29,11 @@ export class UploadManagerComponent implements OnInit {
   ngOnInit(): void {
     this.getAllHistory();
     
-    //this.uploadManagerService.pollAllHistory().subscribe(
-    //  histories => {
-    //    this.histories = histories;
-    //  }
-    //);
+    this.uploadManagerService.pollAllHistory().subscribe(
+      histories => {
+        this.histories = histories;
+      }
+    );
   };
   
   getAllHistory() : void {
@@ -50,5 +50,9 @@ export class UploadManagerComponent implements OnInit {
       .then(response => {
         this.getAllHistory();
       })
+  }
+  
+  displayHistoryInformation(text: string) : void {
+    alert(text);
   }
 }

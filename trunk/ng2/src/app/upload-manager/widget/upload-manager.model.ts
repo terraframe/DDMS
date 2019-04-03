@@ -9,4 +9,5 @@ export class ExcelImportHistory {
   hasError: boolean;
   geoSyns: number;
   termSyns: number;
+  historyInformation: string;
 }
