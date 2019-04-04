@@ -192,6 +192,11 @@ public class ODKMetadataAttribute extends ODKAttribute implements Reloadable
   {
     return barcode;
   }
+  
+  public ODKAttribute getBarcodeAttr2()
+  {
+    return barcodeAttr2;
+  }
 
   public String getODKType()
   {

@@ -97,12 +97,12 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
         {
           GeoEntityViewDTO viewChild = new GeoEntityViewDTO(this.getClientRequest());
           viewChild.setGeoEntityId(child.getId());
-          viewChild.setGeoId(child.getGeoId());
-          viewChild.setEntityLabel(child.getEntityLabel().getValue());
-          viewChild.setTypeDisplayLabel(child.getTypeDisplayLabel());
-          viewChild.setActivated(child.getActivated());
+//          viewChild.setGeoId(child.getGeoId());
+//          viewChild.setEntityLabel(child.getEntityLabel().getValue());
+//          viewChild.setTypeDisplayLabel(child.getTypeDisplayLabel());
+//          viewChild.setActivated(child.getActivated());
           
-          childrenJSON.put(BusinessDTOToJSON.getConverter(child).populate());
+          childrenJSON.put(BusinessDTOToJSON.getConverter(viewChild).populate());
         }
         
         ancestorJSON.put("children", childrenJSON);

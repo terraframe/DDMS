@@ -306,9 +306,7 @@ public class ODKForm implements Reloadable
 
   private ODKForm                    parentForm;
   
-  protected Boolean                  popFormInstName;
-  
-  protected String                   popFormInstNameAttr = null;
+  protected ODKAttribute             popFormInstAttr = null;
   
   protected Boolean                  calculatedPopFormInstName = false;
 
@@ -355,7 +353,7 @@ public class ODKForm implements Reloadable
       calculatedPopFormInstName = true;
     }
     
-    return popFormInstName == null ? false : popFormInstName;
+    return popFormInstAttr != null;
   }
   
   protected void calculatePopFormInstance()
@@ -369,35 +367,17 @@ public class ODKForm implements Reloadable
       LinkedList<ODKAttribute> attrs = this.getAttributes();
       for (ODKAttribute attr : attrs)
       {
-        popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) MdClassDAO.get(mdc.getId()), attr);
-        
-        if (popFormInstNameAttr != null)
+        if (idMatchOnAttrs((MdClassDAO) MdClassDAO.get(mdc.getId()), attr)
+            || idMatchOnAttrs((MdClassDAO) this.viewMd, attr))
         {
-          break;
-        }
-        else
-        {
-          popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) this.viewMd, attr);
-        }
-        
-        if (popFormInstNameAttr != null)
-        {
+          popFormInstAttr = attr;
           break;
         }
       }
-      
-//      popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) MdClassDAO.get(mdc.getId()));
-//      
-//      if (popFormInstNameAttr == null)
-//      {
-//        popFormInstNameAttr = idMatchOnAttrs((MdClassDAO) this.viewMd);
-//      }
-      
-      this.popFormInstName = (popFormInstNameAttr != null);
     }
   }
   
-  protected String idMatchOnAttrs(MdClassDAO mdc, ODKAttribute odkAttr)
+  protected boolean idMatchOnAttrs(MdClassDAO mdc, ODKAttribute odkAttr)
   {
     List<? extends MdAttributeDAOIF> attrs = mdc.definesAttributes();
     for (MdAttributeDAOIF attr : attrs)
@@ -411,12 +391,12 @@ public class ODKForm implements Reloadable
         
         if (isMatch)
         {
-          return attr.definesAttribute();
+          return true;
         }
       }
     }
     
-    return null;
+    return false;
   }
   
   public void setExport(boolean export)
@@ -578,11 +558,24 @@ public class ODKForm implements Reloadable
   {
     if (this.getPopFormInstName())
     {
-      Element bind = document.createElement("bind");
-      bind.setAttribute("calculate", "concat(/" + context + "/" + popFormInstNameAttr + " ,' ','" + this.getFormTitle() + "')");
-      bind.setAttribute("nodeset", "/" + context + "/meta/instanceName");
-      bind.setAttribute("type", "string");
-      parent.appendChild(bind);
+      if (popFormInstAttr == null || !(popFormInstAttr instanceof ODKMetadataAttribute) || !((ODKMetadataAttribute)popFormInstAttr).isBarcode())
+      {
+        Element bind = document.createElement("bind");
+        bind.setAttribute("calculate", "concat(/" + context + "/" + popFormInstAttr.getAttributeName() + " ,' ','" + this.getFormTitle() + "')");
+        bind.setAttribute("nodeset", "/" + context + "/meta/instanceName");
+        bind.setAttribute("type", "string");
+        parent.appendChild(bind);
+      }
+      else
+      {
+        ODKAttribute barcodeAttr = ((ODKMetadataAttribute) popFormInstAttr).getBarcodeAttr2();
+        
+        Element bind = document.createElement("bind");
+        bind.setAttribute("calculate", "concat(/" + context + "/" + popFormInstAttr.getAttributeName() + ", /" + context + "/" + barcodeAttr.getAttributeName() + ",' ','" + this.getFormTitle() + "')");
+        bind.setAttribute("nodeset", "/" + context + "/meta/instanceName");
+        bind.setAttribute("type", "string");
+        parent.appendChild(bind);
+      }
       
       Element bind2 = document.createElement("bind");
       bind2.setAttribute("calculate", "concat('uuid:', uuid())");

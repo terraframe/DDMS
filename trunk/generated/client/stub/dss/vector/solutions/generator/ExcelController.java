@@ -230,6 +230,13 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         
         jHistory.put("termSyns", history.getNumberUnknownTerms());
         
+        // Error messages are stored in the HistoryInformation
+        String info = history.getHistoryInformation().getValue();
+        if (info != null && info.length() > 0)
+        {
+          jHistory.put("historyInformation", info);
+        }
+        
         jHistories.put(jHistory);
       }
       
