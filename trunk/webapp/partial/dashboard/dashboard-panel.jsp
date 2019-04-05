@@ -36,7 +36,7 @@
 		    	<i ng-click="dashboard.openDashboard()" class="fa fa-external-link ico-dashboard-tab" title="<mdss:localize key='dashboardViewer.newDashboardTabTooltip'/>" ></i> 
 		    </li>
 		    <li class="sidebar-nav-bar-btn">
-		   		<i ng-if="dashboard.canEdit()" ng-click="dashboard.canEdit()" id="dashboard-options-btn" class="fa fa-cog ico-dashboard-options" title="<mdss:localize key='dashboardViewer.dashboardOptionsTooltip'/>" ></i>
+		   		<i ng-if="dashboard.canEdit()" ng-click="dashboard.editOptions()" id="dashboard-options-btn" class="fa fa-cog ico-dashboard-options" title="<mdss:localize key='dashboardViewer.dashboardOptionsTooltip'/>" ></i>
 		 	</li>
    			<li class="dropdown navigation-dropdown">      
    				<a href="#" class="fa fa-bars opener-drop dropdown-toggle dropdown-toggle-compact pull-right" ></a>
