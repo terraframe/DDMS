@@ -40,7 +40,13 @@
         {
           if (config.blackout)
           {
-            config.open = function() { $(".ui-dialog-titlebar-close").hide(); $(".ui-widget-overlay").css("opacity", "1.0").css("background-color", "black").css("background-image", "none") };
+            var that =  this;
+            
+            config.open = function() {
+              that.getNotExist(that.existing.titlebar, $(".ui-dialog-titlebar-close")).hide();
+              that.getNotExist(that.existing.overlay, $(".ui-widget-overlay")).css("opacity", "1.0").css("background-color", "black").css("background-image", "none").css("z-index", "99999999999999999999");
+              that.getNotExist(that.existing.dialog, $(".ui-dialog.ui-widget")).css("z-index", "999999999999999999999");
+            };
           }
           else
           {
@@ -52,6 +58,32 @@
         this.$initialize(config.el);
         
         this._buttons = new com.runwaysdk.structure.HashSet();
+      },
+      getNotExist : function(olds, recents)
+      {
+    	  for (var i = 0; i < recents.length; ++i)
+          {
+            var recent = recents[i];
+            
+            var didFind = false;
+      	    for (var j = 0; j < olds.length; ++j)
+            {
+      		  var old = olds[j];
+      		  
+      	      if (old.id === recent.id)
+      	      {
+      	        didFind = true;
+      	        break;
+      	      }
+            }
+      	    
+      	    if (!didFind)
+            {
+      	      return $(recent);
+            }
+          }
+    	  
+    	  return recents;
       },
       getImpl : function() {
         return this._impl;
@@ -114,6 +146,11 @@
       },
       render : function(parent) {
         this.$render(parent);
+        
+        this.existing = {};
+        this.existing.titlebar = $(".ui-dialog-titlebar-close");
+        this.existing.overlay = $(".ui-widget-overlay");
+        this.existing.dialog = $(".ui-dialog.ui-widget");
         
         this._impl = $(this.getRawEl()).dialog(this._config);
       },
