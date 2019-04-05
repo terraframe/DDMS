@@ -1363,7 +1363,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     sql.append(" JOIN has_synonym0 AS hs ON hs.parent_id = t.id");
     sql.append(" JOIN term_synonym AS ts ON hs.child_id = ts.id");
     sql.append(" WHERE bf.md_attribute = '" + mdAttribute.getId() + "'");
-    sql.append(" AND ts.term_name = ?");
+    sql.append(" AND UPPER(ts.term_name) = UPPER(?)");
     
     
     Connection conx = Database.getConnection();

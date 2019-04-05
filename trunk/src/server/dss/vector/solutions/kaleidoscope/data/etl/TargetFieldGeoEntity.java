@@ -234,12 +234,12 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
     aptQuery.WHERE(aptQuery.getParentGeoEntity().EQ(parent));
 
     GeoSynonymQuery synonymQuery = new GeoSynonymQuery(factory);
-    synonymQuery.WHERE(synonymQuery.getEntityName().EQ(label));
+    synonymQuery.WHERE(synonymQuery.getEntityName().EQi(label));
 
     MdBusinessDAOIF mdBusinessDAOIF = MdBusinessDAO.get(universal.getGeoEntityClassId());
     GeoEntityQuery query = (GeoEntityQuery) QueryUtil.getQuery(mdBusinessDAOIF, factory);
     query.AND(query.getId().EQ(aptQuery.getChildGeoEntity().getId()));
-    query.AND(OR.get(query.getEntityLabel().localize().EQ(label), query.getGeoId().EQ(label), query.synonyms(synonymQuery)));
+    query.AND(OR.get(query.getEntityLabel().localize().EQi(label), query.getGeoId().EQ(label), query.synonyms(synonymQuery)));
 
     OIterator<? extends GeoEntity> iterator = query.getIterator();
 

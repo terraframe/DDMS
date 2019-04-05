@@ -49,7 +49,7 @@ public class LocationProblem extends FieldValue implements ImportProblemIF, Comp
 
   public String getKey()
   {
-    return this.parent.getId() + "-" + this.label;
+    return this.parent.getId() + "-" + String.valueOf(label).toLowerCase();
   }
 
   @Override

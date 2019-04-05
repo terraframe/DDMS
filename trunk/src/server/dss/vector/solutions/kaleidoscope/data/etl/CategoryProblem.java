@@ -48,7 +48,7 @@ public class CategoryProblem extends FieldValue implements ImportProblemIF, Comp
 
   public String getKey()
   {
-    return this.categoryId + "-" + this.label;
+    return this.categoryId + "-" + String.valueOf(this.label).toLowerCase();
   }
 
   @Override
