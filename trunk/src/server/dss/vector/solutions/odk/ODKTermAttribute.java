@@ -248,6 +248,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     vQuery.SELECT(tQuery.getId("id"), rootQuery.getTerm("rootId"), rootQuery.getSelectable(), tQuery.getTermId("termId"), tQuery.getTermDisplayLabel().localize("displayLabel"));
     vQuery.WHERE(fieldQuery.getMdAttribute().getId().EQ(mdAttribute.getId()));
     vQuery.AND(Disease.getInactiveCriteria(vQuery, rootQuery.getTerm(), false));
+    vQuery.AND(Disease.getInactiveCriteria(vQuery, aptQuery.getChildTerm(), false));
     vQuery.AND(rootQuery.getDisease().EQ(Disease.getCurrent()));
     vQuery.AND(rootQuery.field(fieldQuery));
     vQuery.AND(aptQuery.getParentTerm().EQ(rootQuery.getTerm()));
