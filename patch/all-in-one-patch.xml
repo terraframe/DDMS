@@ -108,6 +108,7 @@
 		<delete file="${patches.dir}/webapp/WEB-INF/classes/terraframe.properties" />
 		<delete file="${patches.dir}/webapp/WEB-INF/classes/database.properties" />
 		<delete file="${patches.dir}/webapp/WEB-INF/classes/common.properties" />
+    <delete file="${patches.dir}/webapp/WEB-INF/classes/analytics.properties" />
 		<!-- <delete file="${patches.dir}/webapp/login.jsp" /> -->
 		<delete file="${patches.dir}/webapp/WEB-INF/originalVersion.jsp" />		
 		

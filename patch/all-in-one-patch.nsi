@@ -225,26 +225,26 @@ Section -Main SEC0000
   
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 8815
+  StrCpy $RunwayVersion 8961
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 8856
-  StrCpy $PatchVersion 8856
+  StrCpy $ManagerVersion 9224
+  StrCpy $PatchVersion 9224
   StrCpy $RootsVersion 8669
-  StrCpy $MenuVersion 8776
-  StrCpy $LocalizationVersion 8826
-  StrCpy $PermissionsVersion 8812
+  StrCpy $MenuVersion 8946
+  StrCpy $LocalizationVersion 9184
+  StrCpy $PermissionsVersion 9161
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 7851
-  StrCpy $EclipseVersion 8824  
-  StrCpy $WebappsVersion 8827
+  StrCpy $EclipseVersion 9049  
+  StrCpy $WebappsVersion 8900
   StrCpy $JavaVersion 8754
-  StrCpy $TomcatVersion 8843
+  StrCpy $TomcatVersion 9196
   
   # These ones aren't. If you change any of these, make sure to update them in the installer as well
-  StrCpy $PropertiesVersion 1
+  StrCpy $PropertiesVersion 2
   StrCpy $DatabaseSoftwareVersion 1
-  StrCpy $BasemapDatabaseVersion 1
-  StrCpy $ODKDatabaseVersion 1
+  StrCpy $BasemapDatabaseVersion 2
+  StrCpy $ODKDatabaseVersion 2
   StrCpy $GeoserverVersion 2551
   
   # Set some constants
@@ -296,25 +296,58 @@ Section -Main SEC0000
 	  LOW_MEM_CANCEL:
 	  Abort
 	  LOW_MEM_OK:
-	  System::Int64Op $0 - 1200
+	  System::Int64Op $0 - 1800   # OS: 1200  Postgres: 600 (Tomcat: 2200)
 	  Pop $1
 	${ElseIf} $0 < 5000
-	  System::Int64Op $0 - 1600
+	  System::Int64Op $0 - 2400   # OS: 1600  Postgres: 800 (Tomcat: 2600)
 	  Pop $1
 	${ElseIf} $0 < 6000
-	  System::Int64Op $0 - 2000
+	  System::Int64Op $0 - 3000   # OS: 2000  Postgres: 1000 (Tomcat: 3000)
 	  Pop $1
 	${ElseIf} $0 < 7000
-	  System::Int64Op $0 - 2500
+	  System::Int64Op $0 - 3700   # OS: 2500  Postgres: 1200 (Tomcat: 3300)
 	  Pop $1
 	${ElseIf} $0 < 8500
-	  System::Int64Op $0 - 3000
+	  System::Int64Op $0 - 4500   # OS: 3000  Postgres: 1500 (Tomcat: 4000)
 	  Pop $1
 	${ElseIf} $0 < 11000
-	  System::Int64Op $0 - 3500
+	  System::Int64Op $0 - 5500   # OS: 3500  Postgres: 2000 (Tomcat: 5500)
+	  Pop $1
+  ${ElseIf} $0 < 13000
+	  System::Int64Op $0 - 6500   # OS: 3500  Postgres: 3000 (Tomcat: 6500)
+	  Pop $1
+  ${ElseIf} $0 < 16500
+	  System::Int64Op $0 - 7500   # OS: 3500  Postgres: 4000 (Tomcat: 8500)
+	  Pop $1
+  ${ElseIf} $0 < 20500
+	  System::Int64Op $0 - 10000   # OS: 4000  Postgres: 6000 (Tomcat: 10500)
+	  Pop $1
+  ${ElseIf} $0 < 24500
+	  System::Int64Op $0 - 12000   # OS: 4000  Postgres: 8000 (Tomcat: 12500)
+	  Pop $1
+  ${ElseIf} $0 < 27500
+	  System::Int64Op $0 - 14000   # OS: 4000  Postgres: 10000 (Tomcat: 13500)
+	  Pop $1
+  ${ElseIf} $0 < 30500
+	  System::Int64Op $0 - 15500   # OS: 4000  Postgres: 11500 (Tomcat: 15000)
+	  Pop $1
+  ${ElseIf} $0 < 34500
+	  System::Int64Op $0 - 17000   # OS: 4000  Postgres: 13000 (Tomcat: 17500)
+	  Pop $1
+  ${ElseIf} $0 < 40000
+	  System::Int64Op $0 - 20000   # OS: 4000  Postgres: 17000 (Tomcat: 20000)
+	  Pop $1
+  ${ElseIf} $0 < 50000
+	  System::Int64Op $0 - 25000   # OS: 4000  Postgres: 21000 (Tomcat: 25000)
+	  Pop $1
+  ${ElseIf} $0 < 60000
+	  System::Int64Op $0 - 30000   # OS: 4000  Postgres: 26000 (Tomcat: 30000)
+	  Pop $1
+  ${ElseIf} $0 < 70000
+	  System::Int64Op $0 - 35000   # OS: 4000  Postgres: 31000 (Tomcat: 35000)
 	  Pop $1
 	${Else}
-	  System::Int64Op $0 - 4000
+	  System::Int64Op $0 - 45000
 	  Pop $1
 	${EndIf}
 	StrCpy $MaxMem $1
@@ -650,7 +683,35 @@ Function patchProperties
 	  
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties $PropertiesVersion
     ${Else}
-	    LogEx::Write "Skipping properties patch of $AppName because it is already up to date."
+	    LogEx::Write "Skipping properties patch of $AppName to version 1 because it is already up to date."
+    ${EndIf}
+    
+    ${If} 2 > $0
+      LogEx::Write "Patching $AppName properties to version 2."
+    
+      # Add the envLogger
+	    FileOpen $4 "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\log4j.properties" a
+      FileSeek $4 0 END
+      FileWrite $4 "$\r$\n" ; we write a new line
+      FileWrite $4 "log4j.appender.envLog=org.apache.log4j.DailyRollingFileAppender"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileWrite $4 "log4j.appender.envLog.File=C:/MDSS/logs/env.xml"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileWrite $4 "log4j.appender.envLog.DatePattern='.'MM-dd-yyyy"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileWrite $4 "log4j.appender.envLog.layout=org.apache.log4j.xml.XMLLayout"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileWrite $4 "log4j.appender.envLog.layout.properties=true"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileWrite $4 "log4j.logger.envLogger=INFO, envLog"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileWrite $4 "log4j.additivity.envLogger=false"
+      FileWrite $4 "$\r$\n" ; we write an extra line
+      FileClose $4 ; and close the file
+      
+      WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties $PropertiesVersion
+    ${Else}
+	    LogEx::Write "Skipping properties patch of $AppName to version 2 because it is already up to date."
     ${EndIf}
 	
 	
@@ -660,7 +721,9 @@ Function patchProperties
   FileClose $AppFile
 FunctionEnd
 
-Function patchApplication    
+Function patchApplication 
+  ${StrCase} $LowerAppName $AppName "L"
+   
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
   ${If} $PatchVersion > $0     
@@ -669,8 +732,6 @@ Function patchApplication
 
     LogEx::Write "Starting patch of application $AppName"
     
-    ${StrCase} $LowerAppName $AppName "L"
-
     # Update the classpath to reference the particular application being patched
     StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
 
@@ -680,13 +741,67 @@ Function patchApplication
     
     # Remove old lib files
     Delete $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*.*
-      
+    
+    # Backup source
+    CreateDirectory $PatchDir\source\server\stub\geogen
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated\*.* $PatchDir\source\server\stub\geogen
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\geo\generated\*.* $PatchDir\source\server\base\geogen
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\geo\generated\*.* $PatchDir\source\client\stub\geogen
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\geo\generated\*.* $PatchDir\source\client\base\geogen
+    CreateDirectory $PatchDir\source\server\stub\form\business
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\form\business\*.* $PatchDir\source\server\stub\form\business
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\form\business\*.* $PatchDir\source\server\base\form\business
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\form\business\*.* $PatchDir\source\client\stub\form\business
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\business\*.* $PatchDir\source\client\base\form\business
+    CreateDirectory $PatchDir\source\server\stub\form\tree
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\form\tree\*.* $PatchDir\source\server\stub\form\tree
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\form\tree\*.* $PatchDir\source\server\base\form\tree
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\form\tree\*.* $PatchDir\source\client\stub\form\tree
+    CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\tree\*.* $PatchDir\source\client\base\form\tree
+    RMDir /r $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source
+    
+    # Don't preserve source that developers may have changed
+    Delete $PatchDir\source\server\stub\form\business\FormSurvey.java
+    Delete $PatchDir\source\server\stub\form\business\FormHousehold.java
+    Delete $PatchDir\source\server\stub\geogen\CollectionSite.java
+    Delete $PatchDir\source\server\stub\geogen\Country.java
+    Delete $PatchDir\source\server\stub\geogen\Earth.java
+    Delete $PatchDir\source\server\stub\geogen\GeoEntity.java
+    Delete $PatchDir\source\server\stub\geogen\GeoEntityEntityLabel.java
+    Delete $PatchDir\source\server\stub\geogen\HealthFacility.java
+    Delete $PatchDir\source\server\stub\geogen\SentinelSite.java
+    Delete $PatchDir\source\server\stub\geogen\SprayZone.java
+    Delete $PatchDir\source\server\stub\geogen\StockDepot.java
+    Delete $PatchDir\source\server\stub\geogen\Surface.java
+    
     # Copy web files
     LogEx::Write "Updating web files"
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
-    File /r /x .svn ..\trunk\patches\webapp\*
+    File /r /x .svn /x *odk.properties ..\trunk\patches\webapp\*
     File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
+    
+    # Restore source
+    CreateDirectory $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\server\stub\geogen\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\server\base\geogen\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\geo\generated
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\client\stub\geogen\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\geo\generated
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\client\base\geogen\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\geo\generated
+    CreateDirectory $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\form\business
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\server\stub\form\business\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\form\business
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\server\base\form\business\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\form\business
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\client\stub\form\business\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\form\business
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\client\base\form\business\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\business
+    CreateDirectory $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\form\tree
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\server\stub\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\form\tree
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\server\base\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\form\tree
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\client\stub\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\form\tree
+    CopyFiles /FILESONLY /SILENT $PatchDir\source\client\base\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\tree
+    
+    SetOverwrite off       # Only copy if file does not exist
+    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\odk.properties ..\trunk\patches\webapp\WEB-INF\classes\odk.properties
+    
+    SetOverwrite on
 
     # We need to clear the old cache
     RMDir /r $INSTDIR\tomcat\cache
@@ -708,22 +823,22 @@ Function patchApplication
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Migrating system ids."
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" IdVersion
     ${If} $IdVersion > $0
-    LogEx::Write "Migrating system ids"
-    StrCpy $Phase "Updating root ids, this process can several hours to complete."		
-    push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
-    Call execDos
-    
-    # We need to re-clear the old cache
-    RMDir /r $INSTDIR\tomcat\cache
-    
-    StrCpy $Phase "Updating system ids, this process can several hours to complete."		
-    push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
-    Call execDos
-    
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
+      LogEx::Write "Migrating system ids"
+      StrCpy $Phase "Updating root ids, this process can several hours to complete."		
+      push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
+      Call execDos
+      
+      # We need to re-clear the old cache
+      RMDir /r $INSTDIR\tomcat\cache
+      
+      StrCpy $Phase "Updating system ids, this process can several hours to complete."		
+      push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
+      Call execDos
+      
+      WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
     ${Else}
-    LogEx::Write "Skipping system id migration because they are already up to date"
-    DetailPrint "Skipping system id migration because they are already up to date"
+      LogEx::Write "Skipping system id migration because they are already up to date"
+      DetailPrint "Skipping system id migration because they are already up to date"
     ${EndIf}	  
 
     # Fix any Postgres migration issues (ticket 3440)
@@ -885,6 +1000,13 @@ Function patchApplication
       LogEx::Write "Skipping ticket 3456 patch because it is already up to date."
     ${EndIf}
     
+    # Miscellaneous data patching
+    !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Miscellaneous data patching"
+    LogEx::Write "Miscellaneous data patching"
+    StrCpy $Phase "Miscellaneous data patching"		
+    push `$Java $JavaOpts=$AgentDir\appdatapatcher -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.migration.ApplicationPatcher -f $0 -t $PatchVersion`
+    Call execDos
+    
     # Rebuild the allpaths table because sometimes glitches happen (???)
     LogEx::Write "Rebuilding allpaths table"
     !insertmacro MUI_HEADER_TEXT "Rebuilding allpaths table" "Rebuilding allpaths table"
@@ -892,7 +1014,7 @@ Function patchApplication
     StrCpy $Phase "Rebuilding allpaths table"
     push `$Java $JavaOpts=$AgentDir\allpaths_rebuild -cp $Classpath dss.vector.solutions.util.GeoEntityAllPathBuilder`
     Call execDos
-
+    
     # Switch back to the deploy environment
     LogEx::Write "Switching back to deploy environment"
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties
@@ -937,13 +1059,7 @@ Function patchApplication
     SetOutPath $INSTDIR\tomcat\webapps\$AppName$MobileName
     File /r /x .svn ..\installer-stage\ODKAggregate\*
     SetOutPath $INSTDIR  
-    
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user $LowerAppName$LowerMobileName with unencrypted password 'noReply'; grant all privileges on database odk to $LowerAppName$LowerMobileName;"`
-    Call execDos
-  
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
-    Call execDos
-    
+        
 	  # Update ODK jdbc properties
 	  Push jdbc.username=odk_user                                                           # text to be replaced
 	  Push jdbc.username=$LowerAppName$LowerMobileName                                      # replace with
@@ -960,6 +1076,23 @@ Function patchApplication
 	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
 	  Call AdvReplaceInFile         
     
+  ${EndIf}  
+  
+  # Create the odk schema if it does not exist
+  # psql -X -A -t -d odk -p 5433 -U odk_user -c "SELECT COUNT( * ) FROM information_schema.schemata WHERE schema_name = 'odk'"
+  
+  nsExec::ExecToStack `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -X -A -t -p 5444 -h 127.0.0.1 -U postgres -d odk -c "SELECT COUNT( * ) FROM information_schema.schemata WHERE schema_name = '$LowerAppName'"`
+  Pop $0  
+  
+  LogEx::Write "Schema count for $LowerAppName : $0"
+  
+  ${If} $0 = 0
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "DO $body$ BEGIN IF NOT EXISTS ( SELECT * FROM   pg_catalog.pg_user WHERE  usename = '$LowerAppName$LowerMobileName') THEN CREATE USER $LowerAppName$LowerMobileName with unencrypted password 'noReply'; grant all privileges on database odk to $LowerAppName$LowerMobileName; END IF; END $body$;"`
+    Call execDos
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "CREATE SCHEMA IF NOT EXISTS $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
+    Call execDos  
   ${EndIf}  
   
 FunctionEnd
@@ -1075,7 +1208,7 @@ Function patchManager
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
 
-    ${IfNot} ${FileExists} `$INSTDIR\manager\manager-1.0.0\classes\standalone\manager-1.0.0\classes\server.properties`    
+    ${IfNot} ${FileExists} `$INSTDIR\manager\manager-1.0.0\classes\server.properties`    
       SetOutPath $INSTDIR\manager\manager-1.0.0\classes
       File ..\standalone\manager-1.0.0\classes\server.properties
     ${EndIf}
@@ -1267,8 +1400,11 @@ Function patchInstallerStage
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" BasemapDatabaseVersion
   IfErrors BasemapDatabaseVersionErrors
-  ${If} $BasemapDatabaseVersion > $0
+  ${If} 1 > $0
     BasemapDatabaseVersionErrors:
+    
+    LogEx::Write "Updating OSM basemap software to version 1"
+
   
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
     Call execDos
@@ -1288,10 +1424,33 @@ Function patchInstallerStage
     SetOutPath "C:\libs\share\osm2pgsql"
 	  File /r "..\installer-stage\osm2pgsql\*"
     
-    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
+    
+    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 1
+    StrCpy $0 1
   ${Else}
-    LogEx::Write "Skipping osm database software update because the software is up to date."
-    DetailPrint "Skipping osm database software update because the software is up to date."
+    LogEx::Write "Skipping osm database software update because the software is already at version 1."
+  ${EndIf}
+  
+  
+  ${If} 2 > $0
+    LogEx::Write "Updating OSM basemap software to version 2"
+    
+    SetOutPath "C:\libs\share\osmconvert"
+    
+    ${If} ${RunningX64}
+      LogEx::Write "Installing 64 bit oscconvert library."
+      
+      File /r "..\installer-stage\osmconvert\64bit\*"
+    ${Else}
+      LogEx::Write "Installing 32 bit oscconvert library."
+
+      File /r "..\installer-stage\osmconvert\32bit\*"
+    ${EndIf}
+    
+    WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 2
+    StrCpy $0 2
+  ${Else}
+    LogEx::Write "Skipping osm database software update because the software is up already at version 2."
   ${EndIf}
   
   
@@ -1303,17 +1462,18 @@ Function patchInstallerStage
   
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" ODKDatabaseVersion
-  IfErrors ODKDatabaseVersionErrors
-  ${If} $ODKDatabaseVersion > $0
+  #IfErrors ODKDatabaseVersionErrors
+
+  ${If} $0 < 1
     ODKDatabaseVersionErrors:
   
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create database odk;"`
-    Call execDos
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
-    Call execDos
+  #  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create database odk;"`
+  #  Call execDos
+    # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
+    # Call execDos
   
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
-    Call execDos
+    # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
+    # Call execDos
     
     WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
   ${Else}
@@ -1321,6 +1481,20 @@ Function patchInstallerStage
     DetailPrint "Skipping odk database software update because the software is up to date."
   ${EndIf}
   
+  SetOutPath $PatchDir
+	File "..\patch\create_odk_database.sql"
+  
+  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -f $PatchDir\create_odk_database.sql`
+  Call execDos
+  
+  ${If} $0 = 1
+    SetOutPath $PatchDir
+    File "..\patch\drop_old_odk.sql"
+  
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -f $PatchDir\drop_old_odk.sql`
+    Call execDos
+  ${EndIf}
+      
 
   ################################################################################
   # Upgrade tomcat
@@ -1408,7 +1582,10 @@ Function patchInstallerStage
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
-  
+    
+    RMDir /r $INSTDir\tomcat\webapps\geoserver-2.9.1
+    ClearErrors
+    
     # Copy over the new webapp files
     SetOutPath $INSTDIR\tomcat\webapps
     File /r /x .svn /x .war ..\installer-stage\tomcat\webapps\*  
@@ -1418,13 +1595,25 @@ Function patchInstallerStage
     DetailPrint "Webapps directory is already up to date"
     LogEx::Write "Webapps directory is already up to date"
   ${EndIf}
+
+  ################################################################################
+  # Remove legacy ODK
+  ################################################################################  
+  ${If} ${FileExists} `$INSTDIR\tomcat\webapps\ODKAggregate.war`
+    RMDir $INSTDIR\tomcat\webapps\ODKAggregate
+    Delete $INSTDIR\tomcat\webapps\ODKAggregate.war
+  ${EndIF}
+  
 FunctionEnd
 
 
 Function JavaAbort
   ${If} $JavaError == 1
+    LogEx::Write "FATAL ERROR: Patch failed. A file called PatchFailure.7z has been created on your desktop."
+    LogEx::Close
+  
     ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\output\*.err $PatchDir\output\*.out $PatchDir\output\*.log $INSTDIR\logs`
-	LogEx::Write "FATAL ERROR: Patch failed. A file called PatchFailure.7z has been created on your desktop."
+    
     DetailPrint "Patch failed."
     DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
     DetailPrint "this file to technical support staff for review."
