@@ -150,6 +150,18 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     this.validateAttribute(ENTITYDOMAIN);
   }
   
+  public dss.vector.solutions.geo.GeoEntityView[] getAllAncestors()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityView[] getAllAncestors(java.lang.String id)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    return _instance.getAllAncestors();
+  }
+  
   public static com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF getEntityDomainMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.GeoEntity.CLASS);

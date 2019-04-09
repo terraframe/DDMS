@@ -1,26 +1,10 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = 1944129777)
+@com.runwaysdk.business.ClassSignature(hash = -1406906407)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = 1944129777;
+  private static final long serialVersionUID = -1406906407;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -159,6 +143,22 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public final dss.vector.solutions.geo.GeoEntityViewDTO[] getAllAncestors()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllAncestors", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] getAllAncestors(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllAncestors", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
@@ -482,7 +482,7 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.SingleActorDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -490,7 +490,7 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     }
     else
     {
-      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -787,6 +787,22 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.geo.GeoEntityViewDTO[] getAllAncestors()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllAncestors", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityViewDTO[] getAllAncestors(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getAllAncestors", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final java.lang.String[] getAllChildIds(java.lang.String typeFilter)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
@@ -985,6 +1001,14 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "updateFromTree", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String updateFromTreeWithOptional(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.Boolean activated, java.lang.String name, java.lang.String geometry, java.lang.String geoId, java.lang.String term)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.String", "java.lang.String", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, activated, name, geometry, geoId, term};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "updateFromTreeWithOptional", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void validateByParameters(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String[] filter)
