@@ -67,7 +67,7 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     {
       JSONArray json = new JSONArray();
       
-      GeoEntityViewDTO[] ancestors = GeoEntityDTO.getAncestors(getClientRequest(), id); // These ancestors are ordered by depth.
+      GeoEntityViewDTO[] ancestors = GeoEntityDTO.getAllAncestors(getClientRequest(), id); // These ancestors are ordered by depth.
       
       // We don't want to include GeoEntities above the system root otherwise the geopicker gets confused
       if (rootId == null)
@@ -92,17 +92,10 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
         ancestorJSON.put("id", ancestor.getGeoEntityId());
         
         JSONArray childrenJSON = new JSONArray();
-        List<? extends GeoEntityDTO> children = GeoEntityDTO.getAllLocatedInGeoEntity(this.getClientRequest(), ancestor.getGeoEntityId());
-        for (GeoEntityDTO child: children)
+        List<? extends GeoEntityViewDTO> children = GeoEntityDTO.getOrderedChildrenPage(this.getClientRequest(), ancestor.getGeoEntityId(), "", 1).getResultSet();
+        for (GeoEntityViewDTO child: children)
         {
-          GeoEntityViewDTO viewChild = new GeoEntityViewDTO(this.getClientRequest());
-          viewChild.setGeoEntityId(child.getId());
-//          viewChild.setGeoId(child.getGeoId());
-//          viewChild.setEntityLabel(child.getEntityLabel().getValue());
-//          viewChild.setTypeDisplayLabel(child.getTypeDisplayLabel());
-//          viewChild.setActivated(child.getActivated());
-          
-          childrenJSON.put(BusinessDTOToJSON.getConverter(viewChild).populate());
+          childrenJSON.put(BusinessDTOToJSON.getConverter(child).populate());
         }
         
         ancestorJSON.put("children", childrenJSON);

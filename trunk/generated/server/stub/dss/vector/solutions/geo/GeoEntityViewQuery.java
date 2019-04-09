@@ -406,12 +406,12 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
     return list;
   }
   
-  public static List<GeoEntityView> getOrderedAncestors(GeoEntity entity, String filter)
+  public static List<GeoEntityView> getOrderedAncestors(GeoEntity entity, String filter, Boolean includeInactive)
   {
     List<GeoEntityView> list = new LinkedList<GeoEntityView>();
     QueryFactory factory = new QueryFactory();
 
-    GeoEntityViewQuery query = new GeoEntityViewQuery(factory, new GeoEntityViewQuery.AncestorsQueryBuilder(factory, entity, filter));
+    GeoEntityViewQuery query = new GeoEntityViewQuery(factory, new GeoEntityViewQuery.AncestorsQueryBuilder(factory, entity, filter, includeInactive));
 
     OIterator<? extends GeoEntityView> it = query.getIterator();
 
@@ -451,7 +451,9 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
 
     private String          filter;
     
-    protected AncestorsQueryBuilder(QueryFactory queryFactory, GeoEntity child, String filter)
+    private Boolean         returnInactive;
+    
+    protected AncestorsQueryBuilder(QueryFactory queryFactory, GeoEntity child, String filter, Boolean returnInactive)
     {
       super(queryFactory);
 
@@ -461,6 +463,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       this.mdBusinessQuery = new MdBusinessQuery(queryFactory);
       this.termQuery = new TermQuery(queryFactory);
       this.filter = filter;
+      this.returnInactive = returnInactive == null ? false : returnInactive;
     }
 
     @Override
@@ -493,7 +496,12 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       query.WHERE(apq.getParentGeoEntity().EQ(geoEntityQuery));
       query.AND(apq.getChildGeoEntity().EQ(child.getId()));
       query.AND(apq.getParentGeoEntity().NE(child.getId()));
-      query.AND(this.geoEntityQuery.getActivated().EQ(true));
+      
+      if (!returnInactive)
+      {
+        query.AND(this.geoEntityQuery.getActivated().EQ(true));
+      }
+      
       query.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
       
       // filter by type if possible (and all of type's child subclasses)

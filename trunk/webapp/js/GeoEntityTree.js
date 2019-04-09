@@ -1117,12 +1117,13 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           {
             var searchNodeId = this.searchForGeoId;
             var searchGeoData = this._searchForGeoData;
-            var searchNodes = this._geoTree.getNodesByProperty('geoEntityId', searchNodeId);
             
             // All this code just to focus multiple items at once
             var that = this;
             setTimeout(function(){
-              if (searchNodes.length > 0)
+              var searchNodes = that._geoTree.getNodesByProperty('geoEntityId', searchNodeId);
+              
+              if (searchNodes != null && searchNodes.length > 0)
               {
                 for (var i = 0; i < searchNodes.length; ++i)
                 {
@@ -1197,6 +1198,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _dynamicLoad : function(parentNode, fnLoadComplete)
     {
+      var that = this;
       var parentId;
       var pageNumber;
       var isPageNode;
@@ -1211,9 +1213,8 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         parentId = parentNode.data.geoEntityId;
         isPageNode = false;
       }
-
+    	
       // request to fetch children
-      var that = this;
       var request = new MDSS.Request({
         onSuccess : function(query)
         {
@@ -1224,11 +1225,10 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           {
             var child = children[i];
 
-            var div = that._createNodeDiv(child);
+            var stringHtml = that._createNodeDiv(child);
+            var objConfig = {html: stringHtml, data: {geoEntityView: child, geoEntityId: child.getGeoEntityId()}};
 
-            var node = new YAHOO.widget.HTMLNode(div);
-            node.data.geoEntityView = child;
-            node.data.geoEntityId = child.getGeoEntityId();
+            var node = new YAHOO.widget.HTMLNode(objConfig);
 
             // either begin the replacing process if we're loading a new child
             // page
@@ -1283,7 +1283,26 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
 
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildrenPage(request, parentId, '', pageNumber);
+      if (parentNode.fetchedNodes) {
+        var children = parentNode.fetchedNodes;
+        var convertedChildren = [];
+        
+        Mojo.Iter.forEach(children, function(child) {
+          var childTermViewDTO = com.runwaysdk.DTOUtil.convertToType(child);
+          convertedChildren.push(childTermViewDTO);
+        });
+    
+        var fakeQuery = {};
+        fakeQuery.getResultSet = function(){return convertedChildren;};
+        
+        request.onSuccess(fakeQuery);
+      
+        return;
+      }
+      else
+      {
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildrenPage(request, parentId, '', pageNumber);
+      }
     },
 
     /**

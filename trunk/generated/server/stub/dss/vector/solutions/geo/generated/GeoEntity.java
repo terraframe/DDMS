@@ -979,10 +979,24 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     return new GeoEntityView[0];
   }
 
+  /**
+   * Returns all active ancestors. Inactive ancestors will not be returned. The ancestors are ordered by depth.
+   */
   @Override
   public GeoEntityView[] getAncestors()
   {
-    List<GeoEntityView> list = GeoEntityViewQuery.getOrderedAncestors(this, "");
+    List<GeoEntityView> list = GeoEntityViewQuery.getOrderedAncestors(this, "", false);
+    
+    return list.toArray(new GeoEntityView[list.size()]);
+  }
+  
+  /**
+   * Returns all ancestors, including inactive ones. The ancestors are ordered by depth.
+   */
+  @Override
+  public GeoEntityView[] getAllAncestors()
+  {
+    List<GeoEntityView> list = GeoEntityViewQuery.getOrderedAncestors(this, "", true);
     
     return list.toArray(new GeoEntityView[list.size()]);
   }
