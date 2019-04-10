@@ -45,6 +45,7 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
+import com.runwaysdk.query.ComponentQuery;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.LeftJoin;
@@ -326,6 +327,12 @@ public class IRSQB extends AbstractQB implements Reloadable
      * The user defined alias of the geo id in the value query.
      */
     private String geoIdAlias;
+    
+    /**
+     * The user defined alias of the id in the value query.
+     * (example: dss_vector_solutions_irs_AbstractSpray_geoEntity__sprayzone_id)
+     */
+    private String idAlias;
 
     //
     // /**
@@ -338,12 +345,13 @@ public class IRSQB extends AbstractQB implements Reloadable
     // */
     // private String geoIdGenerated;
 
-    private Universal(String name, String id, String entityNameAlias, String geoIdAlias)
+    private Universal(String name, String id, String entityNameAlias, String geoIdAlias, String idAlias)
     {
       this.name = name;
       this.id = id;
       this.entityNameAlias = entityNameAlias;
       this.geoIdAlias = geoIdAlias;
+      this.idAlias = idAlias;
     }
 
     public String getId()
@@ -364,6 +372,11 @@ public class IRSQB extends AbstractQB implements Reloadable
     public String getGeoIdAlias()
     {
       return geoIdAlias;
+    }
+    
+    public String getIdAlias()
+    {
+      return idAlias;
     }
 
     // public void setEntityNameGenerated(String entityNameGenerated)
@@ -1374,6 +1387,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       Selectable parentGeo = areaAggVQ.aSQLCharacter(Alias.PARENT_GEO_ENTITY.getAlias(), parentUniversalId, Alias.PARENT_GEO_ENTITY.getAlias());
       parentGeo.setColumnAlias(Alias.PARENT_GEO_ENTITY.getAlias());
 
+      Selectable idSel = null; 
       for (Universal u : this.universals.values())
       {
         String geoId = u.getGeoIdAlias();
@@ -1382,6 +1396,7 @@ public class IRSQB extends AbstractQB implements Reloadable
         Selectable geoIdSel = originalVQ.getSelectableRef(geoId);
         Selectable entityNameSel = originalVQ.getSelectableRef(entityName);
 
+        // GeoId
         if (!geoId.equals(smallestUni.getUserDefinedAlias()))
         {
           Selectable s = areaAggVQ.aSQLCharacter(geoIdSel._getAttributeName(), geoIdSel.getSQL(), geoIdSel.getUserDefinedAlias());
@@ -1391,14 +1406,28 @@ public class IRSQB extends AbstractQB implements Reloadable
           toAdd.put(s.getResultAttributeName(), s);
         }
 
+        // Entity Name
         Selectable s = areaAggVQ.aSQLCharacter(entityNameSel._getAttributeName(), entityNameSel.getSQL(), entityNameSel.getUserDefinedAlias());
         s.setColumnAlias(originalVQ.getSelectableRef(entityName).getColumnAlias());
         this.copyData(entityNameSel, s);
-
         toAdd.put(s.getResultAttributeName(), s);
-
+        
         toCoalesce.add(geoId);
         toCoalesce.add(entityName);
+        
+        // Id (used in Kaleidoscope)
+        String idAlias = u.getIdAlias();
+        if (originalVQ.hasSelectableRef(idAlias))
+        {
+          idSel = originalVQ.getSelectableRef(idAlias);
+          
+          s = areaAggVQ.aSQLCharacter(idSel._getAttributeName(), idSel.getSQL(), idSel.getUserDefinedAlias());
+          s.setColumnAlias(idSel.getColumnAlias());
+          this.copyData(idSel, s);
+          toAdd.put(s.getResultAttributeName(), s);
+          
+          toCoalesce.add(idAlias);
+        }
       }
 
       toAdd.put(parentGeo.getResultAttributeName(), parentGeo);
@@ -1455,6 +1484,27 @@ public class IRSQB extends AbstractQB implements Reloadable
       // finish construction of the query
       qb.construct(qb.getQueryFactory(), areaAggVQ, qb.getQueryMap(), qb.getXml(), qb.getQueryConfig());
       qb.finishConstruct();
+      
+      // (Ticket 4018) Add a UUID column because its needed for the Kaleidoscope persisted query
+      if (idSel != null)
+      {
+        ValueQuery universalQuery = (ValueQuery) areaAggVQ.getSelectableRef(this.smallestUniversalSelectable).getRootQuery();
+        
+        for (Selectable parentUniSel : universalQuery.getSelectableRefs())
+        {
+          if (parentUniSel.getColumnAlias().equals("parentUniversalId"))
+          {
+            String alias = idSel.getSQL();
+            alias = alias.substring(alias.indexOf(".")).substring(1);
+            
+            Selectable idSel2 = universalQuery.aSQLCharacter("id", parentUniSel.getSQL(), alias);
+            idSel2.setColumnAlias(alias);
+            universalQuery.SELECT(idSel2);
+            
+            break;
+          }
+        }
+      }
 
       // (Ticket 3122) If the aggregate VQ has a date attribute then we'll get an error because it says it isn't grouped. Just use the epiweek we have
       // defined in previous WITH tables.
@@ -2829,7 +2879,7 @@ public class IRSQB extends AbstractQB implements Reloadable
             String geoIdAlias = this.getUniversalGeoId(name, attributeKey);
             String idAlias = this.getUniversalId(name, attributeKey);
 
-            this.universals.put(universalType, new Universal(name, id, entityNameAlias, geoIdAlias));
+            this.universals.put(universalType, new Universal(name, id, entityNameAlias, geoIdAlias, idAlias));
             this.universalAliases.add(entityNameAlias);
             this.universalAliases.add(geoIdAlias);
             this.universalAliases.add(idAlias);
