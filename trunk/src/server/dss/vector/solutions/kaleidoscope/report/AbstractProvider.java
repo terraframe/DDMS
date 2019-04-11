@@ -25,6 +25,7 @@ import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeLocal;
@@ -486,7 +487,16 @@ public abstract class AbstractProvider implements Reloadable, ReportProviderIF
 
     if (config.hasDefaultGeoId())
     {
-      return GeoEntity.get(config.getDefaultGeoId());
+      String geoId = config.getDefaultGeoId();
+      
+      try
+      {
+        return GeoEntity.getByKey(geoId);
+      }
+      catch (DataNotFoundException e)
+      {
+        return GeoEntity.get(geoId);
+      }
     }
 
     throw new ProgrammingErrorException("No default geo entity has been provided");

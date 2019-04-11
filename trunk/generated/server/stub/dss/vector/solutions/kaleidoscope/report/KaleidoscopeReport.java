@@ -1018,7 +1018,7 @@ public class KaleidoscopeReport extends KaleidoscopeReportBase implements com.ru
       {
         GeoEntity entity = iterator.next();
 
-        list.add(PairView.createWithLabel(entity.getId(), entity.getEntityLabel().getValue()));
+        list.add(PairView.createWithLabel(entity.getGeoId(), entity.getEntityLabel().getValue()));
       }
 
       return new PairViewSerializer().serialize(list);
