@@ -39,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
+import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.rbac.Authenticate;
@@ -1455,15 +1456,12 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     EntityDAO entityDAO = BusinessFacade.getEntityDAO(this).getEntityDAO();
     Attribute attribute = entityDAO.getAttribute(TEMPLATEFILE);
     attribute.setValueNoValidation("");
+    
+    // Also don't export the materialized table reference. (It won't re-import properly)
+    Attribute attr2 = entityDAO.getAttribute(SavedSearch.MATERIALIZEDTABLE);
+    attr2.setValueNoValidation("");
 
     ExportMetadata metadata = new ExportMetadata();
-
-    if (this.getMaterializedTableId() != null && this.getMaterializedTableId().length() > 0)
-    {
-      MdTableDAOIF mdTable = MdTableDAO.get(this.getMaterializedTableId());
-
-      metadata.addCreateOrUpdate(mdTable);
-    }
 
     metadata.addCreateOrUpdate(entityDAO);
 
@@ -1496,18 +1494,23 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
       for (String objectId : objectIds)
       {
-        // Applying will validate the query??
-        SavedSearch search = SavedSearch.get(objectId);
-        search.appLock();
-        search.apply();
-
-        // We must replace the database view because the search could have
-        // been updated
-        search.createOrReplaceDatabaseView(null);
-
-        if (search.getMaterializedTableId() != null && search.getMaterializedTableId().length() > 0)
+        Business biz = Business.get(objectId);
+        
+        if (biz instanceof SavedSearch)
         {
-          search.forceOverwriteMaterializedView();
+          // Applying will validate the query??
+          SavedSearch search = (SavedSearch) biz;
+          search.appLock();
+          search.apply();
+  
+          // We must replace the database view because the search could have
+          // been updated
+          search.createOrReplaceDatabaseView(null);
+  
+          if (search.getMaterializedTableId() != null && search.getMaterializedTableId().length() > 0)
+          {
+            search.forceOverwriteMaterializedView();
+          }
         }
       }
     }
