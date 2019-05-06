@@ -102,14 +102,11 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
     personView.setUsername(this.getUsername());
     personView.setPassword(this.getPassword());
+    
     String diseaseName = this.getDisease();
-    if (diseaseName.equalsIgnoreCase(Disease.MALARIA))
+    if (diseaseName != null && diseaseName.length() > 0)
     {
-      personView.setDisease(Disease.getMalaria());
-    }
-    else if (diseaseName.equalsIgnoreCase(Disease.DENGUE))
-    {
-      personView.setDisease(Disease.getDengue());
+      personView.setDisease(Disease.getByKey(diseaseName.toUpperCase()));
     }
 
     personView.setIsPatient(this.getIsPatient() != null && this.getIsPatient());

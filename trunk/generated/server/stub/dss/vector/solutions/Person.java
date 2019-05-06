@@ -283,7 +283,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
       this.getSupervisorDelegate().unlock();
     }
 
-    if (this.getSupervisorDelegate() != null)
+    if (this.getPhysicianDelegate() != null)
     {
       this.getPhysicianDelegate().unlock();
     }
