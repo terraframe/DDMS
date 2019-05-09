@@ -44,6 +44,10 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="timeout">
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="to">
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="from">
+    </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
         

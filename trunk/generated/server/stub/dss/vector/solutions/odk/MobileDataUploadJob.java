@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -53,6 +54,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.google.common.io.Files;
+import com.runwaysdk.Pair;
 import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -78,9 +80,12 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.scheduler.AllJobStatus;
+import com.runwaysdk.system.scheduler.ExecutableJob;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
 
+import dss.vector.solutions.ExcelImportHistory;
+import dss.vector.solutions.ExcelImportJob;
 import dss.vector.solutions.ExcelImportManager;
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -89,6 +94,9 @@ import dss.vector.solutions.form.business.FormHousehold;
 import dss.vector.solutions.form.business.FormPerson;
 import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.Email;
+import dss.vector.solutions.general.EmailConfiguration;
+import dss.vector.solutions.general.EmailConfigurationException;
 import dss.vector.solutions.generator.FormColumnFactory;
 import dss.vector.solutions.generator.FormImportFilter;
 import dss.vector.solutions.generator.FormSurveyColumnFactory;
@@ -96,6 +104,7 @@ import dss.vector.solutions.generator.FormSurveyImportFilter;
 import dss.vector.solutions.generator.GridExcelAdapter;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.generator.MultiTermListener;
+import dss.vector.solutions.util.LocalizationFacade;
 
 public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -125,13 +134,15 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   private AllJobStatus doIt(ODKForm form, JobHistory history)
   {
-    AllJobStatus status = AllJobStatus.SUCCESS;
+    AllJobStatus status = AllJobStatus.FAILURE;
 
     File parent = Files.createTempDir();
+    
+    Throwable fatalError = null;
+    ArrayList<Pair<String, ExcelImportHistory>> failedFiles = new ArrayList<Pair<String, ExcelImportHistory>>();
 
     try
     {
-//       ODK2Excel importer = new ODK2Excel(form, null);
       ODK2Excel importer = new ODK2Excel(form, this.getQueryCursor());
       Collection<String> allUUIDS = importer.getUUIDs();
 
@@ -193,51 +204,46 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
           String userId = this.getUser(username);
           String dimensionId = this.getDisease().getDimensionId();
+          
+          int i = 5 / 0;
+          System.out.println(i);
 
-          /*
-           * 
-           */
-//          File[] files = parent.listFiles();
+          try
+          {
+            ExcelImportManager manager = ExcelImportManager.getNewInstance();
+            manager.setUserId(userId);
+            manager.setDimensionId(dimensionId);
 
-//          for (File file : files)
-//          {
-            try
+            try (FileInputStream eis = new FileInputStream(file))
             {
-              ExcelImportManager manager = ExcelImportManager.getNewInstance();
-              manager.setUserId(userId);
-              manager.setDimensionId(dimensionId);
+              ExcelImportHistory result = manager.importAndWait(eis, new String[] {}, file.getName());
 
-              try (FileInputStream eis = new FileInputStream(file))
+              if (result != null)
               {
-                AllJobStatus result = manager.importAndWait(eis, new String[] {}, file.getName());
+                status = result.getStatus().get(0);
+              }
+              
+              File archive = new File(ODKFacade.getArchivePath());
+              archive.mkdirs();
 
-                if (result != null)
+              try (FileInputStream fis = new FileInputStream(file))
+              {
+                try (FileOutputStream fos = new FileOutputStream(new File(archive, file.getName())))
                 {
-                  status = result;
+                  IOUtils.copy(fis, fos);
                 }
-//                else
-//                {
-                  /*
-                   * Copy file to the archive directory
-                   */
-                  File archive = new File(ODKFacade.getArchivePath());
-                  archive.mkdirs();
-
-                  try (FileInputStream fis = new FileInputStream(file))
-                  {
-                    try (FileOutputStream fos = new FileOutputStream(new File(archive, file.getName())))
-                    {
-                      IOUtils.copy(fis, fos);
-                    }
-                  }
-//                }
+              }
+              
+              if (!status.equals(AllJobStatus.SUCCESS))
+              {
+                failedFiles.add(new Pair<String, ExcelImportHistory>(file.getName(), result));
               }
             }
-            catch (IOException e)
-            {
-              throw new ProgrammingErrorException(e);
-            }
-//          }
+          }
+          catch (IOException e)
+          {
+            throw new ProgrammingErrorException(e);
+          }
         }
 
         this.appLock();
@@ -247,22 +253,145 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
       }
       else
       {
+        status = AllJobStatus.SUCCESS;
         logger.debug("No ODK data to export for type [" + form.getViewMd().definesType() + "]");
       }
     }
+    catch (Throwable t)
+    {
+      fatalError = t;
+    }
     finally
     {
+      FileUtils.deleteQuietly(parent);
+    }
+    
+    sendErrorEmail(fatalError, failedFiles);
+    
+    return status;
+  }
+  
+  private void sendErrorEmail(Throwable err, ArrayList<Pair<String, ExcelImportHistory>> files)
+  {
+    if (err != null || files.size() > 0)
+    {
+      String subject = LocalizationFacade.getFromBundles("mobileDataUpload.email.FailureSubject");
+      
+      StringBuilder bodyBuilder = new StringBuilder();
+      
+      /*
+       * Build the email Body
+       * template: {serverUrl}\n The Mobile Data Upload Job [{jobName}] has failed.\n{details}
+       */
+      String body = LocalizationFacade.getFromBundles("mobileDataUpload.email.FailureBody");
+      body = body.replaceAll("\\\\n", "\n");
+      String serverUrl = "http://localhost:8080/DDMS/";
       try
       {
-        FileUtils.deleteDirectory(parent);
+        Properties prop = new Properties();
+        prop.load(new FileInputStream(new File("C:\\MDSS\\manager\\manager-1.0.0\\classes\\server.properties")));
+
+        String hostname = prop.getProperty("security.server.hostname");
+        Boolean https = Boolean.parseBoolean(prop.getProperty("https.enable"));
+        
+        if (hostname != null && hostname.length() > 0)
+        {
+          if (!hostname.startsWith("http"))
+          {
+            if (https)
+            {
+              hostname = "https://" + hostname;
+            }
+            else
+            {
+              hostname = "http://" + hostname;
+            }
+          }
+          
+          if (!hostname.endsWith("/"))
+          {
+            hostname = hostname + "/";
+          }
+          
+          serverUrl = hostname;
+        }
+      } 
+      catch (Throwable ex) {
+        ex.printStackTrace();
       }
-      catch (IOException e)
+      serverUrl = serverUrl + "dss.vector.solutions.generator.ExcelController.viewManager.mojo";
+      body = body.replaceFirst("\\{serverUrl\\}", serverUrl);
+      
+      body = body.replaceFirst("\\{jobName\\}", this.getJobId());
+      
+      bodyBuilder.append(body);
+      bodyBuilder.append("\n\n");
+      
+      /*
+       * Append exception information
+       */
+      if (err != null)
       {
-        throw new ProgrammingErrorException(e);
+        String msg = ExecutableJob.getMessageFromException(err);
+        bodyBuilder.append(msg);
+        bodyBuilder.append("\n\n");
+      }
+      
+      /*
+       * Build the file details
+       * template: The following files encountered errors when importing:\n{files}
+       */
+      if (files.size() > 0)
+      {
+        String details = LocalizationFacade.getFromBundles("mobileDataUpload.email.FailureFileDetails");
+        details = details.replaceAll("\\\\n", "\n");
+        
+        StringBuilder fileBuilder = new StringBuilder();
+        
+        for (Pair<String, ExcelImportHistory> file : files)
+        {
+          ExcelImportHistory history = file.getSecond();
+          
+          if (history != null)
+          {
+            fileBuilder.append(file.getFirst() + " (" + history.getStatus().get(0).getDisplayLabel() + ")\n");
+          }
+          else
+          {
+            fileBuilder.append(file.getFirst() + "\n");
+          }
+        }
+        
+        details = details.replaceFirst("\\{files\\}", fileBuilder.toString());
+        
+        bodyBuilder.append(details);
+        bodyBuilder.append("\n\n");
+      }
+      
+      /*
+       * Send the email
+       */
+      EmailConfiguration config = EmailConfiguration.getDefault();
+      
+      Email email = new Email();
+      email.setToAddresses(config.getTo());
+      email.setDisease(Disease.getCurrent());
+      email.setFromAddress(config.getFrom());
+      email.setSubject(subject);
+      email.setBody(bodyBuilder.toString());
+      email.apply();
+      
+      if (!email.send(config))
+      {
+        EmailConfigurationException emailEx = new EmailConfigurationException();
+        
+        String error = email.getError();
+        error = error.substring(error.indexOf(": ")+1, error.length());
+        emailEx.setExtra(error);
+        
+        throw emailEx;
       }
     }
-
-    return status;
   }
 
   private String prepareCursor(String cursor)

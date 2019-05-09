@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2016904707)
+@com.runwaysdk.business.ClassSignature(hash = -1254726243)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,6 +17,7 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
   public static java.lang.String EMAILSERVER = "emailServer";
   public static java.lang.String EMAILUSERID = "emailUserid";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String FROM = "from";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -44,8 +29,9 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TIMEOUT = "timeout";
+  public static java.lang.String TO = "to";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -2016904707;
+  private static final long serialVersionUID = -1254726243;
   
   public EmailConfigurationBase()
   {
@@ -220,6 +206,46 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public void setEntityDomainId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(ENTITYDOMAIN, "");
+    }
+    else
+    {
+      setValue(ENTITYDOMAIN, id);
+    }
+  }
+  
+  public String getFrom()
+  {
+    return getValue(FROM);
+  }
+  
+  public void validateFrom()
+  {
+    this.validateAttribute(FROM);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getFromMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.EmailConfiguration.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(FROM);
+  }
+  
+  public void setFrom(String value)
+  {
+    if(value == null)
+    {
+      setValue(FROM, "");
+    }
+    else
+    {
+      setValue(FROM, value);
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -308,7 +334,7 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
     return (com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF)mdClassIF.definesAttribute(LASTUPDATEDBY);
   }
   
-  public com.runwaysdk.system.SingleActor getLockedBy()
+  public com.runwaysdk.system.Users getLockedBy()
   {
     if (getValue(LOCKEDBY).trim().equals(""))
     {
@@ -316,7 +342,7 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
     }
     else
     {
-      return com.runwaysdk.system.SingleActor.get(getValue(LOCKEDBY));
+      return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
   }
   
@@ -373,6 +399,18 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public void setOwnerId(java.lang.String id)
+  {
+    if(id == null)
+    {
+      setValue(OWNER, "");
+    }
+    else
+    {
+      setValue(OWNER, id);
     }
   }
   
@@ -502,6 +540,34 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getTo()
+  {
+    return getValue(TO);
+  }
+  
+  public void validateTo()
+  {
+    this.validateAttribute(TO);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeTextDAOIF getToMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.EmailConfiguration.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeTextDAOIF)mdClassIF.definesAttribute(TO);
+  }
+  
+  public void setTo(String value)
+  {
+    if(value == null)
+    {
+      setValue(TO, "");
+    }
+    else
+    {
+      setValue(TO, value);
+    }
+  }
+  
   public String getType()
   {
     return getValue(TYPE);
@@ -538,6 +604,12 @@ public abstract class EmailConfigurationBase extends com.runwaysdk.business.Busi
   public static EmailConfiguration getByKey(String key)
   {
     return (EmailConfiguration) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static void sendTestEmail(dss.vector.solutions.general.EmailConfiguration dto)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.EmailConfiguration.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static EmailConfiguration lock(java.lang.String id)

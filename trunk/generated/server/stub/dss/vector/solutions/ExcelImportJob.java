@@ -153,6 +153,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     protected String             fileName;
 
     protected AllJobStatus       status;
+
+    protected ExcelImportHistory history = null;
   }
 
   @Override
@@ -176,7 +178,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     this.start();
   }
 
-  public AllJobStatus importAndWait()
+  public ExcelImportHistory importAndWait()
   {
     this.sharedState.threadWorkLock = new Semaphore(0);
     this.sharedState.threadInitLock = new Semaphore(0);
@@ -194,12 +196,12 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       if (!this.sharedState.threadInitLock.tryAcquire(5, TimeUnit.MINUTES))
       {
         logger.error("Timeout waiting for initialization of Quartz worker thread on scheduled job [" + this.toString() + "].");
-        return AllJobStatus.FAILURE;
+        return null;
       }
     }
     catch (InterruptedException e1)
     {
-      return AllJobStatus.FAILURE;
+      return null;
     }
     
     try
@@ -223,15 +225,15 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       if (!didAcquire)
       {
         logger.error("Timeout waiting for job completion of Quartz worker thread on scheduled job [" + this.toString() + "].");
-        return AllJobStatus.FAILURE;
+        return null;
       }
     }
     catch (InterruptedException e1)
     {
-      return AllJobStatus.FAILURE;
+      return null;
     }
 
-    return this.sharedState.status;
+    return this.sharedState.history;
   }
 
   public InputStream doImport()
@@ -322,7 +324,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
       executeInner(context);
 
-      this.sharedState.status = context.getStatus();
+      this.sharedState.history = (ExcelImportHistory) context.getJobHistory();
     }
     catch (Throwable ex)
     {
@@ -351,7 +353,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
     EpiCache.start();
-
+    
     try
     {
       ContextBuilderIF builder = this.constructContextBuilder();

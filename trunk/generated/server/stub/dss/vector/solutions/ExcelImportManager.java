@@ -102,7 +102,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     return job.doImport();
   }
 
-  public AllJobStatus importAndWait(InputStream inputStream, String[] params, String fileName)
+  public ExcelImportHistory importAndWait(InputStream inputStream, String[] params, String fileName)
   {
     if (this.userId == null)
     {
@@ -124,7 +124,7 @@ public class ExcelImportManager extends ExcelImportManagerBase implements com.ru
     job.setRunAsDimensionId(this.dimensionId);
     job.apply();
 
-    AllJobStatus status = job.importAndWait();
+    ExcelImportHistory status = job.importAndWait();
     return status;
   }
 

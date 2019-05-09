@@ -1,26 +1,10 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1449666685)
+@com.runwaysdk.business.ClassSignature(hash = -889387235)
 public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.EmailConfiguration";
-  private static final long serialVersionUID = 1449666685;
+  private static final long serialVersionUID = -889387235;
   
   protected EmailConfigurationDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -49,6 +33,7 @@ public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.B
   public static java.lang.String EMAILSERVER = "emailServer";
   public static java.lang.String EMAILUSERID = "emailUserid";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String FROM = "from";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -60,6 +45,7 @@ public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.B
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TIMEOUT = "timeout";
+  public static java.lang.String TO = "to";
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
@@ -283,6 +269,43 @@ public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
+  public String getFrom()
+  {
+    return getValue(FROM);
+  }
+  
+  public void setFrom(String value)
+  {
+    if(value == null)
+    {
+      setValue(FROM, "");
+    }
+    else
+    {
+      setValue(FROM, value);
+    }
+  }
+  
+  public boolean isFromWritable()
+  {
+    return isWritable(FROM);
+  }
+  
+  public boolean isFromReadable()
+  {
+    return isReadable(FROM);
+  }
+  
+  public boolean isFromModified()
+  {
+    return isModified(FROM);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getFromMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(FROM).getAttributeMdDTO();
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -382,7 +405,7 @@ public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LASTUPDATEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.SingleActorDTO getLockedBy()
+  public com.runwaysdk.system.UsersDTO getLockedBy()
   {
     if(getValue(LOCKEDBY) == null || getValue(LOCKEDBY).trim().equals(""))
     {
@@ -390,7 +413,7 @@ public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.B
     }
     else
     {
-      return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(LOCKEDBY));
+      return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
   }
   
@@ -636,6 +659,51 @@ public abstract class EmailConfigurationDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTimeoutMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TIMEOUT).getAttributeMdDTO();
+  }
+  
+  public String getTo()
+  {
+    return getValue(TO);
+  }
+  
+  public void setTo(String value)
+  {
+    if(value == null)
+    {
+      setValue(TO, "");
+    }
+    else
+    {
+      setValue(TO, value);
+    }
+  }
+  
+  public boolean isToWritable()
+  {
+    return isWritable(TO);
+  }
+  
+  public boolean isToReadable()
+  {
+    return isReadable(TO);
+  }
+  
+  public boolean isToModified()
+  {
+    return isModified(TO);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getToMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(TO).getAttributeMdDTO();
+  }
+  
+  public static final void sendTestEmail(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.EmailConfigurationDTO dto)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.general.EmailConfiguration"};
+    Object[] _parameters = new Object[]{dto};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.EmailConfigurationDTO.CLASS, "sendTestEmail", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.general.EmailConfigurationDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -43,4 +43,10 @@
   <mjl:dt attribute="timeout">
     <mjl:input param="timeout" type="text" />
   </mjl:dt>
+  <mjl:dt attribute="to">
+    <mjl:input param="to" type="textarea" />
+  </mjl:dt>
+  <mjl:dt attribute="from">
+    <mjl:input param="from" type="text" />
+  </mjl:dt>
 </mjl:component>

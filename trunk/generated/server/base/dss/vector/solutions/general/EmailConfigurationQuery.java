@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 526400614)
+@com.runwaysdk.business.ClassSignature(hash = -1990275756)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -168,6 +152,23 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.EmailConfiguration.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getFrom()
+  {
+    return getFrom(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFrom(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.EmailConfiguration.FROM, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFrom(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.EmailConfiguration.FROM, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -242,27 +243,27 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.EmailConfiguration.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY);
 
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, mdAttributeIF, this, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY);
 
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -379,6 +380,23 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.EmailConfiguration.TIMEOUT, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getTo()
+  {
+    return getTo(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTo(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.EmailConfiguration.TO, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTo(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.EmailConfiguration.TO, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -414,7 +432,7 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     }
     else if (name.equals(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.general.EmailConfiguration.OWNER)) 
     {
@@ -492,6 +510,9 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFrom();
+    public com.runwaysdk.query.SelectableChar getFrom(String alias);
+    public com.runwaysdk.query.SelectableChar getFrom(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -504,9 +525,9 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -525,6 +546,9 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.query.SelectableInteger getTimeout();
     public com.runwaysdk.query.SelectableInteger getTimeout(String alias);
     public com.runwaysdk.query.SelectableInteger getTimeout(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getTo();
+    public com.runwaysdk.query.SelectableChar getTo(String alias);
+    public com.runwaysdk.query.SelectableChar getTo(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -665,6 +689,23 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.ENTITYDOMAIN,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getFrom()
+  {
+    return getFrom(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFrom(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.FROM, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFrom(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.FROM, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -733,21 +774,21 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -852,6 +893,23 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.general.EmailConfiguration.TIMEOUT, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getTo()
+  {
+    return getTo(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTo(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.TO, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTo(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.TO, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -887,7 +945,7 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     }
     else if (name.equals(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.general.EmailConfiguration.OWNER)) 
     {
@@ -942,6 +1000,9 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getFrom();
+    public com.runwaysdk.query.SelectableChar getFrom(String alias);
+    public com.runwaysdk.query.SelectableChar getFrom(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -954,9 +1015,9 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy();
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias);
-    public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
+    public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -975,6 +1036,9 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     public com.runwaysdk.query.SelectableInteger getTimeout();
     public com.runwaysdk.query.SelectableInteger getTimeout(String alias);
     public com.runwaysdk.query.SelectableInteger getTimeout(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getTo();
+    public com.runwaysdk.query.SelectableChar getTo(String alias);
+    public com.runwaysdk.query.SelectableChar getTo(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1164,6 +1228,23 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.ENTITYDOMAIN,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getFrom()
+  {
+    return getFrom(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFrom(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.FROM, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getFrom(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.FROM, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -1232,21 +1313,21 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LASTUPDATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy()
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy()
   {
     return getLockedBy(null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, alias, null);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY, alias, null);
 
   }
  
-  public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLockedBy(String alias, String displayLabel)
+  public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
-    return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY,  alias, displayLabel);
+    return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY,  alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -1351,6 +1432,23 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.general.EmailConfiguration.TIMEOUT, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getTo()
+  {
+    return getTo(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTo(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.TO, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTo(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.EmailConfiguration.TO, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -1386,7 +1484,7 @@ public  class EmailConfigurationQuery extends com.runwaysdk.query.GeneratedBusin
     }
     else if (name.equals(dss.vector.solutions.general.EmailConfiguration.LOCKEDBY)) 
     {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+       return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.general.EmailConfiguration.OWNER)) 
     {

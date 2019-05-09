@@ -1,22 +1,6 @@
-/*******************************************************************************
- * Copyright (C) 2018 IVCC
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1002648926)
+@com.runwaysdk.business.ClassSignature(hash = 969903730)
 public class EmailConfigurationControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.EmailConfigurationController";
@@ -149,6 +133,20 @@ public class EmailConfigurationControllerBase implements com.runwaysdk.generatio
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.EmailConfigurationController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.EmailConfigurationController.failNewInstance");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.EmailConfigurationDTO:dto", post=true)
+  public void sendTestEmail(dss.vector.solutions.general.EmailConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.EmailConfigurationController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.EmailConfigurationController.sendTestEmail");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.EmailConfigurationDTO:dto", post=true)
+  public void failSendTestEmail(dss.vector.solutions.general.EmailConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.EmailConfigurationController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.EmailConfigurationController.failSendTestEmail");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.EmailConfigurationDTO:dto", post=true)

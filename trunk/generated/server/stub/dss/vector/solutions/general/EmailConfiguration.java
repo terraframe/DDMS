@@ -16,6 +16,11 @@
  ******************************************************************************/
 package dss.vector.solutions.general;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
+import dss.vector.solutions.util.LocalizationFacade;
+
 public class EmailConfiguration extends EmailConfigurationBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1203605481;
@@ -23,6 +28,92 @@ public class EmailConfiguration extends EmailConfigurationBase implements com.ru
   public EmailConfiguration()
   {
     super();
+  }
+  
+  @Override
+  public void apply()
+  {
+    this.validateFrom();
+    this.validateTo();
+    
+    super.apply();
+  }
+  
+  public static void sendTestEmail(dss.vector.solutions.general.EmailConfiguration config)
+  {
+    config.validateFrom();
+    config.validateTo();
+    
+    Email email = new Email();
+    email.setToAddresses(config.getTo());
+    email.setDisease(Disease.getCurrent());
+    email.setFromAddress(config.getFrom());
+    email.setSubject(LocalizationFacade.getFromBundles("emailSettings.testEmailSubject"));
+    email.setBody(LocalizationFacade.getFromBundles("emailSettings.testEmailBody"));
+    email.apply();
+    
+    if (!email.send(config))
+    {
+      EmailConfigurationException emailEx = new EmailConfigurationException();
+      
+      String error = email.getError();
+      error = error.substring(error.indexOf(": ")+1, error.length());
+      emailEx.setExtra(error);
+      
+      throw emailEx;
+    }
+  }
+  
+  private void validateAddress(String address)
+  {
+    try
+    {
+      new InternetAddress(address).validate();
+    }
+    catch (AddressException e)
+    {
+      InvalidEmailAddressException emailEx = new InvalidEmailAddressException();
+      emailEx.setAddress(address);
+      throw emailEx;
+    }
+  }
+  
+  @Override
+  public void validateTo()
+  {
+    if (this.getTo() == null || this.getTo().length() == 0)
+    {
+      return; // The attribute is allowed to be blank.
+    }
+    
+    if (this.getTo().contains(","))
+    {
+      String[] addresses = this.getTo().split(",");
+      
+      for (String address : addresses)
+      {
+        validateAddress(address);
+      }
+    }
+    else
+    {
+      validateAddress(this.getTo());
+    }
+    
+    super.validateTo();
+  }
+  
+  @Override
+  public void validateFrom()
+  {
+    if (this.getFrom() == null || this.getFrom().length() == 0)
+    {
+      return; // The attribute is allowed to be blank.
+    }
+    
+    validateAddress(this.getFrom());
+    
+    super.validateFrom();
   }
 
   public static EmailConfiguration getDefault()

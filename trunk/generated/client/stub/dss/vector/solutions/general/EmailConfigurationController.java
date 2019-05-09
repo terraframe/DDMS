@@ -40,6 +40,36 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
+  
+  @Override
+  public void sendTestEmail(dss.vector.solutions.general.EmailConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    try
+    {
+      EmailConfigurationDTO.sendTestEmail(getClientRequest(), dto);
+      
+      req.setAttribute("protocol", EmailProtocolDTO.allItems(super.getClientSession().getRequest()));
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        req.setAttribute("protocol", EmailProtocolDTO.allItems(super.getClientSession().getRequest()));
+        req.setAttribute("item", dto);
+        render("editComponent.jsp");
+      }
+    }
+  }
+  
+  @Override
+  public void failSendTestEmail(dss.vector.solutions.general.EmailConfigurationDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    this.edit(dto.getId());
+  }
 
   public void cancel(EmailConfigurationDTO dto) throws IOException, ServletException
   {

@@ -28,6 +28,8 @@
     <%@include file="form.jsp" %>
     <mdss:localize key="Update" var="Localized_Update" />
     <mjl:command name="dss.vector.solutions.general.EmailConfiguration.form.update.button" value="${Localized_Update}" action="dss.vector.solutions.general.EmailConfigurationController.update.mojo" />
+    <mdss:localize key="Localized_Send_Test_Email" var="Localized_Send_Test_Email" />
+    <mjl:command name="dss.vector.solutions.general.EmailConfiguration.form.sendTestEmail.button" value="${Localized_Send_Test_Email}" action="dss.vector.solutions.general.EmailConfigurationController.sendTestEmail.mojo" />
     <mdss:localize key="Cancel" var="Localized_Cancel" />
     <mjl:command name="dss.vector.solutions.general.EmailConfiguration.form.cancel.button" value="${Localized_Cancel}" action="dss.vector.solutions.general.EmailConfigurationController.cancel.mojo" />
   </mjl:form>
