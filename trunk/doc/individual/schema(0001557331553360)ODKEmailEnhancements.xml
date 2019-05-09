@@ -1,0 +1,46 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException name="dss.vector.solutions.general.InvalidEmailAddressException" message="The provided email address [{address}] is invalid.">
+        <attributes>
+          <text name="address" required="true" />
+        </attributes>
+      </mdException>
+      <mdException name="dss.vector.solutions.general.EmailConfigurationException" message="There is a problem with your email configuration. {extra}">
+        <attributes>
+          <text name="extra" required="false" />
+        </attributes>
+      </mdException>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.general.EmailConfiguration">
+        <create>
+          <attributes>
+            <text name="to" column="emailTo" label="to" description="A list of comma separated email addresses to use for sending emails when the 'to' address is otherwise unspecified or unknown. This field is not used for sending System Alerts."/>
+            <text name="from" column="emailFrom" label="from" description="The 'from' email address to use for sending emails when the 'from' address is otherwise unspecified or unknown. This field is not used for sending System Alerts."/>
+          </attributes>
+          <mdMethod name="sendTestEmail" label="sendTestEmail" returnType="void" static="true" >
+            <mdParameter name="dto" label="dto" type="dss.vector.solutions.general.EmailConfiguration" order="0"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController name="dss.vector.solutions.general.EmailConfigurationController">
+        <create>
+          <mdAction name="sendTestEmail" isPost="true" isQuery="false">
+            <mdParameter name="dto" label="dto" order="0" type="dss.vector.solutions.general.EmailConfiguration" />
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.general.EmailConfiguration.from" type="com.runwaysdk.system.metadata.MdAttributeText"/>
+      <object key="dss.vector.solutions.general.EmailConfiguration.to" type="com.runwaysdk.system.metadata.MdAttributeText"/>
+      <object key="dss.vector.solutions.general.EmailConfiguration.sendTestEmail" type="com.runwaysdk.system.metadata.MdMethod" />
+      <object key="dss.vector.solutions.general.EmailConfigurationController.sendTestEmail" type="com.runwaysdk.system.metadata.MdAction" />
+      <object key="dss.vector.solutions.general.InvalidEmailAddressException" type="com.runwaysdk.system.metadata.MdException" />
+      <object key="dss.vector.solutions.general.EmailConfigurationException" type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>

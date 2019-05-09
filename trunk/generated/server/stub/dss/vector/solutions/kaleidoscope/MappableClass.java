@@ -83,6 +83,7 @@ import dss.vector.solutions.kaleidoscope.dashboard.MetadataWrapperQuery;
 import dss.vector.solutions.kaleidoscope.data.etl.TargetBinding;
 import dss.vector.solutions.kaleidoscope.geo.GeoNode;
 import dss.vector.solutions.kaleidoscope.geo.GeoNodeGeometry;
+import dss.vector.solutions.kaleidoscope.report.GenericTypeProviderCache;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchQuery;
@@ -874,6 +875,14 @@ public class MappableClass extends MappableClassBase implements com.runwaysdk.ge
     {
       throw new ProgrammingErrorException(e);
     }
+  }
+  
+  @Override
+  public void apply()
+  {
+    super.apply();
+    
+    GenericTypeProviderCache.getInstance().invalidateCache();
   }
 
   @Transaction

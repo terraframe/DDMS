@@ -45,12 +45,23 @@ public class GenericTypeProviderCache implements Reloadable
     this.nodes = new HashMap<String, List<GeoNode>>();
   }
 
-  public List<MdClass> getMdClassesWithGeoNodes()
+  public synchronized List<MdClass> getMdClassesWithGeoNodes()
   {
+    if (this.classes == null)
+    {
+      this.classes = MetadataWrapper.getMdClassesWithGeoNodes();
+    }
+    
     return classes;
   }
+  
+  public synchronized void invalidateCache()
+  {
+    this.classes = null;
+    this.nodes = new HashMap<String, List<GeoNode>>();
+  }
 
-  public List<GeoNode> getGeoNodes(String type)
+  public synchronized List<GeoNode> getGeoNodes(String type)
   {
     if (!this.nodes.containsKey(type))
     {
