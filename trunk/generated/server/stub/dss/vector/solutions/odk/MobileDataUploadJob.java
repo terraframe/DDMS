@@ -205,9 +205,6 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           String userId = this.getUser(username);
           String dimensionId = this.getDisease().getDimensionId();
           
-          int i = 5 / 0;
-          System.out.println(i);
-
           try
           {
             ExcelImportManager manager = ExcelImportManager.getNewInstance();
