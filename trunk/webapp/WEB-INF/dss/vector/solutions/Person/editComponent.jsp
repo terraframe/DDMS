@@ -53,8 +53,12 @@
     <%-- IMPORTANT: Do not change the id of the Update button because it is used javascript defined on personFields.jsp --%>
     <mdss:localize key="Update" var="Localized_Update" />
     <mjl:command value="${Localized_Update}" action="dss.vector.solutions.PersonController.updateFromView.mojo" name="dss.vector.solutions.Person.form.updateFromView.button" id="submit.button" />
-    <mdss:localize key="Delete" var="Localized_Delete" />
-    <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.PersonController.deleteFromView.mojo" name="dss.vector.solutions.Person.form.deleteFromView.button" />
+    
+    <c:if test="${!isOdkUser}">
+      <mdss:localize key="Delete" var="Localized_Delete" />
+      <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.PersonController.deleteFromView.mojo" name="dss.vector.solutions.Person.form.deleteFromView.button" />
+    </c:if>
+    
     <mdss:localize key="Cancel" var="Localized_Cancel" />
     <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.PersonController.cancel.mojo" name="dss.vector.solutions.Person.form.cancel.button" />
   </dl>

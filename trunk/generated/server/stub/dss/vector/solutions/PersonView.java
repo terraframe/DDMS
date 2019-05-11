@@ -16,25 +16,18 @@
  ******************************************************************************/
 package dss.vector.solutions;
 
-import java.util.Set;
-
-import com.runwaysdk.business.rbac.RoleDAO;
-import com.runwaysdk.business.rbac.RoleDAOIF;
-import com.runwaysdk.business.rbac.UserDAO;
-import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.odk.ODKPasswordExporter;
-import dss.vector.solutions.permission.PermissionOption;
+import dss.vector.solutions.odk.ODKUser;
 import dss.vector.solutions.stock.StockStaff;
 
 public class PersonView extends PersonViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -173,6 +166,11 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       {
         user = new MDSSUser();
       }
+      else if ( (user.getODKRoles() != 0 || user instanceof ODKUser) && this.getPassword().length() > 0 )
+      {
+        ODKPasswordExporter.export(user, this.getPassword());
+      }
+      
       user.setPerson(person);
       user.setUsername(this.getUsername());
       user.setPassword(this.getPassword());
@@ -182,11 +180,6 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       settings.lock();
       settings.setDisease(this.getDisease());
       settings.apply();
-
-      if (user.getODKRoles() != 0 && this.getPassword().length() > 0)
-      {
-        ODKPasswordExporter.export(user, this.getPassword());
-      }
     }
     else
     {

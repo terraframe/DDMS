@@ -78,8 +78,9 @@ public class ODKPermissionExporter implements Reloadable
         // Write the header
         writer.writeNext(new String[] { "Username", "Full Name", "Account Type", "Data Collector", "Data Viewer", "Form Manager", "Synchronize Tables", "Tables Super-user", "Administer Tables", "Site Administrator" });
 
-        // Write the ddms user
-        writer.writeNext(new String[] { "ddms", "ddms", "ODK", "", "", "", "", "", "", "X" });
+        // Write the admin user that ddms will use to log into ODK
+        ODKUser odkUser = ODKUser.getUser();
+        writer.writeNext(new String[] { odkUser.getOdkUsername(), "DDMS admin user (do not edit!)", "ODK", "", "", "", "", "", "", "X" });
 
         if (!this.isSetup())
         {
@@ -94,6 +95,11 @@ public class ODKPermissionExporter implements Reloadable
 
           for (MDSSUser user : users)
           {
+            if (user instanceof ODKUser)
+            {
+              continue;
+            }
+            
             UserDAOIF userDAO = UserDAO.get(user.getId());
             Set<RoleDAOIF> roles = userDAO.authorizedRoles();
 

@@ -40,6 +40,7 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.odk.ODKPermissionExporter;
+import dss.vector.solutions.odk.ODKUser;
 import dss.vector.solutions.permission.MDSSRole;
 import dss.vector.solutions.permission.PermissionOption;
 

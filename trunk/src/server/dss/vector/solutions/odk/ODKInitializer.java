@@ -23,7 +23,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.CredentialsProvider;
 
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Request;
+
+import dss.vector.solutions.migration.Patcher4009;
 
 public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
 {
@@ -62,8 +66,10 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
              */
             try
             {
+              ODKUser odkUser = ODKUser.getUser();
+              
               CredentialsProvider provider = ODKFacade.getCredentialsProvider(ODKFacade.USERNAME, "aggregate");
-              ODKPasswordExporter exporter = new ODKPasswordExporter(ODKFacade.USERNAME, ODKFacade.PASSWORD, provider);
+              ODKPasswordExporter exporter = new ODKPasswordExporter(odkUser.getUsername(), odkUser.getOdkPassword(), provider);
               exporter.run();
             }
             catch (Exception e)
@@ -79,7 +85,7 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
             log.debug("ODK initialized.");
 
             ODKProperties.writeInitialize(false);
-
+            
             return; // we are done here
           }
           else
@@ -140,6 +146,11 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
 
   public static void setup()
   {
+    if (ODKUser.getUser() == null) // Only happens on a fresh install
+    {
+      Patcher4009.createOdkUser();
+    }
+    
     if (ODKFacade.isInitialize())
     {
       ODKInitializer init = new ODKInitializer();

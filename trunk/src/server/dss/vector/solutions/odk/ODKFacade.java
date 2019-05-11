@@ -48,7 +48,8 @@ public class ODKFacade implements Reloadable
 
   public static CredentialsProvider getCredentialsProvider()
   {
-    return getCredentialsProvider(USERNAME, PASSWORD);
+    ODKUser user = ODKUser.getUser();
+    return getCredentialsProvider(user.getOdkUsername(), user.getOdkPassword());
   }
 
   public static CredentialsProvider getCredentialsProvider(String username, String password)

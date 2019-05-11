@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Request;
@@ -62,8 +63,16 @@ public class ApplicationPatcher implements Reloadable
     {
       logger.info("Running 'doIt' of patch [" + patch.getClass().getName() + "].");
       
-      patch.doIt();
+      doItInTrans(patch);
     }
+  }
+  
+  // TODO : I don't think this can even realistically be done in a transaction because its patching over multiple versions and 
+  // we can't put a transaction across mutliple versions and don't actually have control of when it writes what version the system is on.
+//  @Transaction
+  private void doItInTrans(DDMSPatchIF patch)
+  {
+    patch.doIt();
   }
   
   private void undoIt()
@@ -74,8 +83,14 @@ public class ApplicationPatcher implements Reloadable
     {
       logger.info("Running 'undoIt' of patch [" + patch.getClass().getName() + "].");
       
-      patch.undoIt();
+      undoItInTrans(patch);
     }
+  }
+  
+//  @Transaction
+  private void undoItInTrans(DDMSPatchIF patch)
+  {
+    patch.undoIt();
   }
   
   public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException

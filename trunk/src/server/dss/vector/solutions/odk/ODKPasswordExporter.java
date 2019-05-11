@@ -28,7 +28,14 @@ public class ODKPasswordExporter implements Reloadable, Runnable
 
   public ODKPasswordExporter(MDSSUser user, String password)
   {
-    this.username = user.getUsername();
+    if (user instanceof ODKUser)
+    {
+      this.username = ( (ODKUser) user ).getOdkUsername();
+    }
+    else
+    {
+      this.username = user.getUsername();
+    }
     this.password = password;
     this.provider = ODKFacade.getCredentialsProvider();
   }

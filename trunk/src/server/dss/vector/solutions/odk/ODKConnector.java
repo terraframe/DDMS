@@ -24,7 +24,8 @@ public class ODKConnector implements Reloadable
       endpoint = new EndpointUrl("http", "127.0.0.1", 8080, CommonProperties.getDeployAppName() + "Mobile");
     }
     
-    HTTPResponse resp = new SecureHttpConnector(endpoint, ODKFacade.USERNAME, ODKFacade.PASSWORD).httpPost(resourcePath, multipart);
+    ODKUser user = ODKUser.getUser();
+    HTTPResponse resp = new SecureHttpConnector(endpoint, user.getOdkUsername(), user.getOdkPassword()).httpPost(resourcePath, multipart);
     
     if (resp.getResponse().length() == 0)
     {
@@ -46,7 +47,8 @@ public class ODKConnector implements Reloadable
       endpoint = new EndpointUrl("http", "127.0.0.1", 8080, CommonProperties.getDeployAppName() + "Mobile");
     }
     
-    HTTPResponse resp = new SecureHttpConnector(endpoint, ODKFacade.USERNAME, ODKFacade.PASSWORD).httpGet(resourcePath);
+    ODKUser user = ODKUser.getUser();
+    HTTPResponse resp = new SecureHttpConnector(endpoint, user.getOdkUsername(), user.getOdkPassword()).httpGet(resourcePath);
     
     if (resp.getResponse().length() == 0)
     {

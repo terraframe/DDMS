@@ -32,6 +32,7 @@ import com.runwaysdk.transport.attributes.AttributeDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
+import dss.vector.solutions.odk.ODKUserDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
@@ -148,6 +149,11 @@ public class PersonController extends PersonControllerBase implements Reloadable
     req.setAttribute("sex", view.getSex());
     req.setAttribute("item", view);
     req.setAttribute("allDiseases", Arrays.asList(DiseaseDTO.getAllDiseases(getClientRequest())));
+    
+    if (view.getIsMDSSUser() && PersonDTO.get(this.getClientRequest(), view.getPersonId()).getUserDelegate() instanceof ODKUserDTO)
+    {
+      req.setAttribute("isOdkUser", true);
+    }
   }
 
   public void edit(String id) throws IOException, ServletException

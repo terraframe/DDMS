@@ -1,0 +1,21 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.odk.ODKUser" extends="dss.vector.solutions.MDSSUser" label="ODK Administrator User">
+        <attributes>
+          <boolean name="isSynced" description="A flag denoting whether or not this user information has been synced to ODK." defaultValue="false" />
+          <text name="odkPassword" label="odkPassword" required="true" />
+          <text name="odkUsername" label="odkUsername" required="true" />
+        </attributes>
+        <mdMethod name="getUser" returnType="dss.vector.solutions.odk.ODKUser" static="true" label="getUser"></mdMethod>
+      </mdBusiness>
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.odk.ODKUser.isSynced" type="com.runwaysdk.system.metadata.MdAttributeBoolean" />
+      <object key="dss.vector.solutions.odk.ODKUser" type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

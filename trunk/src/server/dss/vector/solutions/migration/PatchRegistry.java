@@ -11,6 +11,7 @@ public class PatchRegistry
     
     registerPatch(new Patcher3883());
     registerPatch(new Patcher3974());
+    registerPatch(new Patcher4009());
   }
   
   public static void registerPatch(DDMSPatchIF patch)
