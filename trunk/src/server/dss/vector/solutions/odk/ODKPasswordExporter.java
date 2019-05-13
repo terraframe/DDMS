@@ -107,4 +107,11 @@ public class ODKPasswordExporter implements Reloadable, Runnable
     ODKPasswordExporter exporter = new ODKPasswordExporter(user, password);
     exporter.run();
   }
+  
+  public static void changeRootPassword(String oldPassword, String newPassword)
+  {
+    CredentialsProvider provider = ODKFacade.getCredentialsProvider(ODKFacade.USERNAME, oldPassword);
+    ODKPasswordExporter exporter = new ODKPasswordExporter(ODKFacade.USERNAME, newPassword, provider);
+    exporter.run();
+  }
 }

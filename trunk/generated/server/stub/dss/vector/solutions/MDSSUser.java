@@ -77,6 +77,11 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
       UserSettings.createIfNotExists(this);
     }
 
+    exportOdkUsers(exportODK, isUsernameModified);
+  }
+
+  protected void exportOdkUsers(boolean exportODK, boolean isUsernameModified)
+  {
     if (isUsernameModified && exportODK)
     {
       ODKPermissionExporter.export();

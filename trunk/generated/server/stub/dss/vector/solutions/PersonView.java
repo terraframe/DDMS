@@ -166,9 +166,11 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       {
         user = new MDSSUser();
       }
-      else if ( (user.getODKRoles() != 0 || user instanceof ODKUser) && this.getPassword().length() > 0 )
+      
+      String oldPassword = null;
+      if (user instanceof ODKUser)
       {
-        ODKPasswordExporter.export(user, this.getPassword());
+        oldPassword = ( (ODKUser) user ).getOdkPassword();
       }
       
       user.setPerson(person);
@@ -180,6 +182,18 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       settings.lock();
       settings.setDisease(this.getDisease());
       settings.apply();
+      
+      if ( (user.getODKRoles() != 0 || user instanceof ODKUser) && this.getPassword().length() > 0 )
+      {
+        if (user instanceof ODKUser)
+        {
+          ODKPasswordExporter.changeRootPassword(oldPassword, this.getPassword());
+        }
+        else
+        {
+          ODKPasswordExporter.export(user, this.getPassword());
+        }
+      }
     }
     else
     {

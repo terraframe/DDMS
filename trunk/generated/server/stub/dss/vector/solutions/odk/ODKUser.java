@@ -34,6 +34,12 @@ public class ODKUser extends ODKUserBase implements com.runwaysdk.generation.loa
   }
   
   @Override
+  protected void exportOdkUsers(boolean exportODK, boolean isUsernameModified)
+  {
+    // The ODK root username cannot be changed and the password is exported in PersonView.
+  }
+  
+  @Override
   public void setPassword(String value)
   {
     super.setPassword(value);
