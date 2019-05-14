@@ -134,7 +134,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
 
   private AllJobStatus doIt(ODKForm form, JobHistory history)
   {
-    AllJobStatus status = AllJobStatus.FAILURE;
+    AllJobStatus mobileDataUploadJobStatus = AllJobStatus.FAILURE;
 
     File parent = Files.createTempDir();
     
@@ -215,9 +215,13 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             {
               ExcelImportHistory result = manager.importAndWait(eis, new String[] {}, file.getName());
 
+              AllJobStatus excelImportStatus = AllJobStatus.FAILURE;
               if (result != null)
               {
-                status = result.getStatus().get(0);
+                Thread.sleep(100);
+                result = ExcelImportHistory.get(result.getId());
+                
+                excelImportStatus = result.getStatus().get(0);
               }
               
               File archive = new File(ODKFacade.getArchivePath());
@@ -231,7 +235,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
                 }
               }
               
-              if (!status.equals(AllJobStatus.SUCCESS))
+              if (!excelImportStatus.equals(AllJobStatus.SUCCESS))
               {
                 failedFiles.add(new Pair<String, ExcelImportHistory>(file.getName(), result));
               }
@@ -250,7 +254,6 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
       }
       else
       {
-        status = AllJobStatus.SUCCESS;
         logger.debug("No ODK data to export for type [" + form.getViewMd().definesType() + "]");
       }
     }
@@ -265,7 +268,27 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
     
     sendErrorEmail(fatalError, failedFiles);
     
-    return status;
+    if (fatalError != null)
+    {
+      if (fatalError instanceof RuntimeException)
+      {
+        throw (RuntimeException) fatalError;
+      }
+      else
+      {
+        throw new RuntimeException(fatalError);
+      }
+    }
+    else if (failedFiles.size() > 0)
+    {
+      mobileDataUploadJobStatus = AllJobStatus.WARNING;
+    }
+    else
+    {
+      mobileDataUploadJobStatus = AllJobStatus.SUCCESS;
+    }
+    
+    return mobileDataUploadJobStatus;
   }
   
   private void sendErrorEmail(Throwable err, ArrayList<Pair<String, ExcelImportHistory>> files)
