@@ -57,6 +57,7 @@ import com.google.common.io.Files;
 import com.runwaysdk.Pair;
 import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.business.rbac.UserDAO;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
@@ -305,7 +306,7 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
        */
       String body = LocalizationFacade.getFromBundles("mobileDataUpload.email.FailureBody");
       body = body.replaceAll("\\\\n", "\n");
-      String serverUrl = "http://localhost:8080/DDMS/";
+      String serverUrl = "http://localhost:8080/";
       try
       {
         Properties prop = new Properties();
@@ -339,6 +340,10 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
       catch (Throwable ex) {
         ex.printStackTrace();
       }
+      
+      // Add the app context
+      serverUrl = serverUrl + CommonProperties.getDeployAppName() + "/";
+      
       serverUrl = serverUrl + "dss.vector.solutions.generator.ExcelController.viewManager.mojo";
       body = body.replaceFirst("\\{serverUrl\\}", serverUrl);
       
