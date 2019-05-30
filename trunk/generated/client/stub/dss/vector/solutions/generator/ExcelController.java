@@ -142,7 +142,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   {
     VaultFileDTO vfile = ExcelImportHistoryDTO.get(getClientRequest(), historyId).getErrorFile();
     
-    String fileName = vfile.getFileName() + "." + vfile.getFileExtension();
+    String fileName = vfile.getFileName() + "-errors.xlsx";
     
     resp.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     resp.setHeader("Content-Disposition", "attachment;filename=" + fileName);
