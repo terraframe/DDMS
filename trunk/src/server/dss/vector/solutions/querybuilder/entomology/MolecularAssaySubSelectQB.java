@@ -71,12 +71,12 @@ public class MolecularAssaySubSelectQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(molecularQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, MolecularAssay.CLASS, molecularQuery, this.getTermRestrictions(), this.getLayer());
       
-      String numberrrCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRR);
-      String numberrsCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRS);
-      String numberssCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSS);
-      String numbersrpCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSRP);
-      String numberrrpCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRRP);
-      String numberrprpCol = QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRPRP);
+      String numberrrCol = "COALESCE(" + QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRR) + ",0)";
+      String numberrsCol = "COALESCE(" + QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRS) + ",0)";
+      String numberssCol = "COALESCE(" + QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSS) + ",0)";
+      String numbersrpCol = "COALESCE(" + QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERSRP) + ",0)";
+      String numberrrpCol = "COALESCE(" + QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRRP) + ",0)";
+      String numberrprpCol = "COALESCE(" + QueryUtil.getColumnName(molecularQuery.getMdClassIF(), MolecularAssay.NUMBERRPRP) + ",0)";
       
       if(xml.indexOf(">percentRR<") > 0)
       {
