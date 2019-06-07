@@ -743,7 +743,7 @@ public class TargetBuilder implements Reloadable
       {
         SimpleDateFormat format = LocalizationUtil.getDateFormat();
 
-        if (cField.has("validationStartRange"))
+        if (cField.has("validationStartRange") && cField.getString("validationStartRange").length() > 0)
         {
           String value = cField.getString("validationStartRange");
 
@@ -759,7 +759,7 @@ public class TargetBuilder implements Reloadable
 
         }
 
-        if (cField.has("validationEndRange"))
+        if (cField.has("validationEndRange") && cField.getString("validationEndRange").length() > 0)
         {
           String value = cField.getString("validationEndRange");
 
@@ -783,7 +783,7 @@ public class TargetBuilder implements Reloadable
 
     if (cField.has("hasValidation") && cField.getBoolean("hasValidation"))
     {
-      if (cField.has("validationStartRange"))
+      if (cField.has("validationStartRange") && cField.getString("validationStartRange").length() > 0)
       {
         String startRange = cField.getString("validationStartRange");
         NumberFormat format = NumberFormat.getInstance(Session.getCurrentLocale());
@@ -800,7 +800,7 @@ public class TargetBuilder implements Reloadable
         }
       }
 
-      if (cField.has("validationEndRange"))
+      if (cField.has("validationEndRange") && cField.getString("validationEndRange").length() > 0)
       {
         String endRange = cField.getString("validationEndRange");
         NumberFormat format = NumberFormat.getInstance(Session.getCurrentLocale());
