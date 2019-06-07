@@ -630,8 +630,17 @@ public class TargetBuilder implements Reloadable
     }
     else if (columnType.equals(ColumnType.DOUBLE.name()))
     {
-      int length = cField.getInt("precision");
-      int decimal = cField.getInt("scale");
+      int length = 10;
+      if (cField.has("precision"))
+      {
+        length = cField.getInt("precision");
+      }
+      
+      int decimal = 10;
+      if (cField.has("scale"))
+      {
+        decimal = cField.getInt("scale");
+      }
 
       MdWebDouble mdField = new MdWebDouble();
       mdField.setFieldName(attributeName);

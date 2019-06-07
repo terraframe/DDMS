@@ -1561,11 +1561,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     if (first)
     {
+      final int idLength = 64;
+      
       new FormSystemURLBuilder(mdForm).generate();
 
       MdAttributeCharacter mdAttributeCharacter = new MdAttributeCharacter();
       mdAttributeCharacter.setAttributeName(OID);
-      mdAttributeCharacter.setDatabaseSize(16);
+      mdAttributeCharacter.setDatabaseSize(idLength);
       mdAttributeCharacter.addIndexType(MdAttributeIndices.UNIQUE_INDEX);
       mdAttributeCharacter.setDefiningMdClass(mdBusiness);
       mdAttributeCharacter.setRemove(false);
@@ -1581,8 +1583,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       MdWebCharacter mdWebCharacter = new MdWebCharacter();
       mdWebCharacter.setFieldName(OID);
       mdWebCharacter.setFieldOrder(0);
-      mdWebCharacter.setDisplayLength(16);
-      mdWebCharacter.setMaxLength(16);
+      mdWebCharacter.setDisplayLength(idLength);
+      mdWebCharacter.setMaxLength(idLength);
       mdWebCharacter.setUnique(true);
       mdWebCharacter.setRemove(false);
       mdWebCharacter.setRequired(true);
