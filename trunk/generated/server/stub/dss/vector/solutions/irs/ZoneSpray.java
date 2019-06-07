@@ -18,8 +18,10 @@ package dss.vector.solutions.irs;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.Term;
 
@@ -84,8 +86,26 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     this.setGeoEntityForIndex(this.getGeoEntity());
     this.setBrandForIndex(this.getBrand());
     this.setSprayDateForIndex(this.getSprayDate());
+    
+    validateSprayDate();
 
     super.apply();
+  }
+  
+  @Override
+  public void validateSprayDate()
+  {
+    if (this.getSprayDate() != null && this.getSprayDate().after(new Date()))
+    {
+      String msg = "It is impossible to have a spray date after the current date";
+
+      CurrentDateProblem p = new CurrentDateProblem(msg);
+      p.setGivenDate(this.getSprayDate());
+      p.setCurrentDate(new Date());
+      p.setNotification(this, TeamSpray.SPRAYDATE);
+      p.apply();
+      p.throwIt();
+    }
   }
 
   public ZoneSprayView unlockView()

@@ -24,6 +24,7 @@ import java.util.List;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
@@ -88,12 +89,30 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     this.setGeoEntityForIndex(this.getGeoEntity());
     this.setBrandForIndex(this.getBrand());
     this.setSprayDateForIndex(this.getSprayDate());
+    
+    validateSprayDate();
 
 	if (this.isNew() && this.getDisease() == null) {
 		this.setDisease(Disease.getCurrent());
 	}
 	
     super.apply();
+  }
+  
+  @Override
+  public void validateSprayDate()
+  {
+    if (this.getSprayDate() != null && this.getSprayDate().after(new Date()))
+    {
+      String msg = "It is impossible to have a spray date after the current date";
+
+      CurrentDateProblem p = new CurrentDateProblem(msg);
+      p.setGivenDate(this.getSprayDate());
+      p.setCurrentDate(new Date());
+      p.setNotification(this, TeamSpray.SPRAYDATE);
+      p.apply();
+      p.throwIt();
+    }
   }
   
   public TeamSprayView unlockView()
