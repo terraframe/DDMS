@@ -582,7 +582,8 @@ public abstract class AbstractQB implements Reloadable
   protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedTableClassQuery> queryMap)
   {
     GeneratedTableClassQuery q = queryMap.get(this.getAuditClassAlias());
-    QueryFactory f = valueQuery.getQueryFactory();
+//    QueryFactory f = valueQuery.getQueryFactory();
+    QueryFactory f = q.getQueryFactory();
 
     // create date
     if (v.hasSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS))

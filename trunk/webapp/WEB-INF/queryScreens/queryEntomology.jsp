@@ -276,7 +276,32 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var query = new MDSS.QueryEntomology(selectableGroups, queryList);
     query.render();
-
+    
+    var dm = query.getDependencyManager();
+    dm.excludes({
+      independent: molecularColumns,
+      dependent:biochemicalColumns.concat(pooledInfectionColumns).concat(infectionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: biochemicalColumns,
+      dependent:molecularColumns.concat(pooledInfectionColumns).concat(infectionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: pooledInfectionColumns,
+      dependent:molecularColumns.concat(biochemicalColumns).concat(infectionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: infectionColumns,
+      dependent:molecularColumns.concat(biochemicalColumns).concat(pooledInfectionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
 });
 
 </script>

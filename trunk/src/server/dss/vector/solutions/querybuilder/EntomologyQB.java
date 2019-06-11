@@ -38,6 +38,7 @@ import dss.vector.solutions.entomology.PooledInfectionAssay;
 import dss.vector.solutions.entomology.PooledInfectionAssayQuery;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.entomology.BiochemicalAssaySubSelectQB;
 import dss.vector.solutions.querybuilder.entomology.InfectionAssaySubSelectQB;
 import dss.vector.solutions.querybuilder.entomology.MolecularAssaySubSelectQB;
@@ -69,13 +70,13 @@ public class EntomologyQB extends AbstractQB implements Reloadable
     {
       return MolecularAssay.CLASS;
     }
-    else if (this.getQueryMap().containsKey(MosquitoCollection.CLASS))
-    {
-      return MosquitoCollection.CLASS;
-    }
     else if (this.getQueryMap().containsKey(BiochemicalAssay.CLASS))
     {
       return BiochemicalAssay.CLASS;
+    }
+    else if (this.getQueryMap().containsKey(MosquitoCollection.CLASS))
+    {
+      return MosquitoCollection.CLASS;
     }
     else
     {
@@ -127,7 +128,13 @@ public class EntomologyQB extends AbstractQB implements Reloadable
       this.setNumericRestrictions(valueQuery, queryConfig);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     }
-
+    
+//    Boolean hasAudit = valueQuery.hasSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS)
+//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS)
+//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS)
+//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS)
+//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS);
+    
     if (unionQueries.size() == 1)
     {
       valueQuery = unionQueries.get(0);
