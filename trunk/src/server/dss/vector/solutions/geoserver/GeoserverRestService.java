@@ -444,6 +444,23 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
 //    return false;
   }
+  
+  @Override
+  public boolean removeLayerGroup(String name, String workspace)
+  {
+    GeoServerRESTPublisher publisher = this.getPublisher();
+
+    if (publisher.removeLayerGroup(workspace, name))
+    {
+      logger.info("Removed the layer group named [" + name + "] on workspace [" + workspace + "].");
+      return true;
+    }
+    else
+    {
+      logger.warn("Failed to remove the layer group named [" + name + "] on workspace [" + workspace + "].");
+      return false;
+    }
+  }
 
   public void publishCache(String layer)
   {
@@ -558,7 +575,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   {
     GeoServerRESTReader reader = this.getReader();
 
-    boolean exists = reader.existsLayerGroup(layerGroup, workspace);
+    boolean exists = reader.existsLayerGroup(workspace, layerGroup);
 
     return exists;
   }
@@ -588,7 +605,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
   {
     GeoServerRESTReader reader = this.getReader();
 
-    boolean exists = reader.existsLayer(layer, workspace);
+    boolean exists = reader.existsLayer(workspace, layer);
 
     return exists;
   }
@@ -869,7 +886,7 @@ public class GeoserverRestService implements GeoserverService, Reloadable
 
   public boolean publishOSMLayer(String layer, String styleName)
   {
-    if (layerExists(layer))
+    if (layerExists(layer, "OSM"))
     {
       boolean removed = removeLayer(layer, "OSM");
       System.out.println(removed);

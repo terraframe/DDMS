@@ -42,7 +42,12 @@ public class OfflineBasemapJob extends OfflineBasemapJobBase implements com.runw
   @Override
   public void execute(ExecutionContext executionContext)
   {
-    LocalBasemapBuilder.importBasemapFiles(files);
+    boolean success = LocalBasemapBuilder.importBasemapFiles(files);
+    
+    if (!success)
+    {
+      throw new RuntimeException("Error occurred while building the basemap. View the logs for more information.");
+    }
   }
   
 }

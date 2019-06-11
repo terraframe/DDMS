@@ -129,6 +129,8 @@ public interface GeoserverService extends Reloadable
    * @return
    */
   public void removeLayer(String layer);
+  
+  public boolean removeLayer(String layer, String workspace);
 
   public void publishCache(String layer);
   
@@ -226,5 +228,7 @@ public interface GeoserverService extends Reloadable
   public String getGeoServerRemoteURL();
 
   public String getAppName();
+
+  public boolean removeLayerGroup(String name, String workspace);
 
 }

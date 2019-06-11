@@ -261,6 +261,11 @@ public class GeoserverFacade implements Reloadable
     getService().removeLayer(layer);
   }
   
+  public static boolean removeLayer(String layer, String workspace)
+  {
+    return getService().removeLayer(layer, workspace);
+  }
+  
   /**
    * Checks if the given layer exists in Geoserver.
    * 
@@ -371,5 +376,10 @@ public class GeoserverFacade implements Reloadable
   public static String getAppName()
   {
     return getService().getAppName();
+  }
+
+  public static boolean removeLayerGroup(String name, String workspace)
+  {
+    return getService().removeLayerGroup(name, workspace);
   }
 }

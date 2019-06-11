@@ -28,8 +28,8 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseProperties;
@@ -44,8 +44,7 @@ import dss.vector.solutions.geoserver.GeoserverLayer.LayerType;
 
 public class LocalBasemapBuilder implements Reloadable
 {
-
-  private static final Log log = LogFactory.getLog(LocalBasemapBuilder.class);
+  private static final Logger logger = LoggerFactory.getLogger(LocalBasemapBuilder.class);
 
   public static void configureGeoserverForOSM()
   {
@@ -267,7 +266,7 @@ public class LocalBasemapBuilder implements Reloadable
     // ONLY run after all data is uploaded and if there are actually updates
     if (successfullImport == true && fileNames.length > 0)
     {
-      buildOSMGeoserverServices();
+      successfullImport = buildOSMGeoserverServices();
     }
 
     return successfullImport;
@@ -306,7 +305,7 @@ public class LocalBasemapBuilder implements Reloadable
       	  
       	  if(convertedFile.exists() && convertedFile.length() > 0)
       	  {
-      		  log.debug("\n\nBasemap merge successful!");
+      		  logger.debug("\n\nBasemap merge successful!");
       		  return convertedFile;
       	  }
       	  else
@@ -316,8 +315,8 @@ public class LocalBasemapBuilder implements Reloadable
         }
         else
         {
-          log.debug("\n\nProblem merging basemap!");
-          log.debug(proc.getErrors());
+          logger.error("\n\nProblem merging basemap!");
+          logger.error(proc.getErrors());
           return null;
         }
       } 
@@ -406,11 +405,11 @@ public class LocalBasemapBuilder implements Reloadable
         	
       	    if(importComplete)
           	{
-              log.debug("\n\nBasemap import successful!");
+              logger.debug("\n\nBasemap import successful!");
           	}
       	    else
       	    {
-      	      log.debug("\n\nBasemap import failure!");
+      	      logger.error("\n\nBasemap import failure!");
       	    }
       	  }
       	  else
@@ -418,12 +417,12 @@ public class LocalBasemapBuilder implements Reloadable
       		  // throw exception
       	  }
       	  
-      	  log.debug("\n\nBasemap merge successful!");
+      	  logger.debug("\n\nBasemap merge successful!");
         }
         else
         {
-          log.debug("\n\nProblem merging basemap!");
-          log.debug(proc.getErrors());
+          logger.error("\n\nProblem merging basemap!");
+          logger.error(proc.getErrors());
         }
     } catch (Exception e) {
 		// TODO Auto-generated catch block
@@ -491,19 +490,19 @@ public class LocalBasemapBuilder implements Reloadable
       {
         ProcessBuilderWrapper proc = new ProcessBuilderWrapper(dir, command);
 
-        System.out.println("Command has terminated with status: " + proc.getStatus());
-        System.out.println("Output:\n" + proc.getInfos());
-        System.out.println("Error: " + proc.getErrors());
+        String msg = "Command has terminated with status: " + proc.getStatus() + "\n";
+        msg = "Output:\n" + proc.getInfos() + "\n";
+        msg = "Error: " + proc.getErrors() + "\n";
 
         if (proc.getStatus() == 0)
         {
           success = true;
 
-          log.debug("\n\nBasemap data import successful!");
+          logger.debug("Basemap data import successful! \n" + msg);
         }
         else
         {
-          log.debug("\n\nProblem with basemap data import!");
+          logger.error("Problem with basemap data import! \n" + msg);
         }
       }
       finally
@@ -536,7 +535,7 @@ public class LocalBasemapBuilder implements Reloadable
     }
   }
 
-  public static void buildOSMGeoserverServices()
+  public static boolean buildOSMGeoserverServices()
   {
     GeoserverLayer lineLayer = new GeoserverLayer();
     lineLayer.setLayerName("planet_osm_line");
@@ -557,24 +556,41 @@ public class LocalBasemapBuilder implements Reloadable
     // pointLayer.setLayerName("planet_osm_point");
     // pointLayer.setLayerType(LayerType.POINT);
     // pointLayer.setStyleName("osm-polygon-style");
-
-    if (GeoserverFacade.layerExists(lineLayer.getLayerName()))
+    
+    GeoserverFacade.refresh();
+//    if (GeoserverFacade.layerGroupExists("osm_basic", GeoserverProperties.getOSMWorkspace()))
+//    {
+      GeoserverFacade.removeLayerGroup("osm_basic", GeoserverProperties.getOSMWorkspace());
+//    }
+//    if (GeoserverFacade.layerExists(lineLayer.getLayerName(), GeoserverProperties.getOSMWorkspace()))
+//    {
+      GeoserverFacade.removeLayer(lineLayer.getLayerName(), GeoserverProperties.getOSMWorkspace());
+//    }
+//    if (GeoserverFacade.layerExists(roadLayer.getLayerName(), GeoserverProperties.getOSMWorkspace()))
+//    {
+      GeoserverFacade.removeLayer(roadLayer.getLayerName(), GeoserverProperties.getOSMWorkspace());
+//    }
+//    if (GeoserverFacade.layerExists(polyLayer.getLayerName(), GeoserverProperties.getOSMWorkspace()))
+//    {
+      GeoserverFacade.removeLayer(polyLayer.getLayerName(), GeoserverProperties.getOSMWorkspace());
+//    }
+    GeoserverFacade.refresh();
+    
+    if (!GeoserverFacade.publishOSMLayer(lineLayer))
     {
-      GeoserverFacade.removeLayer(lineLayer.getLayerName());
+      logger.error("Failed to publish OSM layer " + lineLayer);
+      return false;
     }
-    GeoserverFacade.publishOSMLayer(lineLayer);
-
-    if (GeoserverFacade.layerExists(roadLayer.getLayerName()))
+    if (!GeoserverFacade.publishOSMLayer(roadLayer))
     {
-      GeoserverFacade.removeLayer(roadLayer.getLayerName());
+      logger.error("Failed to publish OSM layer " + roadLayer);
+      return false;
     }
-    GeoserverFacade.publishOSMLayer(roadLayer);
-
-    if (GeoserverFacade.layerExists(polyLayer.getLayerName()))
+    if (!GeoserverFacade.publishOSMLayer(polyLayer))
     {
-      GeoserverFacade.removeLayer(polyLayer.getLayerName());
+      logger.error("Failed to publish OSM layer " + polyLayer);
+      return false;
     }
-    GeoserverFacade.publishOSMLayer(polyLayer);
     // GeoserverFacade.publishOSMLayer(pointLayer);
 
     String[] layers = new String[3];
@@ -583,13 +599,17 @@ public class LocalBasemapBuilder implements Reloadable
     layers[2] = roadLayer.getLayerName();
     // layers[3] = pointLayer.getLayerName();
 
-    if (GeoserverFacade.layerGroupExists("osm_basic"))
+    if (!GeoserverFacade.publishLayerGroup(layers, GeoserverProperties.getOSMWorkspace(), "osm_basic"))
     {
-      GeoserverFacade.removeLayer(lineLayer.getLayerName());
+      logger.error("Failed to publish layer group " + "osm_basic");
+      return false;
     }
-    GeoserverFacade.publishLayerGroup(layers, GeoserverProperties.getOSMWorkspace(), "osm_basic");
 
     GeoserverFacade.removeCache("osm_basic", GeoserverProperties.getOSMWorkspace());
+    
+    GeoserverFacade.refresh();
+    
+    return true;
   }
 
 }

@@ -309,4 +309,16 @@ public class NullGeoserverService implements GeoserverService
   {
     return "geoserver";
   }
+
+  @Override
+  public boolean removeLayer(String layer, String workspace)
+  {
+    return true;
+  }
+
+  @Override
+  public boolean removeLayerGroup(String name, String workspace)
+  {
+    return true;
+  }
 }
