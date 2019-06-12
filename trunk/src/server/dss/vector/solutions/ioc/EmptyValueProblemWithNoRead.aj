@@ -19,7 +19,7 @@ privileged public aspect EmptyValueProblemWithNoRead
 {
   declare                                       precedence : EmptyValueProblemWithNoRead, TransactionManagement;
 
-  public pointcut emptyValueProblem() : TransactionManagement.topLevelTransactions();
+  public pointcut emptyValueProblem() : TransactionManagement.topLevelTransactions() && !(execution(* dss.vector.solutions.kaleidoscope.data.etl.Converter.*(..)));
 
   Object around() : emptyValueProblem()
   {
