@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="test" default="create_patch_zip">
+
+	<property name="patches.dir" value="${basedir}/patches" />
+	<property name="dest.dir" value="${basedir}/src/main/resources" />
+
+	<property name="test.patches.dir" value="${basedir}/test/patches" />
+	<property name="test.dest.dir" value="${basedir}/test/" />
+
+	<!-- Creates a zip of the patches directory -->
+	<target name="create_patch_zip" description="Create zip file of the patches directory">
+		<zip destfile="${dest.dir}/patches.zip">
+			<fileset dir="${patches.dir}" />
+		</zip>
+	</target>
+	
+	<!-- Creates a zip of the test patches directory -->
+	<target name="create_test_patch_zip" description="Create zip file of the patches directory">
+		<zip destfile="${test.dest.dir}/patches.zip">
+			<fileset dir="${test.patches.dir}" />
+		</zip>
+	</target>
+</project>

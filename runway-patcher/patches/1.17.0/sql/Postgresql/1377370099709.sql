@@ -1,0 +1,1 @@
+update md_method set is_static=1 where id='i5rx9jb5emke0t0j7xctgil490qiywe520070427JS0000000000000000001514';

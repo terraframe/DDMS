@@ -1,0 +1,2 @@
+UPDATE md_attribute_concrete SET required= 0  WHERE id='03ik47a90v41celewcfyr82f7x830ais00000000000000000000000000000186';
+UPDATE metadata SET seq= 5104 , last_update_date= '2011-11-06 19:46:05'  WHERE id='03ik47a90v41celewcfyr82f7x830ais00000000000000000000000000000186';
