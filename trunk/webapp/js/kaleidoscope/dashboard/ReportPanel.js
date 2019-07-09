@@ -67,15 +67,15 @@
           $scope.menuOptions.push([localizationService.localize("report", "xlsx"), function ($itemScope, $event, modelValue, text, $li) {
             controller.exportReport('xlsx');
           }]);
-          
-          $scope.menuOptions.push([localizationService.localize("report", "pdf"), function ($itemScope, $event, modelValue, text, $li) {
-            controller.exportReport('pdf');
-          }]);
         }        
         
         // Divider
         $scope.menuOptions.push(null);        
       }
+      
+      $scope.menuOptions.push([localizationService.localize("report", "pdf"), function ($itemScope, $event, modelValue, text, $li) {
+        controller.exportReport('pdf');
+      }]);
       
       if($scope.opaque) {
         $scope.menuOptions.push([localizationService.localize("report", "translucent"), function ($itemScope, $event, modelValue, text, $li) {
