@@ -58,9 +58,57 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
       ValueQuery query = termQuery(this.sourceMdAttr);
 
       this.count = query.getCount();
-    }
+      
+      if (this.count < 5)
+      {
+        this.count = 0L;
+        
+        OIterator<ValueObject> it = query.getIterator();
 
+        try
+        {
+          while (it.hasNext())
+          {
+            ValueObject vObject = it.next();
+            String rootId = vObject.getValue("rootId");
+            String id = vObject.getValue("id");
+            String selectable = vObject.getValue("selectable");
+
+            if ( !rootId.equals(id) || selectable.equals("1") )
+            {
+              this.count++;
+            }
+          }
+        }
+        finally
+        {
+          it.close();
+        }
+      }
+    }
+    
     return count;
+  }
+  
+  @Override
+  public void writeBind(Element parent, Document document, String title, int maxDepth)
+  {
+    long count = this.getCount();
+    
+    if (this.isRequired() && count == 1)
+    {
+      Element bind = document.createElement("bind");
+
+      bind.setAttribute("nodeset", "/" + title + "/" + attributeName);
+      bind.setAttribute("type", "hidden");
+      bind.setAttribute("required", "true()");
+
+      parent.appendChild(bind);
+    }
+    else
+    {
+      super.writeBind(parent, document, title, maxDepth);
+    }
   }
 
   @Override
@@ -90,7 +138,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 
       problem.throwIt();
     }
-    else
+    else if (!(this.isRequired() && count == 1))
     {
       OIterator<ValueObject> it = query.getIterator();
 
@@ -137,6 +185,7 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
 
     MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
     
+    Boolean hasDefault = false;
     if (mdDimension != null)
     {
       MdAttributeDimensionDAOIF mdAttributeDimension = this.sourceMdAttr.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
@@ -148,6 +197,35 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
         Term term = Term.get(id);
   
         attrNode.setTextContent(ODKTermAttribute.sanitizeTermId(term.getTermId()));
+        
+        hasDefault = true;
+      }
+    }
+    if (!hasDefault && this.isRequired() && count == 1)
+    {
+      ValueQuery query = termQuery(this.sourceMdAttr);
+
+      OIterator<ValueObject> it = query.getIterator();
+
+      try
+      {
+        if (it.hasNext())
+        {
+          ValueObject vObject = it.next();
+          String rootId = vObject.getValue("rootId");
+          String id = vObject.getValue("id");
+          String selectable = vObject.getValue("selectable");
+          String termId = ODKTermAttribute.sanitizeTermId(vObject.getValue("termId"));
+
+          if ( !rootId.equals(id) || selectable.equals("1") )
+          {
+            attrNode.setTextContent(termId);
+          }
+        }
+      }
+      finally
+      {
+        it.close();
       }
     }
 
@@ -162,17 +240,17 @@ public class ODKTermAttribute extends ODKMetadataAttribute implements Reloadable
     ValueQuery query = termQuery(this.sourceMdAttr);
     long count = this.getCount();
 
-    Element select1 = document.createElement("select1");
-    parent.appendChild(select1);
-    select1.setAttribute("appearance", "search");
-    select1.setAttribute("ref", "/" + title + "/" + attributeName);
-
-    Element label = document.createElement("label");
-    select1.appendChild(label);
-    label.setAttribute("ref", "jr:itext('/" + title + "/" + attributeName + ":label')");
-
-    if (count < LIMIT)
+    if (count < LIMIT && !(this.isRequired() && count == 1))
     {
+      Element select1 = document.createElement("select1");
+      parent.appendChild(select1);
+      select1.setAttribute("appearance", "search");
+      select1.setAttribute("ref", "/" + title + "/" + attributeName);
+  
+      Element label = document.createElement("label");
+      select1.appendChild(label);
+      label.setAttribute("ref", "jr:itext('/" + title + "/" + attributeName + ":label')");
+    
       OIterator<ValueObject> it = query.getIterator();
 
       try
