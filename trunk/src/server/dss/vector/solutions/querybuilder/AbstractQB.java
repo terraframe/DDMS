@@ -589,13 +589,17 @@ public abstract class AbstractQB implements Reloadable
     if (v.hasSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS))
     {
       SelectableSQL sel = (SelectableSQL) v.getSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS);
-      sel.setSQL(q.get(Metadata.CREATEDATE).getDbQualifiedName());
+      
+      // #4083 Cast the timestamp to date so that it aggregates properly. The UI doesn't display the time information
+      sel.setSQL(q.get(Metadata.CREATEDATE).getDbQualifiedName() + "::date");
     }
 
     if (v.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS))
     {
       SelectableSQL sel = (SelectableSQL) v.getSelectableRef(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS);
-      sel.setSQL(q.get(Metadata.LASTUPDATEDATE).getDbQualifiedName());
+      
+      // #4083 Cast the timestamp to date so that it aggregates properly. The UI doesn't display the time information
+      sel.setSQL(q.get(Metadata.LASTUPDATEDATE).getDbQualifiedName() + "::date");
     }
 
     // last update date
