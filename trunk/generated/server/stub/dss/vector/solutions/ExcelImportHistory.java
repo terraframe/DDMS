@@ -19,6 +19,8 @@ package dss.vector.solutions;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +30,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutableJob;
@@ -83,6 +86,10 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     
     vq.WHERE(historyQ.getStatus().notContainsAll(AllJobStatus.RUNNING));
     vq.AND(historyQ.job(jobQ));
+    
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.MONTH, -1);
+    vq.AND(historyQ.getEndTime().LT(cal.getTime()));
     
     Set<String> jobs = new HashSet<String>();
     Set<String> historyIds = new HashSet<String>();
@@ -149,13 +156,35 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     }
   }
   
-  public static dss.vector.solutions.ExcelImportHistory[] getAllHistory()
+  public static java.lang.Long getTotalHistoryCount()
   {
     ExcelImportHistoryQuery query = new ExcelImportHistoryQuery(new QueryFactory());
-    query.ORDER_BY(query.getStartTime(), SortOrder.DESC);
+    
+    return query.getCount();
+  }
+  
+  public static dss.vector.solutions.ExcelImportHistory[] getPaginatedHistory(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    ExcelImportHistoryQuery query = new ExcelImportHistoryQuery(new QueryFactory());
+    
+    Selectable selOrderBy = query.getStartTime();
+    if (sortAttribute != null && sortAttribute.length() > 0)
+    {
+      selOrderBy = query.get(sortAttribute);
+    }
+    query.ORDER_BY(selOrderBy, isAscending ? SortOrder.ASC : SortOrder.DESC);
+    query.restrictRows(pageSize, pageNumber);
+    
     OIterator<? extends ExcelImportHistory> jhs = query.getIterator();
     
     ExcelImportHistory[] histories = new ExcelImportHistory[(int) query.getCount()];
+    
+    long size = query.getCount();
+    if (size > pageSize)
+    {
+      size = pageSize;
+    }
+    histories = new ExcelImportHistory[(int) size];
     
     try
     {
@@ -178,4 +207,38 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     
     return histories;
   }
+  
+  /**
+   * Not used anymore. Can be deleted.
+   * @deprecated
+   */
+//  public static dss.vector.solutions.ExcelImportHistory[] getAllHistory()
+//  {
+//    ExcelImportHistoryQuery query = new ExcelImportHistoryQuery(new QueryFactory());
+//    query.ORDER_BY(query.getStartTime(), SortOrder.DESC);
+//    OIterator<? extends ExcelImportHistory> jhs = query.getIterator();
+//    
+//    ExcelImportHistory[] histories = new ExcelImportHistory[(int) query.getCount()];
+//    
+//    try
+//    {
+//      int i = 0;
+//      while (jhs.hasNext())
+//      {
+//        ExcelImportHistory jh = jhs.next();
+//        histories[i] = jh;
+//        ++i;
+//      }
+//    }
+//    catch (Throwable e)
+//    {
+//      return new ExcelImportHistory[]{};
+//    }
+//    finally
+//    {
+//      jhs.close();
+//    }
+//    
+//    return histories;
+//  }
 }

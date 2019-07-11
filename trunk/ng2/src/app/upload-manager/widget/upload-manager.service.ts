@@ -35,10 +35,44 @@ export class UploadManagerService extends BasicService {
       });
   }
   
-  pollAllHistory(): Observable<ExcelImportHistory[]> {
+  getPaginatedHistory(sortAttribute: string, isAscending: boolean, pageSize: number, pageNumber: number): Promise<any> {
+    return this.ehttp
+      .get(acp + '/dss.vector.solutions.generator.ExcelController.getPaginatedHistory.mojo'
+        + '?sortAttribute=' + sortAttribute + "&"
+        + 'isAscending=' + isAscending + "&"
+        + 'pageSize=' + pageSize + "&"
+        + 'pageNumber=' + pageNumber)
+      .toPromise()
+      .then(response => {
+        
+      this.analyticsService.pushAalyticsTrackingTagEvent("SUCCESS", "/dss.vector.solutions.generator.ExcelController.getPaginatedHistory.mojo", "get", {});
+ 
+        return response.json() as any;
+      })
+      .catch(e => {
+            this.analyticsService.pushAalyticsTrackingTagEvent("FAILURE", "/dss.vector.solutions.generator.ExcelController.getPaginatedHistory.mojo", "get", {});
+
+            this.handleError.bind(this)
+      });
+  }
+  
+  pollPaginatedHistory(sortAttribute: string, isAscending: boolean, pageSize: number, pageNumber: number): Observable<any> {
+    return Observable.interval(10000)
+      .flatMap(() => this.http.get(
+        acp + '/dss.vector.solutions.generator.ExcelController.getPaginatedHistory.mojo'
+        + '?sortAttribute=' + sortAttribute + "&"
+        + 'isAscending=' + isAscending + "&"
+        + 'pageSize=' + pageSize + "&"
+        + 'pageNumber=' + pageNumber
+      )
+      .catch(err => {console.log("ignoring error: " + err); return Observable.empty() as Observable<Response>}))
+      .map(res => res.json() as any)
+  }
+  
+  pollAllHistory(): Observable<any> {
     return Observable.interval(10000)
       .flatMap(() => this.http.get(acp + '/dss.vector.solutions.generator.ExcelController.getAllHistory.mojo').catch(err => {console.log("ignoring error: " + err); return Observable.empty() as Observable<Response>}))
-      .map(res => res.json() as ExcelImportHistory[])
+      .map(res => res.json() as any)
   }
   
   clearHistory(): Promise<void | Response> {

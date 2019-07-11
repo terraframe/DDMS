@@ -1,0 +1,30 @@
+<version xsi:noNamespaceSchemaLocation="classpath:com/runwaysdk/resources/xsd/version.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdController name="dss.vector.solutions.generator.ExcelController">
+       <create>
+         <mdAction name="getPaginatedHistory" label="getPaginatedHistory" isPost="false" isQuery="true" ></mdAction>
+       </create>
+     </mdController>
+     
+     <mdBusiness name="dss.vector.solutions.ExcelImportHistory">
+       <create>
+         <mdMethod name="getPaginatedHistory" label="getPaginatedHistory" static="true" returnType="dss.vector.solutions.ExcelImportHistory[]" >
+           <mdParameter name="sortAttribute" label="sortAttribute" order="0" type="java.lang.String" />
+           <mdParameter name="isAscending" label="isAscending" order="1" type="java.lang.Boolean" />
+           <mdParameter name="pageSize" label="pageSize" order="2" type="java.lang.Integer" />
+           <mdParameter name="pageNumber" label="pageNumber" order="3" type="java.lang.Integer" />
+         </mdMethod>
+         <mdMethod name="getTotalHistoryCount" label="getTotalHistoryCount" static="true" returnType="java.lang.Long" ></mdMethod>
+       </create>
+     </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.ExcelImportHistory.getPaginatedHistory" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.generator.ExcelController.getPaginatedHistory" type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

@@ -6,6 +6,7 @@ import { HttpModule} from '@angular/http';
 
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { CoreModule } from '../core/core.module';
 
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     HttpModule,
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
-    CoreModule
+    CoreModule,
+    NgxPaginationModule
   ],
   declarations: [
     AppUploadManagerComponent,

@@ -35,6 +35,7 @@ import com.runwaysdk.controller.MultipartFileParameter;
 import com.runwaysdk.system.VaultFileDTO;
 
 import dss.vector.solutions.ExcelImportHistoryDTO;
+import dss.vector.solutions.ExcelImportHistoryQueryDTO;
 import dss.vector.solutions.ExcelImportManagerDTO;
 import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
@@ -186,61 +187,71 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
   
   @Override
-  public void getAllHistory() throws java.io.IOException, javax.servlet.ServletException
+  public void getPaginatedHistory(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     try
     {
+      JSONObject joResp = new JSONObject();
+      
       JSONArray jHistories = new JSONArray();
       
-      ExcelImportHistoryDTO[] histories = ExcelImportHistoryDTO.getAllHistory(getClientRequest());
+      ExcelImportHistoryDTO[] histories = ExcelImportHistoryDTO.getPaginatedHistory(getClientRequest(), sortAttribute, isAscending, pageSize, pageNumber);
       
       for (int i = 0; i < histories.length; ++i)
       {
         ExcelImportHistoryDTO history = histories[i];
         
-        JSONObject jHistory = new JSONObject();
-        
-        jHistory.put("id", history.getId());
-        
-        jHistory.put("name", history.getFileName());
-        
-        if (history.getImportCount() != null)
+        if (history != null)
         {
-          jHistory.put("importCount", history.getImportCount());
+          JSONObject jHistory = new JSONObject();
+          
+          jHistory.put("id", history.getId());
+          
+          jHistory.put("name", history.getFileName());
+          
+          if (history.getImportCount() != null)
+          {
+            jHistory.put("importCount", history.getImportCount());
+          }
+          else
+          {
+            jHistory.put("importCount", 0);
+          }
+          
+          jHistory.put("totalRecords", history.getTotalRecords());
+          jHistory.put("status", history.getStatus().get(0).item(getClientRequest()).getDisplayLabel().getValue());
+          jHistory.put("startTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getStartTime()));
+          if (history.getEndTime() != null)
+          {
+            jHistory.put("endTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getEndTime()));
+          }
+          else
+          {
+            jHistory.put("endTime", "");
+          }
+          jHistory.put("hasError", history.getErrorFile() != null);
+          
+          jHistory.put("geoSyns", history.getNumberUnknownGeos());
+          
+          jHistory.put("termSyns", history.getNumberUnknownTerms());
+          
+          // Error messages are stored in the HistoryInformation
+          String info = history.getHistoryInformation().getValue();
+          if (info != null && info.length() > 0)
+          {
+            jHistory.put("historyInformation", info);
+          }
+          
+          jHistories.put(jHistory);
         }
-        else
-        {
-          jHistory.put("importCount", 0);
-        }
-        
-        jHistory.put("totalRecords", history.getTotalRecords());
-        jHistory.put("status", history.getStatus().get(0).item(getClientRequest()).getDisplayLabel().getValue());
-        jHistory.put("startTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getStartTime()));
-        if (history.getEndTime() != null)
-        {
-          jHistory.put("endTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getEndTime()));
-        }
-        else
-        {
-          jHistory.put("endTime", "");
-        }
-        jHistory.put("hasError", history.getErrorFile() != null);
-        
-        jHistory.put("geoSyns", history.getNumberUnknownGeos());
-        
-        jHistory.put("termSyns", history.getNumberUnknownTerms());
-        
-        // Error messages are stored in the HistoryInformation
-        String info = history.getHistoryInformation().getValue();
-        if (info != null && info.length() > 0)
-        {
-          jHistory.put("historyInformation", info);
-        }
-        
-        jHistories.put(jHistory);
       }
       
-      resp.getWriter().write(jHistories.toString());
+      joResp.put("histories", jHistories);
+      
+      Long total = ExcelImportHistoryDTO.getTotalHistoryCount(getClientRequest());
+      joResp.put("total", total);
+      
+      resp.getWriter().write(joResp.toString());
     }
     catch (JSONException e)
     {
@@ -248,6 +259,74 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
       e.printStackTrace();
     }
   }
+  
+  /**
+   * Not used anymore. Can be deleted.
+   * @deprecated
+   */
+//  @Override
+//  public void getAllHistory() throws java.io.IOException, javax.servlet.ServletException
+//  {
+//    try
+//    {
+//      JSONArray jHistories = new JSONArray();
+//      
+//      ExcelImportHistoryDTO[] histories = ExcelImportHistoryDTO.getAllHistory(getClientRequest());
+//      
+//      for (int i = 0; i < histories.length; ++i)
+//      {
+//        ExcelImportHistoryDTO history = histories[i];
+//        
+//        JSONObject jHistory = new JSONObject();
+//        
+//        jHistory.put("id", history.getId());
+//        
+//        jHistory.put("name", history.getFileName());
+//        
+//        if (history.getImportCount() != null)
+//        {
+//          jHistory.put("importCount", history.getImportCount());
+//        }
+//        else
+//        {
+//          jHistory.put("importCount", 0);
+//        }
+//        
+//        jHistory.put("totalRecords", history.getTotalRecords());
+//        jHistory.put("status", history.getStatus().get(0).item(getClientRequest()).getDisplayLabel().getValue());
+//        jHistory.put("startTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getStartTime()));
+//        if (history.getEndTime() != null)
+//        {
+//          jHistory.put("endTime", new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss z").format(history.getEndTime()));
+//        }
+//        else
+//        {
+//          jHistory.put("endTime", "");
+//        }
+//        jHistory.put("hasError", history.getErrorFile() != null);
+//        
+//        jHistory.put("geoSyns", history.getNumberUnknownGeos());
+//        
+//        jHistory.put("termSyns", history.getNumberUnknownTerms());
+//        
+//        // Error messages are stored in the HistoryInformation
+//        String info = history.getHistoryInformation().getValue();
+//        if (info != null && info.length() > 0)
+//        {
+//          jHistory.put("historyInformation", info);
+//        }
+//        
+//        jHistories.put(jHistory);
+//      }
+//      
+//      resp.getWriter().write(jHistories.toString());
+//    }
+//    catch (JSONException e)
+//    {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
+//  }
   
   @Override
   public void failGetAllHistory() throws java.io.IOException, javax.servlet.ServletException

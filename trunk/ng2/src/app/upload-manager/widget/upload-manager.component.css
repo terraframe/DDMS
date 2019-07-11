@@ -1,0 +1,13 @@
+.um-containerDiv {
+}
+
+.um-tableDiv {
+	overflow-y:auto;
+	height: 500px;
+	float:left;
+}
+
+.um-headerDiv {
+	margin-top:10px;
+	float: left;
+}
