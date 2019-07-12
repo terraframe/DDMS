@@ -19,11 +19,10 @@ package dss.vector.solutions.odk;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.CredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Request;
 
@@ -35,12 +34,12 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
 
   private static final ReentrantLock lock        = new ReentrantLock();
 
-  private static final Log           initLog     = LogFactory.getLog(ODKInitializer.class);
+  private static final Logger         initLogger = LoggerFactory.getLogger(ODKInitializer.class);
 
   public static class InitThread implements Runnable, Reloadable
   {
 
-    private static final Log log = LogFactory.getLog(InitThread.class);
+    private static final Logger logger = LoggerFactory.getLogger(InitThread.class);
 
     public InitThread()
     {
@@ -50,73 +49,80 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
     @Override
     public void run()
     {
-      while (true)
+      boolean isDone = false;
+      
+      while (!isDone)
       {
+        isDone = runInRequest();
+        
         try
         {
-          lock.lock();
-
-          log.debug("Attempting to check existence of odk");
-
-          if (ODKFacade.existODK())
-          {
-            /*
-             * Update the default "aggregate" password to the hard-coded
-             * password
-             */
-            try
-            {
-              ODKUser odkUser = ODKUser.getUser();
-              
-              CredentialsProvider provider = ODKFacade.getCredentialsProvider(ODKFacade.USERNAME, "aggregate");
-              ODKPasswordExporter exporter = new ODKPasswordExporter(odkUser.getUsername(), odkUser.getOdkPassword(), provider);
-              exporter.run();
-            }
-            catch (Exception e)
-            {
-              // Ignore: this may fail if the default password has already been
-              // changed
-              log.debug(e.getMessage());
-            }            
-            
-            ODKPermissionExporter.export(true);
-
-            initialized = true;
-            log.debug("ODK initialized.");
-
-            ODKProperties.writeInitialize(false);
-            
-            return; // we are done here
-          }
-          else
-          {
-            try
-            {
-              log.debug("Waiting for ODK to start.");
-              Thread.sleep(1000);
-            }
-            catch (InterruptedException e)
-            {
-              // allow another try
-              log.warn(e);
-            }
-          }
+          Thread.sleep(1000);
         }
-        catch (Throwable t)
+        catch (InterruptedException e)
         {
-          // we couldn't hit the application correctly, so log the error
-          // and quit the loop to avoid excessive logging
-          log.error("Unable to start the application.", t);
-
-          return;
+          Thread.currentThread().interrupt();
+          isDone = true;
         }
-        finally
-        {
-          lock.unlock();
-        }
-
       }
+    }
+    
+    @Request
+    private boolean runInRequest()
+    {
+      try
+      {
+        lock.lock();
 
+        logger.info("Attempting to check existence of odk");
+
+        if (ODKFacade.existODK())
+        {
+          /*
+           * Update the default "aggregate" password to the hard-coded
+           * password
+           */
+          try
+          {
+            ODKUser odkUser = ODKUser.getUser();
+            
+            CredentialsProvider provider = ODKFacade.getCredentialsProvider(ODKFacade.USERNAME, "aggregate");
+            ODKPasswordExporter exporter = new ODKPasswordExporter(odkUser.getUsername(), odkUser.getOdkPassword(), provider);
+            exporter.run();
+          }
+          catch (Exception e)
+          {
+            // Ignore: this may fail if the default password has already been
+            // changed
+            logger.info(e.getMessage());
+          }            
+          
+          ODKPermissionExporter.export(true);
+
+          initialized = true;
+          logger.info("ODK initialized.");
+
+          ODKProperties.writeInitialize(false);
+          
+          return true; // we are done here
+        }
+        else
+        {
+          return false;
+        }
+      }
+      catch (Throwable t)
+      {
+        // we couldn't hit the application correctly, so log the error
+        // and quit the loop to avoid excessive logging
+        logger.error("Unable to start the application.", t);
+
+        return true;
+      }
+      finally
+      {
+        lock.unlock();
+      }
     }
 
   }
@@ -141,7 +147,7 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
   @Override
   public void uncaughtException(Thread t, Throwable e)
   {
-    initLog.error(t, e);
+    initLogger.error("Error in ODKInitializer", e);
   }
 
   public static void setup()
@@ -157,7 +163,7 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
 
       try
       {
-        initLog.debug("Attempting to initialize context.");
+        initLogger.info("Attempting to initialize context.");
 
         // create another thread to avoid blocking the one starting the webapps.
         Thread t = new Thread(new InitThread());
@@ -165,11 +171,11 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
         t.setDaemon(true);
         t.start();
 
-        initLog.debug("Context initialized...[" + ODKInitializer.class + "] started.");
+        initLogger.info("Context initialized...[" + ODKInitializer.class + "] started.");
       }
       catch (Throwable t)
       {
-        initLog.error("Could not initialize context.", t);
+        initLogger.error("Could not initialize context.", t);
       }
     }
   }

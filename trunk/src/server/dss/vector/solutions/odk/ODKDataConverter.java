@@ -386,7 +386,10 @@ public class ODKDataConverter implements Reloadable
 
       ExcelColumn column = getGridColumn(sheet, attribute.getAttributeName(), termId, null);
 
-      root.setOverride(column.getAttributeName(), MdAttributeBooleanInfo.TRUE);
+      if (column != null)
+      {
+        root.setOverride(column.getAttributeName(), MdAttributeBooleanInfo.TRUE);
+      }
     }
   }
 
