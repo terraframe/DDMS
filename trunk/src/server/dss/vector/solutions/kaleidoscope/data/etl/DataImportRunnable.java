@@ -237,7 +237,7 @@ public class DataImportRunnable implements Reloadable
 
     if (summary.getFileId() != null)
     {
-      history.setErrorFile(summary.getFileId());
+      history.setErrorFileId(summary.getFileId());
 
       // Use the error file in the future
       config.put("vaultId", summary.getFileId());
