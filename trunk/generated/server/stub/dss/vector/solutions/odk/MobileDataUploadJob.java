@@ -329,6 +329,16 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
             }
           }
           
+          if (hostname.endsWith("/"))
+          {
+            hostname = hostname.substring(0, hostname.length()-1);
+          }
+          
+          if (!hostname.replaceFirst("://", "").contains(":"))
+          {
+            hostname = hostname + ":8080";
+          }
+          
           if (!hostname.endsWith("/"))
           {
             hostname = hostname + "/";
