@@ -121,6 +121,7 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     
     deleteAllHistoryInTrans(historyIds, statusIds, historyCommentIds, historyInfoIds);
     deleteAllJobsInTrans(jobs);
+    deleteFaultyData();
   }
   @Transaction
   private static void deleteAllHistoryInTrans(Set<String> historyIds, Set<String> statusIds,
@@ -154,6 +155,24 @@ public class ExcelImportHistory extends ExcelImportHistoryBase implements com.ru
     {
       ExecutableJob.get(jobId).delete();
     }
+  }
+  @Transaction
+  private static void deleteFaultyData()
+  {
+    Database.executeStatement("DELETE FROM ddms.excel_import_history hist\n" + 
+        "WHERE hist.id\n" + 
+        "NOT IN\n" + 
+        "(\n" + 
+        "  SELECT child_id\n" + 
+        "  FROM ddms.job_history_record\n" + 
+        ");");
+    Database.executeStatement("DELETE FROM ddms.job_history hist\n" + 
+        "WHERE hist.id\n" + 
+        "NOT IN\n" + 
+        "(\n" + 
+        "  SELECT child_id\n" + 
+        "  FROM ddms.job_history_record\n" + 
+        ");");
   }
   
   public static java.lang.Long getTotalHistoryCount()
