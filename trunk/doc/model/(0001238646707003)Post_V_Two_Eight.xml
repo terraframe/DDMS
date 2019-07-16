@@ -6856,7 +6856,7 @@
           <virtual concrete="subCollectionId" type="dss.vector.solutions.entomology.SubCollection" />
           <virtual concrete="eggs" type="dss.vector.solutions.entomology.SubCollection" />
           <virtual concrete="male" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="female" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="femalesUnknown" type="dss.vector.solutions.entomology.SubCollection" />
           <virtual concrete="larvae" type="dss.vector.solutions.entomology.SubCollection" />
           <virtual concrete="pupae" type="dss.vector.solutions.entomology.SubCollection" />
           <virtual concrete="unknowns" type="dss.vector.solutions.entomology.SubCollection" />
