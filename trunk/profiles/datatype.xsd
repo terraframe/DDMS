@@ -50,7 +50,6 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="mdEnumeration" type="mdEnumeration" />
       <xs:element name="enumerationMaster" type="mdBusiness" />
-      <xs:element name="mdTable" type="mdTable" />      
       <xs:element name="mdStruct" type="mdStruct" />
       <xs:element name="mdLocalStruct" type="mdLocalStruct" />
       <xs:element name="mdBusiness" type="mdBusiness" />
@@ -58,6 +57,7 @@
       <xs:element name="mdRelationship" type="mdRelationship" />
       <xs:element name="mdTree" type="mdRelationship" />
       <xs:element name="mdGraph" type="mdRelationship" />
+      <xs:element name="mdIndex" type="mdIndex" />
       <xs:element name="mdTermRelationshiop" type="mdTermRelationship" />
       <xs:element name="mdFacade" type="mdFacade" />
       <xs:element name="mdException" type="mdException" />
@@ -80,7 +80,6 @@
       <xs:element name="object" type="entity" />
       <xs:element name="relationship" type="relationshipCreate" />
       <xs:element name="enumerationMaster" type="mdBusiness" />
-      <xs:element name="mdTable" type="mdTable" />      
       <xs:element name="mdStruct" type="mdStruct" />
       <xs:element name="mdLocalStruct" type="mdLocalStruct" />
       <xs:element name="mdBusiness" type="mdBusiness" />
@@ -169,6 +168,7 @@
               <xs:attribute name="indexOrder" type="xs:integer" use="required" />
             </xs:complexType>
           </xs:element>
+          <xs:element name="create" type="mdIndexOptions" minOccurs="0" maxOccurs="1" />
         </xs:choice>
         <!-- entity: The fully qulified type of a mdBusiness or mdRelationship of this mdIndex -->
         <xs:attribute name="type" type="xs:string" use="required" />
@@ -177,6 +177,17 @@
         <xs:attribute name="active" type="xs:boolean" />
       </xs:extension>
     </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="mdIndexOptions">
+    <xs:sequence>
+      <xs:element name="attribute" minOccurs="0" maxOccurs="unbounded" >
+        <xs:complexType>
+          <xs:attribute name="name" type="xs:string" use="required" />
+          <xs:attribute name="indexOrder" type="xs:integer" use="required" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
   </xs:complexType>
 
   <!--Defines a MdMethod -->
@@ -741,33 +752,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
-  <xs:complexType name="mdTableOptions">
-    <xs:sequence>
-      <xs:element name="attributes" type="attributes" minOccurs="0" maxOccurs="1" />
-    </xs:sequence>
-  </xs:complexType>  
-  
-  <xs:complexType name="mdTableBase">
-    <xs:complexContent>
-      <xs:extension base="mdClass">
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="attributes" type="attributes" minOccurs="0" />
-        </xs:choice>
-        <xs:attribute name="table" type="xs:string" use="optional" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="mdTable">
-    <xs:complexContent>
-      <xs:extension base="mdTableBase">
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element name="create" type="mdTableOptions" minOccurs="0" maxOccurs="1" />
-        </xs:choice>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
 
   <!--Data for the mdRelationship type -->
   <xs:complexType name="mdRelationshipBase">
@@ -1051,7 +1035,12 @@
     <!--required: Comma delimeted name of dimensions on which this attribute is required -->
     <xs:attribute name="requiredForDimension" type="xs:string" />
     <!--rename: Renames the attribute, only applicable when updating an attribute -->
+    <!-- The DDMS does not support renaming of attributes via xml!! This is due to a limitation of the way that model merging
+         interacts with MdAttributeDimensions.
+     -->
+     <!--
     <xs:attribute name="rename" type="xs:string" />
+    -->
     <!--setterVisibility: The visibility of the setter methods -->
     <xs:attribute name="setterVisibility" type="visibilityOptions" />
     <!--getterVisibility: The visibility of the getter methods -->

@@ -9,6 +9,7 @@ public class PatchRegistry
   static {
     patches = new ArrayList<DDMSPatchIF>();
     
+    registerPatch(new Patcher2794());
     registerPatch(new Patcher3883());
     registerPatch(new Patcher3974());
     registerPatch(new Patcher4009());

@@ -18,9 +18,6 @@
   <doIt>
     <update>
       <mdBusiness name="dss.vector.solutions.entomology.SubCollection">
-        <attributes>
-          <integer name="female" rename="femalesUnknown" label="# fem - unknown" />
-        </attributes>
         <create>
           <attributes>
             <integer name="femalesUnfed" label="# fem - unfed" />

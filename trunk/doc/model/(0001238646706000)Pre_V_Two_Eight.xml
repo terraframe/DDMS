@@ -322,7 +322,7 @@
         <attributes>
           <char name="subCollectionId" label="Sub-Collection Id" size="255" required="false" indexType="no index" />
           <integer name="male" label="# Male" rejectNegative="true" />
-          <integer name="female" label="# Female" rejectNegative="true" />
+          <integer name="femalesUnknown" label="# fem - unknown" rejectNegative="true" />
           <integer name="larvae" label="# Larvae" rejectNegative="true" />
           <integer name="pupae" label="# Pupae" rejectNegative="true" />
           <integer name="unknowns" label="# Unknown" rejectNegative="true" />
