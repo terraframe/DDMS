@@ -336,7 +336,14 @@ public class MobileDataUploadJob extends MobileDataUploadJobBase implements com.
           
           if (!hostname.replaceFirst("://", "").contains(":"))
           {
-            hostname = hostname + ":8080";
+            if (https)
+            {
+              hostname = hostname + ":8443";
+            }
+            else
+            {
+              hostname = hostname + ":8080";
+            }
           }
           
           if (!hostname.endsWith("/"))
