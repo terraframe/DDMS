@@ -63,7 +63,7 @@ import dss.vector.solutions.generator.FormPersonContextBuilder;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.UnknownGeoEntity;
-import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.kaleidoscope.data.etl.CategoryProblem;
 import dss.vector.solutions.kaleidoscope.data.etl.LocationProblem;
 import dss.vector.solutions.ontology.BrowserField;
@@ -427,7 +427,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
   private String generateReconstructionJSON(VaultFile vf, ExcelImporter importer)
   {
-    Earth earth = Earth.getEarthInstance();
+//    Earth earth = Earth.getEarthInstance();
+    GeoEntity defaultGeo = DefaultGeoEntity.getDefaultGeoEntity().getGeoEntity();
 
     try
     {
@@ -468,7 +469,7 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
         String mdType = this.sharedState.manager.getGeoTypeInfo(ugeo);
 
         // TODO : Context and parent geo (earth)
-        LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, earth, GeoHierarchy.getGeoHierarchyFromType(mdType));
+        LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, defaultGeo, GeoHierarchy.getGeoHierarchyFromType(mdType));
         locProbs.put(locp.toJSON());
       }
       problems.put("locations", locProbs);

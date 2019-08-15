@@ -40,6 +40,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.util.IDGenerator;
 
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntitySelectionProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -101,13 +102,13 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
   private GeoHierarchy                  rootUniversal;
 
-  private Earth                         earth;
+  private GeoEntity                         defaultGeo;
 
   public TargetFieldGeoEntity()
   {
     this.attributes = new ArrayList<UniversalAttribute>();
     this.id = IDGenerator.nextID();
-    this.earth = Earth.getEarthInstance();
+    this.defaultGeo = DefaultGeoEntity.getDefaultGeoEntity().getGeoEntity();
   }
 
   public String getId()
@@ -202,7 +203,7 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
             p.throwIt();
 
-            throw new ExclusionException("Location not found in system.", new LocationProblem(label, context, earth, universal));
+            throw new ExclusionException("Location not found in system.", new LocationProblem(label, context, parent, universal));
           }
 
           parent = entity;
@@ -339,18 +340,18 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
 
       if (label != null && label.length() > 0)
       {
-        if (this.isExcluded(locationExclusions, earth, entityUniversal, parent, label))
+        if (this.isExcluded(locationExclusions, defaultGeo, entityUniversal, parent, label))
         {
           return null;
         }
 
         if (parent.getType().equals(entityUniversal.getId()))
         {
-          GeoEntity entity = this.findGeoEntity(earth, entityUniversal, label);
+          GeoEntity entity = this.findGeoEntity(defaultGeo, entityUniversal, label);
 
           if (entity == null)
           {
-            return new LocationProblem(label, context, earth, entityUniversal);
+            return new LocationProblem(label, context, defaultGeo, entityUniversal);
           }
         }
         else
@@ -385,13 +386,13 @@ public class TargetFieldGeoEntity extends TargetField implements TargetFieldGeoE
     return null;
   }
 
-  private boolean isExcluded(Map<String, Set<String>> locationExclusions, Earth earth, GeoHierarchy universal, GeoEntity parent, String label)
+  private boolean isExcluded(Map<String, Set<String>> locationExclusions, GeoEntity defaultGeo, GeoHierarchy universal, GeoEntity parent, String label)
   {
     String key = universal.getQualifiedType() + "-" + parent.getId();
 
     if (universal.getId().equals(this.rootUniversal.getId()))
     {
-      key = universal.getId() + "-" + earth.getId();
+      key = universal.getId() + "-" + defaultGeo.getId();
     }
 
     if (locationExclusions.containsKey(key))

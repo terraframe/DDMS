@@ -31,6 +31,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class TargetFieldGeoEntityBinding extends TargetFieldGeoEntityBindingBase implements com.runwaysdk.generation.loader.Reloadable
@@ -116,7 +117,7 @@ public class TargetFieldGeoEntityBinding extends TargetFieldGeoEntityBindingBase
 
     GeoEntity root = this.getGeoEntity();
 
-    GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(root.getMdClass().definesType());
+    GeoHierarchy hierarchy = GeoHierarchy.getGeoHierarchyFromType(Earth.getEarthInstance().getMdClass().definesType());
 
     List<GeoHierarchy> descendants = hierarchy.getAllChildren();
 

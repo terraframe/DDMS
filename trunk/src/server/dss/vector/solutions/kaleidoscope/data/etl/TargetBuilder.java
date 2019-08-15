@@ -73,6 +73,7 @@ import com.runwaysdk.system.metadata.MdWebNumber;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebText;
 
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.LocalizationUtil;
 import dss.vector.solutions.RequiredAttributeException;
@@ -869,7 +870,7 @@ public class TargetBuilder implements Reloadable
     field.setName(attributeName);
     field.setLabel(label);
     field.setKey(mdForm.definesType() + "." + attributeName);
-    field.setRoot(Earth.getEarthInstance());
+    field.setRoot(DefaultGeoEntity.getDefaultGeoEntity().getGeoEntity());
     field.setAggregatable(aggregatable);
 
     JSONObject fields = cAttribute.getJSONObject("fields");
