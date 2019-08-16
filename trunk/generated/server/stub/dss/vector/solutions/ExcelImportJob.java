@@ -19,13 +19,18 @@ package dss.vector.solutions;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -464,9 +469,34 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
       List<UnknownGeoEntity> ugeos = this.sharedState.manager.unknownEntityList;
       for (UnknownGeoEntity ugeo : ugeos)
       {
-        List<JSONObject> context = new ArrayList<JSONObject>();
-
         String mdType = this.sharedState.manager.getGeoTypeInfo(ugeo);
+        
+        // Build context from UnknownGeoEntity's 'knownHierarchy' field
+        List<JSONObject> context = new LinkedList<JSONObject>();
+        String sKH = ugeo.getKnownHierarchy();
+        String[] saKH = StringUtils.splitByWholeSeparator(sKH, ", ");
+        int index = 0;
+        for (String sGeo : saKH)
+        {
+          if (index < saKH.length - 1)
+          {
+            sGeo = sGeo.trim();
+            Pattern pattern = Pattern.compile("^(.*)\\(([^)]+)\\)$");
+            Matcher matcher = pattern.matcher(sGeo);
+            if (matcher.find())
+            {
+              String label = matcher.group(1);
+              String universal = matcher.group(2);
+              
+              JSONObject object = new JSONObject();
+              object.put("label", label);
+              object.put("universal", universal);
+              context.add(object);
+            }
+          }
+          index++;
+        }
+        Collections.reverse(context);
 
         // TODO : Context and parent geo (earth)
         LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, defaultGeo, GeoHierarchy.getGeoHierarchyFromType(mdType));
