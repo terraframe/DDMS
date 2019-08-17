@@ -33,8 +33,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/server/catalina.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-beanutils-modoracle.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-beanutils.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/commons-codec-1.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/server/commons-collections-3.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-dbcp-1.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-discovery-0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/commons-logging-1.0.4.jar"/>
@@ -69,7 +67,7 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/common/log4j-1.2.16.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-common.jar" sourcepath="/home/terraframe/git/Runway-SDK"/>
-	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-client.jar" sourcepath="/home/terraframe/git/Runway-SDK"/>
+	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-client.jar" sourcepath="/runwaysdk-client"/>
 	<classpathentry exported="true" kind="lib" path="lib/server/runwaysdk-gis-server.jar" sourcepath="/runwaysdk-gis-server"/>
 	<classpathentry exported="true" kind="lib" path="lib/common/runwaysdk-gis-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/client/runwaysdk-gis-client.jar"/>
@@ -106,8 +104,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/server/geoserver-manager-1.7.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/thumbnailator-0.4.8.jar"/>
-	<classpathentry kind="lib" path="lib/server/httpclient-4.3.6.jar"/>
-	<classpathentry kind="lib" path="lib/server/httpcore-4.3.3.jar"/>
 	<classpathentry kind="lib" path="lib/server/gt-main-11.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/gt-api-11.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/gt-image-11.0.jar"/>
@@ -123,7 +119,6 @@
 	<classpathentry kind="lib" path="lib/common/aspectjrt-1.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/common/aspectjtools-1.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/server/aspectjweaver-1.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/server/dss.vector.solutions.kaleidoscope.oda.driver_1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/gt-epsg-hsql-11.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/gt-geojson-11.0.jar"/>
 	<classpathentry kind="lib" path="lib/server/hsqldb-2.2.8.jar"/>
@@ -145,7 +140,6 @@
 	<classpathentry kind="lib" path="lib/birt/com.ibm.icu-50.1.1.v201304230130.jar"/>
 	<classpathentry kind="lib" path="lib/birt/com.lowagie.text-2.1.7.jar"/>
 	<classpathentry kind="lib" path="lib/birt/commons-cli-1.3.1.jar"/>
-	<classpathentry kind="lib" path="lib/birt/commons-codec-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/birt/derby-10.5.1000001.jar"/>
 	<classpathentry kind="lib" path="lib/birt/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/birt/flute-1.3.jar"/>
@@ -224,13 +218,27 @@
 	<classpathentry kind="lib" path="lib/birt/org.w3c.css.sac-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/birt/org.w3c.dom.smil-1.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/birt/org.w3c.dom.svg-1.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/birt/poi-3.9.jar"/>
-	<classpathentry kind="lib" path="lib/birt/poi-ooxml-3.9.jar"/>
-	<classpathentry kind="lib" path="lib/birt/poi-ooxml-schemas-3.9.jar"/>
 	<classpathentry kind="lib" path="lib/birt/Tidy-1.jar"/>
 	<classpathentry kind="lib" path="lib/birt/xml-apis-1.3.04.jar"/>
-	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/common/json.jar"/>
 	<classpathentry kind="lib" path="lib/server/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="lib/server/commons-csv-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/fluent-hc-4.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpclient-4.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpclient-cache-4.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpclient-win-4.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpcore-4.4.9.jar"/>
+	<classpathentry kind="lib" path="lib/server/httpmime-4.5.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/jna-4.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/jna-platform-4.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/birt/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="lib/birt/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-ooxml-3.17.jar" sourcepath="/Users/richard1/.m2/repository/org/apache/poi/poi-ooxml/3.17/poi-ooxml-3.17-sources.jar"/>
+	<classpathentry kind="lib" path="lib/birt/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="lib/birt/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/server/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="lib/server/dss.vector.solutions.kaleidoscope.oda.driver_1.0.0.201806151721.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

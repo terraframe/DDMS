@@ -44,9 +44,13 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.VaultFile;
+import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.system.scheduler.AllJobStatus;
 import com.runwaysdk.system.scheduler.ExecutionContext;
 import com.runwaysdk.system.scheduler.JobHistory;
@@ -75,6 +79,7 @@ import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.BrowserRootView;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.ontology.UnknownTerm;
+import dss.vector.solutions.util.GeoEntitySearcher;
 
 /**
  * This class is used only for the 'legacy' importer, although it is used for
@@ -472,34 +477,44 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
         String mdType = this.sharedState.manager.getGeoTypeInfo(ugeo);
         
         // Build context from UnknownGeoEntity's 'knownHierarchy' field
-        List<JSONObject> context = new LinkedList<JSONObject>();
+        LinkedList<JSONObject> context = new LinkedList<JSONObject>();
         String sKH = ugeo.getKnownHierarchy();
         String[] saKH = StringUtils.splitByWholeSeparator(sKH, ", ");
-        int index = 0;
-        for (String sGeo : saKH)
+        for (int index = 0; index < saKH.length; ++index)
         {
-          if (index < saKH.length - 1)
+          String sGeo = saKH[index];
+          sGeo = sGeo.trim();
+          
+          Pattern pattern = Pattern.compile("^(.*)\\(([^)]+)\\)$");
+          Matcher matcher = pattern.matcher(sGeo);
+          if (matcher.find())
           {
-            sGeo = sGeo.trim();
-            Pattern pattern = Pattern.compile("^(.*)\\(([^)]+)\\)$");
-            Matcher matcher = pattern.matcher(sGeo);
-            if (matcher.find())
+            String label = matcher.group(1).trim();
+            String universal = matcher.group(2).trim();
+            
+            if (!ugeo.getEntityName().equals(label))
             {
-              String label = matcher.group(1);
-              String universal = matcher.group(2);
-              
               JSONObject object = new JSONObject();
               object.put("label", label);
               object.put("universal", universal);
               context.add(object);
             }
           }
-          index++;
         }
         Collections.reverse(context);
+        
+        GeoEntity parent = defaultGeo;
+        List<GeoEntity> parents = calculateParentFromContext(context);
+        if (parents.size() > 0)
+        {
+          parent = parents.get(0);
+        }
+        else
+        {
+          logger.error("Error when getting parent from the context. This import will fail if re-imported. The calculated parents size was 0 for [" + ugeo.getEntityName() + "].");
+        }
 
-        // TODO : Context and parent geo (earth)
-        LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, defaultGeo, GeoHierarchy.getGeoHierarchyFromType(mdType));
+        LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, parent, GeoHierarchy.getGeoHierarchyFromType(mdType));
         locProbs.put(locp.toJSON());
       }
       problems.put("locations", locProbs);
@@ -539,6 +554,56 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
+    }
+  }
+
+  private List<GeoEntity> calculateParentFromContext(LinkedList<JSONObject> context)
+  {
+    try
+    {
+      List<JSONObject> contextOfParent = new LinkedList<JSONObject>(context);
+      Collections.reverse(contextOfParent);
+      
+      String parentEntityType = null;
+      HashMap<String, String> parentMap = new HashMap<String, String>();
+      ArrayList<String> parentTypes = new ArrayList<String>();
+      
+      for (int i = 0; i < contextOfParent.size(); ++i)
+      {
+        JSONObject joParentOfParent = contextOfParent.get(i);
+        
+        MdBusinessQuery mbq = new MdBusinessQuery(new QueryFactory());
+        mbq.WHERE(mbq.getDisplayLabel().localize().EQ(joParentOfParent.getString("universal")));
+        OIterator<? extends MdBusiness> it = mbq.getIterator();
+        try
+        {
+          if (it.hasNext())
+          {
+            String definesType = it.next().definesType();
+            
+            parentMap.put(definesType, joParentOfParent.getString("label"));
+            parentTypes.add(definesType);
+          }
+        }
+        finally
+        {
+          it.close();
+        }
+      }
+      
+      parentEntityType = GeoHierarchy.getMostChildishUniversialType(parentTypes.toArray(new String[parentTypes.size()]));
+      String parentLabel = parentMap.get(parentEntityType);
+      parentMap.remove(parentEntityType);
+      
+      List<GeoEntity> parents = GeoEntitySearcher.search(false, parentMap, parentEntityType, parentLabel);
+      
+      return parents;
+    }
+    catch (Throwable t)
+    {
+      logger.error("Error when getting parent from the context. This import will fail if re-imported.", t);
+      
+      return new LinkedList<GeoEntity>();
     }
   }
 }
