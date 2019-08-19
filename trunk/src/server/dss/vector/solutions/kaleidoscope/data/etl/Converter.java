@@ -111,7 +111,7 @@ public class Converter implements ConverterIF, Reloadable
         {
           Object value = fValue.getValue();
 
-          if (value != null)
+          if (value != null && !(value.equals("")))
           {
             business.setValue(attributeName, value);
           }
