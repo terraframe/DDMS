@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
+
 package dss.vector.solutions.generator;
 
 import java.io.ByteArrayInputStream;
@@ -51,7 +52,6 @@ import com.runwaysdk.constants.BusinessInfo;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdWebFormInfo;
-import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeIndicatorDAOIF;
@@ -92,6 +92,8 @@ import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebMultipleTermDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebSingleTermDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.metadata.ReservedWordException;
@@ -106,6 +108,7 @@ import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.GeneratedViewQuery;
+import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
@@ -187,6 +190,7 @@ import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.kaleidoscope.MappableAttribute;
 import dss.vector.solutions.kaleidoscope.MappableClass;
@@ -200,9 +204,11 @@ import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.ontology.TermTermDisplayLabelQuery;
 import dss.vector.solutions.ontology.TermView;
 import dss.vector.solutions.ontology.TermViewQuery;
 import dss.vector.solutions.util.HierarchyBuilder;
+import dss.vector.solutions.util.QueryUtil;
 
 public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -2423,8 +2429,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     TableClassQuery tcq = QueryHacker.getTableClassQuery((GeneratedTableClassQuery) gbq);
     Map<String, ? extends MdAttributeDAOIF> attrMap = QueryHacker.getAttributeMap(tcq);
 
-    QueryFactory qf = tcq.getQueryFactory();
+//    QueryFactory qf = tcq.getQueryFactory(); // TODO : Smethie says you should never need this
 
+    vq.FROM(gbq);
+    
     Set<String> keys = attrMap.keySet();
     for (String key : keys)
     {
@@ -2433,7 +2441,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       if (! ( attr instanceof MdAttributeIndicatorDAOIF ))
       {
         Selectable sel = gbq.get(key);
-
+        
         if (attr instanceof MdAttributeConcreteDAOIF)
         {
           if (attr instanceof MdAttributeReferenceDAO)
@@ -2441,22 +2449,93 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
             MdAttributeReferenceDAOIF mdAttributeReference = (MdAttributeReferenceDAOIF) attr;
             MdBusinessDAOIF referenceMdBusiness = mdAttributeReference.getReferenceMdBusinessDAO();
             String referenceType = referenceMdBusiness.definesType();
-
+            
             // Dereference some references. This is the entire reason we wanted
             // it to be a value query.
             if (referenceType.equals(GeoEntity.CLASS))
             {
-              GeoEntityQuery geq = new GeoEntityQuery(qf);
-              Selectable coalesce = geq.getEntityLabel().localize();
+//              GeoEntityQuery geq = new GeoEntityQuery(qf); // TODO : Smethie says passing a ValueQuery instead of a query factory might have special generation logic
+              GeoEntityQuery geq = new GeoEntityQuery(vq);
+              
+//              Selectable coalesce = geq.getEntityLabel().localize(); // TODO : Might have to get rid of this and create a GeoEntityDisplayLabelQuery instead and do the LeftJoin here manually
+              // Might have to manually copy the coalesce code. Example: SynonymRestriction.java::80
+              
               String selAlias = sel.getColumnAlias();
-
+              
+              GeoEntityEntityLabelQuery gelq = new GeoEntityEntityLabelQuery(vq);
+              Selectable coalesce = QueryUtil.localize(gelq, null);
+              
               SelectableSQLCharacter replacement = vq.aSQLCharacter(sel._getAttributeName() + "_res", coalesce.getSQL(), sel._getAttributeName() + "_res");
               coalesce.setColumnAlias(selAlias + "_coal");
+              coalesce.setUserDefinedAlias(selAlias + "_coal");
               sel.setColumnAlias(selAlias + "_id");
-
-              vq.SELECT(coalesce);
+              
+//              vq.WHERE(geq.EQ((SelectableReference) sel)); // TODO : Regular join. Old code.
+//              vq.AND(new LeftJoinEq(geq.id(), sel)); // TODO : Why doesn't this work!?! // Smethie says the ordering needed to be reversed
+              vq.AND(new LeftJoinEq(sel, geq.getId(selAlias + "_geq")));
+//              vq.AND(new LeftJoinEq(geq.id().getDbColumnName(), "geo_entity", geq.getTableAlias(), sel.getDbColumnName(), sel.getDefiningTableName(), sel.getDefiningTableAlias()));
+              
+//            vq.SELECT(coalesce);
+              vq.AND(new LeftJoinEq(geq.getEntityLabel(selAlias + "_gelq"), gelq.getId(selAlias + "_gelqid")));
               vq.SELECT(replacement);
-              vq.WHERE(geq.EQ((SelectableReference) sel));
+              
+//              vq.SELECT(coalesce);
+              
+              continue;
+            }
+            else if (referenceType.equals(Term.CLASS))
+            {
+              String formType = gbq.getClassType().replaceFirst(".business", "");;
+              
+              MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdWebFormDAO.get(MdWebFormInfo.CLASS, formType);
+              MdWebFieldDAOIF webAttr = mdForm.getMdField(attr.definesAttribute());
+              
+              if (webAttr instanceof MdWebSingleTermDAO)
+              {
+//                TermQuery tq = new TermQuery(qf); // TODO : Smethie says passing a ValueQuery instead of a query factory might have special generation logic
+                TermQuery tq = new TermQuery(vq);
+//                Selectable coalesce = tq.getTermDisplayLabel().localize();
+                String selAlias = sel.getColumnAlias();
+                
+                TermTermDisplayLabelQuery tlq = new TermTermDisplayLabelQuery(vq);
+                Selectable coalesce = QueryUtil.localize(tlq, null);
+  
+                SelectableSQLCharacter replacement = vq.aSQLCharacter(sel._getAttributeName() + "_res", coalesce.getSQL(), sel._getAttributeName() + "_res");
+                coalesce.setColumnAlias(selAlias + "_coal");
+                coalesce.setUserDefinedAlias(selAlias + "_coal");
+                sel.setColumnAlias(selAlias + "_id");
+  
+//                vq.WHERE(tq.EQ((SelectableReference) sel));
+//                vq.AND(new LeftJoinEq(tq.id(), sel)); // TODO Smethie says the ordering needed to be reversed
+                vq.AND(new LeftJoinEq(sel, tq.getId(selAlias + "_teq")));
+//                vq.AND(new LeftJoinEq(tq.id().getDbColumnName(), "term", tq.getTableAlias(), sel.getDbColumnName(), sel.getDefiningTableName(), sel.getDefiningTableAlias()));
+                
+//              vq.SELECT(coalesce);
+                vq.AND(new LeftJoinEq(tq.getTermDisplayLabel(selAlias + "_gelq"), tlq.getId(selAlias + "_gelqid")));
+                vq.SELECT(replacement);
+                
+//                vq.SELECT(coalesce);
+                
+                continue;
+              }
+              else if (webAttr instanceof MdWebMultipleTermDAO)
+              {
+//                MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(webAttr.getId()));
+//                
+//                RelationshipQuery rq = qf.relationshipQuery(mdRelationship.definesType());
+//                
+//                TermQuery tq = new TermQuery(qf);
+//                Selectable coalesce = tq.getTermDisplayLabel().localize();
+//                String selAlias = sel.getColumnAlias();
+//  
+//                SelectableSQLCharacter replacement = vq.aSQLCharacter(sel._getAttributeName() + "_res", coalesce.getSQL(), sel._getAttributeName() + "_res");
+//                coalesce.setColumnAlias(selAlias + "_coal");
+//                sel.setColumnAlias(selAlias + "_id");
+//  
+//                vq.SELECT(coalesce);
+//                vq.SELECT(replacement);
+//                vq.WHERE(rq.hasChild(tq).AND(rq.hasParent((GeneratedBusinessQuery) gbq)));
+              }
             }
           }
           else
@@ -2471,8 +2550,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         vq.SELECT(sel);
       }
     }
-
-    vq.FROM(tcq);
   }
 
   @SuppressWarnings("unchecked")
@@ -2552,7 +2629,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     MdWebFormDAOIF mdForm = MdWebFormDAO.get(mdFormId);
     MdClassDAOIF mdClass = mdForm.getFormMdClass();
-
+    
     ExportMetadata metadata = new ExportMetadata();
     metadata.addCreateOrUpdate(mdClass);
 
