@@ -17,8 +17,6 @@
 package dss.vector.solutions.util;
 
 import java.lang.reflect.Constructor;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +35,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.constants.EntityInfo;
 import com.runwaysdk.constants.EnumerationMasterInfo;
+import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
@@ -72,6 +71,7 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedComponentQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedStructQuery;
 import com.runwaysdk.query.GeneratedTableClassQuery;
 import com.runwaysdk.query.GenericBusinessQuery;
 import com.runwaysdk.query.GenericTableQuery;
@@ -86,6 +86,7 @@ import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.EnumerationMaster;
@@ -1075,6 +1076,85 @@ public class QueryUtil implements Reloadable
     return vQuery;
   }
 
+  public static Coalesce localize(GeneratedStructQuery query, String userDefinedAliasSeed)
+  {
+    List<SelectableSingle> selectableList = new ArrayList<SelectableSingle>();
+
+    MdLocalStructDAOIF mdLocalStruct = (MdLocalStructDAOIF) query.getMdEntityIF();
+    Locale locale = Session.getCurrentLocale();
+
+    String[] localeStringArray;
+    MdDimensionDAOIF mdDimensionDAOIF = Session.getCurrentDimension();
+    if (mdDimensionDAOIF != null)
+    {
+      localeStringArray = new String[2];
+      localeStringArray[0] = mdDimensionDAOIF.getLocaleAttributeName(locale);
+      localeStringArray[1] = locale.toString();
+    }
+    else
+    {
+      localeStringArray = new String[1];
+      localeStringArray[0] = locale.toString();
+    }
+
+    boolean firstIterationComplete = false;
+    for (String localeString : localeStringArray)
+    {
+      for (int i = localeString.length(); i > 0; i = localeString.lastIndexOf('_', i - 1))
+      {
+        String subLocale = localeString.substring(0, i);
+        for (MdAttributeConcreteDAOIF a : mdLocalStruct.definesAttributes())
+        {
+          if (a.definesAttribute().equalsIgnoreCase(subLocale))
+          {
+            if (userDefinedAliasSeed != null)
+            {
+              selectableList.add(query.get(subLocale, subLocale + "_" + userDefinedAliasSeed));
+            }
+            else
+            {
+              selectableList.add(query.get(subLocale));
+            }
+          }
+        }
+      }
+
+      // Check the default for the dimension
+      if (mdDimensionDAOIF != null && !firstIterationComplete)
+      {
+        String dimensionDefaultAttr = mdDimensionDAOIF.getDefaultLocaleAttributeName();
+        MdAttributeDAOIF definesDimensionDefault = mdLocalStruct.definesAttribute(dimensionDefaultAttr);
+        if (definesDimensionDefault != null)
+        {
+          if (userDefinedAliasSeed != null)
+          {
+            selectableList.add(query.get(dimensionDefaultAttr, dimensionDefaultAttr + "_" + userDefinedAliasSeed));
+          }
+          else
+          {
+            selectableList.add(query.get(dimensionDefaultAttr));
+          }
+        }
+      }
+
+      firstIterationComplete = true;
+    }
+    // And finally, add the default at the very end
+    if (userDefinedAliasSeed != null)
+    {
+      selectableList.add(query.get(MdAttributeLocalInfo.DEFAULT_LOCALE, MdAttributeLocalInfo.DEFAULT_LOCALE + "_" + userDefinedAliasSeed));
+    }
+    else
+    {
+      selectableList.add(query.get(MdAttributeLocalInfo.DEFAULT_LOCALE));
+    }
+
+    SelectableSingle firstSelectable = selectableList.remove(0);
+    SelectableSingle[] optionalSelectableArray = new SelectableSingle[selectableList.size()];
+
+    return F.COALESCE(null, null, firstSelectable, selectableList.toArray(optionalSelectableArray));
+  }
+  
   public static String getGeoDisplayLabelSQL(boolean withGeoId)
   {
     // Define the aliases
