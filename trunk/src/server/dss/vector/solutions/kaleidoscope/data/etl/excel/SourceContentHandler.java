@@ -122,6 +122,8 @@ public class SourceContentHandler implements SheetHandler, Reloadable
   private boolean                 isFirstSheet;
   
   private int                     errorColumnNumber;
+  
+  private String                  errorForRow;
 
   public SourceContentHandler(ConverterIF converter, SourceContextIF context, ProgressMonitorIF monitor)
   {
@@ -185,7 +187,6 @@ public class SourceContentHandler implements SheetHandler, Reloadable
   {
     if (this.isFirstSheet)
     {
-
       try
       {
         if (this.view != null)
@@ -194,34 +195,40 @@ public class SourceContentHandler implements SheetHandler, Reloadable
 
           this.view = null;
         }
-
-        /*
-         * Write the header row
-         */
-        boolean isHeader = ( rowNum == 0 );
-
-        if (isHeader)
-        {
-          Sheet sheet = this.getWorkbook().getSheet(sheetName);
-
-          this.writeRow(sheet, rowNum);
-        }
       }
       catch (Exception e)
       {
-        this.writeException(e);
+        this.addErrorForRow(e);
+      }
+      
+      boolean isHeader = ( rowNum == 0 );
 
-        // // Wrap all exceptions with information about the cell and row
-        // ExcelObjectException exception = new ExcelObjectException(e);
-        // exception.setRow(new Long(this.rowNum));
-        // exception.setMsg(ExceptionUtil.getLocalizedException(e));
-        //
-        // throw exception;
+      if (isHeader)
+      {
+        Sheet sheet = this.getWorkbook().getSheet(sheetName);
+
+        this.writeRow(sheet, rowNum);
+      }
+      else if (errorForRow != null && errorForRow.length() > 0)
+      {
+        this.writeRowWithException(this.errorForRow);
       }
     }
   }
+  
+  private void addErrorForRow(Exception e)
+  {
+    if (errorForRow == null || errorForRow.length() == 0)
+    {
+      errorForRow = getLocalizedException(e);
+    }
+    else
+    {
+      errorForRow = " " + getLocalizedException(e);
+    }
+  }
 
-  private void writeException(Exception e)
+  private void writeRowWithException(String errorMessage)
   {
     Sheet sheet = this.getWorkbook().getSheet(sheetName);
 
@@ -229,11 +236,7 @@ public class SourceContentHandler implements SheetHandler, Reloadable
 
     Row row = this.writeRow(sheet, headerRowNum + this.errorNum++);
 
-    /*
-     * Add exception
-     */
-    
-    row.createCell(errorColumnNumber).setCellValue(getLocalizedException(e));
+    row.createCell(errorColumnNumber).setCellValue(errorMessage);
   }
 
   private Row writeRow(Sheet sheet, int rowNum)
@@ -385,7 +388,7 @@ public class SourceContentHandler implements SheetHandler, Reloadable
         }
         else
         {
-          this.writeException(e);
+          this.addErrorForRow(e);
         }
       }
     }
