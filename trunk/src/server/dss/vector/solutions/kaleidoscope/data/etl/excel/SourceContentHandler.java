@@ -120,6 +120,8 @@ public class SourceContentHandler implements SheetHandler, Reloadable
   private HashMap<String, Object> values;
 
   private boolean                 isFirstSheet;
+  
+  private int                     errorColumnNumber;
 
   public SourceContentHandler(ConverterIF converter, SourceContextIF context, ProgressMonitorIF monitor)
   {
@@ -230,7 +232,8 @@ public class SourceContentHandler implements SheetHandler, Reloadable
     /*
      * Add exception
      */
-    row.createCell(row.getLastCellNum()).setCellValue(getLocalizedException(e));
+    
+    row.createCell(errorColumnNumber).setCellValue(getLocalizedException(e));
   }
 
   private Row writeRow(Sheet sheet, int rowNum)
@@ -271,7 +274,9 @@ public class SourceContentHandler implements SheetHandler, Reloadable
     {
       String label = LocalizationFacade.getFromBundles("dataUploader.causeOfFailure");
 
-      row.createCell(row.getLastCellNum()).setCellValue(helper.createRichTextString(label));
+      this.errorColumnNumber = row.getLastCellNum();
+      
+      row.createCell(this.errorColumnNumber).setCellValue(helper.createRichTextString(label));
     }
 
     return row;
@@ -355,21 +360,33 @@ public class SourceContentHandler implements SheetHandler, Reloadable
       }
       catch (Exception e)
       {
-        // Wrap all exceptions with information about the cell and row
-        ExcelValueException exception = new ExcelValueException();
-        exception.setCell(cellReference);
-
-        if (e instanceof SmartException)
+        if (this.rowNum == 0)
         {
-          SmartException sme = (SmartException) e;
-          exception.setMsg(sme.localize(Session.getCurrentLocale()));
+          if (e instanceof InvalidHeaderRowException)
+          {
+            throw (InvalidHeaderRowException) e;
+          }
+          
+          // Wrap all exceptions with information about the cell and row
+          ExcelValueException exception = new ExcelValueException();
+          exception.setCell(cellReference);
+  
+          if (e instanceof SmartException)
+          {
+            SmartException sme = (SmartException) e;
+            exception.setMsg(sme.localize(Session.getCurrentLocale()));
+          }
+          else
+          {
+            exception.setMsg(e.getLocalizedMessage());
+          }
+  
+          throw exception;
         }
         else
         {
-          exception.setMsg(e.getLocalizedMessage());
+          this.writeException(e);
         }
-
-        throw exception;
       }
     }
   }
