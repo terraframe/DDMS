@@ -20,13 +20,20 @@ import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdWebPrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermDAOIF;
 import com.runwaysdk.dataaccess.io.excel.MdFieldFilter;
+import com.runwaysdk.dataaccess.metadata.MdWebPrimitiveDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdWebPrimitive;
 
 public class FormImportFilter implements MdFieldFilter, Reloadable
 {
   @Override
   public boolean accept(MdFieldDAOIF mdField)
   {
+    if (mdField instanceof MdWebPrimitiveDAO && (MdWebPrimitive.get(mdField.getId())).getIsExpression())
+    {
+      return false;
+    }
+    
     return ( ( mdField instanceof MdWebPrimitiveDAOIF ) || ( mdField instanceof MdWebSingleTermDAOIF ) );
   }
 }

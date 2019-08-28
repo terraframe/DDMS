@@ -18,11 +18,14 @@ package dss.vector.solutions.generator;
 
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.io.excel.AttributeColumn;
@@ -31,6 +34,9 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdField;
+import com.runwaysdk.system.metadata.MdWebForm;
+import com.runwaysdk.system.metadata.MdWebPrimitive;
 
 import dss.vector.solutions.ExcelImportManager;
 
@@ -46,6 +52,45 @@ public class FormImportContext extends ManagedImportContext implements Reloadabl
   protected Mutable getMutableForRow(Row row)
   {
     String oid = this.getCellValue(row, MdFormUtil.OID);
+    
+    // If the Form Id is a calculated field, then we first need to read in all the attributes, then calculate
+    // the expression fields, then we will know what the id is.
+    // As of Ticket #4117
+    try
+    {
+      MdWebForm webForm = MdFormUtil.getMdFormFromBusinessType(this.getMdClassType());
+      MdField oidField = webForm.getField(MdFormUtil.OID);
+      if (oidField instanceof MdWebPrimitive && ((MdWebPrimitive)oidField).getIsExpression())
+      {
+        Mutable calcMut = BusinessFacade.newMutable(this.getMdClassType());
+        
+        for (AttributeColumn column : this.getExpectedColumns())
+        {
+          Cell cell = row.getCell(column.getIndex());
+  
+          // Don't try to do anything for blank cells
+          if (cell == null)
+          {
+            continue;
+          }
+  
+          Object attributeValue = column.getValue(cell);
+  
+          column.setInstanceValue(calcMut, attributeValue);
+        }
+        
+        if (calcMut instanceof Entity)
+        {
+          ((Entity)calcMut).processExpressionAttributes();
+        }
+        
+        oid = calcMut.getValue(MdFormUtil.OID);
+      }
+    }
+    catch (Throwable t)
+    {
+      // Intentionally blank
+    }
 
     if (oid != null && oid.length() > 0)
     {
@@ -94,6 +139,11 @@ public class FormImportContext extends ManagedImportContext implements Reloadabl
   protected String getCellValue(Row row, String columnName)
   {
     ExcelColumn column = this.getColumn(columnName);
+    
+    if (column == null)
+    {
+      return null;
+    }
     
     return ExcelUtil.getString(row.getCell(column.getIndex()));
   }

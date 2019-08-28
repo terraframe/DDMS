@@ -30,7 +30,6 @@ import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdGraphDAOIF;
-import com.runwaysdk.dataaccess.MdTreeDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -39,8 +38,8 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdGraphDAO;
-import com.runwaysdk.dataaccess.metadata.MdTreeDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebPrimitiveDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
@@ -2113,6 +2112,11 @@ public class ODKForm implements Reloadable
 
     for (MdFieldDAOIF mdField : mdFields)
     {
+      if (mdField instanceof MdWebPrimitiveDAO && (MdWebPrimitive.get(mdField.getId())).getIsExpression())
+      {
+        continue;
+      }
+      
       if ( ( mdField instanceof MdWebMultipleTermDAOIF ))
       {
         MdAttributeDAOIF mdAttribute = ( (MdWebMultipleTermDAOIF) mdField ).getDefiningMdAttribute();
