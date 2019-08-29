@@ -12,6 +12,7 @@ import { UploadManagerService } from './upload-manager.service';
 import { Observable } from 'rxjs/Observable';
 
 declare let acp: string;
+declare let hasWritePermission: boolean;
 
 @Component({
   selector: 'upload-manager',
@@ -29,6 +30,8 @@ export class UploadManagerComponent implements OnInit {
   intervalTimeCounter: number = 0;
   intervalTime: number = 1;
   total: number = 0;
+  
+  hasWritePermission: boolean;
 
   constructor(
     private router: Router,
@@ -38,6 +41,7 @@ export class UploadManagerComponent implements OnInit {
     private http: Http) { }
 
   ngOnInit(): void {
+    this.hasWritePermission = hasWritePermission;
     this.getPaginatedHistory();
     
     Observable.interval(1000).subscribe(() => {

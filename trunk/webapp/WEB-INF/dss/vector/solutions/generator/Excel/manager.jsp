@@ -33,7 +33,8 @@
   
   <script>
     window.acp = "<%=request.getContextPath()%>";  
-    window.appname = "import-manager-app";  
+    window.appname = "import-manager-app";
+    window.hasWritePermission = ${hasWritePermission};
   </script>
   <script type="text/javascript">${js}</script>
   

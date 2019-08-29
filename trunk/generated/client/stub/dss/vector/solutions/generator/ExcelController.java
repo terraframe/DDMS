@@ -38,6 +38,7 @@ import dss.vector.solutions.ExcelImportHistoryDTO;
 import dss.vector.solutions.ExcelImportHistoryQueryDTO;
 import dss.vector.solutions.ExcelImportManagerDTO;
 import dss.vector.solutions.form.business.FormSurveyDTO;
+import dss.vector.solutions.general.SystemURLDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
 import dss.vector.solutions.kaleidoscope.JavascriptUtil;
 import dss.vector.solutions.ontology.UnknownTermDTO;
@@ -164,6 +165,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     String path = url.toString();
 
     this.req.setAttribute("path", path);
+    req.setAttribute("hasWritePermission", SystemURLDTO.hasWritePermissions(this.getClientRequest(), "dss.vector.solutions.generator.ExcelController.viewManager.mojo"));
 
     this.render("manager.jsp");
   }
