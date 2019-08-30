@@ -103,44 +103,37 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
   
   public static Boolean hasWritePermissions(String url)
   {
+    Map<String, String> roles = Session.getCurrentSession().getUserRoles();
+    
+    if (roles.containsKey(RoleDAOIF.ADMIN_ROLE))
+    {
+      return true;
+    }
+    
     QueryFactory factory = new QueryFactory();
-
     SystemURLQuery urlQuery = new SystemURLQuery(factory);
     urlQuery.WHERE(urlQuery.getUrl().EQ(url));
-
-    MenuItemQuery menuQuery = new MenuItemQuery(factory);
-    menuQuery.WHERE(menuQuery.getDisease().EQ(Disease.getCurrent()));
-    menuQuery.AND(menuQuery.getUrl().EQ(urlQuery));
-
-    OIterator<? extends MenuItem> iterator = menuQuery.getIterator();
-
-    while (iterator.hasNext())
+    OIterator<? extends SystemURL> it = urlQuery.getIterator();
+    
+    try
     {
-      Map<String, String> roles = Session.getCurrentSession().getUserRoles();
-
-      // Get the read role of the current diesease
-      MenuItem menuItem = iterator.next();
-
-      if (menuItem.getTerm() != null)
+      if (it.hasNext())
       {
-        SystemURL systemUrl = menuItem.getUrl();
-
+        SystemURL systemUrl = it.next();
+        
         RoleDAO writeRole = systemUrl.getWriteRoleDAO();
-
+        
         if (writeRole == null)
         {
           return false;
         }
-        else
-        {
-          if (roles.containsKey(RoleDAOIF.ADMIN_ROLE))
-          {
-            return true;
-          }
-        }
-
+        
         return roles.containsKey(writeRole.getRoleName());
       }
+    }
+    finally
+    {
+      it.close();
     }
 
     return false;
