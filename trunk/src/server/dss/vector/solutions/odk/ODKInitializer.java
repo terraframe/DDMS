@@ -86,15 +86,11 @@ public class ODKInitializer implements UncaughtExceptionHandler, Reloadable
           {
             ODKUser odkUser = ODKUser.getUser();
             
-            CredentialsProvider provider = ODKFacade.getCredentialsProvider(ODKFacade.USERNAME, "aggregate");
-            ODKPasswordExporter exporter = new ODKPasswordExporter(odkUser.getUsername(), odkUser.getOdkPassword(), provider);
-            exporter.run();
+            ODKPasswordExporter.changeRootPassword("aggregate", odkUser.getOdkPassword());
           }
           catch (Exception e)
           {
-            // Ignore: this may fail if the default password has already been
-            // changed
-            logger.info(e.getMessage());
+            logger.error("Error occurred while changing default password", e);
           }            
           
           ODKPermissionExporter.export(true);
