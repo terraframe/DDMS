@@ -369,8 +369,8 @@ public class QueryUtil implements Reloadable
     mosquitoColumnTypeMap.put("abundance_sub_collection_x_1000_ag", "numeric");
     mosquitoColumnTypeMap.put("taxon_ref", "character");
     mosquitoColumnTypeMap.put("collectionmethod_ref", "character");
-    mosquitoColumnTypeMap.put("create_date", "timestamp");
-    mosquitoColumnTypeMap.put("last_update_date", "timestamp");
+    mosquitoColumnTypeMap.put("create_date", "date");
+    mosquitoColumnTypeMap.put("last_update_date", "date");
     mosquitoColumnTypeMap.put("created_by", "character varying");
     mosquitoColumnTypeMap.put("last_updated_by", "character varying");
     mosquitoColumnTypeMap.put("imported", "integer");
