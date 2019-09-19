@@ -1088,6 +1088,7 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
     object.put("hasReport", this.hasReport());
     object.put("editDashboard", SystemURL.hasWritePermissions("dss.vector.solutions.kaleidoscope.UserMenuController.kaleidoscopes.mojo"));
     // object.put("editDashboard", GeoprismUser.hasAccess(AccessConstants.EDIT_DASHBOARD));
+    object.put("reportSizeState", state.getReportSizeState());
     object.put("savedWidth", state.getSavedWidth());
     object.put("savedHeight", state.getSavedHeight());
     object.put("scaleXPosition", state.getScaleXPosition());
@@ -1200,6 +1201,11 @@ public class Dashboard extends DashboardBase implements com.runwaysdk.generation
       DashboardState state = this.getOrCreateDashboardState(user);
       state.setConditions(DashboardCondition.serialize(conditions));
 
+      if (object.has("reportSizeState"))
+      {
+        state.setReportSizeState(object.getString("reportSizeState"));
+      }
+      
       if (object.has("savedWidth"))
       {
         state.setSavedWidth(object.getInt("savedWidth"));

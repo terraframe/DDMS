@@ -1,10 +1,10 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 581917867)
+@com.runwaysdk.business.ClassSignature(hash = 1396709221)
 public abstract class DashboardStateDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.kaleidoscope.dashboard.DashboardState";
-  private static final long serialVersionUID = 581917867;
+  private static final long serialVersionUID = 1396709221;
   
   protected DashboardStateDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -49,6 +49,7 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public static java.lang.String MAPEXTENT = "mapExtent";
   public static java.lang.String MAPTHUMBNAIL = "mapThumbnail";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String REPORTSIZESTATE = "reportSizeState";
   public static java.lang.String REPORTXPOSITION = "reportXPosition";
   public static java.lang.String REPORTYPOSITION = "reportYPosition";
   public static java.lang.String SAVEDHEIGHT = "savedHeight";
@@ -850,6 +851,43 @@ public abstract class DashboardStateDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public String getReportSizeState()
+  {
+    return getValue(REPORTSIZESTATE);
+  }
+  
+  public void setReportSizeState(String value)
+  {
+    if(value == null)
+    {
+      setValue(REPORTSIZESTATE, "");
+    }
+    else
+    {
+      setValue(REPORTSIZESTATE, value);
+    }
+  }
+  
+  public boolean isReportSizeStateWritable()
+  {
+    return isWritable(REPORTSIZESTATE);
+  }
+  
+  public boolean isReportSizeStateReadable()
+  {
+    return isReadable(REPORTSIZESTATE);
+  }
+  
+  public boolean isReportSizeStateModified()
+  {
+    return isModified(REPORTSIZESTATE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getReportSizeStateMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(REPORTSIZESTATE).getAttributeMdDTO();
   }
   
   public Integer getReportXPosition()

@@ -22,19 +22,30 @@
     controller.init = function(state) {
       $scope.vertical = state.isReportVertical || false;
       $scope.opaque = state.isReportOpaque || false;
+      controller.setReportSizeState(state.reportSizeState);
       
       if($scope.vertical) {
     	$timeout(function(){
-          controller.setReportPanelWidth(state.reportXPosition, (state.reportXPosition === state.savedWidth));    		
+          controller.setReportPanelWidth(state.reportXPosition, false);    		
     	}, 2);
       }
       else {
       	$timeout(function(){    	  
-          controller.setReportPanelHeight(state.reportYPosition, (state.reportYPosition === state.savedHeight));    	  
+          controller.setReportPanelHeight(state.reportYPosition, false);    	  
     	}, 2);          
       }
       
       controller.setupMenu($scope.hasReport);      
+    }
+    
+    controller.setReportSizeState = function(newState)
+    {
+      if (newState === "min" || newState === "split" || newState === "max")
+      {
+        controller.state = newState;
+        $scope.reportSizeState = newState;
+        $scope.$emit("reportSizeState", {reportSizeState:newState});
+      }
     }
     
     controller.setupMenu = function(hasReport) {
@@ -99,7 +110,7 @@
           $scope.vertical = false;
           $scope.$emit("isReportVertical", {vertical:false});
           
-          controller.state = 'min';
+          controller.setReportSizeState('min');
           
           var panelCollapsed = dashboardService.getDashboardPanelCollapsed();
           $scope.panelCollapsed = panelCollapsed;
@@ -119,7 +130,7 @@
           $scope.vertical = true;
           $scope.$emit("isReportVertical", {vertical:true});
           
-          controller.state = 'min';  
+          controller.setReportSizeState('min');
           
           controller.setupMenu($scope.hasReport);          
           
@@ -141,14 +152,14 @@
       var height = $("#mapDivId").height();
       
       if(controller.state === 'split'){
-        controller.setReportPanelHeight(0, false);
-        controller.state = 'min';
+    	controller.setReportSizeState('min');
+        controller.setReportPanelHeight(0, true);
       }
       else if(controller.state === 'max'){
         var splitHeight = Math.floor(height / 2);
         
+        controller.setReportSizeState('split');
         controller.setReportPanelHeight(splitHeight, true);
-        controller.state = 'split';
       }
     }
     
@@ -158,30 +169,34 @@
       if(controller.state === 'min'){
         var splitHeight = Math.floor(height / 2);
         
-        controller.setReportPanelHeight(splitHeight, false);
-        controller.state = 'split';
+        controller.setReportSizeState('split');
+        controller.setReportPanelHeight(splitHeight, true);
       }
       else if(controller.state === 'split'){
         var reportToolbarHeight = 15;
         
-        controller.setReportPanelHeight(height + reportToolbarHeight, true);        
-        controller.state = 'max';
+        controller.setReportSizeState('max');
+        controller.setReportPanelHeight(height + reportToolbarHeight, true);
       }      
     }
     
-    controller.setReportPanelHeight = function (height, flipButton) {
+    controller.setReportPanelHeight = function (height, animate) {
       var current = $("#reporticng-container").height();
-      var toolbar = $("#report-toolbar").height();        
-        
+      var toolbar = $("#report-toolbar").height();
+      var animateTime = animate ? 1000 : 0;
+      
       // Minimize
       if(current > height)
       {
         var difference = (current - height);
           
-        $("#reporticng-container").animate({ bottom: "-=" + difference + "px" }, 1000, function(){
+        $("#reporticng-container").animate({ bottom: "-=" + difference + "px" }, animateTime, function(){
             
-          if(flipButton){
-            $("#report-toggle-container").toggleClass("maxed");
+          if (controller.state === 'max' && !$("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").addClass("maxed");
+          }
+          else if ((controller.state === 'split' || controller.state === 'min') && $("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").removeClass("maxed");
           }
             
           $("#reporticng-container").css("bottom", "0px");                                                  
@@ -190,24 +205,34 @@
         });     
           
         // animate the loading spinner
-        $(".standby-overlay").animate({top: "+=" + difference + "px"}, 1000);
+        $(".standby-overlay").animate({top: "+=" + difference + "px"}, animateTime);
       }
       // Maximize
       else if (current < height){
+        if ($scope.reportSizeState === 'max')
+        {
+          var reportToolbarHeight = 15;
+          height = $("#mapDivId").height() + reportToolbarHeight;
+        }
+        
+    	
         var difference = (height - current);
           
         $("#reporticng-container").css("bottom", "-" + difference + "px");
         $("#reporticng-container").height(height);
         $("#report-viewport").height(height-toolbar);
               
-        $("#reporticng-container").animate({bottom: "+=" + difference + "px"}, 1000, function() {
-          if(flipButton){
-            $("#report-toggle-container").toggleClass("maxed");
+        $("#reporticng-container").animate({bottom: "+=" + difference + "px"}, animateTime, function() {
+          if (controller.state === 'max' && !$("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").addClass("maxed");
+          }
+          else if ((controller.state === 'split' || controller.state === 'min') && $("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").removeClass("maxed");
           }
         });
           
         // animate the loading spinner
-        $(".standby-overlay").animate({top: "-=" + difference + "px"}, 1000);
+        $(".standby-overlay").animate({top: "-=" + difference + "px"}, animateTime);
         $(".standby-overlay").css("height", current + difference);
       }   
       
@@ -218,14 +243,14 @@
       var width = $("#mapDivId").width();
         
       if(controller.state === 'split'){
-        controller.setReportPanelWidth(0, false);
-        controller.state = 'min';
+        controller.setReportPanelWidth(0, true);
+        controller.setReportSizeState('min');
       }
       else if(controller.state === 'max'){
         var splitWidth = Math.floor(width / 2);
           
         controller.setReportPanelWidth(splitWidth, true);
-        controller.state = 'split';
+        controller.setReportSizeState('split');
       }
     }
       
@@ -235,20 +260,21 @@
       if(controller.state === 'min'){
         var splitWidth = Math.floor(width / 2);
           
-        controller.setReportPanelWidth(splitWidth, false);
-        controller.state = 'split';
+        controller.setReportPanelWidth(splitWidth, true);
+        controller.setReportSizeState('split');
       }
       else if(controller.state === 'split'){
         var reportToolbarWidth = 15;
           
         controller.setReportPanelWidth(width + reportToolbarWidth, true);        
-        controller.state = 'max';
+        controller.setReportSizeState('max');
       }      
     }
     
-    controller.setReportPanelWidth = function (width, flipButton) {
+    controller.setReportPanelWidth = function (width, animate) {
       var current = $("#reporticng-container").width();
-      var toolbar = $("#report-toolbar").width();        
+      var toolbar = $("#report-toolbar").width();
+      var animateTime = animate ? 1000 : 0;
   
       // Minimize
       if(current > width)
@@ -257,34 +283,46 @@
             
         $("#reporticng-container").css("left", "0px");
         
-        $("#reporticng-container").animate({ width: "-=" + difference + "px" }, {duration: 1000, queue: false, complete: function(){
-          if(flipButton){
-            $("#report-toggle-container").toggleClass("maxed");
+        $("#reporticng-container").animate({ width: "-=" + difference + "px" }, {duration: animateTime, queue: false, complete: function(){
+          if (controller.state === 'max' && !$("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").addClass("maxed");
+          }
+          else if ((controller.state === 'split' || controller.state === 'min') && $("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").removeClass("maxed");
           }
         }});     
         
-        $("#report-viewport").animate({ width: "-=" + difference + "px" }, {duration: 1000, queue: false, complete: function(){
+        $("#report-viewport").animate({ width: "-=" + difference + "px" }, {duration: animateTime, queue: false, complete: function(){
 	    }});    
             
         // animate the loading spinner
-        $(".standby-overlay").animate({left: "+=" + difference + "px"}, 1000);
+        $(".standby-overlay").animate({left: "+=" + difference + "px"}, animateTime);
       }
       // Maximize
       else if (current < width){
+	    if ($scope.reportSizeState === 'max')
+        {
+          var reportToolbarWidth = 15;
+          width = $("#mapDivId").width() + reportToolbarWidth;
+        }
+    	  
         var difference = (width - current);
             
         $("#reporticng-container").css("left", "0px");
-        $("#reporticng-container").animate({width: "+=" + difference + "px"}, {duration: 1000, queue: false, complete: function() {
-          if(flipButton){
-            $("#report-toggle-container").toggleClass("maxed");
+        $("#reporticng-container").animate({width: "+=" + difference + "px"}, {duration: animateTime, queue: false, complete: function() {
+          if (controller.state === 'max' && !$("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").addClass("maxed");
+          }
+          else if ((controller.state === 'split' || controller.state === 'min') && $("#report-toggle-container").hasClass("maxed")){
+            $("#report-toggle-container").removeClass("maxed");
           }
         }});
         
-        $("#report-viewport").animate({width: "+=" + difference + "px"}, {duration: 1000, queue: false, complete: function() {
+        $("#report-viewport").animate({width: "+=" + difference + "px"}, {duration: animateTime, queue: false, complete: function() {
         }});
             
         // animate the loading spinner
-        $(".standby-overlay").animate({left: "-=" + difference + "px"}, 1000);
+        $(".standby-overlay").animate({left: "-=" + difference + "px"}, animateTime);
         $(".standby-overlay").css("width", current + difference);
       }          
 
@@ -363,7 +401,7 @@
           $("#reporticng-container").width(max + 15);
           $("#report-viewport").width(max);
                   
-          controller.state = 'max';
+          controller.setReportSizeState('max');
         }
         
         $scope.$emit("reportXPosition", {width:info.width});        
@@ -376,7 +414,7 @@
           $("#reporticng-container").height(max + 15);
           $("#report-viewport").height(max);
                 
-          controller.state = 'max';
+          controller.setReportSizeState('max');
         }
         
         $scope.$emit("reportYPosition", {height:info.height});        

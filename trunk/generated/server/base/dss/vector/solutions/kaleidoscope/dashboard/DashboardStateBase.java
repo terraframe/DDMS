@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = -222421)
+@com.runwaysdk.business.ClassSignature(hash = -777832987)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,6 +33,7 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
   public static java.lang.String MAPEXTENT = "mapExtent";
   public static java.lang.String MAPTHUMBNAIL = "mapThumbnail";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String REPORTSIZESTATE = "reportSizeState";
   public static java.lang.String REPORTXPOSITION = "reportXPosition";
   public static java.lang.String REPORTYPOSITION = "reportYPosition";
   public static java.lang.String SAVEDHEIGHT = "savedHeight";
@@ -42,7 +43,7 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -222421;
+  private static final long serialVersionUID = -777832987;
   
   public DashboardStateBase()
   {
@@ -722,6 +723,34 @@ public abstract class DashboardStateBase extends com.runwaysdk.business.Business
     else
     {
       setValue(OWNER, id);
+    }
+  }
+  
+  public String getReportSizeState()
+  {
+    return getValue(REPORTSIZESTATE);
+  }
+  
+  public void validateReportSizeState()
+  {
+    this.validateAttribute(REPORTSIZESTATE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF getReportSizeStateMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.CLASS);
+    return (com.runwaysdk.dataaccess.MdAttributeCharacterDAOIF)mdClassIF.definesAttribute(REPORTSIZESTATE);
+  }
+  
+  public void setReportSizeState(String value)
+  {
+    if(value == null)
+    {
+      setValue(REPORTSIZESTATE, "");
+    }
+    else
+    {
+      setValue(REPORTSIZESTATE, value);
     }
   }
   

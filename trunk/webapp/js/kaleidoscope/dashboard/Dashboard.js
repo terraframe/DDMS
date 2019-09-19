@@ -764,6 +764,7 @@
         arrowXPosition : oState.arrowXPosition,
         arrowYPosition : oState.arrowYPosition,
         enableArrow : oState.enableArrow,
+        reportSizeState : oState.reportSizeState,
         reportXPosition : oState.reportXPosition,
         reportYPosition : oState.reportYPosition,
         isReportVertical : oState.isReportVertical,
@@ -993,6 +994,10 @@
     $scope.$on('reportXPosition', function(event, data) {
       controller.model.reportXPosition = data.width; 
     });   
+    
+    $scope.$on('reportSizeState', function(event, data) {
+      controller.model.reportSizeState = data.reportSizeState; 
+    });
     
     /*
      * Map Events

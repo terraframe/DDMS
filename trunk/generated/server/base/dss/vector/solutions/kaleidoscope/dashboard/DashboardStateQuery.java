@@ -1,6 +1,6 @@
 package dss.vector.solutions.kaleidoscope.dashboard;
 
-@com.runwaysdk.business.ClassSignature(hash = 212998690)
+@com.runwaysdk.business.ClassSignature(hash = 185587740)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -454,6 +454,23 @@ public  class DashboardStateQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getReportSizeState()
+  {
+    return getReportSizeState(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReportSizeState(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.REPORTSIZESTATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReportSizeState(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.REPORTSIZESTATE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getReportXPosition()
   {
     return getReportXPosition(null);
@@ -744,6 +761,9 @@ public  class DashboardStateQuery extends com.runwaysdk.query.GeneratedBusinessQ
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getReportSizeState();
+    public com.runwaysdk.query.SelectableChar getReportSizeState(String alias);
+    public com.runwaysdk.query.SelectableChar getReportSizeState(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReportXPosition();
     public com.runwaysdk.query.SelectableInteger getReportXPosition(String alias);
     public com.runwaysdk.query.SelectableInteger getReportXPosition(String alias, String displayLabel);
@@ -1180,6 +1200,23 @@ public  class DashboardStateQuery extends com.runwaysdk.query.GeneratedBusinessQ
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.OWNER,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getReportSizeState()
+  {
+    return getReportSizeState(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReportSizeState(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.REPORTSIZESTATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReportSizeState(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.REPORTSIZESTATE, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getReportXPosition()
   {
     return getReportXPosition(null);
@@ -1447,6 +1484,9 @@ public  class DashboardStateQuery extends com.runwaysdk.query.GeneratedBusinessQ
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getReportSizeState();
+    public com.runwaysdk.query.SelectableChar getReportSizeState(String alias);
+    public com.runwaysdk.query.SelectableChar getReportSizeState(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReportXPosition();
     public com.runwaysdk.query.SelectableInteger getReportXPosition(String alias);
     public com.runwaysdk.query.SelectableInteger getReportXPosition(String alias, String displayLabel);
@@ -1930,6 +1970,23 @@ public  class DashboardStateQuery extends com.runwaysdk.query.GeneratedBusinessQ
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getReportSizeState()
+  {
+    return getReportSizeState(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReportSizeState(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.REPORTSIZESTATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getReportSizeState(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.kaleidoscope.dashboard.DashboardState.REPORTSIZESTATE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReportXPosition()
