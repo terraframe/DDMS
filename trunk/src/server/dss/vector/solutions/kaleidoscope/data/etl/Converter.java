@@ -30,6 +30,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.ExpressionException;
 import com.runwaysdk.business.InvalidExpressionSyntaxException;
 import com.runwaysdk.business.Transient;
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeBooleanUtil;
 import com.runwaysdk.constants.MdAttributeDateTimeUtil;
 import com.runwaysdk.constants.MdAttributeDateUtil;
@@ -43,6 +44,7 @@ import com.runwaysdk.dataaccess.MdAttributeDateTimeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeNumberDAOIF;
 import com.runwaysdk.dataaccess.MdAttributePrimitiveDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeTimeDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdAttributeBooleanDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -113,7 +115,33 @@ public class Converter implements ConverterIF, Reloadable
 
           if (value != null && !(value.equals("")))
           {
-            business.setValue(attributeName, value);
+            boolean didSet = false;
+            
+            if (business.getMdAttributeDAO(attributeName) instanceof MdAttributeBooleanDAO)
+            {
+              if (value instanceof java.lang.String)
+              {
+                String sVal = (String) value;
+                
+                if (sVal.toLowerCase().equals("yes")
+                    || sVal.toLowerCase().equals("y"))
+                {
+                  business.setValue(attributeName, MdAttributeBooleanInfo.TRUE);
+                  didSet = true;
+                }
+                else if (sVal.toLowerCase().equals("no")
+                    || sVal.toLowerCase().equals("n"))
+                {
+                  business.setValue(attributeName, MdAttributeBooleanInfo.FALSE);
+                  didSet = true;
+                }
+              }
+            }
+            
+            if (!didSet)
+            {
+              business.setValue(attributeName, value);
+            }
           }
 
           hasValues = hasValues || !fValue.isBlank();
