@@ -40,12 +40,14 @@
     
     controller.setReportSizeState = function(newState)
     {
-      if (newState === "min" || newState === "split" || newState === "max")
+      if ( !(newState === "min" || newState === "split" || newState === "max") )
       {
-        controller.state = newState;
-        $scope.reportSizeState = newState;
-        $scope.$emit("reportSizeState", {reportSizeState:newState});
+        newState = 'min';
       }
+      
+      controller.state = newState;
+      $scope.reportSizeState = newState;
+      $scope.$emit("reportSizeState", {reportSizeState:newState});
     }
     
     controller.setupMenu = function(hasReport) {
