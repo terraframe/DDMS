@@ -147,7 +147,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     String fileName = vfile.getFileName() + "-errors.xlsx";
     
     resp.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    resp.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+    resp.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "\"");
     
     ExcelImportHistoryDTO.downloadErrorSpreadsheet(getClientRequest(), historyId, resp.getOutputStream());
   }

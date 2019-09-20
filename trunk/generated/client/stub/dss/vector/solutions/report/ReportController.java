@@ -107,7 +107,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
       try
       {
         resp.setHeader("Content-Type", "application/pdf");
-        resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
+        resp.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + ".pdf\"");
 
         generator.generate(design, resp.getOutputStream());
       }
@@ -247,7 +247,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
       {
         String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
         resp.setHeader("Content-Type", "application/" + format);
-        resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + "." + format);
+        resp.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "." + format + "\"");
 
         ServletOutputStream oStream = resp.getOutputStream();
 

@@ -385,7 +385,7 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
           {
             String fileName = item.getReportLabel().getValue().replaceAll("\\s", "_");
             resp.setHeader("Content-Type", "application/" + format);
-            resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + "." + format);
+            resp.setHeader("Content-Disposition", "attachment;filename=\"" + fileName + "." + format + "\"");
 
             ServletOutputStream oStream = resp.getOutputStream();
 

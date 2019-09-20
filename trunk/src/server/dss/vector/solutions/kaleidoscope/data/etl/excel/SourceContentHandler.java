@@ -180,6 +180,8 @@ public class SourceContentHandler implements SheetHandler, Reloadable
         this.monitor.setCurrentRow(rowNum);
       }
     }
+    
+    this.errorForRow = null;
   }
 
   @Override
