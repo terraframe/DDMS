@@ -556,6 +556,7 @@ public class TargetBuilder implements Reloadable
          */
         BrowserRoot bRoot = new BrowserRoot();
         bRoot.setTerm(classifier);
+        bRoot.setSelectable(false);
         bRoot.setDisease(Disease.getCurrent());
 
         BrowserField bField = BrowserField.getBrowserField(mdField.getDefiningMdAttribute());
@@ -587,6 +588,7 @@ public class TargetBuilder implements Reloadable
            */
           BrowserRoot bRoot = new BrowserRoot();
           bRoot.setTerm(classifier);
+          bRoot.setSelectable(false);
           bRoot.setDisease(Disease.getCurrent());
 
           BrowserField bField = BrowserField.getBrowserField(mdField.getDefiningMdAttribute());
