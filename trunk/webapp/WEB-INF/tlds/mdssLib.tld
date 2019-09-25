@@ -2109,6 +2109,20 @@
         true
       </rtexprvalue>
     </attribute>
+    <attribute>
+      <description>
+        Boolean flag denoting whether or not the user will be allowed to select Earth
+      </description>
+      <name>
+        allowSelectEarth
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+    </attribute>
   </tag>
   <tag>
     <description>

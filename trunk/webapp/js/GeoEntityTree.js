@@ -1517,6 +1517,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     // If you change this code make sure you also change the method by the same name in GeoPicker.js
     _isActiveBasedOnGeoFilterCriteria : function(geoEntityView)
     {
+      if (this._geoFilterCriteria != null && this._geoFilterCriteria.allowSelectEarth && geoEntityView.getEntityType() === "dss.vector.solutions.geo.generated.Earth")
+      {
+        return true;
+      }
+      
       var active = geoEntityView.getActivated();
       
       if (active && this._geoFilterCriteria != null)

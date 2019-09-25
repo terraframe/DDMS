@@ -35,6 +35,8 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
       
       this._listeners = [];
       
+      this._allowSelectEarth = false;
+      
       this._political = true;
       
       this._populated = false;
@@ -264,6 +266,7 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
         populated : this.getPopulated(),
         sprayTargetAllowed : this.getSprayTargetAllowed(),
         urban : this.getUrban(),
+        allowSelectEarth : this.getAllowSelectEarth(),
         extraUniversals : this.getExtraUniversals(),
         root : this._selectSearchRootId
       }
@@ -494,6 +497,16 @@ Mojo.Meta.newClass('MDSS.GeoPicker', {
     getPolitical : function()
     {
       return this._political;
+    },
+    
+    setAllowSelectEarth : function(allowSelectEarth)
+    {
+      this._allowSelectEarth = allowSelectEarth;
+    },
+    
+    getAllowSelectEarth : function()
+    {
+      return this._allowSelectEarth;
     },
   
     setSprayTargetAllowed : function(sprayTargetAllowed)

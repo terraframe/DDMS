@@ -72,6 +72,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
    * Flag indicating if this fields should restrict by urban universals
    */
   private Boolean                 urban;
+  
+  /**
+   * Boolean flag denoting whether or not the user will be allowed to select Earth
+   */
+  private Boolean                 allowSelectEarth;
 
   /**
    * List of additional accepted universals
@@ -123,6 +128,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.urban = false;
     this.concrete = true;
     this.enforceRoot = true;
+    this.allowSelectEarth = false;
     this.universals = new LinkedList<String>();
     this.radioFilters = new TreeSet<FilterTagSupport>();
     this.actions = new LinkedList<ConditionalAction>();
@@ -139,6 +145,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.param = param;
   }
 
+  @AttributeAnnotation(rtexprvalue = true, description = "Boolean flag denoting whether or not the user will be allowed to select Earth")
+  public Boolean getAllowSelectEarth()
+  {
+    return allowSelectEarth;
+  }
+
+  public void setAllowSelectEarth(Boolean allowSelectEarth)
+  {
+    this.allowSelectEarth = allowSelectEarth;
+  }
+  
   @AttributeAnnotation(rtexprvalue = true, description = "Flag indicating if this fields should restrict by political universals")
   public Boolean getPolitical()
   {
@@ -452,6 +469,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("    geoPicker.setPopulated(" + this.getPopulated() + ");\n");
     out.write("    geoPicker.setSprayTargetAllowed(" + this.getSpray() + ");\n");
     out.write("    geoPicker.setUrban(" + this.getUrban() + ");\n");
+    out.write("    geoPicker.setAllowSelectEarth(" + this.getAllowSelectEarth() + ");\n");
 
     for (String universal : _universals)
     {
