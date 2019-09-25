@@ -1069,6 +1069,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           var rootNode = that._geoTree.getNodesByProperty('geoEntityId', rootJSON.id)[0];
           rootNode.nextAncestors = ancestorArray.splice(1);
           rootNode.fetchedNodes = rootJSON.children;
+          rootNode.information = rootJSON.information;
           rootNode.expand();
         }
       });
@@ -1101,6 +1102,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
             var ancestorJSON = ancestorArray[0];
             var ancestorId = ancestorJSON.id;
             var children = ancestorJSON.children;
+            var information = ancestorJSON.information;
             var nextAncestors = ancestorArray.slice(1);
             
             var parentNodes = this._geoTree.getNodesByProperty('geoEntityId', ancestorId);
@@ -1109,6 +1111,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
               {
                 parentNode.nextAncestors = nextAncestors;
                 parentNode.fetchedNodes = children;
+                parentNode.information = information;
                 parentNode.expand();
               }
             });
@@ -1213,6 +1216,16 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         parentId = parentNode.data.geoEntityId;
         isPageNode = false;
       }
+      
+      var overflowClass = Mojo.$.dss.vector.solutions.geo.ChildEntityOverflowInformation;
+      if (parentNode.information != null && parentNode.information.length > 0)
+      {
+        for (var i = 0; i < parentNode.information.length; ++i)
+        {
+          if (!(parentNode.information[i] instanceof overflowClass))
+          parentNode.information[i] = com.runwaysdk.DTOUtil.convertToType(parentNode.information[i]); 
+        }
+      }
     	
       // request to fetch children
       var request = new MDSS.Request({
@@ -1251,8 +1264,16 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           {
             // append any page nodes if we're loading a normal parent entity
             // with overflow children
-            var information = this.getInformation();
-            var overflowClass = Mojo.$.dss.vector.solutions.geo.ChildEntityOverflowInformation;
+        	var information = [];
+        	if (parentNode.information != null)
+            {
+              information = parentNode.information;
+            }
+        	else
+            {
+              var information = this.getInformation(); // The 'this' reference here refers to the ClientRequest
+            }
+            
             for ( var i = 0, len = information.length; i < len; i++)
             {
               // create the overflow page node. It will not be draggable

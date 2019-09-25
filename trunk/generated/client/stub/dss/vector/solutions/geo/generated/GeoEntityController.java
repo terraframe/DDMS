@@ -16,11 +16,16 @@
  ******************************************************************************/
 package dss.vector.solutions.geo.generated;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.ClientRequest;
+import com.runwaysdk.business.InformationDTO;
+import com.runwaysdk.business.WarningDTO;
 import com.runwaysdk.transport.conversion.json.BusinessDTOToJSON;
 import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
@@ -77,6 +82,8 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       }
       boolean foundRoot = false;
       
+      this.getClientRequest().setKeepMessages(true);
+      
       for (int i = 0; i < ancestors.length; ++i)
       {
         GeoEntityViewDTO ancestor = ancestors[i];
@@ -88,17 +95,8 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
         if (!foundRoot) { continue; }
         
         JSONObject ancestorJSON = new JSONObject();
-//        ancestorJSON.put("view", BusinessDTOToJSON.getConverter(ancestor).populate());
-        ancestorJSON.put("id", ancestor.getGeoEntityId());
         
-        JSONArray childrenJSON = new JSONArray();
-        List<? extends GeoEntityViewDTO> children = GeoEntityDTO.getOrderedChildrenPage(this.getClientRequest(), ancestor.getGeoEntityId(), "", 1).getResultSet();
-        for (GeoEntityViewDTO child: children)
-        {
-          childrenJSON.put(BusinessDTOToJSON.getConverter(child).populate());
-        }
-        
-        ancestorJSON.put("children", childrenJSON);
+        buildAncestorJson(ancestor, ancestorJSON, id, (i == ancestors.length - 1) );
         
         json.put(ancestorJSON);
       }
@@ -111,6 +109,53 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       resp.setStatus(500);
       resp.getWriter().print(jsonE.getJSON());
     }
+  }
+  
+  private void buildAncestorJson(GeoEntityViewDTO ancestor, JSONObject ancestorJSON, String id, boolean isLowestAncestor) throws JSONException
+  {
+    ancestorJSON.put("id", ancestor.getGeoEntityId());
+    
+    int pageNum = 0;
+    List<InformationDTO> infos = new ArrayList<InformationDTO>();
+    JSONArray childrenJSON = new JSONArray();
+    boolean foundChild = false;
+    
+    do
+    {
+      pageNum++;
+      
+      if (infos.size() > 0)
+      {
+        infos.remove(0);
+      }
+      
+      List<? extends GeoEntityViewDTO> children = GeoEntityDTO.getOrderedChildrenPage(this.getClientRequest(), ancestor.getGeoEntityId(), "", pageNum).getResultSet();
+      
+      if (pageNum == 1)
+      {
+        infos = this.getClientRequest().getInformation();
+      }
+      
+      for (GeoEntityViewDTO child: children)
+      {
+        childrenJSON.put(BusinessDTOToJSON.getConverter(child).populate());
+        
+        if (child.getGeoEntityId().equals(id))
+        {
+          foundChild = true;
+        }
+      }
+    }
+    while (isLowestAncestor && !foundChild && infos.size() > 0);
+    
+    ancestorJSON.put("children", childrenJSON);
+    
+    JSONReturnObject jret = new JSONReturnObject();
+    jret.setInformation(infos);
+    
+    ancestorJSON.put(JSONReturnObject.INFORMATION, jret.getJSON().get(JSONReturnObject.INFORMATION));
+    
+    ClientRequest.clearNotifications((ClientRequest) this.getClientRequest());
   }
 
   public void failUpdate(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
