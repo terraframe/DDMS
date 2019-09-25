@@ -46,7 +46,14 @@ public class MolecularAssaySubSelectQB extends AbstractQB implements Reloadable
   @Override
   protected String getAuditClassAlias()
   {
-    return MosquitoCollection.CLASS;
+    return MolecularAssay.CLASS;
+  }
+  
+  @Override
+  protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedTableClassQuery> queryMap)
+  {
+    // We're removing this behavior because the construct method is actually called twice, once on us and then again in the query that wraps us
+    // This behavior will be run the 2nd time it gets invoked (and we're skipping it the first time because otherwise it causes #4089).
   }
 
   @Override

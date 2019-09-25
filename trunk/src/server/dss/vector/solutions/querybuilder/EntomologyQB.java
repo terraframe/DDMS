@@ -129,18 +129,12 @@ public class EntomologyQB extends AbstractQB implements Reloadable
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     }
     
-//    Boolean hasAudit = valueQuery.hasSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS)
-//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS)
-//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS)
-//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS)
-//      || valueQuery.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS);
-    
     if (unionQueries.size() == 1)
     {
       valueQuery = unionQueries.get(0);
     }
 
-    if (unionQueries.size() > 1)
+    if (unionQueries.size() > 1) // Hoepfully this logic shouldn't actually be possible anymore but we'll leave it here just in case
     {
       valueQuery = new ValueQuery(queryFactory);
       dontAddCount = true;
