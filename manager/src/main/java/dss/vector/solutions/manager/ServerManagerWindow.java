@@ -124,6 +124,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     this.server.addListener(this);
 
     this.applications = this.loadApplicationInformation();
+//    this.envLoggingServer = new EnvLoggingServer(this.server);
   }
 
   @Override
@@ -234,7 +235,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
       public void handleEvent(Event arg0)
       {
         start();
-        envLoggingServer.start();
+//        envLoggingServer.start();
       }
     });
 
@@ -246,8 +247,8 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
       @Override
       public void handleEvent(Event arg0)
       {
-        server.stopServer();
-        envLoggingServer.stop();
+        stop();
+//        envLoggingServer.stop();
       }
     });
 
@@ -430,6 +431,32 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
         this.hide = true;
       }
 
+    }
+    catch (Exception e)
+    {
+      MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
+
+      server.refresh();
+    }
+  }
+  
+  private void stop()
+  {
+    try
+    {
+      ServerManagerWindow.this.disableWidgets();
+      ServerManagerWindow.this.setServerStatus(Localizer.getMessage("STOPPING"));
+
+      this.hide = false;
+
+      try
+      {
+        server.stopServer();
+      }
+      finally
+      {
+        this.hide = true;
+      }
     }
     catch (Exception e)
     {
