@@ -219,6 +219,21 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
     }
   }
   
+  public void killServer()
+  {
+    String[] script = { "cmd.exe", "/c", "sc", "taskkill", "/F", "/FI", "\"SERVICES eq " + SERVICE_NAME + "\"" };
+
+    runCommand(script, new Runnable() {
+      @Override
+      public void run()
+      {
+        server = null;
+        
+        Server.this.fireServerChange(ServerStatus.STOPPED);
+      }
+    });
+  }
+  
   public String getEnvInfo()
   {
     if (this.server == null)

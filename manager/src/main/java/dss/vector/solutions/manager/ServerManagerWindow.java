@@ -444,13 +444,19 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   {
     try
     {
-      if (this.context.getServerStatus().equals(ServerStatus.STARTED))
-      {
-        ServerManagerWindow.this.disableWidgets();
-        ServerManagerWindow.this.setServerStatus(Localizer.getMessage("STOPPING"));
-      }
+      ServerManagerWindow.this.disableWidgets();
+      ServerManagerWindow.this.setServerStatus(Localizer.getMessage("STOPPING"));
 
-      server.stopServer();
+      this.hide = false;
+
+      try
+      {
+        new ServerShutdownThread(context, server, this).run();
+      }
+      finally
+      {
+        this.hide = true;
+      }
     }
     catch (Exception e)
     {

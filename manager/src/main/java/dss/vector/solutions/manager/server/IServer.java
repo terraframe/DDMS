@@ -24,6 +24,8 @@ public interface IServer
   
   public void stopServer();
   
+  public void killServer();
+  
   public ServerStatus getServerStatus();
   
   public String getStackDump();
