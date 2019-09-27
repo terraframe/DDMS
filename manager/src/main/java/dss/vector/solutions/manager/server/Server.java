@@ -221,7 +221,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
   
   public void killServer()
   {
-    String[] script = { "cmd.exe", "/c", "sc", "taskkill", "/F", "/FI", "\"SERVICES eq " + SERVICE_NAME + "\"" };
+    String[] script = { "cmd.exe", "/c", "taskkill", "/F", "/FI", "\"SERVICES eq " + SERVICE_NAME + "\"" };
 
     runCommand(script, new Runnable() {
       @Override

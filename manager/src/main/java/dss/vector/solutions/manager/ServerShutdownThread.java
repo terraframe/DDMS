@@ -72,7 +72,7 @@ public class ServerShutdownThread implements Runnable
           {
             long now = System.currentTimeMillis();
             
-            if ( (now - start) > 10000 ) // Server should be down after 10 seconds. If not, we're killing it.
+            if ( (now - start) > 20000 ) // Server should be down after 20 seconds. If not, we're killing it.
             {
               logger.warn("Killing server because it took too long to shutdown.");
               server.killServer();
