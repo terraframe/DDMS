@@ -215,7 +215,8 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
     }
     else
     {
-      throw new RuntimeException(Localizer.getMessage("SERVER_NOT_STARTED"));
+//      throw new RuntimeException(Localizer.getMessage("SERVER_NOT_STARTED"));
+      this.refresh();
     }
   }
   
