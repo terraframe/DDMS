@@ -439,6 +439,31 @@
       controller : ReportPanelController,
       controllerAs : 'ctrl',
       link: function (scope, element, attrs, ctrl) {
+    	
+    	// We don't currently support resuming from a hash. But we can't leave it as is because then we can't click on an existing link.
+        if (window.location.hash.startsWith('#report')) {
+          window.location.hash = "";
+        }
+    	  
+        $(window).on('hashchange',function(){
+          var hash = location.hash;
+          
+          if(hash.startsWith('#report')) {
+            var split = hash.split('/');
+              
+            if(split.length == 3) {
+              scope.$emit('refreshReport', {pageNumber : split[2], id : split[1]})
+            }
+            else if(split.length == 2) {
+              // Goto Hash
+              var top = $('#report-viewport').scrollTop();
+              var offset = $('#report-viewport').offset().top;
+              var elemOff = $('#' + split[1]).offset().top;
+                
+              $('#report-viewport').scrollTop(top - offset + elemOff);
+            }
+          }
+        });
 
         element.on('click', function(event) {
           var target = event.target;
