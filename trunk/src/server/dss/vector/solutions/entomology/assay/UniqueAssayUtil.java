@@ -107,11 +107,11 @@ public class UniqueAssayUtil implements Reloadable
       String genId = LocalProperty.getNextId();
       assay.setUniqueAssayId(genId);
       
-      log.debug(String.format("Set the id [%s] on assay [%s].", genId, assay.toString()));
+//      log.debug(String.format("Set the id [%s] on assay [%s].", genId, assay.toString()));
     }
     else
     {
-      log.debug(String.format("Assay [%s] already exists with id [%s].", assay.toString(), uai)); 
+//      log.debug(String.format("Assay [%s] already exists with id [%s].", assay.toString(), uai)); 
     }
   }
   
@@ -142,8 +142,8 @@ public class UniqueAssayUtil implements Reloadable
         {
           T assay = clazz.cast(iterator.next());
 
-          String msg =  "Assay ["+assay+"] of type [%s] and id [%s] was found.";
-          log.debug(String.format(msg, type, uniqueAssayId));
+//          String msg =  "Assay ["+assay+"] of type [%s] and id [%s] was found.";
+//          log.debug(String.format(msg, type, uniqueAssayId));
           
           return assay;
         }
@@ -160,8 +160,8 @@ public class UniqueAssayUtil implements Reloadable
     
     assay.setUniqueAssayId(uniqueAssayId);
     
-    String msg =  "Assay of type [%s] not found with id [%s].";
-    log.debug(String.format(msg, type, uniqueAssayId));
+//    String msg =  "Assay of type [%s] not found with id [%s].";
+//    log.debug(String.format(msg, type, uniqueAssayId));
     
     return assay;
   }
