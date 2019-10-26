@@ -1,0 +1,8 @@
+runway-patcher/src/main/resources/patches.zip filter=lfs diff=lfs merge=lfs -text
+installer-stage/postgresql-9.6.3-2-windows-x64.exe filter=lfs diff=lfs merge=lfs -text
+installer-stage/postgresql-9.6.3-2-windows.exe filter=lfs diff=lfs merge=lfs -text
+installer-windows/stage.7z filter=lfs diff=lfs merge=lfs -text
+branch/1.6/patches/patch.exe filter=lfs diff=lfs merge=lfs -text
+branch/1.6/patches/patch-11-04-01.exe filter=lfs diff=lfs merge=lfs -text
+ddms-runway-patcher/lib/runway-patcher-1.0.0.jar filter=lfs diff=lfs merge=lfs -text
+*.exe filter=lfs diff=lfs merge=lfs -text
