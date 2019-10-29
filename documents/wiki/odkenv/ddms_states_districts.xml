@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>ddms states districts</h:title>
+    <model>
+      <itext>
+        <translation lang="French">
+          <text id="/ddms_states_districts/district:label">
+            <value>-</value>
+          </text>
+          <text id="/ddms_states_districts/state/washington:label">
+            <value>La Washington</value>
+          </text>
+          <text id="/ddms_states_districts/state/texas:label">
+            <value>Le Texas</value>
+          </text>
+          <text id="/ddms_states_districts/state:label">
+            <value>-</value>
+          </text>
+        </translation>
+        <translation lang="English">
+          <text id="/ddms_states_districts/district:label">
+            <value>district</value>
+          </text>
+          <text id="/ddms_states_districts/state/washington:label">
+            <value>Washington</value>
+          </text>
+          <text id="/ddms_states_districts/state:label">
+            <value>state</value>
+          </text>
+          <text id="/ddms_states_districts/state/texas:label">
+            <value>Texas</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <ddms_states_districts id="ddms_states_districts">
+          <state/>
+          <district/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </ddms_states_districts>
+      </instance>
+      <bind nodeset="/ddms_states_districts/state" type="select1"/>
+      <bind nodeset="/ddms_states_districts/district" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/ddms_states_districts/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <select1 ref="/ddms_states_districts/state">
+      <label ref="jr:itext('/ddms_states_districts/state:label')"/>
+      <item>
+        <label ref="jr:itext('/ddms_states_districts/state/texas:label')"/>
+        <value>texas</value>
+      </item>
+      <item>
+        <label ref="jr:itext('/ddms_states_districts/state/washington:label')"/>
+        <value>washington</value>
+      </item>
+    </select1>
+    <input query="instance('districts')/root/item[state= /ddms_states_districts/state ]" ref="/ddms_states_districts/district">
+      <label ref="jr:itext('/ddms_states_districts/district:label')"/>
+    </input>
+  </h:body>
+</h:html>
