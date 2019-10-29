@@ -1,8 +1,0 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <doIt>
-  </doIt>
-  <undoIt>
-    <!-- There is no way to revoke permissions through xml at the moment -->
-  </undoIt>
-</version>

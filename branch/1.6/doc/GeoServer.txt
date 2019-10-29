@@ -1,8 +1,0 @@
-- Namespace
-Prefix: mdss
-Url: http://mdss.terraframe.com
-
-- Datastore
-name: MDSS_maps
-namespace: mdss
-db login: [deploy db login]
