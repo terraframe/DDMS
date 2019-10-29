@@ -1,6 +1,0 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <doIt>
-  </doIt>
-  <undoIt>
-  </undoIt>
-</version>

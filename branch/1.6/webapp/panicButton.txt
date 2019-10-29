@@ -1,4 +1,0 @@
-This file is the equivalent of a "panic button" for the system.  Deleting this 
-file will cause the following behaviour at the next restart:
-1) The "emergency" menu will be activated for all diseases
-2) This file will be recreated.
