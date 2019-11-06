@@ -11,3 +11,9 @@ https://github.com/terraframe/DDMS/blob/master/documents/manuals/The%20DDMS%20Us
 It does not include any documentation about the Kaleidoscope, which is our recommended way to do mapping and reporting. That, and also documentation on using the DHIS2 import/export functionality can be found here:
 
 https://raw.githubusercontent.com/terraframe/DDMS/master/documents/manuals/DDMS%20106.pdf
+
+Training documentation on the 1.5 features can be found here:
+
+https://raw.githubusercontent.com/terraframe/DDMS/master/documents/manuals/DDMS%201.05.docx
+
+which includes information about Form generation, querybuilders, IRS / Entomology, and server administration.
