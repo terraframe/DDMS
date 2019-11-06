@@ -17,3 +17,5 @@ Training documentation on the 1.5 features can be found here:
 https://raw.githubusercontent.com/terraframe/DDMS/master/documents/manuals/DDMS%201.05.docx
 
 which includes information about Form generation, querybuilders, IRS / Entomology, and server administration.
+
+[The DDMS is powered by Runway SDK.](http://terraframe.github.io/Runway-SDK/)
