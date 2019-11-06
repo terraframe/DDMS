@@ -1,6 +1,6 @@
 # DDMS
 
-The DDMS is a Windows-based entomology and vector-borne disease data collection, management, and reporting platform.
+The DDMS is an entomology and vector-borne disease data collection, management, and reporting platform. The build system produces installer and patcher Windows executeables.
 
 This DDMS repository is divided into many different sub-projects. The DDMS project is the core DDMS webapp, the rest are supporting projects.
 
