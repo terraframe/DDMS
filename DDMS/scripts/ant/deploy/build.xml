@@ -528,21 +528,6 @@
 		<property name="alert_status.done" value="true" />
 	</target>
 
-
-	<target name="write_revision" description="Writes the current svn revision info to an html file">
-		<svn>
-			<info target="../../../" verbose="true" />
-		</svn>
-		<echo file="../../../webapp/revision.html" append="false">
-		Last Changed Author: ${svn.info.author}
-		Last Changed Revision: ${svn.info.lastRev}
-		Last Changed Date: ${svn.info.lastDate}
-	    </echo>
-		<echo message="Last Changed Revision: ${svn.info.lastRev}">
-		</echo>
-	</target>
-
-
 	<target name="call_reload_jsp" description="Make tomcat reload all its classes">
 		<!-- get reload.jsp to force tomcat to dump its cache-->
 		<get src="http://localhost:8080/DDMS/test/reload.jsp" dest="./delme.html" verbose="true" />

@@ -18,29 +18,13 @@
   
   
   
-	<property name="mdss.root" value="../trunk" />
+	<property name="mdss.root" value="../DDMS" />
     <property name="build.ftp.user" value="terraframe@terraframe.com" />
 	<property name="build.ftp.pass" value="_Terra4Frame" />
 	<property name="build.ftp.path" value="/ddms/installers" />
 	<property name="build.ftp.testpath" value="/ddms/testing" />
 	
 	<taskdef resource="taskdefs.xml" classpath="aws-java-sdk-ant-tasks-1.2.3.jar" />
-
-	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
-		<classpath>
-			<fileset dir="${mdss.root}\lib\ant">
-				<include name="*.jar" />
-			</fileset>
-		</classpath>
-	</typedef>
-	
-   <svnSetting  
-        svnkit="false"  
-        javahl="false"  
-		username="cruisecontrol@terraframe.com" 
-		password="Mr.Sparkle"
-		failonerror="true"		
-        id="svn.settings"/>  	
 		
 	<tstamp>
 		<format property="date" pattern="MMMM dd" />
@@ -79,27 +63,32 @@
 	<target name="build-and-upload" depends="build,upload-and-email" />	
 	
 	<target name="update">
-		<svn refid="svn.settings" >
-			<update dir="${mdss.root}" recurse="true" />
-			<update dir="../standalone" recurse="true" />
-			<update dir="../installer-stage" recurse="true" />
-			<update dir="../ddms-runway-patcher" recurse="true" />
-            <update dir="../backup-manager" recurse="true" />		
-			<update dir="../ddms-initializer" recurse="true" />
-			<update dir="../tomcat-remote-listener" recurse="true" />
-			<update dir="../synch-manager" recurse="true" />
-			<update dir="../MDSSGISI" recurse="true" />
-			<update dir="../manager" recurse="true" />
-		</svn>
+    <echo message="Updating DDMS git repositroy." />
+    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
+		  <arg line="-C C:\git\DDMS pull"/>
+		</exec>
 	</target>
 	
 	<target name="cleanup">
-		<svn refid="svn.settings" >
-			<cleanup dir="${mdss.root}" />
-			<cleanup dir="../standalone" />
-			<cleanup dir="../installer-stage" />
-			<cleanup dir="../ddms-runway-patcher" />			
-		</svn>
+    <echo message="Cleaning ${mdss.root}" />
+    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
+		  <arg line="checkout -- ${mdss.root}"/>
+		</exec>
+    
+    <echo message="Cleaning ../standalone" />
+    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
+		  <arg line="checkout -- ../standalone"/>
+		</exec>
+    
+    <echo message="Cleaning ../installer-stage" />
+    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
+		  <arg line="checkout -- ../installer-stage"/>
+		</exec>
+    
+    <echo message="Cleaning ../ddms-runway-patcher" />
+    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
+		  <arg line="checkout -- ../ddms-runway-patcher"/>
+		</exec>
 	</target>
 
 	<target name="increment">
@@ -168,11 +157,11 @@
 	  <copy file="${file.installer}" tofile="installer.exe"/>
 	
 	  <upload-to-s3 bucketName="dss.vector.solutions.ddms" keyPrefix="testing/" awsAccessKeyId="AKIAJX3T2RYVHDNKEPNQ" awsSecretKey="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">
-        <fileset dir=".">
-			<include name="patcher.exe"/>			  			  			
-			<include name="installer.exe"/>
-		</fileset>
-      </upload-to-s3>
+      <fileset dir=".">
+        <include name="patcher.exe"/>			  			  			
+        <include name="installer.exe"/>
+      </fileset>
+    </upload-to-s3>
 	</target>
 	
 	<target name="delete-marker">	
@@ -283,7 +272,7 @@
 		-->
 		
 		<exec executable="C:\Users\Administrator\AppData\Local\Programs\Python\Python35-32\python.exe" failonerror="true">
-		  <arg line="C:\svn\ddms\deliverables\ddms-email.py"/>
+		  <arg line="C:\git\DDMS\build\ddms-email.py"/>
 		  <arg line="'${date} build complete'" />
 		  <arg line="'Version ${version.display} has been built on ${date}.  New patches and installers are available for download on our ftp server, ftp.terraframe.com.'"/>
 		</exec>

@@ -225,20 +225,20 @@ Section -Main SEC0000
   
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
-  StrCpy $RunwayVersion 8961
+  StrCpy $RunwayVersion 1572056769
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 9224
-  StrCpy $PatchVersion 9224
-  StrCpy $RootsVersion 8669
-  StrCpy $MenuVersion 8946
-  StrCpy $LocalizationVersion 9184
-  StrCpy $PermissionsVersion 9161
+  StrCpy $ManagerVersion 1572471296
+  StrCpy $PatchVersion 1572471296
+  StrCpy $RootsVersion 1572381298
+  StrCpy $MenuVersion 1572381298
+  StrCpy $LocalizationVersion 1572381298
+  StrCpy $PermissionsVersion 1572381298
   StrCpy $IdVersion 7686
-  StrCpy $BirtVersion 7851
-  StrCpy $EclipseVersion 9049  
-  StrCpy $WebappsVersion 8900
-  StrCpy $JavaVersion 8754
-  StrCpy $TomcatVersion 9196
+  StrCpy $BirtVersion 1572056769
+  StrCpy $EclipseVersion 1572056769  
+  StrCpy $WebappsVersion 1524675281
+  StrCpy $JavaVersion 1572056769
+  StrCpy $TomcatVersion 1572056769
   
   # These ones aren't. If you change any of these, make sure to update them in the installer as well
   StrCpy $PropertiesVersion 2
@@ -778,8 +778,8 @@ Function patchApplication
     LogEx::Write "Updating web files"
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
-    File /r /x .svn /x *odk.properties ..\trunk\patches\webapp\*
-    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
+    File /r /x .svn /x *odk.properties ..\DDMS\patches\webapp\*
+    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\DDMS\profiles\version.xsd
     
     # Restore source
     CreateDirectory $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated
@@ -799,7 +799,7 @@ Function patchApplication
     CopyFiles /FILESONLY /SILENT $PatchDir\source\client\base\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\tree
     
     SetOverwrite off       # Only copy if file does not exist
-    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\odk.properties ..\trunk\patches\webapp\WEB-INF\classes\odk.properties
+    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\odk.properties ..\DDMS\patches\webapp\WEB-INF\classes\odk.properties
     
     SetOverwrite on
 
@@ -877,7 +877,7 @@ Function patchApplication
     LogEx::Write "Importing updated schema definitions."
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
     SetOutPath $PatchDir\schema
-    File /x .svn ..\trunk\doc\individual\*
+    File /x .svn ..\DDMS\doc\individual\*
     StrCpy $Phase "Importing updated schema definitions"
     push `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd`
     Call execDos
@@ -909,7 +909,7 @@ Function patchApplication
     # Terms
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Default Terms"
     SetOutPath $PatchDir\doc\ontology\defaultterms
-    File /x .svn ..\trunk\doc\ontology\defaultterms\*
+    File /x .svn ..\DDMS\doc\ontology\defaultterms\*
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
     LogEx::Write "Importing default terms"
     StrCpy $Phase "Importing default terms"
@@ -919,8 +919,8 @@ Function patchApplication
     # Term Roots
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
     SetOutPath $PatchDir\doc
-    File ..\trunk\doc\ontology\MOroots.xls
-    File ..\trunk\patches\geo-universals.xls
+    File ..\DDMS\doc\ontology\MOroots.xls
+    File ..\DDMS\patches\geo-universals.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
     ${If} $RootsVersion > $0
     LogEx::Write "Setting up ontology roots."
@@ -936,7 +936,7 @@ Function patchApplication
     # Menu Items
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Menu Items"
     SetOutPath $PatchDir\doc
-    File ..\trunk\doc\menu\MenuItems.xls
+    File ..\DDMS\doc\menu\MenuItems.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
     ${If} $MenuVersion > $0
     LogEx::Write "Importing menu items"
@@ -952,7 +952,7 @@ Function patchApplication
     # Localization
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Localization"
     SetOutPath $PatchDir\doc\localization
-    File ..\trunk\doc\localization\*
+    File ..\DDMS\doc\localization\*
     LogEx::Write "Updating localization"
     StrCpy $Phase "Updating localization"
     push `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.localization.DatabaseVersionedLocalizationExcelImporter $PatchDir\doc\localization`
@@ -961,7 +961,7 @@ Function patchApplication
     # Permissions
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
     SetOutPath $PatchDir\doc
-    File ..\trunk\profiles\Permissions.xls
+    File ..\DDMS\profiles\Permissions.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
     ${If} $PermissionsVersion > $0
     LogEx::Write "Updating permissions"
@@ -1135,7 +1135,7 @@ Function patchMetadata
 		# Copy over the updated runway jar
 		LogEx::Write "Copying over the updated runway jar."
 		SetOutPath $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib
-		File /x .svn ..\trunk\patches\webapp\WEB-INF\lib\*
+		File /x .svn ..\DDMS\patches\webapp\WEB-INF\lib\*
 	  
 		# Build any dimensional metadata with the Master domain
 		LogEx::Write "Building dimensional metadata with the master domain"

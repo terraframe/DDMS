@@ -17,7 +17,7 @@
 -->
 <project name="patch" default="build">
 	<property name="nsis.dir" value="C:\Program Files (x86)\NSIS" />
-	<property name="svnant.dir" value="..\..\trunk\lib\ant" />
+	<property name="svnant.dir" value="..\..\DDMS\lib\ant" />
 	
 	<!-- SVN task definition -->
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
