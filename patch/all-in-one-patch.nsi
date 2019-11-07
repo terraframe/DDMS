@@ -227,8 +227,8 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 1572056769
   StrCpy $MetadataVersion 7688
-  StrCpy $ManagerVersion 1572471296
-  StrCpy $PatchVersion 1572471296
+  StrCpy $ManagerVersion 1573090650
+  StrCpy $PatchVersion 1573090650
   StrCpy $RootsVersion 1572381298
   StrCpy $MenuVersion 1572381298
   StrCpy $LocalizationVersion 1572381298
