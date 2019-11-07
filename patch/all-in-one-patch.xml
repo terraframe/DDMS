@@ -1,70 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
 	<property name="nsis.dir" value="C:/Program Files (x86)/NSIS" />
-	<property name="project.dir" value="C:/svn/ddms" />
-	<property name="svnant.dir" value="${project.dir}/trunk/lib/ant" />
-	<property name="manager.dir" value="${project.dir}/standalone" />
-	<property name="runway-patch.dir" value="${project.dir}/ddms-runway-patcher" />
-	<property name="trunk.dir" value="${project.dir}/trunk" />
-  <property name="trunk.root" location="${project.dir}/trunk" />  
+	<property name="project.root" value="C:/git/DDMS" />
+	<property name="manager.dir" value="${project.root}/standalone" />
+	<property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />
+	<property name="trunk.dir" value="${project.root}/DDMS" />
+  <property name="trunk.root" location="${project.root}/DDMS" />  
 	<property name="doc.dir" value="${trunk.dir}/doc" />
 	<property name="patches.dir" value="${trunk.dir}/patches" />
 	<property name="geodata.db" value="mrc_blank" />	
-	
-	<!-- SVN task definition -->
-	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
-		<classpath>
-			<fileset dir="${svnant.dir}">
-				<include name="*.jar" />
-			</fileset>
-		</classpath>
-	</typedef>
-	
-	<svnSetting  
-		svnkit="false"  
-		javahl="false"
-		username="cruisecontrol@terraframe.com" 
-		password="Mr.Sparkle"
-		failonerror="true"		
-		id="svn.settings"/> 	
 
 <!--	
+  ===============
+    BUILD FLAGS
+  ===============
+  Copy and paste these depends into the target below to modify what you're building
+
 	<target name="build" >
 	<target name="build" depends="setup-files">
 -->		
-	<target name="build" depends="setup-files">
-		<!-- Get revision info from svn -->
-		<svn refid="svn.settings">
-			<info target="${manager.dir}"  propPrefix="manager.info." />
-			<info target="${runway-patch.dir}"  propPrefix="runway-patch.info." />			      
-      <info target="${trunk.root}" propPrefix="svn.info." />
-      <info target="${trunk.root}/doc/ontology/MOroots.xls" propPrefix="moroots.svn." />
-      <info target="${trunk.root}/doc/menu/MenuItems.xls" propPrefix="menuitems.svn." />
-      <info target="${trunk.root}/doc/localization" propPrefix="localization.svn." />
-      <info target="${trunk.root}/profiles/Permissions.xls" propPrefix="permissions.svn." />      
-			<info target="${project.dir}/installer-stage/birt" propPrefix="birt.svn." />	  
-			<info target="${project.dir}/installer-stage/eclipse" propPrefix="eclipse.svn." />	        
-			<info target="${project.dir}/installer-stage/tomcat/webapps" propPrefix="webapps.svn." />	 			
-			<info target="${project.dir}/installer-stage/Java" propPrefix="java.svn." />
-      <info target="${project.dir}/installer-stage/tomcat" propPrefix="tomcat.svn." />			
-		</svn>
-		
-		<!-- Write revision info into all-in-one-patch.nsi -->
-		<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${svn.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
-		<replaceregexp match="StrCpy \$PatchVersion \d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$RootsVersion \d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />			
-		<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
-		<replaceregexp match="StrCpy \$EclipseVersion \d*" replace="StrCpy $EclipseVersion ${eclipse.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	    
-		<replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
-		<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$TomcatVersion \d*" replace="StrCpy $TomcatVersion ${tomcat.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
-
+	<target name="build">
+  
+		<!-- Get revision info from git -->
+    <exec executable="C:\Users\Administrator\AppData\Local\Programs\Python\Python35-32\python.exe" failonerror="true">
+		  <arg line="C:\git\DDMS\build\ddms-revision-info.py"/>
+		  <arg line="${project.root}/patch/all-in-one-patch.nsi" />
+		  <arg line="${project.root}"/>
+		</exec>
+    
 		<!-- Copy over an updated serverExceptions.property file -->
-		<copy file="${project.dir}/trunk/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
+		<copy file="${trunk.dir}/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
 
 		<!-- Compile all-in-one-patch.nsi -->
 		<exec executable="${nsis.dir}/makensis" dir="." failonerror="true" searchpath="true" logError="true">

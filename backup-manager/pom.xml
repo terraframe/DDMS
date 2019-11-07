@@ -26,7 +26,7 @@
 
     <org.aspectj.version>1.8.6</org.aspectj.version>
     <org.codehaus.mojo.version>1.7</org.codehaus.mojo.version>
-  <ddms.path>C:\svn\ddms\trunk</ddms.path>
+  <ddms.path>C:\git\DDMS\DDMS</ddms.path>
   </properties>
   
   <repositories>

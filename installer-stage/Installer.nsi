@@ -344,19 +344,19 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 9092
-    StrCpy $RootsVersion 8669
-    StrCpy $MenuVersion 8946
-    StrCpy $LocalizationVersion 9087
-    StrCpy $PermissionsVersion 9038
-	StrCpy $RunwayVersion 8961
+    StrCpy $PatchVersion 1572471296
+    StrCpy $RootsVersion 1572381298
+    StrCpy $MenuVersion 1572381298
+    StrCpy $LocalizationVersion 1572381298
+    StrCpy $PermissionsVersion 1572381298
+	StrCpy $RunwayVersion 1572056769
 	StrCpy $IdVersion 7686	
-	StrCpy $ManagerVersion 9092
-	StrCpy $BirtVersion 7851
-	StrCpy $EclipseVersion 9049  
-	StrCpy $WebappsVersion 8900
-	StrCpy $JavaVersion 8754
-	StrCpy $TomcatVersion 8900
+	StrCpy $ManagerVersion 1572471296
+	StrCpy $BirtVersion 1572056769
+	StrCpy $EclipseVersion 1572056769  
+	StrCpy $WebappsVersion 1524675281
+	StrCpy $JavaVersion 1572056769
+	StrCpy $TomcatVersion 1572056769
   
   # These ones are not
   StrCpy $ODKDatabaseVersion 2
@@ -394,25 +394,58 @@ Section -Main SEC0000
 	  LOW_MEM_CANCEL:
 	  Abort
 	  LOW_MEM_OK:
-	  System::Int64Op $0 - 1200
+	  System::Int64Op $0 - 1800   # OS: 1200  Postgres: 600 (Tomcat: 2200)
 	  Pop $1
 	${ElseIf} $0 < 5000
-	  System::Int64Op $0 - 1600
+	  System::Int64Op $0 - 2400   # OS: 1600  Postgres: 800 (Tomcat: 2600)
 	  Pop $1
 	${ElseIf} $0 < 6000
-	  System::Int64Op $0 - 2000
+	  System::Int64Op $0 - 3000   # OS: 2000  Postgres: 1000 (Tomcat: 3000)
 	  Pop $1
 	${ElseIf} $0 < 7000
-	  System::Int64Op $0 - 2500
+	  System::Int64Op $0 - 3700   # OS: 2500  Postgres: 1200 (Tomcat: 3300)
 	  Pop $1
 	${ElseIf} $0 < 8500
-	  System::Int64Op $0 - 3000
+	  System::Int64Op $0 - 4500   # OS: 3000  Postgres: 1500 (Tomcat: 4000)
 	  Pop $1
 	${ElseIf} $0 < 11000
-	  System::Int64Op $0 - 3500
+	  System::Int64Op $0 - 5500   # OS: 3500  Postgres: 2000 (Tomcat: 5500)
+	  Pop $1
+  ${ElseIf} $0 < 13000
+	  System::Int64Op $0 - 6500   # OS: 3500  Postgres: 3000 (Tomcat: 6500)
+	  Pop $1
+  ${ElseIf} $0 < 16500
+	  System::Int64Op $0 - 7500   # OS: 3500  Postgres: 4000 (Tomcat: 8500)
+	  Pop $1
+  ${ElseIf} $0 < 20500
+	  System::Int64Op $0 - 10000   # OS: 4000  Postgres: 6000 (Tomcat: 10500)
+	  Pop $1
+  ${ElseIf} $0 < 24500
+	  System::Int64Op $0 - 12000   # OS: 4000  Postgres: 8000 (Tomcat: 12500)
+	  Pop $1
+  ${ElseIf} $0 < 27500
+	  System::Int64Op $0 - 14000   # OS: 4000  Postgres: 10000 (Tomcat: 13500)
+	  Pop $1
+  ${ElseIf} $0 < 30500
+	  System::Int64Op $0 - 15500   # OS: 4000  Postgres: 11500 (Tomcat: 15000)
+	  Pop $1
+  ${ElseIf} $0 < 34500
+	  System::Int64Op $0 - 17000   # OS: 4000  Postgres: 13000 (Tomcat: 17500)
+	  Pop $1
+  ${ElseIf} $0 < 40000
+	  System::Int64Op $0 - 20000   # OS: 4000  Postgres: 17000 (Tomcat: 20000)
+	  Pop $1
+  ${ElseIf} $0 < 50000
+	  System::Int64Op $0 - 25000   # OS: 4000  Postgres: 21000 (Tomcat: 25000)
+	  Pop $1
+  ${ElseIf} $0 < 60000
+	  System::Int64Op $0 - 30000   # OS: 4000  Postgres: 26000 (Tomcat: 30000)
+	  Pop $1
+  ${ElseIf} $0 < 70000
+	  System::Int64Op $0 - 35000   # OS: 4000  Postgres: 31000 (Tomcat: 35000)
 	  Pop $1
 	${Else}
-	  System::Int64Op $0 - 4000
+	  System::Int64Op $0 - 45000
 	  Pop $1
 	${EndIf}
 	StrCpy $MaxMem $1
@@ -876,7 +909,7 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
 	WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
 	
-	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 1
+	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 2
     WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
     WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion

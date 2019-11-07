@@ -137,7 +137,7 @@
 		</concat>
 
 	</target>
-
+  
 	<!-- assumes the develop provile -->
 	<target name="deploy_src_class_lib_files">
 
@@ -170,11 +170,15 @@
 		</copy>
 
 		<!-- Copy source -->
+    <mkdir dir="${deploy.common.src}/base"/>
+    <mkdir dir="${common.src}/base"/>
+    <mkdir dir="${common.src}/stub"/>
 		<copy todir="${deploy.common.src}/base" overwrite="true">
 			<fileset dir="${common.src}/base">
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
+    <mkdir dir="${deploy.common.src}/stub"/>
 		<copy todir="${deploy.common.src}/stub" overwrite="true">
 			<fileset dir="${common.src}/stub">
 				<include name="**/*.java" />
@@ -187,11 +191,13 @@
 		</copy>
 
 
+    <mkdir dir="${deploy.server.src}/base"/>
 		<copy todir="${deploy.server.src}/base" overwrite="true">
 			<fileset dir="${server.src}/base">
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
+    <mkdir dir="${deploy.server.src}/stub"/>
 		<copy todir="${deploy.server.src}/stub" overwrite="true">
 			<fileset dir="${server.src}/stub">
 				<include name="**/*.java" />
@@ -203,11 +209,13 @@
 			</fileset>
 		</copy>
 
+    <mkdir dir="${deploy.client.src}/base"/>
 		<copy todir="${deploy.client.src}/base" overwrite="true">
 			<fileset dir="${client.src}/base">
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
+    <mkdir dir="${deploy.client.src}/stub"/>
 		<copy todir="${deploy.client.src}/stub" overwrite="true">
 			<fileset dir="${client.src}/stub">
 				<include name="**/*.java" />
@@ -551,12 +559,14 @@
     </copy>
     
     <!-- Copy geoserver configs -->
+    <!--
     <copy todir="${deploy.bin}" overwrite="true">
       <fileset dir="${profile.root}/geoserverconfig">
           <include name="**/*" />
       </fileset>
     </copy>
-
+    -->
+    
 		<!-- Finally, delete the temp directory -->
 		<delete dir="${profile.root}/$$${deploy.appname}_tmp" />
 

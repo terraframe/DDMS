@@ -1,27 +1,3 @@
-
-	<!--		
-		SET THESE THINGS IN GEOSERVER
-		<parameter value = "mdss_zambia" name = "user" />
-    <parameter value = "mdss_zambia" name = "passwd" />
-    <parameter value = "mdss_zambia" name = "database" />
-    	  <propertyfile file="${stage.classes}/local.properties">
-			<entry key="environment" value="deploy" />
-			<entry key="web.dir" value="${deploy.path}/webDir/" />
-		</propertyfile>
-    
-    # Database dump executable
-dataDumpExecutable=pg_dump
-# Database import executable
-dataImportExecutable=pg_restore
-    
-    
-			\
-        export_credentials_singleton
-    export_tomcat_classloader
-   <target name="import_geodata" />
-   		<target name="compile_generated"/>
-	-->
-
 <project name="MDSS" default="build" basedir=".">
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="lib/ant/svnant.jar;lib/ant/svnClientAdapter.jar;lib/ant/svnkit.jar;lib/ant/svnjavahl.jar;lib/ant/ganymed.jar;" />
 	
@@ -47,15 +23,6 @@ dataImportExecutable=pg_restore
 	<property name="deploy.root" location="C:/stage/tomcat" />
 	
 	<target name="build">
-		
-		
-			<!--<antcall target="write_revision" /> 		
-		
-		<delete includeemptydirs="true">
-      <fileset dir="bin" includes="**/*"/>
-    </delete>
-    
-    -->
 
     <delete dir="${artifacts.path}/webapps/MDSS/" />
 
@@ -267,18 +234,5 @@ dataImportExecutable=pg_restore
 				<update target="." verbose="true" />
 			</svn>
     </target>
-	
-
-	<target name="write_revision"  description="Writes the current svn revision info to an html file">
-		<svn>
-			<info target="local.root" verbose="true" />
-		</svn>
-		<echo file="webapp/revision.html" append="false">
-		Last Changed Revision: ${svn.info.lastRev}
-		Last Changed Date: ${svn.info.lastDate}
-	    </echo>
-		<echo message="Last Changed Revision: ${svn.info.lastRev}">
-		</echo>
-	</target>
 	
 </project>

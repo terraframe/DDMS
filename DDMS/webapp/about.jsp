@@ -26,7 +26,7 @@
 <%@page import="dss.vector.solutions.global.CredentialsSingleton"%>
 <jsp:include page="/WEB-INF/originalVersion.jsp" />
 <c:set var="page_title" value="About"  scope="request"/>
-<c:set var="version" value="1.02.0013" scope="request" />
+<c:set var="version" value="1.07.0023" scope="request" />
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
