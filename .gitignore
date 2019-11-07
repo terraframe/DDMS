@@ -16,3 +16,5 @@ build/patch-*.exe
 DDMS/profiles/MDSS.properties
 DDMS/profiles/MDSS-MALARIA.properties
 DDMS/profiles/MDSS-DENGUE.properties
+runway-patcher/src/main/resources/patches.zip
+ddms-runway-patcher/lib/runway-patcher-1.0.0.jar
