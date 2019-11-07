@@ -1,1 +1,0 @@
-This marker file lets listeners know that the patcher and installer are finished uploading.
