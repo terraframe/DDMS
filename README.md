@@ -4,7 +4,7 @@ The DDMS is an entomology and vector-borne disease data collection, management, 
 
 This DDMS repository is divided into many different sub-projects. The DDMS project is the core DDMS webapp, the rest are supporting projects.
 
-## Documentation
+## End-User Documentation
 
 The latest user manual can be found here:
 
@@ -37,3 +37,7 @@ The latest releases can be found on our [Github Releases page](https://github.co
 - And more
 
 They also include a manager Java application which can be accessed and run from `C:\MDSS\manager\manager.bat`. You may use this manager app to run and configure the DDMS.
+
+## Developer Documentation
+
+The latest developer documentation can be found on our Github Wiki. A great starting place is [Setting Up a Development Environment](https://github.com/terraframe/DDMS/wiki/Setting-Up-A-Development-Environment).
