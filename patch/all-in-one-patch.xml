@@ -19,7 +19,7 @@
 	<target name="build" >
 	<target name="build" depends="setup-files">
 -->		
-	<target name="build">
+	<target name="build" depends="setup-files">
   
 		<!-- Get revision info from git -->
     <exec executable="C:\Users\Administrator\AppData\Local\Programs\Python\Python35-32\python.exe" failonerror="true">
