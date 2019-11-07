@@ -4,6 +4,8 @@ The DDMS is an entomology and vector-borne disease data collection, management, 
 
 This DDMS repository is divided into many different sub-projects. The DDMS project is the core DDMS webapp, the rest are supporting projects.
 
+## End-User Documentation
+
 The latest user manual can be found here:
 
 https://github.com/terraframe/DDMS/blob/master/documents/manuals/The%20DDMS%20User%20Manual%201.21.pdf
@@ -18,4 +20,24 @@ https://raw.githubusercontent.com/terraframe/DDMS/master/documents/manuals/DDMS%
 
 which includes information about Form generation, querybuilders, IRS / Entomology, and server administration.
 
-[The DDMS is powered by Runway SDK.](http://terraframe.github.io/Runway-SDK/)
+## System Requirements
+
+System Requirements:
+- 64-bit Windows 7+
+- 4+ GB RAM
+
+## Releases
+
+The latest releases can be found on our [Github Releases page](https://github.com/terraframe/DDMS/releases). These Windows installers manage all required software automatically for you. They will install and manage:
+- Postgres + PostGIS
+- Tomcat
+- Firefox
+- And more
+
+They also include a manager Java application which can be accessed and run from `C:\MDSS\manager\manager.bat`. You may use this manager app to run and configure the DDMS.
+
+## Developer Documentation
+
+The latest developer documentation can be found on our Github Wiki. A great starting place is [Setting Up a Development Environment](https://github.com/terraframe/DDMS/wiki/Setting-Up-A-Development-Environment).
+
+[The DDMS is powered by Runway SDK.](http://terraframe.github.io/Runway-SDK/) Our Runway documentation includes information about the metadata-driven backend which powers the DDMS.
