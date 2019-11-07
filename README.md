@@ -20,8 +20,6 @@ https://raw.githubusercontent.com/terraframe/DDMS/master/documents/manuals/DDMS%
 
 which includes information about Form generation, querybuilders, IRS / Entomology, and server administration.
 
-[The DDMS is powered by Runway SDK.](http://terraframe.github.io/Runway-SDK/) Our Runway documentation includes information about the metadata-driven backend which powers the DDMS.
-
 ## System Requirements
 
 System Requirements:
@@ -41,3 +39,5 @@ They also include a manager Java application which can be accessed and run from 
 ## Developer Documentation
 
 The latest developer documentation can be found on our Github Wiki. A great starting place is [Setting Up a Development Environment](https://github.com/terraframe/DDMS/wiki/Setting-Up-A-Development-Environment).
+
+[The DDMS is powered by Runway SDK.](http://terraframe.github.io/Runway-SDK/) Our Runway documentation includes information about the metadata-driven backend which powers the DDMS.
