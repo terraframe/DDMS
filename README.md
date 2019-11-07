@@ -25,7 +25,7 @@ which includes information about Form generation, querybuilders, IRS / Entomolog
 ## System Requirements
 
 System Requirements:
-- Windows 7+
+- 64-bit Windows 7+
 - 4+ GB RAM
 
 ## Releases
