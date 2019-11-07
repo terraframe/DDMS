@@ -18,12 +18,16 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 
 call mvn -U -f ..\tomcat-remote-listener\pom.xml clean install
 if %errorlevel% neq 0 exit /b %errorlevel%
-xcopy /y ..\tomcat-remote-listener\target\tomcat-remote-listener.jar C:\git\DDMS\standalone\manager-1.0.0\lib\tomcat-remote-listener-1.0.1.jar
+call mvn -U -f ..\manager\pom.xml dependency:copy-dependencies -DoutputDirectory=C:\git\DDMS\standalone\manager-1.0.0\lib
+if %errorlevel% neq 0 exit /b %errorlevel%
+xcopy /y ..\tomcat-remote-listener\target\tomcat-remote-listener.jar C:\git\DDMS\standalone\manager-1.0.0\lib
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 call mvn -U -f ..\manager\pom.xml clean install
 if %errorlevel% neq 0 exit /b %errorlevel%
-xcopy /y ..\manager\target\manager-1.0.0.jar C:\git\DDMS\standalone\manager-1.0.0\lib\manager-1.0.0.jar
+call mvn -U -f ..\manager\pom.xml dependency:copy-dependencies -DoutputDirectory=C:\git\DDMS\standalone\manager-1.0.0\lib
+if %errorlevel% neq 0 exit /b %errorlevel%
+xcopy /y ..\manager\target\manager-1.0.0.jar C:\git\DDMS\standalone\manager-1.0.0\lib
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 cmd /c "%ANT_HOME%\bin\ant" -Dbasedir=..\ddms-initializer -buildfile ..\ddms-initializer\scripts\deploy.xml -Dmdss.admin=C:\git\DDMS\standalone -Dmdss.root=C:\git\DDMS\DDMS -Dswt.jar=C:\Users\Administrator\.m2\repository\org\eclipse\swt\org\eclipse\swt\win32\win32\x86_64\4\3\swt\org.eclipse.swt.win32.win32.x86_64\4.3\org.eclipse.swt.win32.win32.x86_64-4.3.jar deploy
@@ -31,7 +35,9 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 
 call mvn -U -f ..\backup-manager\pom.xml clean install
 if %errorlevel% neq 0 exit /b %errorlevel%
-xcopy /y ..\backup-manager\target\backup-manager-1.0.0.jar C:\git\DDMS\standalone\backup-manager-1.0.0\lib\backup-manager-1.0.0.jar
+call mvn -U -f ..\manager\pom.xml dependency:copy-dependencies -DoutputDirectory=C:\git\DDMS\standalone\backup-manager-1.0.0\lib
+if %errorlevel% neq 0 exit /b %errorlevel%
+xcopy /y ..\backup-manager\target\backup-manager-1.0.0.jar C:\git\DDMS\standalone\backup-manager-1.0.0\lib
 if %errorlevel% neq 0 exit /b %errorlevel%
 
 cmd /c "%ANT_HOME%\bin\ant" -Dbasedir=..\MDSSGISI -buildfile ..\MDSSGISI\scripts\deploy.xml -Dmdss.admin=C:\git\DDMS\standalone -Dmdss.root=C:\git\DDMS\DDMS -Dswt.jar=C:\Users\Administrator\.m2\repository\org\eclipse\swt\org\eclipse\swt\win32\win32\x86_64\4\3\swt\org.eclipse.swt.win32.win32.x86_64\4.3\org.eclipse.swt.win32.win32.x86_64-4.3.jar deploy

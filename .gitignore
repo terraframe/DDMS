@@ -2,3 +2,17 @@
 **/bin/**
 **/.DS_Store
 tomcat-remote-listener/dependency-reduced-pom.xml
+standalone/backup-manager-1.0.0/lib/**
+standalone/ddms-initializer-1.0.0/lib/**
+standalone/geo-manager-1.0.0/lib/**
+standalone/manager-1.0.0/lib/**
+standalone/synch-manager-1.0.0/lib/**
+installer-stage/ODKAggregate/**
+installer-stage/webapp/**
+build/installer.exe
+build/patcher.exe
+build/InstallDDMSblank-*.exe
+build/patch-*.exe
+DDMS/profiles/MDSS.properties
+DDMS/profiles/MDSS-MALARIA.properties
+DDMS/profiles/MDSS-DENGUE.properties
