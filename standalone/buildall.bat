@@ -31,7 +31,7 @@ if %errorlevel% neq 0 exit /b %errorlevel%
 xcopy /y ..\manager\target\manager-1.0.0.jar C:\git\DDMS\standalone\manager-1.0.0\lib
 if %errorlevel% neq 0 exit /b %errorlevel%
 
-REM DDMS Initializer
+
 cmd /c "%ANT_HOME%\bin\ant" -Dbasedir=..\ddms-initializer -buildfile ..\ddms-initializer\scripts\deploy.xml -Dmdss.admin=C:\git\DDMS\standalone -Dmdss.root=C:\git\DDMS\DDMS -Dswt.jar=C:\Users\Administrator\.m2\repository\org\eclipse\swt\org\eclipse\swt\win32\win32\x86_64\4\3\swt\org.eclipse.swt.win32.win32.x86_64\4.3\org.eclipse.swt.win32.win32.x86_64-4.3.jar deploy
 if %errorlevel% neq 0 exit /b %errorlevel%
 
