@@ -20,6 +20,8 @@ https://raw.githubusercontent.com/terraframe/DDMS/master/documents/manuals/DDMS%
 
 which includes information about Form generation, querybuilders, IRS / Entomology, and server administration.
 
+If you are interested in [setting up HTTPS / SSL we have a good tutorial for that on our wiki.](https://github.com/terraframe/DDMS/wiki/HTTPS-Setup-with-Lets-Encrypt)
+
 ## System Requirements
 
 System Requirements:
