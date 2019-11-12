@@ -27,7 +27,47 @@
         <i ng-show="ctrl.state != 'max'" ng-click="ctrl.expand()" id="report-expand-toggle" class="fa fa-angle-double-up report-height-toggle"></i>
       </div>      
     </div>
+    
+    
+    
     <div id="report-viewport" class="report-viewport" ng-class="{'opaque' : opaque, 'translucent' : !opaque, widePanel: panelCollapsed }">    
+    	<DIV id="navigationBar">
+	      <TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" HEIGHT="20px" CLASS="birtviewer_navbar">
+	        <TR height="10px">
+	          <TD WIDTH="15px">
+	            <mdss:localize key="first" var="first_page"/>            
+	            <a ng-click="ctrl.firstPage()" id="first-page"><img ng-class="{'report-nav-disabled': (pageNumber == 1)}" style="height:20px;" src="imgs/icons/First.png" alt="${first_page}" title="${first_page}" /></a>
+	          </TD>
+	          <TD WIDTH="15px">
+	            <mdss:localize key="prev" var="prev_page"/>            
+	            <a ng-click="ctrl.prevPage()" id="prev-page"><img ng-class="{'report-nav-disabled': (pageNumber == 1)}" style="height:20px;" src="imgs/icons/Prev.png" alt="${prev_page}" title="${prev_page}" /></a>
+	          </TD>
+	          
+	          <TD WIDTH="8px">&nbsp;&nbsp;</TD>
+	          
+	          <TD ALIGN="right" NOWRAP><LABEL for="gotoPage"><b><mdss:localize key="goto"/></b></LABEL></TD>
+	          <TD WIDTH="2px">&nbsp;</TD>
+	          <TD ALIGN="right" WIDTH="30px">
+	            <INPUT ng-keyup="$event.keyCode == 13 ? ctrl.gotoPage(userPageInput) : null" ng-model="userPageInput" ID='gotoPage' TYPE='text' MAXLENGTH="8" SIZE='5' CLASS="birtviewer_navbar_input">
+	          </TD>
+	          <TD WIDTH="6px">&nbsp;</TD>
+	          <TD class="pageCount">
+	            / {{pageCount}}
+	          </TD>
+	          <TD WIDTH="6px">&nbsp;</TD>
+	          <TD WIDTH="2px">&nbsp;</TD>
+	          <TD WIDTH="15px">
+	            <mdss:localize key="next" var="next_page"/>            
+	            <a ng-click="ctrl.nextPage()" id="next-page"><img ng-class="{'report-nav-disabled': (pageCount == pageNumber)}" style="height:20px;" src="imgs/icons/Next.png" alt="${next_page}" title="${next_page}" /></a>
+	          </TD>          
+	          <TD WIDTH="15px">
+	            <mdss:localize key="last" var="last_page"/>            
+	            <a ng-click="ctrl.lastPage()" id="last-page"><img ng-class="{'report-nav-disabled': (pageCount == pageNumber)}" style="height:20px;" src="imgs/icons/Last.png" alt="${last_page}" title="${last_page}" /></a>
+	          </TD>          
+	        </TR>
+	      </TABLE>
+	    </DIV>
+    
       <div id="report-content">
       </div>   
     </div>
@@ -43,6 +83,43 @@
     </div>      
     
     <div id="report-viewport" class="h-report-viewport" ng-class="{'opaque' : opaque, 'translucent' : !opaque }">    
+      <DIV id="navigationBar">
+	      <TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="100%" HEIGHT="20px" CLASS="birtviewer_navbar">
+	        <TR height="10px">
+	          <TD WIDTH="15px">
+	            <mdss:localize key="first" var="first_page"/>            
+	            <a ng-click="ctrl.firstPage()" id="first-page"><img ng-class="{'report-nav-disabled': (pageNumber == 1)}" style="height:20px;" src="imgs/icons/First.png" alt="${first_page}" title="${first_page}" /></a>
+	          </TD>
+	          <TD WIDTH="15px">
+	            <mdss:localize key="prev" var="prev_page"/>            
+	            <a ng-click="ctrl.prevPage()" id="prev-page"><img ng-class="{'report-nav-disabled': (pageNumber == 1)}" style="height:20px;" src="imgs/icons/Prev.png" alt="${prev_page}" title="${prev_page}" /></a>
+	          </TD>
+	          
+	          <TD WIDTH="8px">&nbsp;&nbsp;</TD>
+	          
+	          <TD ALIGN="right" NOWRAP><LABEL for="gotoPage"><b><mdss:localize key="goto"/></b></LABEL></TD>
+	          <TD WIDTH="2px">&nbsp;</TD>
+	          <TD ALIGN="right" WIDTH="30px">
+	            <INPUT ng-keyup="$event.keyCode == 13 ? ctrl.gotoPage(userPageInput) : null" ng-model="userPageInput" ID='gotoPage' TYPE='text' MAXLENGTH="8" SIZE='5' CLASS="birtviewer_navbar_input">
+	          </TD>
+	          <TD WIDTH="6px">&nbsp;</TD>
+	          <TD class="pageCount">
+	            / {{pageCount}}
+	          </TD>
+	          <TD WIDTH="6px">&nbsp;</TD>
+	          <TD WIDTH="2px">&nbsp;</TD>
+	          <TD WIDTH="15px">
+	            <mdss:localize key="next" var="next_page"/>            
+	            <a ng-click="ctrl.nextPage()" id="next-page"><img ng-class="{'report-nav-disabled': (pageCount == pageNumber)}" style="height:20px;" src="imgs/icons/Next.png" alt="${next_page}" title="${next_page}" /></a>
+	          </TD>          
+	          <TD WIDTH="15px">
+	            <mdss:localize key="last" var="last_page"/>            
+	            <a ng-click="ctrl.lastPage()" id="last-page"><img ng-class="{'report-nav-disabled': (pageCount == pageNumber)}" style="height:20px;" src="imgs/icons/Last.png" alt="${last_page}" title="${last_page}" /></a>
+	          </TD>          
+	        </TR>
+	      </TABLE>
+	    </DIV>
+      
       <div id="report-content">
       </div>   
     </div>

@@ -16,4 +16,13 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 --%>
+<script>
+window.ddms = window.ddms || {};
+window.ddms.report = window.ddms.report || {};
+window.ddms.report.params = {
+  pageCount: ${pageCount},
+  pageNumber: ${pageNumber}
+}
+</script>
+
 ${report}

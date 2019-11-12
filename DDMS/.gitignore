@@ -3,3 +3,6 @@ doc/individual/schema(0001238646707001).xml
 doc/model/(0001238646707004)ReleaseUpdates.xml
 doc/model/schema(0001238646707001).xml
 doc/individual/schema(0001238646707001).xml
+src/backup/**
+vault/**
+logs/**

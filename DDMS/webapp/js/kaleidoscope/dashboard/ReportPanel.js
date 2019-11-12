@@ -17,7 +17,10 @@
 (function(){
   function ReportPanelController($scope, $timeout, localizationService, dashboardService) {
     var controller = this;
+    $scope.pageNumber = 1;
+    $scope.userPageInput = 1;
     controller.state = 'min';
+    $scope.pageCount = 1;
     
     controller.init = function(state) {
       $scope.vertical = state.isReportVertical || false;
@@ -36,6 +39,65 @@
       }
       
       controller.setupMenu($scope.hasReport);      
+      
+      controller.dashboardId = dashboardService.getDashboard().getDashboardId();
+    }
+    
+    controller.changePage = function(newPage)
+    {
+      $scope.pageNumber = newPage;
+      $scope.userPageInput = $scope.pageNumber;
+      $("#gotoPage").val($scope.pageNumber);
+      window.location.href = "#report//" + $scope.pageNumber;
+    }
+    
+    controller.gotoPage = function(pageNum)
+    {
+      var asNumber = Number(pageNum);
+      if (isNaN(asNumber) || asNumber < 1 || pageNum === $scope.pageNumber || asNumber > $scope.pageCount)
+      {
+        $scope.userPageInput = $scope.pageNumber;
+        $("#gotoPage").val($scope.pageNumber);
+        return;
+      }
+      
+      controller.changePage(asNumber);
+    }
+    
+    controller.reportReady = function(state)
+    {
+      $scope.pageCount = Number(state.pageCount);
+      $scope.pageNumber = Number(state.pageNumber);
+      $scope.userPageInput = $scope.pageNumber;
+      $scope.$apply();
+    }
+    
+    controller.firstPage = function()
+    {
+      if ($scope.pageNumber === 1) { return; }
+      
+      controller.changePage(1);
+    }
+    
+    controller.lastPage = function()
+    {
+      if ($scope.pageNumber >= $scope.pageCount) { return; }
+      
+      controller.changePage($scope.pageCount);
+    }
+    
+    controller.prevPage = function()
+    {
+      if ($scope.pageNumber <= 1) { return; }
+      
+      controller.changePage($scope.pageNumber - 1);
+    }
+    
+    controller.nextPage = function()
+    {
+      if ($scope.pageNumber >= $scope.pageCount) { return; }
+      
+      controller.changePage($scope.pageNumber + 1);
     }
     
     controller.setReportSizeState = function(newState)
@@ -425,7 +487,11 @@
     
     $scope.$on('dashboardStateChange', function(event, data){
       controller.init(data.state);
-    });    
+    });
+    
+    $scope.$on('reportReady', function(event, state){
+      controller.reportReady(state);
+    });
   }
   
   function ReportPanel() {

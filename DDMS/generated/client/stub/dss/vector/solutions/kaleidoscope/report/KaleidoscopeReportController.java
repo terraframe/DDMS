@@ -338,6 +338,7 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
 
         String reportUrl = this.getReportURL();
         String format = null;
+        String pageNumber = "1";
 
         JSONObject json = new JSONObject(configuration);
 
@@ -358,6 +359,10 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
           {
             format = value;
           }
+          else if (name.equals("pageNumber"))
+          {
+            pageNumber = value;
+          }
         }
 
         /*
@@ -373,11 +378,13 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
           String url = this.req.getRequestURL().toString();
           String baseURL = url.substring(0, url.lastIndexOf("/"));
 
-          item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
+          long pageCount = item.render(rStream, parameters.toArray(new ReportParameterDTO[parameters.size()]), baseURL, reportUrl);
 
           if (format == null || format.equalsIgnoreCase("html"))
           {
-            req.setAttribute("report", rStream.toString());
+            req.setAttribute("report", rStream.toString("UTF-8"));
+            req.setAttribute("pageCount", pageCount);
+            req.setAttribute("pageNumber", pageNumber);
 
             req.getRequestDispatcher("/WEB-INF/dss/vector/solutions/kaleidoscope/report/KaleidoscopeReport/report.jsp").forward(req, resp);
           }
@@ -391,7 +398,7 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
 
             try
             {
-              oStream.write(rStream.toByteArray());
+              oStream.print(rStream.toString("UTF-8"));
             }
             finally
             {

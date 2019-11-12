@@ -696,6 +696,7 @@
         }
         
         var onSuccess = function(html){
+          
           $( "#report-content" ).html(html);
           
           // Scroll to the report element
@@ -708,6 +709,8 @@
               $('#report-viewport').scrollTop(top - offset + elemOff);
             }, 200);
           }
+          
+          $scope.$broadcast('reportReady', window.ddms.report.params);
         };
         
         dashboardService.runReport(controller.dashboardId, JSON.stringify(configuration), "#report-viewport", onSuccess);
