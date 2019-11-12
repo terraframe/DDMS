@@ -8,7 +8,7 @@ This DDMS repository is divided into many different sub-projects. The DDMS proje
 
 The latest user manual can be found here:
 
-https://github.com/terraframe/DDMS/blob/master/documents/manuals/The%20DDMS%20User%20Manual%201.21.pdf
+https://github.com/terraframe/DDMS/blob/master/documents/manuals/The%20DDMS%20User%20Manual%201.3%20rev%204.02.pdf
 
 It does not include any documentation about the Kaleidoscope, which is our recommended way to do mapping and reporting. That, and also documentation on using the DHIS2 import/export functionality can be found here:
 
