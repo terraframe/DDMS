@@ -1,0 +1,126 @@
+<project name="Manager" default="build" basedir=".">
+
+  <!--
+    Run this with the -Dproject.root=<path/to/ddms/git/repo>
+  -->
+
+  <property name="ddms.root" location="${project.root}/DDMS" />
+  <property name="manager.dir" value="${project.root}/build/manager" />
+  <property name="maven.exec" value="mvn" />
+
+  <target name="build" depends="copy_runway, tomcat_remote, manager, ddms-initializer, backup-manager, mdssgisi, sync-manager, runway-patcher" />
+
+  <target name="copy_runway">
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" failonerror="true">
+      <fileset dir="${ddms.root}">
+        <include name="lib/*/runway-*.jar" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="tomcat_remote">
+    <exec executable="${maven.exec}" dir="${project.root}/dss.vector.org.json" failonerror="true">
+      <arg value="-U" />
+      <arg value="clean" />
+      <arg value="install" />
+    </exec>
+    <exec executable="${maven.exec}" dir="${project.root}/tomcat-remote-listener" failonerror="true">
+      <arg value="-U" />
+      <arg value="clean" />
+      <arg value="install" />
+    </exec>
+    <exec executable="${maven.exec}" dir="${project.root}/tomcat-remote-listener" failonerror="true">
+      <arg value="-U" />
+      <arg value="dependency:copy-dependencies" />
+      <arg value="-DoutputDirectory=${manager.dir}/manager-1.0.0/lib" />
+    </exec>
+    <copy todir="${manager.dir}/manager-1.0.0/lib" failonerror="true">
+      <fileset dir="${project.root}">
+        <include name="tomcat-remote-listener\target\tomcat-remote-listener.jar" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="manager">
+    <exec executable="${maven.exec}" dir="${project.root}/manager" failonerror="true">
+      <arg value="-U" />
+      <arg value="clean" />
+      <arg value="install" />
+    </exec>
+    <exec executable="${maven.exec}" dir="${project.root}/manager" failonerror="true">
+      <arg value="-U" />
+      <arg value="dependency:copy-dependencies" />
+      <arg value="-DoutputDirectory=${manager.dir}/manager-1.0.0/lib" />
+    </exec>
+    <copy todir="${manager.dir}/manager-1.0.0/lib" failonerror="true">
+      <fileset dir="${project.root}">
+        <include name="manager\target\manager-1.0.0.jar" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="ddms-initializer">
+    <ant inheritAll="false" dir="${project.root}/ddms-initializer" antfile="${project.root}/ddms-initializer\scripts\deploy.xml" target="deploy">
+      <property name="mdss.admin" value="${manager.dir}" />
+      <property name="mdss.root" value="${ddms.root}" />
+			<property name="swt.jar" value="${project.root}/build/thirdparty/swt/win32/org.eclipse.swt.win32.win32.x86_64-4.3.jar" />
+		</ant>
+  </target>
+
+  <target name="backup-manager">
+    <exec executable="${maven.exec}" dir="${project.root}/backup-manager" failonerror="true">
+      <arg value="-U" />
+      <arg value="clean" />
+      <arg value="install" />
+      <arg value="-Dddms.path=${ddms.root}" />
+    </exec>
+    <exec executable="${maven.exec}" dir="${project.root}/manager" failonerror="true">
+      <arg value="-U" />
+      <arg value="dependency:copy-dependencies" />
+      <arg value="-DoutputDirectory=${manager.dir}/backup-manager-1.0.0/lib" />
+      <arg value="-Dddms.path=${ddms.root}" />
+    </exec>
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" failonerror="true">
+      <fileset dir="${project.root}">
+        <include name="backup-manager\target\backup-manager-1.0.0.jar" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="mdssgisi">
+    <ant inheritAll="false" dir="${project.root}/MDSSGISI" antfile="${project.root}/MDSSGISI\scripts\deploy.xml" target="deploy">
+      <property name="mdss.admin" value="${manager.dir}" />
+      <property name="mdss.root" value="${ddms.root}" />
+			<property name="swt.jar" value="${project.root}/build/thirdparty/swt/win32/org.eclipse.swt.win32.win32.x86_64-4.3.jar" />
+		</ant>
+  </target>
+
+  <target name="sync-manager">
+    <ant inheritAll="false" dir="${project.root}/synch-manager" antfile="${project.root}/synch-manager\scripts\deploy.xml" target="deploy">
+      <property name="mdss.admin" value="${manager.dir}" />
+      <property name="mdss.root" value="${ddms.root}" />
+			<property name="swt.jar" value="${project.root}/build/thirdparty/swt/win32/org.eclipse.swt.win32.win32.x86_64-4.3.jar" />
+		</ant>
+  </target>
+
+  <target name="runway-patcher" >
+    <ant inheritAll="false" dir="${project.root}/runway-patcher" antfile="${project.root}/runway-patcher\scripts\build.xml" target="create_patch_zip">
+      <property name="mdss.admin" value="${manager.dir}" />
+      <property name="mdss.root" value="${ddms.root}" />
+			<property name="swt.jar" value="${project.root}/build/thirdparty/swt/win32/org.eclipse.swt.win32.win32.x86_64-4.3.jar" />
+		</ant>
+
+    <exec executable="${maven.exec}" dir="${project.root}/runway-patcher" failonerror="true">
+      <arg value="-U" />
+      <arg value="clean" />
+      <arg value="install" />
+    </exec>
+
+    <copy todir="${project.root}/ddms-runway-patcher/lib" failonerror="true">
+      <fileset dir="${project.root}">
+        <include name="runway-patcher\target\runway-patcher-1.0.0.jar" />
+      </fileset>
+    </copy>
+  </target>
+
+</project>

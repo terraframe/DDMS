@@ -51,13 +51,13 @@ Var /GLOBAL switch_overwrite
 !define StrCase "!insertmacro StrCase"
 
 ; StrContains
-; This function does a case sensitive searches for an occurrence of a substring in a string. 
-; It returns the substring if it is found. 
-; Otherwise it returns null(""). 
+; This function does a case sensitive searches for an occurrence of a substring in a string.
+; It returns the substring if it is found.
+; Otherwise it returns null("").
 ; Written by kenglish_hi
 ; Adapted from StrReplace written by dandaman32
- 
- 
+
+
 Var STR_HAYSTACK
 Var STR_NEEDLE
 Var STR_CONTAINS_VAR_1
@@ -65,7 +65,7 @@ Var STR_CONTAINS_VAR_2
 Var STR_CONTAINS_VAR_3
 Var STR_CONTAINS_VAR_4
 Var STR_RETURN_VAR
- 
+
 Function StrContains
   Exch $STR_NEEDLE
   Exch 1
@@ -87,16 +87,16 @@ Function StrContains
       Goto done
     done:
    Pop $STR_NEEDLE ;Prevent "invalid opcode" errors and keep the
-   Exch $STR_RETURN_VAR  
+   Exch $STR_RETURN_VAR
 FunctionEnd
- 
+
 !macro _StrContainsConstructor OUT NEEDLE HAYSTACK
   Push `${HAYSTACK}`
   Push `${NEEDLE}`
   Call StrContains
   Pop `${OUT}`
 !macroend
- 
+
 !define StrContains '!insertmacro "_StrContainsConstructor"'
 
 
@@ -112,7 +112,7 @@ Var isMaster                # Temp flag denoting if the current app is a master 
 Var AppName                 # Temp variable for the name of the current app being patched.
 Var MobileName              # Temp variable for the name of the mobile app
 Var LowerAppName
-Var LowerMobileName              
+Var LowerMobileName
 Var AppsToPatch             # This variable is (optionally) set from the command line, during a silent install. Its a (comma delimited) list of apps which will get patched.
 Var TargetLoc               # Location of the WEB-INF classes directory on the client install.  Changes depending on $AppName.
 Var Phase
@@ -130,7 +130,7 @@ Var LocalizationVersion     # Version of the localization file contained in the 
 Var PermissionsVersion      # Version of the permissions contained in the install.
 Var TomcatVersion           # Version of tomcat install (using our own versioning system, not theirs)
 Var PropertiesVersion       # Version of our properties files
-Var IdVersion			          # Version of the predictive id change in the install. 
+Var IdVersion			          # Version of the predictive id change in the install.
 Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
 Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
 Var stepExec                # Optional command line parameter when set will ask the user before executing all exec dos commands
@@ -178,13 +178,13 @@ ShowUninstDetails show
 
 Function locationInputPage
   StrCpy $R8 1 ;This is the first page
-  
+
   !insertmacro MUI_HEADER_TEXT "Installation Folder" "Specify the folder that contains your DDMS install."
 FunctionEnd
 
 # Installer sections
 Section -Main SEC0000
-  
+
   # We're not doing anything if BIRT is running, it can cause (resource contention) issues.
   ${nsProcess::FindProcess} "BIRT.exe" $0
   Pop $0 ; The exit code
@@ -193,7 +193,7 @@ Section -Main SEC0000
     MessageBox MB_OK|MB_ICONSTOP "BIRT must be closed before patching. Close BIRT and try again." /SD IDOK
     Abort
   ${EndIf}
-  
+
   # We're not doing anything if eclipse is running, it can cause (resource contention) issues.
   ${nsProcess::FindProcess} "eclipse.exe" $0
   Pop $0 ; The exit code
@@ -202,28 +202,28 @@ Section -Main SEC0000
     MessageBox MB_OK|MB_ICONSTOP "Eclipse must be closed before patching. Close Eclipse and try again." /SD IDOK
     Abort
   ${EndIf}
-  
+
   # Make sure Tomcat is not running
   SimpleSC::ServiceIsRunning "Tomcat"
   Pop $0 ; returns an errorcode (<>0) otherwise success (0)
   Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
-  
-  ${If} $1 <> 0  
-  
+
+  ${If} $1 <> 0
+
     # Try to stop the service
     SimpleSC::StopService "Tomcat" 1 60
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
-    
-    ${If} $0 <> 0        
+
+    ${If} $0 <> 0
 	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be patched."
         MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be patched." /SD IDOK
         Abort
     ${EndIf}
-    
+
   ${EndIf}
-  
-  
-  
+
+
+
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 1572056769
   StrCpy $MetadataVersion 7688
@@ -235,42 +235,42 @@ Section -Main SEC0000
   StrCpy $PermissionsVersion 1572381298
   StrCpy $IdVersion 7686
   StrCpy $BirtVersion 1572056769
-  StrCpy $EclipseVersion 1572056769  
+  StrCpy $EclipseVersion 1572056769
   StrCpy $WebappsVersion 1524675281
   StrCpy $JavaVersion 1572056769
   StrCpy $TomcatVersion 1572056769
-  
+
   # These ones aren't. If you change any of these, make sure to update them in the installer as well
   StrCpy $PropertiesVersion 2
   StrCpy $DatabaseSoftwareVersion 1
   StrCpy $BasemapDatabaseVersion 2
   StrCpy $ODKDatabaseVersion 2
   StrCpy $GeoserverVersion 2551
-  
+
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
   StrCpy $AgentDir "$PatchDir\output"
   StrCpy $PrimaryLogFile "$AgentDir\patcher.log"
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
-  
+
   CreateDirectory "$AgentDir"
   ClearErrors
   LogEx::Init "$PrimaryLogFile"
-  
+
   # Configure our MoveFileFolder plugin.
   # http://nsis.sourceforge.net/MoveFileFolder
   StrCpy $switch_overwrite 0
-  
-  # Determine the location of java home.  
+
+  # Determine the location of java home.
   ${IfNot} ${RunningX64}
     StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
     StrCpy $JvmType true
   ${Else}
-    StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66    
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66
     StrCpy $JvmType false
   ${EndIf}
   StrCpy $Java "$JavaHome\bin\javaw.exe"
-  
+
   # Calculate Java max memory (xmx)
 	System::Alloc 64
 	Pop $0
@@ -352,43 +352,43 @@ Section -Main SEC0000
 	${EndIf}
 	StrCpy $MaxMem $1
 	LogEx::Write "MaxMem set to $MaxMem"
-  
+
   StrCpy $JavaOpts "$ExtraOpts -Xmx$MaxMemM -javaagent:$PatchDir\OutputAgent.jar"
-  
+
   SetOutPath $INSTDIR
   SetOverwrite on
-  
+
   # Remove any existing garbage
   RMDir /r $PatchDir
-  
+
   # Extract the logging libs
   !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
   SetOutPath $PatchDir
-  File ..\ddms-runway-patcher\OutputAgent.jar
-  File ..\ddms-runway-patcher\7za.exe
-  File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
+  File ..\..\ddms-runway-patcher\OutputAgent.jar
+  File ..\..\ddms-runway-patcher\7za.exe
+  File ..\..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
   CreateDirectory $AgentDir
-  
+
   #####################################################################
   # Patch installer stage artifacts (Java, Postgres, BIRT)
   #####################################################################
   Call patchInstallerStage
-  
+
 	LogEx::Write "Creating shortcut $SMPROGRAMS\DDMS\eclipse.lnk"
 
   # Update the eclipse shortcut
   SetOutPath $INSTDIR\eclipse
   CreateDirectory "$SMPROGRAMS\DDMS"
- 	CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.bat"  
-  
-  
+ 	CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.bat"
+
+
   #####################################################################
   # Patch the manager jars and associated files
   #####################################################################
   Call patchManager
-  
+
   Call patchProperties
-  
+
   #####################################################################
   # Patch any runway metadata changes for all of the apps
   #####################################################################
@@ -397,15 +397,15 @@ Section -Main SEC0000
   #####################################################################
   # Finally we can patch master applications
   #####################################################################
-  Call patchApplications    
+  Call patchApplications
 
   Call deleteOldGeoserverIfNecessary
-  
+
   #  After all patching has finished we need to delete the tomcat cache
   SetOutPath $INSTDIR
-  RMDir /r $INSTDIR\tomcat\work\Catalina 
-  
-  # Update the pathing for java  
+  RMDir /r $INSTDIR\tomcat\work\Catalina
+
+  # Update the pathing for java
   LogEx::Write "Updating java pathing"
 
   # Update startup.bat
@@ -415,7 +415,7 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push $INSTDIR\tomcat\bin\startup.bat  # file to replace in
   Call AdvReplaceInFile
-    
+
   # Update shutdown.bat
   Push $INSTDIR\Java\jdk1.8.0_66         # text to be replaced
   Push $JavaHome                         # replace with
@@ -423,14 +423,14 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push $INSTDIR\tomcat\bin\shutdown.bat # file to replace in
   Call AdvReplaceInFile
-  
+
   # Update manager.bat
   Push $INSTDIR\Java\jdk1.8.0_66         # text to be replaced
   Push $JavaHome                         # replace with
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
   Push $INSTDIR\manager\manager.bat      # file to replace in
-  Call AdvReplaceInFile  
+  Call AdvReplaceInFile
 
   # Update manager.bat
   Push JAVA_HOME_VALUE                   # text to be replaced
@@ -438,25 +438,25 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
   Push $INSTDIR\manager\manager.bat      # file to replace in
-  Call AdvReplaceInFile  
-  
+  Call AdvReplaceInFile
+
   # Update the birt shortcut
   SetOutPath $INSTDIR\birt
-  CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED  
-  
+  CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.exe" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
+
   # Update the birt shortcut
   SetOutPath $INSTDIR\eclipse
-  CreateShortcut "$SMPROGRAMS\DDMS\ECLIPSE.lnk" "$INSTDIR\eclipse\eclipse.bat" "" "$INSTDIR\eclipse\eclipse.bat" 0 SW_SHOWMINIMIZED  
-  
-  
+  CreateShortcut "$SMPROGRAMS\DDMS\ECLIPSE.lnk" "$INSTDIR\eclipse\eclipse.bat" "" "$INSTDIR\eclipse\eclipse.bat" 0 SW_SHOWMINIMIZED
+
+
   # Update postgres.conf
-  LogEx::Write "Updating postgres settings"  
+  LogEx::Write "Updating postgres settings"
 
   SetOutPath $INSTDIR\${POSTGRES_DIR}\data
-  File ..\installer-stage\postgresql.conf
-  
+  File ..\installer\postgresql.conf
+
   # Clean-up the logging libs
-  Delete $PatchDir\*  
+  Delete $PatchDir\*
   LogEx::Write "Patching complete."
   LogEx::Close
 SectionEnd
@@ -464,24 +464,24 @@ SectionEnd
 Function checkIfMaster
   # Set default status to false
   StrCpy $IsMaster "false"
-  
+
   ClearErrors
   FileOpen $0 $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\install.properties r
-    
+
   propFileReadLoop:
   # Read a line from the file into $1
   FileRead $0 $1
   # Errors means end of File
   IfErrors isNotMaster
-    
+
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-    
+
   StrCmp $1 "master=true" isMaster propFileReadLoop
-  
+
   isMaster:
   StrCpy $IsMaster "true"
-    
+
   isNotMaster:
   ClearErrors
   FileClose $0
@@ -489,37 +489,37 @@ FunctionEnd
 
 Function deleteOldGeoserverIfNecessary
   IfFileExists $INSTDIR\tomcat\webapps\geoserver.war YesGeoserver NoGeoserver
-  
+
   NoGeoserver:
     LogEx::Write "Geoserver included in DDMS 1.5 does not exist."
     Goto EndDeleteOldGeoserver
-  
+
   YesGeoserver:
     LogEx::Write "Geoserver included in DDMS 1.5 exists. We will need to check to see if any apps depend on it because we might be able to delete it."
-  
+
   # 0 here means we have no unpatched apps
   StrCpy $0 0
-   
+
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
   # TODO : Error handling for reading the applications file
-  
+
   DELETEOLDGEOSERVERappNameFileReadLoop:
   # Read a line from the file into $1
   ClearErrors
   FileRead $AppFile $1
-  
+
   # Errors means end of File
   IfErrors DELETEOLDGEOSERVERappNameDone
-  
+
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-  
+
   Push $1
   Pop $AppName
-  
-  
-  
+
+
+
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" GeoserverVersion
 	IfErrors GeoserverNoExist GeoserverExist
@@ -528,20 +528,20 @@ Function deleteOldGeoserverIfNecessary
 	  StrCpy $0 1
 	GeoserverExist:
     # For now, we can just do nothing. In the future, we may need an if/else chain to check the specific version
-  
-  
+
+
 
   Goto DELETEOLDGEOSERVERappNameFileReadLoop
-          
+
   DELETEOLDGEOSERVERappNameDone:
   ClearErrors
   FileClose $AppFile
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   ${If} 0 = $0
     LogEx::Write "Deleting old geoserver by the name of [geoserver] because all apps have been patched beyond that version."
 
@@ -550,7 +550,7 @@ Function deleteOldGeoserverIfNecessary
   ${Else}
     LogEx::Write "There are apps that depend on the older 1.5 geoserver. We cannot delete it."
   ${EndIf}
-  
+
   EndDeleteOldGeoserver:
 FunctionEnd
 
@@ -558,22 +558,22 @@ Function patchApplications
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
   # TODO : Error handling for reading the applications file
-  
+
   PATCHAPPSappNameFileReadLoop:
   # Read a line from the file into $1
   ClearErrors
   FileRead $AppFile $1
-  
+
   # Errors means end of File
   IfErrors PATCHAPPSappNameDone
-  
+
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-  
+
   Push $1
   Pop $AppName
-  
-  # Only master installations can be patched.  
+
+  # Only master installations can be patched.
   Call checkIfMaster
 
   ${If} $IsMaster == "true"
@@ -584,7 +584,7 @@ Function patchApplications
   ${EndIf}
 
   Goto PATCHAPPSappNameFileReadLoop
-          
+
   PATCHAPPSappNameDone:
   ClearErrors
   FileClose $AppFile
@@ -602,11 +602,11 @@ Function patchProperties
   Push $1
   Pop $AppName
 
-  
+
 	# Ticket 3259 : Patch the vault props for all apps
 	${If} 8195 > $6
 	  LogEx::Write "Patching vault properties for app $AppName (3259)."
-      
+
 	  Push default=C:/Tomcat/webapps/MDSS/WEB-INF/vault                   # text to be replaced
       Push default=$INSTDIR\vault                                         # replace with
       Push all                                                            # replace all occurrences
@@ -626,7 +626,7 @@ Function patchProperties
 	PropertiesExist:
     ${If} 1 > $0
 	    LogEx::Write "Patching $AppName properties to version 1."
-	
+
 	    # Replace any tomcat6 with just tomcat
         Push tomcat6                                                                  # text to be replaced
         Push tomcat                                                                   # replace with
@@ -634,7 +634,7 @@ Function patchProperties
         Push all                                                                      # replace all occurrences
         Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\terraframe.properties   # file to replace in
         Call AdvReplaceInFile
-		
+
 		# Add the server.modules.loader to common.properties
 	    FileOpen $4 "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\common.properties" a
         FileSeek $4 0 END
@@ -642,8 +642,8 @@ Function patchProperties
         FileWrite $4 "server.modules.loader=com.runwaysdk.util.ServerInitializer"
         FileWrite $4 "$\r$\n" ; we write an extra line
         FileClose $4 ; and close the file
-	  
-	  
+
+
 	    ### This already happens because properties are already patched as part of another step in the patching process.
 	    # Update globalCache location
 		#Push "globalCache.cacheFileLocation=${local.root}"                              # text to be replaced
@@ -652,7 +652,7 @@ Function patchProperties
         #Push 1                                                                        # replace all occurrences
         #Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
         #Call AdvReplaceInFile
-		
+
 		# Update transaction cache size
 		Push transactionCache.diskstore.size=2500                                      # text to be replaced
         Push transactionCache.diskstore.size=50000                                    # replace with
@@ -660,7 +660,7 @@ Function patchProperties
         Push 1                                                                        # replace all occurrences
         Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
         Call AdvReplaceInFile
-		
+
 		# Add new caching settings
 	    FileOpen $4 "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties" a
         FileSeek $4 0 END
@@ -672,7 +672,7 @@ Function patchProperties
 		#FileWrite $4 "runtime.compiler.impl=ECLIPSE"
         FileWrite $4 "$\r$\n" ; we write an extra line
         FileClose $4 ; and close the file
-		
+
 		# Disable the chainsaw appender
 		Push "log4j.rootLogger=ERROR, com.runwaysdk.RollingFileAppender, com.runwaysdk.ChainsawSocketAppender"    # text to be replaced
         Push "log4j.rootLogger=ERROR, com.runwaysdk.RollingFileAppender"                 # replace with
@@ -680,15 +680,15 @@ Function patchProperties
         Push all                                                                      # replace all occurrences
         Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\server.properties       # file to replace in
         Call AdvReplaceInFile
-	  
+
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties $PropertiesVersion
     ${Else}
 	    LogEx::Write "Skipping properties patch of $AppName to version 1 because it is already up to date."
     ${EndIf}
-    
+
     ${If} 2 > $0
       LogEx::Write "Patching $AppName properties to version 2."
-    
+
       # Add the envLogger
 	    FileOpen $4 "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\log4j.properties" a
       FileSeek $4 0 END
@@ -708,40 +708,40 @@ Function patchProperties
       FileWrite $4 "log4j.additivity.envLogger=false"
       FileWrite $4 "$\r$\n" ; we write an extra line
       FileClose $4 ; and close the file
-      
+
       WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties $PropertiesVersion
     ${Else}
 	    LogEx::Write "Skipping properties patch of $AppName to version 2 because it is already up to date."
     ${EndIf}
-	
-	
+
+
   Goto PROPSappNameFileReadLoop
   PROPSappNameDone:
   ClearErrors
   FileClose $AppFile
 FunctionEnd
 
-Function patchApplication 
+Function patchApplication
   ${StrCase} $LowerAppName $AppName "L"
-   
+
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
-  ${If} $PatchVersion > $0     
-    MessageBox MB_YESNO "Patch application $AppName?" /SD IDYES IDYES true IDNO false  
+  ${If} $PatchVersion > $0
+    MessageBox MB_YESNO "Patch application $AppName?" /SD IDYES IDYES true IDNO false
     true:
 
     LogEx::Write "Starting patch of application $AppName"
-    
+
     # Update the classpath to reference the particular application being patched
     StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
 
     # Remove any old log files that may be laying around
     Delete $AgentDir\*.out
     Delete $AgentDir\*.err
-    
+
     # Remove old lib files
     Delete $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*.*
-    
+
     # Backup source
     CreateDirectory $PatchDir\source\server\stub\geogen
     CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated\*.* $PatchDir\source\server\stub\geogen
@@ -759,7 +759,7 @@ Function patchApplication
     CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\form\tree\*.* $PatchDir\source\client\stub\form\tree
     CopyFiles /FILESONLY /SILENT $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\tree\*.* $PatchDir\source\client\base\form\tree
     RMDir /r $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source
-    
+
     # Don't preserve source that developers may have changed
     Delete $PatchDir\source\server\stub\form\business\FormSurvey.java
     Delete $PatchDir\source\server\stub\form\business\FormHousehold.java
@@ -773,14 +773,14 @@ Function patchApplication
     Delete $PatchDir\source\server\stub\geogen\SprayZone.java
     Delete $PatchDir\source\server\stub\geogen\StockDepot.java
     Delete $PatchDir\source\server\stub\geogen\Surface.java
-    
+
     # Copy web files
     LogEx::Write "Updating web files"
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
-    File /r /x .svn /x *odk.properties ..\DDMS\patches\webapp\*
-    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\DDMS\profiles\version.xsd
-    
+    File /r /x .svn /x *odk.properties stage\webapp\*
+    File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ..\..\DDMS\profiles\version.xsd
+
     # Restore source
     CreateDirectory $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated
     CopyFiles /FILESONLY /SILENT $PatchDir\source\server\stub\geogen\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\stub\dss\vector\solutions\geo\generated
@@ -797,18 +797,18 @@ Function patchApplication
     CopyFiles /FILESONLY /SILENT $PatchDir\source\server\base\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\server\base\dss\vector\solutions\form\tree
     CopyFiles /FILESONLY /SILENT $PatchDir\source\client\stub\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\stub\dss\vector\solutions\form\tree
     CopyFiles /FILESONLY /SILENT $PatchDir\source\client\base\form\tree\*.* $INSTDIR\tomcat\webapps\$AppName\WEB-INF\source\client\base\dss\vector\solutions\form\tree
-    
+
     SetOverwrite off       # Only copy if file does not exist
     File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\odk.properties ..\DDMS\patches\webapp\WEB-INF\classes\odk.properties
-    
+
     SetOverwrite on
 
     # We need to clear the old cache
     RMDir /r $INSTDIR\tomcat\cache
-    
+
     # When we patch the properties we'll upgrade to the new geoserver version
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" GeoserverVersion $GeoserverVersion
-    
+
     # Fuzzystrmatch was accidentally removed at some point. Lets just make sure it always exists...
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
     Call execDos
@@ -818,34 +818,34 @@ Function patchApplication
     !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
     push `$Java $JavaOpts=$AgentDir\appdimensional -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com`
     Call execDos
-    
+
     # Predictive id patching
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Migrating system ids."
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" IdVersion
     ${If} $IdVersion > $0
       LogEx::Write "Migrating system ids"
-      StrCpy $Phase "Updating root ids, this process can several hours to complete."		
+      StrCpy $Phase "Updating root ids, this process can several hours to complete."
       push `$Java $JavaOpts=$AgentDir\appdataupdate_roots -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -r`
       Call execDos
-      
+
       # We need to re-clear the old cache
       RMDir /r $INSTDIR\tomcat\cache
-      
-      StrCpy $Phase "Updating system ids, this process can several hours to complete."		
+
+      StrCpy $Phase "Updating system ids, this process can several hours to complete."
       push `$Java $JavaOpts=$AgentDir\appdataupdate_keys -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater -k`
       Call execDos
-      
+
       WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
     ${Else}
       LogEx::Write "Skipping system id migration because they are already up to date"
       DetailPrint "Skipping system id migration because they are already up to date"
-    ${EndIf}	  
+    ${EndIf}
 
     # Fix any Postgres migration issues (ticket 3440)
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} 8250 > $0
       LogEx::Write "Fixing potential Postgres migration issues for app [$AppName] (ticket 3440)"
-      
+
       LogEx::Write "Updating database.properties in [$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties]"
       Push PostgreSQL/9.1                                                                  # text to be replaced
       Push ${POSTGRES_DIR}                                                                 # replace with
@@ -853,7 +853,7 @@ Function patchApplication
       Push all                                                                             # replace all occurrences
       Push $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\database.properties           # file to replace in
       Call AdvReplaceInFile
-      
+
       LogEx::Write "Updating database.properties in [$INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties]"
       Push PostgreSQL/9.1                                                                  # text to be replaced
       Push ${POSTGRES_DIR}                                                                 # replace with
@@ -862,7 +862,7 @@ Function patchApplication
       Push $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName\database.properties     # file to replace in
       Call AdvReplaceInFile
     ${EndIf}
-    
+
     # Reference Indexing Patching (ticket 3341)
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating reference indexes."
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
@@ -877,12 +877,12 @@ Function patchApplication
     LogEx::Write "Importing updated schema definitions."
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
     SetOutPath $PatchDir\schema
-    File /x .svn ..\DDMS\doc\individual\*
+    File /x .svn ..\..\DDMS\doc\individual\*
     StrCpy $Phase "Importing updated schema definitions"
     push `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd`
     Call execDos
 
-    
+
     # Update Database Source and Class
     LogEx::Write "Updating database source and classes"
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Database"
@@ -905,11 +905,11 @@ Function patchApplication
     #${Else}
     #  LogEx::Write "Skipping ticket 3434 patch because it is already up to date."
     #${EndIf}
-    
+
     # Terms
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Default Terms"
     SetOutPath $PatchDir\doc\ontology\defaultterms
-    File /x .svn ..\DDMS\doc\ontology\defaultterms\*
+    File /x .svn ..\..\DDMS\doc\ontology\defaultterms\*
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
     LogEx::Write "Importing default terms"
     StrCpy $Phase "Importing default terms"
@@ -919,8 +919,8 @@ Function patchApplication
     # Term Roots
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
     SetOutPath $PatchDir\doc
-    File ..\DDMS\doc\ontology\MOroots.xls
-    File ..\DDMS\patches\geo-universals.xls
+    File ..\..\DDMS\doc\ontology\MOroots.xls
+    File ..\..\DDMS\patches\geo-universals.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
     ${If} $RootsVersion > $0
     LogEx::Write "Setting up ontology roots."
@@ -936,7 +936,7 @@ Function patchApplication
     # Menu Items
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Menu Items"
     SetOutPath $PatchDir\doc
-    File ..\DDMS\doc\menu\MenuItems.xls
+    File ..\..\DDMS\doc\menu\MenuItems.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
     ${If} $MenuVersion > $0
     LogEx::Write "Importing menu items"
@@ -948,20 +948,20 @@ Function patchApplication
     LogEx::Write "Skipping Menu because it is already up to date"
     DetailPrint "Skipping Menu because it is already up to date"
     ${EndIf}
-    
+
     # Localization
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Localization"
     SetOutPath $PatchDir\doc\localization
-    File ..\DDMS\doc\localization\*
+    File ..\..\DDMS\doc\localization\*
     LogEx::Write "Updating localization"
     StrCpy $Phase "Updating localization"
     push `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.localization.DatabaseVersionedLocalizationExcelImporter $PatchDir\doc\localization`
     Call execDos
-    
+
     # Permissions
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
     SetOutPath $PatchDir\doc
-    File ..\DDMS\profiles\Permissions.xls
+    File ..\..\DDMS\profiles\Permissions.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
     ${If} $PermissionsVersion > $0
     LogEx::Write "Updating permissions"
@@ -972,8 +972,8 @@ Function patchApplication
     ${Else}
     LogEx::Write "Skipping Permissions because they are already up to date"
     DetailPrint "Skipping Permissions because they are already up to date"
-    ${EndIf}    
-    
+    ${EndIf}
+
     # Update any application data which needs to be updated
     LogEx::Write "Updating application data"
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
@@ -987,7 +987,7 @@ Function patchApplication
     StrCpy $Phase "Deleting existing database views and functions."
     push `$Java $JavaOpts=$AgentDir\databasecleaner -cp $Classpath dss.vector.solutions.util.DatabaseViewCleanerPatcher`
     Call execDos
-    
+
     # Ticket 3456 (SRID patching for PostGIS 2.0+)
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} 8276 > $0
@@ -999,14 +999,14 @@ Function patchApplication
     ${Else}
       LogEx::Write "Skipping ticket 3456 patch because it is already up to date."
     ${EndIf}
-    
+
     # Miscellaneous data patching
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Miscellaneous data patching"
     LogEx::Write "Miscellaneous data patching"
-    StrCpy $Phase "Miscellaneous data patching"		
+    StrCpy $Phase "Miscellaneous data patching"
     push `$Java $JavaOpts=$AgentDir\appdatapatcher -Dfile.encoding=UTF8 -cp $Classpath dss.vector.solutions.migration.ApplicationPatcher -f $0 -t $PatchVersion`
     Call execDos
-    
+
     # Rebuild the allpaths table because sometimes glitches happen (???)
     LogEx::Write "Rebuilding allpaths table"
     !insertmacro MUI_HEADER_TEXT "Rebuilding allpaths table" "Rebuilding allpaths table"
@@ -1014,7 +1014,7 @@ Function patchApplication
     StrCpy $Phase "Rebuilding allpaths table"
     push `$Java $JavaOpts=$AgentDir\allpaths_rebuild -cp $Classpath dss.vector.solutions.util.GeoEntityAllPathBuilder`
     Call execDos
-    
+
     # Switch back to the deploy environment
     LogEx::Write "Switching back to deploy environment"
     Rename $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\local-develop.properties
@@ -1042,117 +1042,117 @@ Function patchApplication
     false:
     DetailPrint "Skipping patch of $AppName"
     LogEx::Write "Skipping patch of $AppName"
-    next:    
+    next:
   ${Else}
     DetailPrint "The application $AppName is already up to date."
 	  LogEx::Write "The application $AppName is already up to date."
-  ${EndIf}    
-  
+  ${EndIf}
+
   StrCpy $MobileName "Mobile"
   StrCpy $LowerMobileName "_mobile"
-  
+
   ${IfNot} ${FileExists} `$INSTDIR\tomcat\webapps\$AppName$MobileName\*.*`
-  
-    # Copy the ODK webapp in the correct folder    
+
+    # Copy the ODK webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing ODK Webapp" "Installing Tomcat"
     LogEx::Write "Copying the ODK webapp to $INSTDIR\tomcat\webapps\$AppName$MobileName"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName$MobileName
-    File /r /x .svn ..\installer-stage\ODKAggregate\*
-    SetOutPath $INSTDIR  
-        
+    File /r /x .svn ..\thirdparty\ODKAggregate\*
+    SetOutPath $INSTDIR
+
 	  # Update ODK jdbc properties
 	  Push jdbc.username=odk_user                                                           # text to be replaced
 	  Push jdbc.username=$LowerAppName$LowerMobileName                                      # replace with
 	  Push all                                                                              # replace all occurrences
 	  Push all                                                                              # replace all occurrences
 	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
-	  Call AdvReplaceInFile      
-    
+	  Call AdvReplaceInFile
+
 	  # Update ODK jdbc properties
 	  Push jdbc.schema=odk                                                                  # text to be replaced
 	  Push jdbc.schema=$LowerAppName                                                        # replace with
 	  Push all                                                                              # replace all occurrences
 	  Push all                                                                              # replace all occurrences
 	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
-	  Call AdvReplaceInFile         
-    
-  ${EndIf}  
-  
+	  Call AdvReplaceInFile
+
+  ${EndIf}
+
   # Create the odk schema if it does not exist
   # psql -X -A -t -d odk -p 5433 -U odk_user -c "SELECT COUNT( * ) FROM information_schema.schemata WHERE schema_name = 'odk'"
-  
+
   nsExec::ExecToStack `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -X -A -t -p 5444 -h 127.0.0.1 -U postgres -d odk -c "SELECT COUNT( * ) FROM information_schema.schemata WHERE schema_name = '$LowerAppName'"`
-  Pop $0  
-  
+  Pop $0
+
   LogEx::Write "Schema count for $LowerAppName : $0"
-  
+
   ${If} $0 = 0
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "DO $body$ BEGIN IF NOT EXISTS ( SELECT * FROM   pg_catalog.pg_user WHERE  usename = '$LowerAppName$LowerMobileName') THEN CREATE USER $LowerAppName$LowerMobileName with unencrypted password 'noReply'; grant all privileges on database odk to $LowerAppName$LowerMobileName; END IF; END $body$;"`
     Call execDos
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "CREATE SCHEMA IF NOT EXISTS $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
-    Call execDos  
-  ${EndIf}  
-  
+    Call execDos
+  ${EndIf}
+
 FunctionEnd
 
 Function patchAllMetadata
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-      
+
   metadataLoop:
   # Read a line from the file into $1
   FileRead $AppFile $1
-      
+
   # Errors means end of File
   IfErrors metadataLoopDone
-      
+
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-    
+
   Push $1
   Pop $AppName
 
   Call patchMetadata
 
   Goto metadataLoop
-          
+
   metadataLoopDone:
   ClearErrors
   FileClose $AppFile
 FunctionEnd
 
-Function patchMetadata  
-  ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" RunwayVersion  
+Function patchMetadata
+  ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" RunwayVersion
   ${If} $RunwayVersion > $0
     LogEx::Write "Patching runway metadata for $AppName"
-	
-    StrCpy $TargetLoc "$INSTDIR\tomcat\webapps\$AppName\WEB-INF"    
+
+    StrCpy $TargetLoc "$INSTDIR\tomcat\webapps\$AppName\WEB-INF"
     StrCpy $Classpath "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*"
-	
+
 	${If} $MetadataVersion > $0
 		# Copy over the updated runway jar
 		LogEx::Write "Copying over the updated runway jar."
 		SetOutPath $INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib
-		File /x .svn ..\DDMS\patches\webapp\WEB-INF\lib\*
-	  
+		File /x .svn stage\webapp\WEB-INF\lib\*
+
 		# Build any dimensional metadata with the Master domain
 		LogEx::Write "Building dimensional metadata with the master domain"
 		!insertmacro MUI_HEADER_TEXT "Patching metadata" "Preparing dimensional metadata for $AppName..."
 		push `$Java $JavaOpts=$AgentDir\dimensionalmetadata -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionDeleter`
 		Call execDos
 	${EndIf}
-  
+
     # Execute patch
 	LogEx::Write "Executing the runway patcher."
     !insertmacro MUI_HEADER_TEXT "Patching metadata" "Patching $AppName..."
     push `$Java $JavaOpts=$AgentDir\runwaypatcher -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib`
     Call execDos
-  
+
     # We need to clear the old cache
 	RMDir /r $INSTDIR\tomcat\cache
-  
+
     # Build any dimensional metadata with the Master domain
     #!insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
     #ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
@@ -1161,63 +1161,63 @@ Function patchMetadata
     # Build any dimensional metadata with the Master domain
     #!insertmacro MUI_HEADER_TEXT "Patching metadata" "Recompiling $AppName..."
     #ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath  com.runwaysdk.util.UpdateDatabaseSourceAndClasses -compile` $JavaError
-    #Call JavaAbort  
-  
+    #Call JavaAbort
+
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
   ${Else}
     DetailPrint "Runway metadata for application $AppName is already up to date."
 	LogEx::Write "Runway metadata for application $AppName is already up to date."
   ${EndIf}
-  
-  ClearErrors  
+
+  ClearErrors
 FunctionEnd
 
 Function patchManager
   !insertmacro MUI_HEADER_TEXT "Patching manager" "Patching manager"
-  
+
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
-  ${If} $ManagerVersion > $0    
+  ${If} $ManagerVersion > $0
     LogEx::Write "Patching the manager."
-	
+
     # Delete the existing SWT jars, the SWT jar has been moved into the jre
     RMDir /r $INSTDIR\manager\backup-manager-1.0.0\lib
-    RMDir /r $INSTDIR\manager\geo-manager-1.0.0\lib    
-    
-    Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar  
-    Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar  
-    Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar  
-    Delete $INSTDIR\manager\synch-manager-1.0.0\lib\swt.jar  
-  
-    SetOutPath $INSTDIR\manager
-    File ..\standalone\patch\manager.bat
-    File ..\standalone\patch\manager.ps1
-    File ..\standalone\patch\manager.ico
-    File ..\standalone\patch\ddmschedule.bat
-    File ..\standalone\patch\ddmscli.bat
-    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
-    File /r /x .svn ..\standalone\backup-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
-    File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
-    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
-    File /r /x .svn ..\standalone\geo-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\manager-1.0.0
-    File /r /x .svn /x *applications.txt /x *server.properties ..\standalone\manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
-    File /r /x .svn ..\standalone\synch-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager\keystore
-    File /r /x .svn ..\standalone\doc\keystore\*
+    RMDir /r $INSTDIR\manager\geo-manager-1.0.0\lib
 
-    ${IfNot} ${FileExists} `$INSTDIR\manager\manager-1.0.0\classes\server.properties`    
+    Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar
+    Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar
+    Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar
+    Delete $INSTDIR\manager\synch-manager-1.0.0\lib\swt.jar
+
+    SetOutPath $INSTDIR\manager
+    File ..\manager\patch\manager.bat
+    File ..\manager\patch\manager.ps1
+    File ..\manager\patch\manager.ico
+    File ..\manager\patch\ddmschedule.bat
+    File ..\manager\patch\ddmscli.bat
+    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
+    File /r /x .svn ..\manager\backup-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
+    File /r /x .svn ..\manager\ddms-initializer-1.0.0\*
+    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
+    File /r /x .svn ..\manager\geo-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\manager-1.0.0
+    File /r /x .svn /x *applications.txt /x *server.properties ..\manager\manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
+    File /r /x .svn ..\manager\synch-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\keystore
+    File /r /x .svn ..\manager\doc\keystore\*
+
+    ${IfNot} ${FileExists} `$INSTDIR\manager\manager-1.0.0\classes\server.properties`
       SetOutPath $INSTDIR\manager\manager-1.0.0\classes
-      File ..\standalone\manager-1.0.0\classes\server.properties
+      File ..\manager\manager-1.0.0\classes\server.properties
     ${EndIf}
 
-	
+
     # TODO : The code below references $AppName, which can't possibly be defined yet at this point because we're not patching per app, we're patching the manager as a whole.
     #        My guess is that it coincidentally works because $AppName was used elsewhere in the patcher so it uses the last set value of it. I'm not going to attempt to fix
     #        it right now since the customer hasn't reported any issues with it (and I'm not getting paid to fix random obsolete crap), just be aware when writing new code that its not good practice.
-  
+
     # Set tomcat auto deploy to false (ticket 3389)
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} 8190 > $0
@@ -1227,76 +1227,76 @@ Function patchManager
         Push all                                                            # replace all occurrences
         Push all                                                            # replace all occurrences
         Push $INSTDIR\tomcat\conf\server.xml      # file to replace in
-        Call AdvReplaceInFile  
+        Call AdvReplaceInFile
     ${EndIf}
-	
+
     # Move the vault to the correct place (ticket 3259)
     ReadRegStr $6 HKLM "${REGKEY}\Components\$AppName" App
     ${If} 8195 > $6
       LogEx::Write "Moving the vault to the correct place (3259)."
-        
+
       !insertmacro MoveFolder "C:\Tomcat\webapps\MDSS\WEB-INF\vault\" "$INSTDIR\vault\" "*.*"
       ClearErrors
     ${EndIf}
-	
+
     ################################################################################
     # Update the manager memory settings for 64-bit installs
     ################################################################################
-  
-    ${If} ${RunningX64}    
+
+    ${If} ${RunningX64}
       LogEx::Write "Updating manager memory settings for 64 bit installs"
-	  
+
       # Update max memory
       Push process.memory.max=1024M                                       # text to be replaced
       Push process.memory.max=3072M                                       # replace with
       Push all                                                            # replace all occurrences
       Push all                                                            # replace all occurrences
       Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
-      Call AdvReplaceInFile  
-    
+      Call AdvReplaceInFile
+
       # Update perm gen memory
       Push process.perm.size=256M                                         # text to be replaced
       Push process.perm.size=512M                                         # replace with
       Push all                                                            # replace all occurrences
       Push all                                                            # replace all occurrences
       Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
-      Call AdvReplaceInFile  
-    ${EndIF}  
-          
+      Call AdvReplaceInFile
+    ${EndIF}
+
     ################################################################################
     # Copy any updated runway properties to all of the backedup profile directories
     ################################################################################
     ClearErrors
     FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-    
+
     MANAGERappNameFileReadLoop:
     # Read a line from the file into $1
     FileRead $0 $1
-    
+
     # Errors means end of File
     IfErrors MANAGERappNameDone
-    
+
     # Removes the newline from the end of $1
     ${StrTrimNewLines} $1 $1
-    
+
     # Copy over updated runway properties
 	  LogEx::Write "Copying over updated runway properties for app $1"
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
-    File /r /x .svn ..\standalone\patch\profiles\*
-  
+    File /r /x .svn ..\manager\patch\profiles\*
+
     Goto MANAGERappNameFileReadLoop
-        
+
     MANAGERappNameDone:
     ClearErrors
     FileClose $0
-  
+
     SetOutPath $INSTDIR
-    
-    WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion  
+
+    WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
   ${Else}
     DetailPrint "Manager is already up to date"
     LogEx::Write "Manager is already up to date."
-  ${EndIf}    
+  ${EndIf}
 FunctionEnd
 
 Function patchInstallerStage
@@ -1305,292 +1305,292 @@ Function patchInstallerStage
   ################################################################################
 
   !insertmacro MUI_HEADER_TEXT "Patching Java" "Patching Java"
-  
-  # Before we start, check the versions to make sure this is actually a patch.  
+
+  # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Java
-  ${If} $JavaVersion > $0    
+  ${If} $JavaVersion > $0
     LogEx::Write "Patching Java."
-  
+
     # Remove the existing java install
     RMDir /r $INSTDIR\Java
-  
+
     # Copy over the new java install
     SetOutPath $INSTDIR\Java
-    File /r /x .svn ..\installer-stage\Java\*
-  
-    WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion  
+    File /r /x .svn ..\thirdparty\Java\*
+
+    WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
 
   ${Else}
     DetailPrint "Java is already up to date"
 	LogEx::Write "Java is already up to date"
-  ${EndIf}   
+  ${EndIf}
 
   ################################################################################
   # Database Patching
   ################################################################################
-  
+
   Call upgradePostgresAndPostgis
-  
+
   ################################################################################
   # Copy over the Birt
   ################################################################################
 
   !insertmacro MUI_HEADER_TEXT "Patching Birt" "Patching Birt"
-  
+
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Birt
-  ${If} $BirtVersion > $0    
+  ${If} $BirtVersion > $0
     LogEx::Write "Patching BIRT."
-	
+
 	# Remove the existing birt install
 	RMDir /r $INSTDIR\birt\configuration
 	RMDir /r $INSTDIR\birt\p2
 	RMDir /r $INSTDIR\birt\plugins
-  
+
     # Copy over the new birt files
     SetOutPath $INSTDIR\birt
-    File /r /x .svn ..\installer-stage\birt\*  
-  
-    WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion  
+    File /r /x .svn ..\thirdparty\birt\*
+
+    WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
   ${Else}
     DetailPrint "Birt is already up to date"
     LogEx::Write "BIRT is already up to date."
-  ${EndIf} 
-  
+  ${EndIf}
+
   ################################################################################
   # Copy over the Eclipse
   ################################################################################
 
   !insertmacro MUI_HEADER_TEXT "Patching Eclipse" "Patching Eclipse"
-  
+
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Eclipse
-  ${If} $EclipseVersion > $0    
+  ${If} $EclipseVersion > $0
     LogEx::Write "Patching ECLIPSE."
-	
+
   	# Remove the existing eclipse install
 	  RMDir /r $INSTDIR\eclipse\configuration
 	  RMDir /r $INSTDIR\eclipse\p2
 	  RMDir /r $INSTDIR\eclipse\plugins
     RMDir /r $INSTDIR\eclipse\dropins
-  
+
     # Copy over the new eclipse files
     SetOutPath $INSTDIR\eclipse
-    File /r /x .svn ..\installer-stage\eclipse\*  
-  
-    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion  
+    File /r /x .svn ..\thirdparty\eclipse\*
+
+    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion
   ${Else}
     DetailPrint "Eclipse is already up to date"
     LogEx::Write "ECLIPSE is already up to date."
   ${EndIf}
-  
+
   ################################################################################
   # 3527 Install OSM to PGSQL
   ################################################################################
-  
+
   !insertmacro MUI_HEADER_TEXT "Installing OSM to PGSQL" "Installing OSM to PGSQL"
-  
+
   # Create offline basemap cache directory
   IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
   BASEMAP_NO_EXIST:
     LogEx::Write "3527 Creating offline basemap cache directory."
     CreateDirectory $INSTDIR\basemaps
   BASEMAP_EXIST:
-  
+
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" BasemapDatabaseVersion
   IfErrors BasemapDatabaseVersionErrors
   ${If} 1 > $0
     BasemapDatabaseVersionErrors:
-    
+
     LogEx::Write "Updating OSM basemap software to version 1"
 
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
     Call execDos
-    
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
     Call execDos
-    
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
     Call execDos
-    
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
     Call execDos
-    
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
     Call execDos
-    
+
     SetOutPath "C:\libs\share\osm2pgsql"
-	  File /r "..\installer-stage\osm2pgsql\*"
-    
-    
+	  File /r "..\thirdparty\osm2pgsql\*"
+
+
     WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 1
     StrCpy $0 1
   ${Else}
     LogEx::Write "Skipping osm database software update because the software is already at version 1."
   ${EndIf}
-  
-  
+
+
   ${If} 2 > $0
     LogEx::Write "Updating OSM basemap software to version 2"
-    
+
     SetOutPath "C:\libs\share\osmconvert"
-    
+
     ${If} ${RunningX64}
       LogEx::Write "Installing 64 bit oscconvert library."
-      
-      File /r "..\installer-stage\osmconvert\64bit\*"
+
+      File /r "..\thirdparty\osmconvert\64bit\*"
     ${Else}
       LogEx::Write "Installing 32 bit oscconvert library."
 
-      File /r "..\installer-stage\osmconvert\32bit\*"
+      File /r "..\thirdparty\osmconvert\32bit\*"
     ${EndIf}
-    
+
     WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion 2
     StrCpy $0 2
   ${Else}
     LogEx::Write "Skipping osm database software update because the software is up already at version 2."
   ${EndIf}
-  
-  
+
+
   ################################################################################
   # 3818 Install ODK
   ################################################################################
-  
+
   !insertmacro MUI_HEADER_TEXT "Installing ODK" "Installing ODK"
-  
+
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" ODKDatabaseVersion
   #IfErrors ODKDatabaseVersionErrors
 
   ${If} $0 < 1
     ODKDatabaseVersionErrors:
-  
+
   #  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create database odk;"`
   #  Call execDos
     # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
     # Call execDos
-  
+
     # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
     # Call execDos
-    
+
     WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
   ${Else}
     LogEx::Write "Skipping odk database software update because the software is up to date."
     DetailPrint "Skipping odk database software update because the software is up to date."
   ${EndIf}
-  
+
   SetOutPath $PatchDir
-	File "..\patch\create_odk_database.sql"
-  
+	File "create_odk_database.sql"
+
   push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -f $PatchDir\create_odk_database.sql`
   Call execDos
-  
+
   ${If} $0 = 1
     SetOutPath $PatchDir
-    File "..\patch\drop_old_odk.sql"
-  
+    File "drop_old_odk.sql"
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -f $PatchDir\drop_old_odk.sql`
     Call execDos
   ${EndIf}
-      
+
 
   ################################################################################
   # Upgrade tomcat
   ################################################################################
-  
+
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" Tomcat
   IfErrors TomcatRegErrors
   ${If} $TomcatVersion > $0
     TomcatRegErrors:
 	  LogEx::Write "Updating tomcat."
-	  
+
 	  # copy over new tomcat
 	  SetOutPath $INSTDIR\tomcat
 	  ${If} ${RunningX64}
-	    File /r /x .svn ..\installer-stage\tomcat\tomcat64\*
+	    File /r /x .svn ..\thirdparty\tomcat\tomcat64\*
       ${Else}
-	    File /r /x .svn ..\installer-stage\tomcat\tomcat32\*
+	    File /r /x .svn ..\thirdparty\tomcat\tomcat32\*
 	  ${EndIf}
-	  
+
 	  # We don't care about the old Geoserver or the old ROOT app, so lets delete those otherwise they'll overwrite the new ones
 	  #RMDir /r $INSTDIR\tomcat6\webapps\geoserver
 	  #RMDir /r $INSTDIR\tomcat6\webapps\ROOT
 	  #RMDir /r $INSTDIR\tomcat6\webapps\manager
 	  #RMDir /r $INSTDIR\tomcat6\webapps\birt
 	  #Delete $INSTDIR\tomcat6\webapps\geoserver.war
-	  
+
 	  # copy old webapps to the new install
 	  #LogEx::Write "Copying from [$INSTDIR\tomcat6\webapps\*] to [$INSTDIR\tomcat\webapps]"
 	  #CopyFiles $INSTDIR\tomcat6\webapps\* $INSTDIR\tomcat\webapps
-	  
+
 	  # delete old tomcat
 	  #RMDir /r $INSTDIR\tomcat6
-	  
+
 	  WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
   ${Else}
     LogEx::Write "Skipping tomcat upgrade because the software is up to date."
     DetailPrint "Skipping tomcat upgrade because the software is up to date."
   ${EndIf}
-  
+
   # Delete old service
   SimpleSC::ExistsService "Tomcat6"
   Pop $0
-    
+
   ${If} $0 == 0
     LogEx::Write "Removing old Tomcat6 service."
     SimpleSC::RemoveService "Tomcat6"
   ${EndIf}
-  
+
   SimpleSC::ExistsService "Tomcat"
   Pop $0
-  
+
   ${If} $0 <> 0
-    # Install tomcat as a service  
+    # Install tomcat as a service
     LogEx::Write "Configuring Tomcat as a service."
 	push `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
 	Call execDos
-  
+
     # Update tomcat service parameters
     LogEx::Write "Update tomcat service parameters."
-    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$INSTDIR\tomcat\bin\tomcat-juli.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`  
+    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$INSTDIR\tomcat\bin\tomcat-juli.jar;$INSTDIR\tomcat\bin\bootstrap.jar" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`
     Call execDos
   ${EndIf}
-  
+
   # Update tomcat memory parameters
   LogEx::Write "Update tomcat memory parameters."
-  push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`  
+  push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`
   Call execDos
-  
-  
+
+
   ################################################################################
   # Update tomcat webapps
   ################################################################################
 
   !insertmacro MUI_HEADER_TEXT "Patching Tomcat webapps" "Patching Tomcat webapps"
-  
+
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Webapps
-  ${If} $WebappsVersion > $0 
+  ${If} $WebappsVersion > $0
     LogEx::Write "Patching tomcat webapps."
-  
+
     # Delete the existing birt web app files
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\logs
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\report
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\scriptlib
 	  RMDir /r $INSTDIR\tomcat\webapps\birt\webcontent
-	  RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF 
-    
+	  RMDir /r $INSTDIR\tomcat\webapps\birt\WEB-INF
+
     RMDir /r $INSTDir\tomcat\webapps\geoserver-2.9.1
     ClearErrors
-    
+
     # Copy over the new webapp files
     SetOutPath $INSTDIR\tomcat\webapps
-    File /r /x .svn /x .war ..\installer-stage\tomcat\webapps\*  
-  
-    WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion  
+    File /r /x .svn /x .war ..\thirdparty\tomcat\webapps\*
+
+    WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
   ${Else}
     DetailPrint "Webapps directory is already up to date"
     LogEx::Write "Webapps directory is already up to date"
@@ -1598,12 +1598,12 @@ Function patchInstallerStage
 
   ################################################################################
   # Remove legacy ODK
-  ################################################################################  
+  ################################################################################
   ${If} ${FileExists} `$INSTDIR\tomcat\webapps\ODKAggregate.war`
     RMDir $INSTDIR\tomcat\webapps\ODKAggregate
     Delete $INSTDIR\tomcat\webapps\ODKAggregate.war
   ${EndIF}
-  
+
 FunctionEnd
 
 
@@ -1611,9 +1611,9 @@ Function JavaAbort
   ${If} $JavaError == 1
     LogEx::Write "FATAL ERROR: Patch failed. A file called PatchFailure.7z has been created on your desktop."
     LogEx::Close
-  
+
     ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\output\*.err $PatchDir\output\*.out $PatchDir\output\*.log $INSTDIR\logs`
-    
+
     DetailPrint "Patch failed."
     DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
     DetailPrint "this file to technical support staff for review."
@@ -1628,55 +1628,55 @@ Function DeleteFoldersWithExclusion
  Exch $R1 ; route dir
  Push $R2
  Push $R3
- 
- 
+
+
   ClearErrors
   FindFirst $R3 $R2 "$R1\*.*"
- 
- 
+
+
   Top:
    StrCmp $R2 "." Next
    StrCmp $R2 ".." Next
-   
+
    ${StrContains} $0 $R2 $R0
    StrCmp $0 "" Exit
-   
+
    IfFileExists "$R1\$R2\*.*" Jump DeleteFile
- 
+
    Jump:
     Push '$R1\$R2'
     Push '$R0'
     Call DeleteFoldersWithExclusion
- 
-    Push "$R1\$R2" 
+
+    Push "$R1\$R2"
     Call isEmptyDir
-    Pop $0    
+    Pop $0
     StrCmp $0 1 RmD Next
- 
+
    RmD:
     RMDir /r $R1\$R2
     Goto Next
- 
+
    DeleteFile:
     Delete '$R1\$R2'
- 
+
    Next:
     ClearErrors
     FindNext $R3 $R2
     IfErrors Exit
    Goto Top
- 
+
   Exit:
   FindClose $R3
- 
+
  Pop $R3
  Pop $R2
  Pop $R1
  Pop $R0
- 
+
 FunctionEnd
- 
- 
+
+
 Function isEmptyDir
   # Stack ->                    # Stack: <directory>
   Exch $0                       # Stack: $0
@@ -1728,28 +1728,28 @@ Push $R3 ;universal
 Push $R4 ;count (onwards)
 Push $R5 ;count (after)
 Push $R6 ;temp file name
- 
+
   GetTempFileName $R6
   FileOpen $R1 $0 r ;file to search in
   FileOpen $R0 $R6 w ;temp file
    StrLen $R3 $4
    StrCpy $R4 -1
    StrCpy $R5 -1
- 
+
 loop_read:
  ClearErrors
  FileRead $R1 $R2 ;read line
  IfErrors exit
- 
+
    StrCpy $5 0
    StrCpy $7 $R2
- 
+
 loop_filter:
    IntOp $5 $5 - 1
    StrCpy $6 $7 $R3 $5 ;search
    StrCmp $6 "" file_write1
    StrCmp $6 $4 0 loop_filter
- 
+
 StrCpy $8 $7 $5 ;left part
 IntOp $6 $5 + $R3
 IntCmp $6 0 is0 not0
@@ -1760,36 +1760,36 @@ not0:
 StrCpy $9 $7 "" $6 ;right part
 done:
 StrCpy $7 $8$3$9 ;re-join
- 
+
 IntOp $R4 $R4 + 1
 StrCmp $2 all loop_filter
 StrCmp $R4 $2 0 file_write2
 IntOp $R4 $R4 - 1
- 
+
 IntOp $R5 $R5 + 1
 StrCmp $1 all loop_filter
 StrCmp $R5 $1 0 file_write1
 IntOp $R5 $R5 - 1
 Goto file_write2
- 
+
 file_write1:
  FileWrite $R0 $7 ;write modified line
 Goto loop_read
- 
+
 file_write2:
  FileWrite $R0 $R2 ;write unmodified line
 Goto loop_read
- 
+
 exit:
   FileClose $R0
   FileClose $R1
- 
+
    SetDetailsPrint none
   Delete $0
   Rename $R6 $0
   Delete $R6
    SetDetailsPrint both
- 
+
 Pop $R6
 Pop $R5
 Pop $R4
@@ -1817,36 +1817,36 @@ Function StrTrimNewLines
   $R0 = String (input)
   $R1 = TrimCounter (temp)
   $R2 = Temp (temp)*/
- 
+
   ;Get input from user
   Exch $R0
   Push $R1
   Push $R2
- 
+
   ;Initialize trim counter
   StrCpy $R1 0
- 
+
   loop:
   ;Subtract to get "String"'s last characters
   IntOp $R1 $R1 - 1
- 
+
   ;Verify if they are either $\r or $\n
   StrCpy $R2 $R0 1 $R1
   ${If} $R2 == `$\r`
   ${OrIf} $R2 == `$\n`
     Goto loop
   ${EndIf}
- 
+
   ;Trim characters (if needed)
   IntOp $R1 $R1 + 1
   ${If} $R1 < 0
     StrCpy $R0 $R0 $R1
   ${EndIf}
- 
+
 /*After this point:
   ------------------------------------------
   $R0 = ResultVar (output)*/
- 
+
   ;Return output to user
   Pop $R2
   Pop $R1
@@ -1864,22 +1864,22 @@ Function .onInit
 
   # Initialize the value of the text string
   StrCpy $ExtraOpts ""
-  
+
   # Read the command-line parameters
   ${GetParameters} $Params
-  
+
   # Check for the presence of the -master flag
   ${GetOptions} "$Params" "-opts=" $R0
- 
+
   IfErrors optsDone copyOpts
     copyOpts:
       StrCpy $ExtraOpts $R0
     optsDone:
       ClearErrors
-      
+
   # Check for the presence of the stepExec
   ${GetOptions} "$Params" "-stepExec" $R0
- 
+
   IfErrors stepDone copyStep
     copyStep:
       StrCpy $stepExec true
@@ -1907,21 +1907,21 @@ Function startPostgres
 
   # Wait until postgres is stopped
   StrCpy $0 0
-  
+
   PostgresUp:
     # Sleep 2 seconds
-    Sleep 5000	
-	
+    Sleep 5000
+
 	# Increment the timeout counter
 	IntOp $0 $0 + 1
-	
+
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
       LogEx::Write "ERROR: PostgreSQL failed to start."
 	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to start." /SD IDOK
 	  Goto PostgresDown
-    ${EndIf}	
-	
+    ${EndIf}
+
 	IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgresDown PostgresUp
   PostgresDown:
 FunctionEnd
@@ -1929,18 +1929,18 @@ FunctionEnd
 Function stopPostgres
   pop $postgresToStop
   LogEx::Write "Stopping PostgreSQL at $INSTDIR\$postgresToStop"
-  
+
   # Wait until postgres is stopped
   StrCpy $0 0
-  
+
   PostgresUp:
     Push "ExecDos::End" # Add a marker for the loop to test for.
     ExecDos::exec /NOUNLOAD /TOSTACK `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\$postgresToStop\data"` "" "$AgentDir\postgresController.out"
     Pop $1 # return value
     StrCmp $1 0 TestFileExist
-    
+
 	LogEx::Write `ExecDos "$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\$postgresToStop\data" returned $1`
-	
+
 	# Print output from exec invocation
 	StrCpy $3 0
 	Loop:
@@ -1948,7 +1948,7 @@ Function stopPostgres
       StrCmp $1 "ExecDos::End" ExitLoop
 	  StrCmp $1 "$AgentDir\postgresController.out" SkipWrite
       LogEx::Write "stopPostgres  >  $1"
-	  
+
 	  SkipWrite:
 	  IntOp $3 $3 + 1
 	  ${If} $3 > 50
@@ -1957,23 +1957,23 @@ Function stopPostgres
         Goto Loop
 	  ${EndIf}
     ExitLoop:
-	
+
     # Sleep 2 seconds
-    Sleep 5000	
-	
+    Sleep 5000
+
 	# Increment the timeout counter
 	IntOp $0 $0 + 1
-	
+
 	# Third times the charm
 	${If} $0 > 2
       LogEx::Write "PostgreSQL failed to stop using pg_ctl. We will now try to stop the service."
-	  
+
 	  # If pg_ctl won't stop the server (which can happen if the installer runs, the machine does not reboot, and now we're patching)
 	  # Then our last resort is to stop the postgres service. There is a high likelihood of this working, assuming their machine isn't corrupt.
 	  ExecDos::exec /NOUNLOAD /TOSTACK `net stop postgresql-9.1` "" "$AgentDir\postgresController.out"
       Pop $1 # return value
       StrCmp $1 0 PostgresDown
-	  
+
 	  # Yikes, this is a problem if we get here.
 	  LogEx::Write "FATAL ERROR : Postgres failed to stop. This patcher is unsure about how to proceed. Please contact your technical support team."
 	  MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "Postgres failed to stop. This patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
@@ -1987,9 +1987,9 @@ Function stopPostgres
       LogEx::Write "User has opted to retry previously failed operation."
 	  Goto PostgresUp
     ${EndIf}
-	
+
 	Goto PostgresUp
-	
+
 	TestFileExist:
 	IfFileExists $INSTDIR\$postgresToStop\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
@@ -1998,9 +1998,9 @@ FunctionEnd
 # @author rrowlands
 Function execDos
   pop $9 # Argument command The command to execute
-  
+
   LogEx::Write "execDos  >  Executing command [$9]"
-  
+
   ${If} $stepExec == true
     MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION "We are about to execute a command (written to the log). How would you like to proceed?" /SD IDOK IDOK StepExecOk IDCANCEL StepExecCancel
 
@@ -2008,25 +2008,25 @@ Function execDos
     LogEx::Write "ExecDos: User is aborting."
     StrCpy $JavaError 1
     Call JavaAbort
-    
+
     StepExecOk:
     LogEx::Write "ExecDos: User has decided to execute the command."
   ${EndIf}
-  
+
   push "ExecDos::End" # Add a marker for the loop to test for.
   ExecDos::exec /NOUNLOAD /TOSTACK $9 "" "$AgentDir\postgresController.out"
   pop $8 # return value
-  
+
   # Print output from exec invocation
   StrCpy $7 0
   Loop:
     pop $6
     StrCmp $6 "ExecDos::End" ExitLoop
 	  StrCmp $6 "$AgentDir\postgresController.out" SkipWrite
-    
+
     LogEx::Write "execDos  >  $6"
 	  SkipWrite:
-    
+
     IntOp $7 $7 + 1
     ${If} $7 > 500 # You can increase this number to get more output
       LogEx::Write "execDos  >  ... additional output truncated ..."
@@ -2035,9 +2035,9 @@ Function execDos
       Goto Loop
     ${EndIf}
   ExitLoop:
-  
+
   StrCmp $8 0 WeAreDone
-  
+
   # Error handling
   LogEx::Write `ExecDos had an error. Exit code is $8`
   MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this patcher is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
@@ -2063,28 +2063,28 @@ Section /o -un.Main UNSEC0000
   SimpleSC::ServiceIsRunning "Tomcat"
   Pop $0 ; returns an errorcode (<>0) otherwise success (0)
   Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
-  
-  ${If} $1 <> 0  
-  
+
+  ${If} $1 <> 0
+
     # Try to stop the service
     SimpleSC::StopService "Tomcat" 1 60
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
-    
-    ${If} $0 <> 0        
+
+    ${If} $0 <> 0
 	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
         MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled" /SD IDOK
         Abort
     ${EndIf}
-    
+
   ${EndIf}
 
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
-  
+
   SimpleSC::ExistsService "Tomcat"
   Pop $0
-  
-  ${If} $0 == 0        
-    # Service exists, we need to delete it  
+
+  ${If} $0 == 0
+    # Service exists, we need to delete it
     LogEx::Write "Deleting tomcat service"
     ExecWait `$TomcatExec //DS//Tomcat`
   ${EndIf}
@@ -2093,7 +2093,7 @@ Section /o -un.Main UNSEC0000
   # Uninstall Postgres
   ################################################################################
   ExecWait `"$INSTDIR\$postgresToStop\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i`
-  
+
   ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
   ExecWait `SC DELETE postgresql-x64-9.4`
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
@@ -2103,7 +2103,7 @@ Section /o -un.Main UNSEC0000
   DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostGIS"
   RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
   UserMgr::DeleteAccount "ddmspostgres"
-  
+
   ################################################################################
   # Uninstall DDMS
   ################################################################################
@@ -2115,12 +2115,12 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
   DeleteRegValue HKLM "${REGKEY}\Components" Manager
-  DeleteRegValue HKLM "${REGKEY}\Components" Java 
-  DeleteRegValue HKLM "${REGKEY}\Components" Birt 
-  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse  
+  DeleteRegValue HKLM "${REGKEY}\Components" Java
+  DeleteRegValue HKLM "${REGKEY}\Components" Birt
+  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse
   DeleteRegValue HKLM "${REGKEY}\Components" Webapps
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
-  
+
   RmDir /r /REBOOTOK $INSTDIR
 SectionEnd
 
@@ -2136,7 +2136,7 @@ Function StrCase
   $6 = CurrentChar (temp)
   $7 = LastChar (temp)
   $8 = Temp (temp)*/
- 
+
   ;Get input from user
   Exch $1
   Exch
@@ -2149,7 +2149,7 @@ Function StrCase
   Push $6
   Push $7
   Push $8
- 
+
   ;Initialize variables
   StrCpy $2 ""
   StrCpy $3 ""
@@ -2158,43 +2158,43 @@ Function StrCase
   StrCpy $6 ""
   StrCpy $7 ""
   StrCpy $8 ""
- 
+
   ;Upper and lower cases are simple to use
   ${If} $1 == "U"
- 
+
     ;Upper Case:
     ;-----------
     ;Convert all characters to upper case.
- 
+
     System::Call "User32::CharUpper(t r0 r5)i"
     Goto StrCase_End
   ${ElseIf} $1 == "L"
- 
+
     ;Lower Case:
     ;-----------
     ;Convert all characters to lower case.
- 
+
     System::Call "User32::CharLower(t r0 r5)i"
     Goto StrCase_End
   ${EndIf}
- 
+
   ;For the rest of cases:
   ;Get "String" length
   StrLen $2 $0
- 
+
   ;Make a loop until the end of "String"
   ${For} $3 0 $2
     ;Add 1 to "EndChar" counter also
     IntOp $4 $3 + 1
- 
+
     # Step 1: Detect one character at a time
- 
+
     ;Remove characters before "StartChar" except when
     ;"StartChar" is the first character of "String"
     ${If} $3 <> 0
       StrCpy $6 $0 `` $3
     ${EndIf}
- 
+
     ;Remove characters after "EndChar" except when
     ;"EndChar" is the last character of "String"
     ${If} $4 <> $2
@@ -2204,22 +2204,22 @@ Function StrCase
         StrCpy $6 $6 1
       ${EndIf}
     ${EndIf}
- 
+
     # Step 2: Convert to the advanced case user chose:
- 
+
     ${If} $1 == "T"
- 
+
       ;Title Case:
       ;------------------
       ; Convert all characters after a non-alphabetic character to upper case.
       ; Else convert to lower case.
- 
+
       ;Use "IsCharAlpha" for the job
       System::Call "*(&t1 r7) i .r8"
       System::Call "*$8(&i1 .r7)"
       System::Free $8
       System::Call "user32::IsCharAlpha(i r7) i .r8"
- 
+
       ;Verify "IsCharAlpha" result and convert the character
       ${If} $8 = 0
         System::Call "User32::CharUpper(t r6 r6)i"
@@ -2227,18 +2227,18 @@ Function StrCase
         System::Call "User32::CharLower(t r6 r6)i"
       ${EndIf}
     ${ElseIf} $1 == "S"
- 
+
       ;Sentence Case:
       ;------------------
       ; Convert all characters after a ".", "!" or "?" character to upper case.
       ; Else convert to lower case. Spaces or tabs after these marks are ignored.
- 
+
       ;Detect current characters and ignore if necessary
       ${If} $6 == " "
       ${OrIf} $6 == "$\t"
         Goto IgnoreLetter
       ${EndIf}
- 
+
       ;Detect last characters and convert
       ${If} $7 == "."
       ${OrIf} $7 == "!"
@@ -2249,17 +2249,17 @@ Function StrCase
         System::Call "User32::CharLower(t r6 r6)i"
       ${EndIf}
     ${ElseIf} $1 == "<>"
- 
+
       ;Switch Case:
       ;------------------
       ; Switch all characters cases to their inverse case.
- 
+
       ;Use "IsCharUpper" for the job
       System::Call "*(&t1 r6) i .r8"
       System::Call "*$8(&i1 .r7)"
       System::Free $8
       System::Call "user32::IsCharUpper(i r7) i .r8"
- 
+
       ;Verify "IsCharUpper" result and convert the character
       ${If} $8 = 0
         System::Call "User32::CharUpper(t r6 r6)i"
@@ -2267,24 +2267,24 @@ Function StrCase
         System::Call "User32::CharLower(t r6 r6)i"
       ${EndIf}
     ${EndIf}
- 
+
     ;Write the character to "LastChar"
     StrCpy $7 $6
- 
+
     IgnoreLetter:
     ;Add this character to "ResultStr"
     StrCpy $5 `$5$6`
   ${Next}
- 
+
   StrCase_End:
- 
+
 /*After this point:
   ------------------------------------------
   $0 = ResultVar (output)*/
- 
+
   ; Copy "ResultStr" to "ResultVar"
   StrCpy $0 $5
- 
+
   ;Return output to user
   Pop $8
   Pop $7
@@ -2301,7 +2301,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"    
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"
@@ -2321,4 +2321,3 @@ Function un.onInit
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
   SetRebootFlag true
 FunctionEnd
-

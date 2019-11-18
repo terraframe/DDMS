@@ -1,0 +1,22 @@
+version: '3'
+services:
+  database:
+    container_name: ddms-build-database
+    image: mdillon/postgis:9.5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      PG_DATA: /var/lib/postgresql/data/pgdata
+    ports:
+     - "5482:5432"
+  web:
+    container_name: ddms-build
+    build: .
+    image: ddms-build
+    depends_on:
+     - database
+    volumes:
+     - /usr/bin/docker:/usr/bin/docker
+     - /var/run/docker.sock:/var/run/docker.sock
+    network_mode: "host"

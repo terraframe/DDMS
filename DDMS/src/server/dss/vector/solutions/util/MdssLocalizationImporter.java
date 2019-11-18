@@ -19,6 +19,7 @@ package dss.vector.solutions.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -323,7 +324,7 @@ public class MdssLocalizationImporter implements Reloadable
   {
     try
     {
-      File dir = FileIO.getDirectory("/" + bundle + ".properties");
+      File dir = FileIO.getDirectory("/master.properties");
 
       this.updateProperties(dir, bundle, sheet);
     }

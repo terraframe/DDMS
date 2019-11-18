@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="patch" default="build">
+
+	<!--
+    Run this with the -Dproject.root=<path/to/ddms/git/repo>
+  -->
+
+	<property name="nsis.exec" location="/usr/bin/makensis" />
+  <property name="python.exec" location="/usr/bin/python3" />
+	<property name="manager.dir" value="${project.root}/build/manager" />
+	<property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />
+	<property name="ddms.dir" value="${project.root}/DDMS" />
+	<property name="doc.dir" value="${ddms.dir}/doc" />
+	<property name="patch.stage" value="${project.root}/build/patcher/stage" />
+	<property name="geodata.db" value="mrc_blank" />
+
+<!--
+  ===============
+    BUILD FLAGS
+  ===============
+  Copy and paste these depends into the target below to modify what you're building
+
+	<target name="build" >
+	<target name="build" depends="setup-files">
+-->
+	<target name="build" depends="setup-files">
+
+		<!-- Get revision info from git -->
+    <exec executable="${python.exec}" failonerror="true">
+		  <arg line="${project.root}/build/ddms-revision-info.py"/>
+		  <arg line="${project.root}/build/patcher/patcher.nsi" />
+		  <arg line="${project.root}"/>
+		</exec>
+
+		<!-- Copy over an updated serverExceptions.property file -->
+		<copy file="${ddms.dir}/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
+
+		<!-- Compile all-in-one-patch.nsi -->
+		<exec executable="${nsis.exec}" dir="." failonerror="true" searchpath="true" logError="true">
+			<arg line="${project.root}/build/patcher/patcher.nsi" />
+		</exec>
+	</target>
+
+	<target name="setup-files">
+		<delete dir="${patch.stage}/webapp" includeemptydirs="true" />
+
+		<!-- Compile -->
+		<ant inheritAll="false" dir="${ddms.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+
+		<!-- Generate an up to date localization spread sheet -->
+<!--
+
+		<ant inheritAll="false" dir="${ddms.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+-->
+		<!-- Get a copy of all web files -->
+
+		<ant inheritAll="false" dir="${ddms.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
+			<property name="profile.name" value="patch" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+
+		<!-- Copy in the appropriate geo universals xls -->
+		<copy file="${doc.dir}/country/${geodata.db}-universals.xls" tofile="${patch.stage}/geo-universals.xls" />
+
+		<!-- Create the local-develop.properties file -->
+		<copy file="${patch.stage}/webapp/WEB-INF/classes/local.properties" tofile="${patch.stage}/webapp/WEB-INF/classes/local-develop.properties" />
+		<replace file="${patch.stage}/webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
+
+		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
+		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
+		<delete file="${patch.stage}/webapp/WEB-INF/classes/terraframe.properties" />
+		<delete file="${patch.stage}/webapp/WEB-INF/classes/database.properties" />
+		<delete file="${patch.stage}/webapp/WEB-INF/classes/common.properties" />
+    <delete file="${patch.stage}/webapp/WEB-INF/classes/analytics.properties" />
+		<!-- <delete file="${patch.stage}/webapp/login.jsp" /> -->
+		<delete file="${patch.stage}/webapp/WEB-INF/originalVersion.jsp" />
+
+		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
+		<delete file="${patch.stage}/webapp/imgs/flags/current" />
+
+
+    <!-- Since localization files are versioned now, we want to make sure that we delete these files otherwise they will overwrite localization on our target machine. -->
+    <delete file="${patch.stage}/webapp/WEB-INF/classes/MDSS.properties" />
+    <delete file="${patch.stage}/webapp/WEB-INF/classes/clientExceptions.properties" />
+    <delete file="${patch.stage}/webapp/WEB-INF/classes/commonExceptions.properties" />
+    <delete file="${patch.stage}/webapp/WEB-INF/classes/serverExceptions.properties" />
+
+
+		<!-- Delete the source and classes directory of the MERG survey form, so that we don't overwrite any custom fields. -->
+		<delete>
+          <fileset dir="${patch.stage}/webapp/WEB-INF/classes/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.class"/>
+			<exclude name="**/*FormSurveyController*.class"/>
+			<exclude name="**/*FormSurvey.class"/>
+			<exclude name="**/*FormHousehold.class"/>
+		  </fileset>
+		</delete>
+		<delete>
+          <fileset dir="${patch.stage}/webapp/WEB-INF/source/server/stub/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.java"/>
+			<exclude name="**/*FormSurvey.java"/>
+			<exclude name="**/*FormHousehold.java"/>
+		  </fileset>
+		</delete>
+		<delete dir="${patch.stage}/webapp/WEB-INF/source/server/base/dss/vector/solutions/form/business" />
+		<delete>
+          <fileset dir="${patch.stage}/webapp/WEB-INF/source/client/stub/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.java"/>
+			<exclude name="**/*FormSurveyController*.java"/>
+		  </fileset>
+		</delete>
+		<delete>
+          <fileset dir="${patch.stage}/webapp/WEB-INF/source/client/base/dss/vector/solutions/form/business" casesensitive="yes">
+            <include name="**/*.java"/>
+			<exclude name="**/*FormSurveyController*.java"/>
+		  </fileset>
+		</delete>
+	</target>
+</project>

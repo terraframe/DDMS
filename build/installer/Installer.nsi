@@ -82,7 +82,7 @@ Var WebappsVersion          # Version of webapps directory contained in the inst
 Var PatchVersion
 Var RootsVersion
 Var MenuVersion
-Var IdVersion				# Version of the predictive id change in the install. 
+Var IdVersion				# Version of the predictive id change in the install.
 Var LocalizationVersion
 Var PermissionsVersion
 Var TomcatVersion
@@ -134,13 +134,13 @@ ShowUninstDetails show
 RequestExecutionLevel admin
 
 ; StrContains
-; This function does a case sensitive searches for an occurrence of a substring in a string. 
-; It returns the substring if it is found. 
-; Otherwise it returns null(""). 
+; This function does a case sensitive searches for an occurrence of a substring in a string.
+; It returns the substring if it is found.
+; Otherwise it returns null("").
 ; Written by kenglish_hi
 ; Adapted from StrReplace written by dandaman32
- 
- 
+
+
 Var STR_HAYSTACK
 Var STR_NEEDLE
 Var STR_CONTAINS_VAR_1
@@ -148,7 +148,7 @@ Var STR_CONTAINS_VAR_2
 Var STR_CONTAINS_VAR_3
 Var STR_CONTAINS_VAR_4
 Var STR_RETURN_VAR
- 
+
 Function StrContains
   Exch $STR_NEEDLE
   Exch 1
@@ -170,16 +170,16 @@ Function StrContains
       Goto done
     done:
    Pop $STR_NEEDLE ;Prevent "invalid opcode" errors and keep the
-   Exch $STR_RETURN_VAR  
+   Exch $STR_RETURN_VAR
 FunctionEnd
- 
+
 !macro _StrContainsConstructor OUT NEEDLE HAYSTACK
   Push `${HAYSTACK}`
   Push `${NEEDLE}`
   Call StrContains
   Pop `${OUT}`
 !macroend
- 
+
 !define StrContains '!insertmacro "_StrContainsConstructor"'
 
 
@@ -187,53 +187,53 @@ Function appNameInputPage
   !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
   nsDialogs::Create 1018
   Pop $TfDialog
-  
+
   ${If} $TfDialog == error
     Abort
   ${EndIf}
-  
+
   # Create the label, which gets put on the stack
   ${NSD_CreateLabel} 0 2u 25% 12u "Installation Name"
   # Pop the label off the stack and store it in $Label
   Pop $Label
-  
+
   ${NSD_CreateText} 25% 0 74% 12u $AppName
   Pop $Text
   # Set up the number validator
   ${NSD_OnChange} $Text sanitizeName
-  
+
   ${NSD_CreateHLine} 0 18u 100% 2 "HLine"
   Pop $Label
-  
+
   # Create the label, which gets put on the stack
   ${NSD_CreateLabel} 0 23u 100% 32u "The installation name must be unique, and can only contain URL characters: alpha, numbers, - and _"
   # Pop the label off the stack and store it in $Label
   Pop $Label
-  
+
   nsDialogs::Show
 FunctionEnd
 
 Function appNameUniquenessCheck
     ClearErrors
     FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-    
+
     appNameFileReadLoop:
     # Read a line from the file into $1
     FileRead $0 $1
     # Errors means end of File
     IfErrors appNameDone
-    
+
     # Removes the newline from the end of $1
     ${StrTrimNewLines} $1 $1
-    
+
     StrCmp $AppName $1 appNameCollision appNameFileReadLoop
-    
+
     appNameCollision:
 	  LogEx::Write "FATAL: $1 already exists.  Please choose another name."
       MessageBox MB_OK|MB_ICONSTOP "$1 already exists.  Please choose another name." /SD IDOK
 	  FileClose $0
     Abort
-    
+
     appNameDone:
     ClearErrors
 	FileClose $0
@@ -241,7 +241,7 @@ FunctionEnd
 
 Function sanitizeName
   Pop $1 # $1 == $ Text
-  
+
   ${NSD_GetText} $Text $0
   StrCpy $AppName $0
   ${CharStrip} "/" $0 $0
@@ -270,43 +270,43 @@ Function sanitizeName
   ${CharStrip} "~" $0 $0
   ${CharStrip} "`" $0 $0
   ${CharStrip} "." $0 $0
-  
+
   StrCmp $AppName $0 +2
-  
+
   ${NSD_SetText} $Text $0
-  
+
 FunctionEnd
 
 Function locationInputPage
   StrCpy $R8 3 ;This is the third page
-  
+
   !insertmacro MUI_HEADER_TEXT "Installation Folder" "Specify the installation folder"
 FunctionEnd
 
 Function stopPostgres
   LogEx::Write "Stopping PostgreSQL at $INSTDIR\${POSTGRES_DIR}"
-  
+
   # Wait until postgres is stopped
   StrCpy $0 0
-  
+
   PostgresUp:
     ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe stop -D $INSTDIR\${POSTGRES_DIR}\data" "" "$INSTDIR\installer-log.txt"
     Pop $1 # return value
     StrCmp $1 0 TestFileExist 0
-    
+
     # Sleep 2 seconds
-    Sleep 5000	
-	
+    Sleep 5000
+
 	# Increment the timeout counter
 	IntOp $0 $0 + 1
-	
+
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
       LogEx::Write "ERROR: PostgreSQL failed to stop."
 	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to stop." /SD IDOK
 	  Goto PostgresDown
-    ${EndIf}	
-	
+    ${EndIf}
+
 	TestFileExist:
 	IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
@@ -318,21 +318,21 @@ Function startPostgres
 
   # Wait until postgres is stopped
   StrCpy $0 0
-  
+
   PostgresUp:
     # Sleep 2 seconds
-    Sleep 5000	
-	
+    Sleep 5000
+
 	# Increment the timeout counter
 	IntOp $0 $0 + 1
-	
+
 	# Check to make sure the timeout hasn't expired
 	${If} $0 > 50
       LogEx::Write "ERROR: PostgreSQL failed to start."
 	  MessageBox MB_OK|MB_ICONSTOP "Postgres failed to start." /SD IDOK
 	  Goto PostgresDown
-    ${EndIf}	
-	
+    ${EndIf}
+
 	IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgresDown PostgresUp
   PostgresDown:
 FunctionEnd
@@ -342,7 +342,7 @@ FunctionEnd
 Section -Main SEC0000
 
     SetOutPath $INSTDIR
-    
+
     # These version numbers are automatically regexed by ant
     StrCpy $PatchVersion 1573090650
     StrCpy $RootsVersion 1572381298
@@ -350,25 +350,25 @@ Section -Main SEC0000
     StrCpy $LocalizationVersion 1572381298
     StrCpy $PermissionsVersion 1572381298
 	StrCpy $RunwayVersion 1572056769
-	StrCpy $IdVersion 7686	
+	StrCpy $IdVersion 7686
 	StrCpy $ManagerVersion 1573090650
 	StrCpy $BirtVersion 1572056769
-	StrCpy $EclipseVersion 1572056769  
+	StrCpy $EclipseVersion 1572056769
 	StrCpy $WebappsVersion 1524675281
 	StrCpy $JavaVersion 1572056769
 	StrCpy $TomcatVersion 1572056769
-  
+
   # These ones are not
   StrCpy $ODKDatabaseVersion 2
   StrCpy $BasemapDatabaseVersion 1
-  
-	
+
+
 	# Set up our logger
 	LogEx::Init "$INSTDIR\installer-log.txt"
     StrCmp $Master_Value "true" +1 +2
     LogEx::Write "Beginning MASTER install named $AppName"
     LogEx::Write "Beginning dependent install named $AppName"
-	
+
     # Calculate Java max memory (xmx)
 	System::Alloc 64
 	Pop $0
@@ -450,34 +450,34 @@ Section -Main SEC0000
 	${EndIf}
 	StrCpy $MaxMem $1
 	LogEx::Write "MaxMem set to $MaxMem"
-	
-	
-    # Determine the location of java home.	
+
+
+    # Determine the location of java home.
     ${IfNot} ${RunningX64}
       StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
       StrCpy $JvmType true
-      #StrCpy $MaxMem 768	  
+      #StrCpy $MaxMem 768
       StrCpy $PermMem 256
     ${Else}
-      StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66	  
+      StrCpy $JavaHome $INSTDIR\Java\jdk1.8.0_66
       StrCpy $JvmType false
       #StrCpy $MaxMem 3072
       StrCpy $PermMem 512
     ${EndIf}
 	StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
-	
-	
+
+
     StrCpy $JavaOpts "-Xmx$MaxMemM -XX:MaxPermSize=$PermMemM"
-    
+
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
     StrCmp $FPath "" installFireFox doneInstallFireFox
     installFireFox:
     LogEx::Write "Installing Firefox 27.0.1"
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
-	 
-	File "Firefox Setup 27.0.1.exe"
-	
+
+	File "..\thirdparty\firefox\Firefox Setup 27.0.1.exe"
+
 	${If} ${Silent}
 	    push `"$INSTDIR\Firefox Setup 27.0.1.exe -ms"`
 		Call execDos
@@ -485,38 +485,38 @@ Section -Main SEC0000
         push `"$INSTDIR\Firefox Setup 27.0.1.exe"`
 		Call execDos
 	${EndIf}
-	
+
       Call findFireFox
     doneInstallFireFox:
-      
+
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Verifying Firefox Installation"
     StrCmp $FPath "" fireFoxNotFound fireFoxFound
     fireFoxNotFound:
 	  LogEx::Write "ERROR: Firefox 27.0.1 was not found."
       MessageBox MB_OK|MB_ICONEXCLAMATION "Could not find FireFox. The installer can continue, but you may need to install Firefox yourself." /SD IDOK
-    
+
     fireFoxFound:
     #Determine if this is a full install or just another app
     ReadRegStr $0 HKLM "${REGKEY}\Components" Main
     StrCmp $0 "" 0 appInstall
     LogEx::Write "Firefox 27.0.1 is installed."
-    
+
     # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
 #    SetOutPath $INSTDIR
 #    File closeme.html
 #    File logo.gif
 #	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html"`
-    
+
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Qcal"
     LogEx::Write "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
-    File /r /x .svn IRMA\*
-    
+    File /r /x .svn ..\thirdparty\IRMA\*
+
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing BIRT"
     LogEx::Write "Installing BIRT"
     SetOutPath $INSTDIR\birt
-    File /r /x .svn birt\*
-    
+    File /r /x .svn ..\thirdparty\birt\*
+
     ################################################################################
     # Copy over the Eclipse
     ################################################################################
@@ -524,223 +524,218 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Eclipse"
     LogEx::Write "Installing Eclipse"
     SetOutPath $INSTDIR\eclipse
-    File /r /x .svn eclipse\*
-    
+    File /r /x .svn ..\thirdparty\eclipse\*
+
     # Add the special elevation command for backup/restore
     LogEx::Write "Adding special elevation command for backup/restore"
     SetOutPath $INSTDIR
     File elevate.cmd
     File elevate.vbs
-    
+
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Java"
     LogEx::Write "Installing Java"
     SetOutPath $INSTDIR\Java
-    File /r /x .svn Java\*
-    
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying docs"
-    LogEx::Write "Copying docs"
-    SetOutPath $INSTDIR\doc
-    File /r /x .svn doc\*
+    File /r /x .svn ..\thirdparty\Java\*
 
   ${IfNot} ${FileExists} `$INSTDIR\tomcat\*.*`
-    
+
     # To accomodate multi-installs, this does not include the user-named webapp, which is instead copied later
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat
-	
+
   	${If} ${RunningX64}
 	    LogEx::Write "Installing Tomcat 64-bit"
-	    File /r /x .svn /x webapps\DDMS\ tomcat\tomcat64\*
+	    File /r /x .svn /x webapps\DDMS\ ..\thirdparty\tomcat\tomcat64\*
 	  ${Else}
 	    LogEx::Write "Installing Tomcat 32-bit"
-	    File /r /x .svn /x webapps\DDMS\ tomcat\tomcat32\*
+	    File /r /x .svn /x webapps\DDMS\ ..\thirdparty\tomcat\tomcat32\*
   	${EndIf}
-	
+
   	SetOutPath $INSTDIR\tomcat\webapps
-	  File /r /x .svn tomcat\webapps\*
+	  File /r /x .svn ..\thirdparty\tomcat\webapps\*
 	${EndIf}
-	
+
     # Install Postgres
 	SetOutPath $INSTDIR
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
     LogEx::Write "Installing PostgreSQL"
-	
+
 	CreateDirectory $INSTDIR\${POSTGRES_DIR}
 	${If} ${RunningX64}
-	  File "postgresql-9.6.3-2-windows-x64.exe"
+	  File "..\thirdparty\postgres\postgresql-9.6.3-2-windows-x64.exe"
       push `"$INSTDIR\postgresql-9.6.3-2-windows-x64.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
 	  Call execDos
 	${Else}
-	  File "postgresql-9.6.3-2-windows.exe"
+	  File "..\thirdparty\postgres\postgresql-9.6.3-2-windows.exe"
       push `"$INSTDIR\postgresql-9.6.3-2-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix $INSTDIR\${POSTGRES_DIR} --datadir $INSTDIR\${POSTGRES_DIR}\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
 	  Call execDos
 	${EndIf}
-	
+
 	#IfErrors PostgresInstallError PostgressInstallSuccess
 	#IfFileExists $INSTDIR\${POSTGRES_DIR}\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
 	#PostgresInstallError:
 	#MessageBox MB_OK "Postgres failed to install correctly" /SD IDOK
 	#Abort
-	
+
 	#PostgressInstallSuccess:
     Call stopPostgres
-	
+
     # Get the Windows Version (XP, Vista, etc.)
     nsisos::osversion
-    
+
     LogEx::Write "Installing custom pg_hba.conf"
     # Version 5 means XP.  No IPv6
     ${If} $0 == 5
       File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "pg_hba_ipv4.conf"
-    
+
     # Version 5 means Vista or Seven.  IPv6 enabled
     ${ElseIf} $0 == 6
       File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "pg_hba_ipv6.conf"
-    
+
     # Who knows what version we're on.
     ${Else}
       LogEx::Write "ERROR: Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
 	  MessageBox MB_OK|MB_ICONEXCLAMATION "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms." /SD IDOK
       File "/oname=$INSTDIR\${POSTGRES_DIR}\data\pg_hba.conf" "pg_hba_ipv6.conf"
     ${EndIf}
-    
+
     # Copy the tweaked postgres config
     LogEx::Write "Installing custom postgresql.conf"
     File "/oname=$INSTDIR\${POSTGRES_DIR}\data\postgresql.conf" "postgresql.conf"
-	
-	Sleep 2000    
+
+	Sleep 2000
 	DetailPrint "The database is initializing. This may take a few minutes."
 	LogEx::Write "The database is initializing. This may take a few minutes."
 	Call startPostgres
-    
+
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
     LogEx::Write "Installing PostGIS"
 	CreateDirectory $INSTDIR\installer\postgis
 	${If} ${RunningX64}
 	  SetOutPath "$INSTDIR\installer\postgis"
-	  File /r "..\installer-stage\postgis-bundle-pg96-2.3.2x64\*"
+	  File /r "..\thirdparty\postgis\postgis-bundle-pg96-2.3.2x64\*"
 	  push `"$INSTDIR\installer\postgis\makepostgisdb_using_extensions.bat"`
 	  Call execDos
 	${Else}
 	  SetOutPath "$INSTDIR\installer\postgis"
-	  File /r "..\installer-stage\postgis-bundle-pg96-2.3.1x32\*"
+	  File /r "..\thirdparty\postgis\postgis-bundle-pg96-2.3.1x32\*"
 	  push `"$INSTDIR\installer\postgis\makepostgisdb_using_extensions.bat"`
 	  Call execDos
 	${EndIf}
 	RmDir /r "$INSTDIR\installer\postgis"
 
-	# Install tomcat as a service	
+	# Install tomcat as a service
     LogEx::Write "Configuring Tomcat as a service"
     push `$TomcatExec //IS//Tomcat --DisplayName="DDMS"  --Install="$TomcatExec" --Jvm=$JavaHome\jre\bin\server\jvm.dll --StartMode=jvm --StopMode=jvm --StartClass=org.apache.catalina.startup.Bootstrap --StartParams=start --StopClass=org.apache.catalina.startup.Bootstrap --StopParams=stop`
     Call execDos
-	
+
 	# Set tomcat service parameters
-    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`	
+    push `$TomcatExec //US//Tomcat --Startup=manual --StartMode=jvm --StopMode=jvm --JavaHome=$JavaHome --Classpath="$JavaHome\lib\tools.jar;$INSTDIR\tomcat\bin\bootstrap.jar;C:\MDSS\tomcat\bin\tomcat-juli.jar" --JvmOptions="-Xmx$MaxMemM;-XX:MaxPermSize=$PermMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp"`
 	Call execDos
-	
+
 	# Update the firewall to allow the tomcat service
 	SimpleFC::AdvAddRule "DDMS Tomcat" "DDMS Tomcat" "6" "1" "1" "4" "1" "$INSTDIR\tomcat\bin\tomcat8.exe" "" "@$INSTDIR\tomcat\bin\tomcat8.exe,-10000" "" "" "" ""
-	
-	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"	
-    
+
+	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
+
     # We jump to this point if only installing a new app
     appInstall:
-    
+
 	# Update the DDMS Manager
-    
+
     ${IfNot} ${FileExists} `$INSTDIR\manager\*.*`
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
     LogEx::Write "Installing DDMS Managers"
-    
+
       SetOutPath $INSTDIR\manager
-      File ..\standalone\patch\manager.bat
-  	  File ..\standalone\patch\manager.ps1
-      File ..\standalone\patch\manager.ico
-	    File ..\standalone\patch\ddmschedule.bat
-	    File ..\standalone\patch\ddmscli.bat
+      File ..\manager\patch\manager.bat
+  	  File ..\manager\patch\manager.ps1
+      File ..\manager\patch\manager.ico
+	    File ..\manager\patch\ddmschedule.bat
+	    File ..\manager\patch\ddmscli.bat
       SetOutPath $INSTDIR\manager\backup-manager-1.0.0
-      File /r /x .svn ..\standalone\backup-manager-1.0.0\*
+      File /r /x .svn ..\manager\backup-manager-1.0.0\*
       SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
-      File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
+      File /r /x .svn ..\manager\ddms-initializer-1.0.0\*
       SetOutPath $INSTDIR\manager\geo-manager-1.0.0
-      File /r /x .svn ..\standalone\geo-manager-1.0.0\*
+      File /r /x .svn ..\manager\geo-manager-1.0.0\*
       SetOutPath $INSTDIR\manager\synch-manager-1.0.0
-      File /r /x .svn ..\standalone\synch-manager-1.0.0\*
+      File /r /x .svn ..\manager\synch-manager-1.0.0\*
       SetOutPath $INSTDIR\manager\keystore
-      File /r /x .svn ..\standalone\doc\keystore\*
-	
+      File /r /x .svn ..\manager\doc\keystore\*
+
     	# Update the manager, but don't overwrite the applications.txt if it already exists.
 	    SetOutPath $INSTDIR\manager\manager-1.0.0
-  	  File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
+  	  File /r /x .svn /x *applications.txt ..\manager\manager-1.0.0\*
 
     	SetOverwrite off
 	    SetOutPath $INSTDIR\manager\manager-1.0.0\classes
-  	  File ..\standalone\manager-1.0.0\classes\applications.txt
+  	  File ..\manager\manager-1.0.0\classes\applications.txt
   	  SetOverwrite on
-    
-    ${EndIf}  
 
-    
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Creating offline basemap cache"    
-	
+    ${EndIf}
+
+
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Creating offline basemap cache"
+
     # Create offline basemap cache directory
     IfFileExists $INSTDIR\basemaps BASEMAP_EXIST BASEMAP_NO_EXIST
   BASEMAP_NO_EXIST:
     LogEx::Write "3527 Creating offline basemap cache directory."
     CreateDirectory $INSTDIR\basemaps
-    
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER osm WITH PASSWORD 'osm';"`
     Call execDos
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE osm WITH OWNER = osm;"`
     Call execDos
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "GRANT ALL ON DATABASE osm TO osm;"`
     Call execDos
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION hstore;"`
     Call execDos
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d osm -c "CREATE EXTENSION postgis;"`
     Call execDos
-    
+
   BASEMAP_EXIST:
-    
+
   SetOutPath "C:\libs\share\osm2pgsql"
-  File /r "..\installer-stage\osm2pgsql\*"
-  
+  File /r "..\thirdparty\osm2pgsql\*"
+
   SetOutPath "C:\libs\share\osmconvert"
-    
+
   ${If} ${RunningX64}
         LogEx::Write "Installing 64 bit oscconvert library."
 
-    File /r "..\installer-stage\osmconvert\64bit\*"
+    File /r "..\thirdparty\osmconvert\64bit\*"
   ${Else}
         LogEx::Write "Installing 32 bit oscconvert library."
 
-    File /r "..\installer-stage\osmconvert\32bit\*"
+    File /r "..\thirdparty\osmconvert\32bit\*"
   ${EndIf}
-  
+
   WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
-  
-    
+
+
   # Create & Configure ODK Database
   ClearErrors
   ReadRegStr $0 HKLM "${REGKEY}\Components" ODKDatabaseVersion
   IfErrors ODKDatabaseVersionErrors
   ${If} $0 < 1
     ODKDatabaseVersionErrors:
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create database odk;"`
     Call execDos
     # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user odk_user with unencrypted password 'noReply'; grant all privileges on database odk to odk_user;"`
-    # Call execDos  
+    # Call execDos
     # push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema odk; grant all privileges on schema odk to odk_user; alter schema odk owner to odk_user;"`
     # Call execDos
-    
-    
+
+
     WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
   ${Else}
     LogEx::Write "Skipping odk database software update because the software is up to date."
@@ -752,8 +747,8 @@ Section -Main SEC0000
     LogEx::Write "Copying the webapp to $INSTDIR\tomcat\webapps\$AppName"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
     File /r /x .svn webapp\*
-    SetOutPath $INSTDIR  
-    
+    SetOutPath $INSTDIR
+
 	# Update index.html redirect
 	Push DDMS                                      # text to be replaced
 	Push $AppName                                  # replace with
@@ -761,7 +756,7 @@ Section -Main SEC0000
 	Push all                                       # replace all occurrences
 	Push $INSTDIR\tomcat\webapps\ROOT\index.html   # file to replace in
 	Call AdvReplaceInFile
-	
+
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
@@ -769,7 +764,7 @@ Section -Main SEC0000
     Call execDos
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template_postgis OWNER=mdssdeploy"`
     Call execDos
-	
+
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
@@ -780,25 +775,25 @@ Section -Main SEC0000
 	  Call execDos
 	  push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d $LowerAppName -c "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch"`
 	  Call execDos
-	
+
     # Update the installation number
     LogEx::Write "Updating the installation number"
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     Call execDos
-	
+
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f $INSTDIR\PostgreSql /r /d y
     # icalcs $INSTDIR\PostgreSql /grant administrators:F /t
-    
-    # Update lots of things	
+
+    # Update lots of things
 	ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
 	push `$JavaHome\bin\java.exe $JavaOpts -cp "$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType`
 	Call execDos
-	
+
 	skipErrorMsg:
-	
-    # Update the pathing for java	
+
+    # Update the pathing for java
     LogEx::Write "Updating java pathing"
 
     # Update startup.bat
@@ -808,15 +803,15 @@ Section -Main SEC0000
 	Push all                               # replace all occurrences
 	Push $INSTDIR\tomcat\bin\startup.bat  # file to replace in
 	Call AdvReplaceInFile
-	
+
     # Update shutdown.bat
 	Push JAVA_HOME_VALUE                   # text to be replaced
 	Push $JavaHome                         # replace with
 	Push all                               # replace all occurrences
 	Push all                               # replace all occurrences
 	Push $INSTDIR\tomcat\bin\shutdown.bat # file to replace in
-	Call AdvReplaceInFile	
-	
+	Call AdvReplaceInFile
+
 	# Update manager.bat
 	Push JAVA_HOME_VALUE                   # text to be replaced
 	Push $JavaHome                         # replace with
@@ -824,75 +819,75 @@ Section -Main SEC0000
 	Push all                               # replace all occurrences
 	Push $INSTDIR\manager\manager.bat      # file to replace in
 	Call AdvReplaceInFile
-	
+
     ################################################################################
     # Update the manager memory settings for 64-bit installs
     ################################################################################
-	
-    ${If} ${RunningX64}    
-	  
+
+    ${If} ${RunningX64}
+
 	  # Update max memory
 	  Push process.memory.max=1024M                                       # text to be replaced
 	  Push process.memory.max=3072M                                       # replace with
 	  Push all                                                            # replace all occurrences
 	  Push all                                                            # replace all occurrences
 	  Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
-	  Call AdvReplaceInFile  
-	  
+	  Call AdvReplaceInFile
+
 	  # Update perm gen memory
 	  Push process.perm.size=256M                                         # text to be replaced
 	  Push process.perm.size=512M                                         # replace with
 	  Push all                                                            # replace all occurrences
 	  Push all                                                            # replace all occurrences
 	  Push $INSTDIR\manager\manager-1.0.0\classes\manager.properties      # file to replace in
-	  Call AdvReplaceInFile  
-	${EndIF}	
-	
+	  Call AdvReplaceInFile
+	${EndIF}
+
 	# Update tomcat service parameters
 	LogEx::AddFile "   >" "$INSTDIR\ServiceSetup.log"
-    push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`	
+    push `$TomcatExec //US//Tomcat --JvmMs="512" --JvmMx="$MaxMem" --JvmOptions="-Xmx$MaxMemM;-Dfile.encoding=UTF8;-Djava.util.logging.config.file=$INSTDIR\tomcat\conf\logging.properties;-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager;-Djavax.net.ssl.trustStorePassword=1206b6579Acb3;-Djavax.net.ssl.trustStore=$INSTDIR\manager\keystore\ddms.ts;-Djavax.net.ssl.keyStorePassword=4b657920666fZ;-Djavax.net.ssl.keyStore=$INSTDIR\manager\keystore\ddms.ks;-Djava.endorsed.dirs=$INSTDIR\tomcat\endorsed;-Dcatalina.base=$INSTDIR\tomcat;-Dcatalina.home=$INSTDIR\tomcat;-Djava.io.tmpdir=$INSTDIR\tomcat\temp" --LogPath="$INSTDIR\logs"`
 	Call execDos
-	
+
 	Rename $INSTDIR\tomcat\bin\tomcat8w.exe $INSTDIR\tomcat\bin\tomcatw.exe
-	
+
     # Copy the profile to the backup manager
     LogEx::Write "Copying profile to backup manager"
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     CopyFiles /FILESONLY $INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-    
-    # Copy in the pregenerated cache files
-    LogEx::Write "Copying over pregenerated cache files"
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
-	SetOutPath $INSTDIR\tomcat\cache\global
-	File /r /x .svn cache\global\*
-	Rename $INSTDIR\tomcat\cache\global\DDMS $INSTDIR\tomcat\cache\global\$AppName
-	  # The cache is a directory called DDMS_autogenerated. We need to rename this to $AppName_autogenerated.
-	  # R0=fileHandle R1=filename
-	  LogEx::Write "Searching for folders under $INSTDIR\tomcat\cache\global\$AppName\*"
-      ClearErrors
-	  FindFirst $R0 $R1 "$INSTDIR\tomcat\cache\global\$AppName\*.*"
-      IfErrors Exit
-      
-      Top:
-        StrCmp $R1 "." Next
-        StrCmp $R1 ".." Next
-        IfFileExists "$INSTDIR\tomcat\cache\global\$AppName\$R1\*.*" 0 Next
-        # We found the cache!!
-		LogEx::Write "Found a directory named [$R1]. Renaming to [$INSTDIR\tomcat\cache\global\$AppName\$AppName_5bc784535e21ff17222e498cce8207ece6e49cf8]"
-	    Rename "$INSTDIR\tomcat\cache\global\$AppName\$R1" "$INSTDIR\tomcat\cache\global\$AppName\$AppName_5bc784535e21ff17222e498cce8207ece6e49cf8"
-        Goto Exit
-        
-        Next:
-		  LogEx::Write "Skipping [$R1] and continuing the loop."
-          ClearErrors
-          FindNext $R0 $R1
-          IfErrors Exit
-          Goto Top
-        
-      Exit:
-	    LogEx::Write "Exiting Find loop."
-        FindClose $R0
-	  
+
+    ## Copy in the pregenerated cache files
+    #LogEx::Write "Copying over pregenerated cache files"
+    #!insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
+	  #SetOutPath $INSTDIR\tomcat\cache\global
+	  #File /r /x .svn cache\global\*
+	  #Rename $INSTDIR\tomcat\cache\global\DDMS $INSTDIR\tomcat\cache\global\$AppName
+	  ## The cache is a directory called DDMS_autogenerated. We need to rename this to $AppName_autogenerated.
+	  ## R0=fileHandle R1=filename
+	  #LogEx::Write "Searching for folders under $INSTDIR\tomcat\cache\global\$AppName\*"
+    #  ClearErrors
+	  #FindFirst $R0 $R1 "$INSTDIR\tomcat\cache\global\$AppName\*.*"
+    #  IfErrors Exit
+
+    #  Top:
+    #    StrCmp $R1 "." Next
+    #    StrCmp $R1 ".." Next
+    #    IfFileExists "$INSTDIR\tomcat\cache\global\$AppName\$R1\*.*" 0 Next
+    #    # We found the cache!!
+		#LogEx::Write "Found a directory named [$R1]. Renaming to [$INSTDIR\tomcat\cache\global\$AppName\$AppName_5bc784535e21ff17222e498cce8207ece6e49cf8]"
+	  #  Rename "$INSTDIR\tomcat\cache\global\$AppName\$R1" "$INSTDIR\tomcat\cache\global\$AppName\$AppName_5bc784535e21ff17222e498cce8207ece6e49cf8"
+    #    Goto Exit
+
+    #    Next:
+		#  LogEx::Write "Skipping [$R1] and continuing the loop."
+    #      ClearErrors
+    #      FindNext $R0 $R1
+    #      IfErrors Exit
+    #      Goto Top
+
+    #  Exit:
+	  #  LogEx::Write "Exiting Find loop."
+    #    FindClose $R0
+
 	  LogEx::Write "Writing version numbers to registry"
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
@@ -901,20 +896,20 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
-	WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion	
+	  WriteRegStr HKLM "${REGKEY}\Components\$AppName" IdVersion $IdVersion
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
     WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
     WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
-    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion    
+    WriteRegStr HKLM "${REGKEY}\Components" Eclipse $EclipseVersion
     WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
-	WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
-	
-	WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 2
+	  WriteRegStr HKLM "${REGKEY}\Components" Tomcat $TomcatVersion
+
+	  WriteRegStr HKLM "${REGKEY}\Components\$AppName" Properties 2
     WriteRegStr HKLM "${REGKEY}\Components" DatabaseSoftware 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
     WriteRegStr HKLM "${REGKEY}\Components" BasemapDatabaseVersion $BasemapDatabaseVersion
     WriteRegStr HKLM "${REGKEY}\Components" ODKDatabaseVersion $ODKDatabaseVersion
-	
+
     # Write some shortcuts
     LogEx::Write "Creating shortcuts"
     SetShellVarContext all
@@ -928,58 +923,58 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\eclipse
     #CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.exe" "" "$INSTDIR\eclipse\eclipse.exe" 0 SW_SHOWMINIMIZED
    	CreateShortcut "$SMPROGRAMS\DDMS\eclipse.lnk" "$INSTDIR\eclipse\eclipse.bat"
-  
+
     SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     SetOutPath $INSTDIR
     CreateShortcut "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     SetOutPath $INSTDIR\manager
     CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
-    
+
    	LogEx::Write "Setting up ODK webapp."
- 
+
     StrCpy $MobileName "Mobile"
     StrCpy $LowerMobileName "_mobile"
     Call loadHostName
- 
-    # Copy the ODK webapp in the correct folder    
+
+    # Copy the ODK webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing ODK Webapp" "Installing Tomcat"
     LogEx::Write "Copying the ODK webapp to $INSTDIR\tomcat\webapps\$AppName$MobileName"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName$MobileName
-    File /r /x .svn ..\installer-stage\ODKAggregate\*
-    SetOutPath $INSTDIR  
-    
+    File /r /x .svn ..\thirdparty\ODKAggregate\*
+    SetOutPath $INSTDIR
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "create user $LowerAppName$LowerMobileName with unencrypted password 'noReply'; grant all privileges on database odk to $LowerAppName$LowerMobileName;"`
     Call execDos
-  
+
     push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d odk -c "create schema $LowerAppName; grant all privileges on schema $LowerAppName to $LowerAppName$LowerMobileName; alter schema $LowerAppName owner to $LowerAppName$LowerMobileName;"`
     Call execDos
-    
+
 	  # Update ODK jdbc properties
 	  Push jdbc.username=odk_user                                                           # text to be replaced
 	  Push jdbc.username=$LowerAppName$LowerMobileName                                      # replace with
 	  Push all                                                                              # replace all occurrences
 	  Push all                                                                              # replace all occurrences
 	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
-	  Call AdvReplaceInFile      
-    
+	  Call AdvReplaceInFile
+
 	  # Update ODK jdbc properties
 	  Push jdbc.schema=odk                                                                  # text to be replaced
 	  Push jdbc.schema=$LowerAppName                                                        # replace with
 	  Push all                                                                              # replace all occurrences
 	  Push all                                                                              # replace all occurrences
 	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\jdbc.properties      # file to replace in
-	  Call AdvReplaceInFile         
-    
+	  Call AdvReplaceInFile
+
 	  # Update ODK security properties
 	  Push security.server.hostname=127.0.0.1                                               # text to be replaced
 	  Push $HostName                                                                        # replace with
 	  Push all                                                                              # replace all occurrences
 	  Push all                                                                              # replace all occurrences
 	  Push $INSTDIR\tomcat\webapps\$AppName$MobileName\WEB-INF\classes\security.properties  # file to replace in
-	  Call AdvReplaceInFile         
-    
-    
+	  Call AdvReplaceInFile
+
+
 	LogEx::Write "Installation complete."
 	LogEx::Close
 SectionEnd
@@ -1017,28 +1012,28 @@ Section /o -un.Main UNSEC0000
   SimpleSC::ServiceIsRunning "Tomcat"
   Pop $0 ; returns an errorcode (<>0) otherwise success (0)
   Pop $1 ; returns 1 (service is running) - returns 0 (service is not running)
-  
-  ${If} $1 <> 0  
-  
+
+  ${If} $1 <> 0
+
     # Try to stop the service
     SimpleSC::StopService "Tomcat" 1 60
     Pop $0 ; returns an errorcode (<>0) otherwise success (0)
-    
-    ${If} $0 <> 0        
+
+    ${If} $0 <> 0
 	    LogEx::Write "FATAL: Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled"
         MessageBox MB_OK|MB_ICONSTOP "Unable to stop the DDMS service.  The DDMS service must be stopped before DDMS can be uninstalled" /SD IDOK
         Abort
     ${EndIf}
-    
+
   ${EndIf}
 
   StrCpy $TomcatExec $INSTDIR\tomcat\bin\tomcat8.exe
-  
+
   SimpleSC::ExistsService "Tomcat"
   Pop $0
-  
-  ${If} $0 == 0        
-    # Service exists, we need to delete it  
+
+  ${If} $0 == 0
+    # Service exists, we need to delete it
     LogEx::Write "Deleting tomcat service"
     ExecWait `$TomcatExec //DS//Tomcat`
   ${EndIf}
@@ -1047,7 +1042,7 @@ Section /o -un.Main UNSEC0000
   # Uninstall Postgres
   ################################################################################
   ExecWait `"$INSTDIR\${POSTGRES_DIR}\bin\pg_ctl.exe" stop -D "$INSTDIR\${POSTGRES_DIR}\data" -m i`
-  
+
   ExecWait `"$INSTDIR\${POSTGRES_DIR}\uninstall-postgresql.exe" --mode unattended`
   ExecWait `SC DELETE postgresql-x64-9.6`
   DeleteRegKey HKLM "SOFTWARE\PostgreSQL"
@@ -1057,7 +1052,7 @@ Section /o -un.Main UNSEC0000
   DeleteRegKey HKLM "SOFTWARE\Wow6432Node\PostGIS"
   RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
   UserMgr::DeleteAccount "ddmspostgres"
-  
+
   ################################################################################
   # Uninstall DDMS
   ################################################################################
@@ -1069,12 +1064,12 @@ Section /o -un.Main UNSEC0000
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
   DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
   DeleteRegValue HKLM "${REGKEY}\Components" Manager
-  DeleteRegValue HKLM "${REGKEY}\Components" Java 
-  DeleteRegValue HKLM "${REGKEY}\Components" Birt 
-  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse  
+  DeleteRegValue HKLM "${REGKEY}\Components" Java
+  DeleteRegValue HKLM "${REGKEY}\Components" Birt
+  DeleteRegValue HKLM "${REGKEY}\Components" Eclipse
   DeleteRegValue HKLM "${REGKEY}\Components" Webapps
   DeleteRegValue HKLM "${REGKEY}\Components" Runway
-  
+
   RmDir /r /REBOOTOK $INSTDIR
 SectionEnd
 
@@ -1082,7 +1077,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"    
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\eclipse.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"
@@ -1104,14 +1099,14 @@ Function .onInit
   #SetRebootFlag true
   # Initialize the value of the text string
   StrCpy $AppName "Name"
-  
+
   # Legacy variables #3651
   StrCpy $Master_Value "true"
   StrCpy $InstallationNumber "0"
-  
+
   # Read the command-line parameters
   ${GetParameters} $Params
-	
+
   ClearErrors
   ${GetOptions} "$Params" "-app_name" $R0
   IfErrors appNameFalse appNameTrue
@@ -1121,32 +1116,32 @@ Function .onInit
       StrCpy $AppName $R0
     appNameDone:
       ClearErrors
-  
+
   ClearErrors
 FunctionEnd
 
 Function loadHostname
   # Set default status to false
   StrCpy $HostName "security.server.hostname=127.0.0.1"
-  
+
   ClearErrors
   FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\server.properties r
-    
+
   propFileReadLoop:
   # Read a line from the file into $1
   FileRead $0 $1
   # Errors means end of File
   IfErrors isFinished
-    
+
   # Removes the newline from the end of $1
   ${StrTrimNewLines} $1 $1
-    
+
   ${StrContains} $2 "security.server.hostname" $1
-  
+
   StrCmp $2 "" propFileReadLoop
     StrCpy $HostName $1
     Goto isFinished
-  
+
   isFinished:
   ClearErrors
   FileClose $0
@@ -1160,37 +1155,37 @@ Function findFireFox
     ReadRegStr $FPath HKCR "firefoxhtml\defaulticon" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKCR "firefoxurl\defaulticon" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKLM "Software\classes\firefoxhtml\defaulticon" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKLM "Software\classes\firefoxurl\defaulticon" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKLM "Software\clients\startmenuinternet\firefox.exe\shell\open\command" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKLM "Software\Microsoft\Windows\CurrentVersion\app paths\firefox.exe" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKLM "Software\Microsoft\Windows\CurrentVersion\app paths\firefox.exe" "Path"
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FVersion HKLM "Software\mozilla\mozilla firefox" "CurrentVersion"
     ReadRegStr $FPath HKLM "Software\mozilla\mozilla firefox\$FVersion\main" "Install Directory"
     StrCmp $FPath "" +1 FDone
-    
+
     ReadRegStr $FPath HKLM "Software\mozilla\mozilla firefox\$FVersion\main" "PathToExe"
     call StripPath
-    
+
     FDone:
 FunctionEnd
 
@@ -1211,9 +1206,9 @@ Function execDos
   LogEx::Write "execDos  >  Executing command [$9]"
   ExecDos::exec /TOFUNC $9 "" "$AgentDir\postgresController.out" "" $R2
   pop $8 # return value
-  
+
   StrCmp $8 0 WeAreDone
-  
+
   # Error handling with abort retry ignore
   LogEx::Write `ExecDos returned $8`
   MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP "A severe error occurred and this installer is unsure about how to proceed. Please contact your technical support team." /SD IDABORT IDABORT Abort_Clicked IDRETRY Retry_Clicked
@@ -1233,16 +1228,16 @@ Exch
 Exch $R1
 Push $R2
 Push $R3
- 
+
  StrCpy $R3 $R0
  StrCpy $R0 0
  IntOp $R0 $R0 + 1
   StrCpy $R2 $R3 1 -$R0
   StrCmp $R2 "" +2
   StrCmp $R2 $R1 +2 -3
- 
+
  StrCpy $R0 -1
- 
+
 Pop $R3
 Pop $R2
 Pop $R1
@@ -1304,28 +1299,28 @@ Push $R3 ;universal
 Push $R4 ;count (onwards)
 Push $R5 ;count (after)
 Push $R6 ;temp file name
- 
+
   GetTempFileName $R6
   FileOpen $R1 $0 r ;file to search in
   FileOpen $R0 $R6 w ;temp file
    StrLen $R3 $4
    StrCpy $R4 -1
    StrCpy $R5 -1
- 
+
 loop_read:
  ClearErrors
  FileRead $R1 $R2 ;read line
  IfErrors exit
- 
+
    StrCpy $5 0
    StrCpy $7 $R2
- 
+
 loop_filter:
    IntOp $5 $5 - 1
    StrCpy $6 $7 $R3 $5 ;search
    StrCmp $6 "" file_write1
    StrCmp $6 $4 0 loop_filter
- 
+
 StrCpy $8 $7 $5 ;left part
 IntOp $6 $5 + $R3
 IntCmp $6 0 is0 not0
@@ -1336,36 +1331,36 @@ not0:
 StrCpy $9 $7 "" $6 ;right part
 done:
 StrCpy $7 $8$3$9 ;re-join
- 
+
 IntOp $R4 $R4 + 1
 StrCmp $2 all loop_filter
 StrCmp $R4 $2 0 file_write2
 IntOp $R4 $R4 - 1
- 
+
 IntOp $R5 $R5 + 1
 StrCmp $1 all loop_filter
 StrCmp $R5 $1 0 file_write1
 IntOp $R5 $R5 - 1
 Goto file_write2
- 
+
 file_write1:
  FileWrite $R0 $7 ;write modified line
 Goto loop_read
- 
+
 file_write2:
  FileWrite $R0 $R2 ;write unmodified line
 Goto loop_read
- 
+
 exit:
   FileClose $R0
   FileClose $R1
- 
+
    SetDetailsPrint none
   Delete $0
   Rename $R6 $0
   Delete $R6
    SetDetailsPrint both
- 
+
 Pop $R6
 Pop $R5
 Pop $R4
@@ -1398,7 +1393,7 @@ Function StrCase
   $6 = CurrentChar (temp)
   $7 = LastChar (temp)
   $8 = Temp (temp)*/
- 
+
   ;Get input from user
   Exch $1
   Exch
@@ -1411,7 +1406,7 @@ Function StrCase
   Push $6
   Push $7
   Push $8
- 
+
   ;Initialize variables
   StrCpy $2 ""
   StrCpy $3 ""
@@ -1420,43 +1415,43 @@ Function StrCase
   StrCpy $6 ""
   StrCpy $7 ""
   StrCpy $8 ""
- 
+
   ;Upper and lower cases are simple to use
   ${If} $1 == "U"
- 
+
     ;Upper Case:
     ;-----------
     ;Convert all characters to upper case.
- 
+
     System::Call "User32::CharUpper(t r0 r5)i"
     Goto StrCase_End
   ${ElseIf} $1 == "L"
- 
+
     ;Lower Case:
     ;-----------
     ;Convert all characters to lower case.
- 
+
     System::Call "User32::CharLower(t r0 r5)i"
     Goto StrCase_End
   ${EndIf}
- 
+
   ;For the rest of cases:
   ;Get "String" length
   StrLen $2 $0
- 
+
   ;Make a loop until the end of "String"
   ${For} $3 0 $2
     ;Add 1 to "EndChar" counter also
     IntOp $4 $3 + 1
- 
+
     # Step 1: Detect one character at a time
- 
+
     ;Remove characters before "StartChar" except when
     ;"StartChar" is the first character of "String"
     ${If} $3 <> 0
       StrCpy $6 $0 `` $3
     ${EndIf}
- 
+
     ;Remove characters after "EndChar" except when
     ;"EndChar" is the last character of "String"
     ${If} $4 <> $2
@@ -1466,22 +1461,22 @@ Function StrCase
         StrCpy $6 $6 1
       ${EndIf}
     ${EndIf}
- 
+
     # Step 2: Convert to the advanced case user chose:
- 
+
     ${If} $1 == "T"
- 
+
       ;Title Case:
       ;------------------
       ; Convert all characters after a non-alphabetic character to upper case.
       ; Else convert to lower case.
- 
+
       ;Use "IsCharAlpha" for the job
       System::Call "*(&t1 r7) i .r8"
       System::Call "*$8(&i1 .r7)"
       System::Free $8
       System::Call "user32::IsCharAlpha(i r7) i .r8"
- 
+
       ;Verify "IsCharAlpha" result and convert the character
       ${If} $8 = 0
         System::Call "User32::CharUpper(t r6 r6)i"
@@ -1489,18 +1484,18 @@ Function StrCase
         System::Call "User32::CharLower(t r6 r6)i"
       ${EndIf}
     ${ElseIf} $1 == "S"
- 
+
       ;Sentence Case:
       ;------------------
       ; Convert all characters after a ".", "!" or "?" character to upper case.
       ; Else convert to lower case. Spaces or tabs after these marks are ignored.
- 
+
       ;Detect current characters and ignore if necessary
       ${If} $6 == " "
       ${OrIf} $6 == "$\t"
         Goto IgnoreLetter
       ${EndIf}
- 
+
       ;Detect last characters and convert
       ${If} $7 == "."
       ${OrIf} $7 == "!"
@@ -1511,17 +1506,17 @@ Function StrCase
         System::Call "User32::CharLower(t r6 r6)i"
       ${EndIf}
     ${ElseIf} $1 == "<>"
- 
+
       ;Switch Case:
       ;------------------
       ; Switch all characters cases to their inverse case.
- 
+
       ;Use "IsCharUpper" for the job
       System::Call "*(&t1 r6) i .r8"
       System::Call "*$8(&i1 .r7)"
       System::Free $8
       System::Call "user32::IsCharUpper(i r7) i .r8"
- 
+
       ;Verify "IsCharUpper" result and convert the character
       ${If} $8 = 0
         System::Call "User32::CharUpper(t r6 r6)i"
@@ -1529,24 +1524,24 @@ Function StrCase
         System::Call "User32::CharLower(t r6 r6)i"
       ${EndIf}
     ${EndIf}
- 
+
     ;Write the character to "LastChar"
     StrCpy $7 $6
- 
+
     IgnoreLetter:
     ;Add this character to "ResultStr"
     StrCpy $5 `$5$6`
   ${Next}
- 
+
   StrCase_End:
- 
+
 /*After this point:
   ------------------------------------------
   $0 = ResultVar (output)*/
- 
+
   ; Copy "ResultStr" to "ResultVar"
   StrCpy $0 $5
- 
+
   ;Return output to user
   Pop $8
   Pop $7
@@ -1573,36 +1568,36 @@ Function StrTrimNewLines
   $R0 = String (input)
   $R1 = TrimCounter (temp)
   $R2 = Temp (temp)*/
- 
+
   ;Get input from user
   Exch $R0
   Push $R1
   Push $R2
- 
+
   ;Initialize trim counter
   StrCpy $R1 0
- 
+
   loop:
   ;Subtract to get "String"'s last characters
   IntOp $R1 $R1 - 1
- 
+
   ;Verify if they are either $\r or $\n
   StrCpy $R2 $R0 1 $R1
   ${If} $R2 == `$\r`
   ${OrIf} $R2 == `$\n`
     Goto loop
   ${EndIf}
- 
+
   ;Trim characters (if needed)
   IntOp $R1 $R1 + 1
   ${If} $R1 < 0
     StrCpy $R0 $R0 $R1
   ${EndIf}
- 
+
 /*After this point:
   ------------------------------------------
   $R0 = ResultVar (output)*/
- 
+
   ;Return output to user
   Pop $R2
   Pop $R1
@@ -1615,4 +1610,3 @@ Function un.onInit
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
 	SetRebootFlag true
 FunctionEnd
-

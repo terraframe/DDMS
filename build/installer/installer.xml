@@ -1,29 +1,30 @@
 <project name="MDSS" default="build" basedir=".">
 
 <!--
+  Run this with the -Dproject.root=<path/to/ddms/git/repo>
+
   ===============
     BUILD FLAGS
   ===============
   Copy and paste these depends into the target below to modify what you're building
-   
+
   <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 40 minutes)
-  <target name="build" depends="clean, compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
-  <target name="build" depends="clean, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
+  <target name="build" depends="clean, compile, configure, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
+  <target name="build" depends="clean, compile, configure, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
-  <target name="build" depends="clean, compile, deploy, build-managers, build_installer_exe"/>
-  
-  <property name="project.root" location="C:/git/DDMS" />
-  <property name="trunk.root" location="${project.root}/DDMS" />  
-  <property name="local.root" location="../DDMS" />
+  <target name="build" depends="clean, compile, configure, build-database, deploy, export-database, build-managers, build_installer_exe"/>
+
+  <property name="ddms.root" location="${project.root}/DDMS" />
   <property name="country" value="blank" />
   <property name="geodata.db" value="mrc_blank" />
   <property name="deploy.db" value="mdssdeploy" />
   <property name="develop.db" value="mdssdevelop" />
-  <property name="nsis.dir" location="C:/Program Files (x86)/NSIS" />
-  <property name="postgres.bin" location="C:/Program Files/PostgreSQL/9.4/bin"/>
-  <property name="profile.root" location="${local.root}/profiles" />
-  <property name="install.dir" location="${project.root}/installer-windows" />
-  <property name="stage.dir" location="${project.root}/installer-stage" />
+  <property name="nsis.exec" location="/usr/bin/makensis" />
+  <property name="python.exec" location="/usr/bin/python3" />
+  <property name="docker.exec" location="/usr/bin/docker"/>
+  <property name="profile.root" location="${ddms.root}/profiles" />
+  <property name="installer.dir" location="${project.root}/build/installer" />
+  <property name="stage.dir" location="${installer.dir}/stage" />
   <property name="stage.webapp" location = "${stage.dir}/webapp"/>
   <property name="stage.classes" location = "${stage.webapp}/WEB-INF/classes"/>
   <property name="root.user" value="postgres" />
@@ -32,81 +33,90 @@
   <property name="max_memory_use" value="1024m" />
   <property name="domain" value="0.mdss.ivcc.com" />
   <property name="deploy.root" location="${stage.dir}/tomcat" />
-  <property name="manager.dest" location="${stage.dir}/manager" />
-  <property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />  
-  <property name="manager.dir" value="${project.root}/standalone" />  
-  
-  <!-- ANT Contrib task defitions -->
-  <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="C:/cruisecontrol-bin-2.8.3/lib/ant-contrib-1.0b3.jar" />
-  
+  <property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />
+  <property name="manager.dir" value="${project.root}/build/manager" />
+
   <!-- AspectJ task definitions -->
   <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
     <classpath>
-      <fileset dir="${local.root}/lib">
+      <fileset dir="${ddms.root}/lib">
         <include name="**/*.jar" />
       </fileset>
     </classpath>
   </taskdef>
-  
+
+  <target name="configure">
+    <propertyfile file="${ddms.root}/profiles/default/server/database.properties">
+      <entry key="port" value="5482" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/default/common/terraframe.properties">
+      <entry key="local.root" value="${ddms.root}" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/installer/common/deploy.properties">
+      <entry key="deploy.path" value="${stage.webapp}" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/installerdeploy/common/deploy.properties">
+      <entry key="deploy.path" value="${stage.webapp}" />
+    </propertyfile>
+  </target>
+
   <target name="deploy">
-    <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
+    <ant inheritall="false" antfile="deploy.xml" dir="${ddms.root}/scripts/ant/deploy">
 	    <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
-	
+
 	    <target name="import_localization_disease_defaults"/>
 	    <target name="deploy" />
       <target name="deploy_all_files"/>
 	  </ant>
-	
+
 	  <antcall target="set_vital_properties" />
   </target>
-  
+
   <!-- Depends on source being compiled -->
   <target name="build-managers">
-      <exec executable="cmd" failonerror="true">
-        <arg value="/c" />
-        <arg value="${basedir}/../standalone\buildall.bat" />
-      </exec>
+      <ant inheritall="false" antfile="${project.root}/build/manager/build.xml">
+      </ant>
 	</target>
-  
+
   <target name="clean">
     <echo message="Cleaning old source." />
     <delete dir="${stage.webapp}" verbose="false" />
-    <delete dir="${local.root}/bin/com/" verbose="false" />
-    <delete dir="${local.root}/bin/dss/" verbose="false" />
+    <delete dir="${ddms.root}/bin/com/" verbose="false" />
+    <delete dir="${ddms.root}/bin/dss/" verbose="false" />
   </target>
 
   <target name="compile">
-    <echo message="Rewriting terraframe.properties values local.root, deploy.root, deploy.appname, and domain/" />	
+    <echo message="Rewriting terraframe.properties values local.root, deploy.root, deploy.appname, and domain/" />
     <propertyfile file="${profile.root}/default/common/terraframe.properties">
-      <entry key="local.root" value="${local.root}" />
+      <entry key="local.root" value="${ddms.root}" />
       <entry key="deploy.root" value="${deploy.root}" />
       <entry key="deploy.appname" value="DDMS" />
       <entry key="domain" value="${domain}" />
     </propertyfile>
 
-    <echo message="Rewriting server.properties values logTransactions/" />		
+    <echo message="Rewriting server.properties values logTransactions/" />
     <propertyfile file="${profile.root}/default/server/server.properties">
       <entry key="logTransactions" value="false" />
     </propertyfile>
-	
+
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\:' replace=":" />
 
     <echo message="Compiling/" />
 
-    <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
+    <ant inheritall="false" antfile="deploy.xml" dir="${ddms.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installer" />
       <target name="compile_generated" />
     </ant>
   </target>
-  
+
   <target name="build-database">
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
-    
-    <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
+
+    <ant inheritall="false" antfile="deploy.xml" dir="${ddms.root}/scripts/ant/deploy">
       <property name="root.user" value="${root.user}" />
       <property name="root.pass" value="${root.pass}" />
       <property name="root.db" value="${root.db}" />
@@ -123,28 +133,28 @@
       <target name="import_geodata" />
       <target name="build_all_paths_geodata" />
       <target name="create_universal_queries"/>
-      <target name="load_permissions"/>    	  
+      <target name="load_permissions"/>
     </ant>
   </target>
-  
+
   <target name="export-database">
-    <!-- We need to update the deploy database with the source and class. -->  
+    <!-- We need to update the deploy database with the source and class. -->
     <!-- This is important because on the case of rollback or errors we -->
     <!-- must be able to regenerate the source and classes of the file system. -->
-	  <antcall target="deploy_update_db_source_and_classes" />    
+	  <antcall target="deploy_update_db_source_and_classes" />
 
 	  <antcall target="dump_db" />
   </target>
 
   <target name="deploy_update_db_source_and_classes" depends="" description="Update DB Source and Classes">
     <echo message="Updating DB source and classes" />
-    <ant inheritall="false" antfile="deploy.xml" dir="${local.root}/scripts/ant/deploy">
+    <ant inheritall="false" antfile="deploy.xml" dir="${ddms.root}/scripts/ant/deploy">
       <property name="profile.root" value="${profile.root}" />
       <property name="profile.name" value="installerdeploy" />
-      <target name="update_db_source_and_classes" />        
+      <target name="update_db_source_and_classes" />
     </ant>
   </target>
-  
+
   <target name="set_vital_properties" depends="">
     <delete dir="${stage.webapp}/WEB-INF/logs" />
     <mkdir dir="${stage.webapp}/WEB-INF/logs"/>
@@ -163,7 +173,7 @@
       <entry key="dataDumpExecutable" value="pg_dump" />
       <entry key="dataImportExecutable" value="pg_restore" />
     </propertyfile>
-	
+
     <propertyfile file="${stage.classes}/jawr.properties">
       <entry key="jawr.debug.on" value="false" />
     </propertyfile>
@@ -174,9 +184,9 @@
     <propertyfile file="${stage.classes}/install.properties">
       <entry key="master" value="false" />
     </propertyfile>
-	
-	<!-- 
-	  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property 
+
+	<!--
+	  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property
 	  reader tries to merge property values. As such, we need to replace the updated '\:' with the original ':' character
 	  through regex.
 	-->
@@ -184,52 +194,50 @@
     <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
     <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />	
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />
   </target>
-  
+
   <target name="dump_db" depends="">
     <echo message="dumping the develop db to a sql file " />
-    <exec executable="${postgres.bin}/pg_dump" dir="." failonerror="true" searchpath="true" logError="true">
-      <arg line="--blobs --no-password -h 127.0.0.1 -U ${root.user} --schema ddms ${develop.db}" />
+
+    <exec executable="${docker.exec}" dir="." failonerror="true" searchpath="true" logError="true">
+      <arg line="exec ddms-build-database pg_dump --blobs --no-password -h 127.0.0.1 -U ${root.user} --schema ddms ${deploy.db}" />
       <redirector output="MDSS.backup">
         <outputfilterchain>
-          <!--make sql dump stop on errors -->
-          <concatfilter prepend="${local.root}/scripts/ant/deploy/drop_deploy.sql" />
-          <!--change 'mdssdevelop' to 'mdssdeploy' -->
+          <concatfilter prepend="${ddms.root}/scripts/ant/deploy/drop_deploy.sql" />
           <tokenfilter>
             <replacestring from="${develop.db}" to="${deploy.db}" />
           </tokenfilter>
         </outputfilterchain>
       </redirector>
     </exec>
-  <!--
-    <copy file="MDSS.backup" todir="${stage.dir}" overwrite="true"/>
-    <delete file="MDSS.backup"/>
-  <sleep seconds="30" />
-  -->
   </target>
-  
+
   <target name="build_installer_exe">
     <!-- Copy in cache files -->
+    <!--
 	  <copy todir="${stage.dir}/cache/global" failonerror="false">
-      <fileset dir="${local.root}/cache/global"/>
+      <fileset dir="${ddms.root}/cache/global"/>
     </copy>
-    
+
     <delete dir="${stage.dir}/ODKAggregate" />
     <unzip src="${stage.dir}/tomcat/webapps/ODKAggregate.war" dest="${stage.dir}/ODKAggregate"/>
-  
+    -->
+
     <!-- Get revision info from git -->
-    <exec executable="C:\Users\Administrator\AppData\Local\Programs\Python\Python35-32\python.exe" failonerror="true">
-		  <arg line="C:\git\DDMS\build\ddms-revision-info.py"/>
-		  <arg line="${stage.dir}/Installer.nsi" />
+    <exec executable="${python.exec}" failonerror="true">
+		  <arg line="${project.root}/build/ddms-revision-info.py"/>
+		  <arg line="${installer.dir}/Installer.nsi" />
 		  <arg line="${project.root}"/>
 		</exec>
-    
-    <exec executable="${nsis.dir}/makensis" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
-      <arg line="Installer.nsi" />
+
+    <exec executable="${nsis.exec}" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
+      <arg line="${project.root}/build/installer/Installer.nsi" />
     </exec>
+    <!--
     <copy file="${stage.dir}/InstallDDMS.exe" tofile="${install.dir}/InstallDDMS${country}.exe" overwrite="true"/>
     <delete file="${stage.dir}/InstallDDMS.exe"/>
+    -->
   </target>
 
   <target name="remove_generated_universals" depends="" description="Remove all java files for selected (old) generated universals">
@@ -267,8 +275,7 @@
   </target>
   <target name="copy_country_schema" depends="" description="Copy the appropriate country schema file">
     <echo message="Switching to country: ${geodata.db}" />
-    <copy file="${local.root}/doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="${local.root}/doc/individual/schema(0001238646707001).xml" overwrite="true" />
-    <copy file="${local.root}/webapp/imgs/flags/${geodata.db}.gif" tofile="${local.root}/webapp/imgs/flags/current" overwrite="true" />
+    <copy file="${ddms.root}/doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="${ddms.root}/doc/individual/schema(0001238646707001).xml" overwrite="true" />
+    <copy file="${ddms.root}/webapp/imgs/flags/${geodata.db}.gif" tofile="${ddms.root}/webapp/imgs/flags/current" overwrite="true" />
   </target>
 </project>
-

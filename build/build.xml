@@ -1,82 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="patch" default="build">
+<project name="ddms-build" default="build">
 
 
   <!--
+  Run this with the -Dproject.root=<path/to/ddms/git/repo>
+
   ===============
     BUILD FLAGS
   ===============
   Tweak these settings to modify what you're building
-  
+
 	<target name="build-all" depends="build-installer,build-patch" />
 	-->
 	<target name="build-all" depends="build-installer,build-patch" />
 
-	<property name="mdss.root" value="../DDMS" />
-	
+	<property name="mdss.root" value="${project.root}/DDMS" />
+
 	<taskdef resource="taskdefs.xml" classpath="aws-java-sdk-ant-tasks-1.2.3.jar" />
-		
+
 	<tstamp>
 		<format property="date" pattern="MMMM dd" />
 		<format property="long_date" pattern="MMMM dd, yyyy" />
 	</tstamp>
 
-	<target name="build" depends="update,set-properties,build-all" />
-	
-	<target name="build-installer-only" depends="update,set-properties,build-installer" />
-	
-	<target name="build-patch-only" depends="update,set-properties,build-patch" />
-	
-	<target name="update">
-    <echo message="Updating DDMS git repositroy." />
-    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
-		  <arg line="-C C:\git\DDMS pull"/>
-		</exec>
-	</target>
-	
-	<target name="cleanup">
-    <echo message="Cleaning ${mdss.root}" />
-    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
-		  <arg line="checkout -- ${mdss.root}"/>
-		</exec>
-    
-    <echo message="Cleaning ../standalone" />
-    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
-		  <arg line="checkout -- ../standalone"/>
-		</exec>
-    
-    <echo message="Cleaning ../installer-stage" />
-    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
-		  <arg line="checkout -- ../installer-stage"/>
-		</exec>
-    
-    <echo message="Cleaning ../ddms-runway-patcher" />
-    <exec executable="C:\Program Files\Git\bin\git.exe" failonerror="true">
-		  <arg line="checkout -- ../ddms-runway-patcher"/>
-		</exec>
-	</target>
+	<target name="build" depends="set-properties,build-all" />
+
+	<target name="build-installer-only" depends="set-properties,build-installer" />
+
+	<target name="build-patch-only" depends="set-properties,build-patch" />
 
 	<target name="increment">
 		<!-- Increment the build number -->
 		<propertyfile file="./version.properties">
 			<entry key="version.build" type="int" operation="+" default="0" pattern="0000" />
-		</propertyfile>				
+		</propertyfile>
 	</target>
-	
+
 	<target name="set-properties">
 		<!-- Read in the incremented proeprty file -->
 		<property file="version.properties" />
 		<property name="version.display" value="${version.major}.${version.minor}.${version.build}" />
 		<echo message="Incremented version is ${version.display}" />
-	
+
 		<!-- Build the expected file names -->
-	
+
 		<property name="file.installer" value="InstallDDMSblank-${version.display}.exe" />
 		<property name="file.patch" value="patch-${version.display}.exe" />
 		<property name="file.manager" value="manager-${version.display}.exe" />
-		<property name="file.runway-patch" value="runway-patch-${version.display}.exe" />		
+		<property name="file.runway-patch" value="runway-patch-${version.display}.exe" />
 	</target>
-	
+
 	<target name="update-about">
 		<!-- Regex the version into about.jsp. It's ugly, but XML requires escape codes for nested "s -->
 		<replaceregexp
@@ -84,35 +57,35 @@
 		  replace="c:set var=&quot;version&quot; value=&quot;${version.display}&quot; scope=&quot;request&quot;"
 		  file="${mdss.root}/webapp/about.jsp"
 		  byline="true" />
-		
-		<!-- Regex the version into originalVersion.jsp. This won't get replaced by the patcher. -->		
+
+		<!-- Regex the version into originalVersion.jsp. This won't get replaced by the patcher. -->
 		<replaceregexp
 		  match="c:set var=&quot;original_version&quot; value=&quot;.*&quot; scope=&quot;request&quot;"
 		  replace="c:set var=&quot;original_version&quot; value=&quot;${version.display}&quot; scope=&quot;request&quot;"
 		  file="${mdss.root}/webapp/WEB-INF/originalVersion.jsp"
 		  byline="true" />
-		
+
 		<!-- Overwrite revision.html -->
 		<echo file="${mdss.root}/webapp/revision.html" append="false">
 			Last updated on ${long_date}
-		</echo>	
+		</echo>
 	</target>
-	
+
 	<target name="build-installer" depends="update-about">
 
 		<!-- Installer -->
-		<ant inheritAll="false" antfile="../installer-stage/installer.xml" target="build">
+		<ant inheritAll="false" antfile="${project.root}/build/installer/installer.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
 		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="${file.installer}" />
-	</target>	
+	</target>
 
-	<target name="build-patch" depends="update-about">		
+	<target name="build-patch" depends="update-about">
 		<!-- Manager Patch -->
-		<ant inheritAll="false" antfile="../patch/all-in-one-patch.xml" target="build">
+		<ant inheritAll="false" antfile="${project.root}/build/patcher/patch.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
-		<copy file="../patch/manager-patch.exe" tofile="${file.patch}" />						
-		<delete file="../patch/manager-patch.exe" />								
+		<copy file="../patch/manager-patch.exe" tofile="${file.patch}" />
+		<delete file="../patch/manager-patch.exe" />
 	</target>
 </project>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
-	<property name="nsis.dir" value="C:\Program Files (x86)\NSIS" />
+	<property name="nsis.exec" location="makensis" />
 	<property name="geodata.db" value="mrc_blank" />
 	<property name="project.root" location="C:/cruisecontrol-bin-2.8.3/projects/mdss" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
@@ -14,33 +14,33 @@
 	<target name="build">
 
 		<delete dir="webapp" includeemptydirs="true" />
-				
+
 		<!-- Compile -->
 		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
 
-		<!-- Generate an up to date localization spread sheet -->		
+		<!-- Generate an up to date localization spread sheet -->
 		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
-		
+
 		<!-- Get a copy of all web files -->
 		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
 			<property name="profile.name" value="patch" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
-		
+
 
 		<!-- Copy in the appropriate geo universals xls -->
 		<copy file="../doc/country/${geodata.db}-universals.xls" tofile="geo-universals.xls" />
-		
+
 		<!-- Create the local-develop.properties file -->
 		<copy file="webapp/WEB-INF/classes/local.properties" tofile="webapp/WEB-INF/classes/local-develop.properties" />
 		<replace file="webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
-		
+
 		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
 		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
 		<delete file="webapp/WEB-INF/classes/terraframe.properties" />
@@ -48,7 +48,7 @@
 		<delete file="webapp/WEB-INF/classes/common.properties" />
 		<!--<delete file="webapp/css/style.css" />-->
 		<delete file="webapp/login.jsp" />
-		
+
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
 		<delete file="webapp/imgs/flags/default" />
 
@@ -79,7 +79,7 @@
 		<replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="patch.nsi" byline="true" />
 
 		<!-- Compile patch.nsi -->
-		<exec executable="${nsis.dir}/makensis" dir="." failonerror="true" searchpath="true" logError="true">
+		<exec executable="${nsis.exec}" dir="." failonerror="true" searchpath="true" logError="true">
 			<arg line="patch.nsi" />
 		</exec>
 		<!--

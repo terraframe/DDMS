@@ -1,0 +1,6 @@
+**/DDMS/vault/**
+**/target/**
+**/bin/**
+**/.DS_Store
+**/logs/**
+**/log/**
