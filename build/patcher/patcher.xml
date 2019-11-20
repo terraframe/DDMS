@@ -70,6 +70,9 @@
 		<propertyfile file="${ddms.root}/profiles/patch/common/deploy.properties">
       <entry key="deploy.path" value="${stage.webapp}" />
     </propertyfile>
+		<propertyfile file="${ddms.root}/profiles/default/server/install.properties">
+      <entry key="manager.root" value="${manager.dir}" />
+    </propertyfile>
   </target>
 
 	<target name="setup-files" depends="configure">

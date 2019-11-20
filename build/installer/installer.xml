@@ -81,6 +81,9 @@
       <entry key="password" value="${postgres.pass}" />
       <entry key="databaseName" value="${postgres.db}" />
     </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/default/server/install.properties">
+      <entry key="manager.root" value="${manager.dir}" />
+    </propertyfile>
   </target>
 
   <target name="deploy">
