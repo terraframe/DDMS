@@ -103,7 +103,7 @@
       <env key="JDK_HOME" value="${jdk.home}"/>
       <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
-    <exec executable="${maven.exec}" dir="${project.root}/manager" failonerror="true">
+    <exec executable="${maven.exec}" dir="${project.root}/backup-manager" failonerror="true">
       <arg value="-U" />
       <arg value="dependency:copy-dependencies" />
       <arg value="-DoutputDirectory=${manager.dir}/backup-manager-1.0.0/lib" />

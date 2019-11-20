@@ -237,7 +237,7 @@
         <outputfilterchain>
           <concatfilter prepend="${ddms.root}/scripts/ant/deploy/drop_deploy.sql" />
           <tokenfilter>
-            <replacestring from="${postgres.db}" to="${postgres.db}" />
+            <replacestring from="${postgres.user}" to="mdssdeploy" />
           </tokenfilter>
         </outputfilterchain>
       </redirector>
@@ -260,6 +260,9 @@
       <entry key="user" value="mdssdeploy" />
       <entry key="password" value="mdssdeploy" />
       <entry key="databaseName" value="mdssdeploy" />
+    </propertyfile>
+    <propertyfile file="${stage.dir}/profiles/default/server/install.properties">
+      <entry key="manager.root" value="C:\MDSS\manager" />
     </propertyfile>
 
 
