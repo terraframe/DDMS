@@ -90,7 +90,5 @@
 
 		<copy file="${project.root}/build/patcher/patcher.exe" todir="${artifact.out}" />
 		<delete file="${project.root}/build/patcher/patcher.exe" />
-
-		<sleep hours="999999999"/>
 	</target>
 </project>
