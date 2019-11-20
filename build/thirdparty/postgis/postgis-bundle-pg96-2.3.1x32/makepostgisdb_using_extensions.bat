@@ -3,18 +3,19 @@ set PGHOST=localhost
 set PGUSER=postgres
 set PGPASSWORD=postgres
 set THEDB=template_postgis
+set PGSTAGE=C:\MDSS\installer\postgis
 set PGINSTALL=C:\MDSS\PostgreSql\9.6
 set PGADMIN=%PGINSTALL%\pgAdmin III
 set PGBIN=%PGINSTALL%\bin\
 set PGLIB=%PGINSTALL%\lib\
 set POSTGISVER=2.3
-xcopy bin\*.* "%PGBIN%"
-xcopy /I /S bin\postgisgui\* "%PGBIN%\postgisgui"
-xcopy /I plugins.d\* "%PGADMIN%\plugins.d"
-xcopy lib\*.* "%PGLIB%"
-xcopy share\extension\*.* "%PGINSTALL%\share\extension"
-xcopy /I /S share\contrib\*.* "%PGINSTALL%\share\contrib"
-xcopy /I gdal-data "%PGINSTALL%\gdal-data"
+xcopy /Y "%PGSTAGE%\bin\*.*" "%PGBIN%"
+xcopy /Y /I /S "%PGSTAGE%\bin\postgisgui\*" "%PGBIN%\postgisgui"
+xcopy /Y /I "%PGSTAGE%\plugins.d\*" "%PGADMIN%\plugins.d"
+xcopy /Y "%PGSTAGE%\lib\*.*" "%PGLIB%"
+xcopy /Y "%PGSTAGE%\share\extension\*.*" "%PGINSTALL%\share\extension"
+xcopy /Y /I /S "%PGSTAGE%\share\contrib\*.*" "%PGINSTALL%\share\contrib"
+xcopy /Y /I "%PGSTAGE%\gdal-data" "%PGINSTALL%\gdal-data"
 "%PGBIN%\psql"  -c "CREATE DATABASE %THEDB%"
 "%PGBIN%\psql"  -d "%THEDB%" -c "CREATE EXTENSION postgis;"
 "%PGBIN%\psql"  -d "%THEDB%" -c "CREATE EXTENSION postgis_sfcgal;"

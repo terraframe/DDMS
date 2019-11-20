@@ -2,6 +2,7 @@
 **/DDMS/vault/**
 **/target/**
 **/bin/**
+!/build/thirdparty/**/bin/**
 **/.DS_Store
 **/logs/**
 **/log/**
