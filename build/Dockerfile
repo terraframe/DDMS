@@ -3,6 +3,9 @@ FROM ubuntu:trusty
 
 RUN apt update
 
+# Test to make sure we can run Docker
+RUN apt-get -y install libltdl7 bridge-utils libapparmor1 perl
+
 # RUN apt-cache madison nsis
 # nsis |     2.46-7 | http://archive.ubuntu.com/ubuntu/ trusty/universe amd64 Packages
 
