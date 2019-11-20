@@ -7,13 +7,24 @@
   <property name="ddms.root" location="${project.root}/DDMS" />
   <property name="manager.dir" value="${project.root}/build/manager" />
   <property name="maven.exec" value="mvn" />
+  <property name="jdk.home" location="/opt/java/jdk1.8.0_231" />
 
   <target name="build" depends="copy_runway, tomcat_remote, manager, ddms-initializer, backup-manager, mdssgisi, sync-manager, runway-patcher" />
 
   <target name="copy_runway">
-    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" failonerror="true">
-      <fileset dir="${ddms.root}">
-        <include name="lib/*/runway-*.jar" />
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${ddms.root}/lib/client">
+        <include name="runway-*.jar" />
+      </fileset>
+    </copy>
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${ddms.root}/lib/common">
+        <include name="runway-*.jar" />
+      </fileset>
+    </copy>
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${ddms.root}/lib/server">
+        <include name="runway-*.jar" />
       </fileset>
     </copy>
   </target>
@@ -23,20 +34,29 @@
       <arg value="-U" />
       <arg value="clean" />
       <arg value="install" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
     <exec executable="${maven.exec}" dir="${project.root}/tomcat-remote-listener" failonerror="true">
       <arg value="-U" />
       <arg value="clean" />
       <arg value="install" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
     <exec executable="${maven.exec}" dir="${project.root}/tomcat-remote-listener" failonerror="true">
       <arg value="-U" />
       <arg value="dependency:copy-dependencies" />
       <arg value="-DoutputDirectory=${manager.dir}/manager-1.0.0/lib" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
-    <copy todir="${manager.dir}/manager-1.0.0/lib" failonerror="true">
-      <fileset dir="${project.root}">
-        <include name="tomcat-remote-listener\target\tomcat-remote-listener.jar" />
+    <copy todir="${manager.dir}/manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${project.root}/tomcat-remote-listener/target">
+        <include name="tomcat-remote-listener.jar" />
       </fileset>
     </copy>
   </target>
@@ -46,15 +66,21 @@
       <arg value="-U" />
       <arg value="clean" />
       <arg value="install" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
     <exec executable="${maven.exec}" dir="${project.root}/manager" failonerror="true">
       <arg value="-U" />
       <arg value="dependency:copy-dependencies" />
       <arg value="-DoutputDirectory=${manager.dir}/manager-1.0.0/lib" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
-    <copy todir="${manager.dir}/manager-1.0.0/lib" failonerror="true">
-      <fileset dir="${project.root}">
-        <include name="manager\target\manager-1.0.0.jar" />
+    <copy todir="${manager.dir}/manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${project.root}/manager/target">
+        <include name="manager-1.0.0.jar" />
       </fileset>
     </copy>
   </target>
@@ -73,16 +99,22 @@
       <arg value="clean" />
       <arg value="install" />
       <arg value="-Dddms.path=${ddms.root}" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
     <exec executable="${maven.exec}" dir="${project.root}/manager" failonerror="true">
       <arg value="-U" />
       <arg value="dependency:copy-dependencies" />
       <arg value="-DoutputDirectory=${manager.dir}/backup-manager-1.0.0/lib" />
       <arg value="-Dddms.path=${ddms.root}" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
-    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" failonerror="true">
-      <fileset dir="${project.root}">
-        <include name="backup-manager\target\backup-manager-1.0.0.jar" />
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${project.root}/backup-manager/target">
+        <include name="backup-manager-1.0.0.jar" />
       </fileset>
     </copy>
   </target>
@@ -114,11 +146,14 @@
       <arg value="-U" />
       <arg value="clean" />
       <arg value="install" />
+      <env key="JAVA_HOME" value="${jdk.home}"/>
+      <env key="JDK_HOME" value="${jdk.home}"/>
+      <env key="JRE_HOME" value="${jdk.home}/jre"/>
     </exec>
 
-    <copy todir="${project.root}/ddms-runway-patcher/lib" failonerror="true">
-      <fileset dir="${project.root}">
-        <include name="runway-patcher\target\runway-patcher-1.0.0.jar" />
+    <copy todir="${project.root}/ddms-runway-patcher/lib" failonerror="true" verbose="true">
+      <fileset dir="${project.root}/runway-patcher/target">
+        <include name="runway-patcher-1.0.0.jar" />
       </fileset>
     </copy>
   </target>

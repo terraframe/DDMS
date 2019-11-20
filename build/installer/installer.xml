@@ -8,17 +8,18 @@
   ===============
   Copy and paste these depends into the target below to modify what you're building
 
-  <target name="build" depends="build_installer_exe"/>  For NSIS changes (est 40 minutes)
-  <target name="build" depends="clean, compile, configure, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
-  <target name="build" depends="clean, compile, configure, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
+  <target name="build" depends="configure, build_installer_exe"/>  For NSIS changes (est 40 minutes)
+  <target name="build" depends="clean, configure, compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
+  <target name="build" depends="clean, configure, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
   <target name="build" depends="clean, compile, configure, build-database, deploy, export-database, build-managers, build_installer_exe"/>
 
   <property name="ddms.root" location="${project.root}/DDMS" />
   <property name="country" value="blank" />
   <property name="geodata.db" value="mrc_blank" />
-  <property name="deploy.db" value="mdssdeploy" />
-  <property name="develop.db" value="mdssdevelop" />
+  <property name="postgres.user" value="ddmsbuild" />
+  <property name="postgres.pass" value="ddmsbuild" />
+  <property name="postgres.db" value="ddmsbuild" />
   <property name="nsis.exec" location="/usr/bin/makensis" />
   <property name="python.exec" location="/usr/bin/python3" />
   <property name="docker.exec" location="/usr/bin/docker"/>
@@ -27,6 +28,7 @@
   <property name="stage.dir" location="${installer.dir}/stage" />
   <property name="stage.webapp" location = "${stage.dir}/webapp"/>
   <property name="stage.classes" location = "${stage.webapp}/WEB-INF/classes"/>
+  <property name="thirdparty" location = "${project.root}/build/thirdparty"/>
   <property name="root.user" value="postgres" />
   <property name="root.pass" value="postgres" />
   <property name="root.db" value="template_postgis" />
@@ -47,7 +49,22 @@
 
   <target name="configure">
     <propertyfile file="${ddms.root}/profiles/default/server/database.properties">
-      <entry key="port" value="5482" />
+      <entry key="port" value="${postgres.port}" />
+      <entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/installer/server/database.properties">
+      <entry key="port" value="${postgres.port}" />
+      <entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/develop/server/database.properties">
+      <entry key="port" value="${postgres.port}" />
+      <entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
     </propertyfile>
     <propertyfile file="${ddms.root}/profiles/default/common/terraframe.properties">
       <entry key="local.root" value="${ddms.root}" />
@@ -55,8 +72,14 @@
     <propertyfile file="${ddms.root}/profiles/installer/common/deploy.properties">
       <entry key="deploy.path" value="${stage.webapp}" />
     </propertyfile>
+    <!-- Fixes taskdef class org.apache.catalina.ant.ReloadTask cannot be found using the classloader AntClassLoader -->
     <propertyfile file="${ddms.root}/profiles/installerdeploy/common/deploy.properties">
       <entry key="deploy.path" value="${stage.webapp}" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/installerdeploy/server/database.properties">
+      <entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
     </propertyfile>
   </target>
 
@@ -163,9 +186,9 @@
     <touch file="${stage.webapp}/WEB-INF/logs/seriousErrorLog.txt"/>
     <touch file="${stage.webapp}/WEB-INF/logs/errorLog.txt"/>
     <propertyfile file="${stage.classes}/database.properties">
-      <entry key="user" value="${deploy.db}" />
-      <entry key="password" value="${deploy.db}" />
-      <entry key="databaseName" value="${deploy.db}" />
+      <entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
       <entry key="port" value="5444" />
       <entry key="db.connection.initial" value="10" />
       <entry key="db.connection.max" value="15" />
@@ -198,15 +221,15 @@
   </target>
 
   <target name="dump_db" depends="">
-    <echo message="dumping the develop db to a sql file " />
+    <echo message="dumping the db to a sql file " />
 
     <exec executable="${docker.exec}" dir="." failonerror="true" searchpath="true" logError="true">
-      <arg line="exec ddms-build-database pg_dump --blobs --no-password -h 127.0.0.1 -U ${root.user} --schema ddms ${deploy.db}" />
-      <redirector output="MDSS.backup">
+      <arg line="exec ddms-build-database pg_dump --blobs --no-password -h 127.0.0.1 -U ${root.user} --schema ddms ${postgres.db}" />
+      <redirector output="/ddms-out/DDMS.backup">
         <outputfilterchain>
           <concatfilter prepend="${ddms.root}/scripts/ant/deploy/drop_deploy.sql" />
           <tokenfilter>
-            <replacestring from="${develop.db}" to="${deploy.db}" />
+            <replacestring from="${postgres.db}" to="${postgres.db}" />
           </tokenfilter>
         </outputfilterchain>
       </redirector>
@@ -219,10 +242,21 @@
 	  <copy todir="${stage.dir}/cache/global" failonerror="false">
       <fileset dir="${ddms.root}/cache/global"/>
     </copy>
-
-    <delete dir="${stage.dir}/ODKAggregate" />
-    <unzip src="${stage.dir}/tomcat/webapps/ODKAggregate.war" dest="${stage.dir}/ODKAggregate"/>
     -->
+
+    <!-- Get properties files ready for including into nsis -->
+    <propertyfile file="${stage.dir}/webapp/WEB-INF/classes/deploy.properties">
+      <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
+    </propertyfile>
+    <propertyfile file="${stage.dir}/webapp/WEB-INF/classes/database.properties">
+      <entry key="user" value="mdssdeploy" />
+      <entry key="password" value="mdssdeploy" />
+      <entry key="databaseName" value="mdssdeploy" />
+    </propertyfile>
+
+
+    <delete dir="${thirdparty}/ODKAggregate" />
+    <unzip src="${thirdparty}/tomcat/webapps/ODKAggregate.war" dest="${thirdparty}/ODKAggregate"/>
 
     <!-- Get revision info from git -->
     <exec executable="${python.exec}" failonerror="true">

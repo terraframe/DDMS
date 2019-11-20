@@ -19,4 +19,7 @@ services:
     volumes:
      - /usr/bin/docker:/usr/bin/docker
      - /var/run/docker.sock:/var/run/docker.sock
+     - ../../build-out:/ddms-out
+     - ../.git:/ddms/.git
     network_mode: "host"
+    command: -Dpostgres.port=5482

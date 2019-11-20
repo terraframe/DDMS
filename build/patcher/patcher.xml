@@ -9,10 +9,14 @@
   <property name="python.exec" location="/usr/bin/python3" />
 	<property name="manager.dir" value="${project.root}/build/manager" />
 	<property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />
-	<property name="ddms.dir" value="${project.root}/DDMS" />
-	<property name="doc.dir" value="${ddms.dir}/doc" />
+	<property name="ddms.root" value="${project.root}/DDMS" />
+	<property name="doc.dir" value="${ddms.root}/doc" />
 	<property name="patch.stage" value="${project.root}/build/patcher/stage" />
+	<property name="stage.webapp" value="${patch.stage}/webapp" />
 	<property name="geodata.db" value="mrc_blank" />
+	<property name="postgres.user" value="ddmsbuild" />
+  <property name="postgres.pass" value="ddmsbuild" />
+  <property name="postgres.db" value="ddmsbuild" />
 
 <!--
   ===============
@@ -33,19 +37,46 @@
 		</exec>
 
 		<!-- Copy over an updated serverExceptions.property file -->
-		<copy file="${ddms.dir}/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
+		<copy file="${ddms.root}/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
 
 		<!-- Compile all-in-one-patch.nsi -->
-		<exec executable="${nsis.exec}" dir="." failonerror="true" searchpath="true" logError="true">
+		<exec executable="${nsis.exec}" dir="${patch.stage}" failonerror="true" searchpath="true" logError="true">
 			<arg line="${project.root}/build/patcher/patcher.nsi" />
 		</exec>
 	</target>
 
-	<target name="setup-files">
+	<target name="configure">
+    <propertyfile file="${ddms.root}/profiles/default/server/database.properties">
+      <entry key="port" value="${postgres.port}" />
+			<entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
+    </propertyfile>
+		<propertyfile file="${ddms.root}/profiles/patch/server/database.properties">
+      <entry key="port" value="${postgres.port}" />
+			<entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
+    </propertyfile>
+		<propertyfile file="${ddms.root}/profiles/develop/server/database.properties">
+      <entry key="port" value="${postgres.port}" />
+			<entry key="user" value="${postgres.user}" />
+      <entry key="password" value="${postgres.pass}" />
+      <entry key="databaseName" value="${postgres.db}" />
+    </propertyfile>
+    <propertyfile file="${ddms.root}/profiles/default/common/terraframe.properties">
+      <entry key="local.root" value="${ddms.root}" />
+    </propertyfile>
+		<propertyfile file="${ddms.root}/profiles/patch/common/deploy.properties">
+      <entry key="deploy.path" value="${stage.webapp}" />
+    </propertyfile>
+  </target>
+
+	<target name="setup-files" depends="configure">
 		<delete dir="${patch.stage}/webapp" includeemptydirs="true" />
 
 		<!-- Compile -->
-		<ant inheritAll="false" dir="${ddms.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
+		<ant inheritAll="false" dir="${ddms.root}/scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
@@ -53,14 +84,14 @@
 		<!-- Generate an up to date localization spread sheet -->
 <!--
 
-		<ant inheritAll="false" dir="${ddms.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
+		<ant inheritAll="false" dir="${ddms.root}/scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
 -->
 		<!-- Get a copy of all web files -->
 
-		<ant inheritAll="false" dir="${ddms.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
+		<ant inheritAll="false" dir="${ddms.root}/scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
 			<property name="profile.name" value="patch" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>

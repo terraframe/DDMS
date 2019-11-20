@@ -746,7 +746,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing $AppName"
     LogEx::Write "Copying the webapp to $INSTDIR\tomcat\webapps\$AppName"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
-    File /r /x .svn webapp\*
+    File /r /x .svn stage/webapp/*
     SetOutPath $INSTDIR
 
 	# Update index.html redirect
@@ -768,8 +768,8 @@ Section -Main SEC0000
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
-    File "mdss.backup"
-    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\mdss.backup`
+    File "/ddms-out/DDMS.backup"
+    push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f $INSTDIR\DDMS.backup`
     Call execDos
   	push `"$INSTDIR\${POSTGRES_DIR}\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
 	  Call execDos

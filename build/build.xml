@@ -3,7 +3,9 @@
 
 
   <!--
-  Run this with the -Dproject.root=<path/to/ddms/git/repo>
+  Run this with
+	-Dproject.root=<path/to/ddms/git/repo>
+	-Dartifact.out=<path/to/generated/artifacts>
 
   ===============
     BUILD FLAGS
@@ -12,9 +14,10 @@
 
 	<target name="build-all" depends="build-installer,build-patch" />
 	-->
-	<target name="build-all" depends="build-installer,build-patch" />
+	<target name="build-all" depends="build-installer, build-patch" />
 
-	<property name="mdss.root" value="${project.root}/DDMS" />
+  <property name="ddms.root" location="${project.root}/DDMS" />
+	<property name="artifact.out" location="${artifact.out}" />
 
 	<taskdef resource="taskdefs.xml" classpath="aws-java-sdk-ant-tasks-1.2.3.jar" />
 
@@ -55,37 +58,39 @@
 		<replaceregexp
 		  match="c:set var=&quot;version&quot; value=&quot;.*&quot; scope=&quot;request&quot;"
 		  replace="c:set var=&quot;version&quot; value=&quot;${version.display}&quot; scope=&quot;request&quot;"
-		  file="${mdss.root}/webapp/about.jsp"
+		  file="${ddms.root}/webapp/about.jsp"
 		  byline="true" />
 
 		<!-- Regex the version into originalVersion.jsp. This won't get replaced by the patcher. -->
 		<replaceregexp
 		  match="c:set var=&quot;original_version&quot; value=&quot;.*&quot; scope=&quot;request&quot;"
 		  replace="c:set var=&quot;original_version&quot; value=&quot;${version.display}&quot; scope=&quot;request&quot;"
-		  file="${mdss.root}/webapp/WEB-INF/originalVersion.jsp"
+		  file="${ddms.root}/webapp/WEB-INF/originalVersion.jsp"
 		  byline="true" />
 
 		<!-- Overwrite revision.html -->
-		<echo file="${mdss.root}/webapp/revision.html" append="false">
+		<echo file="${ddms.root}/webapp/revision.html" append="false">
 			Last updated on ${long_date}
 		</echo>
 	</target>
 
 	<target name="build-installer" depends="update-about">
-
-		<!-- Installer -->
 		<ant inheritAll="false" antfile="${project.root}/build/installer/installer.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
-		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="${file.installer}" />
+
+		<copy file="${project.root}/build/installer/InstallDDMS.exe" todir="${artifact.out}" />
+		<delete file="${project.root}/build/installer/InstallDDMS.exe" />
 	</target>
 
 	<target name="build-patch" depends="update-about">
-		<!-- Manager Patch -->
-		<ant inheritAll="false" antfile="${project.root}/build/patcher/patch.xml" target="build">
+		<ant inheritAll="false" antfile="${project.root}/build/patcher/patcher.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
-		<copy file="../patch/manager-patch.exe" tofile="${file.patch}" />
-		<delete file="../patch/manager-patch.exe" />
+
+		<copy file="${project.root}/build/patcher/patcher.exe" todir="${artifact.out}" />
+		<delete file="${project.root}/build/patcher/patcher.exe" />
+
+		<sleep hours="999999999"/>
 	</target>
 </project>

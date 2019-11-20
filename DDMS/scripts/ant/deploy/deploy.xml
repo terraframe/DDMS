@@ -9,7 +9,7 @@
 	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};runwayProperties.jar" />
 	<runwayproperties root="${profile.root}" />
 	<echo message="${java.ext.dirs}" />
-	
+
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
@@ -23,11 +23,11 @@
 		<pathelement location="${common.bin}" />
 		<pathelement location="${local.src}/backup/java" />
 	</path>
-	
+
 	<property name="myclasspath" refid="framework.classpath"/>
 	<!-- Emit the property to the ant console -->
 	<echo message="Classpath = ${myclasspath}"/>
-	
+
 	<property name="domain.location" value="${local.root}/doc/entomology.xml" />
 	<property name="xsd.location" value="${local.root}/profiles/datatype_gis.xsd" />
 
@@ -44,7 +44,7 @@
 	<property name="gis.lib" value="${gis.root}/lib/server" />
 	<property name="gis.src" value="${gis.root}/src" />
 	<property name="gis.profiles" value="${gis.root}/profiles" />
-	
+
 	<property name="memory_use" value="4096m" />
 	<property name="perm_size" value="256m" />
 	<property name="max_perm_size" value="512m" />
@@ -58,6 +58,7 @@
 	<!-- =================================================================== -->
 	<!-- Define the tomcat tasks                                                 -->
 	<!-- =================================================================== -->
+	<echo message="Looking for ant ReloadTask in ${server.lib}/catalina.ant.jar" />
 	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" classpath="${server.lib}/catalina-ant.jar" />
 
 	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpath="${server.lib}/catalina-ant.jar" />
@@ -137,7 +138,7 @@
 		</concat>
 
 	</target>
-  
+
 	<!-- assumes the develop provile -->
 	<target name="deploy_src_class_lib_files">
 
@@ -284,10 +285,10 @@
 		<echo message="Update domain to the most recent schema" />
 		<java classname="com.runwaysdk.dataaccess.io.UpdateVersion" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-		
+
 			<arg value="${version.dir}/" />
 			<arg value="${version.xsd}" />
 			<arg value="${versionNumber}" />
@@ -319,10 +320,10 @@
 		<echo message="Setting up users and metadata on database!!!!!" />
 		<java classname="com.runwaysdk.dataaccess.Installer" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-		
+
 			<arg value="${root.user}" />
 			<arg value="${root.pass}" />
 			<arg value="${root.db}" />
@@ -406,15 +407,15 @@
 		<echo message="Cleaned generated base stub and bin directories" />
 	</target>
 
-	<target name="compile_generated">	
-	
+	<target name="compile_generated">
+
 		<delete failonerror="false" includeemptydirs="true">
 			<fileset dir="${local.bin}" includes="**/*" />
-			<fileset dir="${common.bin}" includes="**/*" />			
-			<fileset dir="${client.bin}" includes="**/*" />						
-			<fileset dir="${server.bin}" includes="**/*" />									
+			<fileset dir="${common.bin}" includes="**/*" />
+			<fileset dir="${client.bin}" includes="**/*" />
+			<fileset dir="${server.bin}" includes="**/*" />
 		</delete>
-	
+
 		<iajc destdir="${local.bin}" sourceroots="${local.src};${common.src};${client.src};${server.src}" debug="false" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
@@ -457,11 +458,11 @@
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</iajc>
-		
+
 		<delete failonerror="false" includeemptydirs="true">
 			<fileset dir="${local.bin}" includes="**/*" />
 		</delete>
-		
+
 		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="false" source="1.8" target="1.8" maxmem="1024m">
 			<aspectpath>
 				<pathelement location="${server.lib}/runwaysdk-server.jar" />
@@ -470,17 +471,17 @@
 			</aspectpath>
 
 			<classpath refid="framework.classpath" />
-		</iajc>		
+		</iajc>
 	</target>
 
 	<target name="update_domain_model">
 		<!-- Import the domain model -->
 		<java classname="ImportModel" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-			
+
 			<arg file="${domain.location}" />
 			<arg file="${xsd.location}" />
 			<classpath>
@@ -493,10 +494,10 @@
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.runwaysdk.util.UpdateDatabaseSourceAndClasses" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-		
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -507,10 +508,10 @@
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.runwaysdk.dataaccess.io.dataDefinition.DeployedMetadataUpdater" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-			
+
 			<arg value="${export.package}" />
 			<classpath>
 				<path refid="framework.classpath" />
@@ -525,10 +526,10 @@
 		<!-- Flatten a profile and stick it on tomcat. -->
 		<java classname="com.runwaysdk.profile.ProfileFlattener" fork="false" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-		
+
 			<arg value="${deploy.profile}" />
 			<arg value="$$${deploy.appname}_tmp" />
 			<classpath>
@@ -550,14 +551,14 @@
 				<include name="*.*" />
 			</fileset>
 		</copy>
-		
+
 		<!-- Copy the map styles -->
     <copy todir="${deploy.bin}" overwrite="true">
       <fileset dir="${profile.root}/mapstyles">
           <include name="**/*" />
       </fileset>
     </copy>
-    
+
     <!-- Copy geoserver configs -->
     <!--
     <copy todir="${deploy.bin}" overwrite="true">
@@ -566,7 +567,7 @@
       </fileset>
     </copy>
     -->
-    
+
 		<!-- Finally, delete the temp directory -->
 		<delete dir="${profile.root}/$$${deploy.appname}_tmp" />
 
@@ -747,7 +748,7 @@
 		<!-- define the core services -->
 		<java classname="com.runwaysdk.facade.wsdd.WebServiceDeployer" fork="true" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
@@ -770,7 +771,7 @@
 		<echo message="Merging Pre Country Schema (v2.8): (0001238646706000)" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true" fork="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -787,10 +788,10 @@
 		<echo message="Merging Post Country Schema (v2.8): (0001238646707003)" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true" fork="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-		
+
 			<arg value="-timestamp" />
 			<arg value="${local.root}/doc/V2.8/" />
 			<arg value="${profile.root}/version_gis.xsd" />
@@ -815,7 +816,7 @@
 		<echo message="Merging Post Country Schema (v3): ${model.dir}(0001238646707003)PostUniversal.xml" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true" fork="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -834,14 +835,14 @@
 		<echo message="Update domain to the most recent schema" />
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true" timeout="7200000" fork="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000" />
 			-->
-			
+
 			<arg value="${model.dir}" />
 			<arg value="${version.xsd}" />
 			<classpath>
@@ -854,14 +855,14 @@
 		<echo message="Update domain to the most recent schema" />
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8080" />
 			-->
-			
+
 			<arg value="${version.dir}/" />
 			<arg value="${version.xsd}" />
 			<classpath>
@@ -874,7 +875,7 @@
 		<echo message="Update domain to the most recent schema" />
 		<java classname="com.runwaysdk.dataaccess.io.RedoLastUpdate" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -890,7 +891,7 @@
 		<echo message="Import working set" />
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -907,7 +908,7 @@
 		<echo message="Unimport working set" />
 		<java classname="com.runwaysdk.dataaccess.io.UndoAll" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -924,7 +925,7 @@
 		<echo message="Create a time stamped schema" />
 		<java classname="com.runwaysdk.dataaccess.io.CreateDomainModel" failonerror="true">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -941,7 +942,7 @@
 	<target name="import_geodata" depends="" description="imports a db of geodata into the db">
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -962,7 +963,7 @@
 	<target name="import_ontology_old" depends="" description="imports the MO ontology data into the db">
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -975,14 +976,14 @@
 		</java>
 
 	</target>
-	
+
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
     <java classname="dss.vector.solutions.localization.DatabaseVersionedLocalizationExcelImporter" fork="true" failonerror="true" dir="../../../doc" timeout="4000000" taskname="MergeLocalization">
       <jvmarg value="-Xmx${memory_use}" />
-      <jvmarg value="-Xms${memory_use}" />      
+      <jvmarg value="-Xms${memory_use}" />
       <jvmarg value="-XX:PermSize=${perm_size}" />
       <jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
-    	
+
       <classpath>
         <path refid="framework.classpath" />
       </classpath>
@@ -994,7 +995,7 @@
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
 		<java classname="dss.vector.solutions.localization.LocalizationMerger" fork="true" failonerror="true" dir="../../../doc" timeout="4000000" taskname="MergeLocalization">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=1044" />
@@ -1012,7 +1013,7 @@
 	<target name="import_ontology" depends="" description="imports the default terms into the db">
 		<java classname="dss.vector.solutions.ontology.DatabaseVersionedOntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
@@ -1026,7 +1027,7 @@
 	<target name="import_ontology_roots" depends="" description="imports the MO roots into the db">
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1041,7 +1042,7 @@
 	<target name="import_menuitems" depends="" description="imports the default MenuItems into the db">
 		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1058,7 +1059,7 @@
 	<target name="build_all_paths_geodata" depends="" description="imports a db of geodata into the db">
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1077,7 +1078,7 @@
 	<target name="build_all_paths_ontology" depends="" description="imports a db of geodata into the db">
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1093,7 +1094,7 @@
 	<target name="create_universal_queries" depends="" description="creates system queries for all universal types">
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1111,7 +1112,7 @@
 	<target name="load_permissions" depends="" description="Loads roles and permissions">
 		<java classname="dss.vector.solutions.permission.PermissionImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="LoadPermissions">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Xdebug" />
@@ -1130,7 +1131,7 @@
 	<target name="backupApplication" depends="" description="backs up the application to a zip file">
 		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1148,7 +1149,7 @@
 	<target name="restoreApplication" depends="" description="restores the application">
 		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx${memory_use}" />
-			<jvmarg value="-Xms${memory_use}" />			
+			<jvmarg value="-Xms${memory_use}" />
 			<jvmarg value="-XX:PermSize=${perm_size}" />
 			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 
@@ -1179,15 +1180,15 @@
 			</fileset>
 		</jar>
 	</target>
-  
+
   <target name="delete_localization_files">
     <delete failonerror="true">
       <fileset dir="${profile.root}">
         <include name="MDSS.properties" />
-        <include name="MDSS-*.properties" />        
+        <include name="MDSS-*.properties" />
       </fileset>
     </delete>
-    
+
     <touch file="${profile.root}/MDSS.properties" />
   </target>
 

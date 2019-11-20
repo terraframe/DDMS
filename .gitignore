@@ -1,6 +1,7 @@
 **/target/**
 **/bin/**
 **/.DS_Store
+!/build/thirdparty/**/bin/**
 tomcat-remote-listener/dependency-reduced-pom.xml
 standalone/backup-manager-1.0.0/lib/**
 standalone/ddms-initializer-1.0.0/lib/**
@@ -18,3 +19,5 @@ DDMS/profiles/MDSS-MALARIA.properties
 DDMS/profiles/MDSS-DENGUE.properties
 runway-patcher/src/main/resources/patches.zip
 ddms-runway-patcher/lib/runway-patcher-1.0.0.jar
+build/installer/stage/**
+build/patcher/stage/**
