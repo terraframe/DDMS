@@ -261,7 +261,7 @@
       <entry key="password" value="mdssdeploy" />
       <entry key="databaseName" value="mdssdeploy" />
     </propertyfile>
-    <propertyfile file="${stage.dir}/profiles/default/server/install.properties">
+    <propertyfile file="${stage.dir}/webapp/WEB-INF/classes/install.properties">
       <entry key="manager.root" value="C:\MDSS\manager" />
     </propertyfile>
 
