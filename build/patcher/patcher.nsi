@@ -778,6 +778,7 @@ Function patchApplication
     LogEx::Write "Updating web files"
     !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
     SetOutPath $INSTDIR\tomcat\webapps\$AppName
+    SetOverwrite on
     File /r /x .svn /x *odk.properties stage/webapp/*
     File /oname=$INSTDIR\tomcat\webapps\$AppName\WEB-INF\classes\version.xsd ../../DDMS\profiles\version.xsd
 

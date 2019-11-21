@@ -11,8 +11,8 @@
 	<property name="runway-patch.dir" value="${project.root}/ddms-runway-patcher" />
 	<property name="ddms.root" value="${project.root}/DDMS" />
 	<property name="doc.dir" value="${ddms.root}/doc" />
-	<property name="patch.stage" value="${project.root}/build/patcher/stage" />
-	<property name="stage.webapp" value="${patch.stage}/webapp" />
+	<property name="stage.dir" value="${project.root}/build/patcher/stage" />
+	<property name="stage.webapp" value="${stage.dir}/webapp" />
 	<property name="geodata.db" value="mrc_blank" />
 	<property name="postgres.user" value="ddmsbuild" />
   <property name="postgres.pass" value="ddmsbuild" />
@@ -37,10 +37,23 @@
 		</exec>
 
 		<!-- Copy over an updated serverExceptions.property file -->
-		<copy file="${ddms.root}/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
+		<copy file="${ddms.root}/profiles/serverExceptions.properties" todir="${stage.dir}/backup-manager/profiles" />
+
+		<!-- Get properties files ready for including into nsis -->
+    <propertyfile file="${stage.webapp}/WEB-INF/classes/deploy.properties">
+      <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
+    </propertyfile>
+    <propertyfile file="${stage.webapp}/WEB-INF/classes/database.properties">
+      <entry key="user" value="mdssdeploy" />
+      <entry key="password" value="mdssdeploy" />
+      <entry key="databaseName" value="mdssdeploy" />
+    </propertyfile>
+    <propertyfile file="${stage.webapp}/WEB-INF/classes/install.properties">
+      <entry key="manager.root" value="C:\MDSS\manager" />
+    </propertyfile>
 
 		<!-- Compile all-in-one-patch.nsi -->
-		<exec executable="${nsis.exec}" dir="${patch.stage}" failonerror="true" searchpath="true" logError="true">
+		<exec executable="${nsis.exec}" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
 			<arg line="${project.root}/build/patcher/patcher.nsi" />
 		</exec>
 	</target>
@@ -76,7 +89,7 @@
   </target>
 
 	<target name="setup-files" depends="configure">
-		<delete dir="${patch.stage}/webapp" includeemptydirs="true" />
+		<delete dir="${stage.dir}/webapp" includeemptydirs="true" />
 
 		<!-- Compile -->
 		<ant inheritAll="false" dir="${ddms.root}/scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
@@ -100,35 +113,35 @@
 		</ant>
 
 		<!-- Copy in the appropriate geo universals xls -->
-		<copy file="${doc.dir}/country/${geodata.db}-universals.xls" tofile="${patch.stage}/geo-universals.xls" />
+		<copy file="${doc.dir}/country/${geodata.db}-universals.xls" tofile="${stage.dir}/geo-universals.xls" />
 
 		<!-- Create the local-develop.properties file -->
-		<copy file="${patch.stage}/webapp/WEB-INF/classes/local.properties" tofile="${patch.stage}/webapp/WEB-INF/classes/local-develop.properties" />
-		<replace file="${patch.stage}/webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
+		<copy file="${stage.dir}/webapp/WEB-INF/classes/local.properties" tofile="${stage.dir}/webapp/WEB-INF/classes/local-develop.properties" />
+		<replace file="${stage.dir}/webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
 
 		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
 		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
-		<delete file="${patch.stage}/webapp/WEB-INF/classes/terraframe.properties" />
-		<delete file="${patch.stage}/webapp/WEB-INF/classes/database.properties" />
-		<delete file="${patch.stage}/webapp/WEB-INF/classes/common.properties" />
-    <delete file="${patch.stage}/webapp/WEB-INF/classes/analytics.properties" />
-		<!-- <delete file="${patch.stage}/webapp/login.jsp" /> -->
-		<delete file="${patch.stage}/webapp/WEB-INF/originalVersion.jsp" />
+		<delete file="${stage.dir}/webapp/WEB-INF/classes/terraframe.properties" />
+		<delete file="${stage.dir}/webapp/WEB-INF/classes/database.properties" />
+		<delete file="${stage.dir}/webapp/WEB-INF/classes/common.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/analytics.properties" />
+		<!-- <delete file="${stage.dir}/webapp/login.jsp" /> -->
+		<delete file="${stage.dir}/webapp/WEB-INF/originalVersion.jsp" />
 
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
-		<delete file="${patch.stage}/webapp/imgs/flags/current" />
+		<delete file="${stage.dir}/webapp/imgs/flags/current" />
 
 
     <!-- Since localization files are versioned now, we want to make sure that we delete these files otherwise they will overwrite localization on our target machine. -->
-    <delete file="${patch.stage}/webapp/WEB-INF/classes/MDSS.properties" />
-    <delete file="${patch.stage}/webapp/WEB-INF/classes/clientExceptions.properties" />
-    <delete file="${patch.stage}/webapp/WEB-INF/classes/commonExceptions.properties" />
-    <delete file="${patch.stage}/webapp/WEB-INF/classes/serverExceptions.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/MDSS.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/clientExceptions.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/commonExceptions.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/serverExceptions.properties" />
 
 
 		<!-- Delete the source and classes directory of the MERG survey form, so that we don't overwrite any custom fields. -->
 		<delete>
-          <fileset dir="${patch.stage}/webapp/WEB-INF/classes/dss/vector/solutions/form/business" casesensitive="yes">
+          <fileset dir="${stage.dir}/webapp/WEB-INF/classes/dss/vector/solutions/form/business" casesensitive="yes">
             <include name="**/*.class"/>
 			<exclude name="**/*FormSurveyController*.class"/>
 			<exclude name="**/*FormSurvey.class"/>
@@ -136,21 +149,21 @@
 		  </fileset>
 		</delete>
 		<delete>
-          <fileset dir="${patch.stage}/webapp/WEB-INF/source/server/stub/dss/vector/solutions/form/business" casesensitive="yes">
+          <fileset dir="${stage.dir}/webapp/WEB-INF/source/server/stub/dss/vector/solutions/form/business" casesensitive="yes">
             <include name="**/*.java"/>
 			<exclude name="**/*FormSurvey.java"/>
 			<exclude name="**/*FormHousehold.java"/>
 		  </fileset>
 		</delete>
-		<delete dir="${patch.stage}/webapp/WEB-INF/source/server/base/dss/vector/solutions/form/business" />
+		<delete dir="${stage.dir}/webapp/WEB-INF/source/server/base/dss/vector/solutions/form/business" />
 		<delete>
-          <fileset dir="${patch.stage}/webapp/WEB-INF/source/client/stub/dss/vector/solutions/form/business" casesensitive="yes">
+          <fileset dir="${stage.dir}/webapp/WEB-INF/source/client/stub/dss/vector/solutions/form/business" casesensitive="yes">
             <include name="**/*.java"/>
 			<exclude name="**/*FormSurveyController*.java"/>
 		  </fileset>
 		</delete>
 		<delete>
-          <fileset dir="${patch.stage}/webapp/WEB-INF/source/client/base/dss/vector/solutions/form/business" casesensitive="yes">
+          <fileset dir="${stage.dir}/webapp/WEB-INF/source/client/base/dss/vector/solutions/form/business" casesensitive="yes">
             <include name="**/*.java"/>
 			<exclude name="**/*FormSurveyController*.java"/>
 		  </fileset>

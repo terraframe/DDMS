@@ -324,7 +324,7 @@ public class MdssLocalizationImporter implements Reloadable
   {
     try
     {
-      File dir = FileIO.getDirectory("/master.properties");
+      File dir = FileIO.getDirectory("/" + bundle + ".properties");
 
       this.updateProperties(dir, bundle, sheet);
     }

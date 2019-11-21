@@ -122,8 +122,6 @@
         <include name="backup-manager-1.0.0.jar" />
       </fileset>
     </copy>
-
-    <sleep hours="99999" />
   </target>
 
   <target name="mdssgisi">
