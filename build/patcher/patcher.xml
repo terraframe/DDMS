@@ -13,6 +13,7 @@
 	<property name="doc.dir" value="${ddms.root}/doc" />
 	<property name="stage.dir" value="${project.root}/build/patcher/stage" />
 	<property name="stage.webapp" value="${stage.dir}/webapp" />
+	<property name="stage.classes" location = "${stage.webapp}/WEB-INF/classes"/>
 	<property name="geodata.db" value="mrc_blank" />
 	<property name="postgres.user" value="ddmsbuild" />
   <property name="postgres.pass" value="ddmsbuild" />
@@ -40,17 +41,7 @@
 		<copy file="${ddms.root}/profiles/serverExceptions.properties" todir="${stage.dir}/backup-manager/profiles" />
 
 		<!-- Get properties files ready for including into nsis -->
-    <propertyfile file="${stage.webapp}/WEB-INF/classes/deploy.properties">
-      <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
-    </propertyfile>
-    <propertyfile file="${stage.webapp}/WEB-INF/classes/database.properties">
-      <entry key="user" value="mdssdeploy" />
-      <entry key="password" value="mdssdeploy" />
-      <entry key="databaseName" value="mdssdeploy" />
-    </propertyfile>
-    <propertyfile file="${stage.webapp}/WEB-INF/classes/install.properties">
-      <entry key="manager.root" value="C:\MDSS\manager" />
-    </propertyfile>
+    <antcall target="configure_for_prod" />
 
 		<!-- Compile all-in-one-patch.nsi -->
 		<exec executable="${nsis.exec}" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
@@ -58,7 +49,15 @@
 		</exec>
 	</target>
 
-	<target name="configure">
+  <target name="test-prop-replace">
+		<propertyfile file="/home/rich/dev/projects/DDMS/git/DDMS/DDMS/profiles/default/server/install.properties">
+			<entry key="manager.root" value="MANAGER-ROOT-REPLACE" />
+    </propertyfile>
+		<replaceregexp file="/home/rich/dev/projects/DDMS/git/DDMS/DDMS/profiles/default/server/install.properties" match="MANAGER-ROOT-REPLACE" replace="C:/MDSS/manager" byline="true"/>
+  </target>
+
+  <!-- Configures the build system to be ready for a local build of the database -->
+	<target name="configure_for_build">
     <propertyfile file="${ddms.root}/profiles/default/server/database.properties">
       <entry key="port" value="${postgres.port}" />
 			<entry key="user" value="${postgres.user}" />
@@ -88,7 +87,39 @@
     </propertyfile>
   </target>
 
-	<target name="setup-files" depends="configure">
+	<!-- Configures the staging environment to be ready for a production deployment
+       Any changes that were made in configure_for_build must be undone here.
+  -->
+	<target name="configure_for_prod">
+		<propertyfile file="${stage.webapp}/WEB-INF/classes/deploy.properties">
+      <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
+    </propertyfile>
+    <propertyfile file="${stage.webapp}/WEB-INF/classes/database.properties">
+      <entry key="user" value="mdssdeploy" />
+      <entry key="password" value="mdssdeploy" />
+      <entry key="databaseName" value="mdssdeploy" />
+			<entry key="databaseBinDirectory" value="C:/MDSS/PostgreSql/9.6/bin/" />
+    </propertyfile>
+    <propertyfile file="${stage.webapp}/WEB-INF/classes/install.properties">
+      <entry key="manager.root" value="C:/MDSS/manager" />
+    </propertyfile>
+
+		<!--
+		  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property
+		  reader tries to merge property values. As such, we need to replace the updated '\:' with the original ':' character
+		  through regex.
+		-->
+	    <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\:' replace=":" />
+			<replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\\' replace="/" />
+	    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
+	    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
+			<replaceregexp flags="g" byline="true" file="${stage.classes}/deploy.properties" match='\\\\' replace="/" />
+	    <replaceregexp flags="g" byline="true" file="${stage.classes}/deploy.properties" match='\\\:' replace=":" />
+	    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
+	    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />
+  </target>
+
+	<target name="setup-files" depends="configure_for_build">
 		<delete dir="${stage.dir}/webapp" includeemptydirs="true" />
 
 		<!-- Compile -->

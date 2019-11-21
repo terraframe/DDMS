@@ -8,11 +8,11 @@
   ===============
   Copy and paste these depends into the target below to modify what you're building
 
-  <target name="build" depends="configure, build_installer_exe"/>  For NSIS changes (est 40 minutes)
-  <target name="build" depends="clean, configure, compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
-  <target name="build" depends="clean, configure, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
+  <target name="build" depends="configure_for_build, build_installer_exe"/>  For NSIS changes (est 40 minutes)
+  <target name="build" depends="clean, configure_for_build, compile, deploy, build-managers, build_installer_exe"/>  For source changes (including properties files) (est 1 hour)
+  <target name="build" depends="clean, configure_for_build, compile, build-database, deploy, export-database, build-managers, build_installer_exe"/>  Database changes (est 3 hours)
  -->
-  <target name="build" depends="clean, compile, configure, build-database, deploy, export-database, build-managers, build_installer_exe"/>
+  <target name="build" depends="clean, compile, configure_for_build, build-database, deploy, export-database, build-managers, build_installer_exe"/>
 
   <property name="ddms.root" location="${project.root}/DDMS" />
   <property name="country" value="blank" />
@@ -47,7 +47,8 @@
     </classpath>
   </taskdef>
 
-  <target name="configure">
+  <!-- Configures the build system to be ready for a local build of the database -->
+  <target name="configure_for_build">
     <propertyfile file="${ddms.root}/profiles/default/server/database.properties">
       <entry key="port" value="${postgres.port}" />
       <entry key="user" value="${postgres.user}" />
@@ -86,6 +87,59 @@
     </propertyfile>
   </target>
 
+  <!-- Configures the staging environment to be ready for a production deployment
+       Any changes that were made in configure_for_build must be undone here.
+  -->
+  <target name="configure_for_prod" depends="">
+    <delete dir="${stage.webapp}/WEB-INF/logs" />
+    <mkdir dir="${stage.webapp}/WEB-INF/logs"/>
+    <delete dir="${deploy.root}/logs" />
+    <mkdir dir="${deploy.root}/logs"/>
+    <touch file="${stage.webapp}/WEB-INF/logs/seriousErrorLog.txt"/>
+    <touch file="${stage.webapp}/WEB-INF/logs/errorLog.txt"/>
+    <propertyfile file="${stage.classes}/database.properties">
+      <entry key="user" value="mdssdeploy" />
+      <entry key="password" value="mdssdeploy" />
+      <entry key="databaseName" value="mdssdeploy" />
+      <entry key="port" value="5444" />
+      <entry key="db.connection.initial" value="10" />
+      <entry key="db.connection.max" value="15" />
+      <entry key="databaseBinDirectory" value="C:/MDSS/PostgreSql/9.6/bin/" />
+      <entry key="dataDumpExecutable" value="pg_dump" />
+      <entry key="dataImportExecutable" value="pg_restore" />
+    </propertyfile>
+
+    <propertyfile file="${stage.classes}/jawr.properties">
+      <entry key="jawr.debug.on" value="false" />
+    </propertyfile>
+    <propertyfile file="${stage.classes}/server.properties">
+      <entry key="logTransactions" value="true" />
+      <entry key="compileTimeWeaving" value="true" />
+    </propertyfile>
+    <propertyfile file="${stage.classes}/install.properties">
+      <entry key="master" value="false" />
+      <entry key="manager.root" value="C:/MDSS/manager" />
+    </propertyfile>
+
+    <propertyfile file="${stage.classes}/deploy.properties">
+      <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
+    </propertyfile>
+
+	<!--
+	  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property
+	  reader tries to merge property values. As such, we need to replace the updated '\:' with the original ':' character
+	  through regex.
+	-->
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\:' replace=":" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\\' replace="/" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/deploy.properties" match='\\\\' replace="/" />
+    <replaceregexp flags="g" byline="true" file="${stage.classes}/deploy.properties" match='\\\:' replace=":" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
+    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />
+  </target>
+
   <target name="deploy">
     <ant inheritall="false" antfile="deploy.xml" dir="${ddms.root}/scripts/ant/deploy">
 	    <property name="profile.root" value="${profile.root}" />
@@ -96,7 +150,7 @@
       <target name="deploy_all_files"/>
 	  </ant>
 
-	  <antcall target="set_vital_properties" />
+	  <antcall target="configure_for_prod" />
   </target>
 
   <!-- Depends on source being compiled -->
@@ -186,48 +240,6 @@
     </ant>
   </target>
 
-  <target name="set_vital_properties" depends="">
-    <delete dir="${stage.webapp}/WEB-INF/logs" />
-    <mkdir dir="${stage.webapp}/WEB-INF/logs"/>
-    <delete dir="${deploy.root}/logs" />
-    <mkdir dir="${deploy.root}/logs"/>
-    <touch file="${stage.webapp}/WEB-INF/logs/seriousErrorLog.txt"/>
-    <touch file="${stage.webapp}/WEB-INF/logs/errorLog.txt"/>
-    <propertyfile file="${stage.classes}/database.properties">
-      <entry key="user" value="${postgres.user}" />
-      <entry key="password" value="${postgres.pass}" />
-      <entry key="databaseName" value="${postgres.db}" />
-      <entry key="port" value="5444" />
-      <entry key="db.connection.initial" value="10" />
-      <entry key="db.connection.max" value="15" />
-      <entry key="databaseBinDirectory" value="C:/MDSS/PostgreSql/9.6/bin/" />
-      <entry key="dataDumpExecutable" value="pg_dump" />
-      <entry key="dataImportExecutable" value="pg_restore" />
-    </propertyfile>
-
-    <propertyfile file="${stage.classes}/jawr.properties">
-      <entry key="jawr.debug.on" value="false" />
-    </propertyfile>
-    <propertyfile file="${stage.classes}/server.properties">
-      <entry key="logTransactions" value="true" />
-      <entry key="compileTimeWeaving" value="true" />
-    </propertyfile>
-    <propertyfile file="${stage.classes}/install.properties">
-      <entry key="master" value="false" />
-    </propertyfile>
-
-	<!--
-	  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property
-	  reader tries to merge property values. As such, we need to replace the updated '\:' with the original ':' character
-	  through regex.
-	-->
-    <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\:' replace=":" />
-    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
-    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
-    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />
-  </target>
-
   <target name="dump_db" depends="">
     <echo message="dumping the db to a sql file " />
 
@@ -251,20 +263,6 @@
       <fileset dir="${ddms.root}/cache/global"/>
     </copy>
     -->
-
-    <!-- Get properties files ready for including into nsis -->
-    <propertyfile file="${stage.dir}/webapp/WEB-INF/classes/deploy.properties">
-      <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
-    </propertyfile>
-    <propertyfile file="${stage.dir}/webapp/WEB-INF/classes/database.properties">
-      <entry key="user" value="mdssdeploy" />
-      <entry key="password" value="mdssdeploy" />
-      <entry key="databaseName" value="mdssdeploy" />
-    </propertyfile>
-    <propertyfile file="${stage.dir}/webapp/WEB-INF/classes/install.properties">
-      <entry key="manager.root" value="C:\MDSS\manager" />
-    </propertyfile>
-
 
     <delete dir="${thirdparty}/ODKAggregate" />
     <unzip src="${thirdparty}/tomcat/webapps/ODKAggregate.war" dest="${thirdparty}/ODKAggregate"/>

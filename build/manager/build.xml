@@ -117,11 +117,6 @@
         <include name="backup-manager-1.0.0.jar" />
       </fileset>
     </copy>
-    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
-      <fileset dir="${project.root}/backup-manager/target">
-        <include name="backup-manager-1.0.0.jar" />
-      </fileset>
-    </copy>
   </target>
 
   <target name="mdssgisi">
