@@ -1282,7 +1282,7 @@ Function patchManager
     # Copy over updated runway properties
 	  LogEx::Write "Copying over updated runway properties for app $1"
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
-    File /r /x .svn ..\manager\patch\profiles\*
+    File /r /x .svn stage/backup-manager/profiles*
 
     Goto MANAGERappNameFileReadLoop
 
