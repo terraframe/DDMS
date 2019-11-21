@@ -14,17 +14,17 @@
   <target name="copy_runway">
     <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
       <fileset dir="${ddms.root}/lib/client">
-        <include name="runway-*.jar" />
+        <include name="runwaysdk-*.jar" />
       </fileset>
     </copy>
     <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
       <fileset dir="${ddms.root}/lib/common">
-        <include name="runway-*.jar" />
+        <include name="runwaysdk-*.jar" />
       </fileset>
     </copy>
     <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
       <fileset dir="${ddms.root}/lib/server">
-        <include name="runway-*.jar" />
+        <include name="runwaysdk-*.jar" />
       </fileset>
     </copy>
   </target>
@@ -117,6 +117,13 @@
         <include name="backup-manager-1.0.0.jar" />
       </fileset>
     </copy>
+    <copy todir="${manager.dir}/backup-manager-1.0.0/lib" verbose="true" failonerror="true">
+      <fileset dir="${project.root}/backup-manager/target">
+        <include name="backup-manager-1.0.0.jar" />
+      </fileset>
+    </copy>
+
+    <sleep hours="99999" />
   </target>
 
   <target name="mdssgisi">
