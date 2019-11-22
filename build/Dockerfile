@@ -74,7 +74,6 @@ ADD tomcat-remote-listener /ddms/tomcat-remote-listener
 ADD synch-manager /ddms/synch-manager
 ADD runway-patcher /ddms/runway-patcher
 ADD MDSSGISI /ddms/MDSSGISI
-ADD installer-windows /ddms/installer-windows
 ADD dss.vector.solutions.kaleidoscope.oda.driver.ui /ddms/dss.vector.solutions.kaleidoscope.oda.driver.ui
 ADD dss.vector.solutions.kaleidoscope.oda.driver /ddms/dss.vector.solutions.kaleidoscope.oda.driver
 ADD dss.vector.org.json /ddms/dss.vector.org.json
