@@ -126,14 +126,18 @@
 		  reader tries to merge property values. As such, we need to replace the updated '\:' with the original ':' character
 		  through regex.
 		-->
+		<!--
 	    <replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\:' replace=":" />
 			<replaceregexp flags="g" byline="true" file="${stage.classes}/install.properties" match='\\\\' replace="/" />
 	    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\\' replace="/" />
 	    <replaceregexp flags="g" byline="true" file="${stage.classes}/database.properties" match='\\\:' replace=":" />
+			-->
 			<replaceregexp flags="g" byline="true" file="${stage.classes}/deploy.properties" match='\\\\' replace="/" />
 	    <replaceregexp flags="g" byline="true" file="${stage.classes}/deploy.properties" match='\\\:' replace=":" />
+			<!--
 	    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^local.root=.*$' replace="local.root=C:/MDSS/tomcat/" />
 	    <replaceregexp byline="true" file="${stage.classes}/terraframe.properties" match='^deploy.root=.*$' replace="deploy.root=C:/MDSS/tomcat/" />
+		  -->
   </target>
 
 	<target name="setup-files" depends="configure_for_build">
