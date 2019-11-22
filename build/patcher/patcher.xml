@@ -87,22 +87,39 @@
     </propertyfile>
   </target>
 
-	<!-- Configures the staging environment to be ready for a production deployment
+	<!-- Configures the staging properties files to be ready for a production deployment
        Any changes that were made in configure_for_build must be undone here.
   -->
 	<target name="configure_for_prod">
 		<propertyfile file="${stage.webapp}/WEB-INF/classes/deploy.properties">
       <entry key="deploy.path" value="${deploy.webapps.root}/${deploy.appname}" />
     </propertyfile>
-    <propertyfile file="${stage.webapp}/WEB-INF/classes/database.properties">
+		<!-- This properties file is only written on a new install.
+    <propertyfile file="${stage.webapp}/WEB-INF/classes/install.properties">
+      <entry key="manager.root" value="C:/MDSS/manager" />
+    </propertyfile>
+	  -->
+
+		<!-- Since localization files are versioned now, we want to make sure that we delete these files otherwise they will overwrite localization on our target machine. -->
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/MDSS.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/clientExceptions.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/commonExceptions.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/serverExceptions.properties" />
+
+		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
+		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
+		<delete file="${stage.dir}/webapp/WEB-INF/classes/terraframe.properties" />
+		<delete file="${stage.dir}/webapp/WEB-INF/classes/common.properties" />
+    <delete file="${stage.dir}/webapp/WEB-INF/classes/analytics.properties" />
+		<delete file="${stage.dir}/webapp/WEB-INF/classes/database.properties" />
+		<!-- We're just deleting database.properties, so it doesn't matter that the username/password/dbname are for the build system and not prod.
+		<propertyfile file="${stage.webapp}/WEB-INF/classes/database.properties">
       <entry key="user" value="mdssdeploy" />
       <entry key="password" value="mdssdeploy" />
       <entry key="databaseName" value="mdssdeploy" />
 			<entry key="databaseBinDirectory" value="C:/MDSS/PostgreSql/9.6/bin/" />
     </propertyfile>
-    <propertyfile file="${stage.webapp}/WEB-INF/classes/install.properties">
-      <entry key="manager.root" value="C:/MDSS/manager" />
-    </propertyfile>
+	   -->
 
 		<!--
 		  The ant command 'propertyfile' automatically escapes all ':' with '\:', this causes a problem when the java property
@@ -150,25 +167,11 @@
 		<copy file="${stage.dir}/webapp/WEB-INF/classes/local.properties" tofile="${stage.dir}/webapp/WEB-INF/classes/local-develop.properties" />
 		<replace file="${stage.dir}/webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
 
-		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
-		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
-		<delete file="${stage.dir}/webapp/WEB-INF/classes/terraframe.properties" />
-		<delete file="${stage.dir}/webapp/WEB-INF/classes/database.properties" />
-		<delete file="${stage.dir}/webapp/WEB-INF/classes/common.properties" />
-    <delete file="${stage.dir}/webapp/WEB-INF/classes/analytics.properties" />
 		<!-- <delete file="${stage.dir}/webapp/login.jsp" /> -->
 		<delete file="${stage.dir}/webapp/WEB-INF/originalVersion.jsp" />
 
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
 		<delete file="${stage.dir}/webapp/imgs/flags/current" />
-
-
-    <!-- Since localization files are versioned now, we want to make sure that we delete these files otherwise they will overwrite localization on our target machine. -->
-    <delete file="${stage.dir}/webapp/WEB-INF/classes/MDSS.properties" />
-    <delete file="${stage.dir}/webapp/WEB-INF/classes/clientExceptions.properties" />
-    <delete file="${stage.dir}/webapp/WEB-INF/classes/commonExceptions.properties" />
-    <delete file="${stage.dir}/webapp/WEB-INF/classes/serverExceptions.properties" />
-
 
 		<!-- Delete the source and classes directory of the MERG survey form, so that we don't overwrite any custom fields. -->
 		<delete>
