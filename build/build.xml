@@ -79,8 +79,8 @@
 			<property name="version.display" value="${version.display}" />
 		</ant>
 
-		<copy file="${project.root}/build/installer/InstallDDMS.exe" todir="${artifact.out}" />
-		<delete file="${project.root}/build/installer/InstallDDMS.exe" />
+		<copy file="${project.root}/build/installer/installer.exe" todir="${artifact.out}" />
+		<delete file="${project.root}/build/installer/installer.exe" />
 	</target>
 
 	<target name="build-patch" depends="update-about">

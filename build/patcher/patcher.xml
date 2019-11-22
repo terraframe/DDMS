@@ -49,13 +49,6 @@
 		</exec>
 	</target>
 
-  <target name="test-prop-replace">
-		<propertyfile file="/home/rich/dev/projects/DDMS/git/DDMS/DDMS/profiles/default/server/install.properties">
-			<entry key="manager.root" value="MANAGER-ROOT-REPLACE" />
-    </propertyfile>
-		<replaceregexp file="/home/rich/dev/projects/DDMS/git/DDMS/DDMS/profiles/default/server/install.properties" match="MANAGER-ROOT-REPLACE" replace="C:/MDSS/manager" byline="true"/>
-  </target>
-
   <!-- Configures the build system to be ready for a local build of the database -->
 	<target name="configure_for_build">
     <propertyfile file="${ddms.root}/profiles/default/server/database.properties">

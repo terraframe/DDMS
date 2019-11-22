@@ -118,7 +118,7 @@ Page custom appNameInputPage appNameUniquenessCheck
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile InstallDDMS.exe
+OutFile installer.exe
 InstallDir C:\MDSS
 CRCCheck on
 XPStyle on
