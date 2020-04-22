@@ -18,6 +18,7 @@ package dss.vector.solutions;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -39,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.ContextBuilderIF;
@@ -501,17 +503,23 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
             }
           }
         }
+        
         Collections.reverse(context);
         
         GeoEntity parent = defaultGeo;
-        List<GeoEntity> parents = calculateParentFromContext(context);
-        if (parents.size() > 0)
+        
+        if (context.size() > 0)
         {
-          parent = parents.get(0);
-        }
-        else
-        {
-          logger.error("Error when getting parent from the context. This import will fail if re-imported. The calculated parents size was 0 for [" + ugeo.getEntityName() + "].");
+          List<GeoEntity> parents = calculateParentFromContext(context);
+          
+          if (parents.size() > 0)
+          {
+            parent = parents.get(0);
+          }
+          else
+          {
+            logger.error("Error when getting parent from the context. This import will fail if re-imported. The calculated parents size was 0 for [" + ugeo.getEntityName() + "].");
+          }
         }
 
         LocationProblem locp = new LocationProblem(ugeo.getEntityName(), context, parent, GeoHierarchy.getGeoHierarchyFromType(mdType));
@@ -559,6 +567,8 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
 
   private List<GeoEntity> calculateParentFromContext(LinkedList<JSONObject> context)
   {
+    Savepoint sp = Database.setSavepoint();
+    
     try
     {
       List<JSONObject> contextOfParent = new LinkedList<JSONObject>(context);
@@ -601,9 +611,15 @@ public class ExcelImportJob extends ExcelImportJobBase implements com.runwaysdk.
     }
     catch (Throwable t)
     {
+      Database.rollbackSavepoint(sp);
+      
       logger.error("Error when getting parent from the context. This import will fail if re-imported.", t);
       
       return new LinkedList<GeoEntity>();
+    }
+    finally
+    {
+      Database.releaseSavepoint(sp);
     }
   }
 }
