@@ -3,8 +3,8 @@ REM This script to be used for renewing SSL certificates for DDMS using LetsEncr
 REM See https://github.com/terraframe/DDMS/wiki/HTTPS-Setup-with-Lets-Encrypt
 
 REM ##### Variables #########
-SET DOMAIN=indiaentoddms.co.in
-SET EMAIL=Rinki.Deb@lstmed.ac.uk
+SET DOMAIN=xxxx
+SET EMAIL=xxxx
 SET KEYSTORE_PASSWORD=changeit
 SET BACKUP_DIR=C:\Users\Administrator\Dropbox\ssl
 REM ##### Variables #########
