@@ -1,18 +1,19 @@
-
 REM This script can be run on a slave machine (as part of the Windows Task Scheduler) to automatically restore
 REM a backup from a transfer folder (which is assumed to be place there by the 'master' server.)
 
 
 REM ######### Variables #############
+set SHARED_DIR=C:\path\to\google-drive\DDMS
+
 REM Note that the log file should not be the same folder as the backups
-set LOGFILE=C:\path\to\google-drive\ddms\logs\%1Sync.log
-set BACKUPFOLDER=C:\path\to\google-drive\ddms\backups\%1
+set LOGFILE=%SHARED_DIR%\logs\ddms-mirror-slave.log
+set BACKUPFOLDER=%SHARED_DIR%\transfer-archive
 
 REM The transfer folder is the folder used by a file transfer tool
-set TRANSFERFOLDER=C:\path\to\google-drive\ddms\transfer\%1
+set TRANSFERFOLDER=%SHARED_DIR%\transfer
 
 REM The archive folder is where files are stored that should not be overwritten by the restore process
-set ARCHIVEFOLDER=C:\DDMS_OneDrive\OneDrive - Liverpool School of Tropical Medicine\DDMS_backups\active\backups\%1\GeoServer_archive\
+set ARCHIVEFOLDER=%SHARED_DIR%\transfer-archive
 
 REM Line 36 assumes your backup folder is on C drive. Change that line if it is not.
 
