@@ -13,7 +13,7 @@ RUN apt install -y wget unzip ant nsis=2.46-7 git python3 maven
 
 ## Install Java 8
 RUN wget $(echo "aHR0cHM6Ly9kbC5jbG91ZHNtaXRoLmlvL3B1YmxpYy90ZXJyYWZyYW1lL3B1YmxpYy9yYXcvbmFtZXMvamRrLWRlYmlhbi1hbWQ2NC04dTIzMS92ZXJzaW9ucy84dTIzMS9qZGstZGViaWFuLWFtZDY0LTh1MjMxLnRhci5nego=" | base64 -d)
-RUN mkdir /opt/java && tar xvzf /tmp/java8.tar.gz -C /opt/java
+RUN mkdir /opt/java && tar xvzf jdk-debian-amd64-8u231.tar.gz -C /opt/java
 ENV JAVA_HOME=/opt/java/jdk1.8.0_231
 ENV JDK_HOME=/opt/java/jdk1.8.0_231
 ENV JRE_HOME=/opt/java/jdk1.8.0_231/jre
