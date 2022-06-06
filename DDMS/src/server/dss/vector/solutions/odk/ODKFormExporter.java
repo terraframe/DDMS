@@ -443,7 +443,9 @@ public class ODKFormExporter implements Reloadable
     OIterator<? extends ODKFormMapping> it = q.getIterator();
     try
     {
-      String version = new SimpleDateFormat("yyyyMMdd").format(new Date());
+      // We must be lexically greater than any forms which came before us. Since all the forms which
+      // came before us started with the year, they will all start with 2022 or less. We also cannot exceed 2147483648
+      String version = "2023";
 
       if (it.hasNext())
       {
@@ -452,7 +454,7 @@ public class ODKFormExporter implements Reloadable
         mapping.setRevision(mapping.getRevision() + 1);
         mapping.apply();
 
-        version = version + String.format("%02d", mapping.getRevision());
+        version = version + String.format("%06d", mapping.getRevision());
       }
       else
       {
@@ -462,7 +464,7 @@ public class ODKFormExporter implements Reloadable
         mapping.setRevision(0);
         mapping.apply();
 
-        version = version + String.format("%02d", mapping.getRevision());
+        version = version + String.format("%06d", mapping.getRevision());
       }
 
       return version;

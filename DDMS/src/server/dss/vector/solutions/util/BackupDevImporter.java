@@ -18,23 +18,21 @@ package dss.vector.solutions.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.sql.Savepoint;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.Files;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.DatabaseProperties;
@@ -43,8 +41,10 @@ import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.VaultInfo;
 import com.runwaysdk.constants.VaultProperties;
 import com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.general.ProcessReader;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Versioning;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -55,6 +55,7 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.system.Users;
 import com.runwaysdk.system.UsersQuery;
 import com.runwaysdk.util.FileIO;
+import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.form.business.FormBedNet;
 import dss.vector.solutions.form.business.FormHousehold;
@@ -83,14 +84,15 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 
  * @param args[0] fBackup The path to the backup zip file you want to import
  * 
+ * *** TODO *** See comment above 'importFromSQLDocker' method... This file is currently in a 'half-working' state. Needs more investment to get usable again with docker.
  * Steps from ground 0:
  * 1) Add your password to a ~/.pgpass file with host 127.0.0.1 (NOT LOCALHOST) that the psql import process will use when importing the sql files.
  *     If your pgpass file doesn't exist, that is OK. Just create the file, and put this line in it:
- *     127.0.0.1:5432:mdssdevelop:mdssdevelop:mdssdevelop
+ *     127.0.0.1:5432:mdssdeploy:mdssdeploy:mdssdeploy
  *     Make sure to chmod it: sudo chmod 600 ~/.pgpass
- * 2) Create user mdssdevelop
- * 3) Create a new database of name mdssdevelop with owner: mdssdevelop
- * 4) Modify your database search_path to ddms,public: ALTER DATABASE mdssdevelop SET search_path=ddms,public;
+ * 2) Create user mdssdeploy with password mdssdeploy and full admin privileges (and role odk_user / noReply)
+ * 3) Create a new database of name mdssdeploy with owner: mdssdeploy
+ * 4) Modify your database search_path to ddms,public: ALTER DATABASE mdssdeploy SET search_path=ddms,public;
  *    alternatively: ALTER ROLE mdssdeploy SET search_path = ddms,public;
  * 5) Install the postgis extension: CREATE EXTENSION postgis;
  * 6) Set your databaseBinDirectory in database.properties
@@ -114,6 +116,8 @@ import dss.vector.solutions.report.CacheDocumentManager;
  * 
  * 
  * Troubleshooting Problems:
+ * Q: Why is the user/database mdssdevelop instead of mdssdeploy
+ * A: Because the backup files that you want to import contain references to the mdssdeploy user. We'd need to rename the user on import to fix this.
  * Q: The import happened but gave no real error!?:
  * A: The importer can be picky about certain filenames. If your filename contains a bunch of strange characters like ()!@#$%
  *    try renaming it to something simple like ghana.zip.
@@ -130,6 +134,9 @@ import dss.vector.solutions.report.CacheDocumentManager;
  */
 public class BackupDevImporter
 {
+  public static final String UNZIP_LOC = "/data/ddms/backupdevimporter";
+  
+  
   private Logger logger;
   
   private File fRestoreUnzip;
@@ -221,7 +228,8 @@ public class BackupDevImporter
     
     logger.info("Restore will import [" + fBackup.getAbsolutePath() + "] into database with name [" + databaseName + "].");
     
-    fRestoreUnzip = Files.createTempDir();
+    fRestoreUnzip = new File(UNZIP_LOC, IDGenerator.nextID());
+    fRestoreUnzip.mkdir();
     
     try
     {
@@ -270,7 +278,7 @@ public class BackupDevImporter
     }
     
     String dbbin = DatabaseProperties.getDatabaseBinDirectory();
-    if (dbbin.equals("") || !new File(dbbin).exists())
+    if (dbbin.equals(""))
     {
       throw new RuntimeException("Check the value of your databaseBinDirectory in database.properties");
     }
@@ -425,7 +433,7 @@ public class BackupDevImporter
         for (File sqlFile : sqlFiles)
         {
           this.logger.info("Importing SQL file [" + sqlFile.getAbsolutePath() + "]");
-          Database.importFromSQL(sqlFile.getAbsolutePath(), ps, errPs);
+          importFromSQLDocker(sqlFile.getAbsolutePath(), ps, errPs);
         }
       }
       else
@@ -459,6 +467,52 @@ public class BackupDevImporter
       {
         throw new RuntimeException(e);
       }
+    }
+  }
+  
+  // Can use this by setting database.properties:
+  // databaseBinDirectory=echo 'your-sudo-pass-here' | sudo -S docker run --network host --rm -v /data/ddms/backupdevimporter:/data/ddms/backupdevimporter:rw --name postgres-importer postgis/postgis:9.5-2.5 /usr/bin
+  // Currently this is not working when run explicitly via java, however if I copy/paste the command it outputs in console and run it manually it seems to work. I then just moved on by manually running the rest of this file after my sql file was manually imported.
+  public void importFromSQLDocker(String restoreSQLFile, PrintStream out, PrintStream errOut)
+  {
+    String databaseBinDirectory = DatabaseProperties.getDatabaseBinDirectory();
+
+    String dbImportTool = databaseBinDirectory + File.separator + "psql";
+
+    ArrayList<String> argList = new ArrayList<String>();
+    argList.add(dbImportTool);
+    argList.add("-h");
+    argList.add("127.0.0.1");
+    argList.add("-p");
+    argList.add(Integer.toString(DatabaseProperties.getPort()));
+    argList.add("-U");
+    argList.add(DatabaseProperties.getUser());
+    argList.add("-d");
+    argList.add(DatabaseProperties.getDatabaseName());
+    argList.add("--file");
+    argList.add(restoreSQLFile);
+    argList.add("--no-password");
+    //argList.add("--quiet");
+    
+    String innerCmd = StringUtils.join(argList, " ");
+    
+    ArrayList<String> outerArgList = new ArrayList<String>();
+    outerArgList.add("/bin/sh");
+    outerArgList.add("-c");
+    outerArgList.add("\"" + innerCmd + "\"");
+    
+    logger.info("Importing SQL file with command [" + StringUtils.join(outerArgList, " ") + "] in a new process and waiting for the process to exit.");
+    
+    ProcessBuilder pb = new ProcessBuilder(outerArgList);
+
+    try
+    {
+      ProcessReader reader = new ProcessReader(pb, out, errOut);
+      reader.start();
+    }
+    catch (Exception e)
+    {
+      throw new ProgrammingErrorException(e);
     }
   }
   

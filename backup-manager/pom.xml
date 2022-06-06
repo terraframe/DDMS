@@ -29,12 +29,24 @@
   <ddms.path>C:\git\DDMS\DDMS</ddms.path>
   </properties>
   
-  <repositories>
+  <<repositories>
     <repository>
-      <id>terraframe</id>
-      <name>terraframe</name>
-      <url>http://nexus.terraframe.com/content/groups/allrepos</url>
+      <id>central</id>
+      <name>central</name>
+      <url> https://repo1.maven.org/maven2/</url>
       <layout>default</layout>
+    </repository>    
+    <repository>
+      <id>terraframe-public</id>
+      <url>https://dl.cloudsmith.io/public/terraframe/public/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
     </repository>
   </repositories>
   
