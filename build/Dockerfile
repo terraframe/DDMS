@@ -1,5 +1,5 @@
 #FROM openjdk:8-jdk
-FROM ubuntu:bionic
+FROM ubuntu:trusty
 
 RUN apt update
 
@@ -9,7 +9,16 @@ RUN apt-get -y install libltdl7 bridge-utils libapparmor1 perl
 # RUN apt-cache madison nsis
 # nsis |     2.46-7 | http://archive.ubuntu.com/ubuntu/ trusty/universe amd64 Packages
 
-RUN apt install -y wget unzip ant nsis=2.46-7 git python3 maven
+RUN apt install -y wget unzip ant nsis=2.46-7 git python3 software-properties-common
+
+# The version of Maven that comes with ubuntu:trusty is way too old so we need to do a hack here to upgrade it. (and finding an NSIS on a different OS is too hard)
+# These commands pull in dependency 'software-properties-common' (referenced above) since it does 'apt-add-respository'
+# Our maven must be above version 3.2.3 otherwise it doesn't default to https: https://maven.apache.org/docs/3.2.3/release-notes.html
+# Use to test maven version: sudo docker run --rm --name ddms-build --entrypoint /bin/bash ddms-build -c "mvn --version"
+RUN apt-get -y purge maven maven2
+RUN apt-add-repository ppa:andrei-pozolotin/maven3
+RUN apt-get -y update
+RUN apt-get -y install maven3
 
 ## Install Java 8
 RUN wget $(echo "aHR0cHM6Ly9kbC5jbG91ZHNtaXRoLmlvL3B1YmxpYy90ZXJyYWZyYW1lL3B1YmxpYy9yYXcvbmFtZXMvamRrLWRlYmlhbi1hbWQ2NC04dTIzMS92ZXJzaW9ucy84dTIzMS9qZGstZGViaWFuLWFtZDY0LTh1MjMxLnRhci5nego=" | base64 -d)
