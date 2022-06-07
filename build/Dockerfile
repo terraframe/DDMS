@@ -1,5 +1,5 @@
 #FROM openjdk:8-jdk
-FROM ubuntu:trusty
+FROM ubuntu:bionic
 
 RUN apt update
 
