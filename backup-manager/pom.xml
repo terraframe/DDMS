@@ -29,7 +29,7 @@
   <ddms.path>C:\git\DDMS\DDMS</ddms.path>
   </properties>
   
-  <<repositories>
+  <repositories>
     <repository>
       <id>central</id>
       <name>central</name>
