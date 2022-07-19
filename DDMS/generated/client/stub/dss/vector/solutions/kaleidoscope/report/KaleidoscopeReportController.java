@@ -16,6 +16,9 @@
  ******************************************************************************/
 package dss.vector.solutions.kaleidoscope.report;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +33,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -371,7 +375,8 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
          * are sure the report has rendered. Therefore, first render the report to a temp byte array stream. Once that has rendered, copy the bytes
          * from the byte array to the servlet output stream. Note, this may cause memory problems if the report being rendered is too big.
          */
-        ByteArrayOutputStream rStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        BufferedOutputStream rStream = new BufferedOutputStream(baos);
 
         try
         {
@@ -382,7 +387,7 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
 
           if (format == null || format.equalsIgnoreCase("html"))
           {
-            req.setAttribute("report", rStream.toString("UTF-8"));
+            req.setAttribute("report", baos.toString("UTF-8"));
             req.setAttribute("pageCount", pageCount);
             req.setAttribute("pageNumber", pageNumber);
 
@@ -398,7 +403,8 @@ public class KaleidoscopeReportController extends KaleidoscopeReportControllerBa
 
             try
             {
-              oStream.print(rStream.toString("UTF-8"));
+              InputStream is = new BufferedInputStream(new ByteArrayInputStream(baos.toByteArray()));
+              IOUtils.copy(is, oStream);
             }
             finally
             {
