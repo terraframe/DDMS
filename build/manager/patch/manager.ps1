@@ -42,7 +42,7 @@ $java = "$($ddmsLoc)\Java\$($javaDir)\bin\java.exe"
 $username = "framework"
 $password = "P7ayU8Re"
 $url = "http://127.0.0.1:8080/manager/text/"
-$memory = "-Xms128m -Xmx1028m"
+$memory = "-Xms128m -Xmx2048m"
 $ssl = "`"-Djavax.net.ssl.trustStorePassword=1206b6579Acb3`" `"-Djavax.net.ssl.trustStore=$($ddmsLoc)manager\keystore\ddms.ts`" `"-Djavax.net.ssl.keyStorePassword=4b657920666fZ`" `"-Djavax.net.ssl.keyStore=$($ddmsLoc)manager\keystore\ddms.ks`" `"-Djava.endorsed.dirs=$($ddmsLoc)tomcat\endorsed`""
 $serviceName = "Tomcat"
 
